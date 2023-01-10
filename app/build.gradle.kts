@@ -48,5 +48,11 @@ dependencies {
     implementation(Deps.materialDesign)
     implementation(Deps.timber)
     implementation(Deps.constraintLayout)
-    testImplementation(Deps.junit)
+    androidTestImplementation(Deps.testCore)
+    androidTestImplementation(Deps.espresso)
+    androidTestImplementation(Deps.jUnitRules)
+    androidTestImplementation(Deps.jUnitRunner)
+    androidTestImplementation(Deps.extJUnit)
+    androidTestImplementation(Deps.extTruth)
+
 }
