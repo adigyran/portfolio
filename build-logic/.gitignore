@@ -3,10 +3,12 @@
 .idea
 gradlew
 gradlew.bat
-gradle
+/local.properties
 .DS_Store
 /build
 /captures
 .externalNativeBuild
-local.properties
+.cxx
 /.project
+local.properties
+gradle/wrapper/gradle-wrapper.jar

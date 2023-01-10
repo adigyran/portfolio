@@ -1,19 +1,17 @@
+
+import com.aya.digital.patientapp.AyaPatientBuildType
+
 plugins {
-    id("com.android.application")
-    kotlin("android")
+    id("patientapp.android.application")
 }
 
 android {
-    compileSdk = ConfigData.compileSdkVersion
-    buildToolsVersion = ConfigData.buildToolsVersion
+
 
     defaultConfig {
         applicationId = "com.aya.digital.patientapp"
-        minSdk = ConfigData.minSdkVersion
-        targetSdk = ConfigData.targetSdkVersion
-        versionCode = ConfigData.versionCode
-        versionName = ConfigData.versionName
-
+        versionCode = 1
+        versionName = "0.0.1" // X.Y.Z; X = Major, Y = minor, Z = Patch level
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -23,36 +21,31 @@ android {
     }
 
     buildTypes {
-        getByName("release") {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+        val debug by getting {
+            applicationIdSuffix = AyaPatientBuildType.DEBUG.applicationIdSuffix
         }
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-        kotlinOptions {
-            jvmTarget = "1.8"
+    packagingOptions {
+        resources {
+            excludes.add("/META-INF/{AL2.0,LGPL2.1}")
         }
     }
+
+    namespace = "com.aya.digital.patientapp"
+
 }
 
 dependencies {
-    implementation(Deps.kotlin)
+/*    implementation(Deps.kotlin)
     implementation(Deps.appCompat)
     implementation(Deps.materialDesign)
     implementation(Deps.timber)
     implementation(Deps.constraintLayout)
+    testImplementation(Deps.jUnit)
     androidTestImplementation(Deps.testCore)
     androidTestImplementation(Deps.espresso)
     androidTestImplementation(Deps.jUnitRules)
     androidTestImplementation(Deps.jUnitRunner)
     androidTestImplementation(Deps.extJUnit)
-    androidTestImplementation(Deps.extTruth)
-
+    androidTestImplementation(Deps.extTruth)*/
 }

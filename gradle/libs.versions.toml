@@ -1,0 +1,149 @@
+[versions]
+#base
+androidGradlePlugin = "7.3.1"
+androidDesugarJdkLibs = "1.2.2"
+googleServices = "4.3.14"
+crashlitycsGradle = "2.9.2"
+kotlin = "1.8.0"
+
+#UI
+#android
+appCompat = "1.3.0"
+material = "1.3.0"
+constraintLayout = "1.1.3"
+#adapterDelegates
+adapterDelegates = "4.3.2"
+#end Ui
+
+#maps
+gradleSecrets = "2.0.1"
+gmsMaps = "18.1.0"
+mapsUtils = "3.0.0"
+ktxMaps = "3.4.0"
+
+#location
+googlePlayLocation = "21.0.1"
+
+#security
+securityCrypto = "1.0.0"
+openAuth = "0.11.1"
+jwtDecode = "2.0.1"
+
+#navigation
+cicerone = "1.7"
+
+#networking
+okhttp = "4.10.0"
+retrofit = "2.9.0"
+moshi = "1.14.0"
+
+#rx
+rxJava = "3.1.5"
+rxKotlin = "3.0.1"
+rxAndroid = "3.0.2"
+
+#firebase
+firebase= "31.1.1"
+
+#DI
+kodein = "1.8.0"
+
+#TimberLogger
+timber = "5.0.1"
+
+#KotlinXTime
+kotlinXTime = "0.4.0"
+
+#testing
+jUnit = "4.13.2"
+testCore = "3.4.0"
+espressoCore = "3.4.0"
+testRunner = "1.4.0"
+testRules = "1.4.0"
+testJunit = "1.4.0"
+testTruth = "1.4.0"
+
+#linter
+lint = "30.3.1"
+
+
+
+[libraries]
+#base
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appCompat" }
+kotlin = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib-jdk7", version.ref = "kotlin" }
+android-desugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "androidDesugarJdkLibs" }
+
+#ui
+material-design = { group = "com.google.android.material", name = "material", version.ref = "material" }
+constraint-layout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintLayout" }
+
+#ui-adapterDelegates
+adapter-delegates = { group = "com.hannesdorfmann", name = "adapterdelegates4-kotlin-dsl", version.ref = "adapterDelegates" }
+adapter-delegates-view-binding = { group = "com.hannesdorfmann", name = "adapterdelegates4-kotlin-dsl-viewbinding", version.ref = "adapterDelegates" }
+
+#maps
+gradle-secrets = { group = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", name = "secrets-gradle-plugin", version.ref = "gradleSecrets" }
+#maps-googlemaps
+gms-maps = { group = "com.google.android.gms", name = "play-services-maps", version.ref = "gmsMaps" }
+gms-maps-utils = { group = "com.google.maps.android", name = "android-maps-utils", version.ref = "mapsUtils" }
+ktx-maps = { group = "com.google.maps.android", name = "maps-ktx", version.ref = "ktxMaps" }
+ktx-maps-utils = { group = "com.google.maps.android", name = "maps-utils-ktx", version.ref = "ktxMaps" }
+
+#location
+google-play-location = { group = "com.google.android.gms", name = "play-services-location", version.ref = "googlePlayLocation" }
+
+#security
+security-crypto = { group = "androidx.security", name = "security-crypto", version.ref = "securityCrypto" }
+open-auth = { group = "net.openid", name = "appauth", version.ref = "openAuth" }
+jwt-decode = { group = "com.auth0.android", name = "jwtdecode", version.ref = "jwtDecode" }
+
+#firebase
+firebase-messaging = { group = "com.google.firebase", name = "firebase-messaging", version.ref = "firebase" }
+firebase-crashlytics-ktx = { group = "com.google.firebase", name = "firebase-crashlytics-ktx", version.ref = "firebase" }
+firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics", version.ref = "firebase" }
+
+#kotlinXTime
+kotlinx-time = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinXTime" }
+
+#timber
+timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
+
+#navigation
+cicerone = { group = "com.hannesdorfmann", name = "adapterdelegates4-kotlin-dsl", version.ref = "adapterDelegates" }
+
+#di
+kodein = { group = "org.kodein.di", name = "kodein-di-framework-android-x", version.ref = "kodein" }
+
+#networking
+#networking-retrofit
+retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
+retrofit-adapter-rxjava2 = { group = "com.squareup.retrofit2", name = "adapter-rxjava2", version.ref = "retrofit" }
+retrofit-converter-moshi = { group = "com.squareup.retrofit2", name = "converter-moshi", version.ref = "retrofit" }
+#networking-okhttp
+okhttp-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp" }
+#networking-moshi
+moshi-kotlin = { group = "com.squareup.moshi", name = "moshi-kotlin", version.ref = "moshi" }
+moshi-kotlin-kodegen = { group = "com.squareup.moshi", name = "moshi-kotlin-codegen", version.ref = "moshi" }
+moshi-adapters = { group = "com.squareup.moshi", name = "moshi-adapters", version.ref = "moshi" }
+
+#rx
+rxkotlin = { group = "io.reactivex.rxjava2", name = "rxkotlin", version.ref = "rxKotlin" }
+rxandroid = { group = "io.reactivex.rxjava2", name = "rxandroid", version.ref = "rxAndroid" }
+
+#navigation
+cicerone = { group = "com.github.terrakok", name = "cicerone", version.ref = "cicerone" }
+
+# Dependencies of the included build-logic
+android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
+kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
+google-services-gradlePlugin = { group = "com.google.gms", name = "kgoogle-services", version.ref = "googleServices" }
+crashlytics-gradlePlugin = { group = "com.google.firebase", name = "firebase-crashlytics-gradle", version.ref = "crashlitycsGradle" }
+
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
+android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+secrets = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "gradleSecrets" }
+
