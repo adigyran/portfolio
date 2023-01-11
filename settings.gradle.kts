@@ -17,3 +17,10 @@ dependencyResolutionManagement {
 
 rootProject.name = "patientapp"
 include(":app")
+include(":core:designsystem")
+include(":core:di")
+include(":core:ext")
+include(":core:navigation")
+include(":core:network")
+include(":core:uibase")
+
