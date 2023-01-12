@@ -7,8 +7,10 @@ crashlitycsGradle = "2.9.2"
 kotlin = "1.8.0"
 #base-androidx
 androidxActivity = "1.6.1"
+androidxAnnotation = "1.5.0"
 androidxCore = "1.9.0"
 androidxCoreSplashscreen = "1.0.0"
+androidxRecyclerView = "1.2.1"
 androidxWork = "2.7.1"
 androidxAppCompat = "1.5.1"
 androidxBrowser = "1.4.0"
@@ -94,10 +96,12 @@ kotlin = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib-jdk7", version.
 android-desugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "androidDesugarJdkLibs" }
 #base-androidx
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidxAppCompat" }
+androidx-annotation = { group = "androidx.annotation", name = "annotation", version.ref = "androidxAnnotation" }
 androidx-benchmark-macro = { group = "androidx.benchmark", name = "benchmark-macro-junit4", version.ref = "androidxMacroBenchmark" }
 androidx-browser = { group = "androidx.browser", name = "browser", version.ref = "androidxBrowser" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidxCore" }
 androidx-core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "androidxCoreSplashscreen" }
+androidx-recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version.ref = "androidxRecyclerView" }
 androidx-profileinstaller = { group = "androidx.profileinstaller", name = "profileinstaller", version.ref = "androidxProfileinstaller" }
 androidx-startup = { group = "androidx.startup", name = "startup-runtime", version.ref = "androidxStartup" }
 androidx-test-core = { group = "androidx.test", name = "core", version.ref = "androidxTestCore" }
@@ -151,7 +155,8 @@ timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "tim
 cicerone = { group = "com.github.terrakok", name = "cicerone", version.ref = "cicerone" }
 
 #di
-kodein = { group = "org.kodein.di", name = "kodein-di-framework-android-x", version.ref = "kodein" }
+kodein = { group = "org.kodein.di", name = "kodein-di", version.ref = "kodein" }
+kodein-framework-androidx = { group = "org.kodein.di", name = "kodein-di-framework-android-x", version.ref = "kodein" }
 
 #networking
 #networking-retrofit
@@ -162,7 +167,7 @@ retrofit-converter-moshi = { group = "com.squareup.retrofit2", name = "converter
 okhttp-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp" }
 #networking-moshi
 moshi-kotlin = { group = "com.squareup.moshi", name = "moshi-kotlin", version.ref = "moshi" }
-moshi-kotlin-kodegen = { group = "com.squareup.moshi", name = "moshi-kotlin-codegen", version.ref = "moshi" }
+moshi-kotlin-codegen = { group = "com.squareup.moshi", name = "moshi-kotlin-codegen", version.ref = "moshi" }
 moshi-adapters = { group = "com.squareup.moshi", name = "moshi-adapters", version.ref = "moshi" }
 
 #rx

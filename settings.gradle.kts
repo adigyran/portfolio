@@ -23,4 +23,5 @@ include(":core:ext")
 include(":core:navigation")
 include(":core:network")
 include(":core:uibase")
-
+include(":core:util")
+include(":core:networkbase")

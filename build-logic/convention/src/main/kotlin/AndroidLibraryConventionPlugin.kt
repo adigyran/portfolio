@@ -17,7 +17,8 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
         with(target) {
             with(pluginManager) {
                 apply("com.android.library")
-                apply("org.jetbrains.kotlin.android")
+                apply("kotlin-android")
+                apply("kotlin-kapt")
             }
 
             extensions.configure<LibraryExtension> {
@@ -31,9 +32,9 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
             val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
             configurations.configureEach {
                 resolutionStrategy {
-                    force(libs.findLibrary("junit4").get())
+                   // force(libs.findLibrary("junit4").get())
                     // Temporary workaround for https://issuetracker.google.com/174733673
-                    force("org.objenesis:objenesis:2.6")
+                   // force("org.objenesis:objenesis:2.6")
                 }
             }
             dependencies {
