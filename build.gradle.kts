@@ -6,6 +6,7 @@ buildscript {
         maven(url = uri("https://jitpack.io"))
         maven(url = uri("https://dl.bintray.com/guardian/android"))
         maven(url = uri("https://maven.google.com/"))
+        maven(url = uri("https://maven.fabric.io/public"))
     }
 }
 

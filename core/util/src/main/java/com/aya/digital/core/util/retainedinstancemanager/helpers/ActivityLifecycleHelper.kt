@@ -6,7 +6,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 
-internal class ActivityLifecycleHelper(
+class ActivityLifecycleHelper(
     private val onActivityDestroyed: ((activity: Activity) -> Unit)?,
     private val onFragmentDestroyed: ((fragment: Fragment) -> Unit)?,
 ) :

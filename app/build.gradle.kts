@@ -39,6 +39,13 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.core.ktx)
     implementation(libs.material.design)
+    implementation(project(":core:ui"))
+    implementation(project(":core:mvi"))
+    implementation(project(":core:navigation"))
+
+
+
+
 /*    implementation(Deps.kotlin)
     implementation(Deps.appCompat)
     implementation(Deps.materialDesign)

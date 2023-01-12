@@ -11,11 +11,12 @@ androidxAnnotation = "1.5.0"
 androidxCore = "1.9.0"
 androidxCoreSplashscreen = "1.0.0"
 androidxRecyclerView = "1.2.1"
+androidxViewpager = "1.0.0"
 androidxWork = "2.7.1"
 androidxAppCompat = "1.5.1"
 androidxBrowser = "1.4.0"
 androidxEspresso = "3.5.0"
-androidxLifecycle = "2.2.0"
+androidxLifecycle = "2.5.1"
 androidxProfileinstaller = "1.2.1"
 androidxStartup = "1.1.1"
 androidxTestCore = "1.5.0"
@@ -64,11 +65,20 @@ rxJava = "3.1.5"
 rxKotlin = "3.0.1"
 rxAndroid = "3.0.2"
 
+#rxRelay
+rxRelay = "3.0.1"
+
+#mvi
+mvicore = "1.3.1"
+
 #firebase
 firebase= "31.1.1"
 
 #DI
-kodein = "1.8.0"
+kodein = "7.17.0"
+
+#eventbus
+eventbus = "3.3.1"
 
 #TimberLogger
 timber = "5.0.1"
@@ -102,6 +112,8 @@ androidx-browser = { group = "androidx.browser", name = "browser", version.ref =
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidxCore" }
 androidx-core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "androidxCoreSplashscreen" }
 androidx-recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version.ref = "androidxRecyclerView" }
+androidx-viewpager = { group = "androidx.viewpager2", name = "viewpager2", version.ref = "androidxViewpager" }
+androidx-lifecycle = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "androidxLifecycle" }
 androidx-profileinstaller = { group = "androidx.profileinstaller", name = "profileinstaller", version.ref = "androidxProfileinstaller" }
 androidx-startup = { group = "androidx.startup", name = "startup-runtime", version.ref = "androidxStartup" }
 androidx-test-core = { group = "androidx.test", name = "core", version.ref = "androidxTestCore" }
@@ -114,7 +126,6 @@ androidx-tracing-ktx = { group = "androidx.tracing", name="tracing-ktx", version
 androidx-window-manager = { module = "androidx.window:window", version.ref = "androidxWindowManager" }
 androidx-work-ktx = { group = "androidx.work", name = "work-runtime-ktx", version.ref = "androidxWork" }
 androidx-work-testing = { group = "androidx.work", name = "work-testing", version.ref = "androidxWork" }
-
 
 #ui
 material-design = { group = "com.google.android.material", name = "material", version.ref = "material" }
@@ -148,6 +159,9 @@ firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics
 #kotlinXTime
 kotlinx-time = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinXTime" }
 
+#eventbus
+eventbus = { group = "org.greenrobot", name = "eventbus", version.ref = "eventbus" }
+
 #timber
 timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
 
@@ -170,14 +184,23 @@ moshi-kotlin = { group = "com.squareup.moshi", name = "moshi-kotlin", version.re
 moshi-kotlin-codegen = { group = "com.squareup.moshi", name = "moshi-kotlin-codegen", version.ref = "moshi" }
 moshi-adapters = { group = "com.squareup.moshi", name = "moshi-adapters", version.ref = "moshi" }
 
+#mvi
+mvi-mvicore = { group = "com.github.badoo.mvicore", name = "mvicore", version.ref = "mvicore" }
+mvi-mvicore-android = { group = "com.github.badoo.mvicore", name = "mvicore-android", version.ref = "mvicore" }
+mvi-mvicore-diff = { group = "com.github.badoo.mvicore", name = "mvicore-diff", version.ref = "mvicore" }
+mvi-android-binder = { group = "com.github.badoo.mvicore", name = "binder", version.ref = "mvicore" }
+
 #rx
-rxkotlin = { group = "io.reactivex.rxjava2", name = "rxkotlin", version.ref = "rxKotlin" }
-rxandroid = { group = "io.reactivex.rxjava2", name = "rxandroid", version.ref = "rxAndroid" }
+rxkotlin = { group = "io.reactivex.rxjava3", name = "rxkotlin", version.ref = "rxKotlin" }
+rxandroid = { group = "io.reactivex.rxjava3", name = "rxandroid", version.ref = "rxAndroid" }
+
+#rxRelay
+rxrelay = { group = "com.jakewharton.rxrelay3", name = "rxrelay", version.ref = "rxRelay" }
 
 # Dependencies of the included build-logic
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
-google-services-gradlePlugin = { group = "com.google.gms", name = "kgoogle-services", version.ref = "googleServices" }
+google-services-gradlePlugin = { group = "com.google.gms", name = "google-services", version.ref = "googleServices" }
 crashlytics-gradlePlugin = { group = "com.google.firebase", name = "firebase-crashlytics-gradle", version.ref = "crashlitycsGradle" }
 
 
