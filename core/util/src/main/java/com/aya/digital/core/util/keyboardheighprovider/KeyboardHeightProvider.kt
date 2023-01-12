@@ -1,85 +1,72 @@
-package com.aya.digital.core.util.keyboardheighprovider;
+package com.aya.digital.core.util.keyboardheighprovider
 
-import android.app.Activity;
-import android.content.res.Configuration;
-import android.graphics.Point;
-import android.graphics.Rect;
-import android.graphics.drawable.ColorDrawable;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.WindowManager.LayoutParams;
-import android.widget.PopupWindow;
-
-import com.aya.digital.core.util.R;
+import android.app.Activity
+import android.content.res.Configuration
+import android.graphics.Point
+import android.graphics.Rect
+import android.graphics.drawable.ColorDrawable
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.WindowManager
+import android.widget.PopupWindow
+import com.aya.digital.core.baseresources.R
 
 /**
  * The keyboard height provider, this class uses a PopupWindow
  * to calculate the window height when the floating keyboard is opened and closed.
  */
-public class KeyboardHeightProvider extends PopupWindow {
-
+class KeyboardHeightProvider(
     /**
-     * The tag for logging purposes
+     * The root activity that uses this KeyboardHeightProvider
      */
-    private final static String TAG = "sample_KeyboardHeightProvider";
-
+    private val activity: Activity
+) : PopupWindow(activity) {
     /**
      * The keyboard height observer
      */
-    private KeyboardHeightObserver observer;
+    private var observer: KeyboardHeightObserver? = null
 
     /**
      * The cached landscape height of the keyboard
      */
-    private int keyboardLandscapeHeight;
+    private var keyboardLandscapeHeight = 0
 
     /**
      * The cached portrait height of the keyboard
      */
-    private int keyboardPortraitHeight;
+    private var keyboardPortraitHeight = 0
 
     /**
      * The view that is used to calculate the keyboard height
      */
-    private View popupView;
+    private val popupView: View?
 
     /**
      * The parent view
      */
-    private View parentView;
-
-    /**
-     * The root activity that uses this KeyboardHeightProvider
-     */
-    private Activity activity;
+    private val parentView: View
 
     /**
      * Construct a new KeyboardHeightProvider
      *
      * @param activity The parent activity
      */
-    public KeyboardHeightProvider(Activity activity) {
-        super(activity);
-        this.activity = activity;
-
-        LayoutInflater inflator = (LayoutInflater) activity.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-        this.popupView = inflator.inflate(R.layout.popupwindow, null, false);
-        setContentView(popupView);
-
-        setSoftInputMode(LayoutParams.SOFT_INPUT_ADJUST_RESIZE | LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-        setInputMethodMode(PopupWindow.INPUT_METHOD_NEEDED);
-
-        parentView = activity.findViewById(android.R.id.content);
-
-        setWidth(0);
-        setHeight(LayoutParams.MATCH_PARENT);
-
-        popupView.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
+    init {
+        val inflator = activity.getSystemService(Activity.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        popupView = inflator.inflate(R.layout.popupwindow, null, false)
+        contentView = popupView
+        softInputMode =
+            WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE or WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE
+        inputMethodMode = INPUT_METHOD_NEEDED
+        parentView = activity.findViewById(android.R.id.content)
+        width = 0
+        height = WindowManager.LayoutParams.MATCH_PARENT
+        popupView.viewTreeObserver.addOnGlobalLayoutListener {
             if (popupView != null) {
-                handleOnGlobalLayout();
+                handleOnGlobalLayout()
             }
-        });
+        }
     }
 
     /**
@@ -87,10 +74,10 @@ public class KeyboardHeightProvider extends PopupWindow {
      * PopupWindows are not allowed to be registered before the onResume has finished
      * of the Activity.
      */
-    public void start() {
-        if (!isShowing() && parentView.getWindowToken() != null) {
-            setBackgroundDrawable(new ColorDrawable(0));
-            showAtLocation(parentView, Gravity.NO_GRAVITY, 0, 0);
+    fun start() {
+        if (!isShowing && parentView.windowToken != null) {
+            setBackgroundDrawable(ColorDrawable(0))
+            showAtLocation(parentView, Gravity.NO_GRAVITY, 0, 0)
         }
     }
 
@@ -98,9 +85,9 @@ public class KeyboardHeightProvider extends PopupWindow {
      * Close the keyboard height provider,
      * this provider will not be used anymore.
      */
-    public void close() {
-        this.observer = null;
-        dismiss();
+    fun close() {
+        observer = null
+        dismiss()
     }
 
     /**
@@ -110,8 +97,8 @@ public class KeyboardHeightProvider extends PopupWindow {
      *
      * @param observer The observer to be added to this provider.
      */
-    public void setKeyboardHeightObserver(KeyboardHeightObserver observer) {
-        this.observer = observer;
+    fun setKeyboardHeightObserver(observer: KeyboardHeightObserver?) {
+        this.observer = observer
     }
 
     /**
@@ -119,38 +106,41 @@ public class KeyboardHeightProvider extends PopupWindow {
      * The keyboard can then be calculated by extracting the popup view bottom
      * from the activity window height.
      */
-    private void handleOnGlobalLayout() {
-
-        Point screenSize = new Point();
-        activity.getWindowManager().getDefaultDisplay().getSize(screenSize);
-
-        Rect rect = new Rect();
-        popupView.getWindowVisibleDisplayFrame(rect);
+    private fun handleOnGlobalLayout() {
+        val screenSize = Point()
+        activity.windowManager.defaultDisplay.getSize(screenSize)
+        val rect = Rect()
+        popupView!!.getWindowVisibleDisplayFrame(rect)
 
         // REMIND, you may like to change this using the fullscreen size of the phone
         // and also using the status bar and navigation bar heights of the phone to calculate
         // the keyboard height. But this worked fine on a Nexus.
-        int orientation = getScreenOrientation();
-        int keyboardHeight = screenSize.y - rect.bottom;
-
+        val orientation = screenOrientation
+        val keyboardHeight = screenSize.y - rect.bottom
         if (keyboardHeight == 0) {
-            notifyKeyboardHeightChanged(0, orientation);
+            notifyKeyboardHeightChanged(0, orientation)
         } else if (orientation == Configuration.ORIENTATION_PORTRAIT) {
-            this.keyboardPortraitHeight = keyboardHeight;
-            notifyKeyboardHeightChanged(keyboardPortraitHeight, orientation);
+            keyboardPortraitHeight = keyboardHeight
+            notifyKeyboardHeightChanged(keyboardPortraitHeight, orientation)
         } else {
-            this.keyboardLandscapeHeight = keyboardHeight;
-            notifyKeyboardHeightChanged(keyboardLandscapeHeight, orientation);
+            keyboardLandscapeHeight = keyboardHeight
+            notifyKeyboardHeightChanged(keyboardLandscapeHeight, orientation)
         }
     }
 
-    private int getScreenOrientation() {
-        return activity.getResources().getConfiguration().orientation;
-    }
+    private val screenOrientation: Int
+        private get() = activity.resources.configuration.orientation
 
-    private void notifyKeyboardHeightChanged(int height, int orientation) {
+    private fun notifyKeyboardHeightChanged(height: Int, orientation: Int) {
         if (observer != null) {
-            observer.onKeyboardHeightChanged(height, orientation);
+            observer!!.onKeyboardHeightChanged(height, orientation)
         }
+    }
+
+    companion object {
+        /**
+         * The tag for logging purposes
+         */
+        private const val TAG = "sample_KeyboardHeightProvider"
     }
 }

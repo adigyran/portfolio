@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
+import com.aya.digital.core.util.keyboardheighprovider.KeyboardHeightObserver
 import com.aya.digital.core.util.keyboardheighprovider.KeyboardHeightProvider
 import com.aya.digital.core.util.retainedinstancemanager.IHasRetainedInstance
 import com.aya.digital.core.util.retainedinstancemanager.IdProvider
@@ -20,9 +21,6 @@ abstract class CoreActivity<Binding : ViewBinding> : AppCompatActivity(),
     private lateinit var keyboardHeightProvider: KeyboardHeightProvider
 
     var keyboardHeight: Int = 0
-
-    protected open val activityResultManager: ActivityResultManager? = null
-    protected open val permissionManager: PermissionsManager? = null
 
     protected val disposables: CompositeDisposable = CompositeDisposable()
 
@@ -52,29 +50,6 @@ abstract class CoreActivity<Binding : ViewBinding> : AppCompatActivity(),
         findViewById<ViewGroup>(android.R.id.content).getChildAt(0)
             .post { keyboardHeightProvider.start() }
 
-
-        permissionManager?.requestObservable?.subscribe {
-            requestPermissions(it.second, it.first)
-        }?.also { disposables.add(it) }
-
-        Log.d(CoreActivity::class.java.name,
-            "onCreate: $activityResultManager ${activityResultManager?.startActivityForResultSubject}")
-        activityResultManager?.startActivityForResultSubject?.subscribe {
-            Log.d(CoreActivity::class.java.name,
-                "onCreate: startActivityForResultSubject ${this.javaClass.name}")
-            startActivityForResult(it.intent, it.requestCode, it.options)
-        }?.also { disposables.add(it) }
-
-        activityResultManager?.resolveExceptionSubject?.subscribe {
-            try {
-                // Show the dialog by calling startResolutionForResult(),
-                // and check the result in onActivityResult().
-                it.exception.startResolutionForResult(this, it.requestCode)
-            } catch (sendEx: IntentSender.SendIntentException) {
-                // Ignore the error.
-            }
-        }?.also { disposables.add(it) }
-
         prepareUi()
     }
 
@@ -85,15 +60,6 @@ abstract class CoreActivity<Binding : ViewBinding> : AppCompatActivity(),
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
-        if (permissionManager != null) {
-            val list = PermissionsManager.getPermissionList(this, permissions, grantResults)
-            permissionManager!!.onRequestResult(requestCode, list)
-        }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        activityResultManager?.onActivityResult(requestCode, resultCode, data)
     }
 
     abstract fun provideViewBinding(inflater: LayoutInflater): Binding
@@ -109,9 +75,11 @@ abstract class CoreActivity<Binding : ViewBinding> : AppCompatActivity(),
 
     override fun onResume() {
         super.onResume()
-        keyboardHeightProvider.setKeyboardHeightObserver { height, orientation ->
-            keyboardHeight = height
-        }
+        keyboardHeightProvider.setKeyboardHeightObserver(object : KeyboardHeightObserver{
+            override fun onKeyboardHeightChanged(height: Int, orientation: Int) {
+                keyboardHeight = height
+            }
+        })
     }
 
     override fun onStop() {

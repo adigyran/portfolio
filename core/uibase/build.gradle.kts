@@ -11,11 +11,14 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:baseresources"))
+    implementation(project(":core:util"))
     implementation(project(":core:ext"))
     implementation(project(":core:util"))
     implementation(project(":core:dibase"))
     implementation(project(":core:navigation"))
     implementation(project(":core:mvi"))
+    implementation(project(":core:appbase"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material.design)
@@ -26,7 +29,9 @@ dependencies {
     implementation(libs.mvi.mvicore.android)
     implementation(libs.mvi.mvicore.diff)
     implementation(libs.mvi.android.binder)
+    implementation(libs.cicerone)
     implementation(libs.rxrelay)
     implementation(libs.adapter.delegates)
     implementation(libs.adapter.delegates.view.binding)
+
 }

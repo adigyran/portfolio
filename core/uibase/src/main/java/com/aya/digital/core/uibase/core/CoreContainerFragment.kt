@@ -7,7 +7,10 @@ import com.aya.digital.core.ext.inTransaction
 import com.aya.digital.core.navigation.BackButtonListener
 import com.aya.digital.core.navigation.coordinator.Coordinator
 import com.aya.digital.core.navigation.coordinator.CoordinatorHolder
-import com.aya.digital.core.uibase.R
+import com.aya.digital.core.baseresources.R
+import com.github.terrakok.cicerone.Cicerone
+import com.github.terrakok.cicerone.Navigator
+import com.github.terrakok.cicerone.Router
 
 abstract class CoreContainerFragment<Binding : ViewBinding> : CoreFragment<Binding>(),
     BackButtonListener {
@@ -38,11 +41,11 @@ abstract class CoreContainerFragment<Binding : ViewBinding> : CoreFragment<Bindi
 
     override fun onResume() {
         super.onResume()
-        localCicerone.navigatorHolder.setNavigator(navigator)
+        localCicerone.getNavigatorHolder().setNavigator(navigator)
     }
 
     override fun onPause() {
-        localCicerone.navigatorHolder.removeNavigator()
+        localCicerone.getNavigatorHolder().removeNavigator()
         super.onPause()
     }
 

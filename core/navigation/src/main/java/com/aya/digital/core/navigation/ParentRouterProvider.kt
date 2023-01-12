@@ -1,6 +1,6 @@
 package com.aya.digital.core.navigation
 
-import ru.ivan.core.unclassifiedcommonmodels.navigation.coordinator.CoordinatorRouter
+import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
 
 fun interface ParentRouterProvider {
     fun getParentRouter(): CoordinatorRouter

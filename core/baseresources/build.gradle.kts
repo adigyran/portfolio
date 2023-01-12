@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "com.aya.digital.core.designsystem"
+    namespace = "com.aya.digital.core.baseresources"
     buildFeatures {
         viewBinding = true
     }

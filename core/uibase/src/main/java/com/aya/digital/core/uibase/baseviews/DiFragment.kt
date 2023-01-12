@@ -7,16 +7,19 @@ import android.view.View
 import android.widget.EditText
 import android.widget.Toast
 import androidx.viewbinding.ViewBinding
+import com.aya.digital.core.dibase.KodeinInjectionManager
+import com.aya.digital.core.ext.clickWithDebounce
+import com.aya.digital.core.mvi.BaseFeature
+import com.aya.digital.core.mvi.BindingsBase
+import com.aya.digital.core.uibase.core.CoreFragment
 import com.badoo.mvicore.ModelWatcher
 import com.badoo.mvicore.android.AndroidTimeCapsule
-import com.jakewharton.rxrelay2.PublishRelay
-import io.reactivex.ObservableSource
-import io.reactivex.functions.Consumer
+import com.jakewharton.rxrelay3.PublishRelay
+import io.reactivex.rxjava3.core.ObservableSource
+import io.reactivex.rxjava3.functions.Consumer
 import org.kodein.di.DI
 import org.kodein.di.LateInitDI
 import org.kodein.di.LazyDI
-import ru.ivan.core.di.KodeinInjectionManager
-import ru.ivan.core.ext.clickWithDebounce
 import java.util.concurrent.TimeUnit
 
 abstract class DiFragment<Binding : ViewBinding, ViewModel : Any, UiEvent : Any, News : Any> :

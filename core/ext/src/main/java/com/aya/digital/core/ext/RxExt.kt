@@ -1,25 +1,26 @@
 package com.aya.digital.core.ext
 
+import com.aya.digital.core.networkbase.server.IServerError
+import com.aya.digital.core.networkbase.server.RequestResult
 import com.squareup.moshi.JsonDataException
-import io.reactivex.Flowable
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.exceptions.CompositeException
-import io.reactivex.schedulers.Schedulers
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Flowable
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.exceptions.CompositeException
+import io.reactivex.rxjava3.functions.Function
+import io.reactivex.rxjava3.schedulers.Schedulers
 import retrofit2.HttpException
-import ru.ivan.core.server.base.IServerError
-import ru.ivan.core.server.base.RequestResult
 import java.io.IOException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 import java.util.concurrent.Callable
 import java.util.concurrent.TimeUnit
 
-fun <T> Observable<T>.delayAction(): Observable<T> = this.throttleFirst(500, TimeUnit.MILLISECONDS)
+fun <T : Any> Observable<T>.delayAction(): Observable<T> = this.throttleFirst(500, TimeUnit.MILLISECONDS)
 
-fun <T> Flowable<T>.delayAction(): Flowable<T> = this.throttleFirst(500, TimeUnit.MILLISECONDS)
+fun <T : Any> Flowable<T>.delayAction(): Flowable<T> = this.throttleFirst(500, TimeUnit.MILLISECONDS)
 
-fun <T> Observable<T>.observeOnMainThread(): Observable<T> =
+fun <T : Any> Observable<T>.observeOnMainThread(): Observable<T> =
     this.observeOn(AndroidSchedulers.mainThread())
 
 fun <T> T.asResult(): RequestResult<T> = RequestResult.Success(this)
@@ -51,7 +52,7 @@ fun <T> Throwable.asErrorResult(errorMapper: (String) -> List<IServerError>): Re
     return RequestResult.Error.Another(this)
 }
 
-fun <T> Observable<T>.retrofitResponseToResult(errorMapper: (String) -> List<IServerError>): Observable<RequestResult<T>> =
+fun <T : Any> Observable<T>.retrofitResponseToResult(errorMapper: (String) -> List<IServerError>): Observable<RequestResult<T>> =
     this.map { it.asResult() }
         .onErrorReturn {
             if (it is HttpException || it is IOException || it is JsonDataException) return@onErrorReturn it.asErrorResult<T>(
@@ -59,36 +60,7 @@ fun <T> Observable<T>.retrofitResponseToResult(errorMapper: (String) -> List<ISe
             ) else throw it
         }
 
-@Deprecated(
-    message = "specificErrorHandler401 был сделан для того, чтобы на методах не требующих токена, при неверном токене не было 401 ошибки. этого можно добиться  просто не присылая токе в таких методах",
-    replaceWith = ReplaceWith("retryOnError(retriesCount)"))
-fun <T> Observable<T>.retryOnError(
-    specificErrorHandler401: (() -> Unit)? = null,
-    retriesCount: Int = 3,
-): Observable<T> =
-    this
-        .subscribeOn(Schedulers.io())
-        .observeOn(Schedulers.io())
-        .onErrorResumeNext { throwable: Throwable ->
-            if (throwable is CompositeException) Observable.error(
-                throwable.exceptions[0]
-            ) else Observable.error(throwable)
-        }
-        .retryWhen(
-            RetryWithDelay(
-                retriesCount,
-                1000,
-                { t -> t is UnknownHostException || t is SocketTimeoutException })
-        )
-        .retryWhen(RetryWithDelay(retriesCount, 1000, io.reactivex.functions.Function { t ->
-            if (t is HttpException && t.code() == 401) {
-                specificErrorHandler401?.invoke()
-                return@Function true
-            }
-            false
-        }))
-
-fun <T> Observable<T>.retryOnError(
+fun <T : Any> Observable<T>.retryOnError(
     retriesCount: Int = 3,
 ): Observable<T> =
     this
@@ -109,9 +81,9 @@ fun <T> Observable<T>.retryOnError(
 class RetryWithDelay(
     private val maxRetries: Int,
     private val retryDelayMillis: Int,
-    private val retryIf: io.reactivex.functions.Function<Throwable, Boolean>,
+    private val retryIf: Function<Throwable, Boolean>,
     private val unit: TimeUnit = TimeUnit.MILLISECONDS,
-) : io.reactivex.functions.Function<Observable<out Throwable>, Observable<*>> {
+) : Function<Observable<out Throwable>, Observable<*>> {
     private var retryCount: Int = 0
 
     override fun apply(attempts: Observable<out Throwable>): Observable<*> {
@@ -128,34 +100,34 @@ class RetryWithDelay(
     }
 }
 
-fun <T, V> Observable<RequestResult<T>>.mapResult(
+fun <T, V : Any> Observable<RequestResult<T>>.mapResult(
     successHandler: (T) -> V,
     errorHandler: (RequestResult.Error) -> V,
 ): Observable<V> =
     this.map { it.processResult(successHandler, errorHandler) }
 
-fun <T, V> Observable<RequestResult<T>>.flatMapResult(
+fun <T, V : Any> Observable<RequestResult<T>>.flatMapResult(
     successHandler: (T) -> Observable<V>,
     errorHandler: (RequestResult.Error) -> Observable<V>,
 ): Observable<V> =
     this.flatMap { it.processResult(successHandler, errorHandler) }
 
-inline fun <reified T> justEffect(effect: T): Observable<T> = Observable
+inline fun <reified T : Any> justEffect(effect: T): Observable<T> = Observable
     .just(effect)
     .subscribeOn(Schedulers.io())
     .observeOnMainThread()
 
-inline fun <reified T> justEffect(effect1: T, effect2: T): Observable<T> = Observable
+inline fun <reified T : Any> justEffect(effect1: T, effect2: T): Observable<T> = Observable
     .just(effect1, effect2)
     .subscribeOn(Schedulers.io())
     .observeOnMainThread()
 
-inline fun <reified T> emptyEffect(): Observable<T> = Observable
+inline fun <reified T : Any> emptyEffect(): Observable<T> = Observable
     .empty<T>()
     .subscribeOn(Schedulers.io())
     .observeOnMainThread()
 
-inline fun <reified T> fromCallableEffect(callable: Callable<T>): Observable<T> = Observable
+inline fun <reified T : Any> fromCallableEffect(callable: Callable<T>): Observable<T> = Observable
     .fromCallable(callable)
     .subscribeOn(Schedulers.io())
     .observeOnMainThread()

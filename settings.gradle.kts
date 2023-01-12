@@ -21,6 +21,8 @@ dependencyResolutionManagement {
 
 rootProject.name = "patientapp"
 include(":app")
+include(":core:appbase")
+include(":core:baseresources")
 include(":core:designsystem")
 include(":core:dibase")
 include(":core:di")
@@ -33,5 +35,6 @@ include(":core:util")
 include(":core:networkbase")
 include(":core:ui")
 include(":core:testing")
+
 
 

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.viewbinding.ViewBinding
+import com.aya.digital.base.appbase.BaseApp
 import com.aya.digital.core.dibase.KodeinInjectionManager
 import com.aya.digital.core.ext.clickWithDebounce
 import com.aya.digital.core.mvi.BaseFeature
@@ -15,8 +16,10 @@ import com.aya.digital.core.navigation.coordinator.Coordinator
 import com.aya.digital.core.navigation.coordinator.CoordinatorHolder
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
 import com.aya.digital.core.uibase.core.CoreActivity
-import com.aya.digital.core.util.BaseApp
 import com.badoo.mvicore.ModelWatcher
+import com.github.terrakok.cicerone.Cicerone
+import com.github.terrakok.cicerone.Navigator
+import com.github.terrakok.cicerone.Router
 import com.jakewharton.rxrelay3.PublishRelay
 import io.reactivex.rxjava3.core.ObservableSource
 import io.reactivex.rxjava3.functions.Consumer
@@ -40,11 +43,6 @@ abstract class DiActivity<Binding : ViewBinding, ViewModel : Any, UiEvent : Any,
     protected val coordinatorHolder: CoordinatorHolder by kodein.on(context = this as Activity)
         .instance()
 
-    override val permissionManager: PermissionsManager by kodein.on(context = this as Activity)
-        .instance()
-    override val activityResultManager: ActivityResultManager by kodein.on(context = this as Activity)
-        .instance()
-
     lateinit var coordinator: Coordinator
     lateinit var navigator: Navigator
     //endregion
@@ -63,13 +61,13 @@ abstract class DiActivity<Binding : ViewBinding, ViewModel : Any, UiEvent : Any,
     }
 
     override fun onPause() {
-        localCicerone.navigatorHolder.removeNavigator()
+        localCicerone.getNavigatorHolder().removeNavigator()
         super.onPause()
     }
 
     override fun onResumeFragments() {
         super.onResumeFragments()
-        localCicerone.navigatorHolder.setNavigator(navigator)
+        localCicerone.getNavigatorHolder().setNavigator(navigator)
     }
 
 

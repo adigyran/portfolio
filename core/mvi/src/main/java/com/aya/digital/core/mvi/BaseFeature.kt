@@ -6,8 +6,8 @@ import com.aya.digital.core.networkbase.server.HttpResponseCode
 import com.aya.digital.core.networkbase.server.RequestResult
 import com.badoo.mvicore.element.*
 import com.badoo.mvicore.feature.BaseFeature
-import org.greenrobot.eventbus.EventBus
 import org.kodein.di.bindings.ScopeCloseable
+import com.aya.digital.core.baseresources.R
 
 open class BaseFeature<Wish : Any, Action : Any, in Effect : Any, State : Any, News : Any>(
     initialState: State,
@@ -54,7 +54,7 @@ open class BaseFeature<Wish : Any, Action : Any, in Effect : Any, State : Any, N
                     return null
                 }
                 is RequestResult.Error.HttpCode401 -> {
-                    EventBus.getDefault().post(InvalidTokenEvent())
+                   // EventBus.getDefault().post(InvalidTokenEvent())
                     return null
                 }
                 is RequestResult.Error.HttpCode403 -> if (httpHttpCodeHandlers.find { it.first == HttpResponseCode.CODE_403 }?.second?.invoke(
@@ -76,7 +76,7 @@ open class BaseFeature<Wish : Any, Action : Any, in Effect : Any, State : Any, N
                         context.getString(R.string.api_deprecated)
                     }
 
-                    EventBus.getDefault().post(InvalidApiVersionEvent(message))
+                   // EventBus.getDefault().post(InvalidApiVersionEvent(message))
                     return null
                 }
                 is RequestResult.Error.HttpCode409 -> if (httpHttpCodeHandlers.find { it.first == HttpResponseCode.CODE_409 }?.second?.invoke(

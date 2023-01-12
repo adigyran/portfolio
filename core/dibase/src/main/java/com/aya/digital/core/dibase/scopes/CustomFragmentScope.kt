@@ -2,10 +2,10 @@ package com.aya.digital.core.dibase.scopes
 
 import android.util.Log
 import androidx.fragment.app.Fragment
+import com.aya.digital.core.util.retainedinstancemanager.IdProvider
 import org.kodein.di.bindings.Scope
 import org.kodein.di.bindings.ScopeRegistry
 import org.kodein.di.bindings.StandardScopeRegistry
-import ru.ivan.core.util.retainedinstancemanager.IdProvider
 
 object CustomFragmentScope : Scope<Fragment> {
     private val scopeRegistryMap: HashMap<String, StandardScopeRegistry> = hashMapOf()

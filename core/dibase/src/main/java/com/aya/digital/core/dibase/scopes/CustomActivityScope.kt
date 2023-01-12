@@ -2,6 +2,7 @@ package com.aya.digital.core.dibase.scopes
 
 import android.app.Activity
 import android.util.Log
+import com.aya.digital.core.util.retainedinstancemanager.IdProvider
 import org.kodein.di.bindings.Scope
 import org.kodein.di.bindings.ScopeRegistry
 import org.kodein.di.bindings.StandardScopeRegistry

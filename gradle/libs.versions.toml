@@ -53,7 +53,7 @@ openAuth = "0.11.1"
 jwtDecode = "2.0.1"
 
 #navigation
-cicerone = "1.7"
+cicerone = "6.6"
 
 #networking
 okhttp = "4.10.0"

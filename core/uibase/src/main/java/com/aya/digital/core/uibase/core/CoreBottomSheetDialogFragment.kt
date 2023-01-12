@@ -17,7 +17,7 @@ import com.aya.digital.core.ext.setStatusBarColor
 import com.aya.digital.core.navigation.ChildKodeinProvider
 import com.aya.digital.core.navigation.ParentRouterProvider
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
-import com.aya.digital.core.util.BaseApp
+import com.aya.digital.base.appbase.BaseApp
 import com.aya.digital.core.util.retainedinstancemanager.IHasRetainedInstance
 import com.aya.digital.core.util.retainedinstancemanager.IdProvider
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -148,7 +148,7 @@ abstract class CoreBottomSheetDialogFragment<Binding : ViewBinding> : BottomShee
     protected fun getClosestParentKodein(): DI = when {
         parentFragment is ChildKodeinProvider -> (requireParentFragment() as ChildKodeinProvider).getChildKodein()
         activity is ChildKodeinProvider -> (requireActivity() as ChildKodeinProvider).getChildKodein()
-        else -> BaseApp.appInstance.di
+        else -> com.aya.digital.base.appbase.BaseApp.appInstance.di
     }
 
     protected fun tryTyGetParentRouter(): CoordinatorRouter = when {

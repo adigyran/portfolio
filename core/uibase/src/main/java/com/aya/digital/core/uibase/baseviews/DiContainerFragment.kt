@@ -5,23 +5,25 @@ import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
+import com.aya.digital.core.dibase.KodeinInjectionManager
+import com.aya.digital.core.ext.clickWithDebounce
+import com.aya.digital.core.mvi.BaseFeature
+import com.aya.digital.core.mvi.BindingsBase
+import com.aya.digital.core.navigation.ChildKodeinProvider
+import com.aya.digital.core.navigation.ParentRouterProvider
+import com.aya.digital.core.navigation.coordinator.Coordinator
+import com.aya.digital.core.navigation.coordinator.CoordinatorHolder
+import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
+import com.aya.digital.core.uibase.core.CoreContainerFragment
 import com.badoo.mvicore.ModelWatcher
 import com.badoo.mvicore.android.AndroidTimeCapsule
-import com.jakewharton.rxrelay2.PublishRelay
-import io.reactivex.ObservableSource
-import io.reactivex.functions.Consumer
+import com.github.terrakok.cicerone.Cicerone
+import com.github.terrakok.cicerone.Navigator
+import com.github.terrakok.cicerone.Router
+import com.jakewharton.rxrelay3.PublishRelay
+import io.reactivex.rxjava3.core.ObservableSource
+import io.reactivex.rxjava3.functions.Consumer
 import org.kodein.di.*
-import ru.ivan.core.di.KodeinInjectionManager
-import ru.ivan.core.ext.clickWithDebounce
-import ru.ivan.core.unclassifiedcommonmodels.CustomNavigator
-import ru.ivan.core.unclassifiedcommonmodels.navigation.ChildKodeinProvider
-import ru.ivan.core.unclassifiedcommonmodels.navigation.ParentRouterProvider
-import ru.ivan.core.unclassifiedcommonmodels.navigation.coordinator.Coordinator
-import ru.ivan.core.unclassifiedcommonmodels.navigation.coordinator.CoordinatorHolder
-import ru.ivan.core.unclassifiedcommonmodels.navigation.coordinator.CoordinatorRouter
-import ru.terrakok.cicerone.Cicerone
-import ru.terrakok.cicerone.Router
-
 abstract class DiContainerFragment<Binding : ViewBinding, ViewModel : Any, UiEvent : Any, News : Any> :
     CoreContainerFragment<Binding>(),
     ChildKodeinProvider, ParentRouterProvider {
@@ -33,7 +35,7 @@ abstract class DiContainerFragment<Binding : ViewBinding, ViewModel : Any, UiEve
     override val coordinator: Coordinator by kodein.on(context = this as Fragment).instance()
     override val localCicerone: Cicerone<Router> by kodein.on(context = this as Fragment).instance()
 
-    override lateinit var navigator: CustomNavigator
+    override lateinit var navigator: Navigator
 
     protected lateinit var viewModelWatcher: ModelWatcher<ViewModel>
     protected open val viewModelConsumer = Consumer<ViewModel> { viewModelWatcher(it) }
@@ -99,7 +101,7 @@ abstract class DiContainerFragment<Binding : ViewBinding, ViewModel : Any, UiEve
 
     abstract fun provideBindings(): BindingsBase<ViewModel, UiEvent, News>
 
-    abstract fun provideNavigator(): CustomNavigator
+    abstract fun provideNavigator(): Navigator
 
     abstract fun provideDiModule(): DI.Module
 
