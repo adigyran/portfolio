@@ -1,6 +1,7 @@
 package com.aya.digital.patientapp
 
 import com.aya.digital.base.appbase.BaseApp
+import com.aya.digital.core.di.networkDiModules
 import org.kodein.di.DI
 import org.kodein.di.android.androidCoreModule
 import org.kodein.di.android.x.BuildConfig
@@ -13,6 +14,7 @@ import timber.log.Timber.Forest.plant
 class App : BaseApp() {
     override val di: DI = DI.lazy {
         import(androidXModule(this@App))
+        networkDiModules().forEach { import(it) }
     }
 
     override fun onCreate() {

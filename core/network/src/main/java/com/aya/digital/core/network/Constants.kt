@@ -5,6 +5,8 @@ object Constants {
     const val MOSHI_CONVERTER_FACTORY_TAG = "MoshiConverterFactory"
     const val OKHTTP_CLIENT_TAG = "okHttpClient"
     const val RXJAVA_CALL_ADAPTER_TAG = "rxJavaCallAdapter"
+    const val RETROFIT_TAG = "retrofit"
+
 
     const val BASE_URL_API = "https://aya-doc.com/api-v2/api/"
     const val MOCK_URL = "https://63026b6e-ca23-46b4-85d4-d2382905efac.mock.pstmn.io"

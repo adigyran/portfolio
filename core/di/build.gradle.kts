@@ -8,5 +8,6 @@ android {
 
 dependencies {
     implementation(project(":core:dibase"))
+    implementation(project(":core:network"))
     implementation(libs.kodein.framework.androidx)
 }
