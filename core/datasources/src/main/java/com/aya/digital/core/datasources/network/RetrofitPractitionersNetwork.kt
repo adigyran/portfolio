@@ -1,7 +1,7 @@
-package com.aya.digital.core.network.di.services
+package com.aya.digital.core.datasources.network
 
 import com.aya.digital.core.network.api.services.PractitionersService
-import com.aya.digital.core.network.datasources.PractitionersDataSource
+import com.aya.digital.core.datasources.PractitionersDataSource
 import com.aya.digital.core.network.di.createApiService
 import com.aya.digital.core.network.model.response.base.PagedResponse
 import com.aya.digital.core.network.model.response.doctors.DoctorData
@@ -13,13 +13,14 @@ import org.kodein.di.*
 
 
 fun practitionersNetworkModule() = DI.Module("practitionersNetworkModule") {
-    bind<PractitionersDataSource>() with singleton {
+    bind<com.aya.digital.core.datasources.PractitionersDataSource>() with singleton {
         val apiService = createApiService<PractitionersService>(instance())
         return@singleton RetrofitPractitionersNetwork(apiService)
     }
 }
 
-class RetrofitPractitionersNetwork(private val network: PractitionersService) : PractitionersDataSource {
+class RetrofitPractitionersNetwork(private val network: PractitionersService) :
+    com.aya.digital.core.datasources.PractitionersDataSource {
 
     override fun fetchPractitioners(
         page: Int,

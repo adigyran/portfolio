@@ -1,7 +1,7 @@
-package com.aya.digital.core.network.di.services
+package com.aya.digital.core.datasources.network
 
 import com.aya.digital.core.network.api.services.ScheduleService
-import com.aya.digital.core.network.datasources.ScheduleDataSource
+import com.aya.digital.core.datasources.ScheduleDataSource
 import com.aya.digital.core.network.di.createApiService
 import com.aya.digital.core.network.model.request.ScheduleWithSlotsBody
 import com.aya.digital.core.network.model.request.SlotBody
@@ -15,13 +15,14 @@ import kotlinx.datetime.LocalDate
 import org.kodein.di.*
 
 fun scheduleNetworkModule() = DI.Module("scheduleNetworkModule") {
-    bind<ScheduleDataSource>() with singleton {
+    bind<com.aya.digital.core.datasources.ScheduleDataSource>() with singleton {
         val apiService = createApiService<ScheduleService>(instance())
         return@singleton RetrofitScheduleNetwork(apiService)
     }
 }
 
-class RetrofitScheduleNetwork(private val network: ScheduleService) : ScheduleDataSource {
+class RetrofitScheduleNetwork(private val network: ScheduleService) :
+    com.aya.digital.core.datasources.ScheduleDataSource {
     override fun fetchSchedules(
         practitionerId: Int,
         start: LocalDate,

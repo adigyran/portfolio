@@ -1,4 +1,4 @@
-package com.aya.digital.core.network.datasources
+package com.aya.digital.core.datasources
 
 import com.aya.digital.core.network.model.request.PractitionerProfileBody
 import com.aya.digital.core.network.model.response.doctor.PractitionerProfileResponse

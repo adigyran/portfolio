@@ -1,7 +1,7 @@
-package com.aya.digital.core.network.di.services
+package com.aya.digital.core.datasources.network
 
 import com.aya.digital.core.network.api.services.AppointmentService
-import com.aya.digital.core.network.datasources.AppointmentDataSource
+import com.aya.digital.core.datasources.AppointmentDataSource
 import com.aya.digital.core.network.di.createApiService
 import com.aya.digital.core.network.model.request.CreateAppointmentBody
 import com.aya.digital.core.network.model.request.RepeatAppointmentBody
@@ -14,13 +14,14 @@ import kotlinx.datetime.LocalDate
 import org.kodein.di.*
 
 fun appointmentNetworkModule() = DI.Module("appointmentNetworkModule") {
-    bind<AppointmentDataSource>() with singleton {
+    bind<com.aya.digital.core.datasources.AppointmentDataSource>() with singleton {
         val apiService = createApiService<AppointmentService>(instance())
         return@singleton RetrofitAppointmentNetwork(apiService)
     }
 }
 
-class RetrofitAppointmentNetwork(private val networkApi: AppointmentService) : AppointmentDataSource {
+class RetrofitAppointmentNetwork(private val networkApi: AppointmentService) :
+    com.aya.digital.core.datasources.AppointmentDataSource {
 
     override fun getAppointment(id: Int): Single<AppointmentResponse> = networkApi.getAppointment(id)
 

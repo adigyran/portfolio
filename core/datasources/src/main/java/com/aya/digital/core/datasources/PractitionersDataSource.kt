@@ -1,4 +1,4 @@
-package com.aya.digital.core.network.datasources
+package com.aya.digital.core.datasources
 
 import com.aya.digital.core.network.model.response.base.PagedResponse
 import com.aya.digital.core.network.model.response.doctors.DoctorData

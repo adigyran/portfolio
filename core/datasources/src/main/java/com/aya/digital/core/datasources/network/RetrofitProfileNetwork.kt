@@ -1,9 +1,9 @@
-package com.aya.digital.core.network.di.services
+package com.aya.digital.core.datasources.network
 
 import com.aya.digital.core.network.api.services.ProfileService
-import com.aya.digital.core.network.datasources.ProfileDataSource
-import com.aya.digital.core.network.datasources.ProfilePatientDataSource
-import com.aya.digital.core.network.datasources.ProfilePractitionerDataSource
+import com.aya.digital.core.datasources.ProfileDataSource
+import com.aya.digital.core.datasources.ProfilePatientDataSource
+import com.aya.digital.core.datasources.ProfilePractitionerDataSource
 import com.aya.digital.core.network.di.createApiService
 import com.aya.digital.core.network.model.request.*
 import com.aya.digital.core.network.model.response.EmergencyContactResponse
@@ -20,27 +20,28 @@ import org.kodein.di.*
 
 
 fun profileNetworkModule() = DI.Module("profileNetworkModule") {
-    bind<ProfileDataSource>() with singleton {
+    bind<com.aya.digital.core.datasources.ProfileDataSource>() with singleton {
         val apiService = createApiService<ProfileService>(instance())
         return@singleton RetrofitProfileNetwork(apiService)
     }
 }
 
 fun profilePractitionerModule() = DI.Module("profilePractitionerModule") {
-    bind<ProfilePractitionerDataSource>() with singleton {
+    bind<com.aya.digital.core.datasources.ProfilePractitionerDataSource>() with singleton {
         val apiService = createApiService<ProfileService>(instance())
         return@singleton RetrofitProfilePractitionerNetwork(apiService)
     }
 }
 
 fun profilePatientModule() = DI.Module("profilePatientModule") {
-    bind<ProfilePatientDataSource>() with singleton {
+    bind<com.aya.digital.core.datasources.ProfilePatientDataSource>() with singleton {
         val apiService = createApiService<ProfileService>(instance())
         return@singleton RetrofitProfilePatientNetwork(apiService)
     }
 }
 
-class RetrofitProfileNetwork(private val network: ProfileService) : ProfileDataSource {
+class RetrofitProfileNetwork(private val network: ProfileService) :
+    com.aya.digital.core.datasources.ProfileDataSource {
 
     override fun currentProfile(): Single<CurrentProfileResponse> = network.currentProfile()
 
@@ -59,7 +60,8 @@ class RetrofitProfileNetwork(private val network: ProfileService) : ProfileDataS
     override fun logout(clientId: String, refreshToken: String): Completable = network.logout(clientId, refreshToken)
 }
 
-class RetrofitProfilePractitionerNetwork(private val network: ProfileService) : ProfilePractitionerDataSource
+class RetrofitProfilePractitionerNetwork(private val network: ProfileService) :
+    com.aya.digital.core.datasources.ProfilePractitionerDataSource
 {
     override fun currentPractitioner(): Single<PractitionerProfileResponse> = network.currentPractitioner()
 
@@ -74,7 +76,8 @@ class RetrofitProfilePractitionerNetwork(private val network: ProfileService) : 
     override fun getPractitionerAddress(): Single<AddressResponse>  = network.getPractitionerAddress()
 }
 
-class RetrofitProfilePatientNetwork(private val network: ProfileService) : ProfilePatientDataSource
+class RetrofitProfilePatientNetwork(private val network: ProfileService) :
+    com.aya.digital.core.datasources.ProfilePatientDataSource
 {
     override fun currentPatient(): Single<PatientProfileResponse> = network.currentPatient()
 
