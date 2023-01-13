@@ -22,7 +22,8 @@ fun practitionersNetworkModule() = DI.Module("practitionersNetworkModule") {
     }
 }
 
-class RetrofitPractitionersNetwork(network: PractitionersService) : PractitionersDataSource {
+class RetrofitPractitionersNetwork(private val network: PractitionersService) : PractitionersDataSource {
+
     override fun fetchPractitioners(
         page: Int,
         limit: Int,
@@ -31,30 +32,22 @@ class RetrofitPractitionersNetwork(network: PractitionersService) : Practitioner
         specialtyCode: String?,
         sortingFields: List<String>?,
         sortDirection: String?
-    ): Flowable<PagedResponse<DoctorData>> {
-        TODO("Not yet implemented")
-    }
+    ): Flowable<PagedResponse<DoctorData>> = network.fetchPractitioners(page, limit, search, specialty, specialtyCode, sortingFields, sortDirection)
 
-    override fun fetchPractitionerById(id: Int): Single<DoctorData> {
-        TODO("Not yet implemented")
-    }
+    override fun fetchPractitionerById(id: Int): Single<DoctorData> = network.fetchPractitionerById(id)
 
     override fun searchPractitioners(
         search: String,
         page: Int,
         limit: Int
-    ): Flowable<PractitionersResponse> {
-        TODO("Not yet implemented")
-    }
+    ): Flowable<PractitionersResponse> = network.searchPractitioners(search, page, limit)
 
     override fun searchPractitionersWithCode(
         code: String,
         search: String,
         page: Int,
         limit: Int
-    ): Flowable<PractitionersResponse> {
-        TODO("Not yet implemented")
-    }
+    ): Flowable<PractitionersResponse> = network.searchPractitionersWithCode(code, search, page, limit)
 
     override fun fetchSpecialities(
         page: Int,
@@ -62,11 +55,7 @@ class RetrofitPractitionersNetwork(network: PractitionersService) : Practitioner
         sortingFields: List<String>?,
         sortDirection: String?,
         name: String?
-    ): Flowable<PagedResponse<SpecialitiesSpeciality>> {
-        TODO("Not yet implemented")
-    }
+    ): Flowable<PagedResponse<SpecialitiesSpeciality>> = network.fetchSpecialities(page, limit, sortingFields, sortDirection, name)
 
-    override fun fetchSpeciality(id: Int): Single<SpecialitiesSpeciality> {
-        TODO("Not yet implemented")
-    }
+    override fun fetchSpeciality(id: Int): Single<SpecialitiesSpeciality> = network.fetchSpeciality(id)
 }

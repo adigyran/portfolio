@@ -24,34 +24,22 @@ fun scheduleNetworkModule() = DI.Module("scheduleNetworkModule") {
     }
 }
 
-class RetrofitScheduleNetwork(network: ScheduleService) : ScheduleDataSource {
+class RetrofitScheduleNetwork(private val network: ScheduleService) : ScheduleDataSource {
     override fun fetchSchedules(
         practitionerId: Int,
         start: LocalDate,
         end: LocalDate,
         page: Int,
         limit: Int
-    ): Flowable<PagedResponse<Schedule>> {
-        TODO("Not yet implemented")
-    }
+    ): Flowable<PagedResponse<Schedule>> = network.fetchSchedules(practitionerId, start, end, page, limit)
 
-    override fun create(scheduleWithSlots: ScheduleWithSlotsBody): Completable {
-        TODO("Not yet implemented")
-    }
+    override fun create(scheduleWithSlots: ScheduleWithSlotsBody): Completable = network.create(scheduleWithSlots)
 
-    override fun getSlot(id: Int): Single<SlotResponse> {
-        TODO("Not yet implemented")
-    }
+    override fun getSlot(id: Int): Single<SlotResponse> = network.getSlot(id)
 
-    override fun deleteSlot(id: Int): Completable {
-        TODO("Not yet implemented")
-    }
+    override fun deleteSlot(id: Int): Completable = network.deleteSlot(id)
 
-    override fun createSlot(body: SlotBody): Completable {
-        TODO("Not yet implemented")
-    }
+    override fun createSlot(body: SlotBody): Completable = network.createSlot(body)
 
-    override fun updateSlot(id: Int, body: SlotBody): Completable {
-        TODO("Not yet implemented")
-    }
+    override fun updateSlot(id: Int, body: SlotBody): Completable = network.updateSlot(id, body)
 }

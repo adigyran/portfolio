@@ -21,46 +21,11 @@ interface ProfileDataSource {
         body: ProfileBody
     ): Completable
 
-    fun currentPatient(): Single<PatientProfileResponse>
-
-    fun updatePatient(
-        body: PatientProfileBody
-    ): Completable
-
-    fun getPatientAddress(): Single<AddressResponse>
-
-    fun updatePatientAddress(
-        body: PatientProfileBody
-    ): Completable
-
-
     fun getEmergencyContact(): Single<EmergencyContactResponse>
 
     fun updateEmergencyContact(
         body: EmergencyContactBody
     ): Completable
-
-
-    fun currentPractitioner(): Single<PractitionerProfileResponse>
-
-
-    fun getPractitionerPhoneNumber(): Single<PractitionerProfileResponse>
-
-
-    fun updatePractitioner(
-        body: PractitionerProfileBody
-    ): Completable
-
-    fun updatePractitionerPhoneNumber(
-        body: PractitionerProfileBody
-    ): Completable
-
-
-    fun updatePractitionerAddress(
-        body: PractitionerProfileBody
-    ): Completable
-
-    fun getPractitionerAddress(): Single<AddressResponse>
 
     fun uploadAvatar(
         file: MultipartBody.Part
