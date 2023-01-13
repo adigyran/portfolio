@@ -21,13 +21,13 @@ data class CurrentProfileResponse(
     val emergencyContactEnabled: Boolean,
     val emergencyContactName: String?,
     val emergencyContactPhone: String?,
-    @Json( name = "fhirRoles") val roles: List<Role>,
+    @Json( name = "fhirRoles") val roles: List<RoleResponse>,
 ) {
 
 }
 
 @JsonClass(generateAdapter = true)
-data class Role(
+data class RoleResponse(
     val id: Int,
     val name: String
 )
