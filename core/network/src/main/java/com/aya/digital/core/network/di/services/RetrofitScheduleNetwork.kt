@@ -12,15 +12,12 @@ import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Single
 import kotlinx.datetime.LocalDate
-import org.kodein.di.DI
-import org.kodein.di.bind
-import org.kodein.di.eagerSingleton
-import org.kodein.di.instance
+import org.kodein.di.*
 
 fun scheduleNetworkModule() = DI.Module("scheduleNetworkModule") {
-    bind<ScheduleDataSource>() with eagerSingleton {
+    bind<ScheduleDataSource>() with singleton {
         val apiService = createApiService<ScheduleService>(instance())
-        return@eagerSingleton RetrofitScheduleNetwork(apiService)
+        return@singleton RetrofitScheduleNetwork(apiService)
     }
 }
 

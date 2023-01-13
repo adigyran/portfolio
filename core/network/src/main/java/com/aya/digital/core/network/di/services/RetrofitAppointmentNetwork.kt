@@ -11,15 +11,12 @@ import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import kotlinx.datetime.LocalDate
-import org.kodein.di.DI
-import org.kodein.di.bind
-import org.kodein.di.eagerSingleton
-import org.kodein.di.instance
+import org.kodein.di.*
 
 fun appointmentNetworkModule() = DI.Module("appointmentNetworkModule") {
-    bind<AppointmentDataSource>() with eagerSingleton {
+    bind<AppointmentDataSource>() with singleton {
         val apiService = createApiService<AppointmentService>(instance())
-        return@eagerSingleton RetrofitAppointmentNetwork(apiService)
+        return@singleton RetrofitAppointmentNetwork(apiService)
     }
 }
 

@@ -16,30 +16,27 @@ import com.aya.digital.core.network.model.response.profile.ImageUploadResponse
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 import okhttp3.MultipartBody
-import org.kodein.di.DI
-import org.kodein.di.bind
-import org.kodein.di.eagerSingleton
-import org.kodein.di.instance
+import org.kodein.di.*
 
 
 fun profileNetworkModule() = DI.Module("profileNetworkModule") {
-    bind<ProfileDataSource>() with eagerSingleton {
+    bind<ProfileDataSource>() with singleton {
         val apiService = createApiService<ProfileService>(instance())
-        return@eagerSingleton RetrofitProfileNetwork(apiService)
+        return@singleton RetrofitProfileNetwork(apiService)
     }
 }
 
 fun profilePractitionerModule() = DI.Module("profilePractitionerModule") {
-    bind<ProfilePractitionerDataSource>() with eagerSingleton {
+    bind<ProfilePractitionerDataSource>() with singleton {
         val apiService = createApiService<ProfileService>(instance())
-        return@eagerSingleton RetrofitProfilePractitionerNetwork(apiService)
+        return@singleton RetrofitProfilePractitionerNetwork(apiService)
     }
 }
 
 fun profilePatientModule() = DI.Module("profilePatientModule") {
-    bind<ProfilePatientDataSource>() with eagerSingleton {
+    bind<ProfilePatientDataSource>() with singleton {
         val apiService = createApiService<ProfileService>(instance())
-        return@eagerSingleton RetrofitProfilePatientNetwork(apiService)
+        return@singleton RetrofitProfilePatientNetwork(apiService)
     }
 }
 

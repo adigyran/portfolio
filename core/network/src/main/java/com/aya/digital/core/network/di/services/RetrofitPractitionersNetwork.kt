@@ -9,16 +9,13 @@ import com.aya.digital.core.network.model.response.doctors.PractitionersResponse
 import com.aya.digital.core.network.model.response.doctors.SpecialitiesSpeciality
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Single
-import org.kodein.di.DI
-import org.kodein.di.bind
-import org.kodein.di.eagerSingleton
-import org.kodein.di.instance
+import org.kodein.di.*
 
 
 fun practitionersNetworkModule() = DI.Module("practitionersNetworkModule") {
-    bind<PractitionersDataSource>() with eagerSingleton {
+    bind<PractitionersDataSource>() with singleton {
         val apiService = createApiService<PractitionersService>(instance())
-        return@eagerSingleton RetrofitPractitionersNetwork(apiService)
+        return@singleton RetrofitPractitionersNetwork(apiService)
     }
 }
 
