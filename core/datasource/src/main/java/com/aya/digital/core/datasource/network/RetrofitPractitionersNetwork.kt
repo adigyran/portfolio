@@ -3,9 +3,9 @@ package com.aya.digital.core.datasource.network
 import com.aya.digital.core.network.api.services.PractitionersService
 import com.aya.digital.core.network.di.createApiService
 import com.aya.digital.core.network.model.response.base.PagedResponse
-import com.aya.digital.core.network.model.response.doctors.DoctorData
+import com.aya.digital.core.network.model.response.doctors.DoctorDataResponse
 import com.aya.digital.core.network.model.response.doctors.PractitionersResponse
-import com.aya.digital.core.network.model.response.doctors.SpecialitiesSpeciality
+import com.aya.digital.core.network.model.response.doctors.SpecialitiesSpecialityResponse
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Single
 import org.kodein.di.*
@@ -29,9 +29,9 @@ class RetrofitPractitionersNetwork(private val network: PractitionersService) :
         specialtyCode: String?,
         sortingFields: List<String>?,
         sortDirection: String?
-    ): Flowable<PagedResponse<DoctorData>> = network.fetchPractitioners(page, limit, search, specialty, specialtyCode, sortingFields, sortDirection)
+    ): Flowable<PagedResponse<DoctorDataResponse>> = network.fetchPractitioners(page, limit, search, specialty, specialtyCode, sortingFields, sortDirection)
 
-    override fun fetchPractitionerById(id: Int): Single<DoctorData> = network.fetchPractitionerById(id)
+    override fun fetchPractitionerById(id: Int): Single<DoctorDataResponse> = network.fetchPractitionerById(id)
 
     override fun searchPractitioners(
         search: String,
@@ -52,7 +52,7 @@ class RetrofitPractitionersNetwork(private val network: PractitionersService) :
         sortingFields: List<String>?,
         sortDirection: String?,
         name: String?
-    ): Flowable<PagedResponse<SpecialitiesSpeciality>> = network.fetchSpecialities(page, limit, sortingFields, sortDirection, name)
+    ): Flowable<PagedResponse<SpecialitiesSpecialityResponse>> = network.fetchSpecialities(page, limit, sortingFields, sortDirection, name)
 
-    override fun fetchSpeciality(id: Int): Single<SpecialitiesSpeciality> = network.fetchSpeciality(id)
+    override fun fetchSpeciality(id: Int): Single<SpecialitiesSpecialityResponse> = network.fetchSpeciality(id)
 }

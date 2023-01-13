@@ -23,10 +23,6 @@ data class CurrentProfileResponse(
     val emergencyContactPhone: String?,
     @Json( name = "fhirRoles") val roles: List<Role>,
 ) {
-    //TODO lazy doesnt work cause of serialization ?
-    val patientId: Int? get() = roles.firstOrNull { it.name == "Patient" }?.id
-    val doctorId: Int? get() = roles.firstOrNull { it.name == "Practitioner" }?.id
-
 
 }
 

@@ -4,7 +4,7 @@ import com.aya.digital.core.network.api.services.ProfileService
 import com.aya.digital.core.network.di.createApiService
 import com.aya.digital.core.network.model.request.*
 import com.aya.digital.core.network.model.response.EmergencyContactResponse
-import com.aya.digital.core.network.model.response.Message
+import com.aya.digital.core.network.model.response.MessageResponse
 import com.aya.digital.core.network.model.response.doctor.PractitionerProfileResponse
 import com.aya.digital.core.network.model.response.patient.PatientProfileResponse
 import com.aya.digital.core.network.model.response.profile.AddressResponse
@@ -52,7 +52,7 @@ class RetrofitProfileNetwork(private val network: ProfileService) :
 
     override fun deleteAvatar(): Completable = network.deleteAvatar()
 
-    override fun registration(body: RegistrationBody): Single<Message> = network.registration(body)
+    override fun registration(body: RegistrationBody): Single<MessageResponse> = network.registration(body)
 
     override fun logout(clientId: String, refreshToken: String): Completable = network.logout(clientId, refreshToken)
 }

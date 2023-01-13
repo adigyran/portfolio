@@ -10,7 +10,7 @@ import retrofit2.http.Field
 @JsonClass(generateAdapter = true)
 data class PractitionersResponse(
     @Json(name = "content")
-    val content: List<DoctorData>?,
+    val content: List<DoctorDataResponse>?,
     val empty: Boolean?,
     val first: Boolean?,
     val last: Boolean?,
@@ -23,7 +23,7 @@ data class PractitionersResponse(
     val totalPages: Int?
 )
 
-data class DoctorData(
+data class DoctorDataResponse(
     val addressLine1: String?,
     val addressLine2: String?,
     val city: String?,

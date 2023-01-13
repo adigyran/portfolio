@@ -1,12 +1,11 @@
 package com.aya.digital.core.network.api.services
 
 import com.aya.digital.core.network.model.response.base.PagedResponse
-import com.aya.digital.core.network.model.response.doctors.DoctorData
+import com.aya.digital.core.network.model.response.doctors.DoctorDataResponse
 import com.aya.digital.core.network.model.response.doctors.PractitionersResponse
-import com.aya.digital.core.network.model.response.doctors.SpecialitiesSpeciality
+import com.aya.digital.core.network.model.response.doctors.SpecialitiesSpecialityResponse
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Single
-import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -23,12 +22,12 @@ interface PractitionersService {
         @Query("specialtyCode") specialtyCode: String?,
         @Query("sortingFields") sortingFields: List<String>?,
         @Query("sortDirection") sortDirection: String?,
-    ): Flowable<PagedResponse<DoctorData>>
+    ): Flowable<PagedResponse<DoctorDataResponse>>
 
     @GET("practitioners/{id}")
     fun fetchPractitionerById(
         @Path("id") id: Int,
-    ): Single<DoctorData>
+    ): Single<DoctorDataResponse>
 
     @GET("practitioners/filter-search-full")
     fun searchPractitioners(
@@ -52,10 +51,10 @@ interface PractitionersService {
         @Query("sortingFields") sortingFields: List<String>?,
         @Query("sortDirection") sortDirection: String?,
         @Query("specialtyName") name: String?,
-    ): Flowable<PagedResponse<SpecialitiesSpeciality>>
+    ): Flowable<PagedResponse<SpecialitiesSpecialityResponse>>
 
     @GET("specialities/{id}")
     fun fetchSpeciality(
         @Path("id") id: Int,
-    ): Single<SpecialitiesSpeciality>
+    ): Single<SpecialitiesSpecialityResponse>
 }

@@ -2,7 +2,7 @@ package com.aya.digital.core.network.api.services
 
 import com.aya.digital.core.network.model.request.*
 import com.aya.digital.core.network.model.response.EmergencyContactResponse
-import com.aya.digital.core.network.model.response.Message
+import com.aya.digital.core.network.model.response.MessageResponse
 import com.aya.digital.core.network.model.response.doctor.PractitionerProfileResponse
 import com.aya.digital.core.network.model.response.patient.PatientProfileResponse
 import com.aya.digital.core.network.model.response.profile.AddressResponse
@@ -11,7 +11,6 @@ import com.aya.digital.core.network.model.response.profile.ImageUploadResponse
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 import okhttp3.MultipartBody
-import retrofit2.Response
 import retrofit2.http.*
 
 interface ProfileService {
@@ -82,7 +81,7 @@ interface ProfileService {
     fun deleteAvatar(): Completable
 
     @POST("auth/registration")
-    fun registration(@Body body: RegistrationBody): Single<Message>
+    fun registration(@Body body: RegistrationBody): Single<MessageResponse>
 
     @FormUrlEncoded
     @POST("https://auth.aya-doc.com/auth/realms/aya-realm/protocol/openid-connect/logout")

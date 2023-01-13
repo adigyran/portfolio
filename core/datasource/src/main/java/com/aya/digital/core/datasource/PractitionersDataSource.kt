@@ -1,14 +1,11 @@
 package com.aya.digital.core.datasource
 
 import com.aya.digital.core.network.model.response.base.PagedResponse
-import com.aya.digital.core.network.model.response.doctors.DoctorData
+import com.aya.digital.core.network.model.response.doctors.DoctorDataResponse
 import com.aya.digital.core.network.model.response.doctors.PractitionersResponse
-import com.aya.digital.core.network.model.response.doctors.SpecialitiesSpeciality
+import com.aya.digital.core.network.model.response.doctors.SpecialitiesSpecialityResponse
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Single
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
 
 interface PractitionersDataSource {
     
@@ -20,11 +17,11 @@ interface PractitionersDataSource {
          specialtyCode: String?,
          sortingFields: List<String>?,
          sortDirection: String?,
-    ): Flowable<PagedResponse<DoctorData>>
+    ): Flowable<PagedResponse<DoctorDataResponse>>
 
     fun fetchPractitionerById(
          id: Int,
-    ): Single<DoctorData>
+    ): Single<DoctorDataResponse>
 
     fun searchPractitioners(
          search: String,
@@ -46,9 +43,9 @@ interface PractitionersDataSource {
          sortingFields: List<String>?,
          sortDirection: String?,
          name: String?,
-    ): Flowable<PagedResponse<SpecialitiesSpeciality>>
+    ): Flowable<PagedResponse<SpecialitiesSpecialityResponse>>
 
     fun fetchSpeciality(
          id: Int,
-    ): Single<SpecialitiesSpeciality>
+    ): Single<SpecialitiesSpecialityResponse>
 }
