@@ -1,6 +1,6 @@
 package com.aya.digital.core.network
 
-object Constants {
+internal object Constants {
     const val MOSHI_TAG = "moshi"
     const val MOSHI_CONVERTER_FACTORY_TAG = "MoshiConverterFactory"
     const val OKHTTP_CLIENT_TAG = "okHttpClient"

@@ -18,5 +18,6 @@ dependencies {
     implementation(libs.moshi.kotlin)
     kapt(libs.moshi.kotlin.codegen)
     implementation(libs.kotlinx.time)
+    implementation(libs.open.auth)
 
 }

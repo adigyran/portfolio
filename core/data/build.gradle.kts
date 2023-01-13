@@ -12,4 +12,5 @@ dependencies {
     implementation(libs.kodein.framework.androidx)
     implementation(libs.rxkotlin)
     implementation(libs.kotlinx.time)
+    implementation(libs.open.auth)
 }

@@ -14,4 +14,6 @@ dependencies {
     implementation(project(":core:mappers"))
     implementation(libs.kodein.framework.androidx)
     implementation(libs.rxkotlin)
+    implementation(libs.open.auth)
+
 }
