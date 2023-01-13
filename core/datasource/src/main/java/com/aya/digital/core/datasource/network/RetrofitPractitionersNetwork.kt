@@ -5,7 +5,7 @@ import com.aya.digital.core.network.di.createApiService
 import com.aya.digital.core.network.model.response.base.PagedResponse
 import com.aya.digital.core.network.model.response.doctors.DoctorDataResponse
 import com.aya.digital.core.network.model.response.doctors.PractitionersResponse
-import com.aya.digital.core.network.model.response.doctors.SpecialitiesSpecialityResponse
+import com.aya.digital.core.network.model.response.doctors.SpecialityResponse
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Single
 import org.kodein.di.*
@@ -52,7 +52,7 @@ class RetrofitPractitionersNetwork(private val network: PractitionersService) :
         sortingFields: List<String>?,
         sortDirection: String?,
         name: String?
-    ): Flowable<PagedResponse<SpecialitiesSpecialityResponse>> = network.fetchSpecialities(page, limit, sortingFields, sortDirection, name)
+    ): Flowable<PagedResponse<SpecialityResponse>> = network.fetchSpecialities(page, limit, sortingFields, sortDirection, name)
 
-    override fun fetchSpeciality(id: Int): Single<SpecialitiesSpecialityResponse> = network.fetchSpeciality(id)
+    override fun fetchSpeciality(id: Int): Single<SpecialityResponse> = network.fetchSpeciality(id)
 }

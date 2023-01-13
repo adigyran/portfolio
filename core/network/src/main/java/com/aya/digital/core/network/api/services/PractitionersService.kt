@@ -3,7 +3,7 @@ package com.aya.digital.core.network.api.services
 import com.aya.digital.core.network.model.response.base.PagedResponse
 import com.aya.digital.core.network.model.response.doctors.DoctorDataResponse
 import com.aya.digital.core.network.model.response.doctors.PractitionersResponse
-import com.aya.digital.core.network.model.response.doctors.SpecialitiesSpecialityResponse
+import com.aya.digital.core.network.model.response.doctors.SpecialityResponse
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Single
 import retrofit2.http.GET
@@ -51,10 +51,10 @@ interface PractitionersService {
         @Query("sortingFields") sortingFields: List<String>?,
         @Query("sortDirection") sortDirection: String?,
         @Query("specialtyName") name: String?,
-    ): Flowable<PagedResponse<SpecialitiesSpecialityResponse>>
+    ): Flowable<PagedResponse<SpecialityResponse>>
 
     @GET("specialities/{id}")
     fun fetchSpeciality(
         @Path("id") id: Int,
-    ): Single<SpecialitiesSpecialityResponse>
+    ): Single<SpecialityResponse>
 }
