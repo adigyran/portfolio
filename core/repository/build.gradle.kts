@@ -3,12 +3,15 @@ plugins {
 }
 
 android {
-    namespace = "com.aya.digital.core.di"
+    namespace = "com.aya.digital.core.repository"
 }
 
 dependencies {
-    implementation(project(":core:dibase"))
+    implementation(project(":core:util"))
     implementation(project(":core:network"))
     implementation(project(":core:datasource"))
+    implementation(project(":core:data"))
+    implementation(project(":core:mappers"))
     implementation(libs.kodein.framework.androidx)
+    implementation(libs.rxkotlin)
 }
