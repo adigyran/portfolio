@@ -21,7 +21,6 @@ class App : BaseApp() {
 
     override fun onCreate() {
         super.onCreate()
-        if (BuildConfig.DEBUG)
-            plant(Timber.DebugTree())
+        plant(Timber.DebugTree())
     }
 }

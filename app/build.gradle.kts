@@ -31,15 +31,22 @@ android {
         }
     }
 
+
+
     namespace = "com.aya.digital.patientapp"
 
 }
 
 dependencies {
     implementation(project(":core:appbase"))
+    implementation(project(":core:dibase"))
     implementation(project(":core:di"))
+    implementation(project(":core:data"))
+    implementation(project(":core:util"))
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.core.ktx)
+    implementation(libs.rxkotlin)
+    implementation(libs.rxandroid)
     implementation(libs.material.design)
     implementation(libs.kodein.framework.androidx)
     implementation(libs.timber)

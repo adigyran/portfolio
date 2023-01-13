@@ -5,6 +5,7 @@ import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import com.aya.digital.core.data.repositories.profile.AuthRepository
 import com.aya.digital.patientapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
