@@ -1,6 +1,7 @@
 package com.aya.digital.core.network.di
 
 import android.net.Uri
+import androidx.core.net.toUri
 import com.aya.digital.core.network.AuthConfig
 import net.openid.appauth.*
 import org.kodein.di.DI
@@ -37,14 +38,31 @@ interface AppAuth {
 private class AppAuthImpl(private val clientAuthentication: ClientAuthentication, private val serviceConfiguration : AuthorizationServiceConfiguration) : AppAuth {
 
     override fun getAuthRequest(): AuthorizationRequest {
-        TODO("Not yet implemented")
-    }
+        val redirectUri = AuthConfig.CALLBACK_URL.toUri()
 
+        return AuthorizationRequest.Builder(
+            serviceConfiguration,
+            AuthConfig.CLIENT_ID,
+            AuthConfig.RESPONSE_TYPE,
+            redirectUri
+        )
+            .setScope(AuthConfig.SCOPE)
+            .build()
+    }
     override fun getEndSessionRequest(): EndSessionRequest {
-        TODO("Not yet implemented")
+        return EndSessionRequest.Builder(serviceConfiguration)
+            .setPostLogoutRedirectUri(AuthConfig.LOGOUT_CALLBACK_URL.toUri())
+            .build()
     }
 
     override fun getRefreshTokenRequest(refreshToken: String): TokenRequest {
-        TODO("Not yet implemented")
+        return TokenRequest.Builder(
+            serviceConfiguration,
+            AuthConfig.CLIENT_ID
+        )
+            .setGrantType(GrantTypeValues.REFRESH_TOKEN)
+            .setScopes(AuthConfig.SCOPE)
+            .setRefreshToken(refreshToken)
+            .build()
     }
 }
