@@ -25,6 +25,7 @@ include(":core:appbase")
 include(":core:baseresources")
 include(":core:designsystem")
 include(":core:datasource")
+include(":core:datastore")
 include(":core:dibase")
 include(":core:domain")
 include(":core:mappers")
@@ -41,5 +42,6 @@ include(":core:util")
 include(":core:networkbase")
 include(":core:ui")
 include(":core:testing")
+
 
 

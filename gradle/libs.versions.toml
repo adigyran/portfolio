@@ -10,6 +10,7 @@ androidxActivity = "1.6.1"
 androidxAnnotation = "1.5.0"
 androidxCore = "1.9.0"
 androidxCoreSplashscreen = "1.0.0"
+androidxDataStore = "1.0.0"
 androidxRecyclerView = "1.2.1"
 androidxViewpager = "1.0.0"
 androidxWork = "2.7.1"
@@ -59,6 +60,11 @@ cicerone = "6.6"
 okhttp = "4.10.0"
 retrofit = "2.9.0"
 moshi = "1.14.0"
+kotlinxSerializationJson = "1.4.1"
+
+#protobuf
+protobuf = "3.21.12"
+protobufPlugin = "0.8.19"
 
 #rx
 rxJava = "3.1.5"
@@ -111,6 +117,8 @@ androidx-benchmark-macro = { group = "androidx.benchmark", name = "benchmark-mac
 androidx-browser = { group = "androidx.browser", name = "browser", version.ref = "androidxBrowser" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidxCore" }
 androidx-core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "androidxCoreSplashscreen" }
+androidx-datastore = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "androidxDataStore" }
+androidx-datastore-rxjava3 = { group = "androidx.datastore", name = "datastore-preferences-rxjava3", version.ref = "androidxDataStore" }
 androidx-recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version.ref = "androidxRecyclerView" }
 androidx-viewpager = { group = "androidx.viewpager2", name = "viewpager2", version.ref = "androidxViewpager" }
 androidx-lifecycle = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "androidxLifecycle" }
@@ -183,6 +191,12 @@ okhttp-interceptor = { group = "com.squareup.okhttp3", name = "logging-intercept
 moshi-kotlin = { group = "com.squareup.moshi", name = "moshi-kotlin", version.ref = "moshi" }
 moshi-kotlin-codegen = { group = "com.squareup.moshi", name = "moshi-kotlin-codegen", version.ref = "moshi" }
 moshi-adapters = { group = "com.squareup.moshi", name = "moshi-adapters", version.ref = "moshi" }
+#networking-kotlinx-serialisation
+kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
+
+#protobuf
+protobuf-kotlin-lite = { group = "com.google.protobuf", name = "protobuf-kotlin-lite", version.ref = "protobuf" }
+protobuf-protoc = { group = "com.google.protobuf", name = "protoc", version.ref = "protobuf" }
 
 #mvi
 mvi-mvicore = { group = "com.github.badoo.mvicore", name = "mvicore", version.ref = "mvicore" }
@@ -209,4 +223,7 @@ android-application = { id = "com.android.application", version.ref = "androidGr
 android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 secrets = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "gradleSecrets" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+protobuf = { id = "com.google.protobuf", version.ref = "protobufPlugin" }
+
 

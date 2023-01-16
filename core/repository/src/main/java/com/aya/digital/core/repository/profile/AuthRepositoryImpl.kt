@@ -10,6 +10,9 @@ import net.openid.appauth.EndSessionRequest
 class AuthRepositoryImpl(
     private val appAuth: AppAuth
 ) : AuthRepository {
+
+    private var isPatient: Boolean? = null
+
     override fun getAuthRequest(): AuthorizationRequest {
         TODO("Not yet implemented")
     }
@@ -23,7 +26,7 @@ class AuthRepositoryImpl(
     }
 
     override fun clear() {
-        TODO("Not yet implemented")
+        isPatient = null
     }
 
     override fun logout(): Completable {
