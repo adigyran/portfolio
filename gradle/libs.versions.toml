@@ -52,6 +52,7 @@ googlePlayLocation = "21.0.1"
 securityCrypto = "1.0.0"
 openAuth = "0.11.1"
 jwtDecode = "2.0.1"
+tink = "1.7.0"
 
 #navigation
 cicerone = "6.6"
@@ -61,6 +62,8 @@ okhttp = "4.10.0"
 retrofit = "2.9.0"
 moshi = "1.14.0"
 kotlinxSerializationJson = "1.4.1"
+kotlinxSerializationProtobuf = "1.4.1"
+
 
 #protobuf
 protobuf = "3.21.12"
@@ -158,6 +161,8 @@ google-play-location = { group = "com.google.android.gms", name = "play-services
 security-crypto = { group = "androidx.security", name = "security-crypto", version.ref = "securityCrypto" }
 open-auth = { group = "net.openid", name = "appauth", version.ref = "openAuth" }
 jwt-decode = { group = "com.auth0.android", name = "jwtdecode", version.ref = "jwtDecode" }
+tink = { group = "com.google.crypto.tink", name = "tink-android", version.ref = "tink" }
+
 
 #firebase
 firebase-messaging = { group = "com.google.firebase", name = "firebase-messaging", version.ref = "firebase" }
@@ -193,6 +198,7 @@ moshi-kotlin-codegen = { group = "com.squareup.moshi", name = "moshi-kotlin-code
 moshi-adapters = { group = "com.squareup.moshi", name = "moshi-adapters", version.ref = "moshi" }
 #networking-kotlinx-serialisation
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
+kotlinx-serialization-protobuf = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-protobuf", version.ref = "kotlinxSerializationProtobuf" }
 
 #protobuf
 protobuf-kotlin-lite = { group = "com.google.protobuf", name = "protobuf-kotlin-lite", version.ref = "protobuf" }

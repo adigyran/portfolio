@@ -33,7 +33,12 @@ protobuf {
 
 dependencies {
     implementation(project(":core:util"))
+    implementation(project(":core:security"))
     implementation(libs.androidx.datastore)
     implementation(libs.androidx.datastore.rxjava3)
     implementation(libs.protobuf.kotlin.lite)
+    implementation(libs.kodein.framework.androidx)
+    implementation(libs.kotlinx.serialization.protobuf)
+    implementation(libs.tink)
+
 }
