@@ -42,6 +42,7 @@ dependencies {
     implementation(project(":core:dibase"))
     implementation(project(":core:di"))
     implementation(project(":core:data"))
+    implementation(project(":core:datastore"))
     implementation(project(":core:util"))
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.core.ktx)
