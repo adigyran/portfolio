@@ -19,6 +19,7 @@ sealed class RequestResult<out T> {
 
         object UnknownHost : Error()
         object SocketTimeout : Error()
+        object NoRoleDefined : Error()
         data class JsonParsingError(val throwable: Throwable) : Error()
 
         data class Another(val throwable: Throwable) : Error()

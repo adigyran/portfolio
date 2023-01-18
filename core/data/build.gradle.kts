@@ -8,6 +8,7 @@ android {
 
 dependencies {
     implementation(project(":core:util"))
+    implementation(project(":core:networkbase"))
     implementation(project(":core:network"))
     implementation(libs.kodein.framework.androidx)
     implementation(libs.rxkotlin)

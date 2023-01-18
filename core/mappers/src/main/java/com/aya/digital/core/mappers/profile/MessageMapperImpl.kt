@@ -10,5 +10,4 @@ import com.aya.digital.core.network.model.response.profile.CurrentProfileRespons
 class MessageMapperImpl : MessageMapper() {
     override fun mapFrom(type: MessageResponse): Message =
         Message(type.message)
-
 }

@@ -5,6 +5,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.rxjava3.RxDataStore
 import androidx.datastore.rxjava3.RxDataStoreBuilder
 import androidx.datastore.rxjava3.rxDataStore
+import com.aya.digital.core.datastore.PatientAppAuthDataSource
 import com.aya.digital.core.datastore.PatientAppDataSource
 import com.aya.digital.core.datastore.UserPreferencesOuterClass.UserPreferences
 import com.aya.digital.core.datastore.UserPreferencesSerializer
@@ -24,5 +25,9 @@ fun dataStoreDiModule() = DI.Module("dataStoreDiModule") {
 
     bind<PatientAppDataSource>() with eagerSingleton {
         PatientAppDataSource(instance())
+    }
+
+    bind<PatientAppAuthDataSource>() with eagerSingleton {
+        PatientAppAuthDataSource(instance())
     }
 }

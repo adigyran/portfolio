@@ -25,5 +25,4 @@ class CurrentProfileMapperImpl(private val roleMapper: RoleMapper) : CurrentProf
             emergencyContactPhone = type.emergencyContactPhone,
             roles = roleMapper.mapFromList(type.roles)
         )
-
 }
