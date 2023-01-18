@@ -3,6 +3,11 @@ syntax = "proto3";
 option java_package = "com.aya.digital.core.datastore";
 
 message UserPreferences {
-  string text = 1;
+  bool seenDisclaimer = 1;
+  bool seenOnBoarding = 2;
+  string refreshTokenKey = 3;
+  string accessTokenKey = 4;
+  string tokenIdKey = 5;
+
 }
 

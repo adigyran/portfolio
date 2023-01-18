@@ -6,4 +6,5 @@ import com.aya.digital.core.datastore.UserPreferencesOuterClass.UserPreferences
 class PatientAppDataSource constructor(
     private val userPreferences: DataStore<UserPreferences>
 ) {
+
 }
