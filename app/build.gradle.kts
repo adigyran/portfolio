@@ -43,6 +43,7 @@ dependencies {
     implementation(project(":core:di"))
     implementation(project(":core:data"))
     implementation(project(":core:datastore"))
+    implementation(project(":core:navigation"))
     implementation(project(":core:util"))
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.core.ktx)
@@ -50,21 +51,6 @@ dependencies {
     implementation(libs.rxandroid)
     implementation(libs.material.design)
     implementation(libs.kodein.framework.androidx)
+    implementation(libs.cicerone)
     implementation(libs.timber)
-
-
-
-
-/*    implementation(Deps.kotlin)
-    implementation(Deps.appCompat)
-    implementation(Deps.materialDesign)
-    implementation(Deps.timber)
-    implementation(Deps.constraintLayout)
-    testImplementation(Deps.jUnit)
-    androidTestImplementation(Deps.testCore)
-    androidTestImplementation(Deps.espresso)
-    androidTestImplementation(Deps.jUnitRules)
-    androidTestImplementation(Deps.jUnitRunner)
-    androidTestImplementation(Deps.extJUnit)
-    androidTestImplementation(Deps.extTruth)*/
 }

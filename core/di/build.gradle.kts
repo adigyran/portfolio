@@ -12,6 +12,7 @@ dependencies {
     implementation(project(":core:datasource"))
     implementation(project(":core:datastore"))
     implementation(project(":core:data"))
+    implementation(project(":core:navigation"))
     implementation(project(":core:mappers"))
     implementation(project(":core:repository"))
     implementation(libs.kodein.framework.androidx)

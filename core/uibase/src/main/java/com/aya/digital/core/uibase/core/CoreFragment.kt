@@ -14,10 +14,9 @@ import androidx.viewpager2.widget.ViewPager2
 import com.aya.digital.core.ext.ContextAware
 import com.aya.digital.core.ext.colors
 import com.aya.digital.core.ext.setStatusBarColor
-import com.aya.digital.core.navigation.ChildKodeinProvider
-import com.aya.digital.core.navigation.ParentRouterProvider
+import com.aya.digital.core.navigation.utils.ChildKodeinProvider
+import com.aya.digital.core.navigation.utils.ParentRouterProvider
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
-import com.aya.digital.base.appbase.BaseApp
 import com.aya.digital.core.util.retainedinstancemanager.IHasRetainedInstance
 import com.aya.digital.core.util.retainedinstancemanager.IdProvider
 import org.kodein.di.DI

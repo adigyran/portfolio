@@ -1,5 +1,8 @@
 package com.aya.digital.core.datasource.network
 
+import com.aya.digital.core.datasource.ProfileDataSource
+import com.aya.digital.core.datasource.ProfilePatientDataSource
+import com.aya.digital.core.datasource.ProfilePractitionerDataSource
 import com.aya.digital.core.network.api.services.ProfileService
 import com.aya.digital.core.network.di.createApiService
 import com.aya.digital.core.network.model.request.*
@@ -38,7 +41,7 @@ fun profilePatientModule() = DI.Module("profilePatientModule") {
 }
 
 class RetrofitProfileNetwork(private val network: ProfileService) :
-    com.aya.digital.core.datasource.ProfileDataSource {
+    ProfileDataSource {
 
     override fun currentProfile(): Single<CurrentProfileResponse> = network.currentProfile()
 
@@ -58,7 +61,7 @@ class RetrofitProfileNetwork(private val network: ProfileService) :
 }
 
 class RetrofitProfilePractitionerNetwork(private val network: ProfileService) :
-    com.aya.digital.core.datasource.ProfilePractitionerDataSource
+    ProfilePractitionerDataSource
 {
     override fun currentPractitioner(): Single<PractitionerProfileResponse> = network.currentPractitioner()
 
@@ -74,7 +77,7 @@ class RetrofitProfilePractitionerNetwork(private val network: ProfileService) :
 }
 
 class RetrofitProfilePatientNetwork(private val network: ProfileService) :
-    com.aya.digital.core.datasource.ProfilePatientDataSource
+    ProfilePatientDataSource
 {
     override fun currentPatient(): Single<PatientProfileResponse> = network.currentPatient()
 

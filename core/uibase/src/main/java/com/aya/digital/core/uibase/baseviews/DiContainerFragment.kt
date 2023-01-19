@@ -9,8 +9,8 @@ import com.aya.digital.core.dibase.KodeinInjectionManager
 import com.aya.digital.core.ext.clickWithDebounce
 import com.aya.digital.core.mvi.BaseFeature
 import com.aya.digital.core.mvi.BindingsBase
-import com.aya.digital.core.navigation.ChildKodeinProvider
-import com.aya.digital.core.navigation.ParentRouterProvider
+import com.aya.digital.core.navigation.utils.ChildKodeinProvider
+import com.aya.digital.core.navigation.utils.ParentRouterProvider
 import com.aya.digital.core.navigation.coordinator.Coordinator
 import com.aya.digital.core.navigation.coordinator.CoordinatorHolder
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter

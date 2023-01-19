@@ -1,4 +1,4 @@
-package com.aya.digital.core.navigation
+package com.aya.digital.core.navigation.utils
 
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
 
