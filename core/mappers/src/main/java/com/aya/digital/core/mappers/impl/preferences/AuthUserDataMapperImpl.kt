@@ -1,4 +1,4 @@
-package com.aya.digital.core.mappers.preferences
+package com.aya.digital.core.mappers.impl.preferences
 
 import com.aya.digital.core.data.mappers.preferences.AuthUserDataMapper
 import com.aya.digital.core.data.mappers.profile.CurrentProfileMapper

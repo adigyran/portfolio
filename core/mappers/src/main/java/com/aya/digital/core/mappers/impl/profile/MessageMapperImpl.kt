@@ -1,4 +1,4 @@
-package com.aya.digital.core.mappers.profile
+package com.aya.digital.core.mappers.impl.profile
 
 import com.aya.digital.core.data.mappers.profile.CurrentProfileMapper
 import com.aya.digital.core.data.mappers.profile.MessageMapper
