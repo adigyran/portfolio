@@ -55,7 +55,6 @@ class AuthRepositoryImpl(
     override fun logout(): Completable  = authDataStore.authUserData
         .flatMapCompletable {  authUserData -> profileDataSource.logout("aya-client",authUserData.refreshToken).andThen(authDataStore.clearAuthData()) }
 
-
     private fun checkAccessToken(accessToken: String): Optional<Boolean> {
         val jwt = JWT(accessToken)
         val roles = jwt.getClaim("roles").asArray(String::class.java)

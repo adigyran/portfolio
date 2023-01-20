@@ -9,10 +9,14 @@ import net.openid.appauth.TokenRequest
 
 interface AuthRepository {
     fun getAuthRequest(): AuthorizationRequest
-    fun getEndSessionRequest(): EndSessionRequest
-    fun isPatient(): Single<RequestResult<Boolean>>
-    fun performTokenRequest(tokenRequest: TokenRequest) : Completable
-    fun clear()
-    fun logout(): Completable
 
+    fun getEndSessionRequest(): EndSessionRequest
+
+    fun isPatient(): Single<RequestResult<Boolean>>
+
+    fun performTokenRequest(tokenRequest: TokenRequest): Completable
+
+    fun clear()
+
+    fun logout(): Completable
 }

@@ -4,18 +4,18 @@ import com.squareup.moshi.JsonClass
 import kotlinx.datetime.LocalDateTime
 
 @JsonClass(generateAdapter = true)
-data class Schedule(
+data class ScheduleResponse(
     val id: Int,
     val scheduleId: String?,
     val active: Boolean?,
     val specialtyId: Int?,
     val practitionerId: Int?,
-    val slots: List<Slot>?,
+    val slots: List<SlotResponse>?,
     val periodStart: LocalDateTime?,
     val periodEnd: LocalDateTime?
 )
 @JsonClass(generateAdapter = true)
-data class Slot(
+data class SlotResponse(
     val id: Int,
     val scheduleId: Int?,
     val slotStart: LocalDateTime,

@@ -1,7 +1,7 @@
 package com.aya.digital.core.network.api.services
 
 import com.aya.digital.core.network.model.request.*
-import com.aya.digital.core.network.model.response.EmergencyContactResponse
+import com.aya.digital.core.network.model.response.profile.EmergencyContactResponse
 import com.aya.digital.core.network.model.response.MessageResponse
 import com.aya.digital.core.network.model.response.doctor.PractitionerProfileResponse
 import com.aya.digital.core.network.model.response.patient.PatientProfileResponse

@@ -4,7 +4,7 @@ import com.aya.digital.core.network.model.request.ScheduleWithSlotsBody
 import com.aya.digital.core.network.model.request.SlotBody
 import com.aya.digital.core.network.model.response.SlotResponse
 import com.aya.digital.core.network.model.response.base.PagedResponse
-import com.aya.digital.core.network.model.response.schedule.Schedule
+import com.aya.digital.core.network.model.response.schedule.ScheduleResponse
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Single
@@ -18,7 +18,7 @@ interface ScheduleDataSource {
         end: LocalDate,
         page: Int,
         limit: Int,
-    ): Flowable<PagedResponse<Schedule>>
+    ): Flowable<PagedResponse<ScheduleResponse>>
 
     fun create(
         scheduleWithSlots: ScheduleWithSlotsBody
