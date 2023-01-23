@@ -24,6 +24,7 @@ dependencies {
     implementation(libs.material.design)
     implementation(libs.androidx.recyclerview)
     implementation(libs.kodein.framework.androidx)
+    implementation(libs.orbit.viewmodel)
     implementation(libs.androidx.viewpager)
     implementation(libs.cicerone)
     implementation(libs.rxrelay)

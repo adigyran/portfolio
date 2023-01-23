@@ -1,6 +1,6 @@
 [versions]
 #base
-androidGradlePlugin = "7.3.1"
+androidGradlePlugin = "7.4.0"
 androidDesugarJdkLibs = "1.2.2"
 googleServices = "4.3.14"
 crashlitycsGradle = "2.9.2"
@@ -29,7 +29,6 @@ androidxUiAutomator = "2.2.0"
 androidxWindowManager = "1.0.0"
 androidxMacroBenchmark = "1.1.1"
 androidxMetrics = "1.0.0-alpha03"
-
 
 #UI
 #android
@@ -64,10 +63,12 @@ moshi = "1.14.0"
 kotlinxSerializationJson = "1.4.1"
 kotlinxSerializationProtobuf = "1.4.1"
 
-
 #protobuf
 protobuf = "3.21.12"
 protobufPlugin = "0.8.19"
+
+#coroutines
+kotlinxCoroutines = "1.6.4"
 
 #rx
 rxJava = "3.1.5"
@@ -78,6 +79,7 @@ rxAndroid = "3.0.2"
 rxRelay = "3.0.1"
 
 #mvi
+orbit = "4.5.0"
 
 #firebase
 firebase= "31.1.1"
@@ -124,6 +126,8 @@ androidx-datastore-rxjava3 = { group = "androidx.datastore", name = "datastore-p
 androidx-recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version.ref = "androidxRecyclerView" }
 androidx-viewpager = { group = "androidx.viewpager2", name = "viewpager2", version.ref = "androidxViewpager" }
 androidx-lifecycle = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "androidxLifecycle" }
+androidx-lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "androidxLifecycle" }
+androidx-lifecycle-viewModel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "androidxLifecycle" }
 androidx-profileinstaller = { group = "androidx.profileinstaller", name = "profileinstaller", version.ref = "androidxProfileinstaller" }
 androidx-startup = { group = "androidx.startup", name = "startup-runtime", version.ref = "androidxStartup" }
 androidx-test-core = { group = "androidx.test", name = "core", version.ref = "androidxTestCore" }
@@ -204,7 +208,13 @@ protobuf-kotlin-lite = { group = "com.google.protobuf", name = "protobuf-kotlin-
 protobuf-protoc = { group = "com.google.protobuf", name = "protoc", version.ref = "protobuf" }
 
 #mvi
+orbit-viewmodel = { group = "org.orbit-mvi", name = "orbit-viewmodel", version.ref = "orbit" }
+orbit-test = { group = "org.orbit-mvi", name = "orbit-test", version.ref = "orbit" }
 
+#coroutines
+kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlinxCoroutines" }
+kotlinx-coroutines-rxjava3 = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-rx3", version.ref = "kotlinxCoroutines" }
+kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinxCoroutines" }
 
 #rx
 rxkotlin = { group = "io.reactivex.rxjava3", name = "rxkotlin", version.ref = "rxKotlin" }
