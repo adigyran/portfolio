@@ -1,8 +1,9 @@
-package com.aya.digital.core.data.repositories.profile
+package com.aya.digital.core.data.repositories.appointment
 
+import com.aya.digital.core.data.model.PaginationPageModel
 import com.aya.digital.core.data.model.appointment.Appointment
 import com.aya.digital.core.networkbase.server.RequestResult
-import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Single
 import kotlinx.datetime.LocalDateTime
 
@@ -22,14 +23,14 @@ interface AppointmentRepository {
 
     fun cancelAppointment(
         appointmentId: Int,
-    ):Single<RequestResult<Unit>>
+    ): Single<RequestResult<Unit>>
 
     fun repeatAppointment(
         appointmentId: Int,
         slotId: Int,
-    ):Single<RequestResult<Appointment>>
+    ): Single<RequestResult<Appointment>>
 
-    /*fun getAppointments(
+    fun getAppointments(
         page: Int,
         patient: Int?,
         practitioner: Int?,
@@ -38,5 +39,9 @@ interface AppointmentRepository {
         limit: Int = 10,
         period: String? = null,
         end: LocalDateTime? = null,
-    ):Observable<RequestResult<>>*/
+    ): Flowable<RequestResult<PaginationPageModel<Appointment>>>
+
+    suspend fun getAppointment(
+        id: Int,
+    ): Single<RequestResult<Appointment>>
 }
