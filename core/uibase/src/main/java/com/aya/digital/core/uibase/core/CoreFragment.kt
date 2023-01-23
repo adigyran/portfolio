@@ -81,6 +81,11 @@ abstract class CoreFragment<Binding : ViewBinding> : Fragment(), ContextAware,
         _binding = null
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        prepareCreatedUi(savedInstanceState)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?,
     ): View? {
@@ -102,6 +107,8 @@ abstract class CoreFragment<Binding : ViewBinding> : Fragment(), ContextAware,
         return view
     }
 
+
+
     override fun onResume() {
         statusBarId?.let { setStatusBarColor(colors[it]) }
         super.onResume()
@@ -114,6 +121,8 @@ abstract class CoreFragment<Binding : ViewBinding> : Fragment(), ContextAware,
     open fun initDi() = Unit
 
     open fun prepareUi(savedInstanceState: Bundle?) = Unit
+
+    open fun prepareCreatedUi(savedInstanceState: Bundle?) = Unit
 
     abstract fun provideViewBinding(inflater: LayoutInflater, container: ViewGroup?): Binding
 

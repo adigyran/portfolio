@@ -20,6 +20,7 @@ import com.github.terrakok.cicerone.Cicerone
 import com.github.terrakok.cicerone.Navigator
 import com.github.terrakok.cicerone.Router
 import org.kodein.di.*
+import org.orbitmvi.orbit.viewmodel.observe
 
 abstract class DiContainerFragment<Binding : ViewBinding, out ViewModel : BaseViewModel<State, SideEffect>, State : Parcelable, SideEffect : BaseSideEffect> :
     CoreContainerFragment<Binding>(),
@@ -52,6 +53,15 @@ abstract class DiContainerFragment<Binding : ViewBinding, out ViewModel : BaseVi
     override fun prepareUi(savedInstanceState: Bundle?) {
         super.prepareUi(savedInstanceState)
     }
+
+    override fun prepareCreatedUi(savedInstanceState: Bundle?) {
+        super.prepareCreatedUi(savedInstanceState)
+        viewModel.observe(viewLifecycleOwner, state = ::render, sideEffect = ::sideEffect)
+    }
+
+    abstract fun render(state: State)
+
+    abstract fun sideEffect(sideEffect: SideEffect)
 
     final override fun initDi() {
         parentKodein.baseDI = getClosestParentKodein()

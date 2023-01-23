@@ -125,6 +125,13 @@ abstract class CoreBottomSheetDialogFragment<Binding : ViewBinding> : BottomShee
         return view
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        prepareCreatedUi(savedInstanceState)
+    }
+
+    open fun prepareCreatedUi(savedInstanceState: Bundle?) = Unit
+
     override fun onResume() {
         statusBarId?.let { setStatusBarColor(colors[it]) }
         super.onResume()

@@ -15,6 +15,7 @@ import com.jakewharton.rxrelay3.PublishRelay
 import org.kodein.di.DI
 import org.kodein.di.LateInitDI
 import org.kodein.di.LazyDI
+import org.orbitmvi.orbit.viewmodel.observe
 import java.util.concurrent.TimeUnit
 
 abstract class DiFragment<Binding : ViewBinding, out ViewModel : BaseViewModel<State, SideEffect>, State : Parcelable, SideEffect : BaseSideEffect> :
@@ -42,11 +43,19 @@ abstract class DiFragment<Binding : ViewBinding, out ViewModel : BaseViewModel<S
     ) {
         this.addTextChangedListener(DelayedTextChangeWatcher(beforeTextChanged, afterTextChanged))
     }
-
     override fun prepareUi(savedInstanceState: Bundle?) {
         super.prepareUi(savedInstanceState)
 
     }
+
+    override fun prepareCreatedUi(savedInstanceState: Bundle?) {
+        super.prepareCreatedUi(savedInstanceState)
+        viewModel.observe(viewLifecycleOwner, state = ::render, sideEffect = ::sideEffect)
+    }
+
+    abstract fun render(state: State)
+
+    abstract fun sideEffect(sideEffect: SideEffect)
 
     final override fun initDi() {
         parentKodein.baseDI = getClosestParentKodein()
