@@ -1,3 +1,3 @@
 package com.aya.digital.core.navigation.coordinator
 
-abstract class CoordinatorEvent(val tag: String, val eventAction: (() -> Unit)?)
+abstract class CoordinatorEvent(val tag: String?, val eventAction: (() -> Unit)?)

@@ -1,4 +1,4 @@
-package com.aya.digital.patientapp.app.root
+package com.aya.digital.patientapp.app.root.navigation
 
 import android.content.Context
 import androidx.fragment.app.FragmentManager

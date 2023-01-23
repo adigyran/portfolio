@@ -1,5 +1,6 @@
 plugins {
     id("patientapp.android.library")
+    id("kotlin-parcelize")
 }
 
 android {

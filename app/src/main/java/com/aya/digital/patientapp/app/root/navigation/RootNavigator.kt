@@ -1,4 +1,4 @@
-package com.aya.digital.patientapp.app.root
+package com.aya.digital.patientapp.app.root.navigation
 
 import androidx.annotation.IdRes
 import androidx.fragment.app.FragmentActivity

@@ -78,7 +78,6 @@ rxAndroid = "3.0.2"
 rxRelay = "3.0.1"
 
 #mvi
-mvicore = "1.3.1"
 
 #firebase
 firebase= "31.1.1"
@@ -205,10 +204,7 @@ protobuf-kotlin-lite = { group = "com.google.protobuf", name = "protobuf-kotlin-
 protobuf-protoc = { group = "com.google.protobuf", name = "protoc", version.ref = "protobuf" }
 
 #mvi
-mvi-mvicore = { group = "com.github.badoo.mvicore", name = "mvicore", version.ref = "mvicore" }
-mvi-mvicore-android = { group = "com.github.badoo.mvicore", name = "mvicore-android", version.ref = "mvicore" }
-mvi-mvicore-diff = { group = "com.github.badoo.mvicore", name = "mvicore-diff", version.ref = "mvicore" }
-mvi-android-binder = { group = "com.github.badoo.mvicore", name = "binder", version.ref = "mvicore" }
+
 
 #rx
 rxkotlin = { group = "io.reactivex.rxjava3", name = "rxkotlin", version.ref = "rxKotlin" }

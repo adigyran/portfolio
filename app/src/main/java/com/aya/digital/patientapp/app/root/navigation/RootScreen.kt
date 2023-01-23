@@ -1,4 +1,4 @@
-package com.aya.digital.patientapp.app.root
+package com.aya.digital.patientapp.app.root.navigation
 
 import com.aya.digital.core.navigation.screen.PatientAppScreen
 import com.github.terrakok.cicerone.androidx.AppScreen

@@ -3,4 +3,5 @@
     <string name="no_internet_connection">Отсутствует интернет-соединение</string>
     <string name="error_occupied">Произошла ошибка</string>
     <string name="api_deprecated">Необходимо обновить приложение</string>
+    <string name="error_no_role">ERROR STUB NO ROLE DEFINED</string>
 </resources>

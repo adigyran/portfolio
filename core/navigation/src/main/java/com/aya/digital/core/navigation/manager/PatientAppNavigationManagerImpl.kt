@@ -14,7 +14,9 @@ class PatientAppNavigationManagerImpl : PatientAppNavigationManager {
     }
 
     override fun putEvent(event: CoordinatorEvent) {
-        eventsMap.put(event.tag, event)
+        event.tag?.let {
+            eventsMap.put(event.tag, event)
+        }
     }
 
     override fun getEventByTag(tag: String): Optional<CoordinatorEvent> {

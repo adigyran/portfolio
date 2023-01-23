@@ -39,11 +39,15 @@ android {
 
 dependencies {
     implementation(project(":core:appbase"))
+    implementation(project(":core:baseresources"))
     implementation(project(":core:dibase"))
     implementation(project(":core:di"))
     implementation(project(":core:data"))
     implementation(project(":core:datastore"))
+    implementation(project(":core:ext"))
+    implementation(project(":core:mvi"))
     implementation(project(":core:navigation"))
+    implementation(project(":core:uibase"))
     implementation(project(":core:util"))
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.core.ktx)
@@ -52,5 +56,6 @@ dependencies {
     implementation(libs.material.design)
     implementation(libs.kodein.framework.androidx)
     implementation(libs.cicerone)
+    implementation(libs.eventbus)
     implementation(libs.timber)
 }

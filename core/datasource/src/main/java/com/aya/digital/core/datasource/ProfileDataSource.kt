@@ -1,7 +1,7 @@
 package com.aya.digital.core.datasource
 
 import com.aya.digital.core.network.model.request.*
-import com.aya.digital.core.network.model.response.profile.EmergencyContactResponse
+import com.aya.digital.core.network.model.response.EmergencyContactResponse
 import com.aya.digital.core.network.model.response.MessageResponse
 import com.aya.digital.core.network.model.response.profile.CurrentProfileResponse
 import com.aya.digital.core.network.model.response.profile.ImageUploadResponse
