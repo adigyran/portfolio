@@ -19,6 +19,7 @@ import com.github.terrakok.cicerone.Cicerone
 import com.github.terrakok.cicerone.Navigator
 import com.github.terrakok.cicerone.Router
 import org.kodein.di.*
+import org.orbitmvi.orbit.viewmodel.observe
 
 abstract class DiActivity<Binding : ViewBinding, out ViewModel : BaseViewModel<State, SideEffect>, State : Parcelable, SideEffect : BaseSideEffect> :
     CoreActivity<Binding>(), ChildKodeinProvider, ParentRouterProvider {
@@ -43,6 +44,7 @@ abstract class DiActivity<Binding : ViewBinding, out ViewModel : BaseViewModel<S
         coordinator = provideCoordinator()
 
         coordinatorHolder.setCoordinator(coordinator)
+        viewModel.observe(this, state = ::render, sideEffect = ::sideEffect)
     }
 
     override fun onPause() {
@@ -72,6 +74,9 @@ abstract class DiActivity<Binding : ViewBinding, out ViewModel : BaseViewModel<S
         }
     }
 
+    abstract fun render(state: State)
+
+    abstract fun sideEffect(sideEffect: SideEffect)
 
     override fun prepareUi() {
         super.prepareUi()
