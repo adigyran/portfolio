@@ -38,6 +38,8 @@ android {
 }
 
 dependencies {
+    implementation(project(":feature:container"))
+
     implementation(project(":core:appbase"))
     implementation(project(":core:baseresources"))
     implementation(project(":core:dibase"))
@@ -49,6 +51,7 @@ dependencies {
     implementation(project(":core:navigation"))
     implementation(project(":core:uibase"))
     implementation(project(":core:util"))
+
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.core.ktx)
     implementation(libs.rxkotlin)

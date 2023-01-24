@@ -44,6 +44,8 @@ include(":core:util")
 include(":core:networkbase")
 include(":core:ui")
 include(":core:testing")
+include(":feature:container")
+
 
 
 
