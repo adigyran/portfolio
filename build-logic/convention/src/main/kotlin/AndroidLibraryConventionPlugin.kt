@@ -1,8 +1,8 @@
 import com.android.build.api.variant.LibraryAndroidComponentsExtension
 import com.android.build.gradle.LibraryExtension
-import com.aya.digital.patientapp.configureFlavors
-import com.aya.digital.patientapp.configureKotlinAndroid
-import com.aya.digital.patientapp.configurePrintApksTask
+import com.aya.digital.healthapp.configureFlavors
+import com.aya.digital.healthapp.configureKotlinAndroid
+import com.aya.digital.healthapp.configurePrintApksTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalogsExtension

@@ -5,7 +5,7 @@ import com.google.protobuf.gradle.protoc
 
 
 plugins {
-    id("patientapp.android.library")
+    id("healthapp.android.library")
     alias(libs.plugins.protobuf)
 }
 

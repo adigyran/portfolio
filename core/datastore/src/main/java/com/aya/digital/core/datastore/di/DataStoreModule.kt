@@ -1,12 +1,9 @@
 package com.aya.digital.core.datastore.di
 
-import android.content.Context
-import androidx.datastore.core.DataStore
 import androidx.datastore.rxjava3.RxDataStore
 import androidx.datastore.rxjava3.RxDataStoreBuilder
-import androidx.datastore.rxjava3.rxDataStore
-import com.aya.digital.core.datastore.PatientAppAuthDataSource
-import com.aya.digital.core.datastore.PatientAppDataSource
+import com.aya.digital.core.datastore.HealthAppAuthDataSource
+import com.aya.digital.core.datastore.HealthAppDataSource
 import com.aya.digital.core.datastore.UserPreferencesOuterClass.UserPreferences
 import com.aya.digital.core.datastore.UserPreferencesSerializer
 import org.kodein.di.DI
@@ -23,11 +20,11 @@ fun dataStoreDiModule() = DI.Module("dataStoreDiModule") {
        RxDataStoreBuilder(context = instance(),"user_preferences.pb",instance<UserPreferencesSerializer>()).build()
     }
 
-    bind<PatientAppDataSource>() with eagerSingleton {
-        PatientAppDataSource(instance())
+    bind<HealthAppDataSource>() with eagerSingleton {
+        HealthAppDataSource(instance())
     }
 
-    bind<PatientAppAuthDataSource>() with eagerSingleton {
-        PatientAppAuthDataSource(instance())
+    bind<HealthAppAuthDataSource>() with eagerSingleton {
+        HealthAppAuthDataSource(instance())
     }
 }

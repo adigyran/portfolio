@@ -19,8 +19,9 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "patientapp"
-include(":app")
+rootProject.name = "healthapp"
+include(":app-patient")
+include(":app-doctor")
 include(":core:appbase")
 include(":core:baseresources")
 include(":core:designsystem")

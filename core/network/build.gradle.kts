@@ -1,6 +1,6 @@
 
 plugins {
-    id("patientapp.android.library")
+    id("healthapp.android.library")
 }
 
 android {

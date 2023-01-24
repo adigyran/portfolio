@@ -4,12 +4,11 @@ import com.auth0.android.jwt.JWT
 import com.aya.digital.core.data.mappers.preferences.AuthUserDataMapper
 import com.aya.digital.core.data.repositories.profile.AuthRepository
 import com.aya.digital.core.datasource.ProfileDataSource
-import com.aya.digital.core.datastore.PatientAppAuthDataSource
+import com.aya.digital.core.datastore.HealthAppAuthDataSource
 import com.aya.digital.core.network.di.AppAuth
 import com.aya.digital.core.networkbase.server.RequestResult
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
-import io.reactivex.rxjava3.internal.operators.completable.CompletableFromSingle
 import net.openid.appauth.AuthorizationRequest
 import net.openid.appauth.EndSessionRequest
 import net.openid.appauth.TokenRequest
@@ -17,7 +16,7 @@ import java.util.*
 
 class AuthRepositoryImpl(
     private val appAuth: AppAuth,
-    private val authDataStore: PatientAppAuthDataSource,
+    private val authDataStore: HealthAppAuthDataSource,
     private val authUserDataMapper: AuthUserDataMapper,
     private val profileDataSource: ProfileDataSource
 ) : AuthRepository {

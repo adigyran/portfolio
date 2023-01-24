@@ -1,8 +1,8 @@
 import com.android.build.api.variant.ApplicationAndroidComponentsExtension
 import com.android.build.api.dsl.ApplicationExtension
-import com.aya.digital.patientapp.configureFlavors
-import com.aya.digital.patientapp.configureKotlinAndroid
-import com.aya.digital.patientapp.configurePrintApksTask
+import com.aya.digital.healthapp.configureFlavors
+import com.aya.digital.healthapp.configureKotlinAndroid
+import com.aya.digital.healthapp.configurePrintApksTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
@@ -18,7 +18,7 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
             extensions.configure<ApplicationExtension> {
                 configureKotlinAndroid(this)
                 defaultConfig.targetSdk = 33
-                defaultConfig.manifestPlaceholders.put("appAuthRedirectScheme","com.aya.digital.patientapp")
+                defaultConfig.manifestPlaceholders.put("appAuthRedirectScheme","com.aya.digital.healthapp")
                 configureFlavors(this)
             }
             extensions.configure<ApplicationAndroidComponentsExtension> {

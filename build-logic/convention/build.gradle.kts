@@ -18,7 +18,7 @@ plugins {
     `kotlin-dsl`
 }
 
-group = "com.aya.digital.patientapp.buildlogic"
+group = "com.aya.digital.healthapp.buildlogic"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_11
@@ -34,15 +34,15 @@ dependencies {
 gradlePlugin {
     plugins {
         register("androidApplication") {
-            id = "patientapp.android.application"
+            id = "healthapp.android.application"
             implementationClass = "AndroidApplicationConventionPlugin"
         }
         register("androidLibrary") {
-            id = "patientapp.android.library"
+            id = "healthapp.android.library"
             implementationClass = "AndroidLibraryConventionPlugin"
         }
         register("androidFeature") {
-            id = "patientapp.android.feature"
+            id = "healthapp.android.feature"
             implementationClass = "AndroidFeatureConventionPlugin"
         }
     }
