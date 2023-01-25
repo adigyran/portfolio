@@ -20,21 +20,21 @@ import org.kodein.di.*
 
 
 fun profileNetworkModule() = DI.Module("profileNetworkModule") {
-    bind<com.aya.digital.core.datasource.ProfileDataSource>() with singleton {
+    bind<ProfileDataSource>() with singleton {
         val apiService = createApiService<ProfileService>(instance())
         return@singleton RetrofitProfileNetwork(apiService)
     }
 }
 
 fun profilePractitionerModule() = DI.Module("profilePractitionerModule") {
-    bind<com.aya.digital.core.datasource.ProfilePractitionerDataSource>() with singleton {
+    bind<ProfilePractitionerDataSource>() with singleton {
         val apiService = createApiService<ProfileService>(instance())
         return@singleton RetrofitProfilePractitionerNetwork(apiService)
     }
 }
 
 fun profilePatientModule() = DI.Module("profilePatientModule") {
-    bind<com.aya.digital.core.datasource.ProfilePatientDataSource>() with singleton {
+    bind<ProfilePatientDataSource>() with singleton {
         val apiService = createApiService<ProfileService>(instance())
         return@singleton RetrofitProfilePatientNetwork(apiService)
     }

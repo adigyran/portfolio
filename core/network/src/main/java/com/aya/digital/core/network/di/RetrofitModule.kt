@@ -10,7 +10,7 @@ import org.kodein.di.instance
 import retrofit2.Retrofit
 
 fun retrofitModule() = DI.Module("retrofitModule") {
-    bind<Retrofit>(RETROFIT_TAG) with eagerSingleton {
+    bind<Retrofit>() with eagerSingleton {
         val url = when (BuildConfig.BUILD_TYPE) {
             "mock" -> Constants.MOCK_URL
             else -> Constants.BASE_URL_API

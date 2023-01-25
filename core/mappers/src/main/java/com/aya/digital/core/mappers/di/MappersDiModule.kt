@@ -10,6 +10,8 @@ import com.aya.digital.core.data.mappers.doctors.PractitionersMapper
 import com.aya.digital.core.data.mappers.doctors.SpecialityMapper
 import com.aya.digital.core.data.mappers.preferences.AuthUserDataMapper
 import com.aya.digital.core.data.mappers.profile.*
+import com.aya.digital.core.data.mappers.profile.patient.PatientProfileMapper
+import com.aya.digital.core.data.mappers.profile.practitioner.PractitionerProfileMapper
 import com.aya.digital.core.data.mappers.schedule.ScheduleMapper
 import com.aya.digital.core.data.mappers.schedule.ScheduleSlotMapper
 import com.aya.digital.core.mappers.impl.appointment.AppointmentMapperImpl
@@ -22,6 +24,8 @@ import com.aya.digital.core.mappers.impl.doctors.PractitionersMapperImpl
 import com.aya.digital.core.mappers.impl.doctors.SpecialityMapperImpl
 import com.aya.digital.core.mappers.impl.preferences.AuthUserDataMapperImpl
 import com.aya.digital.core.mappers.impl.profile.*
+import com.aya.digital.core.mappers.impl.profile.patient.PatientProfileMapperImpl
+import com.aya.digital.core.mappers.impl.profile.practitioner.PractitionerProfileMapperImpl
 import com.aya.digital.core.mappers.impl.schedule.ScheduleMapperImpl
 import com.aya.digital.core.mappers.impl.schedule.ScheduleSlotMapperImpl
 import org.kodein.di.DI
@@ -32,12 +36,11 @@ import org.kodein.di.provider
 fun mappersDiModule() = DI.Module("mappersDiModule") {
     //profile mappers
 
-    bind<PractitionerMapper>() with provider { PractitionerMapperImpl() }
-    bind<PatientMapper>() with provider { PatientMapperImpl() }
+    bind<PractitionerProfileMapper>() with provider { PractitionerProfileMapperImpl() }
+    bind<PatientProfileMapper>() with provider { PatientProfileMapperImpl() }
 
     bind<MessageMapper>() with provider { MessageMapperImpl() }
     bind<RoleMapper>() with provider { RoleMapperImpl() }
-    bind<AuthUserDataMapper>() with provider { AuthUserDataMapperImpl() }
     bind<LoginResultMapper>() with provider { LoginResultMapperImpl() }
     bind<EmergencyContactMapper>() with provider { EmergencyContactMapperImpl() }
     bind<ImageUploadResultMapper>() with provider { ImageUploadResultMapperImpl() }

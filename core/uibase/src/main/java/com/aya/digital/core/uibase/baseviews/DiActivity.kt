@@ -4,6 +4,7 @@ import android.app.Activity
 import android.os.Bundle
 import android.os.Parcelable
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import com.aya.digital.base.appbase.BaseApp
 import com.aya.digital.core.dibase.KodeinInjectionManager
@@ -14,6 +15,7 @@ import com.aya.digital.core.navigation.utils.ParentRouterProvider
 import com.aya.digital.core.navigation.coordinator.Coordinator
 import com.aya.digital.core.navigation.coordinator.CoordinatorHolder
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
+import com.aya.digital.core.navigation.utils.BackButtonListener
 import com.aya.digital.core.uibase.core.CoreActivity
 import com.github.terrakok.cicerone.Cicerone
 import com.github.terrakok.cicerone.Navigator
@@ -21,11 +23,11 @@ import com.github.terrakok.cicerone.Router
 import org.kodein.di.*
 import org.orbitmvi.orbit.viewmodel.observe
 
-abstract class DiActivity<Binding : ViewBinding, out ViewModel : BaseViewModel<State, SideEffect>, State : Parcelable, SideEffect : BaseSideEffect> :
+abstract class DiActivity<Binding : ViewBinding,ViewModel : BaseViewModel<State, SideEffect>, State : Parcelable, SideEffect : BaseSideEffect> :
     CoreActivity<Binding>(), ChildKodeinProvider, ParentRouterProvider {
     protected val kodein = LateInitDI()
 
-    protected abstract val viewModel: ViewModel
+    protected lateinit var viewModel: ViewModel
     protected val localCicerone: Cicerone<Router> by kodein.on(context = this as Activity)
         .instance()
     protected val coordinatorHolder: CoordinatorHolder by kodein.on(context = this as Activity)
@@ -42,10 +44,12 @@ abstract class DiActivity<Binding : ViewBinding, out ViewModel : BaseViewModel<S
 
         navigator = provideNavigator()
         coordinator = provideCoordinator()
+        viewModel = provideViewModel()
 
         coordinatorHolder.setCoordinator(coordinator)
         viewModel.observe(this, state = ::render, sideEffect = ::sideEffect)
     }
+
 
     override fun onPause() {
         localCicerone.getNavigatorHolder().removeNavigator()
@@ -86,8 +90,25 @@ abstract class DiActivity<Binding : ViewBinding, out ViewModel : BaseViewModel<S
         kodein.baseDI = KodeinInjectionManager.instance.bindKodein(this)
     }
 
+    override fun onBackPressed() {
+        val fragment = getVisibleFragment()
+        if ((fragment as? BackButtonListener)?.onBackPressed() == true) {
+            return
+        }
+        localCicerone.router.exit()
+    }
+    private fun getVisibleFragment(): Fragment? {
+        val fragments = supportFragmentManager.fragments
+        for (fragment in fragments) {
+            if (fragment != null && fragment.isVisible) return fragment
+        }
+        return null
+    }
+
     final override fun getChildKodein(): DI = kodein
     final override fun getParentRouter(): CoordinatorRouter = coordinatorHolder
+
+    abstract fun provideViewModel(): ViewModel
 
     abstract fun provideNavigator(): Navigator
 

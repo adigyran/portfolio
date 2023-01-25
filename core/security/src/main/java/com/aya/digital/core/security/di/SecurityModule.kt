@@ -16,10 +16,6 @@ fun securityDiModule() = DI.Module("securityDiModule") {
         KeyStore.getInstance(SecurityConst.ANDROID_KEY_STORE_TYPE).apply { load(null) }
     }
 
-    bind<KeyStore>() with eagerSingleton {
-        KeyStore.getInstance(SecurityConst.ANDROID_KEY_STORE_TYPE).apply { load(null) }
-    }
-
     bind<CipherProvider>() with eagerSingleton {
         AesCipherProvider(SecurityConst.KEY_NAME,instance(),SecurityConst.KEY_STORE_NAME)
     }

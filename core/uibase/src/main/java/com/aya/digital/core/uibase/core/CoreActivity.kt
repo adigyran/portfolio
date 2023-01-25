@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import com.aya.digital.core.util.keyboardheighprovider.KeyboardHeightObserver
 import com.aya.digital.core.util.keyboardheighprovider.KeyboardHeightProvider
@@ -94,6 +95,7 @@ abstract class CoreActivity<Binding : ViewBinding> : AppCompatActivity(),
         super.onDestroy()
         keyboardHeightProvider.close()
     }
+
 
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putString(

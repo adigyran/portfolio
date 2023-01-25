@@ -1,7 +1,13 @@
 package com.aya.digital.core.feature.container.ui
 
+import android.provider.DocumentsContract.Root
 import android.view.LayoutInflater
+import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.Lifecycle
 import com.aya.digital.core.baseresources.databinding.ViewFragmentContainerBinding
+import com.aya.digital.core.feature.container.di.RootNavigatorParam
+import com.aya.digital.core.feature.container.di.rootContainerDiModule
+import com.aya.digital.core.feature.container.navigation.RootNavigator
 import com.aya.digital.core.feature.container.viewmodel.RootContainerState
 import com.aya.digital.core.feature.container.viewmodel.RootContainerViewModel
 import com.aya.digital.core.mvi.BaseSideEffect
@@ -9,32 +15,41 @@ import com.aya.digital.core.navigation.coordinator.Coordinator
 import com.aya.digital.core.uibase.baseviews.DiActivity
 import com.github.terrakok.cicerone.Navigator
 import org.kodein.di.DI
+import org.kodein.di.factory
+import org.kodein.di.on
 
 class RootView : DiActivity<ViewFragmentContainerBinding,RootContainerViewModel,RootContainerState,BaseSideEffect>() {
 
-    override val viewModel: RootContainerViewModel
-        get() = TODO("Not yet implemented")
+    private val viewModelFactory: ((Unit) -> RootContainerViewModel) by kodein.on(
+        context = this
+    ).factory()
 
-    override fun provideNavigator(): Navigator {
-        TODO("Not yet implemented")
-    }
+    private val coordinatorFactory: ((fragmentManager: FragmentManager) -> Coordinator) by kodein.on(
+        context = this
+    ).factory()
 
-    override fun provideCoordinator(): Coordinator {
-        TODO("Not yet implemented")
-    }
+    private val navigatorFactory: ((param: RootNavigatorParam) -> RootNavigator) by kodein.on(
+        context = this
+    ).factory()
 
-    override fun provideDiModule(): DI.Module {
-        TODO("Not yet implemented")
-    }
+    override fun provideDiModule() = rootContainerDiModule()
 
     override fun provideViewBinding(inflater: LayoutInflater): ViewFragmentContainerBinding  =
         ViewFragmentContainerBinding.inflate(inflater)
 
     override fun sideEffect(sideEffect: BaseSideEffect) {
-        TODO("Not yet implemented")
+
     }
 
     override fun render(state: RootContainerState) {
-        TODO("Not yet implemented")
+
     }
+
+    override fun provideViewModel(): RootContainerViewModel = viewModelFactory(Unit)
+
+
+    override fun provideNavigator(): Navigator = navigatorFactory(RootNavigatorParam(this, binding.fragmentContainer.id))
+
+    override fun provideCoordinator(): Coordinator = coordinatorFactory(supportFragmentManager)
+
 }
