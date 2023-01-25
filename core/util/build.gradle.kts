@@ -11,4 +11,6 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.kodein.framework.androidx)
+    implementation(libs.timber)
+
 }
