@@ -44,6 +44,7 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
                 add("implementation", project(":core:ext"))
                 add("implementation", project(":core:mvi"))
                 add("implementation", project(":core:util"))
+
                 add("testImplementation", kotlin("test"))
                 add("testImplementation", project(":core:testing"))
                 add("androidTestImplementation", kotlin("test"))
@@ -59,6 +60,7 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
                 add("implementation", libs.findLibrary("androidx.lifecycle").get())
                 add("implementation", libs.findLibrary("androidx.lifecycle.viewModel").get())
                 add("implementation", libs.findLibrary("androidx.lifecycle.livedata-ktx").get())
+                add("implementation", libs.findLibrary("timber").get())
             }
         }
     }

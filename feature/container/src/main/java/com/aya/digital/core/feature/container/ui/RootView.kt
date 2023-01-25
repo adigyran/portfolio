@@ -1,5 +1,6 @@
 package com.aya.digital.core.feature.container.ui
 
+import android.os.Bundle
 import android.provider.DocumentsContract.Root
 import android.view.LayoutInflater
 import androidx.fragment.app.FragmentManager
@@ -17,6 +18,7 @@ import com.github.terrakok.cicerone.Navigator
 import org.kodein.di.DI
 import org.kodein.di.factory
 import org.kodein.di.on
+import timber.log.Timber
 
 class RootView : DiActivity<ViewFragmentContainerBinding,RootContainerViewModel,RootContainerState,BaseSideEffect>() {
 
@@ -32,10 +34,9 @@ class RootView : DiActivity<ViewFragmentContainerBinding,RootContainerViewModel,
         context = this
     ).factory()
 
-    override fun provideDiModule() = rootContainerDiModule()
-
-    override fun provideViewBinding(inflater: LayoutInflater): ViewFragmentContainerBinding  =
-        ViewFragmentContainerBinding.inflate(inflater)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
 
     override fun sideEffect(sideEffect: BaseSideEffect) {
 
@@ -44,6 +45,13 @@ class RootView : DiActivity<ViewFragmentContainerBinding,RootContainerViewModel,
     override fun render(state: RootContainerState) {
 
     }
+
+    override fun provideDiModule() = rootContainerDiModule()
+
+    override fun provideViewBinding(inflater: LayoutInflater): ViewFragmentContainerBinding  =
+        ViewFragmentContainerBinding.inflate(inflater)
+
+
 
     override fun provideViewModel(): RootContainerViewModel = viewModelFactory(Unit)
 
