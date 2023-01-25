@@ -2,6 +2,9 @@ package com.aya.digital.core.util.logging
 
 import timber.log.Timber
 
+/**
+ *
+ */
 class HealthAppDebugTree : Timber.DebugTree() {
 
     private val hyperLink : String

@@ -9,6 +9,17 @@ import com.github.terrakok.cicerone.androidx.AppNavigator
 import org.kodein.di.DIAware
 import java.lang.ref.WeakReference
 
+/**
+ * TODO
+ *
+ * @property onExit
+ * @constructor
+ * TODO
+ *
+ * @param activity
+ * @param containerId
+ * @param fragmentManager
+ */
 open class CustomNavigator(
     activity: FragmentActivity,
     containerId: Int,

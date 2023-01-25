@@ -9,6 +9,7 @@ import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByType
 import org.gradle.kotlin.dsl.kotlin
+import org.jetbrains.dokka.gradle.DokkaTaskPartial
 
 class AndroidFeatureConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
@@ -16,6 +17,7 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
             pluginManager.apply {
                 apply("healthapp.android.library")
                 apply("kotlin-parcelize")
+                apply("org.jetbrains.dokka")
             }
             /* extensions.configure<LibraryExtension> {
                  defaultConfig {
@@ -23,6 +25,10 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
                          "com.google.samples.apps.nowinandroid.core.testing.NiaTestRunner"
                  }
              }*/
+
+            tasks.named<DokkaTaskPartial>("dokkaHtmlPartial", DokkaTaskPartial::class.java,{
+                outputDirectory.set(buildDir.resolve("docs/partial"))
+            })
 
             extensions.configure<LibraryExtension> {
                 viewBinding.enable = true

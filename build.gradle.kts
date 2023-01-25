@@ -16,8 +16,14 @@ plugins {
     alias(libs.plugins.secrets) apply false
     alias(libs.plugins.kotlin.serialization) apply false
     alias(libs.plugins.android.library) apply false
+    alias(libs.plugins.dokka) apply true
     id("org.jetbrains.kotlin.android") version "1.7.20" apply false
 }
+
+tasks.dokkaHtmlMultiModule {
+    moduleName.set("WHOLE PROJECT NAME USED IN THE HEADER")
+}
+
 tasks.register("clean", Delete::class) {
     delete(rootProject.buildDir)
 }

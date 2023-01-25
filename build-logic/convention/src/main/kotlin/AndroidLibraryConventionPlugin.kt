@@ -10,6 +10,7 @@ import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByType
 import org.gradle.kotlin.dsl.kotlin
+import org.jetbrains.dokka.gradle.DokkaTaskPartial
 
 class AndroidLibraryConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
@@ -19,7 +20,12 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
                 apply("org.jetbrains.kotlin.android")
                 apply("kotlin-android")
                 apply("kotlin-kapt")
+                apply("org.jetbrains.dokka")
             }
+
+            tasks.named<DokkaTaskPartial>("dokkaHtmlPartial", DokkaTaskPartial::class.java,{
+                outputDirectory.set(buildDir.resolve("docs/partial"))
+            })
 
             extensions.configure<LibraryExtension> {
                 configureKotlinAndroid(this)
