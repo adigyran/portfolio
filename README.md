@@ -16,19 +16,18 @@ description of the modularization strategy used in
 [modularization learning journey](docs/ModularizationLearningJourney.md).
 
 Project consist of:
-1. Two apps `app-doctor`, `app-patient`
-2. Core modules
-3. Feature modules
+1. Two apps [`app-doctor`](app-doctor), [`app-patient`](app-patient)
+2. Core modules in [`core`](core)
+3. Feature modules [`feature`](core)
 
 Please use provided guide to avoid reversing dependency tree
 
 # Build
 
-Dependencies managed by [gradle version catalog](https://docs.gradle.org/current/userguide/platforms.html)
+Dependencies managed by [gradle version catalog](https://docs.gradle.org/current/userguide/platforms.html) and uses [toml file](gradle/libs.versions.toml)
 
-The [`build-logic`](build-logic/README.md) folder defines project-specific convention plugins, used to keep a single
+The [`build-logic`](build-logic) folder defines project-specific convention plugins, used to keep a single
 source of truth for common module configurations.
-
 
 The app uses
 [product flavors](https://developer.android.com/studio/build/build-variants#product-flavors) to
@@ -42,8 +41,8 @@ Authorization is based on Auth 2.0 PKCE protocol which is performed by the means
 On initial launch of the application an access token remaining life time is assessed if it is at least one hour left, otherwise relogin WebView is shown. (On the new app architecture it does not matter)
 ## Doctor / Patient navigation flow
 HealthApp uses two separate apps for patient and doctor
-`app-doctor` - for Doctor flow
-`app-patient`- for Patient flow
+[`app-doctor`](app-doctor) - for Doctor flow\
+[`app-patient`](app-patient) - for Patient flow
 
 App contains base info about navigation and such, all screens including root should be placed in `feature` as module
 
