@@ -29,6 +29,7 @@ dependencies {
     compileOnly(libs.android.gradlePlugin)
     compileOnly(libs.kotlin.gradlePlugin)
     compileOnly(libs.dokka.gradlePlugin)
+    compileOnly(libs.dependency.graph.generator.gradlePlugin)
 }
 
 gradlePlugin {

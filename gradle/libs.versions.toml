@@ -110,8 +110,7 @@ lint = "30.3.1"
 
 #documentation
 dokka = "1.7.20"
-
-
+dependencyGraphGenerator = "0.7.0"
 
 [libraries]
 #base
@@ -233,6 +232,7 @@ kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-pl
 google-services-gradlePlugin = { group = "com.google.gms", name = "google-services", version.ref = "googleServices" }
 crashlytics-gradlePlugin = { group = "com.google.firebase", name = "firebase-crashlytics-gradle", version.ref = "crashlitycsGradle" }
 dokka-gradlePlugin = { group = "org.jetbrains.dokka", name = "dokka-gradle-plugin", version.ref = "dokka" }
+dependency-graph-generator-gradlePlugin = { group = "com.vanniktech", name = "gradle-dependency-graph-generator-plugin", version.ref = "dependencyGraphGenerator" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
@@ -242,6 +242,8 @@ secrets = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugi
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 protobuf = { id = "com.google.protobuf", version.ref = "protobufPlugin" }
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
+dependency-graph-generator = { id = "com.vanniktech.dependency.graph.generator", version.ref = "dependencyGraphGenerator" }
+
 
 
 

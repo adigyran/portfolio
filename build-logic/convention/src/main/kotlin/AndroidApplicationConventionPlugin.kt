@@ -18,6 +18,7 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
                 apply("com.android.application")
                 apply("org.jetbrains.kotlin.android")
                 apply("org.jetbrains.dokka")
+                apply("com.vanniktech.dependency.graph.generator")
             }
 
             tasks.named<DokkaTaskPartial>("dokkaHtmlPartial",DokkaTaskPartial::class.java,{
