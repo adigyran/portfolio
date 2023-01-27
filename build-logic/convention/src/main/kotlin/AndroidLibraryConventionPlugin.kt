@@ -1,5 +1,6 @@
 import com.android.build.api.variant.LibraryAndroidComponentsExtension
 import com.android.build.gradle.LibraryExtension
+import com.aya.digital.healthapp.applyVersionCatalogPlugins
 import com.aya.digital.healthapp.configureFlavors
 import com.aya.digital.healthapp.configureKotlinAndroid
 import com.aya.digital.healthapp.configurePrintApksTask
@@ -15,18 +16,22 @@ import org.jetbrains.dokka.gradle.DokkaTaskPartial
 class AndroidLibraryConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
+            val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
+            val aliases = listOf<String>(
+                "android-library",
+                "kotlin-android",
+                "kotlin-kapt",
+                "dokka",
+                "dependency-graph-generator"
+            )
             with(pluginManager) {
-                apply("com.android.library")
-                apply("org.jetbrains.kotlin.android")
-                apply("kotlin-android")
-                apply("kotlin-kapt")
-                apply("org.jetbrains.dokka")
-                apply("com.vanniktech.dependency.graph.generator")
+                applyVersionCatalogPlugins(libs,aliases)
+                apply("kotlin-parcelize")
             }
 
-            tasks.named<DokkaTaskPartial>("dokkaHtmlPartial", DokkaTaskPartial::class.java,{
+            tasks.named("dokkaHtmlPartial", DokkaTaskPartial::class.java) {
                 outputDirectory.set(buildDir.resolve("docs/partial"))
-            })
+            }
 
             extensions.configure<LibraryExtension> {
                 configureKotlinAndroid(this)
@@ -36,7 +41,7 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
             extensions.configure<LibraryAndroidComponentsExtension> {
                 configurePrintApksTask(this)
             }
-            val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
+
             configurations.configureEach {
                 resolutionStrategy {
                     // force(libs.findLibrary("junit4").get())

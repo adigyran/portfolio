@@ -8,7 +8,7 @@ plugins {
     alias(libs.plugins.kotlin.android) apply false
     alias(libs.plugins.secrets) apply false
     alias(libs.plugins.kotlin.serialization) apply false
-    alias(libs.plugins.firebase.crashlitycs) apply false
+    alias(libs.plugins.firebase.crashlytics) apply false
     alias(libs.plugins.dokka) apply true
     alias(libs.plugins.dependency.graph.generator) apply true
     alias(libs.plugins.gms.googleServices) apply false

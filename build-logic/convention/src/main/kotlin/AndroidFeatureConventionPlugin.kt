@@ -1,5 +1,6 @@
 import com.android.build.api.dsl.ApplicationExtension
 import com.android.build.gradle.LibraryExtension
+import com.aya.digital.healthapp.applyVersionCatalogPlugins
 import com.aya.digital.healthapp.configureFlavors
 import com.aya.digital.healthapp.configureKotlinAndroid
 import org.gradle.api.Plugin
@@ -14,22 +15,24 @@ import org.jetbrains.dokka.gradle.DokkaTaskPartial
 class AndroidFeatureConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
+            val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
+            val aliases = listOf<String>(
+                "kotlin-android",
+                "dokka",
+                "dependency-graph-generator"
+            )
             pluginManager.apply {
                 apply("healthapp.android.library")
-                apply("kotlin-parcelize")
-                apply("org.jetbrains.dokka")
-                apply("com.vanniktech.dependency.graph.generator")
+                applyVersionCatalogPlugins(libs, aliases)
             }
 
-            tasks.named<DokkaTaskPartial>("dokkaHtmlPartial", DokkaTaskPartial::class.java,{
+            tasks.named<DokkaTaskPartial>("dokkaHtmlPartial", DokkaTaskPartial::class.java, {
                 outputDirectory.set(buildDir.resolve("docs/partial"))
             })
 
             extensions.configure<LibraryExtension> {
                 viewBinding.enable = true
             }
-
-            val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
             dependencies {
                 add("implementation", project(":core:model"))
