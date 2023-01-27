@@ -16,5 +16,5 @@ dependencies {
     implementation(project(":core:mappers"))
     implementation(project(":core:repository"))
     implementation(project(":core:security"))
-    implementation(libs.kodein.framework.androidx)
+    implementation(libs.kodein)
 }

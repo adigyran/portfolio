@@ -12,7 +12,7 @@ dependencies {
     implementation(project(":core:network"))
     implementation(libs.rxkotlin)
     implementation(libs.kotlinx.time)
-    implementation(libs.kodein.framework.androidx)
+    implementation(libs.kodein)
     implementation(libs.retrofit)
 
 }

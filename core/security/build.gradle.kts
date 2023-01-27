@@ -8,5 +8,5 @@ android {
 
 dependencies {
     implementation(project(":core:util"))
-    implementation(libs.kodein.framework.androidx)
+    implementation(libs.kodein)
 }

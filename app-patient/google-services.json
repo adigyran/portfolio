@@ -1,0 +1,155 @@
+{
+  "project_info": {
+    "project_number": "1081224125351",
+    "project_id": "ayadoc-28b1b",
+    "storage_bucket": "ayadoc-28b1b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1081224125351:android:527878a057faa4b3e67482",
+        "android_client_info": {
+          "package_name": "com.aya.digital.healthapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1081224125351-h0opjoa4ej8161e8is8mhhiaj97e3rsa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBN9NIpBNs-qjXtH0IZ36JadIJfMyGGzfE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1081224125351-h0opjoa4ej8161e8is8mhhiaj97e3rsa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1081224125351:android:d7d256ede885a510e67482",
+        "android_client_info": {
+          "package_name": "com.aya.digital.healthapp.debug"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1081224125351-h0opjoa4ej8161e8is8mhhiaj97e3rsa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBN9NIpBNs-qjXtH0IZ36JadIJfMyGGzfE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1081224125351-h0opjoa4ej8161e8is8mhhiaj97e3rsa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1081224125351:android:20f730260e5fa586e67482",
+        "android_client_info": {
+          "package_name": "com.aya.digital.healthapp.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1081224125351-h0opjoa4ej8161e8is8mhhiaj97e3rsa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBN9NIpBNs-qjXtH0IZ36JadIJfMyGGzfE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1081224125351-h0opjoa4ej8161e8is8mhhiaj97e3rsa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1081224125351:android:c53cf1f9a00a9201e67482",
+        "android_client_info": {
+          "package_name": "com.aya.digital.healthapp.mock"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1081224125351-h0opjoa4ej8161e8is8mhhiaj97e3rsa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBN9NIpBNs-qjXtH0IZ36JadIJfMyGGzfE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1081224125351-h0opjoa4ej8161e8is8mhhiaj97e3rsa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1081224125351:android:790f41356de04b1ae67482",
+        "android_client_info": {
+          "package_name": "com.aya.digital.healthapp.patient.debug"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1081224125351-h0opjoa4ej8161e8is8mhhiaj97e3rsa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBN9NIpBNs-qjXtH0IZ36JadIJfMyGGzfE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1081224125351-h0opjoa4ej8161e8is8mhhiaj97e3rsa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

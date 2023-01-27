@@ -27,7 +27,7 @@ plugins {
 }
 
 tasks.dokkaHtmlMultiModule {
-    moduleName.set("WHOLE PROJECT NAME USED IN THE HEADER")
+    moduleName.set("Aya Dev HealthApp")
 }
 
 tasks.register("clean", Delete::class) {

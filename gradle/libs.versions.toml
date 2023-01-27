@@ -235,6 +235,13 @@ crashlytics-gradlePlugin = { group = "com.google.firebase", name = "firebase-cra
 dokka-gradlePlugin = { group = "org.jetbrains.dokka", name = "dokka-gradle-plugin", version.ref = "dokka" }
 dependency-graph-generator-gradlePlugin = { group = "com.vanniktech", name = "gradle-dependency-graph-generator-plugin", version.ref = "dependencyGraphGenerator" }
 
+[bundles]
+#networking
+retrofit = ["retrofit", "retrofit-adapter-rxjava3", "retrofit-converter-moshi"]
+moshi = ["moshi-kotlin", "moshi-kotlin-codegen", "moshi-adapters"]
+adapter-delegates = ["adapter-delegates", "adapter-delegates-view-binding"]
+
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
 android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }

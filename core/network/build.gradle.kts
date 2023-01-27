@@ -9,11 +9,10 @@ android {
 
 dependencies {
     implementation(project(":core:networkbase"))
-    implementation(libs.kodein.framework.androidx)
+    implementation(libs.androidx.core)
+    implementation(libs.kodein)
     implementation(libs.rxkotlin)
-    implementation(libs.retrofit)
-    implementation(libs.retrofit.adapter.rxjava3)
-    implementation(libs.retrofit.converter.moshi)
+    implementation(libs.bundles.retrofit)
     implementation(libs.okhttp.interceptor)
     implementation(libs.moshi.kotlin)
     kapt(libs.moshi.kotlin.codegen)

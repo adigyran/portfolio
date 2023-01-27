@@ -23,7 +23,7 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.material.design)
     implementation(libs.androidx.recyclerview)
-    implementation(libs.kodein.framework.androidx)
+    implementation(libs.kodein)
     implementation(libs.orbit.viewmodel)
     implementation(libs.androidx.viewpager)
     implementation(libs.cicerone)

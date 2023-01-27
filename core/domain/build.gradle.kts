@@ -12,5 +12,5 @@ dependencies {
     implementation(project(":core:repository"))
     implementation(libs.rxkotlin)
     implementation(libs.kotlinx.time)
-    implementation(libs.kodein.framework.androidx)
+    implementation(libs.kodein)
 }

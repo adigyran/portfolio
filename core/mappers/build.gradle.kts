@@ -10,6 +10,6 @@ dependencies {
     implementation(project(":core:util"))
     implementation(project(":core:data"))
     implementation(project(":core:network"))
-    implementation(libs.kodein.framework.androidx)
+    implementation(libs.kodein)
     implementation(libs.kotlinx.time)
 }

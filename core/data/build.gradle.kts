@@ -11,7 +11,7 @@ dependencies {
     implementation(project(":core:util"))
     implementation(project(":core:networkbase"))
     implementation(project(":core:network"))
-    implementation(libs.kodein.framework.androidx)
+    implementation(libs.kodein)
     implementation(libs.rxkotlin)
     implementation(libs.kotlinx.time)
     implementation(libs.open.auth)
