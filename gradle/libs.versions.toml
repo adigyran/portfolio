@@ -2,7 +2,8 @@
 #base
 androidGradlePlugin = "7.4.0"
 androidDesugarJdkLibs = "1.2.2"
-googleServices = "4.3.14"
+kotlinAndroid = "1.5.31"
+googleServices = "4.3.15"
 crashlitycsGradle = "2.9.2"
 kotlin = "1.8.0"
 #base-androidx
@@ -172,9 +173,9 @@ tink = { group = "com.google.crypto.tink", name = "tink-android", version.ref = 
 
 #firebase
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebase" }
-firebase-messaging = { group = "com.google.firebase", name = "firebase-messaging" }
+firebase-messaging-ktx = { group = "com.google.firebase", name = "firebase-messaging-ktx" }
 firebase-crashlytics-ktx = { group = "com.google.firebase", name = "firebase-crashlytics-ktx" }
-firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics" }
+firebase-analytics-ktx = { group = "com.google.firebase", name = "firebase-analytics-ktx" }
 
 #kotlinXTime
 kotlinx-time = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinXTime" }
@@ -243,14 +244,19 @@ adapter-delegates = ["adapter-delegates", "adapter-delegates-view-binding"]
 
 
 [plugins]
+gradle-plugin = { id = "com.android.tools.build.gradle", version.ref = "androidGradlePlugin"}
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
 android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlinAndroid" }
 secrets = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "gradleSecrets" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 protobuf = { id = "com.google.protobuf", version.ref = "protobufPlugin" }
+firebase-crashlitycs = { id = "com.google.firebase.crashlytics", version.ref = "crashlitycsGradle"}
+gms-googleServices = { id = "com.google.gms.google-services", version.ref = "googleServices"}
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 dependency-graph-generator = { id = "com.vanniktech.dependency.graph.generator", version.ref = "dependencyGraphGenerator" }
+
 
 
 

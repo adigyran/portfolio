@@ -1,7 +1,6 @@
 package com.aya.digital.core.network
 
 import com.aya.digital.core.networkbase.moshi.adapters.BigDecimalJsonAdapter
-import com.aya.digital.core.networkbase.moshi.adapters.FallbackIntegerEnumJsonAdapter
 import com.aya.digital.core.networkbase.moshi.adapters.NullPrimitiveAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -15,7 +14,6 @@ fun moshiModule() = DI.Module("moshiModule") {
         return@eagerSingleton Moshi.Builder()
             .add(NullPrimitiveAdapter())
             .add(BigDecimalJsonAdapter())
-            .add(FallbackIntegerEnumJsonAdapter.ADAPTER_FACTORY)
             .add(KotlinJsonAdapterFactory())
             .build()
     }

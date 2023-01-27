@@ -9,7 +9,7 @@ android {
 
 dependencies {
     implementation(project(":core:networkbase"))
-    implementation(libs.androidx.core)
+    implementation(libs.androidx.core.ktx)
     implementation(libs.kodein)
     implementation(libs.rxkotlin)
     implementation(libs.bundles.retrofit)
