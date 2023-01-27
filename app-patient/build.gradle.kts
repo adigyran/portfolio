@@ -3,6 +3,8 @@ import com.aya.digital.healthapp.AyaPatientBuildType
 
 plugins {
     id("healthapp.android.application")
+    id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
 }
 
 android {
@@ -62,4 +64,6 @@ dependencies {
     implementation(libs.cicerone)
     implementation(libs.eventbus)
     implementation(libs.timber)
+    implementation("com.google.firebase:firebase-crashlytics:18.2.9")
+    implementation("com.google.firebase:firebase-analytics:20.1.2")
 }

@@ -34,7 +34,7 @@ The app uses
 control where content for the app should be loaded from.
 
 # DI
-The **Aya Health** app uses Kodein as DI framework [kodein library](https://github.com/kosi-libs/Kodein)
+The **Aya Health** app uses [Kodein](https://github.com/kosi-libs/Kodein) as DI framework 
 
 # Authorization
 Authorization is based on Auth 2.0 PKCE protocol which is performed by the means of OpenId's AppAuth library.

@@ -21,9 +21,9 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
                 apply("com.vanniktech.dependency.graph.generator")
             }
 
-            tasks.named<DokkaTaskPartial>("dokkaHtmlPartial",DokkaTaskPartial::class.java,{
+            tasks.named<DokkaTaskPartial>("dokkaHtmlPartial",DokkaTaskPartial::class.java) {
                 outputDirectory.set(buildDir.resolve("docs/partial"))
-            })
+            }
 
             extensions.configure<ApplicationExtension> {
                 configureKotlinAndroid(this)

@@ -18,13 +18,8 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
                 apply("healthapp.android.library")
                 apply("kotlin-parcelize")
                 apply("org.jetbrains.dokka")
+                apply("com.vanniktech.dependency.graph.generator")
             }
-            /* extensions.configure<LibraryExtension> {
-                 defaultConfig {
-                     testInstrumentationRunner =
-                         "com.google.samples.apps.nowinandroid.core.testing.NiaTestRunner"
-                 }
-             }*/
 
             tasks.named<DokkaTaskPartial>("dokkaHtmlPartial", DokkaTaskPartial::class.java,{
                 outputDirectory.set(buildDir.resolve("docs/partial"))

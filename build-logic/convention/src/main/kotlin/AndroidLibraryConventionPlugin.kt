@@ -21,6 +21,7 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
                 apply("kotlin-android")
                 apply("kotlin-kapt")
                 apply("org.jetbrains.dokka")
+                apply("com.vanniktech.dependency.graph.generator")
             }
 
             tasks.named<DokkaTaskPartial>("dokkaHtmlPartial", DokkaTaskPartial::class.java,{

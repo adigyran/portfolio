@@ -8,6 +8,11 @@ buildscript {
         maven(url = uri("https://maven.google.com/"))
         maven(url = uri("https://maven.fabric.io/public"))
     }
+    dependencies {
+        classpath("com.android.tools.build:gradle:3.4.0")
+        classpath("com.google.gms:google-services:4.3.10")
+        classpath("com.google.firebase:firebase-crashlytics-gradle:2.8.1")
+    }
 }
 
 plugins {
