@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--region Headlines/H1-->
+    <style name="Headline_H1" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">30sp</item>
+    </style>
+    <!--endregion-->
+
+    <!--region Headlines/H2-->
+    <style name="Headline_H2" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">24sp</item>
+    </style>
+    <!--endregion-->
+
+    <!--region Headlines/H3-->
+    <style name="Headline_H3" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">20sp</item>
+    </style>
+    <!--endregion-->
+
+    <!--region Headlines/H4-->
+    <style name="Headline_H4" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">16sp</item>
+    </style>
+    <!--endregion-->
+
+    <!--region Label-->
+    <style name="Label" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">14sp</item>
+    </style>
+    <!--endregion-->
+
+    <!--region Body/Description-->
+    <style name="Body_Description" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">16sp</item>
+    </style>
+    <!--endregion-->
+
+    <!--region Body/Small Description-->
+    <style name="Body_Small_Description" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">12sp</item>
+    </style>
+    <!--endregion-->
+
+    <!--region List Text-->
+    <style name="List_Text" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">17sp</item>
+    </style>
+    <!--endregion-->
+
+    <!--region Input Text/PlaceHolder-->
+    <style name="Input_Text_PlaceHolder" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">16sp</item>
+    </style>
+    <!--endregion-->
+
+    <!--region Input Text/Label-->
+    <style name="Input_Text_Label" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">14sp</item>
+    </style>
+    <!--endregion-->
+
+    <!--region Input Text/Label Floating-->
+    <style name="Input_Text_Label_Floating" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">12sp</item>
+    </style>
+    <!--endregion-->
+
+</resources>
