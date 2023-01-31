@@ -7,7 +7,7 @@ import com.aya.digital.core.data.mappers.appointment.PractitionerMapper
 import com.aya.digital.core.data.model.appointment.Appointment
 import com.aya.digital.core.network.model.response.AppointmentResponse
 
-class AppointmentMapperImpl(
+internal class AppointmentMapperImpl(
     private val patientMapper: PatientMapper,
     private val practitionerMapper: PractitionerMapper,
     private val appointmentSlotMapper: AppointmentSlotMapper

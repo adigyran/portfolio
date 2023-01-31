@@ -11,7 +11,10 @@ import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Single
 import kotlinx.datetime.LocalDate
-import org.kodein.di.*
+import org.kodein.di.DI
+import org.kodein.di.bind
+import org.kodein.di.instance
+import org.kodein.di.singleton
 
 fun scheduleNetworkModule() = DI.Module("scheduleNetworkModule") {
     bind<com.aya.digital.core.datasource.ScheduleDataSource>() with singleton {

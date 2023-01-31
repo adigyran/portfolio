@@ -1,12 +1,10 @@
 package com.aya.digital.core.navigation
 
 import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.FragmentFactory
 import androidx.fragment.app.FragmentManager
 import com.aya.digital.core.ext.closeKeyboard
 import com.github.terrakok.cicerone.Command
 import com.github.terrakok.cicerone.androidx.AppNavigator
-import org.kodein.di.DIAware
 import java.lang.ref.WeakReference
 
 /**

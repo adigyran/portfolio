@@ -1,7 +1,6 @@
 package com.aya.digital.core.ext
 
 import android.graphics.Rect
-import android.os.Build
 import android.os.SystemClock
 import android.text.method.ScrollingMovementMethod
 import android.view.MotionEvent
@@ -9,12 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.widget.EditText
-import androidx.annotation.RequiresApi
 import androidx.core.graphics.Insets
 import androidx.core.view.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-
 import kotlin.math.abs
 
 fun View.invisible() = run { visibility = View.INVISIBLE }

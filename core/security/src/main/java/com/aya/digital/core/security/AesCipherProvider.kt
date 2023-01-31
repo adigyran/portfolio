@@ -9,7 +9,7 @@ import javax.crypto.KeyGenerator
 import javax.crypto.SecretKey
 import javax.crypto.spec.IvParameterSpec
 
-class AesCipherProvider(
+internal class AesCipherProvider(
     private val keyName: String,
     private val keyStore: KeyStore,
     private val keyStoreName: String

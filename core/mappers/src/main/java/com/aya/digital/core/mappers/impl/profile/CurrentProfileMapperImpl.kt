@@ -5,7 +5,7 @@ import com.aya.digital.core.data.mappers.profile.RoleMapper
 import com.aya.digital.core.data.model.profile.CurrentProfile
 import com.aya.digital.core.network.model.response.profile.CurrentProfileResponse
 
-class CurrentProfileMapperImpl(private val roleMapper: RoleMapper) : CurrentProfileMapper() {
+internal class CurrentProfileMapperImpl(private val roleMapper: RoleMapper) : CurrentProfileMapper() {
     override fun mapFrom(type: CurrentProfileResponse): CurrentProfile =
         CurrentProfile(
             id = type.id,

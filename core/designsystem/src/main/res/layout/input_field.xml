@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:orientation="vertical"
+    tools:parentTag="LinearLayout">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilField"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusableInTouchMode="false"
+        android:clickable="false"
+        android:focusable="false"
+        tools:hint="test">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edField"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/input_field_height"
+            android:inputType="text"
+            tools:hint="Hint"
+            tools:text="Text"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+</merge>

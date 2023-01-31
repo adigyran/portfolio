@@ -5,7 +5,6 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import java.util.*
-import kotlin.collections.HashSet
 
 internal class FragmentLifecycleHelper(
     private val onFragmentDestroyed: ((fragment: Fragment) -> Unit)?,

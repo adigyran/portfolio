@@ -10,7 +10,10 @@ import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import kotlinx.datetime.LocalDate
-import org.kodein.di.*
+import org.kodein.di.DI
+import org.kodein.di.bind
+import org.kodein.di.instance
+import org.kodein.di.singleton
 
 fun appointmentNetworkModule() = DI.Module("appointmentNetworkModule") {
     bind<com.aya.digital.core.datasource.AppointmentDataSource>() with singleton {

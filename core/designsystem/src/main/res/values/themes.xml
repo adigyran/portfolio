@@ -1,0 +1,18 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="Theme.HealthAppAya" parent="Theme.Material3.Light">
+        <!-- Primary brand color. -->
+        <!-- Secondary brand color. -->
+        <!-- Status bar color. -->
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="Theme.HealthAppAya.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.HealthAppAya.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.HealthAppAya.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+</resources>

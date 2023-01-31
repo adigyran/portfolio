@@ -1,13 +1,10 @@
 package com.aya.digital.core.uibase.core
 
-import android.content.Intent
-import android.content.IntentSender
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import com.aya.digital.core.util.keyboardheighprovider.KeyboardHeightObserver
 import com.aya.digital.core.util.keyboardheighprovider.KeyboardHeightProvider

@@ -9,11 +9,11 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.PatientAppAya">
+        android:theme="@style/Theme.HealthAppAya">
         <activity
             android:name="com.aya.digital.core.feature.container.ui.RootView"
             android:exported="true"
-            android:theme="@style/Theme.PatientAppAya.NoActionBar">
+            android:theme="@style/Theme.HealthAppAya.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

@@ -16,7 +16,10 @@ import com.aya.digital.core.network.model.response.profile.ImageUploadResponse
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 import okhttp3.MultipartBody
-import org.kodein.di.*
+import org.kodein.di.DI
+import org.kodein.di.bind
+import org.kodein.di.instance
+import org.kodein.di.singleton
 
 
 fun profileNetworkModule() = DI.Module("profileNetworkModule") {

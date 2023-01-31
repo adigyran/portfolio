@@ -1,0 +1,126 @@
+{
+  "project_info": {
+    "project_number": "1081224125351",
+    "project_id": "ayadoc-28b1b",
+    "storage_bucket": "ayadoc-28b1b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1081224125351:android:45613acc2e4d3e58e67482",
+        "android_client_info": {
+          "package_name": "com.aya.digital.healthapp.doctor.debug"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1081224125351-h0opjoa4ej8161e8is8mhhiaj97e3rsa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBN9NIpBNs-qjXtH0IZ36JadIJfMyGGzfE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1081224125351-h0opjoa4ej8161e8is8mhhiaj97e3rsa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1081224125351:android:aa9ff8e933f5e6cae67482",
+        "android_client_info": {
+          "package_name": "com.aya.digital.healthapp.doctor.release"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1081224125351-h0opjoa4ej8161e8is8mhhiaj97e3rsa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBN9NIpBNs-qjXtH0IZ36JadIJfMyGGzfE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1081224125351-h0opjoa4ej8161e8is8mhhiaj97e3rsa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1081224125351:android:790f41356de04b1ae67482",
+        "android_client_info": {
+          "package_name": "com.aya.digital.healthapp.patient.debug"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1081224125351-h0opjoa4ej8161e8is8mhhiaj97e3rsa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBN9NIpBNs-qjXtH0IZ36JadIJfMyGGzfE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1081224125351-h0opjoa4ej8161e8is8mhhiaj97e3rsa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1081224125351:android:fd7eab1cd520e4a1e67482",
+        "android_client_info": {
+          "package_name": "com.aya.digital.healthapp.patient.release"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1081224125351-h0opjoa4ej8161e8is8mhhiaj97e3rsa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBN9NIpBNs-qjXtH0IZ36JadIJfMyGGzfE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1081224125351-h0opjoa4ej8161e8is8mhhiaj97e3rsa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

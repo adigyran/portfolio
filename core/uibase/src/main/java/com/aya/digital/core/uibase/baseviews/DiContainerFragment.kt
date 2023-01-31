@@ -2,19 +2,17 @@ package com.aya.digital.core.uibase.baseviews
 
 import android.os.Bundle
 import android.os.Parcelable
-import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import com.aya.digital.core.dibase.KodeinInjectionManager
-import com.aya.digital.core.ext.clickWithDebounce
 import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.mvi.BaseViewModel
-import com.aya.digital.core.navigation.utils.ChildKodeinProvider
-import com.aya.digital.core.navigation.utils.ParentRouterProvider
 import com.aya.digital.core.navigation.coordinator.Coordinator
 import com.aya.digital.core.navigation.coordinator.CoordinatorHolder
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
+import com.aya.digital.core.navigation.utils.ChildKodeinProvider
+import com.aya.digital.core.navigation.utils.ParentRouterProvider
 import com.aya.digital.core.uibase.core.CoreContainerFragment
 import com.github.terrakok.cicerone.Cicerone
 import com.github.terrakok.cicerone.Navigator

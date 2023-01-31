@@ -8,7 +8,10 @@ import com.aya.digital.core.network.model.response.doctors.PractitionersResponse
 import com.aya.digital.core.network.model.response.doctors.SpecialityResponse
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Single
-import org.kodein.di.*
+import org.kodein.di.DI
+import org.kodein.di.bind
+import org.kodein.di.instance
+import org.kodein.di.singleton
 
 
 fun practitionersNetworkModule() = DI.Module("practitionersNetworkModule") {

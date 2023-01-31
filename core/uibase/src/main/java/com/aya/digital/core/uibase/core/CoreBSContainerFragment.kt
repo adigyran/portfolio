@@ -3,11 +3,11 @@ package com.aya.digital.core.uibase.core
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
+import com.aya.digital.core.baseresources.R
 import com.aya.digital.core.ext.inTransaction
-import com.aya.digital.core.navigation.utils.BackButtonListener
 import com.aya.digital.core.navigation.coordinator.Coordinator
 import com.aya.digital.core.navigation.coordinator.CoordinatorHolder
-import com.aya.digital.core.baseresources.R
+import com.aya.digital.core.navigation.utils.BackButtonListener
 import com.github.terrakok.cicerone.Cicerone
 import com.github.terrakok.cicerone.Navigator
 import com.github.terrakok.cicerone.Router

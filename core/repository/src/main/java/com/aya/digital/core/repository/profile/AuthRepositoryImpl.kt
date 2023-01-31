@@ -14,7 +14,7 @@ import net.openid.appauth.EndSessionRequest
 import net.openid.appauth.TokenRequest
 import java.util.*
 
-class AuthRepositoryImpl(
+internal class AuthRepositoryImpl(
     private val appAuth: AppAuth,
     private val authDataStore: HealthAppAuthDataSource,
     private val authUserDataMapper: AuthUserDataMapper,

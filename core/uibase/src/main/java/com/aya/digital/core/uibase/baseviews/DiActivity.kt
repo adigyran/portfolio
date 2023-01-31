@@ -10,12 +10,12 @@ import com.aya.digital.base.appbase.BaseApp
 import com.aya.digital.core.dibase.KodeinInjectionManager
 import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.mvi.BaseViewModel
-import com.aya.digital.core.navigation.utils.ChildKodeinProvider
-import com.aya.digital.core.navigation.utils.ParentRouterProvider
 import com.aya.digital.core.navigation.coordinator.Coordinator
 import com.aya.digital.core.navigation.coordinator.CoordinatorHolder
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
 import com.aya.digital.core.navigation.utils.BackButtonListener
+import com.aya.digital.core.navigation.utils.ChildKodeinProvider
+import com.aya.digital.core.navigation.utils.ParentRouterProvider
 import com.aya.digital.core.uibase.core.CoreActivity
 import com.github.terrakok.cicerone.Cicerone
 import com.github.terrakok.cicerone.Navigator

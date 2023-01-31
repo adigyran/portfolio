@@ -10,7 +10,7 @@ interface Crypto {
 }
 
 
-class CryptoImpl(private val cipherProvider: CipherProvider) : Crypto {
+internal class CryptoImpl(private val cipherProvider: CipherProvider) : Crypto {
 
     override fun encrypt(rawBytes: ByteArray, outputStream: OutputStream) {
         val cipher = cipherProvider.encryptCipher
