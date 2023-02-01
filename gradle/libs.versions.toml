@@ -109,6 +109,9 @@ testTruth = "1.4.0"
 #linter
 lint = "30.3.1"
 
+#code analysis
+detekt = "1.22.0"
+
 #documentation
 dokka = "1.7.20"
 dependencyGraphGenerator = "0.7.0"
@@ -228,6 +231,9 @@ rxandroid = { group = "io.reactivex.rxjava3", name = "rxandroid", version.ref = 
 #rxRelay
 rxrelay = { group = "com.jakewharton.rxrelay3", name = "rxrelay", version.ref = "rxRelay" }
 
+#codeAnalysis
+detekt-formatting = { group = "io.gitlab.arturbosch.detekt", name = "detekt-formatting", version.ref = "detekt" }
+
 # Dependencies of the included build-logic
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
@@ -255,6 +261,7 @@ kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", versi
 protobuf = { id = "com.google.protobuf", version.ref = "protobufPlugin" }
 firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "crashlitycsGradle"}
 gms-googleServices = { id = "com.google.gms.google-services", version.ref = "googleServices"}
+detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt"}
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 dependency-graph-generator = { id = "com.vanniktech.dependency.graph.generator", version.ref = "dependencyGraphGenerator" }
 

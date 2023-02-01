@@ -21,6 +21,7 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
                 "android-application",
                 "kotlin-android",
                 "kotlin-kapt",
+                "detekt",
                 "dokka",
                 "dependency-graph-generator",
                 "firebase-crashlytics",

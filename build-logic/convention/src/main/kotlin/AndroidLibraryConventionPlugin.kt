@@ -21,6 +21,7 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
                 "android-library",
                 "kotlin-android",
                 "kotlin-kapt",
+                "detekt",
                 "dokka",
                 "dependency-graph-generator"
             )

@@ -22,9 +22,10 @@ import org.kodein.di.instance
 import org.kodein.di.on
 import timber.log.Timber
 
-class RootView : DiActivity<ViewFragmentContainerBinding,RootContainerViewModel,RootContainerState,BaseSideEffect>() {
+class RootView :
+    DiActivity<ViewFragmentContainerBinding, RootContainerViewModel, RootContainerState, BaseSideEffect>() {
 
-    private val appFlavour : AppFlavour by kodein.on(context = this).instance()
+    private val appFlavour: AppFlavour by kodein.on(context = this).instance()
 
     private val viewModelFactory: ((Unit) -> RootContainerViewModel) by kodein.on(
         context = this
@@ -43,25 +44,23 @@ class RootView : DiActivity<ViewFragmentContainerBinding,RootContainerViewModel,
         Timber.v("${this.packageName} ${this.appFlavour}")
     }
 
-    override fun sideEffect(sideEffect: BaseSideEffect) {
+    override fun sideEffect(sideEffect: BaseSideEffect) = Unit
 
-    }
-
-    override fun render(state: RootContainerState) {
-
-    }
+    override fun render(state: RootContainerState) = Unit
 
     override fun provideDiModule() = rootContainerDiModule()
 
-    override fun provideViewBinding(inflater: LayoutInflater): ViewFragmentContainerBinding  =
+    override fun provideViewBinding(inflater: LayoutInflater): ViewFragmentContainerBinding =
         ViewFragmentContainerBinding.inflate(inflater)
-
-
 
     override fun provideViewModel(): RootContainerViewModel = viewModelFactory(Unit)
 
-
-    override fun provideNavigator(): Navigator = navigatorFactory(RootNavigatorParam(this, binding.fragmentContainer.id))
+    override fun provideNavigator(): Navigator = navigatorFactory(
+        RootNavigatorParam(
+            this,
+            binding.fragmentContainer.id
+        )
+    )
 
     override fun provideCoordinator(): Coordinator = coordinatorFactory(supportFragmentManager)
 

@@ -19,6 +19,7 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
             val aliases = listOf<String>(
                 "kotlin-android",
                 "dokka",
+                "detekt",
                 "dependency-graph-generator"
             )
             pluginManager.apply {
@@ -61,6 +62,7 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
                 add("implementation", libs.findLibrary("androidx.appcompat").get())
                 add("implementation", libs.findLibrary("material.design").get())
                 add("implementation", libs.findLibrary("cicerone").get())
+                add("implementation", libs.findLibrary("orbit.viewmodel").get())
                 add("implementation", libs.findLibrary("androidx.lifecycle").get())
                 add("implementation", libs.findLibrary("androidx.lifecycle.viewModel").get())
                 add("implementation", libs.findLibrary("androidx.lifecycle.livedata-ktx").get())
