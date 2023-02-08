@@ -6,25 +6,22 @@ import com.aya.digital.core.datastore.HealthAppAuthDataSource
 import com.aya.digital.core.datastore.HealthAppDataSource
 import com.aya.digital.core.datastore.UserPreferencesOuterClass.UserPreferences
 import com.aya.digital.core.datastore.UserPreferencesSerializer
-import org.kodein.di.DI
-import org.kodein.di.bind
-import org.kodein.di.eagerSingleton
-import org.kodein.di.instance
+import org.kodein.di.*
 
 fun dataStoreDiModule() = DI.Module("dataStoreDiModule") {
-    bind<UserPreferencesSerializer>() with eagerSingleton {
+    bind<UserPreferencesSerializer>() with singleton {
         UserPreferencesSerializer(instance())
     }
 
-    bind<RxDataStore<UserPreferences>>() with eagerSingleton {
+    bind<RxDataStore<UserPreferences>>() with singleton {
        RxDataStoreBuilder(context = instance(),"user_preferences.pb",instance<UserPreferencesSerializer>()).build()
     }
 
-    bind<HealthAppDataSource>() with eagerSingleton {
+    bind<HealthAppDataSource>() with singleton {
         HealthAppDataSource(instance())
     }
 
-    bind<HealthAppAuthDataSource>() with eagerSingleton {
+    bind<HealthAppAuthDataSource>() with singleton {
         HealthAppAuthDataSource(instance())
     }
 }

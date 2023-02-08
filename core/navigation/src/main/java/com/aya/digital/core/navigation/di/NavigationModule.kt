@@ -8,8 +8,6 @@ import com.aya.digital.core.navigation.CustomNavigator
 import com.aya.digital.core.navigation.coordinator.Coordinator
 import com.aya.digital.core.navigation.coordinator.CoordinatorHolder
 import com.aya.digital.core.navigation.coordinator.StubCoordinator
-import com.aya.digital.core.navigation.manager.HealthAppNavigationManager
-import com.aya.digital.core.navigation.manager.HealthAppNavigationManagerImpl
 import com.github.terrakok.cicerone.Cicerone
 import com.github.terrakok.cicerone.Router
 import org.kodein.di.*
@@ -36,8 +34,6 @@ fun navigationDiModule() = DI.Module("navigationDiModule") {
             param.activity, param.containerId, param.fragmentManager,  param.onExit
         )
     }
-    bind<HealthAppNavigationManager>() with eagerSingleton { HealthAppNavigationManagerImpl() }
-
 }
 
 data class CustomNavigatorParam(

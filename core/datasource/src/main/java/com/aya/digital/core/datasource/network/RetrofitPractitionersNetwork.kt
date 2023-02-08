@@ -16,7 +16,10 @@ import org.kodein.di.singleton
 
 fun practitionersNetworkModule() = DI.Module("practitionersNetworkModule") {
     bind<com.aya.digital.core.datasource.PractitionersDataSource>() with singleton {
-        val apiService = createApiService<PractitionersService>(instance())
+        val apiService =
+            createApiService<PractitionersService>(
+                instance()
+            )
         return@singleton RetrofitPractitionersNetwork(apiService)
     }
 }
@@ -32,22 +35,34 @@ class RetrofitPractitionersNetwork(private val network: PractitionersService) :
         specialtyCode: String?,
         sortingFields: List<String>?,
         sortDirection: String?
-    ): Flowable<PagedResponse<DoctorDataResponse>> = network.fetchPractitioners(page, limit, search, specialty, specialtyCode, sortingFields, sortDirection)
+    ): Flowable<PagedResponse<DoctorDataResponse>> =
+        network.fetchPractitioners(
+            page,
+            limit,
+            search,
+            specialty,
+            specialtyCode,
+            sortingFields,
+            sortDirection
+        )
 
-    override fun fetchPractitionerById(id: Int): Single<DoctorDataResponse> = network.fetchPractitionerById(id)
+    override fun fetchPractitionerById(id: Int): Single<DoctorDataResponse> =
+        network.fetchPractitionerById(id)
 
     override fun searchPractitioners(
         search: String,
         page: Int,
         limit: Int
-    ): Flowable<PractitionersResponse> = network.searchPractitioners(search, page, limit)
+    ): Flowable<PractitionersResponse> =
+        network.searchPractitioners(search, page, limit)
 
     override fun searchPractitionersWithCode(
         code: String,
         search: String,
         page: Int,
         limit: Int
-    ): Flowable<PractitionersResponse> = network.searchPractitionersWithCode(code, search, page, limit)
+    ): Flowable<PractitionersResponse> =
+        network.searchPractitionersWithCode(code, search, page, limit)
 
     override fun fetchSpecialities(
         page: Int,
@@ -55,7 +70,9 @@ class RetrofitPractitionersNetwork(private val network: PractitionersService) :
         sortingFields: List<String>?,
         sortDirection: String?,
         name: String?
-    ): Flowable<PagedResponse<SpecialityResponse>> = network.fetchSpecialities(page, limit, sortingFields, sortDirection, name)
+    ): Flowable<PagedResponse<SpecialityResponse>> =
+        network.fetchSpecialities(page, limit, sortingFields, sortDirection, name)
 
-    override fun fetchSpeciality(id: Int): Single<SpecialityResponse> = network.fetchSpeciality(id)
+    override fun fetchSpeciality(id: Int): Single<SpecialityResponse> =
+        network.fetchSpeciality(id)
 }

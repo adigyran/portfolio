@@ -8,12 +8,15 @@ android {
 
 dependencies {
     implementation(project(":core:dibase"))
-    implementation(project(":core:network"))
+    implementation(project(":core:network:main"))
     implementation(project(":core:datasource"))
     implementation(project(":core:datastore"))
-    implementation(project(":core:data"))
     implementation(project(":core:navigation"))
-    implementation(project(":core:mappers"))
+    implementation(project(":core:mappers:appointment"))
+    implementation(project(":core:mappers:doctors"))
+    implementation(project(":core:mappers:preferences"))
+    implementation(project(":core:mappers:profile"))
+    implementation(project(":core:mappers:schedule"))
     implementation(project(":core:repository"))
     implementation(project(":core:security"))
     implementation(libs.kodein)

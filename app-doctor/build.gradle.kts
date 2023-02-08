@@ -39,18 +39,15 @@ android {
 }
 
 dependencies {
-    implementation(project(":feature:container"))
-    
+    implementation(project(":feature:rootcontainer"))
     implementation(project(":core:appbase"))
     implementation(project(":core:baseresources"))
     implementation(project(":core:dibase"))
     implementation(project(":core:di"))
-    implementation(project(":core:data"))
     implementation(project(":core:datastore"))
     implementation(project(":core:ext"))
     implementation(project(":core:mvi"))
     implementation(project(":core:navigation"))
-    implementation(project(":core:uibase"))
     implementation(project(":core:util"))
 
     implementation(libs.androidx.appcompat)

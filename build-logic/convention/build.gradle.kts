@@ -46,5 +46,9 @@ gradlePlugin {
             id = "healthapp.android.feature"
             implementationClass = "AndroidFeatureConventionPlugin"
         }
+        register("androidUiDelegate") {
+            id = "healthapp.android.delegate"
+            implementationClass = "AndroidUiDelegatesConventionPlugin"
+        }
     }
 }

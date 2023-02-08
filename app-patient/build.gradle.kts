@@ -41,18 +41,18 @@ android {
 }
 
 dependencies {
-    implementation(project(":feature:container"))
-
+    implementation(project(":feature:rootcontainer"))
+    implementation(project(":feature:bottomdialog"))
+    implementation(project(":feature:auth:chooser"))
+    implementation(project(":feature:auth:container"))
     implementation(project(":core:appbase"))
     implementation(project(":core:baseresources"))
     implementation(project(":core:dibase"))
     implementation(project(":core:di"))
-    implementation(project(":core:data"))
     implementation(project(":core:datastore"))
     implementation(project(":core:ext"))
     implementation(project(":core:mvi"))
     implementation(project(":core:navigation"))
-    implementation(project(":core:uibase"))
     implementation(project(":core:util"))
 
     implementation(libs.androidx.appcompat)
@@ -64,6 +64,4 @@ dependencies {
     implementation(libs.cicerone)
     implementation(libs.eventbus)
     implementation(libs.timber)
-    implementation("com.google.firebase:firebase-crashlytics:18.2.9")
-    implementation("com.google.firebase:firebase-analytics:20.1.2")
 }

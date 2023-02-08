@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HealthAppAya">
         <activity
-            android:name="com.aya.digital.core.feature.container.ui.RootView"
+            android:name="com.aya.digital.feature.rootcontainer.ui.RootView"
             android:exported="true"
             android:theme="@style/Theme.HealthAppAya.NoActionBar">
             <intent-filter>

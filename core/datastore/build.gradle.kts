@@ -33,8 +33,8 @@ protobuf {
 
 dependencies {
     implementation(project(":core:util"))
-    implementation(project(":core:data"))
     implementation(project(":core:security"))
+    implementation(project(":core:data:preferences"))
     implementation(libs.androidx.datastore)
     implementation(libs.androidx.datastore.rxjava3)
     implementation(libs.protobuf.kotlin.lite)

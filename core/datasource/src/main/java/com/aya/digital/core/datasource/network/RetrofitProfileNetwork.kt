@@ -24,21 +24,24 @@ import org.kodein.di.singleton
 
 fun profileNetworkModule() = DI.Module("profileNetworkModule") {
     bind<ProfileDataSource>() with singleton {
-        val apiService = createApiService<ProfileService>(instance())
+        val apiService =
+            createApiService<ProfileService>(instance())
         return@singleton RetrofitProfileNetwork(apiService)
     }
 }
 
 fun profilePractitionerModule() = DI.Module("profilePractitionerModule") {
     bind<ProfilePractitionerDataSource>() with singleton {
-        val apiService = createApiService<ProfileService>(instance())
+        val apiService =
+            createApiService<ProfileService>(instance())
         return@singleton RetrofitProfilePractitionerNetwork(apiService)
     }
 }
 
 fun profilePatientModule() = DI.Module("profilePatientModule") {
     bind<ProfilePatientDataSource>() with singleton {
-        val apiService = createApiService<ProfileService>(instance())
+        val apiService =
+            createApiService<ProfileService>(instance())
         return@singleton RetrofitProfilePatientNetwork(apiService)
     }
 }
@@ -46,48 +49,63 @@ fun profilePatientModule() = DI.Module("profilePatientModule") {
 class RetrofitProfileNetwork(private val network: ProfileService) :
     ProfileDataSource {
 
-    override fun currentProfile(): Single<CurrentProfileResponse> = network.currentProfile()
+    override fun currentProfile(): Single<CurrentProfileResponse> =
+        network.currentProfile()
 
-    override fun updateProfile(body: ProfileBody): Completable = network.updateProfile(body)
+    override fun updateProfile(body: ProfileBody): Completable =
+        network.updateProfile(body)
 
-    override fun getEmergencyContact(): Single<EmergencyContactResponse> = network.getEmergencyContact()
+    override fun getEmergencyContact(): Single<EmergencyContactResponse> =
+        network.getEmergencyContact()
 
-    override fun updateEmergencyContact(body: EmergencyContactBody): Completable = network.updateEmergencyContact(body)
+    override fun updateEmergencyContact(body: EmergencyContactBody): Completable =
+        network.updateEmergencyContact(body)
 
-    override fun uploadAvatar(file: MultipartBody.Part): Single<ImageUploadResponse> = network.uploadAvatar(file)
+    override fun uploadAvatar(file: MultipartBody.Part): Single<ImageUploadResponse> =
+        network.uploadAvatar(file)
 
     override fun deleteAvatar(): Completable = network.deleteAvatar()
 
-    override fun registration(body: RegistrationBody): Single<MessageResponse> = network.registration(body)
+    override fun registration(body: RegistrationBody): Single<MessageResponse> =
+        network.registration(body)
 
-    override fun logout(clientId: String, refreshToken: String): Completable = network.logout(clientId, refreshToken)
+    override fun logout(clientId: String, refreshToken: String): Completable =
+        network.logout(clientId, refreshToken)
 }
 
 class RetrofitProfilePractitionerNetwork(private val network: ProfileService) :
-    ProfilePractitionerDataSource
-{
-    override fun currentPractitioner(): Single<PractitionerProfileResponse> = network.currentPractitioner()
+    ProfilePractitionerDataSource {
+    override fun currentPractitioner(): Single<PractitionerProfileResponse> =
+        network.currentPractitioner()
 
-    override fun getPractitionerPhoneNumber(): Single<PractitionerProfileResponse> = network.getPractitionerPhoneNumber()
+    override fun getPractitionerPhoneNumber(): Single<PractitionerProfileResponse> =
+        network.getPractitionerPhoneNumber()
 
-    override fun updatePractitioner(body: PractitionerProfileBody): Completable = network.updatePractitioner(body)
+    override fun updatePractitioner(body: PractitionerProfileBody): Completable =
+        network.updatePractitioner(body)
 
-    override fun updatePractitionerPhoneNumber(body: PractitionerProfileBody): Completable = network.updatePractitionerPhoneNumber(body)
+    override fun updatePractitionerPhoneNumber(body: PractitionerProfileBody): Completable =
+        network.updatePractitionerPhoneNumber(body)
 
-    override fun updatePractitionerAddress(body: PractitionerProfileBody): Completable = network.updatePractitionerAddress(body)
+    override fun updatePractitionerAddress(body: PractitionerProfileBody): Completable =
+        network.updatePractitionerAddress(body)
 
-    override fun getPractitionerAddress(): Single<AddressResponse>  = network.getPractitionerAddress()
+    override fun getPractitionerAddress(): Single<AddressResponse> =
+        network.getPractitionerAddress()
 }
 
 class RetrofitProfilePatientNetwork(private val network: ProfileService) :
-    ProfilePatientDataSource
-{
-    override fun currentPatient(): Single<PatientProfileResponse> = network.currentPatient()
+    ProfilePatientDataSource {
+    override fun currentPatient(): Single<PatientProfileResponse> =
+        network.currentPatient()
 
-    override fun updatePatient(body: PatientProfileBody): Completable = network.updatePatient(body)
+    override fun updatePatient(body: PatientProfileBody): Completable =
+        network.updatePatient(body)
 
-    override fun getPatientAddress(): Single<AddressResponse> = network.getPatientAddress()
+    override fun getPatientAddress(): Single<AddressResponse> =
+        network.getPatientAddress()
 
-    override fun updatePatientAddress(body: PatientProfileBody): Completable = network.updatePatientAddress(body)
+    override fun updatePatientAddress(body: PatientProfileBody): Completable =
+        network.updatePatientAddress(body)
 
 }

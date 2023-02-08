@@ -18,7 +18,8 @@ import org.kodein.di.singleton
 
 fun scheduleNetworkModule() = DI.Module("scheduleNetworkModule") {
     bind<com.aya.digital.core.datasource.ScheduleDataSource>() with singleton {
-        val apiService = createApiService<ScheduleService>(instance())
+        val apiService =
+            createApiService<ScheduleService>(instance())
         return@singleton RetrofitScheduleNetwork(apiService)
     }
 }
@@ -31,15 +32,22 @@ class RetrofitScheduleNetwork(private val network: ScheduleService) :
         end: LocalDate,
         page: Int,
         limit: Int
-    ): Flowable<PagedResponse<ScheduleResponse>> = network.fetchSchedules(practitionerId, start, end, page, limit)
+    ): Flowable<PagedResponse<ScheduleResponse>> =
+        network.fetchSchedules(practitionerId, start, end, page, limit)
 
-    override fun create(scheduleWithSlots: ScheduleWithSlotsBody): Completable = network.create(scheduleWithSlots)
+    override fun create(scheduleWithSlots: ScheduleWithSlotsBody): Completable =
+        network.create(scheduleWithSlots)
 
-    override fun getSlot(id: Int): Single<SlotResponse> = network.getSlot(id)
+    override fun getSlot(id: Int): Single<SlotResponse> =
+        network.getSlot(id)
 
     override fun deleteSlot(id: Int): Completable = network.deleteSlot(id)
 
-    override fun createSlot(body: SlotBody): Completable = network.createSlot(body)
+    override fun createSlot(body: SlotBody): Completable =
+        network.createSlot(body)
 
-    override fun updateSlot(id: Int, body: SlotBody): Completable = network.updateSlot(id, body)
+    override fun updateSlot(
+        id: Int,
+        body: SlotBody
+    ): Completable = network.updateSlot(id, body)
 }

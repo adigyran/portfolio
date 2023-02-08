@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "com.aya.digital.core.feature.bottomdialog"
+    namespace = "com.aya.digital.feature.bottomdialog"
 
 }
 

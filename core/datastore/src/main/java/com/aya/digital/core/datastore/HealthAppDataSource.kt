@@ -1,7 +1,7 @@
 package com.aya.digital.core.datastore
 
 import androidx.datastore.rxjava3.RxDataStore
-import com.aya.digital.core.data.model.preferences.UserData
+import com.aya.digital.core.data.preferences.UserData
 import com.aya.digital.core.datastore.UserPreferencesOuterClass.UserPreferences
 
 class HealthAppDataSource constructor(
@@ -9,7 +9,7 @@ class HealthAppDataSource constructor(
 ) {
     val userData = userPreferences.data()
         .map {
-            UserData(
+            com.aya.digital.core.data.preferences.UserData(
                 onBoardingSeen = it.seenOnBoarding,
                 disclaimerSeen = it.seenDisclaimer
             )

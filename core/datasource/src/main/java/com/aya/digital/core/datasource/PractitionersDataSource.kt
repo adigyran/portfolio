@@ -8,44 +8,44 @@ import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Single
 
 interface PractitionersDataSource {
-    
+
     fun fetchPractitioners(
-         page: Int,
-         limit: Int,
-         search: String?,
-         specialty: String?,
-         specialtyCode: String?,
-         sortingFields: List<String>?,
-         sortDirection: String?,
+        page: Int,
+        limit: Int,
+        search: String?,
+        specialty: String?,
+        specialtyCode: String?,
+        sortingFields: List<String>?,
+        sortDirection: String?,
     ): Flowable<PagedResponse<DoctorDataResponse>>
 
     fun fetchPractitionerById(
-         id: Int,
+        id: Int,
     ): Single<DoctorDataResponse>
 
     fun searchPractitioners(
-         search: String,
-         page: Int = 0,
-         limit: Int = 10
+        search: String,
+        page: Int = 0,
+        limit: Int = 10
     ): Flowable<PractitionersResponse>
 
-    
+
     fun searchPractitionersWithCode(
-         code: String,
-         search: String,
-         page: Int = 0,
-         limit: Int = 10
+        code: String,
+        search: String,
+        page: Int = 0,
+        limit: Int = 10
     ): Flowable<PractitionersResponse>
 
     fun fetchSpecialities(
-         page: Int,
-         limit: Int,
-         sortingFields: List<String>?,
-         sortDirection: String?,
-         name: String?,
+        page: Int,
+        limit: Int,
+        sortingFields: List<String>?,
+        sortDirection: String?,
+        name: String?,
     ): Flowable<PagedResponse<SpecialityResponse>>
 
     fun fetchSpeciality(
-         id: Int,
+        id: Int,
     ): Single<SpecialityResponse>
 }
