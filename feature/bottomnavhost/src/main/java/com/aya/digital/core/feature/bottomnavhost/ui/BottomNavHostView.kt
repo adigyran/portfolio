@@ -46,8 +46,6 @@ class BottomNavHostView : DiFragment<ViewBottomNavHostBinding, BottomNavHostView
         context = this
     ).factory()
 
-    override val viewModel: BottomNavHostViewModel = viewModelFactory(Unit)
-
     private val navListener = NavigationBarView.OnItemSelectedListener { item ->
         false
     }
@@ -75,6 +73,8 @@ class BottomNavHostView : DiFragment<ViewBottomNavHostBinding, BottomNavHostView
             setOnItemSelectedListener(navListener)
         }
     }
+
+    override fun provideViewModel(): BottomNavHostViewModel = viewModelFactory(Unit)
 
     override fun onResume() {
         super.onResume()

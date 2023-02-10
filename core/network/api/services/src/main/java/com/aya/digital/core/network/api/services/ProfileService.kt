@@ -80,13 +80,4 @@ interface ProfileService {
     @DELETE("account/profile/avatar")
     fun deleteAvatar(): Completable
 
-    @POST("auth/registration")
-    fun registration(@Body body: RegistrationBody): Single<MessageResponse>
-
-    @FormUrlEncoded
-    @POST("https://auth.aya-doc.com/auth/realms/aya-realm/protocol/openid-connect/logout")
-    fun logout(
-        @Field("client_id") clientId: String,
-        @Field("refresh_token") refreshToken: String,
-    ): Completable
 }

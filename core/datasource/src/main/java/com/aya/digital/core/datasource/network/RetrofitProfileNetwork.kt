@@ -3,6 +3,7 @@ package com.aya.digital.core.datasource.network
 import com.aya.digital.core.datasource.ProfileDataSource
 import com.aya.digital.core.datasource.ProfilePatientDataSource
 import com.aya.digital.core.datasource.ProfilePractitionerDataSource
+import com.aya.digital.core.network.api.services.AuthService
 import com.aya.digital.core.network.api.services.ProfileService
 import com.aya.digital.core.network.di.createApiService
 import com.aya.digital.core.network.model.request.*
@@ -20,6 +21,7 @@ import org.kodein.di.DI
 import org.kodein.di.bind
 import org.kodein.di.instance
 import org.kodein.di.singleton
+
 
 
 fun profileNetworkModule() = DI.Module("profileNetworkModule") {
@@ -65,12 +67,6 @@ class RetrofitProfileNetwork(private val network: ProfileService) :
         network.uploadAvatar(file)
 
     override fun deleteAvatar(): Completable = network.deleteAvatar()
-
-    override fun registration(body: RegistrationBody): Single<MessageResponse> =
-        network.registration(body)
-
-    override fun logout(clientId: String, refreshToken: String): Completable =
-        network.logout(clientId, refreshToken)
 }
 
 class RetrofitProfilePractitionerNetwork(private val network: ProfileService) :

@@ -2,9 +2,7 @@ package com.aya.digital.core.datasource
 
 import com.aya.digital.core.network.model.request.EmergencyContactBody
 import com.aya.digital.core.network.model.request.ProfileBody
-import com.aya.digital.core.network.model.request.RegistrationBody
 import com.aya.digital.core.network.model.response.EmergencyContactResponse
-import com.aya.digital.core.network.model.response.MessageResponse
 import com.aya.digital.core.network.model.response.profile.CurrentProfileResponse
 import com.aya.digital.core.network.model.response.profile.ImageUploadResponse
 import io.reactivex.rxjava3.core.Completable
@@ -31,11 +29,4 @@ interface ProfileDataSource {
     ): Single<ImageUploadResponse>
 
     fun deleteAvatar(): Completable
-
-    fun registration(body: RegistrationBody): Single<MessageResponse>
-
-    fun logout(
-        clientId: String,
-        refreshToken: String,
-    ): Completable
 }

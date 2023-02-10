@@ -6,11 +6,12 @@ import kotlinx.datetime.LocalDate
 
 @JsonClass(generateAdapter = true)
 data class RegistrationBody(
-    @Json(name = "email") val email: String,
-    @Json(name = "password") val password: String,
+    @Json(name = "login") val login: String,
     @Json(name = "firstName") val firstName: String,
     @Json(name = "lastName") val lastName: String,
-    @Json(name = "ssn") val ssn: String,
-    @Json(name = "sex") val sex: String,
-    @Json(name = "dateOfBirth") val dateOfBirth: LocalDate,
+    @Json(name = "email") val email: String,
+    @Json(name = "phone") val phone: String,
+    @Json(name = "password") val password: String,
+    @Json(name = "confirm_password") val confirmPassword: String,
+    @Json(name = "insurance") val insurance: List<InsuranceBody>,
 )
