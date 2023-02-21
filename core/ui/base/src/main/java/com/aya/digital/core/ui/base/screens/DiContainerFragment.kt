@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import com.aya.digital.core.dibase.KodeinInjectionManager
 import com.aya.digital.core.mvi.BaseSideEffect
+import com.aya.digital.core.mvi.BaseState
 import com.aya.digital.core.mvi.BaseViewModel
 import com.aya.digital.core.navigation.coordinator.Coordinator
 import com.aya.digital.core.navigation.coordinator.CoordinatorHolder
@@ -20,7 +21,7 @@ import com.github.terrakok.cicerone.Router
 import org.kodein.di.*
 import org.orbitmvi.orbit.viewmodel.observe
 
-abstract class DiContainerFragment<Binding : ViewBinding, ViewModel : BaseViewModel<State, SideEffect>, State : Parcelable, SideEffect : BaseSideEffect> :
+abstract class DiContainerFragment<Binding : ViewBinding, ViewModel : BaseViewModel<State, SideEffect>, State : BaseState, SideEffect : BaseSideEffect> :
     CoreContainerFragment<Binding>(),
     ChildKodeinProvider, ParentRouterProvider {
     protected val kodein = LateInitDI()

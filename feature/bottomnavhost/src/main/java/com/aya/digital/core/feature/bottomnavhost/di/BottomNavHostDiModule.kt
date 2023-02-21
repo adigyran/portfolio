@@ -5,6 +5,7 @@ import com.aya.digital.core.designsystem.views.navigation.bottom.HealthAppBottom
 import com.aya.digital.core.dibase.scopes.CustomFragmentScope
 import com.aya.digital.core.feature.bottomnavhost.navigation.BottomNavHostCoordinator
 import com.aya.digital.core.feature.bottomnavhost.navigation.BottomNavHostNavigator
+import com.aya.digital.core.feature.bottomnavhost.ui.model.BottomNavHostStateTransformer
 import com.aya.digital.core.feature.bottomnavhost.viewmodel.BottomNavHostViewModel
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
 import com.github.terrakok.cicerone.Cicerone
@@ -16,6 +17,9 @@ import org.kodein.di.*
 fun bottomNavHostModule(
     parentCoordinatorEvent: CoordinatorRouter
 ) = DI.Module("BottomDialogDiModule") {
+
+    bind<BottomNavHostStateTransformer>() with singleton { BottomNavHostStateTransformer(instance()) }
+
 
     bind {
         scoped(CustomFragmentScope).singleton {

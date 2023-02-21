@@ -7,4 +7,6 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:ui:delegates:features:auth:chooser"))
+
 }

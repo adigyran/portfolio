@@ -1,22 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Widget.App.Button.FilledButton" parent="Widget.Material3.Button.Icon">
-        <item name="materialThemeOverlay">@style/ThemeOverlay.App.Button.TextButton</item>
+    <style name="Widget.App.Button.FilledButton" parent="Widget.Material3.Button">
+        <!--<item name="materialThemeOverlay">@style/ThemeOverlay.App.Button</item>-->
         <item name="shapeAppearance">@style/ShapeAppearance.App.SmallComponent</item>
+        <item name="android:textAppearance">@style/Headline_H4</item>
+
     </style>
 
     <style name="Widget.App.Button.OutlinedButton" parent="Widget.Material3.Button.OutlinedButton.Icon">
         <item name="materialThemeOverlay">@style/ThemeOverlay.App.Button.TextButton</item>
+        <item name="android:textAppearance">@style/Headline_H4</item>
         <item name="shapeAppearance">@style/ShapeAppearance.App.SmallComponent</item>
     </style>
 
     <style name="Widget.App.Button.TextButton" parent="Widget.Material3.Button.TextButton.Icon">
         <item name="materialThemeOverlay">@style/ThemeOverlay.App.Button.TextButton</item>
+        <item name="android:textAppearance">@style/Headline_H4</item>
         <item name="shapeAppearance">@style/ShapeAppearance.App.SmallComponent</item>
     </style>
 
-    <style name="ThemeOverlay.App.Button.TextButton" parent=""></style>
+    <style name="ThemeOverlay.App.Button.TextButton" parent="">
+        <item name="colorPrimary">@color/button_text_blue</item>
+    </style>
 
-    <style name="ThemeOverlay.App.Button" parent=""></style>
+    <style name="ThemeOverlay.App.Button" parent="">
+        <item name="colorPrimary">@color/button_background_color_selector</item>
+        <item name="colorOnPrimary">@color/button_ripple_color_selector</item>
+
+    </style>
 </resources>

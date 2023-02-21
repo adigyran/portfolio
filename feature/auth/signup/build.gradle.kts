@@ -7,4 +7,6 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:ui:delegates:features:auth:signup"))
+    implementation(project(":core:ui:delegates:buttons:filledbutton"))
 }

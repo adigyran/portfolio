@@ -4,7 +4,6 @@ import com.aya.digital.core.network.main.Constants
 import okhttp3.OkHttpClient
 import org.kodein.di.DI
 import org.kodein.di.bind
-import org.kodein.di.eagerSingleton
 import org.kodein.di.singleton
 import java.util.concurrent.TimeUnit
 

@@ -1,15 +1,13 @@
 package com.aya.digital.core.ui.base.screens
 
 import android.os.Bundle
-import android.os.Parcelable
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.EditText
 import android.widget.Toast
 import androidx.viewbinding.ViewBinding
 import com.aya.digital.core.dibase.KodeinInjectionManager
-import com.aya.digital.core.mvi.BaseSideEffect
-import com.aya.digital.core.mvi.BaseViewModel
+import com.aya.digital.core.mvi.*
 import com.aya.digital.core.ui.core.CoreFragment
 import com.jakewharton.rxrelay3.PublishRelay
 import org.kodein.di.DI
@@ -18,17 +16,21 @@ import org.kodein.di.LazyDI
 import org.orbitmvi.orbit.viewmodel.observe
 import java.util.concurrent.TimeUnit
 
-abstract class DiFragment<Binding : ViewBinding, ViewModel : BaseViewModel<State, SideEffect>, State : Parcelable, SideEffect : BaseSideEffect> :
+abstract class DiFragment<Binding : ViewBinding, ViewModel : BaseViewModel<State, SideEffect>, State : BaseState, SideEffect : BaseSideEffect, UiModel : BaseUiModel, StateTransformer : BaseStateTransformer<State, UiModel>> :
     CoreFragment<Binding>() {
     protected val kodein = LateInitDI()
     protected val parentKodein = LateInitDI()
 
     protected lateinit var viewModel: ViewModel
+    protected lateinit var stateTransformer: StateTransformer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = provideViewModel()
+        stateTransformer = provideStateTransformer()
     }
+
+
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
@@ -44,6 +46,7 @@ abstract class DiFragment<Binding : ViewBinding, ViewModel : BaseViewModel<State
     ) {
         this.addTextChangedListener(DelayedTextChangeWatcher(beforeTextChanged, afterTextChanged))
     }
+
     override fun prepareUi(savedInstanceState: Bundle?) {
         super.prepareUi(savedInstanceState)
 
@@ -71,6 +74,8 @@ abstract class DiFragment<Binding : ViewBinding, ViewModel : BaseViewModel<State
     }
 
     abstract fun provideViewModel(): ViewModel
+
+    abstract fun provideStateTransformer(): StateTransformer
 
     abstract fun provideDiModule(): DI.Module
 

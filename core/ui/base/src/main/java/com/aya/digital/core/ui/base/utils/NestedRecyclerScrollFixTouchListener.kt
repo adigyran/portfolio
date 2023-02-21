@@ -1,4 +1,4 @@
-package com.aya.digital.core.uibase.utils
+package com.aya.digital.core.ui.base.utils
 
 import android.view.MotionEvent
 import androidx.recyclerview.widget.RecyclerView

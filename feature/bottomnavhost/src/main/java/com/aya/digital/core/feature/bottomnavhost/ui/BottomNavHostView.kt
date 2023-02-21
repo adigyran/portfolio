@@ -8,9 +8,13 @@ import com.aya.digital.core.feature.bottomnavhost.di.BottomNavHostNavigatorParam
 import com.aya.digital.core.feature.bottomnavhost.di.bottomNavHostModule
 import com.aya.digital.core.feature.bottomnavhost.navigation.BottomNavHostCoordinator
 import com.aya.digital.core.feature.bottomnavhost.navigation.BottomNavHostNavigator
+import com.aya.digital.core.feature.bottomnavhost.ui.model.BottomNavHostStateTransformer
 import com.aya.digital.core.feature.bottomnavhost.viewmodel.BottomNavHostState
 import com.aya.digital.core.feature.bottomnavhost.viewmodel.BottomNavHostViewModel
 import com.aya.digital.core.mvi.BaseSideEffect
+import com.aya.digital.core.mvi.BaseStateTransformer
+import com.aya.digital.core.mvi.BaseUiModel
+import com.aya.digital.core.mvi.StubUiModel
 import com.aya.digital.core.navigation.coordinator.CoordinatorHolder
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
 import com.aya.digital.core.navigation.utils.BackButtonListener
@@ -28,7 +32,7 @@ import org.kodein.di.factory
 import org.kodein.di.instance
 import org.kodein.di.on
 
-class BottomNavHostView : DiFragment<ViewBottomNavHostBinding, BottomNavHostViewModel, BottomNavHostState, BaseSideEffect>(),
+class BottomNavHostView : DiFragment<ViewBottomNavHostBinding, BottomNavHostViewModel, BottomNavHostState, BaseSideEffect, StubUiModel, BottomNavHostStateTransformer>(),
     ParentRouterProvider,
     BackButtonListener,
     ChildKodeinProvider {
@@ -49,6 +53,10 @@ class BottomNavHostView : DiFragment<ViewBottomNavHostBinding, BottomNavHostView
     private val navListener = NavigationBarView.OnItemSelectedListener { item ->
         false
     }
+
+    private val stateTransformerFactory: ((Unit) -> BottomNavHostStateTransformer) by kodein.on(
+        context = this
+    ).factory()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -75,6 +83,7 @@ class BottomNavHostView : DiFragment<ViewBottomNavHostBinding, BottomNavHostView
     }
 
     override fun provideViewModel(): BottomNavHostViewModel = viewModelFactory(Unit)
+    override fun provideStateTransformer(): BottomNavHostStateTransformer = stateTransformerFactory(Unit)
 
     override fun onResume() {
         super.onResume()

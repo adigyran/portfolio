@@ -4,5 +4,5 @@ import android.os.Parcelable
 import androidx.lifecycle.ViewModel
 import org.orbitmvi.orbit.ContainerHost
 
-abstract class BaseViewModel<STATE : Parcelable, SIDE_EFFECT : BaseSideEffect> : ViewModel(),
+abstract class BaseViewModel<STATE : BaseState, SIDE_EFFECT : BaseSideEffect> : ViewModel(),
     ContainerHost<STATE, SIDE_EFFECT>

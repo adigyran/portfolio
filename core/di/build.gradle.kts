@@ -17,7 +17,6 @@ dependencies {
     implementation(project(":core:mappers:preferences"))
     implementation(project(":core:mappers:profile"))
     implementation(project(":core:mappers:schedule"))
-    implementation(project(":core:repository"))
     implementation(project(":core:security"))
     implementation(libs.kodein)
 }

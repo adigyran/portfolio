@@ -7,7 +7,6 @@ import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import org.kodein.di.DI
 import org.kodein.di.bind
-import org.kodein.di.eagerSingleton
 import org.kodein.di.singleton
 
 internal fun moshiModule() = DI.Module("moshiModule") {

@@ -45,6 +45,8 @@ dependencies {
     implementation(project(":feature:bottomdialog"))
     implementation(project(":feature:auth:chooser"))
     implementation(project(":feature:auth:container"))
+    implementation(project(":feature:auth:signin"))
+    implementation(project(":feature:auth:signup"))
     implementation(project(":core:appbase"))
     implementation(project(":core:baseresources"))
     implementation(project(":core:dibase"))

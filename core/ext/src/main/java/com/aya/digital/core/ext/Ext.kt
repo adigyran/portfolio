@@ -4,8 +4,10 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.res.Resources
+import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.style.ImageSpan
+import android.util.Log
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -80,6 +82,31 @@ fun SpannableStringBuilder.appendExtended(
     append(text)
     what.forEach { setSpan(it, start, length, flags) }
     return this
+}
+
+fun String.formatSpannable(vararg spans: CharSequence?): Spannable {
+    val result = SpannableStringBuilder()
+    when {
+        spans.size != this.split("%s").size - 1 ->
+            Log.e("formatSpannable",
+                "cannot format '$this' with ${spans.size} arguments")
+        !this.contains("%s") -> result.append(this)
+        else -> {
+            var str = this
+            var spanIndex = 0
+            while (str.contains("%s")) {
+                val preStr = str.substring(0, str.indexOf("%s"))
+                result.append(preStr)
+                result.append(spans[spanIndex] ?: "")
+                str = str.substring(str.indexOf("%s") + 2)
+                spanIndex++
+            }
+            if (str.isNotEmpty()) {
+                result.append(str)
+            }
+        }
+    }
+    return result
 }
 
 fun SpannableStringBuilder.appendExtended(
