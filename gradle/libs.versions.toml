@@ -84,6 +84,7 @@ orbit = "4.5.0"
 
 #firebase
 firebase = "31.2.0"
+firebaseDistribution = "3.2.0"
 
 #DI
 kodein = "7.17.0"
@@ -261,6 +262,7 @@ kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", versi
 protobuf = { id = "com.google.protobuf", version.ref = "protobufPlugin" }
 firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "crashlitycsGradle"}
 gms-googleServices = { id = "com.google.gms.google-services", version.ref = "googleServices"}
+firebase-appdistribution = { id = "com.google.firebase.appdistribution", version.ref = "firebaseDistribution"}
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt"}
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 dependency-graph-generator = { id = "com.vanniktech.dependency.graph.generator", version.ref = "dependencyGraphGenerator" }

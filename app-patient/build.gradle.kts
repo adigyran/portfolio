@@ -26,6 +26,9 @@ android {
     buildTypes {
         val debug by getting {
             applicationIdSuffix = AyaPatientBuildType.DEBUG.applicationIdSuffix
+            firebaseAppDistribution {
+                testers="ali@example.com, bri@example.com, cal@example.com"
+            }
         }
     }
     packagingOptions {

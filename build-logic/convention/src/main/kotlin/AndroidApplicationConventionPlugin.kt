@@ -25,6 +25,7 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
                 "dokka",
                 "dependency-graph-generator",
                 "firebase-crashlytics",
+                "firebase-appdistribution",
                 "gms-googleServices"
             )
             with(pluginManager) {
