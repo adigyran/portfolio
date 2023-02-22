@@ -27,7 +27,8 @@ android {
         val debug by getting {
             applicationIdSuffix = AyaPatientBuildType.DEBUG.applicationIdSuffix
             firebaseAppDistribution {
-                testers="ali@example.com, bri@example.com, cal@example.com"
+                groups="general"
+                releaseNotes = "added firebase distribution"
             }
         }
     }
