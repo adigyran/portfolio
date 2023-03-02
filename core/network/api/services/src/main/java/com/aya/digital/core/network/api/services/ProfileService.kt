@@ -15,7 +15,7 @@ import retrofit2.http.*
 
 interface ProfileService {
 
-    @GET("account/profile")
+    @GET("profile")
     fun currentProfile(): Single<CurrentProfileResponse>
 
     @PUT("account/profile")

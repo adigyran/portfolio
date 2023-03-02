@@ -19,6 +19,7 @@ import com.github.terrakok.cicerone.Navigator
 import org.kodein.di.factory
 import org.kodein.di.instance
 import org.kodein.di.on
+import timber.log.Timber
 
 class ProfileTabView :
     DiTabContainerFragment<ViewFragmentContainerBinding, ProfileTabViewModel, ProfileTabState, BaseSideEffect>() {
@@ -36,12 +37,12 @@ class ProfileTabView :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = provideViewModel()
-        openDefaultScreen()
 
     }
 
 
     private fun openDefaultScreen() {
+        Timber.d("openDefaultScreen")
         coordinatorHolder.sendEvent(ProfileTabNavigationEvents.OpenDefaultScreen)
     }
 
@@ -55,6 +56,8 @@ class ProfileTabView :
             ) {
 
             })
+
+    override fun rootScreen(): Fragment = defaultRootScreenManager.processDefaultRootScreen().createFragment(childFragmentManager.fragmentFactory)
 
     override fun provideDiModule() = profileTabDiModule(tryTyGetParentRouter())
 

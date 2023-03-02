@@ -27,6 +27,8 @@ class BottomNavigationNavigationGraphImpl : BottomNavigationGraph {
             Pair(DoctorSearchTabScreen, Tags.DOCTOR_SEARCH_TAB_TAG),
             Pair(ProfileTabScreen, Tags.PROFILE_TAB_TAG),
         )
+        fragment.childFragmentManager.executePendingTransactions()
+
         val screenViews = Tags.getTags().map { tag ->
             val screenPair = screensPair.first { it.second == tag }
             ScreenView(
@@ -41,21 +43,22 @@ class BottomNavigationNavigationGraphImpl : BottomNavigationGraph {
             }
             this
         }
-        fragment.childFragmentManager.executePendingTransactions()
 
+        // Обрабатываем вкладку на которую переходим(если она есть в стеке)
         fragment.childFragmentManager.inTransaction {
-            screenViews.filter { it.screen == screen }.forEach { screenView ->
+            screenViews.filter {checkFragmentNotNull(it.view) && it.screen == screen }.forEach { screenView ->
                 showFragment(this, screenView.view)
             }
             this
         }
 
-        fragment.childFragmentManager.executePendingTransactions()
         fragment.childFragmentManager.inTransaction {
-            screenViews.filter {!checkFragmentNotNull(it.view) && it.screen == screen}
-                .forEach { this.addFragment(it.screen,fragmentFactory,containerId,it.tag) }
+            screenViews.filter { !checkFragmentNotNull(it.view) && it.screen == screen }
+                .forEach { this.addFragment(it.screen, fragmentFactory, containerId, it.tag) }
             this
         }
+        fragment.childFragmentManager.executePendingTransactions()
+
         return getNavigationId(screen)
     }
 

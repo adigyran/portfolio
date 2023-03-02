@@ -3,6 +3,7 @@ package com.aya.digital.feature.tabs.home.ui
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.aya.digital.core.baseresources.databinding.ViewFragmentContainerBinding
 import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.navigation.CustomNavigator
@@ -35,13 +36,14 @@ class HomeTabView :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = provideViewModel()
-        openDefaultScreen()
-
     }
 
     private fun openDefaultScreen() {
         coordinatorHolder.sendEvent(HomeTabNavigationEvents.OpenDefaultScreen)
     }
+
+
+    override fun rootScreen(): Fragment = defaultRootScreenManager.processDefaultRootScreen().createFragment(childFragmentManager.fragmentFactory)
 
 
     override fun provideNavigator(): Navigator =

@@ -7,6 +7,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:ext"))
     implementation(project(":core:dibase"))
     implementation(project(":core:repository:profile"))
     implementation(project(":core:data:base"))

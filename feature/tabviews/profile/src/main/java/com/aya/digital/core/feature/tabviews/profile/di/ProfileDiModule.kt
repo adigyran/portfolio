@@ -14,7 +14,7 @@ fun profileDiModule(
 
     bind {
         scoped(CustomFragmentScope).singleton {
-            ProfileViewModel(parentCoordinatorEvent)
+            ProfileViewModel(parentCoordinatorEvent,instance())
         }
     }
 }

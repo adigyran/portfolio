@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "com.aya.digital.core.ui.delegates.features.profile"
+    namespace = "com.aya.digital.core.ui.delegates.features.profile.main"
 
     buildFeatures {
         viewBinding = true

@@ -14,7 +14,7 @@ data class CurrentProfileResponse(
     val ssn: String?,
     val sex: String?,
     val sexAtBirth: String?,
-    @Json( name = "birthDate") val dateOfBirth: LocalDate?,
+    @Json( name = "birthDate") val dateOfBirth: String?,
     val driverLicense: String?,
     val phoneNumber: String?,
     @Json( name = "avatarPath") val avatar: String?,

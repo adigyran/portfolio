@@ -7,5 +7,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:ui:delegates:features:profile:main"))
+    implementation(project(":core:domain:profile"))
 
 }

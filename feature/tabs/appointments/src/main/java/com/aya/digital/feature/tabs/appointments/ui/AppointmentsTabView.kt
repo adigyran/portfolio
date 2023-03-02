@@ -31,7 +31,6 @@ class AppointmentsTabView :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = provideViewModel()
-        openDefaultScreen()
 
     }
 

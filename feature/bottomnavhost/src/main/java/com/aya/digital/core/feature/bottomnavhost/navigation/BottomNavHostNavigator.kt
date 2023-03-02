@@ -67,17 +67,14 @@ class BottomNavHostNavigator(
             when (screen) {
             }
         }
-        super.applyCommand(command)
     }
 
     private fun openTab(screen: Screen) {
         val fragment = fragmentWeak.get()
         val navView = navViewWeak.get()
         if (screen !is HealthAppTabFragmentScreen || fragment == null || navView == null) return
-        fragment.childFragmentManager.executePendingTransactions()
         navView.setOnItemSelectedListener(null)
         navView.selectedItemId = bottomNavigationGraph.openTab(containerId,fragment, screen,fragmentFactory)
-        fragment.childFragmentManager.executePendingTransactions()
         navView.setOnItemSelectedListener(navListener)
 
     }

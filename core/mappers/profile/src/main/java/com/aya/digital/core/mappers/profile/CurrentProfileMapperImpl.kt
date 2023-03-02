@@ -4,6 +4,10 @@ import com.aya.digital.core.data.profile.CurrentProfile
 import com.aya.digital.core.data.profile.mappers.CurrentProfileMapper
 import com.aya.digital.core.data.profile.mappers.RoleMapper
 import com.aya.digital.core.network.model.response.profile.CurrentProfileResponse
+import kotlinx.datetime.Clock
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.todayIn
 
 internal class CurrentProfileMapperImpl(private val roleMapper: RoleMapper) :
     CurrentProfileMapper() {
@@ -17,7 +21,7 @@ internal class CurrentProfileMapperImpl(private val roleMapper: RoleMapper) :
             ssn = type.ssn,
             sex = type.sex,
             sexAtBirth = type.sexAtBirth,
-            dateOfBirth = type.dateOfBirth,
+            dateOfBirth = Clock.System.todayIn(TimeZone.currentSystemDefault()),
             driverLicense = type.driverLicense,
             phoneNumber = type.phoneNumber,
             avatar = type.avatar,
