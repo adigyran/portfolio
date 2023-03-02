@@ -73,6 +73,16 @@ include(":core:security")
 include(":core:ui:adapters")
 include(":core:ui:core")
 include(":core:ui:base")
+//util modules
+include(":core:mvi")
+include(":core:util")
+include(":core:testing")
+//domain
+include(":core:domain:appointment")
+include(":core:domain:doctors")
+include(":core:domain:profile")
+include(":core:domain:auth")
+include(":core:domain:dictionaries")
 //ui delegates
 //components
 //fields
@@ -100,18 +110,6 @@ include(":feature:tabs:doctorsearch")
 //tabviews
 include(":feature:tabviews:home")
 include(":feature:tabviews:profile")
-
-//util modules
-include(":core:mvi")
-include(":core:util")
-include(":core:testing")
-//domain
-include(":core:domain:appointment")
-include(":core:domain:doctors")
-include(":core:domain:profile")
-include(":core:domain:auth")
-include(":core:domain:dictionaries")
-//features
 //containers
 include(":feature:rootcontainer")
 include(":feature:bottomnavhost")
@@ -124,6 +122,14 @@ include(":feature:auth:signup")
 include(":feature:auth:signin")
 include(":feature:auth:container")
 include(":feature:choosers:multiselect")
+//profile
+include(":feature:profile:emergencycontact")
+include(":feature:profile:generalinfo:edit")
+include(":feature:profile:generalinfo:view")
+include(":feature:profile:insurance:add")
+include(":feature:profile:insurance:list")
+include(":feature:profile:security:securitysummary")
+
 
 include(":core:localisation")
 
