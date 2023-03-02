@@ -1,7 +1,9 @@
 package com.aya.digital.core.network.di
 
+import com.aya.digital.core.network.interceptors.InterceptorsConstants
+import com.aya.digital.core.network.interceptors.interceptors.AuthInterceptor
+import com.aya.digital.core.network.interceptors.interceptors.RefreshTokenInterceptor
 import com.aya.digital.core.network.main.Constants
-import com.aya.digital.core.network.main.interceptors.AuthInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.kodein.di.DI
@@ -22,7 +24,8 @@ internal fun okHttpClientModule() = DI.Module("okHttpClientModule") {
         return@singleton builder
             .connectTimeout(30, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)
-            .addInterceptor(instance<AuthInterceptor>(Constants.AUTH_INTERCEPTOR_TAG))
+            .addInterceptor(instance<AuthInterceptor>(InterceptorsConstants.AUTH_INTERCEPTOR_TAG))
+            .addInterceptor(instance<RefreshTokenInterceptor>(InterceptorsConstants.REFRESH_TOKEN_INTERCEPTOR_TAG))
             .addInterceptor(getLoggingInterceptor())
             .build()
     }

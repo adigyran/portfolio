@@ -1,13 +1,12 @@
-package com.aya.digital.core.network.main.interceptors
+package com.aya.digital.core.network.interceptors.interceptors
 
-import android.util.Log
 import com.aya.digital.core.datastore.HealthAppAuthDataSource
-import com.aya.digital.core.network.main.Constants.AUTHORIZATION
-import com.aya.digital.core.network.main.Constants.BEARER
+import com.aya.digital.core.network.interceptors.InterceptorsConstants.AUTHORIZATION
+import com.aya.digital.core.network.interceptors.InterceptorsConstants.BEARER
 import okhttp3.Interceptor
 import okhttp3.Response
 
-class AuthInterceptor(private val authDataSource: HealthAppAuthDataSource) : Interceptor {
+class RefreshTokenInterceptor(private val authDataSource: HealthAppAuthDataSource) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val bearerToken = getAuthToken()
         val request = chain.request()

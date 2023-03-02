@@ -8,10 +8,10 @@ import com.aya.digital.core.network.moshiModule
 import com.aya.digital.core.network.rxJavaCallAdapterModule
 
 fun networkDiModules() = listOf(
-    interceptorsModule(),
     moshiModule(),
     moshiConverterFactoryModule(),
     okHttpClientModule(),
     rxJavaCallAdapterModule(),
-    retrofitModule()
+    retrofitModule(),
+    interceptorsModule()
 )

@@ -4,13 +4,12 @@ plugins {
 }
 
 android {
-    namespace = "com.aya.digital.core.network.main"
+    namespace = "com.aya.digital.core.network.interceptors"
 }
 
 dependencies {
     api(project(":core:networkbase"))
     implementation(project(":core:datastore"))
-    implementation(project(":core:network:interceptors"))
     implementation(project(":core:data:preferences"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.kodein)

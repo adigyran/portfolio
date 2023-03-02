@@ -68,6 +68,8 @@ include(":core:networkbase")
 include(":core:network:model")
 include(":core:network:api:services")
 include(":core:network:main")
+include(":core:network:interceptors")
+
 include(":core:security")
 //ui
 include(":core:ui:adapters")
