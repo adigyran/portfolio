@@ -1,11 +1,7 @@
 package com.aya.digital.core.data.profile.repository
 
 import com.aya.digital.core.data.profile.LoginResult
-import com.aya.digital.core.network.model.request.LoginBody
-import com.aya.digital.core.network.model.request.RegistrationBody
-import com.aya.digital.core.networkbase.CommonUtils
 import com.aya.digital.core.networkbase.server.RequestResult
-import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 
 interface AuthRepository {
@@ -25,4 +21,5 @@ interface AuthRepository {
     fun saveToken(token: String, refreshToken: String): Single<RequestResult<Boolean>>
 
     fun verifyCode(code: String) : Single<RequestResult<Boolean>>
+    fun refreshAndSaveTokens(refreshToken: String): Single<RequestResult<Boolean>>
 }

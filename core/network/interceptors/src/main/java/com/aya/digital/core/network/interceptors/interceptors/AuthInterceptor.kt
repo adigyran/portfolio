@@ -3,12 +3,14 @@ package com.aya.digital.core.network.interceptors.interceptors
 import com.aya.digital.core.datastore.HealthAppAuthDataSource
 import com.aya.digital.core.network.interceptors.InterceptorsConstants.AUTHORIZATION
 import com.aya.digital.core.network.interceptors.InterceptorsConstants.BEARER
+import com.aya.digital.core.network.interceptors.ext.accessTokenBlocking
+import com.aya.digital.core.network.interceptors.ext.bearerTokenBlocking
 import okhttp3.Interceptor
 import okhttp3.Response
 
 class AuthInterceptor(private val authDataSource: HealthAppAuthDataSource) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
-        val bearerToken = getAuthToken()
+        val bearerToken = authDataSource.bearerTokenBlocking()
         val request = chain.request()
             .newBuilder()
 
@@ -16,10 +18,5 @@ class AuthInterceptor(private val authDataSource: HealthAppAuthDataSource) : Int
         return chain.proceed(request.build())
     }
 
-    private fun getAuthToken():String
-    {
-        val accessToken = authDataSource.authUserData.doOnError { it.printStackTrace() }.blockingFirst().accessToken
-        return if(accessToken.isNotBlank()) "%s %s".format(BEARER,accessToken) else ""
-    }
 
 }

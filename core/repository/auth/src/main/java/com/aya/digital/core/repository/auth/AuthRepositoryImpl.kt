@@ -4,9 +4,11 @@ import com.aya.digital.core.data.mappers.profile.LoginResultMapper
 import com.aya.digital.core.data.profile.LoginResult
 import com.aya.digital.core.data.profile.repository.AuthRepository
 import com.aya.digital.core.datasource.AuthDataSource
+import com.aya.digital.core.datasource.TokenDataSource
 import com.aya.digital.core.datastore.HealthAppAuthDataSource
 import com.aya.digital.core.ext.*
 import com.aya.digital.core.network.model.request.LoginBody
+import com.aya.digital.core.network.model.request.RefreshTokenBody
 import com.aya.digital.core.network.model.request.RegistrationBody
 import com.aya.digital.core.networkbase.CommonUtils
 import com.aya.digital.core.networkbase.server.RequestResult
@@ -17,13 +19,14 @@ internal class AuthRepositoryImpl(
     private val authDataSource: AuthDataSource,
     private val loginResultMapper: LoginResultMapper,
     private val authDataStore: HealthAppAuthDataSource,
+    private val tokenDataSource: TokenDataSource
 ) : AuthRepository {
     override fun checkIfTokenPresent(): Single<RequestResult<Boolean>> =
         authDataStore.refreshTokenData
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
             .userDataResponseToResult()
-            .mapResult({it.isNotBlank().asResult()},{it})
+            .mapResult({ it.isNotBlank().asResult() }, { it })
             .firstOrError()
 
 
@@ -68,6 +71,21 @@ internal class AuthRepositoryImpl(
         authDataSource.verifyProfile(code)
             .retryOnError()
             .retrofitResponseToResult(CommonUtils::mapServerErrors)
-            .mapResult({it.asResult()},{it})
+            .mapResult({ it.asResult() }, { it })
+
+    override fun refreshAndSaveTokens(refreshToken: String): Single<RequestResult<Boolean>> =
+        tokenDataSource.refreshToken(
+            RefreshTokenBody(
+                clientId = "mobile-client",
+                grantType = "refresh_token",
+                clientSecret = "JXnfDtUdxow13VyKu4771WjCOyyijeWG",
+                refreshToken = refreshToken
+            )
+        )
+            .retryOnError()
+            .retrofitResponseToResult(CommonUtils::mapServerErrors)
+            .mapResult({ loginResultMapper.mapFrom(it).asResult() }, { it })
+            .flatMapResult({
+                if (it.token.isNotBlank() && it.refreshToken.isNotBlank()) saveToken(it.token,it.refreshToken) else Single.just(false.asResult())},{Single.just(it)})
 
 }

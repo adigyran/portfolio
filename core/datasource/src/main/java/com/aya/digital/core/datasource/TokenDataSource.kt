@@ -13,7 +13,7 @@ import retrofit2.http.POST
 
 interface TokenDataSource {
 
-    fun refreshToken(refreshTokenBody: RefreshTokenBody): Completable
+    fun refreshToken(refreshTokenBody: RefreshTokenBody): Single<LoginResponse>
 
-    fun logout(logoutBody: LogoutBody): Completable
+    fun logout(logoutBody: LogoutBody): Single<Void>
 }

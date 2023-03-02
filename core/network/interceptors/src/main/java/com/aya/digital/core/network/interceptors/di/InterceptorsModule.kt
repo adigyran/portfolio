@@ -10,6 +10,6 @@ import org.kodein.di.singleton
 
 fun interceptorsModule() = DI.Module("interceptorsModule") {
     bind<AuthInterceptor>(InterceptorsConstants.AUTH_INTERCEPTOR_TAG) with singleton { AuthInterceptor(instance()) }
-    bind<RefreshTokenInterceptor>(InterceptorsConstants.REFRESH_TOKEN_INTERCEPTOR_TAG) with singleton { RefreshTokenInterceptor(instance()) }
+    bind<RefreshTokenInterceptor>(InterceptorsConstants.REFRESH_TOKEN_INTERCEPTOR_TAG) with singleton { RefreshTokenInterceptor(instance(),instance()) }
 
 }

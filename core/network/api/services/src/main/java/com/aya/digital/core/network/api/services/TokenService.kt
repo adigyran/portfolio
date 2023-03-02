@@ -10,9 +10,9 @@ import retrofit2.http.*
 
 interface TokenService {
 
-    @POST("openid-connect/logout")
-    fun refreshToken(@Body refreshTokenBody: RefreshTokenBody): Completable
+    @POST("openid-connect/token")
+    fun refreshToken(@Body refreshTokenBody: RefreshTokenBody): Single<LoginResponse>
 
     @POST("openid-connect/logout")
-    fun logout(@Body logoutBody: LogoutBody): Completable
+    fun logout(@Body logoutBody: LogoutBody): Single<Void>
 }

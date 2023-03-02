@@ -11,6 +11,7 @@ dependencies {
     api(project(":core:networkbase"))
     implementation(project(":core:datastore"))
     implementation(project(":core:data:preferences"))
+    implementation(project(":core:data:profile"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.kodein)
     implementation(libs.bundles.retrofit)

@@ -7,5 +7,5 @@ import org.kodein.di.instance
 import org.kodein.di.singleton
 
 fun authRepositoryDiModule() = DI.Module("authRepositoryDiModule") {
-    bind<AuthRepository>() with singleton { AuthRepositoryImpl(instance(), instance(),instance()) }
+    bind<AuthRepository>() with singleton { AuthRepositoryImpl(instance(), instance(),instance(),instance()) }
 }

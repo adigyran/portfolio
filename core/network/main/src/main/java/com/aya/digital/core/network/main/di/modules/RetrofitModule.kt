@@ -23,6 +23,12 @@ internal fun retrofitModule() = DI.Module("retrofitModule") {
             .baseUrl(Constants.BASE_AUTH_URL_API)
             .build()
     }
+
+    bind<Retrofit>(RetrofitTags.RETROFIT_TOKEN_TAG) with singleton {
+        instance<Retrofit.Builder>()
+            .baseUrl(Constants.BASE_TOKEN_URL_API)
+            .build()
+    }
 }
 
 inline fun <reified T> createApiService(retrofit: Retrofit): T {
