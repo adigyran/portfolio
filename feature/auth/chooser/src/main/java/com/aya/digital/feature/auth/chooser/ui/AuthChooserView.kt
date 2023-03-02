@@ -6,9 +6,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.aya.digital.core.mvi.BaseSideEffect
+import com.aya.digital.core.ui.adapters.base.BaseDelegateAdapter
 import com.aya.digital.core.ui.base.screens.DiFragment
 import com.aya.digital.core.ui.delegates.auth.chooser.buttons.ui.ButtonsDelegateListeners
+import com.aya.digital.core.ui.delegates.auth.chooser.buttons.ui.chooserButtonsDelegate
 import com.aya.digital.core.ui.delegates.auth.chooser.description.ui.DescriptionDelegateListeners
+import com.aya.digital.core.ui.delegates.auth.chooser.description.ui.chooserDescriptionDelegate
 import com.aya.digital.feature.auth.chooser.databinding.ViewAuthChooserBinding
 import com.aya.digital.feature.auth.chooser.di.authChooserDiModule
 import com.aya.digital.feature.auth.chooser.ui.model.AuthChooserStateTransformer
@@ -31,15 +34,10 @@ class AuthChooserView :
     ).factory()
 
     private val adapter by lazy(LazyThreadSafetyMode.NONE) {
-        AuthChooserAdapter(
-            AuthChooserAdapterListeners(
-                DescriptionDelegateListeners({}, {}, {}),
-                ButtonsDelegateListeners(
-                    signInClick = viewModel::onSignInClicked,
-                    signUpClick = viewModel::onSignUpClicked
-                )
-            )
-        )
+        BaseDelegateAdapter.create {
+            delegate { chooserDescriptionDelegate(DescriptionDelegateListeners({},{},{})) }
+            delegate { chooserButtonsDelegate(ButtonsDelegateListeners(viewModel::onSignInClicked,viewModel::onSignUpClicked)) }
+        }
     }
 
     override fun prepareCreatedUi(savedInstanceState: Bundle?) {
@@ -47,7 +45,7 @@ class AuthChooserView :
         recyclers.add(binding.recycler)
         with(binding.recycler) {
             itemAnimator = null
-            setHasFixedSize(false)
+            setHasFixedSize(true)
             isNestedScrollingEnabled = false
 
             val lm = LinearLayoutManager(
@@ -55,7 +53,6 @@ class AuthChooserView :
                 RecyclerView.VERTICAL,
                 true
             )
-
             layoutManager = lm
 
         }

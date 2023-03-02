@@ -96,18 +96,16 @@ class RootNavigator(
                 }
                 is HealthAppDialogFragmentScreen -> {
                     val screen = command.screen as HealthAppDialogFragmentScreen
-                    val fragment =
-                        screen.createFragment(fragmentFactory) as BottomSheetDialogFragment
+                    val fragment = screen.createFragment(fragmentFactory) as BottomSheetDialogFragment
                     val fragmentTransaction = fragmentManager.beginTransaction()
-                    fragmentTransaction
-                        .replace(containerId, fragment, screen.tag)
-                        .addToBackStack(screen.screenKey)
-                        .show(fragment)
-                        .commit()
+                    fragmentTransaction.addToBackStack(screen.screenKey)
+                    fragment.show(fragmentTransaction,screen.tag)
                     return
                 }
             }
         }
         super.applyCommand(command)
     }
+
+
 }

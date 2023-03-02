@@ -6,5 +6,5 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class InsuranceBody(
     var id: Int,
-    var name: String?
+    var nameOrg: String?
 )

@@ -11,28 +11,39 @@ class HealthAppAuthDataSource constructor(
 ) {
     val authUserData = userPreferences.data()
         .map {
-            com.aya.digital.core.data.preferences.AuthUserData(
+            AuthUserData(
                 refreshToken = it.refreshToken,
-                accessToken = it.accessToken,
-                idToken = it.tokenId
+                accessToken = it.accessToken
             )
         }
 
 
-    fun saveAuthData(authUserData: com.aya.digital.core.data.preferences.AuthUserData) =
+    val accessTokenData = userPreferences.data()
+        .map {it.accessToken
+        }
+    val refreshTokenData = userPreferences.data()
+        .map { it.refreshToken }
+    fun saveAuthData(authUserData: AuthUserData) =
         CompletableFromSingle(userPreferences.updateDataAsync {
             val copy = it.copy {
-                tokenId = authUserData.idToken
                 accessToken = authUserData.accessToken
                 refreshToken = authUserData.refreshToken
             }
             Single.just(copy)
         })
 
+    fun saveAuthData(token :String, refreshTokenIn:String) = userPreferences.updateDataAsync{
+        val copy = it.copy {
+            accessToken = token
+            refreshToken = refreshTokenIn
+        }
+        Single.just(copy)
+    }
+
+
     fun clearAuthData() =
         CompletableFromSingle(userPreferences.updateDataAsync {
             val copy = it.copy {
-                tokenId = ""
                 accessToken = ""
                 refreshToken = ""
             }

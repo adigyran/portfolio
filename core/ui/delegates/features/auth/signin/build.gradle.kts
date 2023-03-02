@@ -11,6 +11,10 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:ui:delegates:fields:emailphone"))
-    implementation(project(":core:ui:delegates:fields:password"))
+    implementation(project(":core:ui:delegates:components:fields:emailphone"))
+    implementation(project(":core:ui:delegates:components:fields:password"))
+    implementation(project(":core:ui:delegates:components:labels:headline"))
+    implementation(project(":core:ui:delegates:components:labels:spannablehelper"))
+
+
 }

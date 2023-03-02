@@ -8,14 +8,33 @@
         android:id="@+id/recycler"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:clipToPadding="false"
+        android:clipToPadding="true"
         android:paddingBottom="60dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/signUpBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:itemCount="5"
+        android:nestedScrollingEnabled="false"
         tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:orientation="vertical" />
+
+    <com.aya.digital.core.designsystem.buttons.filled.ButtonFilledView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/descrLabl"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/signUpBtn"
+        android:text="@string/sign_up_btn"
+        />
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/descrLabl"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,6 +6,7 @@ import org.kodein.di.DI
 
 fun servicesModule() = DI.Module("servicesModule") {
     importOnce(authNetworkModule())
+    importOnce(dictionariesNetworkModule())
     importOnce(appointmentNetworkModule())
     importOnce(practitionersNetworkModule())
     importOnce(profileNetworkModule())

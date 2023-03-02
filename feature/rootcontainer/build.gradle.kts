@@ -22,4 +22,6 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:domain:auth"))
+
 }

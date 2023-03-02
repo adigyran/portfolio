@@ -1,5 +1,8 @@
 package com.aya.digital.core.navigation.coordinator
 
+import com.github.terrakok.cicerone.BaseRouter
+import com.github.terrakok.cicerone.ResultListener
+import com.github.terrakok.cicerone.Router
 import java.util.*
 
 /**
@@ -8,6 +11,8 @@ import java.util.*
  */
 class CoordinatorHolder : CoordinatorRouter {
     private var coordinator: Coordinator? = null
+    private var router: BaseRouter? = null
+
     private val pendingEvents = LinkedList<CoordinatorEvent>()
 
     /**
@@ -26,8 +31,17 @@ class CoordinatorHolder : CoordinatorRouter {
         }
     }
 
+    fun setRouter(router: BaseRouter?)
+    {
+        this.router = router
+    }
+
     fun removeCoordinator() {
         coordinator = null
+    }
+
+    fun removeRouter() {
+        router = null
     }
 
     /**
@@ -42,4 +56,9 @@ class CoordinatorHolder : CoordinatorRouter {
             pendingEvents.add(event)
         }
     }
+
+    override fun setResultListener(key: String, listener: ResultListener) {
+        router?.setResultListener(key,listener)
+    }
+
 }

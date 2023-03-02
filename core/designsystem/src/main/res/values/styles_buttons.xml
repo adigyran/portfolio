@@ -27,6 +27,5 @@
     <style name="ThemeOverlay.App.Button" parent="">
         <item name="colorPrimary">@color/button_background_color_selector</item>
         <item name="colorOnPrimary">@color/button_ripple_color_selector</item>
-
     </style>
 </resources>

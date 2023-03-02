@@ -10,7 +10,7 @@ open class BaseViewHolder<T : Any>(itemView: View) : RecyclerView.ViewHolder(ite
     ContextAware {
     protected lateinit var item: T
 
-    override fun getContext(): Context = itemView.context
+    override fun getContextAware(): Context = itemView.context
 
     @CallSuper
     open fun bind(item: T) {

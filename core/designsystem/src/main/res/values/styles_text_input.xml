@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="Widget.App.TextInputLayout" parent="Widget.Material3.TextInputLayout.OutlinedBox">
         <item name="shapeAppearance">@style/ShapeAppearance.App.SmallComponent</item>
-        <item name="materialThemeOverlay">
-            @style/ThemeOverlay.App.TextInputLayout
-        </item>
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.TextInputLayout</item>
+        <item name="hintTextColor">@color/input_field_label_color</item>
         <item name="boxBackgroundMode">outline</item>
     </style>
 
     <style name="ThemeOverlay.App.TextInputLayout" parent="">
+        <item name="colorPrimary">@color/text_black</item>
+        <item name="colorOnSurface">@color/text_black</item>
+        <item name="colorError">@color/stroke_red</item>
         <item name="editTextStyle">@style/Widget.Material3.TextInputEditText.OutlinedBox</item>
+
     </style>
 
     <style name="Widget.App.ExposedDropdownMenu" parent="Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
@@ -21,6 +25,8 @@
     </style>
 
     <style name="ThemeOverlay.App.ExposedDropdownMenu" parent="">
-        <item name="autoCompleteTextViewStyle">@style/Widget.Material3.AutoCompleteTextView.OutlinedBox</item>
+        <item name="autoCompleteTextViewStyle">
+            @style/Widget.Material3.AutoCompleteTextView.OutlinedBox
+        </item>
     </style>
 </resources>

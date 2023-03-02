@@ -1,6 +1,7 @@
 package com.aya.digital.feature.auth.container.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.aya.digital.core.baseresources.databinding.ViewFragmentContainerBinding
@@ -10,6 +11,7 @@ import com.aya.digital.core.navigation.di.CustomNavigatorParam
 import com.aya.digital.core.ui.base.screens.DiBottomSheetDialogFragment
 import com.aya.digital.core.ui.base.screens.DiContainerFragment
 import com.aya.digital.core.ui.base.screens.DiFragment
+import com.aya.digital.core.util.requestcodes.RequestCodes
 import com.aya.digital.feature.auth.container.R
 import com.aya.digital.feature.auth.container.di.authContainerDiModule
 import com.aya.digital.feature.auth.container.navigation.AuthContainerNavigationEvents
@@ -52,6 +54,8 @@ class AuthContainerView :
             ) {
 
             })
+
+
 
     override fun provideDiModule() = authContainerDiModule(tryTyGetParentRouter())
 

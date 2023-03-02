@@ -1,12 +1,12 @@
 
 import com.aya.digital.healthapp.AyaPatientBuildType
 
+
 plugins {
     id("healthapp.android.application")
 }
 
 android {
-
 
     defaultConfig {
         applicationId = "com.aya.digital.healthapp.doctor"
@@ -24,6 +24,10 @@ android {
     buildTypes {
         val debug by getting {
             applicationIdSuffix = AyaPatientBuildType.DEBUG.applicationIdSuffix
+            firebaseAppDistribution {
+                groups="general"
+                releaseNotesFile = "${parent!!.projectDir}/releasenotes.txt"
+            }
         }
     }
     packagingOptions {
@@ -59,4 +63,5 @@ dependencies {
     implementation(libs.cicerone)
     implementation(libs.eventbus)
     implementation(libs.timber)
+    debugImplementation(libs.leak.canary)
 }

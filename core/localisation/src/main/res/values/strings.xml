@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="terms_of_service_button">Terms of Service</string>
+    <string name="privacy_policy_button">Privacy Policy</string>
+    <string name="cookie_policy_button">Cookie Policy</string>
+    <string name="auth_chooser_description_formatted">By registering, you agree to the %s, %s, and %s.</string>
+    <string name="sign_in">Sign In</string>
+    <string name="sign_up_btn">Sign Up</string>
+    <string name="apply_selection_btn">Apply</string>
+    <string name="send_btn">Send</string>
+</resources>

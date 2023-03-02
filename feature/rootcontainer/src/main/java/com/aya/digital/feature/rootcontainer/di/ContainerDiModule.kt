@@ -40,7 +40,7 @@ fun rootContainerDiModule() = DI.Module("rootContainerDiModule") {
 
     bind {
         scoped(CustomActivityScope).singleton {
-            RootContainerViewModel(instance())
+            RootContainerViewModel(instance(),instance())
         }
     }
 

@@ -1,10 +1,10 @@
 package com.aya.digital.feature.rootcontainer.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import androidx.fragment.app.FragmentManager
 import com.aya.digital.core.baseresources.databinding.ViewFragmentContainerBinding
-import com.aya.digital.core.ext.inTransaction
 import com.aya.digital.feature.rootcontainer.di.RootNavigatorParam
 import com.aya.digital.feature.rootcontainer.di.rootContainerDiModule
 import com.aya.digital.feature.rootcontainer.navigation.RootNavigator
@@ -13,22 +13,20 @@ import com.aya.digital.feature.rootcontainer.viewmodel.RootContainerViewModel
 import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.navigation.AppFlavour
 import com.aya.digital.core.navigation.coordinator.Coordinator
-import com.aya.digital.core.navigation.coordinator.CoordinatorEvent
 import com.aya.digital.core.navigation.graph.DefaultRootScreenManager
 import com.aya.digital.core.navigation.utils.BackButtonListener
 import com.aya.digital.core.ui.base.screens.DiActivity
-import com.aya.digital.feature.rootcontainer.R
+import com.aya.digital.core.util.requestcodes.RequestCodes
 import com.github.terrakok.cicerone.Navigator
 import org.kodein.di.factory
 import org.kodein.di.instance
 import org.kodein.di.on
-import timber.log.Timber
 
 class RootView :
     DiActivity<ViewFragmentContainerBinding, RootContainerViewModel, RootContainerState, BaseSideEffect>() {
 
     private val appFlavour: AppFlavour by kodein.on(context = this).instance()
-    private val defaultRootScreenManager: DefaultRootScreenManager by kodein.on(context = this).instance()
+    private val defaultRootScreenManager: DefaultRootScreenManager by kodein.on(context = this).instance("root_navigation")
 
 
     private val viewModelFactory: ((Unit) -> RootContainerViewModel) by kodein.on(
@@ -54,6 +52,7 @@ class RootView :
     private fun openDefaultScreen() {
         viewModel.openDefaultScreen()
     }
+
 
     override fun sideEffect(sideEffect: BaseSideEffect) = Unit
 

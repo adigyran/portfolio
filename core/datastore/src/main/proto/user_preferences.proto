@@ -7,7 +7,5 @@ message UserPreferences {
   bool seenOnBoarding = 2;
   string refreshToken = 3;
   string accessToken = 4;
-  string tokenId = 5;
-
 }
 

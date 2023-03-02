@@ -29,4 +29,11 @@
         <attr name="helperText" />
         <attr name="label"/>
     </declare-styleable>
+
+    <declare-styleable name="SelectFieldView">
+        <attr name="android:text" />
+        <attr name="android:hint" />
+        <attr name="isArrowVisible" format="boolean" />
+        <attr name="helperText" />
+    </declare-styleable>
 </resources>

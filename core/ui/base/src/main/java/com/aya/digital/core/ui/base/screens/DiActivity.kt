@@ -48,6 +48,7 @@ abstract class DiActivity<Binding : ViewBinding,ViewModel : BaseViewModel<State,
         viewModel = provideViewModel()
 
         coordinatorHolder.setCoordinator(coordinator)
+        coordinatorHolder.setRouter(localCicerone.router)
         viewModel.observe(this, state = ::render, sideEffect = ::sideEffect)
     }
 
@@ -65,6 +66,7 @@ abstract class DiActivity<Binding : ViewBinding,ViewModel : BaseViewModel<State,
 
     override fun onDestroy() {
         coordinatorHolder.removeCoordinator()
+        coordinatorHolder.removeRouter()
         super.onDestroy()
     }
 

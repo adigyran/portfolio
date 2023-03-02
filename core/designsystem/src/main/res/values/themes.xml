@@ -1,18 +1,15 @@
 <resources>
     <!-- Base application theme. -->
     <style name="Theme.HealthAppAya" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorPrimary">@color/bg_white</item>
+        <item name="colorPrimaryDark">@color/bg_white</item>
+        <item name="colorSecondary">@color/bg_light_grey</item>
+        <item name="android:colorBackground">@color/bg_white</item>
+        <item name="colorError">@color/stroke_red</item>
         <!-- Primary brand color. -->
         <!-- Secondary brand color. -->
         <!-- Status bar color. -->
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="Theme.HealthAppAya.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
-
-    <style name="Theme.HealthAppAya.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="Theme.HealthAppAya.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

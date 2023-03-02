@@ -12,8 +12,8 @@ android {
 
     defaultConfig {
         applicationId = "com.aya.digital.healthapp.patient"
-        versionCode = 1
-        versionName = "0.0.1" // X.Y.Z; X = Major, Y = minor, Z = Patch level
+        versionCode = 4
+        versionName = "0.0.4" // X.Y.Z; X = Major, Y = minor, Z = Patch level
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -28,7 +28,7 @@ android {
             applicationIdSuffix = AyaPatientBuildType.DEBUG.applicationIdSuffix
             firebaseAppDistribution {
                 groups="general"
-                releaseNotes = "added firebase distribution"
+                releaseNotesFile = "${parent!!.projectDir}/releasenotes.txt"
             }
         }
     }
@@ -46,12 +46,25 @@ android {
 
 dependencies {
     implementation(project(":feature:rootcontainer"))
-    implementation(project(":feature:bottomdialog"))
+    implementation(project(":feature:bottomdialogs:bottomdialog"))
+    implementation(project(":feature:bottomdialogs:codedialog"))
+    implementation(project(":feature:bottomnavhost"))
+    implementation(project(":feature:tabs:appointments"))
+    implementation(project(":feature:tabs:doctorsearch"))
+    implementation(project(":feature:tabs:home"))
+    implementation(project(":feature:tabviews:home"))
+    implementation(project(":feature:tabs:profile"))
+    implementation(project(":feature:tabviews:profile"))
+
+    implementation(project(":feature:choosers:multiselect"))
     implementation(project(":feature:auth:chooser"))
     implementation(project(":feature:auth:container"))
     implementation(project(":feature:auth:signin"))
     implementation(project(":feature:auth:signup"))
+
     implementation(project(":core:appbase"))
+    implementation(project(":core:data:base"))
+    implementation(project(":core:ui:base"))
     implementation(project(":core:baseresources"))
     implementation(project(":core:dibase"))
     implementation(project(":core:di"))

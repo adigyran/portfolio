@@ -1,19 +1,28 @@
 package com.aya.digital.core.data.profile.repository
 
+import com.aya.digital.core.data.profile.LoginResult
+import com.aya.digital.core.network.model.request.LoginBody
+import com.aya.digital.core.network.model.request.RegistrationBody
+import com.aya.digital.core.networkbase.CommonUtils
 import com.aya.digital.core.networkbase.server.RequestResult
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 
 interface AuthRepository {
-    /*fun getAuthRequest(): AuthorizationRequest
 
-    fun getEndSessionRequest(): EndSessionRequest
+    fun checkIfTokenPresent():Single<RequestResult<Boolean>>
+    fun generateToken(email: String, password: String): Single<RequestResult<LoginResult>>
 
-    fun isPatient(): Single<RequestResult<Boolean>>
+    fun registerProfile(
+        email: String,
+        firstName: String,
+        lastName: String,
+        insurances: List<Int>,
+        password: String,
+        passwordConfirm: String
+    ): Single<RequestResult<Boolean>>
 
-    fun performTokenRequest(tokenRequest: TokenRequest): Completable
+    fun saveToken(token: String, refreshToken: String): Single<RequestResult<Boolean>>
 
-    fun clear()
-
-    fun logout(): Completable*/
+    fun verifyCode(code: String) : Single<RequestResult<Boolean>>
 }

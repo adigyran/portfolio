@@ -13,11 +13,11 @@ import androidx.viewbinding.ViewBinding
 import androidx.viewpager2.widget.ViewPager2
 import com.aya.digital.base.appbase.BaseApp
 import com.aya.digital.core.ext.ContextAware
-import com.aya.digital.core.ext.colors
 import com.aya.digital.core.ext.setStatusBarColor
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
 import com.aya.digital.core.navigation.utils.ChildKodeinProvider
 import com.aya.digital.core.navigation.utils.ParentRouterProvider
+import com.aya.digital.core.ui.base.ext.colors
 import com.aya.digital.core.util.retainedinstancemanager.IHasRetainedInstance
 import com.aya.digital.core.util.retainedinstancemanager.IdProvider
 import org.kodein.di.DI
@@ -127,7 +127,7 @@ abstract class CoreFragment<Binding : ViewBinding> : Fragment(), ContextAware,
 
     abstract fun provideViewBinding(inflater: LayoutInflater, container: ViewGroup?): Binding
 
-    override fun getContext(): Context = super.requireContext()
+    override fun getContextAware(): Context = super.requireContext()
 
     protected fun getClosestParentKodein(): DI = when {
         parentFragment is ChildKodeinProvider -> (requireParentFragment() as ChildKodeinProvider).getChildKodein()

@@ -42,6 +42,7 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
                 add("implementation", project(":core:ui:adapters"))
                 add("implementation", project(":core:designsystem"))
                 add("implementation", project(":core:dibase"))
+                add("implementation", project(":core:data:base"))
                 add("implementation", project(":core:di"))
                 add("implementation", project(":core:baseresources"))
                 add("implementation", project(":core:navigation"))
@@ -57,6 +58,7 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
                 add("implementation", libs.findLibrary("orbit.viewmodel").get())
                 add("implementation", libs.findLibrary("kodein").get())
                 add("implementation", libs.findLibrary("kodein.framework.androidx").get())
+                add("implementation", libs.findLibrary("kotlinx.coroutines.rxjava3").get())
                 add("implementation", libs.findLibrary("androidx.core.ktx").get())
                 add("implementation", libs.findLibrary("androidx.appcompat").get())
                 add("implementation", libs.findLibrary("material.design").get())
@@ -67,6 +69,8 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
                 add("implementation", libs.findLibrary("androidx.lifecycle.viewModel").get())
                 add("implementation", libs.findLibrary("androidx.lifecycle.livedata-ktx").get())
                 add("implementation", libs.findLibrary("timber").get())
+                add("debugImplementation", libs.findLibrary("leak.canary").get())
+
             }
         }
     }

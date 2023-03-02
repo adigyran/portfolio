@@ -16,6 +16,8 @@ fun authContainerDiModule(
     parentCoordinatorEvent: CoordinatorRouter
 ) = DI.Module("authContainerDiModule") {
 
+    bind<CoordinatorRouter>("parent_coordinator_auth_container") with multiton {parentCoordinatorEvent}
+
     bind<Coordinator>(overrides = true) {
         scoped(CustomFragmentScope).singleton {
             AuthContainerCoordinator(

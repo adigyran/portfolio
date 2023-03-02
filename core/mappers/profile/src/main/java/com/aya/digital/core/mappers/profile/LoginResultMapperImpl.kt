@@ -5,7 +5,6 @@ import com.aya.digital.core.data.profile.LoginResult
 import com.aya.digital.core.network.model.response.auth.LoginResponse
 
 internal class LoginResultMapperImpl : LoginResultMapper() {
-    override fun mapFrom(type: LoginResponse): LoginResult {
-        TODO("Not yet implemented")
-    }
+    override fun mapFrom(type: LoginResponse): LoginResult =
+        LoginResult(type.token ?: "", type.refreshToken ?: "")
 }

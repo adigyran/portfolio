@@ -1,10 +1,11 @@
-package com.aya.digital.core.ext
+package com.aya.digital.core.ui.base.ext
 
 import android.content.Context
 import android.content.res.Resources
 import android.graphics.drawable.Drawable
 import androidx.annotation.AnyRes
 import androidx.core.content.res.ResourcesCompat.*
+import com.aya.digital.core.ext.ContextAware
 
 val Context.animations
     get() = ResourceMapper { resources.getAnimation(it) }
@@ -57,33 +58,31 @@ val Context.typedArrays
 val Context.rawResources
     get() = ResourceMapper { resources.openRawResource(it) }
 
-interface ContextAware {
-    fun getContext(): Context
-}
 
-val ContextAware.animations get() = getContext().animations
-val ContextAware.booleans get() = getContext().booleans
-val ContextAware.colors get() = getContext().colors
-val ContextAware.colorStateLists get() = getContext().colorStateLists
-val ContextAware.dimens get() = getContext().dimens
-val ContextAware.dimensInt get() = getContext().dimensInt
-val ContextAware.dimensOffset get() = getContext().dimensOffset
-val ContextAware.drawables get() = getContext().drawables
-val ContextAware.scaledDrawable get() = getContext().scaledDrawable
-val ContextAware.fonts get() = getContext().fonts
-val ContextAware.intArrays get() = getContext().intArrays
-val ContextAware.ints get() = getContext().ints
-val ContextAware.layouts get() = getContext().layouts
-val ContextAware.movies get() = getContext().movies
-val ContextAware.formattedStrings get() = getContext().formattedStrings
-val ContextAware.resourceInfos get() = getContext().resourceInfos
-val ContextAware.strings get() = getContext().strings
-val ContextAware.stringArrays get() = getContext().stringArrays
-val ContextAware.texts get() = getContext().texts
-val ContextAware.textArrays get() = getContext().textArrays
-val ContextAware.xmls get() = getContext().xmls
-val ContextAware.typedArrays get() = getContext().typedArrays
-val ContextAware.rawResources get() = getContext().rawResources
+
+val ContextAware.animations get() = getContextAware().animations
+val ContextAware.booleans get() = getContextAware().booleans
+val ContextAware.colors get() = getContextAware().colors
+val ContextAware.colorStateLists get() = getContextAware().colorStateLists
+val ContextAware.dimens get() = getContextAware().dimens
+val ContextAware.dimensInt get() = getContextAware().dimensInt
+val ContextAware.dimensOffset get() = getContextAware().dimensOffset
+val ContextAware.drawables get() = getContextAware().drawables
+val ContextAware.scaledDrawable get() = getContextAware().scaledDrawable
+val ContextAware.fonts get() = getContextAware().fonts
+val ContextAware.intArrays get() = getContextAware().intArrays
+val ContextAware.ints get() = getContextAware().ints
+val ContextAware.layouts get() = getContextAware().layouts
+val ContextAware.movies get() = getContextAware().movies
+val ContextAware.formattedStrings get() = getContextAware().formattedStrings
+val ContextAware.resourceInfos get() = getContextAware().resourceInfos
+val ContextAware.strings get() = getContextAware().strings
+val ContextAware.stringArrays get() = getContextAware().stringArrays
+val ContextAware.texts get() = getContextAware().texts
+val ContextAware.textArrays get() = getContextAware().textArrays
+val ContextAware.xmls get() = getContextAware().xmls
+val ContextAware.typedArrays get() = getContextAware().typedArrays
+val ContextAware.rawResources get() = getContextAware().rawResources
 
 class FormattedString(
     private val resources: Resources,

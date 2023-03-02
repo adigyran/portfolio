@@ -37,6 +37,7 @@ abstract class CoreContainerFragment<Binding : ViewBinding> : CoreFragment<Bindi
             }
         }
         coordinatorHolder?.setCoordinator(coordinator)
+        coordinatorHolder?.setRouter(localCicerone.router)
     }
 
     override fun onResume() {
@@ -51,6 +52,7 @@ abstract class CoreContainerFragment<Binding : ViewBinding> : CoreFragment<Bindi
 
     override fun onDestroy() {
         coordinatorHolder?.removeCoordinator()
+        coordinatorHolder?.removeRouter()
         super.onDestroy()
     }
 

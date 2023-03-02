@@ -4,10 +4,10 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 class PagedResponse<T> (
-    val content: List<T>?,
-    val number: Int?,
-    val totalPages: Int?,
-    val totalElements: Int?,
-    val first: Boolean?,
-    val last: Boolean?,
+    val content: List<T>,
+    val offset: Int,
+    val pageNumber: Int,
+    val numberOfElements: Int,
+    val totalPages: Boolean,
+    val totalElements: Boolean,
 )

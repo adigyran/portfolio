@@ -1,5 +1,10 @@
 package com.aya.digital.core.di
 
+import com.aya.digital.core.di.modules.domainDiModules
+import com.aya.digital.core.di.modules.mappersDiModules
+import com.aya.digital.core.di.modules.repositoryDiModules
+import com.aya.digital.core.di.modules.securityDiModules
+
 
 fun coreDiModules() = listOf(
     networkDiModules(),
@@ -7,4 +12,7 @@ fun coreDiModules() = listOf(
     navigationDiModules(),
     securityDiModules(),
     dataDiModules(),
+    domainDiModules(),
+    mappersDiModules(),
+    repositoryDiModules()
 )

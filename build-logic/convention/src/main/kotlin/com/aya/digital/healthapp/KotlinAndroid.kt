@@ -18,6 +18,7 @@ internal fun Project.configureKotlinAndroid(
 
         defaultConfig {
             minSdk = 26
+            manifestPlaceholders.put("appAuthRedirectScheme","HealthApp")
         }
 
         compileOptions {

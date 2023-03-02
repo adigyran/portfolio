@@ -1,0 +1,7 @@
+Added Firebase Distribution
+Testing distribution notifications
+Added Auth and Sign in Screens with insurance selector
+Added bottom navigation, proper auth endpoints, code dialog
+added check for auth to show main screen, added main and profile screens
+added code input screen
+now insurances loading by id

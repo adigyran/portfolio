@@ -18,6 +18,7 @@ dependencies {
     implementation(project(":core:navigation"))
     implementation(project(":core:appbase"))
     implementation(project(":core:util"))
+    implementation(project(":core:localisation"))
     implementation(libs.orbit.viewmodel)
     implementation(libs.rxrelay)
     implementation(libs.cicerone)

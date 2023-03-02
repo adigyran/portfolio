@@ -8,7 +8,6 @@ internal class AuthUserDataMapperImpl : AuthUserDataMapper() {
     override fun mapFrom(type: Tokens): AuthUserData =
         AuthUserData(
             accessToken = type.accessToken,
-            idToken = type.idToken,
             refreshToken = type.refreshToken
         )
 }

@@ -8,9 +8,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.viewbinding.ViewBinding
 import com.aya.digital.core.dibase.KodeinInjectionManager
-import com.aya.digital.core.mvi.BaseSideEffect
-import com.aya.digital.core.mvi.BaseState
-import com.aya.digital.core.mvi.BaseViewModel
+import com.aya.digital.core.mvi.*
 import com.aya.digital.core.ui.core.CoreBottomSheetDialogFragment
 import com.jakewharton.rxrelay3.PublishRelay
 import org.kodein.di.DI
@@ -19,16 +17,18 @@ import org.kodein.di.LazyDI
 import org.orbitmvi.orbit.viewmodel.observe
 import java.util.concurrent.TimeUnit
 
-abstract class DiBottomSheetDialogFragment<Binding : ViewBinding,ViewModel : BaseViewModel<State, SideEffect>, State : BaseState, SideEffect : BaseSideEffect> :
+abstract class DiBottomSheetDialogFragment<Binding : ViewBinding,ViewModel : BaseViewModel<State, SideEffect>, State : BaseState, SideEffect : BaseSideEffect, UiModel : BaseUiModel,  StateTransformer : BaseStateTransformer<State, UiModel>> :
     CoreBottomSheetDialogFragment<Binding>() {
     protected val kodein = LateInitDI()
     protected val parentKodein = LateInitDI()
 
     protected lateinit var viewModel: ViewModel
+    protected lateinit var stateTransformer: StateTransformer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = provideViewModel()
+        stateTransformer = provideStateTransformer()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -65,6 +65,8 @@ abstract class DiBottomSheetDialogFragment<Binding : ViewBinding,ViewModel : Bas
     abstract fun render(state: State)
 
     abstract fun sideEffect(sideEffect: SideEffect)
+
+    abstract fun provideStateTransformer(): StateTransformer
 
     final override fun initDi() {
         parentKodein.baseDI = getClosestParentKodein()

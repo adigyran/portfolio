@@ -10,8 +10,8 @@ data class RegistrationBody(
     @Json(name = "firstName") val firstName: String,
     @Json(name = "lastName") val lastName: String,
     @Json(name = "email") val email: String,
-    @Json(name = "phone") val phone: String,
+    @Json(name = "phone") val phone: String?,
     @Json(name = "password") val password: String,
     @Json(name = "confirm_password") val confirmPassword: String,
-    @Json(name = "insurance") val insurance: List<InsuranceBody>,
+    @Json(name = "insurance") val insurance: List<Int>,
 )

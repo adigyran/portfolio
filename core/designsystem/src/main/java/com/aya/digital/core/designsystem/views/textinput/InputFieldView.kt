@@ -50,7 +50,6 @@ class InputFieldView : LinearLayout {
 
         processInputType(inputType)
 
-        textInputLayout.isEndIconVisible = arrowDownVisible
         editText.setText(text ?: "")
         //  editText.hint = hint ?: ""
         if (maxLength >= 0) {
@@ -73,6 +72,12 @@ class InputFieldView : LinearLayout {
     fun setHelperText(text: String?) {
         if (textInputLayout.helperText != text) textInputLayout.helperText = text
     }
+
+    fun setHintText(text: String?)
+    {
+        if (textInputLayout.hint != text) textInputLayout.hint = text
+    }
+
 
 
     private fun toggleEditTextAvailability(enabled: Boolean) {

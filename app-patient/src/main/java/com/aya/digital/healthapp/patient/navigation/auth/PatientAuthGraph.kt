@@ -1,13 +1,20 @@
 package com.aya.digital.healthapp.patient.navigation.auth
 
+import com.aya.digital.core.feature.auth.signin.navigation.SignInNavigationEvents
 import com.aya.digital.core.feature.auth.signin.navigation.SignInScreen
+import com.aya.digital.core.feature.choosers.multiselect.navigation.MultiSelectChooserNavigationEvents
+import com.aya.digital.core.feature.choosers.multiselect.navigation.MultiSelectChooserScreen
 import com.aya.digital.core.navigation.coordinator.CoordinatorEvent
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
 import com.aya.digital.core.navigation.graph.navigator.FragmentContainerGraph
 import com.aya.digital.feature.auth.chooser.navigation.AuthChooserNavigationEvents
 import com.aya.digital.feature.auth.chooser.navigation.AuthChooserScreen
 import com.aya.digital.feature.auth.container.navigation.AuthContainerNavigationEvents
+import com.aya.digital.feature.auth.signup.navigation.SignUpNavigationEvents
 import com.aya.digital.feature.auth.signup.navigation.SignUpScreen
+import com.aya.digital.feature.bottomdialogs.codedialog.navigation.CodeDialogNavigationEvents
+import com.aya.digital.feature.bottomdialogs.codedialog.navigation.CodeDialogScreen
+import com.aya.digital.feature.rootcontainer.navigation.RootContainerNavigationEvents
 import com.github.terrakok.cicerone.Router
 
 class PatientAuthGraph : FragmentContainerGraph {
@@ -16,24 +23,64 @@ class PatientAuthGraph : FragmentContainerGraph {
         navigationRouter: Router,
         parentCoordinatorRouter: CoordinatorRouter
     ) {
-       when(event)
-       {
-           AuthContainerNavigationEvents.OpenDefaultScreen ->
-           {
-               navigationRouter.navigateTo(AuthChooserScreen)
-           }
+        fun signIn() = navigationRouter.navigateTo(SignInScreen)
+        fun signUp() = navigationRouter.navigateTo(SignUpScreen)
+        when (event) {
+            AuthContainerNavigationEvents.OpenDefaultScreen -> {
+                navigationRouter.newRootScreen(AuthChooserScreen)
+            }
 
-           AuthChooserNavigationEvents.SignUp ->
-           {
-               navigationRouter.navigateTo(SignUpScreen)
-           }
+            AuthChooserNavigationEvents.SignUp -> {
+                signUp()
+            }
 
-           AuthChooserNavigationEvents.SignIn ->
-           {
-               navigationRouter.navigateTo(SignInScreen)
-           }
+            AuthChooserNavigationEvents.SignIn -> {
+                signIn()
+            }
+            is SignUpNavigationEvents.SelectInsuranceCompanies -> {
+                parentCoordinatorRouter.sendEvent(
+                    RootContainerNavigationEvents.SelectMultipleItems(
+                        event.requestCode,
+                        event.selectedItems
+                    )
+                )
+            }
 
-       }
+            is SignUpNavigationEvents.EnterCode -> {
+                parentCoordinatorRouter.sendEvent(
+                    RootContainerNavigationEvents.EnterCode(
+                        event.requestCode,
+                        event.email
+                    )
+                )
+            }
+
+
+            SignUpNavigationEvents.SignIn -> {
+                navigationRouter.exit()
+                signIn()
+            }
+
+
+
+            SignInNavigationEvents.SignedIn -> {
+                navigationRouter.exit()
+                parentCoordinatorRouter.sendEvent(RootContainerNavigationEvents.OpenBottomNavigationScreenDefault)
+            }
+
+            SignInNavigationEvents.SignUp -> {
+                navigationRouter.exit()
+                signUp()
+            }
+
+            is CodeDialogNavigationEvents.FinishWithResult -> {
+                navigationRouter.sendResult(event.requestCode, event.result)
+                navigationRouter.exit()
+            }
+            else -> parentCoordinatorRouter.sendEvent(event)
+        }
+
+
     }
 
 

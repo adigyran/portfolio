@@ -9,6 +9,8 @@ android {
 
 dependencies {
     api(project(":core:networkbase"))
+    implementation(project(":core:datastore"))
+    implementation(project(":core:data:preferences"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.kodein)
     implementation(libs.bundles.retrofit)

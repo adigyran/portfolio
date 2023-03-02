@@ -17,6 +17,13 @@ dependencies {
     implementation(project(":core:mappers:preferences"))
     implementation(project(":core:mappers:profile"))
     implementation(project(":core:mappers:schedule"))
+    implementation(project(":core:mappers:dictionaries"))
+    implementation(project(":core:repository:auth"))
+    implementation(project(":core:repository:dictionaries"))
+    implementation(project(":core:domain:auth"))
+    implementation(project(":core:repository:profile"))
+    implementation(project(":core:domain:profile"))
+    implementation(project(":core:domain:dictionaries"))
     implementation(project(":core:security"))
     implementation(libs.kodein)
 }
