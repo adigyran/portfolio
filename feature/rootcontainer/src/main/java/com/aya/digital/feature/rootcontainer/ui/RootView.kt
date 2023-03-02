@@ -46,6 +46,7 @@ class RootView :
         if(savedInstanceState == null)
         {
             openDefaultScreen()
+            viewModel.listenForToken()
         }
     }
 

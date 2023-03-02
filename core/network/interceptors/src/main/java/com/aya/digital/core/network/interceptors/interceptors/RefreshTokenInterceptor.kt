@@ -4,6 +4,7 @@ import android.util.Log
 import com.aya.digital.core.data.profile.repository.AuthRepository
 import com.aya.digital.core.data.profile.repository.AuthTokenRepository
 import com.aya.digital.core.datastore.HealthAppAuthDataSource
+import com.aya.digital.core.navigation.events.invalidToken.InvalidTokenEventManager
 import com.aya.digital.core.network.interceptors.InterceptorsConstants.AUTHORIZATION
 import com.aya.digital.core.network.interceptors.ext.accessTokenBlocking
 import com.aya.digital.core.network.interceptors.ext.bearerTokenBlocking
@@ -16,7 +17,8 @@ import java.util.concurrent.TimeUnit
 
 class RefreshTokenInterceptor(
     private val authDataSource: HealthAppAuthDataSource,
-    private val authTokenRepository: AuthTokenRepository
+    private val authTokenRepository: AuthTokenRepository,
+    private val invalidTokenEventManager: InvalidTokenEventManager
 ) : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
@@ -79,6 +81,7 @@ class RefreshTokenInterceptor(
                         RefreshTokenInterceptor::class.java.name,
                         "refreshToken: ${it.toString()}"
                     )
+                    invalidTokenEventManager.onInvalidToken()
                     false
                 })
         getLatch()?.countDown()

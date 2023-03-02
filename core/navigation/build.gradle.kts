@@ -13,4 +13,6 @@ dependencies {
     implementation(libs.kodein)
     implementation(libs.kodein.framework.androidx)
     implementation(libs.cicerone)
+    implementation(libs.rxrelay)
+
 }
