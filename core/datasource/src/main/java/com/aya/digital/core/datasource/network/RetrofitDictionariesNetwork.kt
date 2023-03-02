@@ -2,7 +2,7 @@ package com.aya.digital.core.datasource.network
 
 import com.aya.digital.core.datasource.DictionariesDataSource
 import com.aya.digital.core.network.api.services.DictionariesService
-import com.aya.digital.core.network.di.createApiService
+import com.aya.digital.core.network.main.di.modules.createApiService
 import com.aya.digital.core.network.model.request.*
 import com.aya.digital.core.network.model.response.base.PagedResponse
 import io.reactivex.rxjava3.core.Flowable

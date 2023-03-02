@@ -18,8 +18,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 internal class AuthRepositoryImpl(
     private val authDataSource: AuthDataSource,
     private val loginResultMapper: LoginResultMapper,
-    private val authDataStore: HealthAppAuthDataSource,
-    private val tokenDataSource: TokenDataSource
+    private val authDataStore: HealthAppAuthDataSource
 ) : AuthRepository {
     override fun checkIfTokenPresent(): Single<RequestResult<Boolean>> =
         authDataStore.refreshTokenData
@@ -72,20 +71,5 @@ internal class AuthRepositoryImpl(
             .retryOnError()
             .retrofitResponseToResult(CommonUtils::mapServerErrors)
             .mapResult({ it.asResult() }, { it })
-
-    override fun refreshAndSaveTokens(refreshToken: String): Single<RequestResult<Boolean>> =
-        tokenDataSource.refreshToken(
-            RefreshTokenBody(
-                clientId = "mobile-client",
-                grantType = "refresh_token",
-                clientSecret = "JXnfDtUdxow13VyKu4771WjCOyyijeWG",
-                refreshToken = refreshToken
-            )
-        )
-            .retryOnError()
-            .retrofitResponseToResult(CommonUtils::mapServerErrors)
-            .mapResult({ loginResultMapper.mapFrom(it).asResult() }, { it })
-            .flatMapResult({
-                if (it.token.isNotBlank() && it.refreshToken.isNotBlank()) saveToken(it.token,it.refreshToken) else Single.just(false.asResult())},{Single.just(it)})
 
 }

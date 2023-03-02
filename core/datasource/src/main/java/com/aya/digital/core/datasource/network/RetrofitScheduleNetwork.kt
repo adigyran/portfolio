@@ -1,7 +1,7 @@
 package com.aya.digital.core.datasource.network
 
 import com.aya.digital.core.network.api.services.ScheduleService
-import com.aya.digital.core.network.di.createApiService
+import com.aya.digital.core.network.main.di.modules.createApiService
 import com.aya.digital.core.network.model.request.ScheduleWithSlotsBody
 import com.aya.digital.core.network.model.request.SlotBody
 import com.aya.digital.core.network.model.response.SlotResponse

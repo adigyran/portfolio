@@ -4,7 +4,11 @@ internal object Constants {
     const val MOSHI_TAG = "moshi"
     const val MOSHI_CONVERTER_FACTORY_TAG = "MoshiConverterFactory"
     const val OKHTTP_CLIENT_TAG = "okHttpClient"
+    const val OKHTTP_CLIENT_TOKEN_TAG = "okHttpTokenClient"
     const val RXJAVA_CALL_ADAPTER_TAG = "rxJavaCallAdapter"
+    const val RETROFIT_BUILDER_NORMAL = "retrofitBuilderNormal"
+    const val RETROFIT_BUILDER_TOKEN = "retrofitBuilderToken"
+
 
     const val BASE_URL_API = "https://api2.aya-doc.com/api/"
     const val BASE_AUTH_URL_API = "https://aya-doc.com/api-mobile-auth/"

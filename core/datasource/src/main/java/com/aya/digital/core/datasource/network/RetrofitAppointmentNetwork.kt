@@ -1,6 +1,7 @@
 package com.aya.digital.core.datasource.network
 
-import com.aya.digital.core.network.di.createApiService
+import com.aya.digital.core.network.api.services.AppointmentService
+import com.aya.digital.core.network.main.di.modules.createApiService
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
@@ -13,7 +14,7 @@ import org.kodein.di.singleton
 fun appointmentNetworkModule() = DI.Module("appointmentNetworkModule") {
     bind<com.aya.digital.core.datasource.AppointmentDataSource>() with singleton {
         val apiService =
-            createApiService<com.aya.digital.core.network.api.services.AppointmentService>(instance())
+            createApiService<AppointmentService>(instance())
         return@singleton RetrofitAppointmentNetwork(apiService)
     }
 }

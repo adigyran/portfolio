@@ -2,6 +2,7 @@ package com.aya.digital.core.network.interceptors.interceptors
 
 import android.util.Log
 import com.aya.digital.core.data.profile.repository.AuthRepository
+import com.aya.digital.core.data.profile.repository.AuthTokenRepository
 import com.aya.digital.core.datastore.HealthAppAuthDataSource
 import com.aya.digital.core.network.interceptors.InterceptorsConstants.AUTHORIZATION
 import com.aya.digital.core.network.interceptors.ext.accessTokenBlocking
@@ -15,7 +16,7 @@ import java.util.concurrent.TimeUnit
 
 class RefreshTokenInterceptor(
     private val authDataSource: HealthAppAuthDataSource,
-    private val authRepository: AuthRepository
+    private val authTokenRepository: AuthTokenRepository
 ) : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
@@ -71,7 +72,7 @@ class RefreshTokenInterceptor(
     private fun refreshToken(): Boolean {
         initLatch()
         val tokenRefreshed =
-            authRepository.refreshAndSaveTokens(authDataSource.refreshTokenBlocking())
+            authTokenRepository.refreshAndSaveTokens(authDataSource.refreshTokenBlocking())
                 .blockingGet()
                 .processResult({ it }, {
                     Log.d(

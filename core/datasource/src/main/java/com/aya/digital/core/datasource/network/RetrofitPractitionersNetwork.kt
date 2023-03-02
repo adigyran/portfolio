@@ -1,7 +1,7 @@
 package com.aya.digital.core.datasource.network
 
 import com.aya.digital.core.network.api.services.PractitionersService
-import com.aya.digital.core.network.di.createApiService
+import com.aya.digital.core.network.main.di.modules.createApiService
 import com.aya.digital.core.network.model.response.base.PagedResponse
 import com.aya.digital.core.network.model.response.doctors.DoctorDataResponse
 import com.aya.digital.core.network.model.response.doctors.PractitionersResponse

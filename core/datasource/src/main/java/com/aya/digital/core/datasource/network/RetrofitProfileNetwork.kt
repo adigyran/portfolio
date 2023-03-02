@@ -3,12 +3,10 @@ package com.aya.digital.core.datasource.network
 import com.aya.digital.core.datasource.ProfileDataSource
 import com.aya.digital.core.datasource.ProfilePatientDataSource
 import com.aya.digital.core.datasource.ProfilePractitionerDataSource
-import com.aya.digital.core.network.api.services.AuthService
 import com.aya.digital.core.network.api.services.ProfileService
-import com.aya.digital.core.network.di.createApiService
+import com.aya.digital.core.network.main.di.modules.createApiService
 import com.aya.digital.core.network.model.request.*
 import com.aya.digital.core.network.model.response.EmergencyContactResponse
-import com.aya.digital.core.network.model.response.MessageResponse
 import com.aya.digital.core.network.model.response.doctor.PractitionerProfileResponse
 import com.aya.digital.core.network.model.response.patient.PatientProfileResponse
 import com.aya.digital.core.network.model.response.profile.AddressResponse
