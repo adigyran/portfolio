@@ -33,7 +33,7 @@ internal fun retrofitModule() = DI.Module("retrofitModule") {
 
     bind<Retrofit>(RetrofitTags.RETROFIT_TOKEN_TAG) with singleton {
         instance<Retrofit.Builder>(Constants.RETROFIT_BUILDER_TOKEN)
-            .baseUrl(Constants.BASE_TOKEN_URL_API)
+            .baseUrl(Constants.BASE_AUTH_URL_API)
             .build()
     }
 }

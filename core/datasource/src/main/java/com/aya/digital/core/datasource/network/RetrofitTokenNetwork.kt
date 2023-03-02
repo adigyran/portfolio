@@ -13,7 +13,6 @@ import org.kodein.di.instance
 import org.kodein.di.singleton
 
 
-
 fun tokenNetworkModule() = DI.Module("tokenNetworkModule") {
     bind<TokenDataSource>() with singleton {
         val apiService =
@@ -24,8 +23,10 @@ fun tokenNetworkModule() = DI.Module("tokenNetworkModule") {
 
 class RetrofitTokenNetwork(private val network: TokenService) :
     TokenDataSource {
-    override fun refreshToken(refreshTokenBody: RefreshTokenBody): Single<LoginResponse> = network.refreshToken(refreshTokenBody)
-    override fun logout(logoutBody: LogoutBody): Single<Void> = network.logout(logoutBody)
+    override fun refreshToken(refreshTokenBody: RefreshTokenBody): Single<LoginResponse> =
+        network.refreshToken(refreshTokenBody.refreshToken)
+
+    override fun logout(logoutBody: LogoutBody): Single<Void> = network.logout()
 
 
 }
