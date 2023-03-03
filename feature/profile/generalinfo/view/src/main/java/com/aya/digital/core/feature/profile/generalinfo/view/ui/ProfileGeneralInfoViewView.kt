@@ -1,12 +1,10 @@
 package com.aya.digital.core.feature.profile.generalinfo.view.ui
 
 import android.os.Bundle
-import android.text.Spanned
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.aya.digital.core.designsystem.R
 import com.aya.digital.core.ext.bindClick
 import com.aya.digital.core.feature.profile.generalinfo.edit.databinding.ViewProfileGeneralinfoViewBinding
 import com.aya.digital.core.feature.profile.generalinfo.view.di.profileGeneralInfoViewDiModule
@@ -16,11 +14,8 @@ import com.aya.digital.core.feature.profile.generalinfo.view.viewmodel.ProfileGe
 import com.aya.digital.core.feature.profile.generalinfo.view.viewmodel.ProfileGeneralInfoViewViewModel
 import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.ui.adapters.base.BaseDelegateAdapter
-import com.aya.digital.core.ui.base.ext.SpannableObject
-import com.aya.digital.core.ui.base.ext.colors
-import com.aya.digital.core.ui.base.ext.createSpannableText
 import com.aya.digital.core.ui.base.screens.DiFragment
-import com.aya.digital.core.ui.base.utils.LinkTouchMovementMethod
+import com.aya.digital.core.ui.delegates.profile.info.ui.profileInfoDelegate
 import org.kodein.di.DI
 import org.kodein.di.factory
 import org.kodein.di.on
@@ -38,15 +33,14 @@ class ProfileGeneralInfoViewView :
 
     private val adapter by lazy(LazyThreadSafetyMode.NONE) {
         BaseDelegateAdapter.create {
-
+            delegate { profileInfoDelegate() }
         }
     }
 
     override fun prepareCreatedUi(savedInstanceState: Bundle?) {
         super.prepareCreatedUi(savedInstanceState)
-        prepareDescription()
         recyclers.add(binding.recycler)
-        binding.signInBtn bindClick { viewModel.onSignInClicked() }
+        binding.editBtn bindClick { viewModel.onEditClicked() }
         with(binding.recycler) {
             itemAnimator = null
             setHasFixedSize(true)
@@ -63,20 +57,6 @@ class ProfileGeneralInfoViewView :
 
         }
     }
-
-    private fun prepareDescription() {
-        //Don't have an account yet? Sign Up
-        binding.descrLabl.movementMethod = LinkTouchMovementMethod()
-        val description = "Don't have an account yet? %s".createSpannableText(
-            colors[R.color.button_text_blue],
-            colors[R.color.button_bg_dark_blue],
-            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE,
-            listOf(SpannableObject("Sign Up", { signUp() }))
-        )
-        binding.descrLabl.text = description
-    }
-
-    private fun signUp() = viewModel.onSignUpClicked()
 
     override fun provideDiModule(): DI.Module = profileGeneralInfoViewDiModule(tryTyGetParentRouter())
 

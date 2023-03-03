@@ -3,6 +3,7 @@ package com.aya.digital.core.feature.tabviews.profile.viewmodel
 import com.aya.digital.core.domain.profile.BriefProfileModel
 import com.aya.digital.core.domain.profile.GetProfileBriefUseCase
 import com.aya.digital.core.feature.tabviews.profile.FieldsTags
+import com.aya.digital.core.feature.tabviews.profile.navigation.ProfileNavigationEvents
 import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.mvi.BaseViewModel
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
@@ -47,14 +48,16 @@ class ProfileViewModel(
 
 
     fun onProfileButtonClicked(buttonTag: Int) = intent {
-        when(buttonTag)
+        Timber.d(buttonTag.toString())
+        coordinatorRouter.sendEvent(when(buttonTag)
         {
-            FieldsTags.GENERAL_INFO_BUTTON_TAG -> {}
-            FieldsTags.EMERGENCY_CONTACT_BUTTON_TAG -> {}
-            FieldsTags.SECURITY_BUTTON_TAG -> {}
-            FieldsTags.INSURANCE_BUTTON_TAG -> {}
-            FieldsTags.NOTIFICATION_BUTTON_TAG -> {}
-        }
+            FieldsTags.GENERAL_INFO_BUTTON_TAG -> ProfileNavigationEvents.OpenProfileGeneralInfo
+            FieldsTags.EMERGENCY_CONTACT_BUTTON_TAG -> ProfileNavigationEvents.OpenProfileEmergencyContact
+            FieldsTags.SECURITY_BUTTON_TAG -> ProfileNavigationEvents.OpenProfileSecurity
+            FieldsTags.INSURANCE_BUTTON_TAG -> ProfileNavigationEvents.OpenProfileInsurance
+            FieldsTags.NOTIFICATION_BUTTON_TAG -> ProfileNavigationEvents.OpenProfileNotification
+            else -> ProfileNavigationEvents.OpenProfileGeneralInfo
+        })
 
     }
 

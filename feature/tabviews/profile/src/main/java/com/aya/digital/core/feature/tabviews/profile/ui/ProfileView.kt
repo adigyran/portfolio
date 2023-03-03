@@ -39,15 +39,14 @@ class ProfileView :
 
     private val adapter by lazy(LazyThreadSafetyMode.NONE) {
         BaseDelegateAdapter.create {
-            delegate { profileMainDelegate(ProfileMainDelegateListeners { viewModel::onProfileButtonClicked }) }
+            delegate { profileMainDelegate(ProfileMainDelegateListeners(viewModel::onProfileButtonClicked)) }
         }
     }
 
 
     override fun prepareUi(savedInstanceState: Bundle?) {
         super.prepareUi(savedInstanceState)
-        if(savedInstanceState==null)
-        {
+        if (savedInstanceState == null) {
             recyclers.add(binding.recycler)
             with(binding.recycler) {
                 itemAnimator = null
