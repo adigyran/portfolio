@@ -5,6 +5,7 @@ import com.aya.digital.core.feature.auth.signin.navigation.SignInScreen
 import com.aya.digital.core.feature.choosers.multiselect.navigation.MultiSelectChooserNavigationEvents
 import com.aya.digital.core.feature.choosers.multiselect.navigation.MultiSelectChooserScreen
 import com.aya.digital.core.feature.insurance.list.navigation.ProfileInsuranceListScreen
+import com.aya.digital.core.feature.profile.emergencycontact.navigation.ProfileEmergencyContactScreen
 import com.aya.digital.core.feature.profile.generalinfo.edit.navigation.ProfileGeneralInfoEditScreen
 import com.aya.digital.core.feature.profile.generalinfo.view.navigation.ProfileGeneralInfoViewNavigationEvents
 import com.aya.digital.core.feature.profile.generalinfo.view.navigation.ProfileGeneralInfoViewScreen
@@ -39,7 +40,7 @@ class ProfileTabCoordinatorGraph : FragmentContainerGraph {
                 navigationRouter.navigateTo(ProfileGeneralInfoViewScreen)
             }
             ProfileNavigationEvents.OpenProfileEmergencyContact -> {
-                navigationRouter.navigateTo(ProfileGeneralInfoViewScreen)
+                navigationRouter.navigateTo(ProfileEmergencyContactScreen)
             }
             ProfileNavigationEvents.OpenProfileInsurance -> {
                 navigationRouter.navigateTo(ProfileInsuranceListScreen)
