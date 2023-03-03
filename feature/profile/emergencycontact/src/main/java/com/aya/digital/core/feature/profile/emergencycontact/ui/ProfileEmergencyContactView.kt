@@ -42,7 +42,7 @@ class ProfileEmergencyContactView :
 
     override fun prepareCreatedUi(savedInstanceState: Bundle?) {
         super.prepareCreatedUi(savedInstanceState)
-        binding.editSaveBtn bindClick { viewModel::buttonClicked }
+        binding.editSaveBtn bindClick { viewModel.buttonClicked() }
         recyclers.add(binding.recycler)
         with(binding.recycler) {
             itemAnimator = null
