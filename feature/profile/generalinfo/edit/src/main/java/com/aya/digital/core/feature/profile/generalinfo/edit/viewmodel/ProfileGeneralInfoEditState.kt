@@ -7,12 +7,12 @@ import java.time.LocalDate
 
 @Parcelize
 data class ProfileGeneralInfoEditState(
-    val firstName: String = "",
-    val lastName: String = "",
-    val middleName: String = "",
-    val birthDate : LocalDate? = null,
-    val sex:ProfileSex? = null,
-    val height:String? = null,
-    val weight:String? = null,
-    val shortAddress:String? = null
+    val firstName: String? = null,
+    val lastName: String? = null,
+    val middleName: String? = null,
+    val dateOfBirth: LocalDate? = null,
+    val sex: ProfileSex? = null,
+    val height: String? = null,
+    val weight: String? = null,
+    val shortAddress: String? = null
 ) : BaseState

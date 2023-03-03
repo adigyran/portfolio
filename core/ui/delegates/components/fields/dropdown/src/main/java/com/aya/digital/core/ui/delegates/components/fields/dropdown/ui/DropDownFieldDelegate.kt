@@ -12,7 +12,7 @@ fun dropDownFieldDelegate(delegateListeners: DropDownFieldDelegateListeners) = a
 ) {
 
     var fieldSet = false
-
+    var valueSet = false
 
     (binding.edField as? MaterialAutoCompleteTextView)?.setOnItemClickListener { adapterView, view, i, l ->
         delegateListeners.itemSelected(binding.edField.text.toString())
@@ -25,9 +25,12 @@ fun dropDownFieldDelegate(delegateListeners: DropDownFieldDelegateListeners) = a
             }
             fieldSet = true
         }
-        binding.edField.setText(item.text)
+        if(!valueSet && item.text!=null && item.text!!.isNotBlank() )
+        {
+            binding.edField.setText(item.text)
+            valueSet = true
+        }
     }
-
 }
 
 class DropDownFieldDelegateListeners(val itemSelected: (selectedItem: String) -> Unit)

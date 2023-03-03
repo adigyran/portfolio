@@ -15,6 +15,7 @@ fun nameFieldDelegate(delegateListeners: NameFieldDelegateListeners) =
     ) {
 
         var fieldSet = false
+        var valueSet = false
 
         binding.edField.doAfterTextChanged { text ->
             delegateListeners.inputFieldChangeListener(item.tag, text.toString())
@@ -22,12 +23,14 @@ fun nameFieldDelegate(delegateListeners: NameFieldDelegateListeners) =
         bind {
             if (!fieldSet) {
                 binding.tilField.hint = item.label
-                binding.edField.setText(item.text)
                 binding.tilField.suffixText = item.suffix
                 fieldSet = true
             }
-            binding.edField.setText(item.text)
-            binding.tilField.suffixText = item.suffix
+            if(!valueSet && item.text!=null && item.text!!.isNotBlank() )
+            {
+                binding.edField.setText(item.text)
+                valueSet = true
+            }
         }
 
     }

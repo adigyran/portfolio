@@ -15,9 +15,9 @@ fun selectionFieldDelegate(delegateListeners: SelectionFieldDelegateListeners) =
 ) {
 
     var fieldSet = false
+    var valueSet = false
 
     binding.btn bindClick {delegateListeners.fieldClick(item.tag)}
-    //binding.tilField bindClick {delegateListeners.fieldClick(item.tag)}
 
     bind {
         if (!fieldSet) {
@@ -27,10 +27,11 @@ fun selectionFieldDelegate(delegateListeners: SelectionFieldDelegateListeners) =
             }
             fieldSet = true
         }
-        binding.edField.setText(item.text)
-
-        //  binding.inputField.setHintText(item.label)
-       // binding.inputField.editText.setText(item.text)
+        if(!valueSet && item.text!=null && item.text!!.isNotBlank() )
+        {
+            binding.edField.setText(item.text)
+            valueSet = true
+        }
     }
 
 }

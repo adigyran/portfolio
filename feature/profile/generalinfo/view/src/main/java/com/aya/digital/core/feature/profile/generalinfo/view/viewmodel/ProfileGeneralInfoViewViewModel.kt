@@ -49,7 +49,6 @@ class ProfileGeneralInfoViewViewModel(
 
     }
 
-
     fun onEditClicked() = intent {
         coordinatorRouter.sendEvent(ProfileGeneralInfoViewNavigationEvents.EditProfile)
     }

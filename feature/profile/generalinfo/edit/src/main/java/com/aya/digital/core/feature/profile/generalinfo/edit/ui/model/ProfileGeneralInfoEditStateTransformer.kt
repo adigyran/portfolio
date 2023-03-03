@@ -24,7 +24,7 @@ class ProfileGeneralInfoEditStateTransformer(private val context: Context) :
                         NameFieldUIModel(
                             FieldsTags.FIRST_NAME_FIELD_TAG,
                             "First Name",
-                            state.firstName.getField(),
+                            text = state.firstName.getField(),
                             null
                         )
                     )
@@ -32,7 +32,7 @@ class ProfileGeneralInfoEditStateTransformer(private val context: Context) :
                         NameFieldUIModel(
                             FieldsTags.LAST_NAME_FIELD_TAG,
                             "Last Name",
-                            state.lastName.getField(),
+                            text = state.lastName.getField(),
                             null
                         )
                     )
@@ -48,7 +48,7 @@ class ProfileGeneralInfoEditStateTransformer(private val context: Context) :
                         SelectionFieldUIModel(
                             FieldsTags.BIRTH_DATE_FIELD_TAG,
                             "Date of Birth",
-                            state.birthDate.getField(),
+                            state.dateOfBirth.getField(),
                             null,
                             getBirthDayIcon()
                         )
@@ -77,7 +77,7 @@ class ProfileGeneralInfoEditStateTransformer(private val context: Context) :
                             "Weight",
                             state.height.getField(),
                             null,
-                            suffix =  getWeightUnit()
+                            suffix = getWeightUnit()
                         )
                     )
                     add(

@@ -15,54 +15,23 @@ fun passwordFieldDelegate(delegateListeners: PasswordFieldDelegateListeners) = a
 ) {
 
     var fieldSet = false
+    var valueSet = false
 
     binding.edField.doAfterTextChanged { text ->
         delegateListeners.inputFieldChangeListener(item.tag,text.toString())
     }
-  /*  val inputFieldChangeListener = object : TextWatcher {
-        var firstCall = true
-
-        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            if (firstCall) {
-                firstCall = false
-                return
-            }
-            //Если постоянно занулять ошибку то helperText исчезает
-            if (!binding.inputField.textInputLayout.error.isNullOrBlank()) {
-                binding.inputField.textInputLayout.error = null
-            }
-        }
-
-        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) = Unit
-
-        override fun afterTextChanged(s: Editable?) {
-            delegateListeners.inputFieldChangeListener(item.tag,s?.toString()?:"")
-        }
-
-    }*/
     bind {
         if (!fieldSet) {
             binding.tilField.hint = item.label
-            binding.edField.setText(item.text)
             fieldSet = true
         }
-        /* binding.inputField.setHintText(item.label)
-         binding.inputField.editText.removeTextChangedListener(inputFieldChangeListener)
-         if(binding.inputField.editText.text.toString() != item.text)
-         {binding.inputField.editText.setText(item.text)}
-         binding.inputField.editText.addTextChangedListener(inputFieldChangeListener)*/
-
-    }
-
-    /*onViewAttachedToWindow {
-        binding.inputField.editText.setOnFocusChangeListener{ _, focused ->
-            if (!focused) {
-                binding.inputField.textInputLayout.error = item.error
-            }
+        if(!valueSet && item.text!=null && item.text!!.isNotBlank() )
+        {
+            binding.edField.setText(item.text)
+            valueSet = true
         }
     }
 
-    onViewDetachedFromWindow { binding.inputField.editText.onFocusChangeListener = null }*/
 }
 
 class PasswordFieldDelegateListeners(val inputFieldChangeListener: ((tag: Int,text:String) -> Unit))
