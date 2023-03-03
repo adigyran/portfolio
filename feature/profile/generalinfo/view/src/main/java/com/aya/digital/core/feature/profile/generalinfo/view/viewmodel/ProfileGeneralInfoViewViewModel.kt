@@ -2,6 +2,7 @@ package com.aya.digital.core.feature.profile.generalinfo.view.viewmodel
 
 import com.aya.digital.core.domain.profile.GetProfileInfoUseCase
 import com.aya.digital.core.feature.profile.generalinfo.view.FieldsTags
+import com.aya.digital.core.feature.profile.generalinfo.view.navigation.ProfileGeneralInfoViewNavigationEvents
 import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.mvi.BaseViewModel
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
@@ -50,7 +51,7 @@ class ProfileGeneralInfoViewViewModel(
 
 
     fun onEditClicked() = intent {
-
+        coordinatorRouter.sendEvent(ProfileGeneralInfoViewNavigationEvents.EditProfile)
     }
 
 }

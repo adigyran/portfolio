@@ -5,6 +5,8 @@ import com.aya.digital.core.feature.auth.signin.navigation.SignInScreen
 import com.aya.digital.core.feature.choosers.multiselect.navigation.MultiSelectChooserNavigationEvents
 import com.aya.digital.core.feature.choosers.multiselect.navigation.MultiSelectChooserScreen
 import com.aya.digital.core.feature.insurance.list.navigation.ProfileInsuranceListScreen
+import com.aya.digital.core.feature.profile.generalinfo.edit.navigation.ProfileGeneralInfoEditScreen
+import com.aya.digital.core.feature.profile.generalinfo.view.navigation.ProfileGeneralInfoViewNavigationEvents
 import com.aya.digital.core.feature.profile.generalinfo.view.navigation.ProfileGeneralInfoViewScreen
 import com.aya.digital.core.feature.profile.security.securitysummary.navigation.ProfileSecuritySummaryScreen
 import com.aya.digital.core.feature.tabviews.profile.navigation.ProfileNavigationEvents
@@ -29,31 +31,28 @@ class ProfileTabCoordinatorGraph : FragmentContainerGraph {
         navigationRouter: Router,
         parentCoordinatorRouter: CoordinatorRouter
     ) {
-         when (event) {
+        when (event) {
             ProfileTabNavigationEvents.OpenDefaultScreen -> {
                 navigationRouter.newRootScreen(ProfileScreen)
             }
-            ProfileNavigationEvents.OpenProfileGeneralInfo ->
-            {
+            ProfileNavigationEvents.OpenProfileGeneralInfo -> {
                 navigationRouter.navigateTo(ProfileGeneralInfoViewScreen)
             }
-            ProfileNavigationEvents.OpenProfileEmergencyContact ->
-            {
+            ProfileNavigationEvents.OpenProfileEmergencyContact -> {
                 navigationRouter.navigateTo(ProfileGeneralInfoViewScreen)
             }
-            ProfileNavigationEvents.OpenProfileInsurance ->
-            {
+            ProfileNavigationEvents.OpenProfileInsurance -> {
                 navigationRouter.navigateTo(ProfileInsuranceListScreen)
             }
-            ProfileNavigationEvents.OpenProfileSecurity ->
-            {
+            ProfileNavigationEvents.OpenProfileSecurity -> {
                 navigationRouter.navigateTo(ProfileSecuritySummaryScreen)
             }
-            ProfileNavigationEvents.OpenProfileNotification ->
-            {
+            ProfileNavigationEvents.OpenProfileNotification -> {
 
             }
-
+            ProfileGeneralInfoViewNavigationEvents.EditProfile -> {
+                navigationRouter.navigateTo(ProfileGeneralInfoEditScreen)
+            }
             else -> parentCoordinatorRouter.sendEvent(event)
         }
 

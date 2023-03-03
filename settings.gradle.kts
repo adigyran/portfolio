@@ -93,6 +93,8 @@ include(":core:ui:delegates:components:fields:password")
 include(":core:ui:delegates:components:fields:name")
 include(":core:ui:delegates:components:fields:selection")
 include(":core:ui:delegates:components:fields:validated")
+include(":core:ui:delegates:components:fields:dropdown")
+
 //labels
 include(":core:ui:delegates:components:labels:headline")
 include(":core:ui:delegates:components:labels:spannablehelper")

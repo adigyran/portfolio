@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.aya.digital.core.ext.bindClick
-import com.aya.digital.core.feature.profile.generalinfo.edit.databinding.ViewProfileGeneralinfoViewBinding
+import com.aya.digital.core.feature.profile.generalinfo.view.databinding.ViewProfileGeneralinfoViewBinding
 import com.aya.digital.core.feature.profile.generalinfo.view.di.profileGeneralInfoViewDiModule
 import com.aya.digital.core.feature.profile.generalinfo.view.ui.model.ProfileGeneralInfoViewStateTransformer
 import com.aya.digital.core.feature.profile.generalinfo.view.ui.model.ProfileGeneralInfoViewUiModel
@@ -19,7 +19,6 @@ import com.aya.digital.core.ui.delegates.profile.info.ui.profileInfoDelegate
 import org.kodein.di.DI
 import org.kodein.di.factory
 import org.kodein.di.on
-import timber.log.Timber
 
 class ProfileGeneralInfoViewView :
     DiFragment<ViewProfileGeneralinfoViewBinding, ProfileGeneralInfoViewViewModel, ProfileGeneralInfoViewState, BaseSideEffect, ProfileGeneralInfoViewUiModel, ProfileGeneralInfoViewStateTransformer>() {

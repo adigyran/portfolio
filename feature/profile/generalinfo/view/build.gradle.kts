@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "com.aya.digital.core.feature.profile.generalinfo.edit"
+    namespace = "com.aya.digital.core.feature.profile.generalinfo.view"
 }
 
 dependencies {

@@ -21,6 +21,7 @@
         <item name="materialThemeOverlay">
             @style/ThemeOverlay.App.ExposedDropdownMenu
         </item>
+        <item name="hintTextColor">@color/input_field_label_color</item>
         <item name="boxBackgroundMode">outline</item>
     </style>
 
@@ -28,5 +29,9 @@
         <item name="autoCompleteTextViewStyle">
             @style/Widget.Material3.AutoCompleteTextView.OutlinedBox
         </item>
+        <item name="colorPrimary">@color/text_black</item>
+        <item name="colorOnSurface">@color/text_black</item>
+        <item name="colorError">@color/stroke_red</item>
+        <item name="editTextStyle">@style/Widget.Material3.TextInputEditText.OutlinedBox</item>
     </style>
 </resources>

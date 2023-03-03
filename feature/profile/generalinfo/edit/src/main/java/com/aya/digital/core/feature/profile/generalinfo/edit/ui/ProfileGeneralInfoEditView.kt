@@ -21,9 +21,16 @@ import com.aya.digital.core.ui.base.ext.colors
 import com.aya.digital.core.ui.base.ext.createSpannableText
 import com.aya.digital.core.ui.base.screens.DiFragment
 import com.aya.digital.core.ui.base.utils.LinkTouchMovementMethod
+import com.aya.digital.core.ui.delegates.components.fields.name.model.ui.NameFieldDelegateListeners
+import com.aya.digital.core.ui.delegates.components.fields.name.model.ui.nameFieldDelegate
+import com.aya.digital.core.ui.delegates.components.fields.selection.ui.DropDownFieldDelegateListeners
+import com.aya.digital.core.ui.delegates.components.fields.selection.ui.SelectionFieldDelegateListeners
+import com.aya.digital.core.ui.delegates.components.fields.selection.ui.dropDownFieldDelegate
+import com.aya.digital.core.ui.delegates.components.fields.selection.ui.selectionFieldDelegate
 import org.kodein.di.DI
 import org.kodein.di.factory
 import org.kodein.di.on
+import timber.log.Timber
 
 class ProfileGeneralInfoEditView :
     DiFragment<ViewProfileGeneralinfoEditBinding, ProfileGeneralInfoEditViewModel, ProfileGeneralInfoEditState, BaseSideEffect, ProfileGeneralInfoEditUiModel, ProfileGeneralInfoEditStateTransformer>() {
@@ -38,16 +45,18 @@ class ProfileGeneralInfoEditView :
 
     private val adapter by lazy(LazyThreadSafetyMode.NONE) {
         BaseDelegateAdapter.create {
-
-
+            delegate { nameFieldDelegate(NameFieldDelegateListeners { tag, text -> Timber.d("$tag $text") }) }
+            delegate { selectionFieldDelegate(SelectionFieldDelegateListeners { tag -> Timber.d("$tag") }) }
+            delegate { dropDownFieldDelegate(DropDownFieldDelegateListeners { selectedItem -> Timber.d(
+                selectedItem
+            ) }) }
         }
     }
 
     override fun prepareCreatedUi(savedInstanceState: Bundle?) {
         super.prepareCreatedUi(savedInstanceState)
-        prepareDescription()
+        binding.saveBtn bindClick {viewModel.onSaveProfileClicked()}
         recyclers.add(binding.recycler)
-        binding.signInBtn bindClick { viewModel.onSignInClicked() }
         with(binding.recycler) {
             itemAnimator = null
             setHasFixedSize(true)
@@ -65,19 +74,7 @@ class ProfileGeneralInfoEditView :
         }
     }
 
-    private fun prepareDescription() {
-        //Don't have an account yet? Sign Up
-        binding.descrLabl.movementMethod = LinkTouchMovementMethod()
-        val description = "Don't have an account yet? %s".createSpannableText(
-            colors[R.color.button_text_blue],
-            colors[R.color.button_bg_dark_blue],
-            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE,
-            listOf(SpannableObject("Sign Up", { signUp() }))
-        )
-        binding.descrLabl.text = description
-    }
 
-    private fun signUp() = viewModel.onSignUpClicked()
 
     override fun provideDiModule(): DI.Module = profileGeneralInfoEditDiModule(tryTyGetParentRouter())
 
