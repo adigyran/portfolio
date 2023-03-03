@@ -22,6 +22,9 @@ fun selectionFieldDelegate(delegateListeners: SelectionFieldDelegateListeners) =
     bind {
         if (!fieldSet) {
             binding.tilField.hint = item.label
+            item.endIconRes?.let {
+                binding.tilField.setEndIconDrawable(it)
+            }
             fieldSet = true
         }
         binding.edField.setText(item.text)

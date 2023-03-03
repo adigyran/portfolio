@@ -19,10 +19,10 @@ class SignUpStateTransformer(context: Context) :
                 add(HeadlineLabelUIModel("Sign Up"))
                 add(
                     NameFieldUIModel(
-                        FieldsTags.FIRST_NAME_FIELD_TAG,
-                        "First Name",
-                        state.firstName,
-                        state.firstNameError
+                        tag =  FieldsTags.FIRST_NAME_FIELD_TAG,
+                        label = "First Name",
+                        text = state.firstName,
+                        error = state.firstNameError
                     )
                 )
                 add(
