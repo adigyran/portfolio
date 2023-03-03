@@ -67,7 +67,8 @@ class ProfileGeneralInfoEditStateTransformer(private val context: Context) :
                             FieldsTags.HEIGHT_FIELD_TAG,
                             "Height",
                             state.height.getField(),
-                            null
+                            null,
+                            suffix = getHeightUnit()
                         )
                     )
                     add(
@@ -76,7 +77,7 @@ class ProfileGeneralInfoEditStateTransformer(private val context: Context) :
                             "Weight",
                             state.height.getField(),
                             null,
-                            getHeightUnit()
+                            suffix =  getWeightUnit()
                         )
                     )
                     add(
@@ -85,7 +86,6 @@ class ProfileGeneralInfoEditStateTransformer(private val context: Context) :
                             "Short Address",
                             state.shortAddress.getField(),
                             null,
-                            getWeightUnit()
                         )
                     )
                 }

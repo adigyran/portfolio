@@ -26,6 +26,8 @@ fun nameFieldDelegate(delegateListeners: NameFieldDelegateListeners) =
                 binding.tilField.suffixText = item.suffix
                 fieldSet = true
             }
+            binding.edField.setText(item.text)
+            binding.tilField.suffixText = item.suffix
         }
 
     }
