@@ -17,7 +17,10 @@ import com.aya.digital.core.networkbase.server.RequestResult
 import io.reactivex.rxjava3.core.Single
 import java.io.File
 
-internal class ProfileRepositoryImpl(private val profileDataSource: ProfileDataSource, private val currentProfileMapper: CurrentProfileMapper) :
+internal class ProfileRepositoryImpl(
+    private val profileDataSource: ProfileDataSource,
+    private val currentProfileMapper: CurrentProfileMapper
+) :
     ProfileRepository {
     override fun currentProfileId(): Single<RequestResult<Int>> {
         TODO("Not yet implemented")
@@ -28,8 +31,8 @@ internal class ProfileRepositoryImpl(private val profileDataSource: ProfileDataS
             .retryOnError()
             .retrofitResponseToResult(CommonUtils::mapServerErrors)
             .mapResult({
-                       currentProfileMapper.mapFrom(it).asResult()
-            },{it})
+                currentProfileMapper.mapFrom(it).asResult()
+            }, { it })
 
     override fun updateProfile(body: ProfileBody): Single<RequestResult<Unit>> {
         TODO("Not yet implemented")

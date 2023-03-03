@@ -13,6 +13,7 @@ dependencies {
     implementation(project(":core:data:base"))
     implementation(project(":core:data:profile"))
     implementation(project(":core:network:model"))
+    implementation(project(":core:model"))
     implementation(libs.rxkotlin)
     implementation(libs.kotlinx.time)
     implementation(libs.kodein)

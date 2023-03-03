@@ -53,6 +53,7 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
             dependencies {
                 add("androidTestImplementation", kotlin("test"))
                 add("testImplementation", kotlin("test"))
+                add("implementation", libs.findLibrary("timber").get())
             }
         }
     }

@@ -1,6 +1,7 @@
 package com.aya.digital.core.ui.delegates.profile.info.ui
 
 
+import android.util.Log
 import com.aya.digital.core.ui.adapters.base.DiffItem
 import com.aya.digital.core.ui.delegates.features.profile.generalinfo.databinding.ItemProfileInfoBinding
 import com.aya.digital.core.ui.delegates.profile.info.model.ProfileInfoUIModel
@@ -20,9 +21,9 @@ fun profileInfoDelegate() =
         bind {
             if(!initialised) {
                 binding.title.text = item.label
-                binding.value.text = item.value
                 initialised = true
             }
+            binding.value.text = item.value
         }
 
 
