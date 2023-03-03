@@ -22,15 +22,16 @@ class ProfileEmergencyContactViewModel(
 
     }
 
-
-
-    fun onSignInClicked() = intent {
-
+    fun buttonClicked() = intent {
+        if(state.editMode) saveFields() else toggleEdit()
     }
 
-    fun onSignUpClicked() = intent {
-
+    private fun saveFields() = intent {
+        reduce { state.copy(editMode = false) }
     }
 
+    private fun toggleEdit() = intent {
+        reduce { state.copy(editMode = true) }
+    }
 }
 

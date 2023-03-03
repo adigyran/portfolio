@@ -110,7 +110,7 @@ include(":core:ui:delegates:features:choosers:multiselect")
 //profile
 include(":core:ui:delegates:features:profile:main")
 include(":core:ui:delegates:features:profile:generalinfo")
-
+include(":core:ui:delegates:features:profile:emergencycontactinfo")
 
 //tabs
 include(":feature:tabs:home")
