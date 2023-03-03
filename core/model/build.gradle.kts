@@ -7,5 +7,6 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:localisation"))
 
 }
