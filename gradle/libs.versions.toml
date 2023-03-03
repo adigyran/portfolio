@@ -39,6 +39,8 @@ constraintLayout = "2.1.4"
 adapterDelegates = "4.3.2"
 #pin view
 pinView = "3.0.0"
+#glide
+glide = "4.15.0"
 #end Ui
 
 #maps
@@ -165,6 +167,9 @@ adapter-delegates-view-binding = { group = "com.hannesdorfmann", name = "adapter
 #ui-pinview
 pinview = { group = "com.github.mukeshsolanki", name = "android-otpview-pinview", version.ref = "pinView" }
 
+#ui-glide
+glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
+glide-annotationprocessor = { group = "com.github.bumptech.glide", name = "compiler", version.ref = "glide" }
 
 #maps
 gradle-secrets = { group = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", name = "secrets-gradle-plugin", version.ref = "gradleSecrets" }

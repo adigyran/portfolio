@@ -4,4 +4,4 @@ import com.aya.digital.core.mvi.BaseState
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class ProfileState(val name:String) : BaseState
+data class ProfileState(val firstName:String?=null, val lastName:String?=null, val avatar:String?=null,val address:String?=null) : BaseState

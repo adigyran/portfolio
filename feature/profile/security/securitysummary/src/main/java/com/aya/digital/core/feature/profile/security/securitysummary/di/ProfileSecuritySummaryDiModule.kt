@@ -14,7 +14,7 @@ fun profileSecuritySummaryDiModule(
 
     bind {
         scoped(CustomFragmentScope).singleton {
-            ProfileSecuritySummaryViewModel(parentCoordinatorEvent,instance())
+            ProfileSecuritySummaryViewModel(parentCoordinatorEvent)
         }
     }
 }

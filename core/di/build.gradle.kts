@@ -26,4 +26,8 @@ dependencies {
     implementation(project(":core:domain:dictionaries"))
     implementation(project(":core:security"))
     implementation(libs.kodein)
+    implementation(libs.glide)
+    annotationProcessor(libs.glide.annotationprocessor)
+    implementation(libs.retrofit)
+
 }

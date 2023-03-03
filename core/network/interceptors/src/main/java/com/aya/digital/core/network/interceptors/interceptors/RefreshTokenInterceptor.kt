@@ -81,6 +81,7 @@ class RefreshTokenInterceptor(
                         RefreshTokenInterceptor::class.java.name,
                         "refreshToken: ${it.toString()}"
                     )
+                    authDataSource.clearAuthData()
                     invalidTokenEventManager.onInvalidToken()
                     false
                 })

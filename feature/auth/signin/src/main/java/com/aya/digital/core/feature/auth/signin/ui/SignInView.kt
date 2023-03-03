@@ -54,26 +54,33 @@ class SignInView :
         }
     }
 
+    override fun prepareUi(savedInstanceState: Bundle?) {
+        super.prepareUi(savedInstanceState)
+        if(savedInstanceState==null) {
+            prepareDescription()
+            recyclers.add(binding.recycler)
+            binding.signInBtn bindClick { viewModel.onSignInClicked() }
+            with(binding.recycler) {
+                itemAnimator = null
+                setHasFixedSize(true)
+                setItemViewCacheSize(30)
+                isNestedScrollingEnabled = false
+
+                val lm = LinearLayoutManager(
+                    context,
+                    RecyclerView.VERTICAL,
+                    false
+                )
+
+                layoutManager = lm
+
+            }
+        }
+    }
+
     override fun prepareCreatedUi(savedInstanceState: Bundle?) {
         super.prepareCreatedUi(savedInstanceState)
-        prepareDescription()
-        recyclers.add(binding.recycler)
-        binding.signInBtn bindClick { viewModel.onSignInClicked() }
-        with(binding.recycler) {
-            itemAnimator = null
-            setHasFixedSize(true)
-            setItemViewCacheSize(30)
-            isNestedScrollingEnabled = false
 
-            val lm = LinearLayoutManager(
-                context,
-                RecyclerView.VERTICAL,
-                false
-            )
-
-            layoutManager = lm
-
-        }
     }
 
     private fun prepareDescription() {

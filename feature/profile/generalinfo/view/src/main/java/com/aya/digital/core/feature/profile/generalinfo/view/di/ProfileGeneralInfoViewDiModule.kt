@@ -14,7 +14,7 @@ fun profileGeneralInfoViewDiModule(
 
     bind {
         scoped(CustomFragmentScope).singleton {
-            ProfileGeneralInfoViewViewModel(parentCoordinatorEvent,instance())
+            ProfileGeneralInfoViewViewModel(parentCoordinatorEvent)
         }
     }
 }

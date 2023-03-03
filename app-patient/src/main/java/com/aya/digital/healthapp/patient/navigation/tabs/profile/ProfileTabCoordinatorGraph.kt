@@ -4,6 +4,10 @@ import com.aya.digital.core.feature.auth.signin.navigation.SignInNavigationEvent
 import com.aya.digital.core.feature.auth.signin.navigation.SignInScreen
 import com.aya.digital.core.feature.choosers.multiselect.navigation.MultiSelectChooserNavigationEvents
 import com.aya.digital.core.feature.choosers.multiselect.navigation.MultiSelectChooserScreen
+import com.aya.digital.core.feature.insurance.list.navigation.ProfileInsuranceListScreen
+import com.aya.digital.core.feature.profile.generalinfo.view.navigation.ProfileGeneralInfoViewScreen
+import com.aya.digital.core.feature.profile.security.securitysummary.navigation.ProfileSecuritySummaryScreen
+import com.aya.digital.core.feature.tabviews.profile.navigation.ProfileNavigationEvents
 import com.aya.digital.core.feature.tabviews.profile.navigation.ProfileScreen
 import com.aya.digital.core.navigation.coordinator.CoordinatorEvent
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
@@ -25,10 +29,31 @@ class ProfileTabCoordinatorGraph : FragmentContainerGraph {
         navigationRouter: Router,
         parentCoordinatorRouter: CoordinatorRouter
     ) {
-        when (event) {
+         when (event) {
             ProfileTabNavigationEvents.OpenDefaultScreen -> {
                 navigationRouter.newRootScreen(ProfileScreen)
             }
+            ProfileNavigationEvents.OpenProfileGeneralInfo ->
+            {
+                navigationRouter.navigateTo(ProfileGeneralInfoViewScreen)
+            }
+            ProfileNavigationEvents.OpenProfileEmergencyContact ->
+            {
+                navigationRouter.navigateTo(ProfileGeneralInfoViewScreen)
+            }
+            ProfileNavigationEvents.OpenProfileInsurance ->
+            {
+                navigationRouter.navigateTo(ProfileInsuranceListScreen)
+            }
+            ProfileNavigationEvents.OpenProfileSecurity ->
+            {
+                navigationRouter.navigateTo(ProfileSecuritySummaryScreen)
+            }
+            ProfileNavigationEvents.OpenProfileNotification ->
+            {
+
+            }
+
             else -> parentCoordinatorRouter.sendEvent(event)
         }
 

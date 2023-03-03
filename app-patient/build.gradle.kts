@@ -55,6 +55,14 @@ dependencies {
     implementation(project(":feature:tabviews:home"))
     implementation(project(":feature:tabs:profile"))
     implementation(project(":feature:tabviews:profile"))
+    implementation(project(":feature:profile:generalinfo:edit"))
+    implementation(project(":feature:profile:generalinfo:view"))
+    implementation(project(":feature:profile:insurance:add"))
+    implementation(project(":feature:profile:insurance:list"))
+    implementation(project(":feature:profile:security:securitysummary"))
+    implementation(project(":feature:profile:emergencycontact"))
+
+
 
     implementation(project(":feature:choosers:multiselect"))
     implementation(project(":feature:auth:chooser"))

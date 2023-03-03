@@ -16,16 +16,17 @@ data class BriefProfileModel(
     val firstName: String,
     val lastName: String,
     val middleName: String,
-    val avatar: String
+    val avatar: String?
 ) {
 
 }
 
-fun CurrentProfile.mapToBriefProfile() = BriefProfileModel(this.id,
+fun CurrentProfile.mapToBriefProfile() = BriefProfileModel(
+    this.id,
     this.email ?: "",
-    this.firstName?:"",
-    this.lastName?:"",
-    this.middleName?:"",
-    this.avatar?:""
+    this.firstName ?: "",
+    this.lastName ?: "",
+    this.middleName ?: "",
+    this.avatar?.fullUrl
 )
 
