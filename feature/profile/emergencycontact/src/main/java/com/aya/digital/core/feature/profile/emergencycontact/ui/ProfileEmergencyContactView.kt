@@ -35,7 +35,7 @@ class ProfileEmergencyContactView :
 
     private val adapter by lazy(LazyThreadSafetyMode.NONE) {
         BaseDelegateAdapter.create {
-            delegate { nameFieldDelegate(NameFieldDelegateListeners { tag, text -> }) }
+            delegate { nameFieldDelegate(NameFieldDelegateListeners(viewModel::onNameFieldChanged)) }
             delegate { emergencyContactInfoDelegate() }
         }
     }

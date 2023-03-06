@@ -14,7 +14,7 @@ fun profileEmergencyContactDiModule(
 
     bind {
         scoped(CustomFragmentScope).singleton {
-            ProfileEmergencyContactViewModel(parentCoordinatorEvent)
+            ProfileEmergencyContactViewModel(parentCoordinatorEvent,instance(),instance())
         }
     }
 }

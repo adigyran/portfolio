@@ -15,19 +15,15 @@ data class BriefProfileModel(
 
 }
 
-fun CurrentProfile.mapToProfileInfo() = ProfileInfoModel(
-    id = this.id,
-    email = this.email,
-    firstName = this.firstName,
-    lastName = this.lastName,
-    middleName = this.middleName,
-    avatar = this.avatar?.fullUrl,
-    dateOfBirth = this.dateOfBirth?.let { LocalDate.now() },
-    sex = this.sex?.let { ProfileSex.getSexByTag(it) },
-    height = this.height,
-    weight = this.weight,
-    shortAddress = null
+fun CurrentProfile.mapToBriefProfile() = BriefProfileModel(
+    this.id,
+    this.email ?: "",
+    this.firstName ?: "",
+    this.lastName ?: "",
+    this.middleName ?: "",
+    this.avatar?.fullUrl
 )
+
 
 
 

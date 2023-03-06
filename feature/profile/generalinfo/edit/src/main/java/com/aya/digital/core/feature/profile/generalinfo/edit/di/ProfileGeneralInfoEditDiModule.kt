@@ -14,7 +14,7 @@ fun profileGeneralInfoEditDiModule(
 
     bind {
         scoped(CustomFragmentScope).singleton {
-            ProfileGeneralInfoEditViewModel(parentCoordinatorEvent,instance())
+            ProfileGeneralInfoEditViewModel(parentCoordinatorEvent,instance(),instance())
         }
     }
 }

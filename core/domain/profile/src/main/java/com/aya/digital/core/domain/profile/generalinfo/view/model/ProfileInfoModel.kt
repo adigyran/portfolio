@@ -1,5 +1,6 @@
 package com.aya.digital.core.domain.profile.generalinfo.view.model
 
+import android.app.Activity
 import com.aya.digital.core.data.profile.CurrentProfile
 import com.aya.digital.core.model.ProfileSex
 import java.time.LocalDate
@@ -20,11 +21,19 @@ data class ProfileInfoModel(
 
 }
 
-fun CurrentProfile.mapToBriefProfile() = BriefProfileModel(
-    this.id,
-    this.email ?: "",
-    this.firstName ?: "",
-    this.lastName ?: "",
-    this.middleName ?: "",
-    this.avatar?.fullUrl
+
+fun CurrentProfile.mapToProfileInfo() = ProfileInfoModel(
+    id = this.id,
+    email = this.email,
+    firstName = this.firstName,
+    lastName = this.lastName,
+    middleName = this.middleName,
+    avatar = this.avatar?.fullUrl,
+    dateOfBirth = this.dateOfBirth?.let { LocalDate.now() },
+    sex = this.sex?.let { ProfileSex.getSexByTag(it) },
+    height = this.height,
+    weight = this.weight,
+    shortAddress = null
 )
+
+
