@@ -1,6 +1,6 @@
-package com.aya.digital.core.feature.profile.security.securitysummary.viewmodel
+package com.aya.digital.core.feature.profile.security.changeemailphone.viewmodel
 
-import com.aya.digital.core.feature.profile.security.securitysummary.FieldsTags
+import com.aya.digital.core.feature.profile.security.changeemailphone.FieldsTags
 import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.mvi.BaseViewModel
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
@@ -8,12 +8,12 @@ import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
-class ProfileSecuritySummaryViewModel(
+class ProfileSecurityChangeEmailPhoneViewModel(
     private val coordinatorRouter: CoordinatorRouter
 ) :
-    BaseViewModel<ProfileSecuritySummaryState, BaseSideEffect>() {
-    override val container = container<ProfileSecuritySummaryState, BaseSideEffect>(
-        initialState = ProfileSecuritySummaryState(),
+    BaseViewModel<ProfileSecurityChangeEmailPhoneState, BaseSideEffect>() {
+    override val container = container<ProfileSecurityChangeEmailPhoneState, BaseSideEffect>(
+        initialState = ProfileSecurityChangeEmailPhoneState(),
     )
     {
 

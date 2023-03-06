@@ -111,6 +111,10 @@ include(":core:ui:delegates:features:choosers:multiselect")
 include(":core:ui:delegates:features:profile:main")
 include(":core:ui:delegates:features:profile:generalinfo")
 include(":core:ui:delegates:features:profile:emergencycontactinfo")
+include(":core:ui:delegates:features:profile:securitysummary")
+include(":core:ui:delegates:features:profile:clinicinfo")
+include(":core:ui:delegates:features:profile:insurance")
+
 
 //tabs
 include(":feature:tabs:home")
@@ -133,12 +137,18 @@ include(":feature:auth:signin")
 include(":feature:auth:container")
 include(":feature:choosers:multiselect")
 //profile
+include(":feature:profile:notifications")
 include(":feature:profile:emergencycontact")
 include(":feature:profile:generalinfo:edit")
 include(":feature:profile:generalinfo:view")
 include(":feature:profile:insurance:add")
 include(":feature:profile:insurance:list")
+include(":feature:profile:clinicinfo")
 include(":feature:profile:security:securitysummary")
+include(":feature:profile:security:changepassword")
+include(":feature:profile:security:changeemailphone")
+
+
 
 
 include(":core:localisation")
