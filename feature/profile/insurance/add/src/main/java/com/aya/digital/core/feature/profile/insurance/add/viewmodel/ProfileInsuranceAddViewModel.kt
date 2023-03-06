@@ -18,21 +18,16 @@ class ProfileInsuranceAddViewModel(
 
     }
 
-    fun emailChanged(email: String) = intent {
-        if (state.email != email) reduce { state.copy(email = email) }
-    }
-
-    fun passwordChanged(tag: Int, password: String) = intent {
-        if (tag == FieldsTags.PASSWORD_FIELD_TAG) {
-            if (state.password != password) reduce { state.copy(password = password) }
-        }
-    }
-
-    fun onSignInClicked() = intent {
+    fun nameFieldChanged(tag:Int, text:String) = intent {
 
     }
 
-    fun onSignUpClicked() = intent {
+    fun photoClicked() = intent {
+
+    }
+
+    fun photoMoreClicked() = intent {
+
     }
 
 }

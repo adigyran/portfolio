@@ -1,14 +1,15 @@
 package com.aya.digital.core.ui.delegates.profile.emergencycontactinfo.ui
 
 import com.aya.digital.core.ui.adapters.base.DiffItem
-import com.aya.digital.core.ui.delegates.features.profile.insurance.databinding.ItemInsurancePolicyBinding
+import com.aya.digital.core.ui.delegates.features.profile.insurance.databinding.ItemInsurancePolicyPhotoBinding
+import com.aya.digital.core.ui.delegates.profile.emergencycontactinfo.model.InsurancePolicyPhotoUIModel
 import com.aya.digital.core.ui.delegates.profile.emergencycontactinfo.model.InsurancePolicyUIModel
 import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
 
-fun insurancePolicyDelegate(onPolicyClick : (id:Int) -> Unit) =
-    adapterDelegateViewBinding<InsurancePolicyUIModel, DiffItem, ItemInsurancePolicyBinding>(
+fun insurancePolicyPhotoDelegate(onPhotoClick: () -> Unit, onPhotoMoreClick: () -> Unit) =
+    adapterDelegateViewBinding<InsurancePolicyPhotoUIModel, DiffItem, ItemInsurancePolicyPhotoBinding>(
         { layoutInflater, root ->
-            ItemInsurancePolicyBinding.inflate(
+            ItemInsurancePolicyPhotoBinding.inflate(
                 layoutInflater,
                 root,
                 false
@@ -17,8 +18,7 @@ fun insurancePolicyDelegate(onPolicyClick : (id:Int) -> Unit) =
     ) {
         var initialised = false
         bind {
-            if(!initialised) {
-
+            if (!initialised) {
                 initialised = true
             }
         }

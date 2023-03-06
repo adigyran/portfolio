@@ -1,7 +1,5 @@
 package com.aya.digital.core.feature.insurance.list.viewmodel
 
-import com.aya.digital.core.feature.insurance.list.FieldsTags
-import com.aya.digital.core.feature.insurance.list.navigation.ProfileInsuranceListNavigationEvents
 import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.mvi.BaseViewModel
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
@@ -21,22 +19,7 @@ class ProfileInsuranceListViewModel(
 
     }
 
-    fun emailChanged(email: String) = intent {
-        if (state.email != email) reduce { state.copy(email = email) }
-    }
-
-    fun passwordChanged(tag: Int, password: String) = intent {
-        if (tag == FieldsTags.PASSWORD_FIELD_TAG) {
-            if (state.password != password) reduce { state.copy(password = password) }
-        }
-    }
-
-    fun onSignInClicked() = intent {
-
-    }
-
-    fun onSignUpClicked() = intent {
-    }
+    fun insuranceItemClicked(id:Int) = intent {  }
 
 }
 

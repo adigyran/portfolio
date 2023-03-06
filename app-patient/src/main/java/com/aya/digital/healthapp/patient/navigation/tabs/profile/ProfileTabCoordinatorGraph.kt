@@ -9,6 +9,7 @@ import com.aya.digital.core.feature.profile.emergencycontact.navigation.ProfileE
 import com.aya.digital.core.feature.profile.generalinfo.edit.navigation.ProfileGeneralInfoEditScreen
 import com.aya.digital.core.feature.profile.generalinfo.view.navigation.ProfileGeneralInfoViewNavigationEvents
 import com.aya.digital.core.feature.profile.generalinfo.view.navigation.ProfileGeneralInfoViewScreen
+import com.aya.digital.core.feature.profile.notifications.navigation.ProfileNotificationsScreen
 import com.aya.digital.core.feature.profile.security.securitysummary.navigation.ProfileSecuritySummaryScreen
 import com.aya.digital.core.feature.tabviews.profile.navigation.ProfileNavigationEvents
 import com.aya.digital.core.feature.tabviews.profile.navigation.ProfileScreen
@@ -49,7 +50,7 @@ class ProfileTabCoordinatorGraph : FragmentContainerGraph {
                 navigationRouter.navigateTo(ProfileSecuritySummaryScreen)
             }
             ProfileNavigationEvents.OpenProfileNotification -> {
-
+                navigationRouter.navigateTo(ProfileNotificationsScreen)
             }
             ProfileGeneralInfoViewNavigationEvents.EditProfile -> {
                 navigationRouter.navigateTo(ProfileGeneralInfoEditScreen)

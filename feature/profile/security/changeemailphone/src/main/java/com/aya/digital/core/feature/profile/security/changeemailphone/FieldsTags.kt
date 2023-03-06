@@ -1,5 +1,7 @@
 package com.aya.digital.core.feature.profile.security.changeemailphone
 
+import android.provider.ContactsContract.CommonDataKinds.Phone
+
 object FieldsTags {
-    const val PASSWORD_FIELD_TAG = 515641
+    const val Phone_FIELD_TAG = 515641
 }

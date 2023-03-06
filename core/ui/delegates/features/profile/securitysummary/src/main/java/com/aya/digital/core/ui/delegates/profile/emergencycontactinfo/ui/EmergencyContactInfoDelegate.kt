@@ -6,7 +6,7 @@ import com.aya.digital.core.ui.delegates.features.profile.securitysummary.databi
 import com.aya.digital.core.ui.delegates.profile.emergencycontactinfo.model.SecuritySummaryUIModel
 import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
 
-fun securitySummaryDelegate() =
+fun securitySummaryDelegate(itemClick: (tag: Int) -> Unit) =
     adapterDelegateViewBinding<SecuritySummaryUIModel, DiffItem, ItemSecuritySummaryBinding>(
         { layoutInflater, root ->
             ItemSecuritySummaryBinding.inflate(

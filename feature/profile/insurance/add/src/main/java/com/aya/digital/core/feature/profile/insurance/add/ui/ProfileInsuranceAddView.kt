@@ -21,6 +21,10 @@ import com.aya.digital.core.ui.base.ext.colors
 import com.aya.digital.core.ui.base.ext.createSpannableText
 import com.aya.digital.core.ui.base.screens.DiFragment
 import com.aya.digital.core.ui.base.utils.LinkTouchMovementMethod
+import com.aya.digital.core.ui.delegates.components.fields.name.model.ui.NameFieldDelegateListeners
+import com.aya.digital.core.ui.delegates.components.fields.name.model.ui.nameFieldDelegate
+import com.aya.digital.core.ui.delegates.profile.emergencycontactinfo.ui.insurancePolicyDelegate
+import com.aya.digital.core.ui.delegates.profile.emergencycontactinfo.ui.insurancePolicyPhotoDelegate
 import org.kodein.di.DI
 import org.kodein.di.factory
 import org.kodein.di.on
@@ -38,16 +42,19 @@ class ProfileInsuranceAddView :
 
     private val adapter by lazy(LazyThreadSafetyMode.NONE) {
         BaseDelegateAdapter.create {
-
-
+            delegate { nameFieldDelegate(NameFieldDelegateListeners(viewModel::nameFieldChanged)) }
+            delegate {
+                insurancePolicyPhotoDelegate(
+                    viewModel::photoClicked,
+                    viewModel::photoMoreClicked
+                )
+            }
         }
     }
 
     override fun prepareCreatedUi(savedInstanceState: Bundle?) {
         super.prepareCreatedUi(savedInstanceState)
-        prepareDescription()
         recyclers.add(binding.recycler)
-        binding.signInBtn bindClick { viewModel.onSignInClicked() }
         with(binding.recycler) {
             itemAnimator = null
             setHasFixedSize(true)
@@ -65,26 +72,13 @@ class ProfileInsuranceAddView :
         }
     }
 
-    private fun prepareDescription() {
-        //Don't have an account yet? Sign Up
-        binding.descrLabl.movementMethod = LinkTouchMovementMethod()
-        val description = "Don't have an account yet? %s".createSpannableText(
-            colors[R.color.button_text_blue],
-            colors[R.color.button_bg_dark_blue],
-            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE,
-            listOf(SpannableObject("Sign Up", { signUp() }))
-        )
-        binding.descrLabl.text = description
-    }
-
-    private fun signUp() = viewModel.onSignUpClicked()
-
     override fun provideDiModule(): DI.Module = profileInsuranceAddDiModule(tryTyGetParentRouter())
 
     override fun provideViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ): ViewProfileInsuranceAddBinding = ViewProfileInsuranceAddBinding.inflate(inflater, container, false)
+    ): ViewProfileInsuranceAddBinding =
+        ViewProfileInsuranceAddBinding.inflate(inflater, container, false)
 
     override fun sideEffect(sideEffect: BaseSideEffect) = Unit
 

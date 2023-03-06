@@ -21,6 +21,8 @@ import com.aya.digital.core.ui.base.ext.colors
 import com.aya.digital.core.ui.base.ext.createSpannableText
 import com.aya.digital.core.ui.base.screens.DiFragment
 import com.aya.digital.core.ui.base.utils.LinkTouchMovementMethod
+import com.aya.digital.core.ui.delegates.components.fields.password.ui.PasswordFieldDelegateListeners
+import com.aya.digital.core.ui.delegates.components.fields.password.ui.passwordFieldDelegate
 import org.kodein.di.DI
 import org.kodein.di.factory
 import org.kodein.di.on
@@ -38,16 +40,13 @@ class ProfileSecurityChangePasswordView :
 
     private val adapter by lazy(LazyThreadSafetyMode.NONE) {
         BaseDelegateAdapter.create {
-
-
+            delegate { passwordFieldDelegate(PasswordFieldDelegateListeners(viewModel::passwordChanged)) }
         }
     }
 
     override fun prepareCreatedUi(savedInstanceState: Bundle?) {
         super.prepareCreatedUi(savedInstanceState)
-        prepareDescription()
         recyclers.add(binding.recycler)
-        binding.signInBtn bindClick { viewModel.onSignInClicked() }
         with(binding.recycler) {
             itemAnimator = null
             setHasFixedSize(true)
@@ -65,19 +64,6 @@ class ProfileSecurityChangePasswordView :
         }
     }
 
-    private fun prepareDescription() {
-        //Don't have an account yet? Sign Up
-        binding.descrLabl.movementMethod = LinkTouchMovementMethod()
-        val description = "Don't have an account yet? %s".createSpannableText(
-            colors[R.color.button_text_blue],
-            colors[R.color.button_bg_dark_blue],
-            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE,
-            listOf(SpannableObject("Sign Up", { signUp() }))
-        )
-        binding.descrLabl.text = description
-    }
-
-    private fun signUp() = viewModel.onSignUpClicked()
 
     override fun provideDiModule(): DI.Module = profileSecurityChangePasswordDiModule(tryTyGetParentRouter())
 

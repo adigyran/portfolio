@@ -45,39 +45,7 @@ class ProfileNotificationsView :
 
     override fun prepareCreatedUi(savedInstanceState: Bundle?) {
         super.prepareCreatedUi(savedInstanceState)
-        prepareDescription()
-        recyclers.add(binding.recycler)
-        binding.signInBtn bindClick { viewModel.onSignInClicked() }
-        with(binding.recycler) {
-            itemAnimator = null
-            setHasFixedSize(true)
-            setItemViewCacheSize(30)
-            isNestedScrollingEnabled = false
-
-            val lm = LinearLayoutManager(
-                context,
-                RecyclerView.VERTICAL,
-                false
-            )
-
-            layoutManager = lm
-
-        }
     }
-
-    private fun prepareDescription() {
-        //Don't have an account yet? Sign Up
-        binding.descrLabl.movementMethod = LinkTouchMovementMethod()
-        val description = "Don't have an account yet? %s".createSpannableText(
-            colors[R.color.button_text_blue],
-            colors[R.color.button_bg_dark_blue],
-            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE,
-            listOf(SpannableObject("Sign Up", { signUp() }))
-        )
-        binding.descrLabl.text = description
-    }
-
-    private fun signUp() = viewModel.onSignUpClicked()
 
     override fun provideDiModule(): DI.Module = profileNotificationsDiModule(tryTyGetParentRouter())
 
@@ -90,10 +58,7 @@ class ProfileNotificationsView :
 
     override fun render(state: ProfileNotificationsState) {
         stateTransformer(state).data?.let {
-            adapter.items = it
-            if (binding.recycler.adapter == null) {
-                binding.recycler.swapAdapter(adapter, true)
-            }
+
         }
     }
 

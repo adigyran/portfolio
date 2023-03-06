@@ -18,22 +18,10 @@ class ProfileSecurityChangePasswordViewModel(
     {
 
     }
-
-    fun emailChanged(email: String) = intent {
-        if (state.email != email) reduce { state.copy(email = email) }
-    }
-
     fun passwordChanged(tag: Int, password: String) = intent {
-        if (tag == FieldsTags.PASSWORD_FIELD_TAG) {
+        if (tag == FieldsTags.NEW_REPEAT_PASSWORD_FIELD_TAG) {
             if (state.password != password) reduce { state.copy(password = password) }
         }
-    }
-
-    fun onSignInClicked() = intent {
-
-    }
-
-    fun onSignUpClicked() = intent {
     }
 
 }
