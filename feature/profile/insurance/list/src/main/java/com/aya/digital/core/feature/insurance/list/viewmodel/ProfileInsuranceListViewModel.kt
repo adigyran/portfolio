@@ -1,5 +1,6 @@
 package com.aya.digital.core.feature.insurance.list.viewmodel
 
+import com.aya.digital.core.feature.insurance.list.navigation.ProfileInsuranceListNavigationEvents
 import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.mvi.BaseViewModel
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
@@ -19,9 +20,15 @@ class ProfileInsuranceListViewModel(
 
     }
 
-    fun insuranceItemClicked(id:Int) = intent {  }
+    fun insuranceItemClicked(id:Int) = intent {
+        coordinatorRouter.sendEvent(ProfileInsuranceListNavigationEvents.EditInsurance(id))
+    }
     fun insuranceItemMoreClicked(id:Int) = intent {
 
+    }
+
+    fun addInsuranceClicked() = intent {
+        coordinatorRouter.sendEvent(ProfileInsuranceListNavigationEvents.AddInsurance)
     }
 
 }

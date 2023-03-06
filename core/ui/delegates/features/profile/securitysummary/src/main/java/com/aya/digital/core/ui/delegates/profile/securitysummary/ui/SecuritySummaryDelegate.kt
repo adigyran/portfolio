@@ -1,6 +1,7 @@
 package com.aya.digital.core.ui.delegates.profile.emergencycontactinfo.ui
 
 
+import com.aya.digital.core.ext.bindClick
 import com.aya.digital.core.ui.adapters.base.DiffItem
 import com.aya.digital.core.ui.delegates.features.profile.securitysummary.databinding.ItemSecuritySummaryBinding
 import com.aya.digital.core.ui.delegates.profile.emergencycontactinfo.model.SecuritySummaryUIModel
@@ -16,6 +17,7 @@ fun securitySummaryDelegate(itemClick: (tag: Int) -> Unit) =
             )
         }
     ) {
+        binding.root bindClick {itemClick(item.tag)}
         var initialised = false
         bind {
             if(!initialised) {

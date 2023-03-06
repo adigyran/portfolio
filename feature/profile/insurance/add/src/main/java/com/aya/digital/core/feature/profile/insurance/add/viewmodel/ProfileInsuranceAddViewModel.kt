@@ -30,5 +30,9 @@ class ProfileInsuranceAddViewModel(
 
     }
 
+    fun saveInsurance() = intent {
+
+    }
+
 }
 

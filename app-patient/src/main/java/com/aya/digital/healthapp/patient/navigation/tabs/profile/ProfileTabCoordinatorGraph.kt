@@ -4,12 +4,18 @@ import com.aya.digital.core.feature.auth.signin.navigation.SignInNavigationEvent
 import com.aya.digital.core.feature.auth.signin.navigation.SignInScreen
 import com.aya.digital.core.feature.choosers.multiselect.navigation.MultiSelectChooserNavigationEvents
 import com.aya.digital.core.feature.choosers.multiselect.navigation.MultiSelectChooserScreen
+import com.aya.digital.core.feature.insurance.list.navigation.ProfileInsuranceListNavigationEvents
 import com.aya.digital.core.feature.insurance.list.navigation.ProfileInsuranceListScreen
 import com.aya.digital.core.feature.profile.emergencycontact.navigation.ProfileEmergencyContactScreen
 import com.aya.digital.core.feature.profile.generalinfo.edit.navigation.ProfileGeneralInfoEditScreen
 import com.aya.digital.core.feature.profile.generalinfo.view.navigation.ProfileGeneralInfoViewNavigationEvents
 import com.aya.digital.core.feature.profile.generalinfo.view.navigation.ProfileGeneralInfoViewScreen
+import com.aya.digital.core.feature.profile.insurance.add.navigation.ProfileInsuranceAddNavigationEvents
+import com.aya.digital.core.feature.profile.insurance.add.navigation.ProfileInsuranceAddScreen
 import com.aya.digital.core.feature.profile.notifications.navigation.ProfileNotificationsScreen
+import com.aya.digital.core.feature.profile.security.changeemailphone.navigation.ProfileSecurityChangeEmailPhoneScreen
+import com.aya.digital.core.feature.profile.security.changepassword.navigation.ProfileSecurityChangePasswordScreen
+import com.aya.digital.core.feature.profile.security.securitysummary.navigation.ProfileSecuritySummaryNavigationEvents
 import com.aya.digital.core.feature.profile.security.securitysummary.navigation.ProfileSecuritySummaryScreen
 import com.aya.digital.core.feature.tabviews.profile.navigation.ProfileNavigationEvents
 import com.aya.digital.core.feature.tabviews.profile.navigation.ProfileScreen
@@ -33,28 +39,54 @@ class ProfileTabCoordinatorGraph : FragmentContainerGraph {
         navigationRouter: Router,
         parentCoordinatorRouter: CoordinatorRouter
     ) {
+        val mainRouter = navigationRouter
         when (event) {
             ProfileTabNavigationEvents.OpenDefaultScreen -> {
-                navigationRouter.newRootScreen(ProfileScreen)
+                mainRouter.newRootScreen(ProfileScreen)
             }
             ProfileNavigationEvents.OpenProfileGeneralInfo -> {
-                navigationRouter.navigateTo(ProfileGeneralInfoViewScreen)
+                mainRouter.navigateTo(ProfileGeneralInfoViewScreen)
             }
             ProfileNavigationEvents.OpenProfileEmergencyContact -> {
-                navigationRouter.navigateTo(ProfileEmergencyContactScreen)
+                mainRouter.navigateTo(ProfileEmergencyContactScreen)
             }
             ProfileNavigationEvents.OpenProfileInsurance -> {
-                navigationRouter.navigateTo(ProfileInsuranceListScreen)
+                mainRouter.navigateTo(ProfileInsuranceListScreen)
             }
             ProfileNavigationEvents.OpenProfileSecurity -> {
-                navigationRouter.navigateTo(ProfileSecuritySummaryScreen)
+                mainRouter.navigateTo(ProfileSecuritySummaryScreen)
             }
             ProfileNavigationEvents.OpenProfileNotification -> {
-                navigationRouter.navigateTo(ProfileNotificationsScreen)
+                mainRouter.navigateTo(ProfileNotificationsScreen)
             }
             ProfileGeneralInfoViewNavigationEvents.EditProfile -> {
-                navigationRouter.navigateTo(ProfileGeneralInfoEditScreen)
+                mainRouter.navigateTo(ProfileGeneralInfoEditScreen)
             }
+
+            ProfileSecuritySummaryNavigationEvents.ChangeEmail -> {
+                mainRouter.navigateTo(ProfileSecurityChangeEmailPhoneScreen)
+            }
+
+            ProfileSecuritySummaryNavigationEvents.ChangePassword -> {
+                mainRouter.navigateTo(ProfileSecurityChangePasswordScreen)
+            }
+
+            ProfileInsuranceListNavigationEvents.AddInsurance ->
+            {
+                mainRouter.navigateTo(ProfileInsuranceAddScreen)
+            }
+
+            is ProfileInsuranceListNavigationEvents.EditInsurance ->
+            {
+                mainRouter.navigateTo(ProfileInsuranceAddScreen)
+            }
+
+            is ProfileInsuranceAddNavigationEvents.FinishWithResult ->
+            {
+                mainRouter.sendResult(event.requestCode,event.result)
+                mainRouter.exit()
+            }
+
             else -> parentCoordinatorRouter.sendEvent(event)
         }
 

@@ -9,3 +9,8 @@ android {
         viewBinding = true
     }
 }
+
+dependencies {
+    implementation(project(":core:model"))
+
+}
