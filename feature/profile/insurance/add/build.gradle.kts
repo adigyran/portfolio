@@ -7,6 +7,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:domain:profile"))
     implementation(project(":core:ui:delegates:components:fields:name"))
     implementation(project(":core:ui:delegates:features:profile:insurance"))
 }

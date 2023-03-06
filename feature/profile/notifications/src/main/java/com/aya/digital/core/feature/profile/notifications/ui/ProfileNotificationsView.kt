@@ -36,15 +36,14 @@ class ProfileNotificationsView :
         context = this
     ).factory()
 
-    private val adapter by lazy(LazyThreadSafetyMode.NONE) {
-        BaseDelegateAdapter.create {
-
-
-        }
-    }
-
     override fun prepareCreatedUi(savedInstanceState: Bundle?) {
         super.prepareCreatedUi(savedInstanceState)
+    }
+
+    override fun prepareUi(savedInstanceState: Bundle?) {
+        super.prepareUi(savedInstanceState)
+        binding.smsNotificationSw.setOnCheckedChangeListener { compoundButton, b ->
+            viewModel.onEmailNotificationSwitched(b)}
     }
 
     override fun provideDiModule(): DI.Module = profileNotificationsDiModule(tryTyGetParentRouter())
@@ -57,8 +56,11 @@ class ProfileNotificationsView :
     override fun sideEffect(sideEffect: BaseSideEffect) = Unit
 
     override fun render(state: ProfileNotificationsState) {
-        stateTransformer(state).data?.let {
-
+        stateTransformer(state).run {
+            if(binding.smsNotificationSw.isChecked != this.emailNotificationsState)
+            {
+                binding.smsNotificationSw.isChecked = this.emailNotificationsState
+            }
         }
     }
 

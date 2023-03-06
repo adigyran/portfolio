@@ -1,8 +1,8 @@
 package com.aya.digital.core.domain.profile.di
-import com.aya.digital.core.domain.profile.GetProfileBriefUseCase
-import com.aya.digital.core.domain.profile.GetProfileInfoUseCase
-import com.aya.digital.core.domain.profile.GetProfileInfoUseCaseImpl
-import com.aya.digital.core.domain.profile.GetProfileUseCaseImpl
+import com.aya.digital.core.domain.profile.generalinfo.GetProfileBriefUseCase
+import com.aya.digital.core.domain.profile.generalinfo.GetProfileInfoUseCase
+import com.aya.digital.core.domain.profile.generalinfo.GetProfileInfoUseCaseImpl
+import com.aya.digital.core.domain.profile.generalinfo.GetProfileUseCaseImpl
 import org.kodein.di.DI
 import org.kodein.di.bind
 import org.kodein.di.instance

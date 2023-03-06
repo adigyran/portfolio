@@ -1,7 +1,6 @@
 package com.aya.digital.core.feature.profile.generalinfo.edit.viewmodel
 
-import com.aya.digital.core.domain.profile.GetProfileInfoUseCase
-import com.aya.digital.core.feature.profile.generalinfo.edit.FieldsTags
+import com.aya.digital.core.domain.profile.generalinfo.GetProfileInfoUseCase
 import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.mvi.BaseViewModel
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter

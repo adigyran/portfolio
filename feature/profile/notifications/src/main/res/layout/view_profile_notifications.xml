@@ -4,4 +4,36 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:gravity="start"
+        android:textAppearance="@style/Headline_H1"
+        android:id="@+id/topTextTv"
+        android:text="Notifications"
+        />
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/topTextTv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:gravity="start"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:id="@+id/bottomTextTv"
+        android:text="Enable a convenient way to receive notifications so that we are always in touch with you"
+        />
+    <com.google.android.material.materialswitch.MaterialSwitch
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/smsNotificationSw"
+        android:text="Email notification"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bottomTextTv"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,11 +1,9 @@
-package com.aya.digital.core.domain.profile
+package com.aya.digital.core.domain.profile.generalinfo
 
 import com.aya.digital.core.data.base.dataprocessing.RequestResultModel
-import com.aya.digital.core.data.profile.Address
 import com.aya.digital.core.data.profile.CurrentProfile
 import com.aya.digital.core.model.ProfileSex
 import io.reactivex.rxjava3.core.Single
-import kotlinx.datetime.LocalDate
 
 interface GetProfileInfoUseCase {
     operator fun invoke(): Single<RequestResultModel<ProfileInfoModel>>
