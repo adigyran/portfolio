@@ -1,9 +1,10 @@
-package com.aya.digital.core.domain.profile.generalinfo.view
+package com.aya.digital.core.domain.profile.generalinfo.view.impl
 
 import com.aya.digital.core.data.base.dataprocessing.RequestResultModel
 import com.aya.digital.core.data.base.dataprocessing.asResultModel
 import com.aya.digital.core.data.base.dataprocessing.toModelError
 import com.aya.digital.core.data.profile.repository.ProfileRepository
+import com.aya.digital.core.domain.profile.generalinfo.view.GetProfileBriefUseCase
 import com.aya.digital.core.domain.profile.generalinfo.view.model.BriefProfileModel
 import com.aya.digital.core.domain.profile.generalinfo.view.model.mapToBriefProfile
 import com.aya.digital.core.ext.mapResult

@@ -1,6 +1,7 @@
-package com.aya.digital.core.domain.profile.security.summary
+package com.aya.digital.core.domain.profile.security.summary.impl
 
 import com.aya.digital.core.data.base.dataprocessing.RequestResultModel
+import com.aya.digital.core.domain.profile.security.summary.GetSecuritySummaryUseCase
 import com.aya.digital.core.domain.profile.security.summary.model.SecuritySummaryModel
 import io.reactivex.rxjava3.core.Single
 

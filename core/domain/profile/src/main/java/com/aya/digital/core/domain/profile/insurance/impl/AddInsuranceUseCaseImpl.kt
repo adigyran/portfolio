@@ -1,6 +1,7 @@
-package com.aya.digital.core.domain.profile.insurance
+package com.aya.digital.core.domain.profile.insurance.impl
 
 import com.aya.digital.core.data.base.dataprocessing.RequestResultModel
+import com.aya.digital.core.domain.profile.insurance.AddInsuranceUseCase
 import com.aya.digital.core.domain.profile.insurance.model.InsuranceAddModel
 import io.reactivex.rxjava3.core.Single
 
