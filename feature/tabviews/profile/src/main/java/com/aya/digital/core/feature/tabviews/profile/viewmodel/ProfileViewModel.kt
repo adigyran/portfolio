@@ -1,7 +1,7 @@
 package com.aya.digital.core.feature.tabviews.profile.viewmodel
 
-import com.aya.digital.core.domain.profile.generalinfo.BriefProfileModel
-import com.aya.digital.core.domain.profile.generalinfo.GetProfileBriefUseCase
+import com.aya.digital.core.domain.profile.generalinfo.view.model.BriefProfileModel
+import com.aya.digital.core.domain.profile.generalinfo.view.GetProfileBriefUseCase
 import com.aya.digital.core.feature.tabviews.profile.FieldsTags
 import com.aya.digital.core.feature.tabviews.profile.navigation.ProfileNavigationEvents
 import com.aya.digital.core.mvi.BaseSideEffect
