@@ -13,6 +13,8 @@ data class ProfileGeneralInfoEditState(
     val dateOfBirth: LocalDate? = null,
     val sex: ProfileSex? = null,
     val height: String? = null,
+    val heightError:String? = null,
     val weight: String? = null,
+    val weightError:String? = null,
     val shortAddress: String? = null
 ) : BaseState

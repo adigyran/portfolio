@@ -21,7 +21,7 @@ class ProfileEmergencyContactStateTransformer(context: Context) :
                                 FieldsTags.NAME_FIELD,
                                 "Contact Name",
                                 state.contactName.getField(),
-                                null
+                                state.contactNameError
                             )
                         )
                         add(
@@ -29,7 +29,7 @@ class ProfileEmergencyContactStateTransformer(context: Context) :
                                 FieldsTags.PHONE_FIELD,
                                 "Contact Phone",
                                 state.contactPhone.getField(),
-                                null
+                                state.contactPhoneError
                             )
                         )
 

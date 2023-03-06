@@ -5,7 +5,10 @@ import com.aya.digital.core.ui.delegates.features.profile.insurance.databinding.
 import com.aya.digital.core.ui.delegates.profile.emergencycontactinfo.model.InsurancePolicyUIModel
 import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
 
-fun insurancePolicyDelegate(onPolicyClick : (id:Int) -> Unit) =
+fun insurancePolicyDelegate(
+    onPolicyClick: (id: Int) -> Unit,
+    onPolicyMoreClick: (id: Int) -> Unit
+) =
     adapterDelegateViewBinding<InsurancePolicyUIModel, DiffItem, ItemInsurancePolicyBinding>(
         { layoutInflater, root ->
             ItemInsurancePolicyBinding.inflate(
@@ -17,7 +20,7 @@ fun insurancePolicyDelegate(onPolicyClick : (id:Int) -> Unit) =
     ) {
         var initialised = false
         bind {
-            if(!initialised) {
+            if (!initialised) {
 
                 initialised = true
             }

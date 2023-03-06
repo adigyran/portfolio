@@ -64,7 +64,6 @@ class ProfileSecurityChangePasswordView :
         }
     }
 
-
     override fun provideDiModule(): DI.Module = profileSecurityChangePasswordDiModule(tryTyGetParentRouter())
 
     override fun provideViewBinding(

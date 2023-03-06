@@ -67,7 +67,7 @@ class ProfileGeneralInfoEditStateTransformer(private val context: Context) :
                             FieldsTags.HEIGHT_FIELD_TAG,
                             "Height",
                             state.height.getField(),
-                            null,
+                            state.heightError,
                             suffix = getHeightUnit()
                         )
                     )
@@ -76,7 +76,7 @@ class ProfileGeneralInfoEditStateTransformer(private val context: Context) :
                             FieldsTags.WEIGHT_FIELD_TAG,
                             "Weight",
                             state.height.getField(),
-                            null,
+                            state.weightError,
                             suffix = getWeightUnit()
                         )
                     )

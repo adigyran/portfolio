@@ -19,8 +19,9 @@ class ProfileSecurityChangePasswordViewModel(
 
     }
     fun passwordChanged(tag: Int, password: String) = intent {
-        if (tag == FieldsTags.NEW_REPEAT_PASSWORD_FIELD_TAG) {
-            if (state.password != password) reduce { state.copy(password = password) }
+        when(tag)
+        {
+
         }
     }
 

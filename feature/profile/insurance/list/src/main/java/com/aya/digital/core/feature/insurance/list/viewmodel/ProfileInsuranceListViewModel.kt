@@ -20,6 +20,9 @@ class ProfileInsuranceListViewModel(
     }
 
     fun insuranceItemClicked(id:Int) = intent {  }
+    fun insuranceItemMoreClicked(id:Int) = intent {
+
+    }
 
 }
 

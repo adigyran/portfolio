@@ -39,7 +39,12 @@ class ProfileInsuranceListView :
 
     private val adapter by lazy(LazyThreadSafetyMode.NONE) {
         BaseDelegateAdapter.create {
-            delegate { insurancePolicyDelegate(viewModel::insuranceItemClicked) }
+            delegate {
+                insurancePolicyDelegate(
+                    viewModel::insuranceItemClicked,
+                    viewModel::insuranceItemMoreClicked
+                )
+            }
         }
     }
 
