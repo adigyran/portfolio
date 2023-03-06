@@ -8,5 +8,5 @@ android {
 
 dependencies {
     implementation(project(":core:ui:delegates:components:fields:emailphone"))
-
+    implementation(project(":core:ui:delegates:components:labels:headlinetwoline"))
 }

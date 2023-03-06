@@ -26,12 +26,14 @@ fun insurancePolicyPhotoDelegate(onPhotoClick: () -> Unit, onPhotoMoreClick: () 
 
         var initialised = false
         fun showEmptyPhoto() {
+            binding.emptyImageGroup.visible()
             binding.insuranceCardIv.gone()
         }
         binding.moreBtn bindClick {onPhotoMoreClick()}
         bind {
             if (!initialised) {
                 item.photo?.let {
+                    binding.emptyImageGroup.gone()
                     binding.insuranceCardIv.visible()
                     Glide
                         .with(binding.insuranceCardIv)

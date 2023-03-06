@@ -97,6 +97,7 @@ include(":core:ui:delegates:components:fields:dropdown")
 
 //labels
 include(":core:ui:delegates:components:labels:headline")
+include(":core:ui:delegates:components:labels:headlinetwoline")
 include(":core:ui:delegates:components:labels:spannablehelper")
 //buttons
 include(":core:ui:delegates:components:buttons:filledbutton")

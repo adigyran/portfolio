@@ -5,12 +5,14 @@ import com.aya.digital.core.feature.profile.security.changeemailphone.viewmodel.
 import com.aya.digital.core.mvi.BaseStateTransformer
 import com.aya.digital.core.ui.adapters.base.DiffItem
 import com.aya.digital.core.ui.delegates.components.fields.emailphone.model.EmailPhoneFieldUIModel
+import com.aya.digital.core.ui.delegates.components.labels.headline.model.HeadlineTwoLineLabelUIModel
 
 class ProfileSecurityChangeEmailPhoneStateTransformer(context : Context): BaseStateTransformer<ProfileSecurityChangeEmailPhoneState, ProfileSecurityChangeEmailPhoneUiModel>() {
     override fun invoke(state: ProfileSecurityChangeEmailPhoneState): ProfileSecurityChangeEmailPhoneUiModel =
         ProfileSecurityChangeEmailPhoneUiModel(
             data = kotlin.run {
                return@run mutableListOf<DiffItem>().apply {
+                   add(HeadlineTwoLineLabelUIModel("Change Email","You can use your email to log in"))
                    add(EmailPhoneFieldUIModel("Email",state.email,state.emailError))
                 }
             }

@@ -24,4 +24,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:id="@+id/insuranceCardIv"
         />
+    <com.aya.digital.core.designsystem.buttons.filled.ButtonFilledView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/uploadPhotoBtn"
+        android:text="Upload photo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+    <androidx.constraintlayout.widget.Group
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/emptyImageGroup"
+        app:constraint_referenced_ids="uploadPhotoBtn"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>
