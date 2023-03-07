@@ -14,7 +14,7 @@ fun signInDiModule(
 
     bind {
         scoped(CustomFragmentScope).singleton {
-            SignInViewModel(parentCoordinatorEvent,instance())
+            SignInViewModel(parentCoordinatorEvent,instance("parent_coordinator_auth_container"),instance())
         }
     }
 }
