@@ -12,6 +12,7 @@ dependencies {
     implementation(project(":core:datasource"))
     implementation(project(":core:datastore"))
     implementation(project(":core:navigation"))
+    implementation(project(":core:util"))
     implementation(project(":core:mappers:appointment"))
     implementation(project(":core:mappers:doctors"))
     implementation(project(":core:mappers:preferences"))
@@ -27,7 +28,7 @@ dependencies {
     implementation(project(":core:security"))
     implementation(libs.kodein)
     implementation(libs.glide)
-    annotationProcessor(libs.glide.annotationprocessor)
+    kapt(libs.glide.annotationprocessor)
     implementation(libs.retrofit)
 
 }

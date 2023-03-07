@@ -1,12 +1,10 @@
 package com.aya.digital.core.ui.delegates.components.labels.headline.ui
 
 import android.text.Spannable
-import android.text.SpannableString
 import android.text.Spanned
 import com.aya.digital.core.designsystem.R
 import com.aya.digital.core.ui.adapters.base.DiffItem
-import com.aya.digital.core.ui.base.ext.SpannableObject
-import com.aya.digital.core.ui.base.ext.colors
+import com.aya.digital.core.ext.colors
 import com.aya.digital.core.ui.base.ext.createSpannableText
 import com.aya.digital.core.ui.base.utils.LinkTouchMovementMethod
 import com.aya.digital.core.ui.delegates.components.labels.spannablehelper.model.SpannableHelperLabelUIModel

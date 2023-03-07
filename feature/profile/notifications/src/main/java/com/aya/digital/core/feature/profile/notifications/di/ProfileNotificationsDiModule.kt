@@ -14,7 +14,7 @@ fun profileNotificationsDiModule(
 
     bind {
         scoped(CustomFragmentScope).singleton {
-            ProfileNotificationsViewModel(parentCoordinatorEvent)
+            ProfileNotificationsViewModel(parentCoordinatorEvent,instance(),instance())
         }
     }
 }

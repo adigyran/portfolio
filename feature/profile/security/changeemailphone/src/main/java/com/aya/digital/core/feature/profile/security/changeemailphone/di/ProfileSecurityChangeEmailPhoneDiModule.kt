@@ -14,7 +14,7 @@ fun ProfileSecurityChangeEmailPhoneDiModule(
 
     bind {
         scoped(CustomFragmentScope).singleton {
-            ProfileSecurityChangeEmailPhoneViewModel(parentCoordinatorEvent)
+            ProfileSecurityChangeEmailPhoneViewModel(parentCoordinatorEvent,instance(),instance())
         }
     }
 }

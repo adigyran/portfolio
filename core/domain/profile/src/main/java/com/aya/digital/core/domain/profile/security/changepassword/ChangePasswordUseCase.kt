@@ -7,6 +7,6 @@ import com.aya.digital.core.domain.profile.security.summary.model.SecuritySummar
 import io.reactivex.rxjava3.core.Single
 
 interface ChangePasswordUseCase {
-    operator fun invoke(code:String, changePasswordModel: ChangePasswordModel): Single<RequestResultModel<Boolean>>
+    operator fun invoke(changePasswordModel: ChangePasswordModel): Single<RequestResultModel<Boolean>>
 }
 

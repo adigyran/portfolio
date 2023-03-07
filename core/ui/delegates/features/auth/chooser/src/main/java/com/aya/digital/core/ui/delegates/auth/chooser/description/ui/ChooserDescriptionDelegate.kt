@@ -2,15 +2,14 @@ package com.aya.digital.core.ui.delegates.auth.chooser.description.ui
 
 import android.content.Context
 import android.text.Spanned
-import com.aya.digital.core.ui.base.ext.colors
+import com.aya.digital.core.ext.colors
 import com.aya.digital.core.ui.adapters.base.DiffItem
 import com.aya.digital.core.ui.base.utils.LinkTouchMovementMethod
-import com.aya.digital.core.designsystem.R
 import com.aya.digital.core.designsystem.R.color
 import com.aya.digital.core.localisation.R.string.*
 import com.aya.digital.core.ui.base.ext.SpannableObject
 import com.aya.digital.core.ui.base.ext.createSpannableText
-import com.aya.digital.core.ui.base.ext.strings
+import com.aya.digital.core.ext.strings
 import com.aya.digital.core.ui.delegates.auth.chooser.description.model.ChooserDescriptionUIModel
 import com.aya.digital.core.ui.delegates.features.auth.chooser.databinding.ItemChooserDescriptionBinding
 import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding

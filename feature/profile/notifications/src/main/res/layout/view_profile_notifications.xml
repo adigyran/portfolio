@@ -11,7 +11,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:gravity="start"
-        android:textAppearance="@style/Headline_H1"
+        android:textAppearance="@style/TextAppearance.App.H1"
         android:id="@+id/topTextTv"
         android:text="Notifications"
         />
@@ -22,7 +22,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:gravity="start"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textAppearance="@style/TextAppearance.App.Body.DescriptionText"
         android:id="@+id/bottomTextTv"
         android:text="Enable a convenient way to receive notifications so that we are always in touch with you"
         />

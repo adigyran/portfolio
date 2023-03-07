@@ -10,6 +10,6 @@ dependencies {
     implementation(project(":core:ui:delegates:features:profile:main"))
     implementation(project(":core:domain:profile"))
     implementation(libs.glide)
-    annotationProcessor(libs.glide.annotationprocessor)
+    kapt(libs.glide.annotationprocessor)
 
 }

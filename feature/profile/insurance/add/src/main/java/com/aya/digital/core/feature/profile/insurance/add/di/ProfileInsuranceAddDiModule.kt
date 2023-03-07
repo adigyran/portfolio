@@ -14,7 +14,7 @@ fun profileInsuranceAddDiModule(
 
     bind {
         scoped(CustomFragmentScope).singleton {
-            ProfileInsuranceAddViewModel(parentCoordinatorEvent)
+            ProfileInsuranceAddViewModel(parentCoordinatorEvent,instance(),instance())
         }
     }
 }

@@ -1,13 +1,10 @@
 package com.aya.digital.core.feature.profile.security.changepassword.ui
 
 import android.os.Bundle
-import android.text.Spanned
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.aya.digital.core.designsystem.R
-import com.aya.digital.core.ext.bindClick
 import com.aya.digital.core.feature.profile.security.changepassword.databinding.ViewProfileChangePasswordBinding
 import com.aya.digital.core.feature.profile.security.changepassword.di.profileSecurityChangePasswordDiModule
 import com.aya.digital.core.feature.profile.security.changepassword.ui.model.ProfileSecurityChangePasswordStateTransformer
@@ -16,11 +13,7 @@ import com.aya.digital.core.feature.profile.security.changepassword.viewmodel.Pr
 import com.aya.digital.core.feature.profile.security.changepassword.viewmodel.ProfileSecurityChangePasswordViewModel
 import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.ui.adapters.base.BaseDelegateAdapter
-import com.aya.digital.core.ui.base.ext.SpannableObject
-import com.aya.digital.core.ui.base.ext.colors
-import com.aya.digital.core.ui.base.ext.createSpannableText
 import com.aya.digital.core.ui.base.screens.DiFragment
-import com.aya.digital.core.ui.base.utils.LinkTouchMovementMethod
 import com.aya.digital.core.ui.delegates.components.fields.password.ui.PasswordFieldDelegateListeners
 import com.aya.digital.core.ui.delegates.components.fields.password.ui.passwordFieldDelegate
 import com.aya.digital.core.ui.delegates.components.labels.headline.ui.headlineTwoLineLabelDelegate
@@ -42,7 +35,7 @@ class ProfileSecurityChangePasswordView :
     private val adapter by lazy(LazyThreadSafetyMode.NONE) {
         BaseDelegateAdapter.create {
             delegate { headlineTwoLineLabelDelegate() }
-            delegate { passwordFieldDelegate(PasswordFieldDelegateListeners(viewModel::passwordChanged)) }
+            delegate { passwordFieldDelegate(PasswordFieldDelegateListeners(viewModel::passwordFieldChanged)) }
         }
     }
 

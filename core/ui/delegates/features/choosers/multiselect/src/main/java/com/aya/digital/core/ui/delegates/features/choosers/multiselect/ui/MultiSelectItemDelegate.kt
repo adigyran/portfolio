@@ -4,7 +4,7 @@ import android.graphics.drawable.Drawable
 import com.aya.digital.core.ext.bindClick
 import com.aya.digital.core.ui.adapters.base.DiffItem
 import com.aya.digital.core.designsystem.R
-import com.aya.digital.core.ui.base.ext.drawables
+import com.aya.digital.core.ext.drawables
 
 import com.aya.digital.core.ui.delegates.features.choosers.multiselect.databinding.ItemMultiselectBinding
 import com.aya.digital.core.ui.delegates.features.choosers.multiselect.model.MultiSelectItemUIModel

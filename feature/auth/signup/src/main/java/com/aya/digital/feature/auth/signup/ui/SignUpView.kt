@@ -2,20 +2,16 @@ package com.aya.digital.feature.auth.signup.ui
 
 import android.os.Bundle
 import android.text.Spanned
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.aya.digital.core.data.base.result.models.code.CodeResultModel
-import com.aya.digital.core.data.base.result.models.dictionaries.MultiSelectResultModel
 import com.aya.digital.core.designsystem.R
 import com.aya.digital.core.ext.bindClick
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
 import com.aya.digital.core.ui.adapters.base.BaseDelegateAdapter
 import com.aya.digital.core.ui.base.ext.SpannableObject
-import com.aya.digital.core.ui.base.ext.colors
+import com.aya.digital.core.ext.colors
 import com.aya.digital.core.ui.base.ext.createSpannableText
 import com.aya.digital.core.ui.base.screens.DiFragment
 import com.aya.digital.core.ui.base.utils.LinkTouchMovementMethod
@@ -29,7 +25,6 @@ import com.aya.digital.core.ui.delegates.components.fields.selection.ui.Selectio
 import com.aya.digital.core.ui.delegates.components.fields.selection.ui.selectionFieldDelegate
 import com.aya.digital.core.ui.delegates.components.labels.headline.ui.HeadlineLabelDelegateListeners
 import com.aya.digital.core.ui.delegates.components.labels.headline.ui.headlineLabelDelegate
-import com.aya.digital.core.util.requestcodes.RequestCodes
 import com.aya.digital.feature.auth.signup.databinding.ViewSignupBinding
 import com.aya.digital.feature.auth.signup.di.signUpDiModule
 import com.aya.digital.feature.auth.signup.ui.model.SignUpStateTransformer
@@ -37,8 +32,6 @@ import com.aya.digital.feature.auth.signup.ui.model.SignUpUiModel
 import com.aya.digital.feature.auth.signup.viewmodel.SignUpSideEffects
 import com.aya.digital.feature.auth.signup.viewmodel.SignUpState
 import com.aya.digital.feature.auth.signup.viewmodel.SignUpViewModel
-import com.github.terrakok.cicerone.Cicerone
-import com.github.terrakok.cicerone.Router
 import org.kodein.di.DI
 import org.kodein.di.factory
 import org.kodein.di.instance

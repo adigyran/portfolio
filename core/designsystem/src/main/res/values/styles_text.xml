@@ -1,69 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!--region Headlines/H1-->
-    <style name="Headline_H1" parent="TextAppearance.AppCompat">
+
+    <style name="TextAppearance.App.H1" parent="TextAppearance.Material3.HeadlineLarge">
+        <item name="fontFamily">@font/poppins_semibold</item>
         <item name="android:textSize">30sp</item>
     </style>
-    <!--endregion-->
 
-    <!--region Headlines/H2-->
-    <style name="Headline_H2" parent="TextAppearance.AppCompat">
+    <style name="TextAppearance.App.H2" parent="TextAppearance.Material3.HeadlineLarge">
+        <item name="fontFamily">@font/poppins_semibold</item>
         <item name="android:textSize">24sp</item>
     </style>
-    <!--endregion-->
 
-    <!--region Headlines/H3-->
-    <style name="Headline_H3" parent="TextAppearance.AppCompat">
+    <style name="TextAppearance.App.H3" parent="TextAppearance.Material3.HeadlineLarge">
+        <item name="fontFamily">@font/poppins_semibold</item>
         <item name="android:textSize">20sp</item>
     </style>
-    <!--endregion-->
 
-    <!--region Headlines/H4-->
-    <style name="Headline_H4" parent="TextAppearance.AppCompat">
+    <style name="TextAppearance.App.H4" parent="TextAppearance.Material3.HeadlineLarge">
+        <item name="fontFamily">@font/poppins_semibold</item>
         <item name="android:textSize">16sp</item>
     </style>
-    <!--endregion-->
 
-    <!--region Label-->
-    <style name="Label" parent="TextAppearance.AppCompat">
+    <style name="TextAppearance.App.Body.DescriptionText" parent="TextAppearance.Material3.HeadlineLarge">
+        <item name="fontFamily">@font/poppins_medium</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="TextAppearance.App.Body.DescriptionMiniText" parent="TextAppearance.Material3.HeadlineLarge">
+        <item name="fontFamily">@font/poppins_medium</item>
         <item name="android:textSize">14sp</item>
     </style>
-    <!--endregion-->
 
-    <!--region Body/Description-->
-    <style name="Body_Description" parent="TextAppearance.AppCompat">
-        <item name="android:textSize">16sp</item>
-    </style>
-    <!--endregion-->
-
-    <!--region Body/Small Description-->
-    <style name="Body_Small_Description" parent="TextAppearance.AppCompat">
-        <item name="android:textSize">12sp</item>
-    </style>
-    <!--endregion-->
-
-    <!--region List Text-->
-    <style name="List_Text" parent="TextAppearance.AppCompat">
-        <item name="android:textSize">17sp</item>
-    </style>
-    <!--endregion-->
-
-    <!--region Input Text/PlaceHolder-->
-    <style name="Input_Text_PlaceHolder" parent="TextAppearance.AppCompat">
-        <item name="android:textSize">16sp</item>
-    </style>
-    <!--endregion-->
-
-    <!--region Input Text/Label-->
-    <style name="Input_Text_Label" parent="TextAppearance.AppCompat">
+    <style name="TextAppearance.App.Body.LabelText" parent="TextAppearance.Material3.HeadlineLarge">
+        <item name="fontFamily">@font/poppins_medium</item>
         <item name="android:textSize">14sp</item>
     </style>
-    <!--endregion-->
 
-    <!--region Input Text/Label Floating-->
-    <style name="Input_Text_Label_Floating" parent="TextAppearance.AppCompat">
+    <style name="TextAppearance.App.Body.LabelMiniText" parent="TextAppearance.Material3.HeadlineLarge">
+        <item name="fontFamily">@font/poppins_medium</item>
         <item name="android:textSize">12sp</item>
     </style>
-    <!--endregion-->
+
+    <style name="TextAppearance.App.ButtonText.Default" parent="TextAppearance.Material3.HeadlineLarge">
+        <item name="fontFamily">@font/poppins_semibold</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="TextAppearance.App.ButtonText.DefaultBlack" parent="TextAppearance.Material3.HeadlineLarge">
+        <item name="fontFamily">@font/poppins_medium</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+
+    <style name="TextAppearance.App.InputText.Default" parent="TextAppearance.Material3.HeadlineLarge">
+        <item name="fontFamily">@font/poppins_regular</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="TextAppearance.App.InputText.Placeholder" parent="TextAppearance.Material3.HeadlineLarge">
+        <item name="fontFamily">@font/poppins_regular</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="TextAppearance.App.InputText.FocusedPlaceholder" parent="TextAppearance.Material3.HeadlineLarge">
+        <item name="fontFamily">@font/poppins_regular</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="TextAppearance.App.InputText.Title" parent="TextAppearance.Material3.HeadlineLarge">
+        <item name="fontFamily">@font/poppins_medium</item>
+        <item name="android:textSize">12sp</item>
+    </style>
 
 </resources>

@@ -9,10 +9,11 @@ import com.aya.digital.core.mvi.BaseStateTransformer
 import com.aya.digital.core.ui.adapters.base.DiffItem
 import com.aya.digital.core.ui.base.ext.SpannableObject
 import com.aya.digital.core.ui.delegates.profile.info.model.ProfileInfoUIModel
+import com.aya.digital.core.util.datetime.DateTimeUtils
 import timber.log.Timber
 import java.time.LocalDate
 
-class ProfileGeneralInfoViewStateTransformer(private val context: Context) :
+class ProfileGeneralInfoViewStateTransformer(private val context: Context,private val dateTimeUtils: DateTimeUtils) :
     BaseStateTransformer<ProfileGeneralInfoViewState, ProfileGeneralInfoViewUiModel>() {
     override fun invoke(state: ProfileGeneralInfoViewState): ProfileGeneralInfoViewUiModel =
         ProfileGeneralInfoViewUiModel(
@@ -35,7 +36,7 @@ class ProfileGeneralInfoViewStateTransformer(private val context: Context) :
     private fun getNotSpecifiedText() = "Not specified"
     private fun String?.getField() = this ?: getNotSpecifiedText()
     private fun ProfileSex?.getField() = this?.sexName() ?: getNotSpecifiedText()
-    private fun LocalDate?.getField() = this?.let { "TODO" } ?: getNotSpecifiedText()
+    private fun LocalDate?.getField() = this?.let { dateTimeUtils.formatBirthDate(it) } ?: getNotSpecifiedText()
     private fun ProfileSex.sexName() = this.getSexName(context)
 }
 

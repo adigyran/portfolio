@@ -17,6 +17,10 @@ sealed class ProfileSex(val tag: String, val nameId: Int) : Parcelable {
             setOf(Male, Female, Other)
 
         fun getSexByTag(tag: String) = getAllSexes().firstOrNull { it.tag == tag }
+        fun getSexByName(name: String) =
+            getAllSexes().firstOrNull { it.tag.lowercase() == name.lowercase() }
+        fun getSexByName(context: Context,name: String) =
+            getAllSexes().firstOrNull { it.getSexName(context).lowercase() == name.lowercase() }
     }
 }
 

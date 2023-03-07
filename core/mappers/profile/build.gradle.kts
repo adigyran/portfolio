@@ -7,6 +7,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:util"))
     implementation(project(":core:data:base"))
     implementation(project(":core:data:profile"))
     implementation(project(":core:network:model"))

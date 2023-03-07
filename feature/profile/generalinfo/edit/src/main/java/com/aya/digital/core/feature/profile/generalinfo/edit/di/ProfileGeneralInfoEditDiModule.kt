@@ -10,7 +10,7 @@ fun profileGeneralInfoEditDiModule(
     parentCoordinatorEvent: CoordinatorRouter
 ) = DI.Module("profileGeneralInfoEditDiModule") {
 
-    bind<ProfileGeneralInfoEditStateTransformer>() with singleton { ProfileGeneralInfoEditStateTransformer(instance()) }
+    bind<ProfileGeneralInfoEditStateTransformer>() with singleton { ProfileGeneralInfoEditStateTransformer(instance(),instance()) }
 
     bind {
         scoped(CustomFragmentScope).singleton {

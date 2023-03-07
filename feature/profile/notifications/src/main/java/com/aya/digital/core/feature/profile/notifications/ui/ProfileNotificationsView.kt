@@ -1,13 +1,8 @@
 package com.aya.digital.core.feature.profile.notifications.ui
 
 import android.os.Bundle
-import android.text.Spanned
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.aya.digital.core.designsystem.R
-import com.aya.digital.core.ext.bindClick
 import com.aya.digital.core.feature.profile.security.notifications.databinding.ViewProfileNotificationsBinding
 import com.aya.digital.core.feature.profile.notifications.di.profileNotificationsDiModule
 import com.aya.digital.core.feature.profile.notifications.ui.model.ProfileNotificationsStateTransformer
@@ -15,12 +10,7 @@ import com.aya.digital.core.feature.profile.notifications.ui.model.ProfileNotifi
 import com.aya.digital.core.feature.profile.notifications.viewmodel.ProfileNotificationsState
 import com.aya.digital.core.feature.profile.notifications.viewmodel.ProfileNotificationsViewModel
 import com.aya.digital.core.mvi.BaseSideEffect
-import com.aya.digital.core.ui.adapters.base.BaseDelegateAdapter
-import com.aya.digital.core.ui.base.ext.SpannableObject
-import com.aya.digital.core.ui.base.ext.colors
-import com.aya.digital.core.ui.base.ext.createSpannableText
 import com.aya.digital.core.ui.base.screens.DiFragment
-import com.aya.digital.core.ui.base.utils.LinkTouchMovementMethod
 import org.kodein.di.DI
 import org.kodein.di.factory
 import org.kodein.di.on

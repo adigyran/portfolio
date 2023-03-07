@@ -11,7 +11,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:gravity="start"
-        android:textAppearance="@style/Headline_H1"
+        android:textAppearance="@style/TextAppearance.App.H1"
         android:id="@+id/textField"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,11 +1,10 @@
-package com.aya.digital.core.ui.base.ext
+package com.aya.digital.core.ext
 
 import android.content.Context
 import android.content.res.Resources
 import android.graphics.drawable.Drawable
 import androidx.annotation.AnyRes
 import androidx.core.content.res.ResourcesCompat.*
-import com.aya.digital.core.ext.ContextAware
 
 val Context.animations
     get() = ResourceMapper { resources.getAnimation(it) }

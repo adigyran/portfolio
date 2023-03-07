@@ -10,11 +10,13 @@ import com.aya.digital.core.model.getSexName
 import com.aya.digital.core.mvi.BaseStateTransformer
 import com.aya.digital.core.ui.adapters.base.DiffItem
 import com.aya.digital.core.ui.delegates.components.fields.name.model.NameFieldUIModel
+import com.aya.digital.core.ui.delegates.components.fields.name.model.ValidatedNumberFieldUIModel
 import com.aya.digital.core.ui.delegates.components.fields.selection.model.DropdownFieldUIModel
 import com.aya.digital.core.ui.delegates.components.fields.selection.model.SelectionFieldUIModel
+import com.aya.digital.core.util.datetime.DateTimeUtils
 import java.time.LocalDate
 
-class ProfileGeneralInfoEditStateTransformer(private val context: Context) :
+class ProfileGeneralInfoEditStateTransformer(private val context: Context,private val dateTimeUtils: DateTimeUtils) :
     BaseStateTransformer<ProfileGeneralInfoEditState, ProfileGeneralInfoEditUiModel>() {
     override fun invoke(state: ProfileGeneralInfoEditState): ProfileGeneralInfoEditUiModel =
         ProfileGeneralInfoEditUiModel(
@@ -58,12 +60,12 @@ class ProfileGeneralInfoEditStateTransformer(private val context: Context) :
                             FieldsTags.SEX_FIELD_TAG,
                             getSexesList(),
                             "Sex",
-                            "",
+                            state.sex.getField(),
                             null
                         )
                     )
                     add(
-                        NameFieldUIModel(
+                        ValidatedNumberFieldUIModel(
                             FieldsTags.HEIGHT_FIELD_TAG,
                             "Height",
                             state.height.getField(),
@@ -72,7 +74,7 @@ class ProfileGeneralInfoEditStateTransformer(private val context: Context) :
                         )
                     )
                     add(
-                        NameFieldUIModel(
+                        ValidatedNumberFieldUIModel(
                             FieldsTags.WEIGHT_FIELD_TAG,
                             "Weight",
                             state.height.getField(),
@@ -98,7 +100,7 @@ class ProfileGeneralInfoEditStateTransformer(private val context: Context) :
 
     private fun String?.getField() = this ?: ""
     private fun ProfileSex?.getField() = this?.sexName() ?: ""
-    private fun LocalDate?.getField() = this?.let { "TODO" } ?: ""
+    private fun LocalDate?.getField() = this?.let { dateTimeUtils.formatBirthDate(it) } ?: ""
     private fun getHeightUnit() = "ft."
     private fun getWeightUnit() = "lbs"
 

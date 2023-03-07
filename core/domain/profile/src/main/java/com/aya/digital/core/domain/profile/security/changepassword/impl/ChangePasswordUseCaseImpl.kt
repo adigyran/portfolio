@@ -7,7 +7,6 @@ import io.reactivex.rxjava3.core.Single
 
 internal class ChangePasswordUseCaseImpl : ChangePasswordUseCase {
     override fun invoke(
-        code: String,
         changePasswordModel: ChangePasswordModel
     ): Single<RequestResultModel<Boolean>> {
         TODO("Not yet implemented")

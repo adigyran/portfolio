@@ -14,7 +14,7 @@ fun profileSecurityChangePasswordDiModule(
 
     bind {
         scoped(CustomFragmentScope).singleton {
-            ProfileSecurityChangePasswordViewModel(parentCoordinatorEvent)
+            ProfileSecurityChangePasswordViewModel(parentCoordinatorEvent,instance())
         }
     }
 }

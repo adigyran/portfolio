@@ -61,7 +61,7 @@ class AndroidUiDelegatesConventionPlugin : Plugin<Project> {
                 add("implementation", libs.findLibrary("adapter.delegates").get())
                 add("implementation", libs.findLibrary("adapter.delegates.view.binding").get())
                 add("implementation", libs.findLibrary("glide").get())
-                add("annotationProcessor", libs.findLibrary("glide.annotationprocessor").get())
+                add("kapt", libs.findLibrary("glide.annotationprocessor").get())
 
 
                 add("androidTestImplementation", kotlin("test"))

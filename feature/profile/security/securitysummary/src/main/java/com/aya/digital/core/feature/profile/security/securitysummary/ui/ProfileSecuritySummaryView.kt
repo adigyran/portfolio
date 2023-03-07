@@ -1,13 +1,10 @@
 package com.aya.digital.core.feature.profile.security.securitysummary.ui
 
 import android.os.Bundle
-import android.text.Spanned
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.aya.digital.core.designsystem.R
-import com.aya.digital.core.ext.bindClick
 import com.aya.digital.core.feature.profile.security.securitysummary.databinding.ViewProfileSecuritySummaryBinding
 import com.aya.digital.core.feature.profile.security.securitysummary.di.profileSecuritySummaryDiModule
 import com.aya.digital.core.feature.profile.security.securitysummary.ui.model.ProfileSecuritySummaryStateTransformer
@@ -16,11 +13,7 @@ import com.aya.digital.core.feature.profile.security.securitysummary.viewmodel.P
 import com.aya.digital.core.feature.profile.security.securitysummary.viewmodel.ProfileSecuritySummaryViewModel
 import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.ui.adapters.base.BaseDelegateAdapter
-import com.aya.digital.core.ui.base.ext.SpannableObject
-import com.aya.digital.core.ui.base.ext.colors
-import com.aya.digital.core.ui.base.ext.createSpannableText
 import com.aya.digital.core.ui.base.screens.DiFragment
-import com.aya.digital.core.ui.base.utils.LinkTouchMovementMethod
 import com.aya.digital.core.ui.delegates.profile.emergencycontactinfo.ui.securitySummaryDelegate
 import org.kodein.di.DI
 import org.kodein.di.factory

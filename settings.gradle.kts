@@ -94,6 +94,7 @@ include(":core:ui:delegates:components:fields:name")
 include(":core:ui:delegates:components:fields:selection")
 include(":core:ui:delegates:components:fields:validated")
 include(":core:ui:delegates:components:fields:dropdown")
+include(":core:ui:delegates:components:fields:validatednumber")
 
 //labels
 include(":core:ui:delegates:components:labels:headline")
