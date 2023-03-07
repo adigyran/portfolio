@@ -1,6 +1,9 @@
 package com.aya.digital.core.feature.auth.signin.viewmodel
 
 import com.aya.digital.core.data.base.dataprocessing.dataloading.enums.OperationState
+import com.aya.digital.core.domain.auth.RestorePasswordChangePasswordUseCase
+import com.aya.digital.core.domain.auth.RestorePasswordGetCodeUseCase
+import com.aya.digital.core.domain.auth.RestorePasswordSendCodeUseCase
 import com.aya.digital.core.feature.auth.signin.ui.RestorePasswordView
 import com.aya.digital.core.feature.auth.signin.viewmodel.mode.RestorePasswordOperationState
 import com.aya.digital.core.mvi.BaseSideEffect
@@ -10,7 +13,10 @@ import org.orbitmvi.orbit.viewmodel.container
 
 class RestorePasswordViewModel(
     private val coordinatorRouter: CoordinatorRouter,
-    private val param: RestorePasswordView.Param
+    private val param: RestorePasswordView.Param,
+    private val restorePasswordGetCodeUseCase: RestorePasswordGetCodeUseCase,
+    private val restorePasswordSendCodeUseCase: RestorePasswordSendCodeUseCase,
+    private val changePasswordUseCase: RestorePasswordChangePasswordUseCase
 ) :
     BaseViewModel<RestorePasswordState, BaseSideEffect>() {
     override val container = container<RestorePasswordState, BaseSideEffect>(

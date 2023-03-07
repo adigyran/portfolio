@@ -5,7 +5,7 @@ import com.aya.digital.core.domain.auth.RestorePasswordGetCodeUseCase
 import com.aya.digital.core.domain.auth.model.RestorePasswordGetCodeModel
 import io.reactivex.rxjava3.core.Single
 
-class RestorePasswordGetCodeUseCaseImpl : RestorePasswordGetCodeUseCase {
+internal class RestorePasswordGetCodeUseCaseImpl : RestorePasswordGetCodeUseCase {
     override fun invoke(model: RestorePasswordGetCodeModel): Single<RequestResultModel<Boolean>> {
         TODO("Not yet implemented")
     }

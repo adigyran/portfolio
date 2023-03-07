@@ -16,7 +16,7 @@ fun restorePasswordDiModule(
 
     bind {
         scoped(CustomFragmentScope).singleton {
-            RestorePasswordViewModel(parentCoordinatorEvent,param)
+            RestorePasswordViewModel(parentCoordinatorEvent,param,instance(),instance(),instance())
         }
     }
 }
