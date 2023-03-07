@@ -4,4 +4,9 @@ Added Auth and Sign in Screens with insurance selector
 Added bottom navigation, proper auth endpoints, code dialog
 added check for auth to show main screen, added main and profile screens
 added code input screen
-now insurances loading by id
+now insurances loading by id,
+added profile screens - profile edit, profile view,
+profile security with ability to change email and password(currently doesn't work because server don't have needed methods),
+profile emergency contact, profile notification settings,
+profile insurances (doesn't work due to server)
+added screen to restore/change temp password

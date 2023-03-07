@@ -45,8 +45,8 @@ class RestorePasswordView :
     private val adapter by lazy(LazyThreadSafetyMode.NONE) {
         BaseDelegateAdapter.create {
             delegate { headlineLabelDelegate(HeadlineLabelDelegateListeners()) }
-            delegate { emailPhoneFieldDelegate(EmailPhoneDelegateListeners {  }) }
-            delegate { passwordFieldDelegate(PasswordFieldDelegateListeners{tag, text ->  }) }
+            delegate { emailPhoneFieldDelegate(EmailPhoneDelegateListeners(viewModel::emailFieldChanging)) }
+            delegate { passwordFieldDelegate(PasswordFieldDelegateListeners(viewModel::passwordFieldsChanging)) }
         }
     }
 
