@@ -136,7 +136,9 @@ include(":feature:bottomdialogs:codedialog")
 include(":feature:auth:chooser")
 include(":feature:auth:signup")
 include(":feature:auth:signin")
+include(":feature:auth:restorepassword")
 include(":feature:auth:container")
+//choosers
 include(":feature:choosers:multiselect")
 //profile
 include(":feature:profile:notifications")

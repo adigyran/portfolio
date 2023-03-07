@@ -44,7 +44,7 @@ class SignInViewModel(
     }
 
     fun onSignUpClicked() = intent {
-        coordinatorRouter.sendEvent(SignInNavigationEvents.SignedIn)
+        coordinatorRouter.sendEvent(SignInNavigationEvents.SignUp)
     }
 
 }
