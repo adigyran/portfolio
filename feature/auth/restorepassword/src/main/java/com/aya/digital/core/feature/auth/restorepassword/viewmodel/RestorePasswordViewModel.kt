@@ -24,7 +24,6 @@ import timber.log.Timber
 
 class RestorePasswordViewModel(
     private val coordinatorRouter: CoordinatorRouter,
-    private val rootCoordinatorRouter: CoordinatorRouter,
     private val param: RestorePasswordView.Param,
     private val restorePasswordGetCodeUseCase: RestorePasswordGetCodeUseCase,
     private val restorePasswordSendCodeUseCase: RestorePasswordSendCodeUseCase,
@@ -125,7 +124,7 @@ class RestorePasswordViewModel(
     }
 
     private fun listenForCodeEvent() {
-        rootCoordinatorRouter.setResultListener(RequestCodes.CODE_INPUT_REQUEST_CODE) {
+        coordinatorRouter.setResultListener(RequestCodes.CODE_INPUT_REQUEST_CODE) {
             if (it is CodeResultModel) {
                 codeEntered(it.code)
             }
