@@ -1,8 +1,6 @@
 package com.aya.digital.core.feature.auth.signin.viewmodel
 
-import android.util.Log
 import com.aya.digital.core.data.base.result.models.auth.PasswordRestoreResultModel
-import com.aya.digital.core.data.base.result.models.code.CodeResultModel
 import com.aya.digital.core.domain.auth.SignInUseCase
 import com.aya.digital.core.feature.auth.signin.FieldsTags
 import com.aya.digital.core.feature.auth.signin.navigation.SignInNavigationEvents
@@ -52,10 +50,11 @@ class SignInViewModel(
     }
 
     fun restorePassword() = intent {
+        listenForRestorePasswordEvent()
         coordinatorRouter.sendEvent(SignInNavigationEvents.RestorePassword(RequestCodes.RESTORE_PASSWORD_REQUEST_CODE))
     }
 
-    private fun listenForRestoreCodeEvent() {
+    private fun listenForRestorePasswordEvent() {
         rootCoordinatorRouter.setResultListener(RequestCodes.RESTORE_PASSWORD_REQUEST_CODE) {
             if (it is PasswordRestoreResultModel) {
                 passwordRestored(it.passwordRestored)
@@ -64,7 +63,8 @@ class SignInViewModel(
     }
 
     private fun passwordRestored(passwordRestored: Boolean) = intent {
-
+        if(!passwordRestored) return@intent
+        reduce { state.copy(password = "", passwordError = null) }
     }
 
 }

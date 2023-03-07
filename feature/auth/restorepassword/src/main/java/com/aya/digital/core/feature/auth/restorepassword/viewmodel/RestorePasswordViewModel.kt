@@ -5,6 +5,7 @@ import com.aya.digital.core.data.base.result.models.code.CodeResultModel
 import com.aya.digital.core.domain.auth.RestorePasswordChangePasswordUseCase
 import com.aya.digital.core.domain.auth.RestorePasswordGetCodeUseCase
 import com.aya.digital.core.domain.auth.RestorePasswordSendCodeUseCase
+import com.aya.digital.core.domain.auth.model.RestorePasswordGetCodeModel
 import com.aya.digital.core.domain.auth.model.RestorePasswordSendCodeModel
 import com.aya.digital.core.domain.auth.model.VerifyCodeResult
 import com.aya.digital.core.feature.auth.restorepassword.navigation.RestorePasswordNavigationEvents
@@ -35,16 +36,15 @@ class RestorePasswordViewModel(
     {
 
     }
+
     private fun RestorePasswordView.Param.RestorePasswordOperationStateParam.getInitialOperationState(): RestorePasswordOperationState =
-        when(this)
-        {
+        when (this) {
             RestorePasswordView.Param.RestorePasswordOperationStateParam.ChangeTempPass -> com.aya.digital.core.feature.auth.restorepassword.viewmodel.mode.RestorePasswordOperationState.ChangeTempPassword
             RestorePasswordView.Param.RestorePasswordOperationStateParam.RestorePassword -> com.aya.digital.core.feature.auth.restorepassword.viewmodel.mode.RestorePasswordOperationState.RestoringEmailInput
         }
 
     fun saveButtonClicked() = intent {
-        when(state.operationState)
-        {
+        when (state.operationState) {
             RestorePasswordOperationState.ChangeTempPassword -> savePassword()
             RestorePasswordOperationState.RestoringChangePassword -> savePassword()
             RestorePasswordOperationState.RestoringEmailInput -> requestCode()
@@ -55,35 +55,53 @@ class RestorePasswordViewModel(
         reduce {
             state.copy(code = code)
         }
-        if(code.length == 6) verifyCode()
+        if (code.length == 6) verifyCode()
 
     }
 
     private fun verifyCode() = intent {
-        val verifyCodeResult = restorePasswordSendCodeUseCase(RestorePasswordSendCodeModel(state.code?:"")).await()
+        val verifyCodeResult =
+            restorePasswordSendCodeUseCase(RestorePasswordSendCodeModel(state.code ?: "")).await()
         verifyCodeResult.processResult({
             when (it) {
-                VerifyCodeResult.Error -> {reenterCode()}
+                VerifyCodeResult.Error -> {
+                    reenterCode()
+                }
                 VerifyCodeResult.Success -> {
-                    coordinatorRouter.sendEvent(RestorePasswordNavigationEvents.FinishWithResult(param.requestCode,
-                        PasswordRestoreResultModel(true)
-                    ))
+                    reduce { state.copy(
+                        operationState = RestorePasswordOperationState.RestoringChangePassword
+                    ) }
                 }
             }
         }, {
 
-            Timber.d(it.toString()) })
+            Timber.d(it.toString())
+        })
     }
 
     private fun reenterCode() {
-        requestCode()
+        requestCodeScreen()
     }
 
     private fun savePassword() = intent {
-
+        coordinatorRouter.sendEvent(
+            RestorePasswordNavigationEvents.FinishWithResult(
+                param.requestCode,
+                PasswordRestoreResultModel(true)
+            )
+        )
     }
 
     private fun requestCode() = intent {
+        restorePasswordGetCodeUseCase(RestorePasswordGetCodeModel(state.email))
+            .await()
+            .processResult({
+                requestCodeScreen()
+            }, { Timber.d(it.toString()) })
+    }
+
+    private fun requestCodeScreen() = intent {
+        listenForCodeEvent()
         coordinatorRouter.sendEvent(
             RestorePasswordNavigationEvents.EnterCode(
                 RequestCodes.CODE_INPUT_REQUEST_CODE,
