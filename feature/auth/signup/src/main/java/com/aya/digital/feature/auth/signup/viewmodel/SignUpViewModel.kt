@@ -1,24 +1,19 @@
 package com.aya.digital.feature.auth.signup.viewmodel
 
-import android.util.Log
 import com.aya.digital.core.data.base.result.models.code.CodeResultModel
 import com.aya.digital.core.data.base.result.models.dictionaries.MultiSelectResultModel
 import com.aya.digital.core.domain.auth.SignUpGetSelectedInsurancesUseCase
 import com.aya.digital.core.domain.auth.SignUpUseCase
-import com.aya.digital.core.domain.auth.VerifyCodeResult
+import com.aya.digital.core.domain.auth.model.VerifyCodeResult
 import com.aya.digital.core.domain.auth.VerifyRegistrationUseCase
 import com.aya.digital.core.mvi.BaseViewModel
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
 import com.aya.digital.core.util.requestcodes.RequestCodes
 import com.aya.digital.feature.auth.signup.FieldsTags
 import com.aya.digital.feature.auth.signup.navigation.SignUpNavigationEvents
-import com.aya.digital.feature.auth.signup.ui.SignUpView
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.rx3.asFlow
 import kotlinx.coroutines.rx3.await
-import org.orbitmvi.orbit.syntax.simple.SimpleSyntax
 import org.orbitmvi.orbit.syntax.simple.intent
-import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 import timber.log.Timber

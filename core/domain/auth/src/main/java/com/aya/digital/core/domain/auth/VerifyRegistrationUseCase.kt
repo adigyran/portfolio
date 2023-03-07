@@ -1,7 +1,7 @@
 package com.aya.digital.core.domain.auth
 
 import com.aya.digital.core.data.base.dataprocessing.RequestResultModel
-import com.aya.digital.core.networkbase.server.RequestResult
+import com.aya.digital.core.domain.auth.model.VerifyCodeResult
 import io.reactivex.rxjava3.core.Single
 
 interface VerifyRegistrationUseCase {
@@ -9,7 +9,3 @@ interface VerifyRegistrationUseCase {
 }
 
 
-sealed class VerifyCodeResult {
-    object Success : VerifyCodeResult()
-    object Error : VerifyCodeResult()
-}
