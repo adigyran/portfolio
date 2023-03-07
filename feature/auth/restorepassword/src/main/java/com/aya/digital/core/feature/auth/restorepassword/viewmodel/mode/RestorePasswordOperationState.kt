@@ -1,4 +1,4 @@
-package com.aya.digital.core.feature.auth.signin.viewmodel.mode
+package com.aya.digital.core.feature.auth.restorepassword.viewmodel.mode
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

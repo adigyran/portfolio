@@ -1,9 +1,9 @@
-package com.aya.digital.core.feature.auth.signin.di
+package com.aya.digital.core.feature.auth.restorepassword.di
 
 import com.aya.digital.core.dibase.scopes.CustomFragmentScope
-import com.aya.digital.core.feature.auth.signin.ui.RestorePasswordView
-import com.aya.digital.core.feature.auth.signin.ui.model.RestorePasswordStateTransformer
-import com.aya.digital.core.feature.auth.signin.viewmodel.RestorePasswordViewModel
+import com.aya.digital.core.feature.auth.restorepassword.ui.RestorePasswordView
+import com.aya.digital.core.feature.auth.restorepassword.ui.model.RestorePasswordStateTransformer
+import com.aya.digital.core.feature.auth.restorepassword.viewmodel.RestorePasswordViewModel
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
 import org.kodein.di.*
 

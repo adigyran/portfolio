@@ -1,4 +1,4 @@
-package com.aya.digital.core.feature.auth.signin.ui.model
+package com.aya.digital.core.feature.auth.restorepassword.ui.model
 
 import com.aya.digital.core.mvi.BaseUiModel
 import com.aya.digital.core.ui.adapters.base.DiffItem

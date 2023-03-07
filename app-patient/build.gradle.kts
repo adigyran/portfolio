@@ -70,6 +70,7 @@ dependencies {
     implementation(project(":feature:auth:container"))
     implementation(project(":feature:auth:signin"))
     implementation(project(":feature:auth:signup"))
+    implementation(project(":feature:auth:restorepassword"))
 
     implementation(project(":core:appbase"))
     implementation(project(":core:data:base"))

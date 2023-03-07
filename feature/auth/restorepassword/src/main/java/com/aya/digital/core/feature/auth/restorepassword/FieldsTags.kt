@@ -1,4 +1,4 @@
-package com.aya.digital.core.feature.auth.signin
+package com.aya.digital.core.feature.auth.restorepassword
 
 object FieldsTags {
     const val NEW_PASSWORD_FIELD_TAG = 515641

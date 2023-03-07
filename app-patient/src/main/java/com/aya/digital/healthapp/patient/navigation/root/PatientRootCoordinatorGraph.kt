@@ -2,6 +2,9 @@ package com.aya.digital.healthapp.patient.navigation.root
 
 import android.content.Context
 import androidx.fragment.app.FragmentManager
+import com.aya.digital.core.feature.auth.restorepassword.navigation.RestorePasswordNavigationEvents
+import com.aya.digital.core.feature.auth.restorepassword.navigation.RestorePasswordScreen
+import com.aya.digital.core.feature.auth.restorepassword.ui.RestorePasswordView
 import com.aya.digital.core.feature.bottomnavhost.navigation.BottomNavHostScreen
 import com.aya.digital.core.feature.choosers.multiselect.navigation.MultiSelectChooserNavigationEvents
 import com.aya.digital.core.feature.choosers.multiselect.navigation.MultiSelectChooserScreen
@@ -9,7 +12,6 @@ import com.aya.digital.core.navigation.bottomnavigation.StartScreen
 import com.aya.digital.core.navigation.coordinator.CoordinatorEvent
 import com.aya.digital.core.navigation.graph.coordinator.RootCoordinatorGraph
 import com.aya.digital.feature.auth.container.navigation.AuthContainerScreen
-import com.aya.digital.feature.auth.signup.navigation.SignUpNavigationEvents
 import com.aya.digital.feature.bottomdialogs.codedialog.navigation.CodeDialogNavigationEvents
 import com.aya.digital.feature.bottomdialogs.codedialog.navigation.CodeDialogScreen
 import com.aya.digital.feature.rootcontainer.navigation.RootContainerNavigationEvents
@@ -56,6 +58,22 @@ class PatientRootCoordinatorGraph(context: Context) : RootCoordinatorGraph {
                     )
                 )
             }
+
+            is RootContainerNavigationEvents.RestorePassword -> {
+                navigationRouter.navigateTo(RestorePasswordScreen(
+                    event.requestCode,
+                    RestorePasswordView.Param.RestorePasswordOperationStateParam.RestorePassword
+                ))
+            }
+
+            is RootContainerNavigationEvents.ChangeTempPassword ->
+            {
+                navigationRouter.navigateTo(RestorePasswordScreen(
+                    event.requestCode,
+                    RestorePasswordView.Param.RestorePasswordOperationStateParam.ChangeTempPass
+                ))
+            }
+
             is CodeDialogNavigationEvents.FinishWithResult -> {
                 navigationRouter.sendResult(event.requestCode, event.result)
                 navigationRouter.exit()
@@ -66,6 +84,11 @@ class PatientRootCoordinatorGraph(context: Context) : RootCoordinatorGraph {
                 navigationRouter.exit()
             }
             is CodeDialogNavigationEvents.Exit -> {
+                navigationRouter.exit()
+            }
+
+            is RestorePasswordNavigationEvents.FinishWithResult -> {
+                navigationRouter.sendResult(event.requestCode, event.result)
                 navigationRouter.exit()
             }
         }

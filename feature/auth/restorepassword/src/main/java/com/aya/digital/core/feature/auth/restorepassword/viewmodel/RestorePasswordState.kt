@@ -1,6 +1,6 @@
-package com.aya.digital.core.feature.auth.signin.viewmodel
+package com.aya.digital.core.feature.auth.restorepassword.viewmodel
 
-import com.aya.digital.core.feature.auth.signin.viewmodel.mode.RestorePasswordOperationState
+import com.aya.digital.core.feature.auth.restorepassword.viewmodel.mode.RestorePasswordOperationState
 import com.aya.digital.core.mvi.BaseState
 import kotlinx.parcelize.Parcelize
 

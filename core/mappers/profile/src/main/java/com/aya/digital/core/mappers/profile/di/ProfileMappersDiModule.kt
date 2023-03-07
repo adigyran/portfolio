@@ -20,6 +20,6 @@ fun profileMappersDiModule() = DI.Module("profileMappersDiModule") {
     bind<AvatarMapper>() with singleton { AvatarMapperImpl() }
 
 
-    bind<CurrentProfileMapper>() with singleton { CurrentProfileMapperImpl(instance()) }
+    bind<CurrentProfileMapper>() with singleton { CurrentProfileMapperImpl(instance(),instance()) }
 
 }

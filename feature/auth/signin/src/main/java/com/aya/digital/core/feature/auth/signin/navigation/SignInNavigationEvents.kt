@@ -4,6 +4,6 @@ import com.aya.digital.core.navigation.coordinator.CoordinatorEvent
 
 sealed class SignInNavigationEvents : CoordinatorEvent() {
     object SignUp : SignInNavigationEvents()
-
     object SignedIn : SignInNavigationEvents()
+    data class RestorePassword(val requestCode:String) : SignInNavigationEvents()
 }

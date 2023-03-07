@@ -47,7 +47,7 @@ class SignInView :
     private val adapter by lazy(LazyThreadSafetyMode.NONE) {
         BaseDelegateAdapter.create {
             delegate { headlineLabelDelegate(HeadlineLabelDelegateListeners()) }
-            delegate { spannableHelperLabelDelegate(SpannableHelperLabelDelegateListeners()) }
+            delegate { spannableHelperLabelDelegate(SpannableHelperLabelDelegateListeners{viewModel.restorePassword()}) }
             delegate { emailPhoneFieldDelegate(EmailPhoneDelegateListeners(viewModel::emailChanged)) }
             delegate { passwordFieldDelegate(PasswordFieldDelegateListeners(viewModel::passwordChanged)) }
 

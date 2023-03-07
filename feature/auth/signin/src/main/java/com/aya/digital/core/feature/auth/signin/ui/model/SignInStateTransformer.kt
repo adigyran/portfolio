@@ -11,7 +11,7 @@ import com.aya.digital.core.ui.delegates.components.fields.password.model.Passwo
 import com.aya.digital.core.ui.delegates.components.labels.headline.model.HeadlineLabelUIModel
 import com.aya.digital.core.ui.delegates.components.labels.spannablehelper.model.SpannableHelperLabelUIModel
 
-class SignInStateTransformer(context : Context): BaseStateTransformer<SignInState, SignInUiModel>() {
+class SignInStateTransformer(private val context : Context): BaseStateTransformer<SignInState, SignInUiModel>() {
     override fun invoke(state: SignInState): SignInUiModel =
         SignInUiModel(
             data = kotlin.run {
@@ -20,16 +20,16 @@ class SignInStateTransformer(context : Context): BaseStateTransformer<SignInStat
                     add(EmailPhoneFieldUIModel("Email or Phone", state.email, state.emailError))
                     add(
                         PasswordFieldUIModel(
-                            FieldsTags.PASSWORD_FIELD_TAG,
-                            "Password",
-                            state.password,
-                            state.passwordError
+                            tag = FieldsTags.PASSWORD_FIELD_TAG,
+                            label = "Password",
+                            text = state.password,
+                            error = state.passwordError
                         )
                     )
                     add(
                         SpannableHelperLabelUIModel(
-                            "Forgot password? %s",
-                            SpannableObject("Restore", {})
+                            formattedText = "Forgot password? %s",
+                            spannableText = "Restore"
                         )
                     )
                 }

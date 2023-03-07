@@ -1,4 +1,4 @@
-package com.aya.digital.core.feature.auth.signin.ui
+package com.aya.digital.core.feature.auth.restorepassword.ui
 
 import android.os.Bundle
 import android.os.Parcelable
@@ -7,11 +7,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.aya.digital.core.ext.argument
-import com.aya.digital.core.feature.auth.signin.di.restorePasswordDiModule
-import com.aya.digital.core.feature.auth.signin.ui.model.RestorePasswordStateTransformer
-import com.aya.digital.core.feature.auth.signin.ui.model.RestorePasswordUiModel
-import com.aya.digital.core.feature.auth.signin.viewmodel.RestorePasswordState
-import com.aya.digital.core.feature.auth.signin.viewmodel.RestorePasswordViewModel
+import com.aya.digital.core.ext.bindClick
+import com.aya.digital.core.feature.auth.restorepassword.di.restorePasswordDiModule
+import com.aya.digital.core.feature.auth.restorepassword.ui.model.RestorePasswordStateTransformer
+import com.aya.digital.core.feature.auth.restorepassword.ui.model.RestorePasswordUiModel
+import com.aya.digital.core.feature.auth.restorepassword.viewmodel.RestorePasswordState
+import com.aya.digital.core.feature.auth.restorepassword.viewmodel.RestorePasswordViewModel
 import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.ui.adapters.base.BaseDelegateAdapter
 import com.aya.digital.core.ext.createFragment
@@ -53,6 +54,7 @@ class RestorePasswordView :
         super.prepareUi(savedInstanceState)
         if(savedInstanceState==null) {
             recyclers.add(binding.recycler)
+            binding.saveBtn bindClick {viewModel.saveButtonClicked()}
             with(binding.recycler) {
                 itemAnimator = null
                 setHasFixedSize(true)
@@ -93,7 +95,7 @@ class RestorePasswordView :
                     binding.recycler.swapAdapter(adapter, true)
                 }
             }
-            buttonText.let { binding.signInBtn.text = it }
+            buttonText.let { binding.saveBtn.text = it }
         }
     }
 
@@ -105,7 +107,7 @@ class RestorePasswordView :
     @Parcelize
     class Param(
         val requestCode: String,
-        val operationState:RestorePasswordOperationStateParam
+        val operationState: RestorePasswordOperationStateParam
     ) : Parcelable
     {
         @Parcelize
@@ -115,7 +117,9 @@ class RestorePasswordView :
         }
     }
     companion object {
-        fun getNewInstance(requestCode: String, operationState: Param.RestorePasswordOperationStateParam): RestorePasswordView  = createFragment(Param(requestCode,operationState))
+        fun getNewInstance(requestCode: String, operationState: Param.RestorePasswordOperationStateParam): RestorePasswordView = createFragment(
+            Param(requestCode,operationState)
+        )
     }
 
 }

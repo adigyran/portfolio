@@ -116,7 +116,7 @@ class SignUpViewModel(
     }
 
     private fun reenterCode() {
-        verifyCode()
+        requestCode()
     }
 
 
