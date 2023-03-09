@@ -3,6 +3,7 @@ package com.aya.digital.core.network.api.services
 import com.aya.digital.core.network.model.request.*
 import com.aya.digital.core.network.model.response.auth.LoginResponse
 import com.aya.digital.core.network.model.response.auth.RegistrationResponse
+import com.aya.digital.core.network.model.response.auth.UserKeyResponse
 import com.aya.digital.core.network.model.response.profile.CurrentProfileResponse
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
@@ -21,9 +22,17 @@ interface AuthService {
     fun verifyProfile(@Query("codeInput") code: String): Single<Boolean>
 
     @POST("verify-operations/send-code")
-    fun sendCode(@Query("login") login: String): Completable
+    fun sendCode(@Query("login") login: String): Single<Boolean>
 
-    @POST("credentials/reset-by-code")
-    fun resetPassword(@Query("codeVerify") code:String, @Body resetPasswordBody: ResetPasswordBody): Completable
+    @POST("verify-operations/get-user-key")
+    fun getUserKey(@Query("codeInput") code: String): Single<UserKeyResponse>
+
+    @POST("base/forget-password-userkey")
+    fun resetPassword(@Header("userkey") userKey: String, @Body resetPasswordBody: ResetPasswordBody): Single<Boolean>
+
+    @POST("base/base/change-password")
+    fun changePassword(@Body changePasswordBody: ChangePasswordBody): Single<Boolean>
+    @POST("base/change-email")
+    fun changeEmail(@Query("codeVerify") code: String, @Body changeEmailBody: ChangeEmailBody): Single<Boolean>
 
 }
