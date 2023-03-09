@@ -12,7 +12,7 @@ import com.aya.digital.core.domain.auth.model.VerifyCodeResult
 import com.aya.digital.core.feature.auth.restorepassword.FieldsTags
 import com.aya.digital.core.feature.auth.restorepassword.navigation.RestorePasswordNavigationEvents
 import com.aya.digital.core.feature.auth.restorepassword.ui.RestorePasswordView
-import com.aya.digital.core.feature.auth.restorepassword.viewmodel.mode.RestorePasswordOperationState
+import com.aya.digital.core.feature.auth.restorepassword.viewmodel.model.RestorePasswordOperationState
 import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.mvi.BaseViewModel
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
@@ -56,8 +56,8 @@ class RestorePasswordViewModel(
 
     private fun RestorePasswordView.Param.RestorePasswordOperationStateParam.getInitialOperationState(): RestorePasswordOperationState =
         when (this) {
-            RestorePasswordView.Param.RestorePasswordOperationStateParam.ChangeTempPass -> com.aya.digital.core.feature.auth.restorepassword.viewmodel.mode.RestorePasswordOperationState.ChangeTempPassword
-            RestorePasswordView.Param.RestorePasswordOperationStateParam.RestorePassword -> com.aya.digital.core.feature.auth.restorepassword.viewmodel.mode.RestorePasswordOperationState.RestoringEmailInput
+            RestorePasswordView.Param.RestorePasswordOperationStateParam.ChangeTempPass -> com.aya.digital.core.feature.auth.restorepassword.viewmodel.model.RestorePasswordOperationState.ChangeTempPassword
+            RestorePasswordView.Param.RestorePasswordOperationStateParam.RestorePassword -> com.aya.digital.core.feature.auth.restorepassword.viewmodel.model.RestorePasswordOperationState.RestoringEmailInput
         }
 
     fun saveButtonClicked() = intent {
@@ -120,7 +120,6 @@ class RestorePasswordViewModel(
                 })
 
         }
-        //  exitWithResult()
     }
 
     private fun exitWithResult(result: Boolean) {

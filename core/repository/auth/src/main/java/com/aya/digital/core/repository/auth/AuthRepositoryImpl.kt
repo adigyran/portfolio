@@ -1,11 +1,11 @@
 package com.aya.digital.core.repository.auth
 
-import com.aya.digital.core.data.base.dataprocessing.RequestResultModel
 import com.aya.digital.core.data.mappers.profile.LoginResultMapper
+import com.aya.digital.core.data.profile.mappers.UserKeyResultMapper
 import com.aya.digital.core.data.profile.LoginResult
+import com.aya.digital.core.data.profile.UserKeyResult
 import com.aya.digital.core.data.profile.repository.AuthRepository
 import com.aya.digital.core.datasource.AuthDataSource
-import com.aya.digital.core.datasource.TokenDataSource
 import com.aya.digital.core.datastore.HealthAppAuthDataSource
 import com.aya.digital.core.ext.*
 import com.aya.digital.core.network.model.request.*
@@ -17,7 +17,8 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 internal class AuthRepositoryImpl(
     private val authDataSource: AuthDataSource,
     private val loginResultMapper: LoginResultMapper,
-    private val authDataStore: HealthAppAuthDataSource
+    private val authDataStore: HealthAppAuthDataSource,
+    private val userKeyResultMapper: UserKeyResultMapper
 ) : AuthRepository {
     override fun checkIfTokenPresent(): Single<RequestResult<Boolean>> =
         authDataStore.refreshTokenData
@@ -71,27 +72,42 @@ internal class AuthRepositoryImpl(
             .retrofitResponseToResult(CommonUtils::mapServerErrors)
             .mapResult({ it.asResult() }, { it })
 
-    override fun getRestoreCode(email: String): Single<RequestResult<Boolean>> {
-        TODO("Not yet implemented")
-    }
+    override fun getRestoreCode(email: String): Single<RequestResult<Boolean>>  =
+        authDataSource.sendCode(email)
+            .retryOnError()
+            .retrofitResponseToResult(CommonUtils::mapServerErrors)
+            .mapResult({ it.asResult() }, { it })
+
+    override fun getRestoreToken(code: String): Single<RequestResult<UserKeyResult>> =
+        authDataSource.getUserKey(code)
+            .retryOnError()
+            .retrofitResponseToResult(CommonUtils::mapServerErrors)
+            .mapResult({ userKeyResultMapper.mapFrom(it).asResult() }, { it })
 
     override fun restorePassword(
         token: String,
         resetPasswordBody: ResetPasswordBody
-    ): Single<RequestResult<Boolean>> {
-        TODO("Not yet implemented")
-    }
+    ): Single<RequestResult<Boolean>>  =
+        authDataSource.resetPassword(token,resetPasswordBody)
+            .retryOnError()
+            .retrofitResponseToResult(CommonUtils::mapServerErrors)
+            .mapResult({ it.asResult() }, { it })
+    override fun changePassword(changePasswordBody: ChangePasswordBody): Single<RequestResult<Boolean>> =
+        authDataSource.changePassword(changePasswordBody)
+            .retryOnError()
+            .retrofitResponseToResult(CommonUtils::mapServerErrors)
+            .mapResult({ it.asResult() }, { it })
 
-    override fun changePassword(changePasswordBody: ChangePasswordBody): Single<RequestResult<Boolean>> {
-        TODO("Not yet implemented")
-    }
+    override fun changeEmailSendCode(email: String): Single<RequestResult<Boolean>> =
+        authDataSource.sendCode(email)
+            .retryOnError()
+            .retrofitResponseToResult(CommonUtils::mapServerErrors)
+            .mapResult({ it.asResult() }, { it })
 
-    override fun changeEmailSendCode(email: String): Single<RequestResult<Boolean>> {
-        TODO("Not yet implemented")
-    }
-
-    override fun changeEmail(code: String, email: String): Single<RequestResult<Boolean>> {
-        TODO("Not yet implemented")
-    }
+    override fun changeEmail(code: String, email: String): Single<RequestResult<Boolean>> =
+        authDataSource.changeEmail(code,ChangeEmailBody(email))
+            .retryOnError()
+            .retrofitResponseToResult(CommonUtils::mapServerErrors)
+            .mapResult({ it.asResult() }, { it })
 
 }

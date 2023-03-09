@@ -19,10 +19,8 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 internal class AuthTokenRepositoryImpl(
     private val authDataStore: HealthAppAuthDataSource,
     private val tokenDataSource: TokenDataSource,
-    private val loginResultMapper: LoginResultMapper,
+    private val loginResultMapper: LoginResultMapper
 ) : AuthTokenRepository {
-
-
     override fun refreshAndSaveTokens(): Single<RequestResult<Boolean>> =
         getRefreshToken()
             .flatMapResult({refreshToken ->

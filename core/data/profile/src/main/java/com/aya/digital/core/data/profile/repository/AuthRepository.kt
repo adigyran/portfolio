@@ -2,6 +2,7 @@ package com.aya.digital.core.data.profile.repository
 
 import com.aya.digital.core.data.base.dataprocessing.RequestResultModel
 import com.aya.digital.core.data.profile.LoginResult
+import com.aya.digital.core.data.profile.UserKeyResult
 import com.aya.digital.core.network.model.request.ChangePasswordBody
 import com.aya.digital.core.network.model.request.ResetPasswordBody
 import com.aya.digital.core.networkbase.server.RequestResult
@@ -26,6 +27,7 @@ interface AuthRepository {
     fun verifyCode(code: String) : Single<RequestResult<Boolean>>
     fun getRestoreCode(email: String): Single<RequestResult<Boolean>>
 
+    fun getRestoreToken(code: String):Single<RequestResult<UserKeyResult>>
     fun restorePassword(token:String, resetPasswordBody: ResetPasswordBody): Single<RequestResult<Boolean>>
     fun changePassword(changePasswordBody: ChangePasswordBody): Single<RequestResult<Boolean>>
 
