@@ -16,6 +16,8 @@ internal class RestorePasswordSendCodeUseCaseImpl(private val authRepository: Au
     override fun invoke(model: RestorePasswordSendCodeModel): Single<RequestResultModel<RestoreCodeResult>> =
         authRepository.getRestoreToken(model.code)
             .mapResult({ result ->
-                RestoreCodeResult.Success(result.key).asResultModel()
+                if (result.key != null && result.key!!.isNotBlank()) RestoreCodeResult.Success(
+                    result.key!!
+                ).asResultModel() else RestoreCodeResult.Error.asResultModel()
             }, { it.toModelError() })
 }

@@ -6,5 +6,5 @@ import com.aya.digital.core.network.model.response.auth.UserKeyResponse
 
 internal class UserKeyResultMapperImpl : UserKeyResultMapper() {
     override fun mapFrom(type: UserKeyResponse): UserKeyResult =
-         UserKeyResult(key = "")
+         UserKeyResult(key = type.userKey)
 }
