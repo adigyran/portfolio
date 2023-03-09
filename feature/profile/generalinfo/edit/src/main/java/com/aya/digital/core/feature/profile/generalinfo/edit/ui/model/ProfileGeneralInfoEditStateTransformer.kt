@@ -47,6 +47,15 @@ class ProfileGeneralInfoEditStateTransformer(private val context: Context,privat
                         )
                     )
                     add(
+                        ValidatedNumberFieldUIModel(
+                            FieldsTags.HEIGHT_FIELD_TAG,
+                            "SSR or TIM",
+                            state.ssnOrTin.getField(),
+                            state.ssnOrTinError,
+                            suffix = null
+                        )
+                    )
+                    add(
                         SelectionFieldUIModel(
                             FieldsTags.BIRTH_DATE_FIELD_TAG,
                             "Date of Birth",

@@ -12,6 +12,7 @@ import com.aya.digital.core.network.interceptors.ext.refreshTokenBlocking
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
+import timber.log.Timber
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 
@@ -74,13 +75,10 @@ class RefreshTokenInterceptor(
     private fun refreshToken(): Boolean {
         initLatch()
         val tokenRefreshed =
-            authTokenRepository.refreshAndSaveTokens(authDataSource.refreshTokenBlocking())
+            authTokenRepository.refreshAndSaveTokens()
                 .blockingGet()
                 .processResult({ it }, {
-                    Log.d(
-                        RefreshTokenInterceptor::class.java.name,
-                        "refreshToken: ${it.toString()}"
-                    )
+                    Timber.d("refreshToken: " + it.toString())
                     authDataSource.clearAuthData()
                     invalidTokenEventManager.onInvalidToken()
                     false

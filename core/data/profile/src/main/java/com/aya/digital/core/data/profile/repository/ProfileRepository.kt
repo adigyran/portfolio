@@ -1,8 +1,10 @@
 package com.aya.digital.core.data.profile.repository
 
+import com.aya.digital.core.data.base.dataprocessing.RequestResultModel
 import com.aya.digital.core.data.profile.CurrentProfile
 import com.aya.digital.core.data.profile.EmergencyContact
 import com.aya.digital.core.data.profile.ImageUploadResult
+import com.aya.digital.core.network.model.request.ChangePasswordBody
 import com.aya.digital.core.network.model.request.EmergencyContactBody
 import com.aya.digital.core.network.model.request.ProfileBody
 import com.aya.digital.core.networkbase.server.RequestResult
@@ -15,11 +17,11 @@ interface ProfileRepository {
 
     fun currentProfile(): Single<RequestResult<CurrentProfile>>
 
-    fun updateProfile(body: com.aya.digital.core.network.model.request.ProfileBody): Single<RequestResult<Unit>>
+    fun updateProfile(body: ProfileBody): Single<RequestResult<CurrentProfile>>
 
     fun getEmergencyContact(): Single<RequestResult<EmergencyContact>>
 
-    fun updateEmergencyContact(body: com.aya.digital.core.network.model.request.EmergencyContactBody): Single<RequestResult<Unit>>
+    fun updateEmergencyContact(body: EmergencyContactBody): Single<RequestResult<Unit>>
 
     fun uploadAvatar(file: File): RequestResult<ImageUploadResult>
 
@@ -28,4 +30,6 @@ interface ProfileRepository {
     fun deleteAvatar(): Single<RequestResult<Unit>>
 
     fun clear()
+
+
 }

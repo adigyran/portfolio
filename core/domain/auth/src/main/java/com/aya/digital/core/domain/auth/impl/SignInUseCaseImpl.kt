@@ -10,7 +10,7 @@ import com.aya.digital.core.ext.flatMapResult
 import com.aya.digital.core.ext.mapResult
 import io.reactivex.rxjava3.core.Single
 
-internal class SignInUseCaseImpl(val authRepository: AuthRepository) : SignInUseCase {
+internal class SignInUseCaseImpl(private val authRepository: AuthRepository) : SignInUseCase {
 
     override fun invoke(
         email: String,

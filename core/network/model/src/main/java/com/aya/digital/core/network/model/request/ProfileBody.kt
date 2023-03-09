@@ -7,10 +7,12 @@ import kotlinx.datetime.LocalDate
 data class ProfileBody(
     val firstName: String? = null,
     val lastName: String? = null,
-    val city: String? = null,
-    val state: String? = null,
-    val zip: String? = null,
-    val birthDate: LocalDate? = null,
+    val middleName: String? = null,
+    val dateOfBirth: String? = null,
     val sex: String? = null,
-    val phone: String? = null,
+    val height: String? = null,
+    val weight: String? = null,
+    val shortAddress: String? = null,
+    val ssn:String? = null,
+    val tin:String? = null,
 )

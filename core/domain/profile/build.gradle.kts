@@ -8,8 +8,8 @@ android {
 
 dependencies {
     implementation(project(":core:ext"))
+    implementation(project(":core:util"))
     implementation(project(":core:dibase"))
-    implementation(project(":core:repository:profile"))
     implementation(project(":core:data:base"))
     implementation(project(":core:data:profile"))
     implementation(project(":core:network:model"))

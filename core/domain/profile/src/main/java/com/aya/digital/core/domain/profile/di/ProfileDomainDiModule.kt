@@ -40,7 +40,7 @@ fun profileDomainDiModule() = DI.Module("profileDomainDiModule") {
     bind<GetProfileBriefUseCase>() with singleton { GetProfileUseCaseImpl(instance()) }
     bind<GetProfileInfoUseCase>() with singleton { GetProfileInfoUseCaseImpl(instance()) }
     //save profile
-    bind<SaveProfileInfoUseCase>() with singleton { SaveProfileInfoUseCaseImpl() }
+    bind<SaveProfileInfoUseCase>() with singleton { SaveProfileInfoUseCaseImpl(instance(),instance()) }
     //set avatar
     bind<SetAvatarUseCase>() with singleton { SetAvatarUseCaseImpl() }
 
@@ -60,10 +60,10 @@ fun profileDomainDiModule() = DI.Module("profileDomainDiModule") {
     //security
     //summary
     bind<GetSecuritySummaryUseCase>() with singleton { GetSecuritySummaryUseCaseImpl() }
-    //changeemail
-    bind<ChangeEmailUseCase>() with singleton { ChangeEmailUseCaseImpl() }
-    bind<ChangeEmailGetCodeUseCase>() with singleton { ChangeEmailGetCodeUseCaseImpl() }
-    //changepassword
-    bind<ChangePasswordUseCase>() with singleton { ChangePasswordUseCaseImpl() }
+    //change email
+    bind<ChangeEmailUseCase>() with singleton { ChangeEmailUseCaseImpl(instance()) }
+    bind<ChangeEmailGetCodeUseCase>() with singleton { ChangeEmailGetCodeUseCaseImpl(instance()) }
+    //change password
+    bind<ChangePasswordUseCase>() with singleton { ChangePasswordUseCaseImpl(instance(),instance()) }
 
 }

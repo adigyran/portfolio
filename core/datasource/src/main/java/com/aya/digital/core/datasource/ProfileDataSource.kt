@@ -16,7 +16,7 @@ interface ProfileDataSource {
 
     fun updateProfile(
         body: ProfileBody
-    ): Completable
+    ): Single<CurrentProfileResponse>
 
     fun getEmergencyContact(): Single<EmergencyContactResponse>
 

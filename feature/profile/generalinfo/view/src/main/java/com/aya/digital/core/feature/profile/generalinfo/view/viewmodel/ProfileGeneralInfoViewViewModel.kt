@@ -40,8 +40,9 @@ class ProfileGeneralInfoViewViewModel(
                     dateOfBirth = profileInfo.dateOfBirth,
                     height = profileInfo.height,
                     sex = profileInfo.sex,
-                    weight = profileInfo.weight
-
+                    weight = profileInfo.weight,
+                    ssn = profileInfo.ssn,
+                    tin = profileInfo.tin
                 )
             }
         }, { Timber.d(it.toString()) })

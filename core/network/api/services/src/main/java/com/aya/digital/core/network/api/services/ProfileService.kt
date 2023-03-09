@@ -18,10 +18,10 @@ interface ProfileService {
     @GET("profile")
     fun currentProfile(): Single<CurrentProfileResponse>
 
-    @PUT("account/profile")
+    @PATCH("profile")
     fun updateProfile(
         @Body body: ProfileBody
-    ): Completable
+    ): Single<CurrentProfileResponse>
 
     @GET("account/patient")
     fun currentPatient(): Single<PatientProfileResponse>

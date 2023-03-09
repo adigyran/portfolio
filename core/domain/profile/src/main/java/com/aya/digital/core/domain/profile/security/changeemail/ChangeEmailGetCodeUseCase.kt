@@ -6,6 +6,6 @@ import com.aya.digital.core.domain.profile.security.summary.model.SecuritySummar
 import io.reactivex.rxjava3.core.Single
 
 interface ChangeEmailGetCodeUseCase {
-    operator fun invoke(): Single<RequestResultModel<Boolean>>
+    operator fun invoke(email:String): Single<RequestResultModel<Boolean>>
 }
 

@@ -7,4 +7,3 @@ import io.reactivex.rxjava3.core.Single
 interface RestorePasswordChangePasswordUseCase {
     operator fun invoke(model: RestorePasswordChangePasswordModel): Single<RequestResultModel<Boolean>>
 }
-

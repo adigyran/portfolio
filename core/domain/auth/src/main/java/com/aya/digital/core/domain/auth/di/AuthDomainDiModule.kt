@@ -7,6 +7,8 @@ import com.aya.digital.core.domain.auth.impl.SignInUseCaseImpl
 import com.aya.digital.core.domain.auth.impl.SignUpGetSelectedInsurancesUseCaseImpl
 import com.aya.digital.core.domain.auth.impl.SignUpUseCaseImpl
 import com.aya.digital.core.domain.auth.impl.VerifyRegistrationUseCaseImpl
+import com.aya.digital.core.domain.auth.RestorePasswordChangePasswordUseCase
+import com.aya.digital.core.domain.auth.RestorePasswordGetCodeUseCase
 import org.kodein.di.DI
 import org.kodein.di.bind
 import org.kodein.di.instance
@@ -24,9 +26,8 @@ fun authDomainDiModule() = DI.Module("authDomainDiModule") {
     bind<VerifyRegistrationUseCase>() with singleton { VerifyRegistrationUseCaseImpl(instance()) }
 
     bind<MakeNewPasswordUseCase>() with singleton { MakeNewPasswordUseCaseImpl() }
-    bind<RestorePasswordGetCodeUseCase>() with singleton { RestorePasswordGetCodeUseCaseImpl() }
-    bind<RestorePasswordSendCodeUseCase>() with singleton { RestorePasswordSendCodeUseCaseImpl() }
-    bind<RestorePasswordChangePasswordUseCase>() with singleton { RestorePasswordChangePasswordUseCaseImpl() }
+    bind<RestorePasswordGetCodeUseCase>() with singleton { RestorePasswordGetCodeUseCaseImpl(instance()) }
+    bind<RestorePasswordChangePasswordUseCase>() with singleton { RestorePasswordChangePasswordUseCaseImpl(instance()) }
 
 
 }

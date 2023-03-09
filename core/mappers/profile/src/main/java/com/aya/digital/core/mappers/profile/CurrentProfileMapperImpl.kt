@@ -27,6 +27,7 @@ internal class CurrentProfileMapperImpl(private val avatarMapper: AvatarMapper,p
             weight = type.weight,
             height = type.height,
             dateOfBirth = type.dateOfBirth?.let(dateTimeUtils::parseIsoDate),
-            avatar = type.avatar?.let { avatarMapper.mapFrom(it) }
+            avatar = type.avatar?.let { avatarMapper.mapFrom(it) },
+            shortAddress = type.address
         )
 }

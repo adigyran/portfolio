@@ -23,6 +23,8 @@ internal class DateTimeUtilsImpl(private val context: Context) : DateTimeUtils {
 
 
     override fun parseIsoDate(date: String): LocalDate = LocalDate.parse(date)
+    override fun formatIsoDate(date: LocalDate): String =
+        date.toString()
 
     override fun parseYmdDate(date: String): LocalDate =
         LocalDate.parse(date,dateFormatterYmd.get())

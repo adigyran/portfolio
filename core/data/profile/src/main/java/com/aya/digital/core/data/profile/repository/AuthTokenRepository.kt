@@ -6,5 +6,5 @@ import io.reactivex.rxjava3.core.Single
 
 interface AuthTokenRepository {
 
-    fun refreshAndSaveTokens(refreshToken: String): Single<RequestResult<Boolean>>
+    fun refreshAndSaveTokens(): Single<RequestResult<Boolean>>
 }

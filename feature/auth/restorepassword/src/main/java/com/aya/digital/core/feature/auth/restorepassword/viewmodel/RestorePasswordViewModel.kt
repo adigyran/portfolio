@@ -5,6 +5,7 @@ import com.aya.digital.core.data.base.result.models.code.CodeResultModel
 import com.aya.digital.core.domain.auth.RestorePasswordChangePasswordUseCase
 import com.aya.digital.core.domain.auth.RestorePasswordGetCodeUseCase
 import com.aya.digital.core.domain.auth.RestorePasswordSendCodeUseCase
+import com.aya.digital.core.domain.auth.model.RestorePasswordChangePasswordModel
 import com.aya.digital.core.domain.auth.model.RestorePasswordGetCodeModel
 import com.aya.digital.core.domain.auth.model.RestorePasswordSendCodeModel
 import com.aya.digital.core.domain.auth.model.VerifyCodeResult
@@ -38,15 +39,18 @@ class RestorePasswordViewModel(
     }
 
 
-    fun emailFieldChanging(text:String) = intent {
+    fun emailFieldChanging(text: String) = intent {
         reduce { state.copy(email = text) }
     }
 
-    fun passwordFieldsChanging(tag:Int, text: String) = intent {
-        when(tag)
-        {
-            FieldsTags.NEW_PASSWORD_FIELD_TAG -> {reduce { state.copy(passwordNew = text)}}
-            FieldsTags.NEW_PASSWORD_REPEAT_FIELD_TAG -> {reduce { state.copy(passwordNewRepeat = text) }}
+    fun passwordFieldsChanging(tag: Int, text: String) = intent {
+        when (tag) {
+            FieldsTags.NEW_PASSWORD_FIELD_TAG -> {
+                reduce { state.copy(passwordNew = text) }
+            }
+            FieldsTags.NEW_PASSWORD_REPEAT_FIELD_TAG -> {
+                reduce { state.copy(passwordNewRepeat = text) }
+            }
         }
     }
 
@@ -81,9 +85,11 @@ class RestorePasswordViewModel(
                     reenterCode()
                 }
                 VerifyCodeResult.Success -> {
-                    reduce { state.copy(
-                        operationState = RestorePasswordOperationState.RestoringChangePassword
-                    ) }
+                    reduce {
+                        state.copy(
+                            operationState = RestorePasswordOperationState.RestoringChangePassword
+                        )
+                    }
                 }
             }
         }, {
@@ -97,10 +103,31 @@ class RestorePasswordViewModel(
     }
 
     private fun savePassword() = intent {
+        state.code?.let { code ->
+            changePasswordUseCase(
+                RestorePasswordChangePasswordModel(
+                    code,
+                    state.passwordNew,
+                    state.passwordNewRepeat
+                )
+            )
+                .await()
+                .processResult({
+                    exitWithResult(true)
+                }, {
+                    Timber.d(it.toString())
+                    exitWithResult(false)
+                })
+
+        }
+        //  exitWithResult()
+    }
+
+    private fun exitWithResult(result: Boolean) {
         coordinatorRouter.sendEvent(
             RestorePasswordNavigationEvents.FinishWithResult(
                 param.requestCode,
-                PasswordRestoreResultModel(true)
+                PasswordRestoreResultModel(result)
             )
         )
     }

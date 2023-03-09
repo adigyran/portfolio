@@ -23,22 +23,28 @@ internal class AuthTokenRepositoryImpl(
 ) : AuthTokenRepository {
 
 
-    override fun refreshAndSaveTokens(refreshToken: String): Single<RequestResult<Boolean>> =
-        tokenDataSource.refreshToken(
-            RefreshTokenBody(
-                refreshToken = refreshToken
-            )
-        )
-            .retryOnError()
-            .retrofitResponseToResult(CommonUtils::mapServerErrors)
-            .mapResult({ loginResultMapper.mapFrom(it).asResult() }, { it })
-            .flatMapResult({
-                if (it.token.isNotBlank() && it.refreshToken.isNotBlank()) saveToken(
-                    it.token,
-                    it.refreshToken
-                ) else Single.just(false.asResult())
-            }, { Single.just(it) })
+    override fun refreshAndSaveTokens(): Single<RequestResult<Boolean>> =
+        getRefreshToken()
+            .flatMapResult({refreshToken ->
+                           if(refreshToken.isNotBlank()) {
+                               tokenDataSource.refreshToken(RefreshTokenBody(refreshToken = refreshToken))
+                                   .retryOnError()
+                                   .retrofitResponseToResult(CommonUtils::mapServerErrors)
+                                   .mapResult({ loginResultMapper.mapFrom(it).asResult() }, { it })
+                                   .flatMapResult({
+                                       if (it.token.isNotBlank() && it.refreshToken.isNotBlank()) saveToken(
+                                           it.token,
+                                           it.refreshToken
+                                       ) else Single.just(false.asResult())
+                                   }, { Single.just(it) })
+                           } else Single.just(false.asResult())
+            },{Single.just(it)})
 
+    private fun getRefreshToken() : Single<RequestResult<String>> =
+        authDataStore.refreshTokenData
+            .firstOrError()
+            .map { it.asResult() }
+            .doOnError {it.asErrorResult<String>() }
 
     private fun saveToken(token: String, refreshToken: String): Single<RequestResult<Boolean>> =
         authDataStore.saveAuthData(token, refreshToken)

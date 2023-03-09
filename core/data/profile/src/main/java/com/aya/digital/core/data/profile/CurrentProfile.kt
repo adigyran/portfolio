@@ -16,7 +16,8 @@ data class CurrentProfile(
     val weight: String?,
     val height: String?,
     val dateOfBirth: LocalDate?,
-    val avatar: Avatar?
+    val avatar: Avatar?,
+    val shortAddress : String?
 ) {
     data class Role(
         val id: Int,

@@ -10,6 +10,7 @@ import com.aya.digital.core.ext.asResult
 import com.aya.digital.core.ext.mapResult
 import com.aya.digital.core.ext.retrofitResponseToResult
 import com.aya.digital.core.ext.retryOnError
+import com.aya.digital.core.network.model.request.ChangePasswordBody
 import com.aya.digital.core.network.model.request.EmergencyContactBody
 import com.aya.digital.core.network.model.request.ProfileBody
 import com.aya.digital.core.networkbase.CommonUtils
@@ -34,9 +35,13 @@ internal class ProfileRepositoryImpl(
                 currentProfileMapper.mapFrom(it).asResult()
             }, { it })
 
-    override fun updateProfile(body: ProfileBody): Single<RequestResult<Unit>> {
-        TODO("Not yet implemented")
-    }
+    override fun updateProfile(body: ProfileBody): Single<RequestResult<CurrentProfile>>  =
+        profileDataSource.updateProfile(body)
+            .retryOnError()
+            .retrofitResponseToResult(CommonUtils::mapServerErrors)
+            .mapResult({
+                currentProfileMapper.mapFrom(it).asResult()
+            }, { it })
 
     override fun getEmergencyContact(): Single<RequestResult<EmergencyContact>> {
         TODO("Not yet implemented")
@@ -61,5 +66,4 @@ internal class ProfileRepositoryImpl(
     override fun clear() {
         TODO("Not yet implemented")
     }
-
 }

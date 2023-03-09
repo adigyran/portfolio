@@ -27,7 +27,8 @@ data class CurrentProfileResponse(
     val weight : String?,
     val height : String?,
     @Json( name = "birthDate") val dateOfBirth: String?,
-    val avatar : AvatarResponse?
+    val avatar : AvatarResponse?,
+    val address : String?
 ) {
 
 }

@@ -47,7 +47,8 @@ class ProfileGeneralInfoEditViewModel(
                     dateOfBirth = profileInfo.dateOfBirth,
                     height = profileInfo.height,
                     sex = profileInfo.sex,
-                    weight = profileInfo.weight
+                    weight = profileInfo.weight,
+                    ssnOrTin = profileInfo.ssn?:profileInfo.tin
 
                 )
             }
@@ -126,6 +127,8 @@ class ProfileGeneralInfoEditViewModel(
             height = state.height
             weight = state.weight
             shortAddress = state.shortAddress
+            ssn = state.ssnOrTin
+            tin = state.ssnOrTin
         }
 
     private inline fun <reified T> compareFields(fieldFirst: T?, fieldSecond: T?): Boolean? =

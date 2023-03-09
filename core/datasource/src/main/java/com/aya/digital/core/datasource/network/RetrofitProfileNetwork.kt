@@ -21,7 +21,6 @@ import org.kodein.di.instance
 import org.kodein.di.singleton
 
 
-
 fun profileNetworkModule() = DI.Module("profileNetworkModule") {
     bind<ProfileDataSource>() with singleton {
         val apiService =
@@ -52,7 +51,7 @@ class RetrofitProfileNetwork(private val network: ProfileService) :
     override fun currentProfile(): Single<CurrentProfileResponse> =
         network.currentProfile()
 
-    override fun updateProfile(body: ProfileBody): Completable =
+    override fun updateProfile(body: ProfileBody): Single<CurrentProfileResponse> =
         network.updateProfile(body)
 
     override fun getEmergencyContact(): Single<EmergencyContactResponse> =

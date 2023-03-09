@@ -1,5 +1,6 @@
 package com.aya.digital.core.repository.auth
 
+import com.aya.digital.core.data.base.dataprocessing.RequestResultModel
 import com.aya.digital.core.data.mappers.profile.LoginResultMapper
 import com.aya.digital.core.data.profile.LoginResult
 import com.aya.digital.core.data.profile.repository.AuthRepository
@@ -7,6 +8,7 @@ import com.aya.digital.core.datasource.AuthDataSource
 import com.aya.digital.core.datasource.TokenDataSource
 import com.aya.digital.core.datastore.HealthAppAuthDataSource
 import com.aya.digital.core.ext.*
+import com.aya.digital.core.network.model.request.ChangePasswordBody
 import com.aya.digital.core.network.model.request.LoginBody
 import com.aya.digital.core.network.model.request.RefreshTokenBody
 import com.aya.digital.core.network.model.request.RegistrationBody
@@ -71,5 +73,21 @@ internal class AuthRepositoryImpl(
             .retryOnError()
             .retrofitResponseToResult(CommonUtils::mapServerErrors)
             .mapResult({ it.asResult() }, { it })
+
+    override fun getRestoreCode(email: String): Single<RequestResultModel<Boolean>> {
+        TODO("Not yet implemented")
+    }
+
+    override fun changePassword(changePasswordBody: ChangePasswordBody): Single<RequestResult<Boolean>> {
+        TODO("Not yet implemented")
+    }
+
+    override fun changeEmailSendCode(email: String): Single<RequestResult<Boolean>> {
+        TODO("Not yet implemented")
+    }
+
+    override fun changeEmail(code: String, email: String): Single<RequestResult<Boolean>> {
+        TODO("Not yet implemented")
+    }
 
 }

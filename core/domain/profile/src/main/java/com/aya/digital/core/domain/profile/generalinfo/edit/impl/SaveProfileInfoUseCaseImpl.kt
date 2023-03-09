@@ -1,16 +1,51 @@
 package com.aya.digital.core.domain.profile.generalinfo.edit.impl
 
 import com.aya.digital.core.data.base.dataprocessing.RequestResultModel
+import com.aya.digital.core.data.base.dataprocessing.asResultModel
+import com.aya.digital.core.data.base.dataprocessing.toModelError
+import com.aya.digital.core.data.profile.repository.ProfileRepository
 import com.aya.digital.core.domain.profile.generalinfo.edit.SaveProfileInfoUseCase
 import com.aya.digital.core.domain.profile.generalinfo.edit.model.ProfileEditModel
 import com.aya.digital.core.domain.profile.generalinfo.view.model.ProfileInfoModel
+import com.aya.digital.core.domain.profile.generalinfo.view.model.mapToProfileInfo
+import com.aya.digital.core.ext.flatMapResult
+import com.aya.digital.core.network.model.request.ProfileBody
+import com.aya.digital.core.util.datetime.DateTimeUtils
 import io.reactivex.rxjava3.core.Single
 
-internal class SaveProfileInfoUseCaseImpl : SaveProfileInfoUseCase {
-    override fun invoke(editModel: ProfileEditModel): Single<RequestResultModel<Boolean>> {
-        TODO("Not yet implemented")
-    }
+internal class SaveProfileInfoUseCaseImpl(private val profileRepository: ProfileRepository,private val dateTimeUtils: DateTimeUtils) :
+    SaveProfileInfoUseCase {
+    override fun invoke(editModel: ProfileEditModel): Single<RequestResultModel<Boolean>> =
+        profileRepository.currentProfile()
+            .flatMapResult({ currentProfile ->
+                Single.just(editModel)
+                    .map { deltaSaveProfile(it, currentProfile.mapToProfileInfo()) }
+                    .flatMap { deltaSaveProfile ->
+                        if (deltaSaveProfile.first) profileRepository.updateProfile(
+                            deltaSaveProfile.second.toProfileBody()
+                        ) else Single.just(false.asResultModel())
+                    }
+                    .map { true.asResultModel() }
+            },
 
+                { Single.just(it.toModelError()) })
+
+    /*Single.just(editModel)
+    .map { deltaSaveProfile(editModel) }
+    .flatMap<RequestResultModel<Boolean>> { }
+    .map { true.asResultModel() }*/
+
+
+    private fun ProfileEditModel.toProfileBody() = ProfileBody(
+        firstName = this.firstName,
+        lastName = this.lastName,
+        middleName = this.middleName,
+        dateOfBirth = this.dateOfBirth?.let(dateTimeUtils::formatIsoDate),
+        sex = this.sex?.tag,
+        height = this.height,
+        weight = this.weight,
+        shortAddress = this.shortAddress
+    )
 
     private fun deltaSaveProfile(
         newData: ProfileEditModel,
@@ -22,17 +57,19 @@ internal class SaveProfileInfoUseCaseImpl : SaveProfileInfoUseCase {
                 shouldSaveProfile =
                     newData.firstName.saveField(initialModel.firstName) {
                         firstName = it
-                    } && newData.lastName.saveField(initialModel.lastName) { lastName = it }
-                            && newData.middleName.saveField(initialModel.middleName) {
+                    } || newData.lastName.saveField(initialModel.lastName) { lastName = it }
+                            || newData.middleName.saveField(initialModel.middleName) {
                         lastName = it
                     }
-                            && newData.dateOfBirth.saveField(initialModel.dateOfBirth) {
+                            || newData.dateOfBirth.saveField(initialModel.dateOfBirth) {
                         dateOfBirth = it
                     }
-                            && newData.sex.saveField(initialModel.sex) { sex = it }
-                            && newData.height.saveField(initialModel.height) { height = it }
-                            && newData.weight.saveField(initialModel.weight) { weight = it }
-                            && newData.shortAddress.saveField(initialModel.shortAddress) {
+                            || newData.sex.saveField(initialModel.sex) { sex = it }
+                            || newData.ssn.saveField(initialModel.ssn) { ssn = it }
+                            || newData.tin.saveField(initialModel.tin) { tin = it }
+                            || newData.height.saveField(initialModel.height) { height = it }
+                            || newData.weight.saveField(initialModel.weight) { weight = it }
+                            || newData.shortAddress.saveField(initialModel.shortAddress) {
                         shortAddress = it
                     }
 

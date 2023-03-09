@@ -7,4 +7,3 @@ import io.reactivex.rxjava3.core.Single
 interface RestorePasswordGetCodeUseCase {
     operator fun invoke(model: RestorePasswordGetCodeModel): Single<RequestResultModel<Boolean>>
 }
-

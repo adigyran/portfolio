@@ -21,8 +21,10 @@ class HealthAppAuthDataSource constructor(
     val accessTokenData = userPreferences.data()
         .map {it.accessToken
         }
+
     val refreshTokenData = userPreferences.data()
         .map { it.refreshToken }
+
     fun saveAuthData(authUserData: AuthUserData) =
         CompletableFromSingle(userPreferences.updateDataAsync {
             val copy = it.copy {

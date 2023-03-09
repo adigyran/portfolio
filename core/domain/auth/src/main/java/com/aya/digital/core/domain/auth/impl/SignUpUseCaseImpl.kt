@@ -9,7 +9,7 @@ import com.aya.digital.core.domain.auth.SignUpUseCase
 import com.aya.digital.core.ext.mapResult
 import io.reactivex.rxjava3.core.Single
 
-internal  class SignUpUseCaseImpl(val authRepository: AuthRepository) : SignUpUseCase {
+internal  class SignUpUseCaseImpl(private val authRepository: AuthRepository) : SignUpUseCase {
     override fun invoke(
         email: String,
         firstName: String,

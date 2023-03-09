@@ -16,7 +16,9 @@ data class ProfileInfoModel(
     val sex: ProfileSex?,
     val height: String?,
     val weight: String?,
-    val shortAddress: String?
+    val shortAddress: String?,
+    val ssn:String?,
+    val tin:String?
 ) {
 
 }
@@ -33,7 +35,9 @@ fun CurrentProfile.mapToProfileInfo() = ProfileInfoModel(
     sex = this.sex?.let { ProfileSex.getSexByTag(it) },
     height = this.height,
     weight = this.weight,
-    shortAddress = null
+    shortAddress = shortAddress,
+    ssn = this.ssn,
+    tin = this.tin
 )
 
 
