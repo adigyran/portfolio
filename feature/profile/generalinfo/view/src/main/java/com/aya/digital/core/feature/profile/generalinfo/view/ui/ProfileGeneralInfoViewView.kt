@@ -58,12 +58,14 @@ class ProfileGeneralInfoViewView :
         }
     }
 
-    override fun provideDiModule(): DI.Module = profileGeneralInfoViewDiModule(tryTyGetParentRouter())
+    override fun provideDiModule(): DI.Module =
+        profileGeneralInfoViewDiModule(tryTyGetParentRouter())
 
     override fun provideViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ): ViewProfileGeneralinfoViewBinding = ViewProfileGeneralinfoViewBinding.inflate(inflater, container, false)
+    ): ViewProfileGeneralinfoViewBinding =
+        ViewProfileGeneralinfoViewBinding.inflate(inflater, container, false)
 
     override fun sideEffect(sideEffect: BaseSideEffect) = Unit
 

@@ -13,7 +13,7 @@ data class ProfileGeneralInfoViewState(
     val middleName: String? = null,
     val dateOfBirth: LocalDate? = null,
     val ssn: String? = null,
-    val tin:String? = null,
+    val tin: String? = null,
     val sex: ProfileSex? = null,
     val height: String? = null,
     val weight: String? = null,

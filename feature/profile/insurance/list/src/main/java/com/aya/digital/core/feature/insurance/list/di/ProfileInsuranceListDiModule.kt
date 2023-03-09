@@ -10,7 +10,11 @@ fun profileInsuranceListDiModule(
     parentCoordinatorEvent: CoordinatorRouter
 ) = DI.Module("profileInsuranceList") {
 
-    bind<ProfileInsuranceListStateTransformer>() with singleton { ProfileInsuranceListStateTransformer(instance()) }
+    bind<ProfileInsuranceListStateTransformer>() with singleton {
+        ProfileInsuranceListStateTransformer(
+            instance()
+        )
+    }
 
     bind {
         scoped(CustomFragmentScope).singleton {

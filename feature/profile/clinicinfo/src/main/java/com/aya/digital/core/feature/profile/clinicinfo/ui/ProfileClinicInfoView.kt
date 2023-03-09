@@ -84,7 +84,8 @@ class ProfileClinicInfoView :
     override fun provideViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ): ViewProfileClinicInfoBinding = ViewProfileClinicInfoBinding.inflate(inflater, container, false)
+    ): ViewProfileClinicInfoBinding =
+        ViewProfileClinicInfoBinding.inflate(inflater, container, false)
 
     override fun sideEffect(sideEffect: BaseSideEffect) = Unit
 

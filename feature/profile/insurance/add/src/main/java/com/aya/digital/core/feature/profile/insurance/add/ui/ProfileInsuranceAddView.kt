@@ -1,10 +1,13 @@
 package com.aya.digital.core.feature.profile.insurance.add.ui
 
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.aya.digital.core.ext.argument
+import com.aya.digital.core.ext.createFragment
 import com.aya.digital.core.feature.profile.insurance.add.databinding.ViewProfileInsuranceAddBinding
 import com.aya.digital.core.feature.profile.insurance.add.di.profileInsuranceAddDiModule
 import com.aya.digital.core.feature.profile.insurance.add.ui.model.ProfileInsuranceAddStateTransformer
@@ -17,12 +20,15 @@ import com.aya.digital.core.ui.base.screens.DiFragment
 import com.aya.digital.core.ui.delegates.components.fields.name.model.ui.NameFieldDelegateListeners
 import com.aya.digital.core.ui.delegates.components.fields.name.model.ui.nameFieldDelegate
 import com.aya.digital.core.ui.delegates.profile.emergencycontactinfo.ui.insurancePolicyPhotoDelegate
+import kotlinx.parcelize.Parcelize
 import org.kodein.di.DI
 import org.kodein.di.factory
 import org.kodein.di.on
 
 class ProfileInsuranceAddView :
     DiFragment<ViewProfileInsuranceAddBinding, ProfileInsuranceAddViewModel, ProfileInsuranceAddState, BaseSideEffect, ProfileInsuranceAddUiModel, ProfileInsuranceAddStateTransformer>() {
+
+    private var param: Param by argument("param")
 
     private val viewModelFactory: ((Unit) -> ProfileInsuranceAddViewModel) by kodein.on(
         context = this
@@ -64,7 +70,8 @@ class ProfileInsuranceAddView :
         }
     }
 
-    override fun provideDiModule(): DI.Module = profileInsuranceAddDiModule(tryTyGetParentRouter())
+    override fun provideDiModule(): DI.Module =
+        profileInsuranceAddDiModule(tryTyGetParentRouter(), param)
 
     override fun provideViewBinding(
         inflater: LayoutInflater,
@@ -83,8 +90,20 @@ class ProfileInsuranceAddView :
         }
     }
 
+    @Parcelize
+    class Param(
+        val requestCode: String,
+        val insuranceId: Int?
+    ) : Parcelable
+
     override fun provideViewModel(): ProfileInsuranceAddViewModel = viewModelFactory(Unit)
     override fun provideStateTransformer(): ProfileInsuranceAddStateTransformer =
         stateTransformerFactory(Unit)
 
+    companion object {
+        fun getNewInstance(requestCode: String, insuranceId: Int?): ProfileInsuranceAddView =
+            createFragment(
+                Param(requestCode, insuranceId)
+            )
+    }
 }

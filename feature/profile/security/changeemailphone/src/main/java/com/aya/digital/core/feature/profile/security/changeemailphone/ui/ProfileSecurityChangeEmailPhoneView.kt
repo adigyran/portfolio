@@ -1,10 +1,13 @@
 package com.aya.digital.core.feature.profile.security.changeemailphone.ui
 
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.aya.digital.core.ext.argument
+import com.aya.digital.core.ext.createFragment
 import com.aya.digital.core.feature.profile.security.changeemailphone.databinding.ViewProfileSecurityChangeEmailphoneBinding
 import com.aya.digital.core.feature.profile.security.changeemailphone.di.ProfileSecurityChangeEmailPhoneDiModule
 import com.aya.digital.core.feature.profile.security.changeemailphone.ui.model.ProfileSecurityChangeEmailPhoneStateTransformer
@@ -17,12 +20,16 @@ import com.aya.digital.core.ui.base.screens.DiFragment
 import com.aya.digital.core.ui.delegates.components.fields.emailphone.ui.EmailPhoneDelegateListeners
 import com.aya.digital.core.ui.delegates.components.fields.emailphone.ui.emailPhoneFieldDelegate
 import com.aya.digital.core.ui.delegates.components.labels.headline.ui.headlineTwoLineLabelDelegate
+import kotlinx.parcelize.Parcelize
 import org.kodein.di.DI
 import org.kodein.di.factory
 import org.kodein.di.on
 
 class ProfileSecurityChangeEmailPhoneView :
     DiFragment<ViewProfileSecurityChangeEmailphoneBinding, ProfileSecurityChangeEmailPhoneViewModel, ProfileSecurityChangeEmailPhoneState, BaseSideEffect, ProfileSecurityChangeEmailPhoneUiModel, ProfileSecurityChangeEmailPhoneStateTransformer>() {
+
+    private var param: Param by argument("param")
+
 
     private val viewModelFactory: ((Unit) -> ProfileSecurityChangeEmailPhoneViewModel) by kodein.on(
         context = this
@@ -60,12 +67,14 @@ class ProfileSecurityChangeEmailPhoneView :
     }
 
 
-    override fun provideDiModule(): DI.Module = ProfileSecurityChangeEmailPhoneDiModule(tryTyGetParentRouter())
+    override fun provideDiModule(): DI.Module =
+        ProfileSecurityChangeEmailPhoneDiModule(tryTyGetParentRouter(), param)
 
     override fun provideViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ): ViewProfileSecurityChangeEmailphoneBinding = ViewProfileSecurityChangeEmailphoneBinding.inflate(inflater, container, false)
+    ): ViewProfileSecurityChangeEmailphoneBinding =
+        ViewProfileSecurityChangeEmailphoneBinding.inflate(inflater, container, false)
 
     override fun sideEffect(sideEffect: BaseSideEffect) = Unit
 
@@ -78,8 +87,22 @@ class ProfileSecurityChangeEmailPhoneView :
         }
     }
 
-    override fun provideViewModel(): ProfileSecurityChangeEmailPhoneViewModel = viewModelFactory(Unit)
+    override fun provideViewModel(): ProfileSecurityChangeEmailPhoneViewModel =
+        viewModelFactory(Unit)
+
     override fun provideStateTransformer(): ProfileSecurityChangeEmailPhoneStateTransformer =
         stateTransformerFactory(Unit)
+
+    @Parcelize
+    class Param(
+        val requestCode: String
+    ) : Parcelable
+
+    companion object {
+        fun getNewInstance(requestCode: String): ProfileSecurityChangeEmailPhoneView =
+            createFragment(
+                Param(requestCode)
+            )
+    }
 
 }

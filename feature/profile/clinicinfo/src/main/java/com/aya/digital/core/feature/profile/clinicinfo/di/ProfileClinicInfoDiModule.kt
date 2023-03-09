@@ -10,7 +10,11 @@ fun profileClinicInfoDiModule(
     parentCoordinatorEvent: CoordinatorRouter
 ) = DI.Module("profileClinicInfoDiModule") {
 
-    bind<ProfileClinicInfoStateTransformer>() with singleton { ProfileClinicInfoStateTransformer(instance()) }
+    bind<ProfileClinicInfoStateTransformer>() with singleton {
+        ProfileClinicInfoStateTransformer(
+            instance()
+        )
+    }
 
     bind {
         scoped(CustomFragmentScope).singleton {

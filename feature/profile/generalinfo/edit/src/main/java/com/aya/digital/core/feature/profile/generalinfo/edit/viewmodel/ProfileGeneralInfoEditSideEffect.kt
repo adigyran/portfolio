@@ -4,5 +4,6 @@ import com.aya.digital.core.mvi.BaseSideEffect
 import java.time.LocalDate
 
 sealed class ProfileGeneralInfoEditSideEffect : BaseSideEffect {
-    data class ShowBirthdayDatePicker(val selectedDate:LocalDate?) : ProfileGeneralInfoEditSideEffect()
+    data class ShowBirthdayDatePicker(val selectedDate: LocalDate?) :
+        ProfileGeneralInfoEditSideEffect()
 }

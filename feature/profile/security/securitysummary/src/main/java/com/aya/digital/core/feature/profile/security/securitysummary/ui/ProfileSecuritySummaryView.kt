@@ -56,12 +56,14 @@ class ProfileSecuritySummaryView :
         }
     }
 
-    override fun provideDiModule(): DI.Module = profileSecuritySummaryDiModule(tryTyGetParentRouter())
+    override fun provideDiModule(): DI.Module =
+        profileSecuritySummaryDiModule(tryTyGetParentRouter())
 
     override fun provideViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ): ViewProfileSecuritySummaryBinding = ViewProfileSecuritySummaryBinding.inflate(inflater, container, false)
+    ): ViewProfileSecuritySummaryBinding =
+        ViewProfileSecuritySummaryBinding.inflate(inflater, container, false)
 
     override fun sideEffect(sideEffect: BaseSideEffect) = Unit
 

@@ -5,6 +5,7 @@ import com.aya.digital.core.domain.profile.insurance.DeleteInsuranceUseCase
 import com.aya.digital.core.domain.profile.insurance.model.InsuranceAddModel
 import com.aya.digital.core.feature.profile.insurance.add.FieldsTags
 import com.aya.digital.core.feature.profile.insurance.add.navigation.ProfileInsuranceAddNavigationEvents
+import com.aya.digital.core.feature.profile.insurance.add.ui.ProfileInsuranceAddView
 import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.mvi.BaseViewModel
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
@@ -15,6 +16,7 @@ import org.orbitmvi.orbit.viewmodel.container
 import timber.log.Timber
 
 class ProfileInsuranceAddViewModel(
+    private val param: ProfileInsuranceAddView.Param,
     private val coordinatorRouter: CoordinatorRouter,
     private val addInsuranceUseCase: AddInsuranceUseCase,
     private val deleteInsuranceUseCase: DeleteInsuranceUseCase

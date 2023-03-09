@@ -5,6 +5,7 @@ import com.aya.digital.core.data.base.result.models.insurance.AddInsuranceResult
 import com.aya.digital.core.navigation.coordinator.CoordinatorEvent
 
 sealed class ProfileInsuranceAddNavigationEvents : CoordinatorEvent() {
-    data class FinishWithResult(val requestCode:String,val result: AddInsuranceResultModel) : ProfileInsuranceAddNavigationEvents()
+    data class FinishWithResult(val requestCode: String, val result: AddInsuranceResultModel) :
+        ProfileInsuranceAddNavigationEvents()
 
 }

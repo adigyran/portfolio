@@ -5,8 +5,8 @@ import com.aya.digital.core.domain.profile.generalinfo.edit.model.ProfileEditMod
 import com.aya.digital.core.domain.profile.generalinfo.view.GetProfileInfoUseCase
 import com.aya.digital.core.domain.profile.generalinfo.view.model.ProfileInfoModel
 import com.aya.digital.core.feature.profile.generalinfo.edit.FieldsTags
+import com.aya.digital.core.feature.profile.generalinfo.edit.ui.ProfileGeneralInfoEditView
 import com.aya.digital.core.model.ProfileSex
-import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.mvi.BaseViewModel
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
 import kotlinx.coroutines.rx3.await
@@ -18,6 +18,7 @@ import timber.log.Timber
 import java.time.LocalDate
 
 class ProfileGeneralInfoEditViewModel(
+    private val param: ProfileGeneralInfoEditView.Param,
     private val coordinatorRouter: CoordinatorRouter,
     private val profileInfoUseCase: GetProfileInfoUseCase,
     private val saveProfileInfoUseCase: SaveProfileInfoUseCase
@@ -32,29 +33,20 @@ class ProfileGeneralInfoEditViewModel(
         }
 
     init {
-        loadProfile()
+        param.profileModel?.let { initProfile(it) } ?: loadProfile()
+    }
+
+    private fun initProfile(profileInfo: ProfileInfoModel) = intent {
+        setProfileInfoFields(profileInfo)
     }
 
     private fun loadProfile() = intent {
         val resultModel = profileInfoUseCase().await()
         resultModel.processResult({ profileInfo ->
-            reduce {
-                state.copy(
-                    firstName = profileInfo.firstName,
-                    middleName = profileInfo.middleName,
-                    lastName = profileInfo.lastName,
-                    shortAddress = profileInfo.shortAddress,
-                    dateOfBirth = profileInfo.dateOfBirth,
-                    height = profileInfo.height,
-                    sex = profileInfo.sex,
-                    weight = profileInfo.weight,
-                    ssnOrTin = profileInfo.ssn?:profileInfo.tin
-
-                )
-            }
+            setProfileInfoFields(profileInfo)
         }, { Timber.d(it.toString()) })
-
     }
+
 
     fun dropDownSelected(tag: Int, selectedItemTag: String) = intent {
         when (tag) {
@@ -89,7 +81,7 @@ class ProfileGeneralInfoEditViewModel(
         }
     }
 
-    fun numberFieldChanged(tag: Int,text: String) = intent {
+    fun numberFieldChanged(tag: Int, text: String) = intent {
         when (tag) {
             FieldsTags.WEIGHT_FIELD_TAG -> {
                 reduce { state.copy(weight = text) }
@@ -137,6 +129,24 @@ class ProfileGeneralInfoEditViewModel(
             return@run fieldSecond == fieldFirst
         }
 
+
+    private fun setProfileInfoFields(profileInfo: ProfileInfoModel) = intent {
+        reduce {
+            state.copy(
+                firstName = profileInfo.firstName,
+                middleName = profileInfo.middleName,
+                lastName = profileInfo.lastName,
+                shortAddress = profileInfo.shortAddress,
+                dateOfBirth = profileInfo.dateOfBirth,
+                height = profileInfo.height,
+                sex = profileInfo.sex,
+                weight = profileInfo.weight,
+                ssnOrTin = profileInfo.ssn ?: profileInfo.tin
+
+            )
+
+        }
+    }
 
     private fun ProfileEditModel.shouldSaveProfile(state: ProfileGeneralInfoEditState): Boolean? {
         return true

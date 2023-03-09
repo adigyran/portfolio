@@ -11,5 +11,4 @@ object FieldsTags {
     const val SHORT_ADDRESS_FIELD_TAG = 2105840
 
 
-
 }

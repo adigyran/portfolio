@@ -41,7 +41,7 @@ class ProfileNotificationsViewModel(
 
     private fun setEmailNotificationsStatus() = intent {
         val await = setEmailNotificationsStatusUseCase(state.emailNotification).await()
-        await.processResult({},{Timber.d(it.toString())})
+        await.processResult({}, { Timber.d(it.toString()) })
     }
 
 }

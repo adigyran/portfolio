@@ -3,4 +3,7 @@ package com.aya.digital.core.feature.profile.security.changeemailphone.navigatio
 import com.aya.digital.core.feature.profile.security.changeemailphone.ui.ProfileSecurityChangeEmailPhoneView
 import com.aya.digital.core.navigation.screen.HealthAppFragmentScreen
 
-object ProfileSecurityChangeEmailPhoneScreen : HealthAppFragmentScreen(fragmentCreator = { ProfileSecurityChangeEmailPhoneView() })
+data class ProfileSecurityChangeEmailPhoneScreen(val requestCode: String) :
+    HealthAppFragmentScreen(fragmentCreator = {
+        ProfileSecurityChangeEmailPhoneView.getNewInstance(requestCode)
+    })

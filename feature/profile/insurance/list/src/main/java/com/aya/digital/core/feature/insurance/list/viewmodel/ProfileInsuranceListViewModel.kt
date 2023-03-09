@@ -11,7 +11,8 @@ import org.orbitmvi.orbit.viewmodel.container
 import timber.log.Timber
 
 class ProfileInsuranceListViewModel(
-    private val coordinatorRouter: CoordinatorRouter) :
+    private val coordinatorRouter: CoordinatorRouter
+) :
     BaseViewModel<ProfileInsuranceListState, BaseSideEffect>() {
     override val container = container<ProfileInsuranceListState, BaseSideEffect>(
         initialState = ProfileInsuranceListState(),
@@ -20,10 +21,11 @@ class ProfileInsuranceListViewModel(
 
     }
 
-    fun insuranceItemClicked(id:Int) = intent {
+    fun insuranceItemClicked(id: Int) = intent {
         coordinatorRouter.sendEvent(ProfileInsuranceListNavigationEvents.EditInsurance(id))
     }
-    fun insuranceItemMoreClicked(id:Int) = intent {
+
+    fun insuranceItemMoreClicked(id: Int) = intent {
 
     }
 

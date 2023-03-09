@@ -4,10 +4,11 @@ import com.aya.digital.core.mvi.BaseState
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class ProfileSecurityChangePasswordState(val currentPassword: String = "",
-                                              val currentPasswordError: String? = null,
-                                              val newPassword: String = "",
-                                              val newPasswordError: String? = null,
-                                              val newRepeatPassword: String = "",
-                                              val newRepeatPasswordError: String? = null
-                       ) : BaseState
+data class ProfileSecurityChangePasswordState(
+    val currentPassword: String = "",
+    val currentPasswordError: String? = null,
+    val newPassword: String = "",
+    val newPasswordError: String? = null,
+    val newRepeatPassword: String = "",
+    val newRepeatPasswordError: String? = null
+) : BaseState

@@ -1,10 +1,13 @@
 package com.aya.digital.core.domain.profile.generalinfo.view.model
 
 import android.app.Activity
+import android.os.Parcelable
 import com.aya.digital.core.data.profile.CurrentProfile
 import com.aya.digital.core.model.ProfileSex
+import kotlinx.parcelize.Parcelize
 import java.time.LocalDate
 
+@Parcelize
 data class ProfileInfoModel(
     val id: Int,
     val email: String?,
@@ -19,9 +22,7 @@ data class ProfileInfoModel(
     val shortAddress: String?,
     val ssn:String?,
     val tin:String?
-) {
-
-}
+):Parcelable
 
 
 fun CurrentProfile.mapToProfileInfo() = ProfileInfoModel(

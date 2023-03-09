@@ -31,7 +31,7 @@ class ProfileEmergencyContactViewModel(
     }
 
 
-    fun onNameFieldChanged(tag:Int, text:String) = intent {
+    fun onNameFieldChanged(tag: Int, text: String) = intent {
 
     }
 

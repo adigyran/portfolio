@@ -10,11 +10,16 @@ fun profileGeneralInfoViewDiModule(
     parentCoordinatorEvent: CoordinatorRouter
 ) = DI.Module("profileGeneralInfoViewDiModule") {
 
-    bind<ProfileGeneralInfoViewStateTransformer>() with singleton { ProfileGeneralInfoViewStateTransformer(instance(),instance()) }
+    bind<ProfileGeneralInfoViewStateTransformer>() with singleton {
+        ProfileGeneralInfoViewStateTransformer(
+            instance(),
+            instance()
+        )
+    }
 
     bind {
         scoped(CustomFragmentScope).singleton {
-            ProfileGeneralInfoViewViewModel(parentCoordinatorEvent,instance())
+            ProfileGeneralInfoViewViewModel(parentCoordinatorEvent, instance())
         }
     }
 }

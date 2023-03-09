@@ -26,14 +26,11 @@ class ProfileNotificationsView :
         context = this
     ).factory()
 
-    override fun prepareCreatedUi(savedInstanceState: Bundle?) {
-        super.prepareCreatedUi(savedInstanceState)
-    }
-
     override fun prepareUi(savedInstanceState: Bundle?) {
         super.prepareUi(savedInstanceState)
         binding.smsNotificationSw.setOnCheckedChangeListener { compoundButton, b ->
-            viewModel.onEmailNotificationSwitched(b)}
+            viewModel.onEmailNotificationSwitched(b)
+        }
     }
 
     override fun provideDiModule(): DI.Module = profileNotificationsDiModule(tryTyGetParentRouter())
@@ -41,14 +38,14 @@ class ProfileNotificationsView :
     override fun provideViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ): ViewProfileNotificationsBinding = ViewProfileNotificationsBinding.inflate(inflater, container, false)
+    ): ViewProfileNotificationsBinding =
+        ViewProfileNotificationsBinding.inflate(inflater, container, false)
 
     override fun sideEffect(sideEffect: BaseSideEffect) = Unit
 
     override fun render(state: ProfileNotificationsState) {
         stateTransformer(state).run {
-            if(binding.smsNotificationSw.isChecked != this.emailNotificationsState)
-            {
+            if (binding.smsNotificationSw.isChecked != this.emailNotificationsState) {
                 binding.smsNotificationSw.isChecked = this.emailNotificationsState
             }
         }

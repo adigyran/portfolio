@@ -10,11 +10,15 @@ fun profileSecuritySummaryDiModule(
     parentCoordinatorEvent: CoordinatorRouter
 ) = DI.Module("profileSecuritySummaryDiModule") {
 
-    bind<ProfileSecuritySummaryStateTransformer>() with singleton { ProfileSecuritySummaryStateTransformer(instance()) }
+    bind<ProfileSecuritySummaryStateTransformer>() with singleton {
+        ProfileSecuritySummaryStateTransformer(
+            instance()
+        )
+    }
 
     bind {
         scoped(CustomFragmentScope).singleton {
-            ProfileSecuritySummaryViewModel(parentCoordinatorEvent,instance())
+            ProfileSecuritySummaryViewModel(parentCoordinatorEvent, instance())
         }
     }
 }

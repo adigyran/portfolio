@@ -10,11 +10,15 @@ fun profileNotificationsDiModule(
     parentCoordinatorEvent: CoordinatorRouter
 ) = DI.Module("profileNotificationsSummaryDiModule") {
 
-    bind<ProfileNotificationsStateTransformer>() with singleton { ProfileNotificationsStateTransformer(instance()) }
+    bind<ProfileNotificationsStateTransformer>() with singleton {
+        ProfileNotificationsStateTransformer(
+            instance()
+        )
+    }
 
     bind {
         scoped(CustomFragmentScope).singleton {
-            ProfileNotificationsViewModel(parentCoordinatorEvent,instance(),instance())
+            ProfileNotificationsViewModel(parentCoordinatorEvent, instance(), instance())
         }
     }
 }

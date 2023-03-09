@@ -1,10 +1,13 @@
 package com.aya.digital.core.feature.profile.security.changepassword.ui
 
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.aya.digital.core.ext.argument
+import com.aya.digital.core.ext.createFragment
 import com.aya.digital.core.feature.profile.security.changepassword.databinding.ViewProfileChangePasswordBinding
 import com.aya.digital.core.feature.profile.security.changepassword.di.profileSecurityChangePasswordDiModule
 import com.aya.digital.core.feature.profile.security.changepassword.ui.model.ProfileSecurityChangePasswordStateTransformer
@@ -17,12 +20,15 @@ import com.aya.digital.core.ui.base.screens.DiFragment
 import com.aya.digital.core.ui.delegates.components.fields.password.ui.PasswordFieldDelegateListeners
 import com.aya.digital.core.ui.delegates.components.fields.password.ui.passwordFieldDelegate
 import com.aya.digital.core.ui.delegates.components.labels.headline.ui.headlineTwoLineLabelDelegate
+import kotlinx.parcelize.Parcelize
 import org.kodein.di.DI
 import org.kodein.di.factory
 import org.kodein.di.on
 
 class ProfileSecurityChangePasswordView :
     DiFragment<ViewProfileChangePasswordBinding, ProfileSecurityChangePasswordViewModel, ProfileSecurityChangePasswordState, BaseSideEffect, ProfileSecurityChangePasswordUiModel, ProfileSecurityChangePasswordStateTransformer>() {
+
+    private var param: Param by argument("param")
 
     private val viewModelFactory: ((Unit) -> ProfileSecurityChangePasswordViewModel) by kodein.on(
         context = this
@@ -59,12 +65,14 @@ class ProfileSecurityChangePasswordView :
         }
     }
 
-    override fun provideDiModule(): DI.Module = profileSecurityChangePasswordDiModule(tryTyGetParentRouter())
+    override fun provideDiModule(): DI.Module =
+        profileSecurityChangePasswordDiModule(tryTyGetParentRouter(), param)
 
     override fun provideViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ): ViewProfileChangePasswordBinding = ViewProfileChangePasswordBinding.inflate(inflater, container, false)
+    ): ViewProfileChangePasswordBinding =
+        ViewProfileChangePasswordBinding.inflate(inflater, container, false)
 
     override fun sideEffect(sideEffect: BaseSideEffect) = Unit
 
@@ -77,8 +85,18 @@ class ProfileSecurityChangePasswordView :
         }
     }
 
+    @Parcelize
+    class Param(
+        val requestCode: String
+    ) : Parcelable
+
     override fun provideViewModel(): ProfileSecurityChangePasswordViewModel = viewModelFactory(Unit)
     override fun provideStateTransformer(): ProfileSecurityChangePasswordStateTransformer =
         stateTransformerFactory(Unit)
 
+    companion object {
+        fun getNewInstance(requestCode: String): ProfileSecurityChangePasswordView = createFragment(
+            Param(requestCode)
+        )
+    }
 }

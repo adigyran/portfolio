@@ -10,11 +10,15 @@ fun profileEmergencyContactDiModule(
     parentCoordinatorEvent: CoordinatorRouter
 ) = DI.Module("profileEmergencyContactDiModule") {
 
-    bind<ProfileEmergencyContactStateTransformer>() with singleton { ProfileEmergencyContactStateTransformer(instance()) }
+    bind<ProfileEmergencyContactStateTransformer>() with singleton {
+        ProfileEmergencyContactStateTransformer(
+            instance()
+        )
+    }
 
     bind {
         scoped(CustomFragmentScope).singleton {
-            ProfileEmergencyContactViewModel(parentCoordinatorEvent,instance(),instance())
+            ProfileEmergencyContactViewModel(parentCoordinatorEvent, instance(), instance())
         }
     }
 }

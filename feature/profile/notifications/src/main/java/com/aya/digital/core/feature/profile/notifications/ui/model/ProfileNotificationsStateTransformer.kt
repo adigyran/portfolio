@@ -5,11 +5,12 @@ import com.aya.digital.core.feature.profile.notifications.viewmodel.ProfileNotif
 import com.aya.digital.core.mvi.BaseStateTransformer
 import com.aya.digital.core.ui.adapters.base.DiffItem
 
-class ProfileNotificationsStateTransformer(context : Context): BaseStateTransformer<ProfileNotificationsState, ProfileNotificationsUiModel>() {
+class ProfileNotificationsStateTransformer(context: Context) :
+    BaseStateTransformer<ProfileNotificationsState, ProfileNotificationsUiModel>() {
     override fun invoke(state: ProfileNotificationsState): ProfileNotificationsUiModel =
         ProfileNotificationsUiModel(
             emailNotificationsState = kotlin.run {
-               return@run state.emailNotification
+                return@run state.emailNotification
             }
         )
 

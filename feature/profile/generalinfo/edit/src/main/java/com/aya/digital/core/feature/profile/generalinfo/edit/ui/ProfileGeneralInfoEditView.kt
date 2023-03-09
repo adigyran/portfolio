@@ -1,11 +1,16 @@
 package com.aya.digital.core.feature.profile.generalinfo.edit.ui
 
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.aya.digital.core.domain.profile.generalinfo.edit.model.ProfileEditModel
+import com.aya.digital.core.domain.profile.generalinfo.view.model.ProfileInfoModel
+import com.aya.digital.core.ext.argument
 import com.aya.digital.core.ext.bindClick
+import com.aya.digital.core.ext.createFragment
 import com.aya.digital.core.feature.profile.generalinfo.edit.databinding.ViewProfileGeneralinfoEditBinding
 import com.aya.digital.core.feature.profile.generalinfo.edit.di.profileGeneralInfoEditDiModule
 import com.aya.digital.core.feature.profile.generalinfo.edit.ui.model.ProfileGeneralInfoEditStateTransformer
@@ -24,6 +29,7 @@ import com.aya.digital.core.ui.delegates.components.fields.selection.ui.Selectio
 import com.aya.digital.core.ui.delegates.components.fields.dropdown.ui.dropDownFieldDelegate
 import com.aya.digital.core.ui.delegates.components.fields.selection.ui.selectionFieldDelegate
 import com.google.android.material.datepicker.MaterialDatePicker
+import kotlinx.parcelize.Parcelize
 import org.kodein.di.DI
 import org.kodein.di.factory
 import org.kodein.di.on
@@ -34,6 +40,8 @@ import java.time.ZoneId
 
 class ProfileGeneralInfoEditView :
     DiFragment<ViewProfileGeneralinfoEditBinding, ProfileGeneralInfoEditViewModel, ProfileGeneralInfoEditState, ProfileGeneralInfoEditSideEffect, ProfileGeneralInfoEditUiModel, ProfileGeneralInfoEditStateTransformer>() {
+
+    private var param: Param by argument("param")
 
     private val viewModelFactory: ((Unit) -> ProfileGeneralInfoEditViewModel) by kodein.on(
         context = this
@@ -48,7 +56,14 @@ class ProfileGeneralInfoEditView :
             delegate { nameFieldDelegate(NameFieldDelegateListeners(viewModel::nameFieldChanged)) }
             delegate { validatedNumberFieldDelegate(ValidatedNumberFieldDelegateListeners(viewModel::numberFieldChanged)) }
             delegate { selectionFieldDelegate(SelectionFieldDelegateListeners(viewModel::selectFieldClicked)) }
-            delegate { dropDownFieldDelegate(DropDownFieldDelegateListeners { tag, selectedItem -> viewModel.dropDownSelected(tag,selectedItem.tag) }) }
+            delegate {
+                dropDownFieldDelegate(DropDownFieldDelegateListeners { tag, selectedItem ->
+                    viewModel.dropDownSelected(
+                        tag,
+                        selectedItem.tag
+                    )
+                })
+            }
         }
     }
 
@@ -97,7 +112,7 @@ class ProfileGeneralInfoEditView :
 
 
     override fun provideDiModule(): DI.Module =
-        profileGeneralInfoEditDiModule(tryTyGetParentRouter())
+        profileGeneralInfoEditDiModule(tryTyGetParentRouter(), param)
 
     override fun provideViewBinding(
         inflater: LayoutInflater,
@@ -118,4 +133,18 @@ class ProfileGeneralInfoEditView :
     override fun provideStateTransformer(): ProfileGeneralInfoEditStateTransformer =
         stateTransformerFactory(Unit)
 
+    @Parcelize
+    class Param(
+        val requestCode: String,
+        val profileModel: ProfileInfoModel?
+    ) : Parcelable
+
+    companion object {
+        fun getNewInstance(
+            requestCode: String,
+            profileModel: ProfileInfoModel?
+        ): ProfileGeneralInfoEditView = createFragment(
+            Param(requestCode, profileModel)
+        )
+    }
 }

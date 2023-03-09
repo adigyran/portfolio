@@ -6,8 +6,8 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class ProfileEmergencyContactState(
     val contactName: String? = null,
-    val contactNameError:String? = null,
+    val contactNameError: String? = null,
     val contactPhone: String? = null,
-    val contactPhoneError:String? = null,
-    val editMode:Boolean = false
+    val contactPhoneError: String? = null,
+    val editMode: Boolean = false
 ) : BaseState

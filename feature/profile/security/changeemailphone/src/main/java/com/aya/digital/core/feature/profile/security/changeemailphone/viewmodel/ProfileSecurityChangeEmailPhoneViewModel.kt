@@ -4,6 +4,7 @@ import com.aya.digital.core.domain.profile.security.changeemail.ChangeEmailGetCo
 import com.aya.digital.core.domain.profile.security.changeemail.ChangeEmailUseCase
 import com.aya.digital.core.domain.profile.security.changepassword.ChangePasswordUseCase
 import com.aya.digital.core.feature.profile.security.changeemailphone.FieldsTags
+import com.aya.digital.core.feature.profile.security.changeemailphone.ui.ProfileSecurityChangeEmailPhoneView
 import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.mvi.BaseViewModel
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
@@ -14,6 +15,7 @@ import org.orbitmvi.orbit.viewmodel.container
 import timber.log.Timber
 
 class ProfileSecurityChangeEmailPhoneViewModel(
+    private val param: ProfileSecurityChangeEmailPhoneView.Param,
     private val coordinatorRouter: CoordinatorRouter,
     private val changeEmailUseCase: ChangeEmailUseCase,
     private val changeEmailGetCodeUseCase: ChangeEmailGetCodeUseCase
@@ -27,16 +29,16 @@ class ProfileSecurityChangeEmailPhoneViewModel(
     }
 
     private fun changeEmail(email: String) = intent {
-        state.code?.let { code->
+        state.code?.let { code ->
             val await = changeEmailUseCase(code = code, newEmail = email).await()
-            await.processResult({},{Timber.d(it.toString())})
+            await.processResult({}, { Timber.d(it.toString()) })
         }
     }
 
     private fun requestCode() = intent {
         val await = changeEmailGetCodeUseCase().await()
         await.processResult({
-        },{Timber.d(it.toString())})
+        }, { Timber.d(it.toString()) })
     }
 
     fun emailChanged(email: String) = intent {
