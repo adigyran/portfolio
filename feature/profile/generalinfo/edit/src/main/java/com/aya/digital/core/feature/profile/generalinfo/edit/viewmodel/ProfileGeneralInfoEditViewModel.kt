@@ -56,10 +56,10 @@ class ProfileGeneralInfoEditViewModel(
 
     }
 
-    fun dropDownSelected(tag: Int, selectedItem: String) = intent {
+    fun dropDownSelected(tag: Int, selectedItemTag: String) = intent {
         when (tag) {
             FieldsTags.SEX_FIELD_TAG -> {
-                val selectedSex = ProfileSex.getSexByName(selectedItem)
+                val selectedSex = ProfileSex.getSexByTag(selectedItemTag)
                 reduce { state.copy(sex = selectedSex) }
             }
         }

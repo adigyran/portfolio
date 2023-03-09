@@ -8,10 +8,7 @@ import com.aya.digital.core.datasource.AuthDataSource
 import com.aya.digital.core.datasource.TokenDataSource
 import com.aya.digital.core.datastore.HealthAppAuthDataSource
 import com.aya.digital.core.ext.*
-import com.aya.digital.core.network.model.request.ChangePasswordBody
-import com.aya.digital.core.network.model.request.LoginBody
-import com.aya.digital.core.network.model.request.RefreshTokenBody
-import com.aya.digital.core.network.model.request.RegistrationBody
+import com.aya.digital.core.network.model.request.*
 import com.aya.digital.core.networkbase.CommonUtils
 import com.aya.digital.core.networkbase.server.RequestResult
 import io.reactivex.rxjava3.core.Single
@@ -74,7 +71,14 @@ internal class AuthRepositoryImpl(
             .retrofitResponseToResult(CommonUtils::mapServerErrors)
             .mapResult({ it.asResult() }, { it })
 
-    override fun getRestoreCode(email: String): Single<RequestResultModel<Boolean>> {
+    override fun getRestoreCode(email: String): Single<RequestResult<Boolean>> {
+        TODO("Not yet implemented")
+    }
+
+    override fun restorePassword(
+        token: String,
+        resetPasswordBody: ResetPasswordBody
+    ): Single<RequestResult<Boolean>> {
         TODO("Not yet implemented")
     }
 

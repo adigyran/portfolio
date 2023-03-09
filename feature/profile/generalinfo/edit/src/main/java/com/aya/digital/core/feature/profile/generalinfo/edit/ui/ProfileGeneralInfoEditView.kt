@@ -19,9 +19,9 @@ import com.aya.digital.core.ui.delegates.components.fields.name.model.ui.NameFie
 import com.aya.digital.core.ui.delegates.components.fields.name.model.ui.ValidatedNumberFieldDelegateListeners
 import com.aya.digital.core.ui.delegates.components.fields.name.model.ui.nameFieldDelegate
 import com.aya.digital.core.ui.delegates.components.fields.name.model.ui.validatedNumberFieldDelegate
-import com.aya.digital.core.ui.delegates.components.fields.selection.ui.DropDownFieldDelegateListeners
+import com.aya.digital.core.ui.delegates.components.fields.dropdown.ui.DropDownFieldDelegateListeners
 import com.aya.digital.core.ui.delegates.components.fields.selection.ui.SelectionFieldDelegateListeners
-import com.aya.digital.core.ui.delegates.components.fields.selection.ui.dropDownFieldDelegate
+import com.aya.digital.core.ui.delegates.components.fields.dropdown.ui.dropDownFieldDelegate
 import com.aya.digital.core.ui.delegates.components.fields.selection.ui.selectionFieldDelegate
 import com.google.android.material.datepicker.MaterialDatePicker
 import org.kodein.di.DI
@@ -48,7 +48,7 @@ class ProfileGeneralInfoEditView :
             delegate { nameFieldDelegate(NameFieldDelegateListeners(viewModel::nameFieldChanged)) }
             delegate { validatedNumberFieldDelegate(ValidatedNumberFieldDelegateListeners(viewModel::numberFieldChanged)) }
             delegate { selectionFieldDelegate(SelectionFieldDelegateListeners(viewModel::selectFieldClicked)) }
-            delegate { dropDownFieldDelegate(DropDownFieldDelegateListeners(viewModel::dropDownSelected)) }
+            delegate { dropDownFieldDelegate(DropDownFieldDelegateListeners { tag, selectedItem -> viewModel.dropDownSelected(tag,selectedItem.tag) }) }
         }
     }
 

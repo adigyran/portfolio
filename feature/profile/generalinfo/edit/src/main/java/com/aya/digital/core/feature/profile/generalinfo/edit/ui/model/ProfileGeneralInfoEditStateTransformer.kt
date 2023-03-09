@@ -3,20 +3,23 @@ package com.aya.digital.core.feature.profile.generalinfo.edit.ui.model
 import android.content.Context
 import com.aya.digital.core.baseresources.R.*
 import com.aya.digital.core.feature.profile.generalinfo.edit.FieldsTags
-import com.aya.digital.core.feature.profile.generalinfo.edit.R
 import com.aya.digital.core.feature.profile.generalinfo.edit.viewmodel.ProfileGeneralInfoEditState
 import com.aya.digital.core.model.ProfileSex
 import com.aya.digital.core.model.getSexName
 import com.aya.digital.core.mvi.BaseStateTransformer
 import com.aya.digital.core.ui.adapters.base.DiffItem
+import com.aya.digital.core.ui.delegates.components.fields.dropdown.model.AutoCompleteItem
 import com.aya.digital.core.ui.delegates.components.fields.name.model.NameFieldUIModel
 import com.aya.digital.core.ui.delegates.components.fields.name.model.ValidatedNumberFieldUIModel
-import com.aya.digital.core.ui.delegates.components.fields.selection.model.DropdownFieldUIModel
+import com.aya.digital.core.ui.delegates.components.fields.dropdown.model.DropdownFieldUIModel
 import com.aya.digital.core.ui.delegates.components.fields.selection.model.SelectionFieldUIModel
 import com.aya.digital.core.util.datetime.DateTimeUtils
 import java.time.LocalDate
 
-class ProfileGeneralInfoEditStateTransformer(private val context: Context,private val dateTimeUtils: DateTimeUtils) :
+class ProfileGeneralInfoEditStateTransformer(
+    private val context: Context,
+    private val dateTimeUtils: DateTimeUtils
+) :
     BaseStateTransformer<ProfileGeneralInfoEditState, ProfileGeneralInfoEditUiModel>() {
     override fun invoke(state: ProfileGeneralInfoEditState): ProfileGeneralInfoEditUiModel =
         ProfileGeneralInfoEditUiModel(
@@ -104,7 +107,9 @@ class ProfileGeneralInfoEditStateTransformer(private val context: Context,privat
         )
 
 
-    private fun getSexesList() = ProfileSex.getAllSexes().map { it.sexName() }
+    private fun getSexesList() = ProfileSex.getAllSexes()
+        .map { profileSex -> AutoCompleteItem(profileSex.tag, profileSex.sexName()) }
+
     private fun ProfileSex.sexName() = this.getSexName(context)
 
     private fun String?.getField() = this ?: ""
