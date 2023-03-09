@@ -1,6 +1,9 @@
 package com.aya.digital.healthapp.patient.navigation.auth
 
+import com.aya.digital.core.data.base.dataprocessing.dataloading.enums.OperationState
 import com.aya.digital.core.feature.auth.restorepassword.navigation.RestorePasswordNavigationEvents
+import com.aya.digital.core.feature.auth.restorepassword.navigation.RestorePasswordScreen
+import com.aya.digital.core.feature.auth.restorepassword.ui.RestorePasswordView
 import com.aya.digital.core.feature.auth.signin.navigation.SignInNavigationEvents
 import com.aya.digital.core.feature.auth.signin.navigation.SignInScreen
 import com.aya.digital.core.navigation.coordinator.CoordinatorEvent
@@ -22,6 +25,9 @@ class PatientAuthGraph : FragmentContainerGraph {
     ) {
         fun signIn() = navigationRouter.navigateTo(SignInScreen)
         fun signUp() = navigationRouter.navigateTo(SignUpScreen)
+        fun restorePassword(requestCode:String) = navigationRouter.navigateTo(RestorePasswordScreen(requestCode,
+            RestorePasswordView.Param.RestorePasswordOperationStateParam.RestorePassword
+        ))
         when (event) {
             AuthContainerNavigationEvents.OpenDefaultScreen -> {
                 navigationRouter.newRootScreen(AuthChooserScreen)
@@ -70,9 +76,7 @@ class PatientAuthGraph : FragmentContainerGraph {
             }
 
             is SignInNavigationEvents.RestorePassword -> {
-                parentCoordinatorRouter.sendEvent(
-                    RootContainerNavigationEvents.RestorePassword(event.requestCode)
-                )
+                restorePassword(event.requestCode)
             }
 
             is RestorePasswordNavigationEvents.EnterCode -> {
@@ -82,6 +86,12 @@ class PatientAuthGraph : FragmentContainerGraph {
                         event.email
                     )
                 )
+            }
+
+            is RestorePasswordNavigationEvents.FinishWithResult ->
+            {
+                navigationRouter.sendResult(event.requestCode,event.result)
+                navigationRouter.exit()
             }
 
             else -> parentCoordinatorRouter.sendEvent(event)

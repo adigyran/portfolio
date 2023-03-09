@@ -1,9 +1,5 @@
 package com.aya.digital.healthapp.patient.navigation.tabs.profile
 
-import com.aya.digital.core.feature.auth.signin.navigation.SignInNavigationEvents
-import com.aya.digital.core.feature.auth.signin.navigation.SignInScreen
-import com.aya.digital.core.feature.choosers.multiselect.navigation.MultiSelectChooserNavigationEvents
-import com.aya.digital.core.feature.choosers.multiselect.navigation.MultiSelectChooserScreen
 import com.aya.digital.core.feature.insurance.list.navigation.ProfileInsuranceListNavigationEvents
 import com.aya.digital.core.feature.insurance.list.navigation.ProfileInsuranceListScreen
 import com.aya.digital.core.feature.profile.emergencycontact.navigation.ProfileEmergencyContactScreen
@@ -13,7 +9,9 @@ import com.aya.digital.core.feature.profile.generalinfo.view.navigation.ProfileG
 import com.aya.digital.core.feature.profile.insurance.add.navigation.ProfileInsuranceAddNavigationEvents
 import com.aya.digital.core.feature.profile.insurance.add.navigation.ProfileInsuranceAddScreen
 import com.aya.digital.core.feature.profile.notifications.navigation.ProfileNotificationsScreen
+import com.aya.digital.core.feature.profile.security.changeemailphone.navigation.ProfileSecurityChangeEmailPhoneNavigationEvents
 import com.aya.digital.core.feature.profile.security.changeemailphone.navigation.ProfileSecurityChangeEmailPhoneScreen
+import com.aya.digital.core.feature.profile.security.changepassword.navigation.ProfileSecurityChangePasswordNavigationEvents
 import com.aya.digital.core.feature.profile.security.changepassword.navigation.ProfileSecurityChangePasswordScreen
 import com.aya.digital.core.feature.profile.security.securitysummary.navigation.ProfileSecuritySummaryNavigationEvents
 import com.aya.digital.core.feature.profile.security.securitysummary.navigation.ProfileSecuritySummaryScreen
@@ -22,13 +20,6 @@ import com.aya.digital.core.feature.tabviews.profile.navigation.ProfileScreen
 import com.aya.digital.core.navigation.coordinator.CoordinatorEvent
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
 import com.aya.digital.core.navigation.graph.navigator.FragmentContainerGraph
-import com.aya.digital.feature.auth.chooser.navigation.AuthChooserNavigationEvents
-import com.aya.digital.feature.auth.chooser.navigation.AuthChooserScreen
-import com.aya.digital.feature.auth.container.navigation.AuthContainerNavigationEvents
-import com.aya.digital.feature.auth.signup.navigation.SignUpNavigationEvents
-import com.aya.digital.feature.auth.signup.navigation.SignUpScreen
-import com.aya.digital.feature.bottomdialogs.codedialog.navigation.CodeDialogNavigationEvents
-import com.aya.digital.feature.bottomdialogs.codedialog.navigation.CodeDialogScreen
 import com.aya.digital.feature.rootcontainer.navigation.RootContainerNavigationEvents
 import com.aya.digital.feature.tabs.profile.navigation.ProfileTabNavigationEvents
 import com.github.terrakok.cicerone.Router
@@ -59,37 +50,63 @@ class ProfileTabCoordinatorGraph : FragmentContainerGraph {
             ProfileNavigationEvents.OpenProfileNotification -> {
                 mainRouter.navigateTo(ProfileNotificationsScreen)
             }
-            ProfileGeneralInfoViewNavigationEvents.EditProfile -> {
-                mainRouter.navigateTo(ProfileGeneralInfoEditScreen)
+            is ProfileGeneralInfoViewNavigationEvents.EditProfile -> {
+                mainRouter.navigateTo(
+                    ProfileGeneralInfoEditScreen(
+                        event.requestCode,
+                        event.profileInfoModel
+                    )
+                )
             }
 
-            ProfileSecuritySummaryNavigationEvents.ChangeEmail -> {
-                mainRouter.navigateTo(ProfileSecurityChangeEmailPhoneScreen)
+            is ProfileSecuritySummaryNavigationEvents.ChangeEmail -> {
+                mainRouter.navigateTo(ProfileSecurityChangeEmailPhoneScreen(event.requestCode))
             }
 
-            ProfileSecuritySummaryNavigationEvents.ChangePassword -> {
-                mainRouter.navigateTo(ProfileSecurityChangePasswordScreen)
+            is ProfileSecuritySummaryNavigationEvents.ChangePassword -> {
+                mainRouter.navigateTo(ProfileSecurityChangePasswordScreen(event.requestCode))
             }
 
-            ProfileInsuranceListNavigationEvents.AddInsurance ->
-            {
-                mainRouter.navigateTo(ProfileInsuranceAddScreen)
-            }
-
-            is ProfileInsuranceListNavigationEvents.EditInsurance ->
-            {
-                mainRouter.navigateTo(ProfileInsuranceAddScreen)
-            }
-
-            is ProfileInsuranceAddNavigationEvents.FinishWithResult ->
-            {
+            is ProfileSecurityChangePasswordNavigationEvents.FinishWithResult -> {
                 mainRouter.sendResult(event.requestCode,event.result)
+                mainRouter.exit()
+            }
+
+            is ProfileSecurityChangeEmailPhoneNavigationEvents.FinishWithResult -> {
+                mainRouter.sendResult(event.requestCode,event.result)
+                mainRouter.exit()
+            }
+
+            is ProfileInsuranceListNavigationEvents.AddInsurance -> {
+                mainRouter.navigateTo(
+                    ProfileInsuranceAddScreen(
+                        requestCode = event.requestCode,
+                        insuranceId = null
+                    )
+                )
+            }
+
+            is ProfileInsuranceListNavigationEvents.EditInsurance -> {
+                mainRouter.navigateTo(
+                    ProfileInsuranceAddScreen(
+                        requestCode = event.requestCode,
+                        insuranceId = event.insuranceId
+                    )
+                )
+            }
+
+            is ProfileInsuranceAddNavigationEvents.SelectInsuranceCompany ->
+            {
+                parentCoordinatorRouter.sendEvent(RootContainerNavigationEvents.SelectSingleItem(event.requestCode,event.selectedInsurance))
+            }
+
+            is ProfileInsuranceAddNavigationEvents.FinishWithResult -> {
+                mainRouter.sendResult(event.requestCode, event.result)
                 mainRouter.exit()
             }
 
             else -> parentCoordinatorRouter.sendEvent(event)
         }
-
 
     }
 

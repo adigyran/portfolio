@@ -14,7 +14,7 @@ import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 import timber.log.Timber
 
-class ProfileSecurityChangeEmailPhoneViewModel(
+internal class ProfileSecurityChangeEmailPhoneViewModel(
     private val param: ProfileSecurityChangeEmailPhoneView.Param,
     private val coordinatorRouter: CoordinatorRouter,
     private val changeEmailUseCase: ChangeEmailUseCase,

@@ -6,8 +6,8 @@ import com.aya.digital.core.feature.auth.restorepassword.navigation.RestorePassw
 import com.aya.digital.core.feature.auth.restorepassword.navigation.RestorePasswordScreen
 import com.aya.digital.core.feature.auth.restorepassword.ui.RestorePasswordView
 import com.aya.digital.core.feature.bottomnavhost.navigation.BottomNavHostScreen
-import com.aya.digital.core.feature.choosers.multiselect.navigation.MultiSelectChooserNavigationEvents
-import com.aya.digital.core.feature.choosers.multiselect.navigation.MultiSelectChooserScreen
+import com.aya.digital.core.feature.choosers.multiselect.navigation.SelectWithSearchNavigationEvents
+import com.aya.digital.core.feature.choosers.multiselect.navigation.SelectWithSearchScreen
 import com.aya.digital.core.navigation.bottomnavigation.StartScreen
 import com.aya.digital.core.navigation.coordinator.CoordinatorEvent
 import com.aya.digital.core.navigation.graph.coordinator.RootCoordinatorGraph
@@ -52,26 +52,40 @@ class PatientRootCoordinatorGraph(context: Context) : RootCoordinatorGraph {
 
             is RootContainerNavigationEvents.SelectMultipleItems -> {
                 navigationRouter.navigateTo(
-                    MultiSelectChooserScreen(
-                        event.requestCode,
-                        event.selectedItems
+                    SelectWithSearchScreen(
+                        requestCode = event.requestCode,
+                        isMultiChoose = true,
+                        selectedItems = event.selectedItems
+                    )
+                )
+            }
+
+            is RootContainerNavigationEvents.SelectSingleItem -> {
+                navigationRouter.navigateTo(
+                    SelectWithSearchScreen(
+                        requestCode = event.requestCode,
+                        isMultiChoose = false,
+                        selectedItems = event.selectedItem?.let { setOf(it) } ?: setOf()
                     )
                 )
             }
 
             is RootContainerNavigationEvents.RestorePassword -> {
-                navigationRouter.navigateTo(RestorePasswordScreen(
-                    event.requestCode,
-                    RestorePasswordView.Param.RestorePasswordOperationStateParam.RestorePassword
-                ))
+                navigationRouter.navigateTo(
+                    RestorePasswordScreen(
+                        event.requestCode,
+                        RestorePasswordView.Param.RestorePasswordOperationStateParam.RestorePassword
+                    )
+                )
             }
 
-            is RootContainerNavigationEvents.ChangeTempPassword ->
-            {
-                navigationRouter.navigateTo(RestorePasswordScreen(
-                    event.requestCode,
-                    RestorePasswordView.Param.RestorePasswordOperationStateParam.ChangeTempPass
-                ))
+            is RootContainerNavigationEvents.ChangeTempPassword -> {
+                navigationRouter.navigateTo(
+                    RestorePasswordScreen(
+                        event.requestCode,
+                        RestorePasswordView.Param.RestorePasswordOperationStateParam.ChangeTempPass
+                    )
+                )
             }
 
             is CodeDialogNavigationEvents.FinishWithResult -> {
@@ -79,7 +93,7 @@ class PatientRootCoordinatorGraph(context: Context) : RootCoordinatorGraph {
                 navigationRouter.exit()
             }
 
-            is MultiSelectChooserNavigationEvents.FinishWithResult -> {
+            is SelectWithSearchNavigationEvents.FinishWithResult -> {
                 navigationRouter.sendResult(event.requestCode, event.result)
                 navigationRouter.exit()
             }

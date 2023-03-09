@@ -65,7 +65,7 @@ dependencies {
     implementation(project(":feature:profile:emergencycontact"))
     implementation(project(":feature:profile:notifications"))
 
-    implementation(project(":feature:choosers:multiselect"))
+    implementation(project(":feature:choosers:selectwithsearch"))
     implementation(project(":feature:auth:chooser"))
     implementation(project(":feature:auth:container"))
     implementation(project(":feature:auth:signin"))

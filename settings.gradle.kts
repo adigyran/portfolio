@@ -108,7 +108,7 @@ include(":core:ui:delegates:features:auth:signin")
 include(":core:ui:delegates:features:auth:signup")
 include(":core:ui:delegates:features:auth:chooser")
 //choosers
-include(":core:ui:delegates:features:choosers:multiselect")
+include(":core:ui:delegates:features:choosers:selectwithsearch")
 //profile
 include(":core:ui:delegates:features:profile:main")
 include(":core:ui:delegates:features:profile:generalinfo")
@@ -139,7 +139,7 @@ include(":feature:auth:signin")
 include(":feature:auth:restorepassword")
 include(":feature:auth:container")
 //choosers
-include(":feature:choosers:multiselect")
+include(":feature:choosers:selectwithsearch")
 //profile
 include(":feature:profile:notifications")
 include(":feature:profile:emergencycontact")

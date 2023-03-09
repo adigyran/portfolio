@@ -25,7 +25,7 @@ import org.kodein.di.DI
 import org.kodein.di.factory
 import org.kodein.di.on
 
-class ProfileSecurityChangeEmailPhoneView :
+internal class ProfileSecurityChangeEmailPhoneView :
     DiFragment<ViewProfileSecurityChangeEmailphoneBinding, ProfileSecurityChangeEmailPhoneViewModel, ProfileSecurityChangeEmailPhoneState, BaseSideEffect, ProfileSecurityChangeEmailPhoneUiModel, ProfileSecurityChangeEmailPhoneStateTransformer>() {
 
     private var param: Param by argument("param")

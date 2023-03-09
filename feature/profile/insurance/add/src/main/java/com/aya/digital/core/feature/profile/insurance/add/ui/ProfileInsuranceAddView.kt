@@ -19,6 +19,8 @@ import com.aya.digital.core.ui.adapters.base.BaseDelegateAdapter
 import com.aya.digital.core.ui.base.screens.DiFragment
 import com.aya.digital.core.ui.delegates.components.fields.name.model.ui.NameFieldDelegateListeners
 import com.aya.digital.core.ui.delegates.components.fields.name.model.ui.nameFieldDelegate
+import com.aya.digital.core.ui.delegates.components.fields.selection.ui.SelectionFieldDelegateListeners
+import com.aya.digital.core.ui.delegates.components.fields.selection.ui.selectionFieldDelegate
 import com.aya.digital.core.ui.delegates.profile.emergencycontactinfo.ui.insurancePolicyPhotoDelegate
 import kotlinx.parcelize.Parcelize
 import org.kodein.di.DI
@@ -41,6 +43,7 @@ class ProfileInsuranceAddView :
     private val adapter by lazy(LazyThreadSafetyMode.NONE) {
         BaseDelegateAdapter.create {
             delegate { nameFieldDelegate(NameFieldDelegateListeners(viewModel::nameFieldChanged)) }
+            delegate { selectionFieldDelegate(SelectionFieldDelegateListeners(viewModel::onSelectionFieldClicked)) }
             delegate {
                 insurancePolicyPhotoDelegate(
                     viewModel::photoClicked,

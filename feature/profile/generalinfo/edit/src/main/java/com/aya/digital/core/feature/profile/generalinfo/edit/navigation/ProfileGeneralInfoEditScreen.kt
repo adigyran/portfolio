@@ -6,7 +6,7 @@ import com.aya.digital.core.navigation.screen.HealthAppFragmentScreen
 
 data class ProfileGeneralInfoEditScreen(
     val requestCode: String,
-    val profileInfoModel: ProfileInfoModel
+    val profileInfoModel: ProfileInfoModel?
 ) : HealthAppFragmentScreen(fragmentCreator = {
     ProfileGeneralInfoEditView.getNewInstance(
         requestCode = requestCode,

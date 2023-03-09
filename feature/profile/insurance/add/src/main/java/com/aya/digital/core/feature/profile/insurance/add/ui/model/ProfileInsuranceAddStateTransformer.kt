@@ -6,6 +6,7 @@ import com.aya.digital.core.feature.profile.insurance.add.viewmodel.ProfileInsur
 import com.aya.digital.core.mvi.BaseStateTransformer
 import com.aya.digital.core.ui.adapters.base.DiffItem
 import com.aya.digital.core.ui.delegates.components.fields.name.model.NameFieldUIModel
+import com.aya.digital.core.ui.delegates.components.fields.selection.model.SelectionFieldUIModel
 import com.aya.digital.core.ui.delegates.profile.emergencycontactinfo.model.InsurancePolicyPhotoUIModel
 
 
@@ -17,9 +18,9 @@ class ProfileInsuranceAddStateTransformer(private val context: Context) :
                 return@run mutableListOf<DiffItem>().apply {
                     add(InsurancePolicyPhotoUIModel(state.photo))
                     add(
-                        NameFieldUIModel(
+                        SelectionFieldUIModel(
                             FieldsTags.NAME_FIELD_TAG,
-                            "Name Insurance Company",
+                            "Insurance Company Name",
                             state.name,
                             null
                         )

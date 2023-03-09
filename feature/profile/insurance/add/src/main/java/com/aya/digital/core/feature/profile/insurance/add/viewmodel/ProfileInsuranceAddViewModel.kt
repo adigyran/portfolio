@@ -30,6 +30,21 @@ class ProfileInsuranceAddViewModel(
     }
 
     fun nameFieldChanged(tag: Int, text: String) = intent {
+        when(tag)
+        {
+            FieldsTags.NUMBER_FIELD_TAG -> {reduce { state.copy(number = text) }}
+        }
+    }
+
+    fun onSelectionFieldClicked(tag: Int) = intent {
+        when(tag)
+        {
+            FieldsTags.NAME_FIELD_TAG -> {selectInsuranceCompany()}
+        }
+
+    }
+
+    private fun selectInsuranceCompany() {
 
     }
 

@@ -7,7 +7,7 @@ import com.aya.digital.core.ui.adapters.base.DiffItem
 import com.aya.digital.core.ui.delegates.components.fields.emailphone.model.EmailPhoneFieldUIModel
 import com.aya.digital.core.ui.delegates.components.labels.headline.model.HeadlineTwoLineLabelUIModel
 
-class ProfileSecurityChangeEmailPhoneStateTransformer(context: Context) :
+internal class ProfileSecurityChangeEmailPhoneStateTransformer(context: Context) :
     BaseStateTransformer<ProfileSecurityChangeEmailPhoneState, ProfileSecurityChangeEmailPhoneUiModel>() {
     override fun invoke(state: ProfileSecurityChangeEmailPhoneState): ProfileSecurityChangeEmailPhoneUiModel =
         ProfileSecurityChangeEmailPhoneUiModel(

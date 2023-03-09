@@ -10,6 +10,8 @@ sealed class RootContainerNavigationEvents : CoordinatorEvent() {
 
     object OpenBottomNavigationScreenDefault : RootContainerNavigationEvents()
     data class SelectMultipleItems(val requestCode:String, val selectedItems:Set<Int>) : RootContainerNavigationEvents()
+    data class SelectSingleItem(val requestCode:String, val selectedItem:Int?) : RootContainerNavigationEvents()
+
 
     data class EnterCode(val requestCode:String, val email:String) : RootContainerNavigationEvents()
     data class RestorePassword(val requestCode:String) : RootContainerNavigationEvents()
