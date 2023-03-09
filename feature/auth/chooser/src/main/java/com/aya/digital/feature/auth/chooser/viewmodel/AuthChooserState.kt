@@ -6,4 +6,4 @@ import com.aya.digital.core.ui.adapters.base.DiffItem
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class AuthChooserState(val stub: Boolean = false) : BaseState
+internal data class AuthChooserState(val stub: Boolean = false) : BaseState

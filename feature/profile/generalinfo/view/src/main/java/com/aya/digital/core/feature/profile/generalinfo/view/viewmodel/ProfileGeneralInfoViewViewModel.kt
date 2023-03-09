@@ -5,6 +5,7 @@ import com.aya.digital.core.feature.profile.generalinfo.view.navigation.ProfileG
 import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.mvi.BaseViewModel
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
+import com.aya.digital.core.util.requestcodes.RequestCodes
 import kotlinx.coroutines.rx3.await
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.reduce
@@ -50,7 +51,19 @@ class ProfileGeneralInfoViewViewModel(
     }
 
     fun onEditClicked() = intent {
-        coordinatorRouter.sendEvent(ProfileGeneralInfoViewNavigationEvents.EditProfile)
+        listenForProfileEdit()
+        coordinatorRouter.sendEvent(
+            ProfileGeneralInfoViewNavigationEvents.EditProfile(
+                RequestCodes.EDIT_PROFILE_REQUEST_CODE,
+                null
+            )
+        )
+    }
+
+    private fun listenForProfileEdit() {
+        coordinatorRouter.setResultListener(RequestCodes.EDIT_PROFILE_REQUEST_CODE) {
+            loadProfile()
+        }
     }
 
 }

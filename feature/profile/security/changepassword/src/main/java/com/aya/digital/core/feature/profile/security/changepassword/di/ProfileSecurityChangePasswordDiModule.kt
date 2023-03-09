@@ -7,7 +7,7 @@ import com.aya.digital.core.feature.profile.security.changepassword.viewmodel.Pr
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
 import org.kodein.di.*
 
-fun profileSecurityChangePasswordDiModule(
+internal fun profileSecurityChangePasswordDiModule(
     parentCoordinatorEvent: CoordinatorRouter,
     param: ProfileSecurityChangePasswordView.Param
 ) = DI.Module("profileSecurityChangePasswordDiModule") {

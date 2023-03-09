@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.aya.digital.core.ext.argument
 import com.aya.digital.core.ext.createFragment
 import com.aya.digital.core.feature.profile.security.changeemailphone.databinding.ViewProfileSecurityChangeEmailphoneBinding
-import com.aya.digital.core.feature.profile.security.changeemailphone.di.ProfileSecurityChangeEmailPhoneDiModule
+import com.aya.digital.core.feature.profile.security.changeemailphone.di.profileSecurityChangeEmailPhoneDiModule
 import com.aya.digital.core.feature.profile.security.changeemailphone.ui.model.ProfileSecurityChangeEmailPhoneStateTransformer
 import com.aya.digital.core.feature.profile.security.changeemailphone.ui.model.ProfileSecurityChangeEmailPhoneUiModel
 import com.aya.digital.core.feature.profile.security.changeemailphone.viewmodel.ProfileSecurityChangeEmailPhoneState
@@ -68,7 +68,7 @@ internal class ProfileSecurityChangeEmailPhoneView :
 
 
     override fun provideDiModule(): DI.Module =
-        ProfileSecurityChangeEmailPhoneDiModule(tryTyGetParentRouter(), param)
+        profileSecurityChangeEmailPhoneDiModule(tryTyGetParentRouter(), param)
 
     override fun provideViewBinding(
         inflater: LayoutInflater,

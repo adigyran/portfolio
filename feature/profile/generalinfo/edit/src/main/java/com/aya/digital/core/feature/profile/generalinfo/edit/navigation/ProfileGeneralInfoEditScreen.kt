@@ -5,11 +5,10 @@ import com.aya.digital.core.feature.profile.generalinfo.edit.ui.ProfileGeneralIn
 import com.aya.digital.core.navigation.screen.HealthAppFragmentScreen
 
 data class ProfileGeneralInfoEditScreen(
-    val requestCode: String,
-    val profileInfoModel: ProfileInfoModel?
-) : HealthAppFragmentScreen(fragmentCreator = {
+    val requestCode: String
+    ) : HealthAppFragmentScreen(fragmentCreator = {
     ProfileGeneralInfoEditView.getNewInstance(
         requestCode = requestCode,
-        profileModel = profileInfoModel
+        profileModel = null
     )
 })

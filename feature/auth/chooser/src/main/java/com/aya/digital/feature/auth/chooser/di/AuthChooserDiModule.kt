@@ -6,7 +6,7 @@ import com.aya.digital.feature.auth.chooser.ui.model.AuthChooserStateTransformer
 import com.aya.digital.feature.auth.chooser.viewmodel.AuthChooserViewModel
 import org.kodein.di.*
 
-fun authChooserDiModule(
+internal fun authChooserDiModule(
     parentCoordinatorEvent: CoordinatorRouter
 ) = DI.Module("authChooserDiModule") {
 

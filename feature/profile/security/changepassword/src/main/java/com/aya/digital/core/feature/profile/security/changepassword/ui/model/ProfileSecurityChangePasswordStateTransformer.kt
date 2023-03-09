@@ -8,7 +8,7 @@ import com.aya.digital.core.ui.adapters.base.DiffItem
 import com.aya.digital.core.ui.delegates.components.fields.password.model.PasswordFieldUIModel
 import com.aya.digital.core.ui.delegates.components.labels.headline.model.HeadlineTwoLineLabelUIModel
 
-class ProfileSecurityChangePasswordStateTransformer(private val context: Context) :
+internal class ProfileSecurityChangePasswordStateTransformer(private val context: Context) :
     BaseStateTransformer<ProfileSecurityChangePasswordState, ProfileSecurityChangePasswordUiModel>() {
     override fun invoke(state: ProfileSecurityChangePasswordState): ProfileSecurityChangePasswordUiModel =
         ProfileSecurityChangePasswordUiModel(

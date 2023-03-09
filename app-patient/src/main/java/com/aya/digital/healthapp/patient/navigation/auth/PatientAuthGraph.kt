@@ -2,8 +2,8 @@ package com.aya.digital.healthapp.patient.navigation.auth
 
 import com.aya.digital.core.data.base.dataprocessing.dataloading.enums.OperationState
 import com.aya.digital.core.feature.auth.restorepassword.navigation.RestorePasswordNavigationEvents
+import com.aya.digital.core.feature.auth.restorepassword.navigation.RestorePasswordOperationStateParam
 import com.aya.digital.core.feature.auth.restorepassword.navigation.RestorePasswordScreen
-import com.aya.digital.core.feature.auth.restorepassword.ui.RestorePasswordView
 import com.aya.digital.core.feature.auth.signin.navigation.SignInNavigationEvents
 import com.aya.digital.core.feature.auth.signin.navigation.SignInScreen
 import com.aya.digital.core.navigation.coordinator.CoordinatorEvent
@@ -26,7 +26,7 @@ class PatientAuthGraph : FragmentContainerGraph {
         fun signIn() = navigationRouter.navigateTo(SignInScreen)
         fun signUp() = navigationRouter.navigateTo(SignUpScreen)
         fun restorePassword(requestCode:String) = navigationRouter.navigateTo(RestorePasswordScreen(requestCode,
-            RestorePasswordView.Param.RestorePasswordOperationStateParam.RestorePassword
+            RestorePasswordOperationStateParam.RestorePassword
         ))
         when (event) {
             AuthContainerNavigationEvents.OpenDefaultScreen -> {

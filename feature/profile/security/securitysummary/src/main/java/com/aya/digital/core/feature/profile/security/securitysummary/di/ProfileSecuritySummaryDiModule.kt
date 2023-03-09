@@ -6,7 +6,7 @@ import com.aya.digital.core.feature.profile.security.securitysummary.viewmodel.P
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
 import org.kodein.di.*
 
-fun profileSecuritySummaryDiModule(
+internal fun profileSecuritySummaryDiModule(
     parentCoordinatorEvent: CoordinatorRouter
 ) = DI.Module("profileSecuritySummaryDiModule") {
 

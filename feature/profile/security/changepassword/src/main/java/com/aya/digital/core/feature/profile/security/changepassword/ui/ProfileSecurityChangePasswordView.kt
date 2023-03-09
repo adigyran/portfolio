@@ -25,7 +25,7 @@ import org.kodein.di.DI
 import org.kodein.di.factory
 import org.kodein.di.on
 
-class ProfileSecurityChangePasswordView :
+internal class ProfileSecurityChangePasswordView :
     DiFragment<ViewProfileChangePasswordBinding, ProfileSecurityChangePasswordViewModel, ProfileSecurityChangePasswordState, BaseSideEffect, ProfileSecurityChangePasswordUiModel, ProfileSecurityChangePasswordStateTransformer>() {
 
     private var param: Param by argument("param")

@@ -7,7 +7,7 @@ import com.aya.digital.core.mvi.BaseStateTransformer
 import com.aya.digital.core.ui.adapters.base.DiffItem
 import com.aya.digital.core.ui.delegates.profile.emergencycontactinfo.model.SecuritySummaryUIModel
 
-class ProfileSecuritySummaryStateTransformer(context: Context) :
+internal class ProfileSecuritySummaryStateTransformer(context: Context) :
     BaseStateTransformer<ProfileSecuritySummaryState, ProfileSecuritySummaryUiModel>() {
     override fun invoke(state: ProfileSecuritySummaryState): ProfileSecuritySummaryUiModel =
         ProfileSecuritySummaryUiModel(

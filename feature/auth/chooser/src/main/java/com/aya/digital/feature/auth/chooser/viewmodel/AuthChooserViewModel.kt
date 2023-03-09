@@ -7,7 +7,7 @@ import com.aya.digital.feature.auth.chooser.navigation.AuthChooserNavigationEven
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.viewmodel.container
 
-class AuthChooserViewModel(val coordinatorRouter: CoordinatorRouter) :
+internal class AuthChooserViewModel(val coordinatorRouter: CoordinatorRouter) :
     BaseViewModel<AuthChooserState, BaseSideEffect>() {
     override val container = container<AuthChooserState, BaseSideEffect>(
         initialState = AuthChooserState(),

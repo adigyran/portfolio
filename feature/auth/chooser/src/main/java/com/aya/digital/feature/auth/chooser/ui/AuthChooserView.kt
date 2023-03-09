@@ -22,7 +22,7 @@ import org.kodein.di.DI
 import org.kodein.di.factory
 import org.kodein.di.on
 
-class AuthChooserView :
+internal class AuthChooserView :
     DiFragment<ViewAuthChooserBinding, AuthChooserViewModel, AuthChooserState, BaseSideEffect, AuthChooserUiModel, AuthChooserStateTransformer>() {
 
     private val viewModelFactory: ((Unit) -> AuthChooserViewModel) by kodein.on(

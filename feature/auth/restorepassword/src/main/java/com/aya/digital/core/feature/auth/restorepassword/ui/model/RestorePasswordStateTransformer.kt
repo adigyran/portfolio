@@ -10,7 +10,7 @@ import com.aya.digital.core.ui.delegates.components.fields.emailphone.model.Emai
 import com.aya.digital.core.ui.delegates.components.fields.password.model.PasswordFieldUIModel
 import com.aya.digital.core.ui.delegates.components.labels.headline.model.HeadlineLabelUIModel
 
-class RestorePasswordStateTransformer(private val context: Context) :
+internal class RestorePasswordStateTransformer(private val context: Context) :
     BaseStateTransformer<RestorePasswordState, RestorePasswordUiModel>() {
     override fun invoke(state: RestorePasswordState): RestorePasswordUiModel =
         RestorePasswordUiModel(

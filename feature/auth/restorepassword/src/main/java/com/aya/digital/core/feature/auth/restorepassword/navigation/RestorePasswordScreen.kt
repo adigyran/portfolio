@@ -5,7 +5,7 @@ import com.aya.digital.core.navigation.screen.HealthAppFragmentScreen
 
 data class RestorePasswordScreen(
     val requestCode: String,
-    val operationState: RestorePasswordView.Param.RestorePasswordOperationStateParam
+    val operationState: RestorePasswordOperationStateParam
 ) : HealthAppFragmentScreen(fragmentCreator = {
     RestorePasswordView.getNewInstance(
         requestCode,

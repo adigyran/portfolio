@@ -7,7 +7,7 @@ import com.aya.digital.core.feature.auth.restorepassword.viewmodel.RestorePasswo
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
 import org.kodein.di.*
 
-fun restorePasswordDiModule(
+internal fun restorePasswordDiModule(
     parentCoordinatorEvent: CoordinatorRouter,
     param: RestorePasswordView.Param
 ) = DI.Module("restorePasswordDiModule") {

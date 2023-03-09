@@ -11,6 +11,7 @@ import com.aya.digital.core.domain.auth.model.RestorePasswordSendCodeModel
 import com.aya.digital.core.domain.auth.model.VerifyCodeResult
 import com.aya.digital.core.feature.auth.restorepassword.FieldsTags
 import com.aya.digital.core.feature.auth.restorepassword.navigation.RestorePasswordNavigationEvents
+import com.aya.digital.core.feature.auth.restorepassword.navigation.RestorePasswordOperationStateParam
 import com.aya.digital.core.feature.auth.restorepassword.ui.RestorePasswordView
 import com.aya.digital.core.feature.auth.restorepassword.viewmodel.model.RestorePasswordOperationState
 import com.aya.digital.core.mvi.BaseSideEffect
@@ -23,7 +24,7 @@ import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 import timber.log.Timber
 
-class RestorePasswordViewModel(
+internal class RestorePasswordViewModel(
     private val coordinatorRouter: CoordinatorRouter,
     private val param: RestorePasswordView.Param,
     private val restorePasswordGetCodeUseCase: RestorePasswordGetCodeUseCase,
@@ -54,10 +55,10 @@ class RestorePasswordViewModel(
         }
     }
 
-    private fun RestorePasswordView.Param.RestorePasswordOperationStateParam.getInitialOperationState(): RestorePasswordOperationState =
+    private fun RestorePasswordOperationStateParam.getInitialOperationState(): RestorePasswordOperationState =
         when (this) {
-            RestorePasswordView.Param.RestorePasswordOperationStateParam.ChangeTempPass -> com.aya.digital.core.feature.auth.restorepassword.viewmodel.model.RestorePasswordOperationState.ChangeTempPassword
-            RestorePasswordView.Param.RestorePasswordOperationStateParam.RestorePassword -> com.aya.digital.core.feature.auth.restorepassword.viewmodel.model.RestorePasswordOperationState.RestoringEmailInput
+            RestorePasswordOperationStateParam.ChangeTempPass -> com.aya.digital.core.feature.auth.restorepassword.viewmodel.model.RestorePasswordOperationState.ChangeTempPassword
+            RestorePasswordOperationStateParam.RestorePassword -> com.aya.digital.core.feature.auth.restorepassword.viewmodel.model.RestorePasswordOperationState.RestoringEmailInput
         }
 
     fun saveButtonClicked() = intent {

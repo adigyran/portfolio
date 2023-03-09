@@ -7,7 +7,7 @@ import com.aya.digital.core.feature.profile.security.changeemailphone.viewmodel.
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
 import org.kodein.di.*
 
-fun ProfileSecurityChangeEmailPhoneDiModule(
+internal fun profileSecurityChangeEmailPhoneDiModule(
     parentCoordinatorEvent: CoordinatorRouter,
     param: ProfileSecurityChangeEmailPhoneView.Param
 ) = DI.Module("profileSecurityChangeEmailPhoneDiModule") {

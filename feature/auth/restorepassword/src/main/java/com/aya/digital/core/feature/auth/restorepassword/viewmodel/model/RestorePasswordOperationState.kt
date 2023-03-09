@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-sealed class RestorePasswordOperationState : Parcelable {
+internal sealed class RestorePasswordOperationState : Parcelable {
     object RestoringEmailInput : RestorePasswordOperationState()
     object RestoringChangePassword : RestorePasswordOperationState()
     object ChangeTempPassword : RestorePasswordOperationState()

@@ -19,7 +19,7 @@ import org.kodein.di.DI
 import org.kodein.di.factory
 import org.kodein.di.on
 
-class ProfileSecuritySummaryView :
+internal class ProfileSecuritySummaryView :
     DiFragment<ViewProfileSecuritySummaryBinding, ProfileSecuritySummaryViewModel, ProfileSecuritySummaryState, BaseSideEffect, ProfileSecuritySummaryUiModel, ProfileSecuritySummaryStateTransformer>() {
 
     private val viewModelFactory: ((Unit) -> ProfileSecuritySummaryViewModel) by kodein.on(

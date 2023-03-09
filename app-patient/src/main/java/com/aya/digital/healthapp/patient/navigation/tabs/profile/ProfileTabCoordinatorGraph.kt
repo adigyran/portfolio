@@ -53,8 +53,7 @@ class ProfileTabCoordinatorGraph : FragmentContainerGraph {
             is ProfileGeneralInfoViewNavigationEvents.EditProfile -> {
                 mainRouter.navigateTo(
                     ProfileGeneralInfoEditScreen(
-                        event.requestCode,
-                        event.profileInfoModel
+                        event.requestCode
                     )
                 )
             }

@@ -11,7 +11,7 @@ import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.viewmodel.container
 import timber.log.Timber
 
-class ProfileSecurityChangePasswordViewModel(
+internal class ProfileSecurityChangePasswordViewModel(
     private val param: ProfileSecurityChangePasswordView.Param,
     private val coordinatorRouter: CoordinatorRouter,
     private val changePasswordUseCase: ChangePasswordUseCase

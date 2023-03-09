@@ -16,6 +16,7 @@ import com.aya.digital.core.feature.auth.restorepassword.viewmodel.RestorePasswo
 import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.ui.adapters.base.BaseDelegateAdapter
 import com.aya.digital.core.ext.createFragment
+import com.aya.digital.core.feature.auth.restorepassword.navigation.RestorePasswordOperationStateParam
 import com.aya.digital.core.feature.auth.signin.restorepassword.databinding.ViewRestorePasswordBinding
 import com.aya.digital.core.ui.base.screens.DiFragment
 import com.aya.digital.core.ui.delegates.components.fields.emailphone.ui.EmailPhoneDelegateListeners
@@ -29,7 +30,7 @@ import org.kodein.di.DI
 import org.kodein.di.factory
 import org.kodein.di.on
 
-class RestorePasswordView :
+internal class RestorePasswordView :
     DiFragment<ViewRestorePasswordBinding, RestorePasswordViewModel, RestorePasswordState, BaseSideEffect, RestorePasswordUiModel, RestorePasswordStateTransformer>() {
 
     private var param: Param by argument("param")
@@ -110,14 +111,9 @@ class RestorePasswordView :
         val operationState: RestorePasswordOperationStateParam
     ) : Parcelable
     {
-        @Parcelize
-        sealed class RestorePasswordOperationStateParam : Parcelable{
-            object ChangeTempPass : RestorePasswordOperationStateParam()
-            object RestorePassword : RestorePasswordOperationStateParam()
-        }
     }
     companion object {
-        fun getNewInstance(requestCode: String, operationState: Param.RestorePasswordOperationStateParam): RestorePasswordView = createFragment(
+        fun getNewInstance(requestCode: String, operationState: RestorePasswordOperationStateParam): RestorePasswordView = createFragment(
             Param(requestCode,operationState)
         )
     }

@@ -3,8 +3,8 @@ package com.aya.digital.healthapp.patient.navigation.root
 import android.content.Context
 import androidx.fragment.app.FragmentManager
 import com.aya.digital.core.feature.auth.restorepassword.navigation.RestorePasswordNavigationEvents
+import com.aya.digital.core.feature.auth.restorepassword.navigation.RestorePasswordOperationStateParam
 import com.aya.digital.core.feature.auth.restorepassword.navigation.RestorePasswordScreen
-import com.aya.digital.core.feature.auth.restorepassword.ui.RestorePasswordView
 import com.aya.digital.core.feature.bottomnavhost.navigation.BottomNavHostScreen
 import com.aya.digital.core.feature.choosers.multiselect.navigation.SelectWithSearchNavigationEvents
 import com.aya.digital.core.feature.choosers.multiselect.navigation.SelectWithSearchScreen
@@ -74,7 +74,7 @@ class PatientRootCoordinatorGraph(context: Context) : RootCoordinatorGraph {
                 navigationRouter.navigateTo(
                     RestorePasswordScreen(
                         event.requestCode,
-                        RestorePasswordView.Param.RestorePasswordOperationStateParam.RestorePassword
+                        RestorePasswordOperationStateParam.RestorePassword
                     )
                 )
             }
@@ -83,7 +83,7 @@ class PatientRootCoordinatorGraph(context: Context) : RootCoordinatorGraph {
                 navigationRouter.navigateTo(
                     RestorePasswordScreen(
                         event.requestCode,
-                        RestorePasswordView.Param.RestorePasswordOperationStateParam.ChangeTempPass
+                        RestorePasswordOperationStateParam.ChangeTempPass
                     )
                 )
             }

@@ -5,7 +5,7 @@ import com.aya.digital.core.mvi.BaseState
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class RestorePasswordState(
+internal data class RestorePasswordState(
     val operationState: RestorePasswordOperationState,
     val code:String? = null,
     val email: String = "",
