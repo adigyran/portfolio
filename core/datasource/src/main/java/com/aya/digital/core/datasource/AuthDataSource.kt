@@ -19,7 +19,7 @@ interface AuthDataSource {
 
     fun verifyProfile(code: String): Single<Boolean>
 
-    fun sendCode(login: String): Single<Boolean>
+    fun sendCode(login: String): Single<Unit>
 
     fun getUserKey(code: String): Single<UserKeyResponse>
 

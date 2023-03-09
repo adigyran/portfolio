@@ -76,7 +76,7 @@ internal class AuthRepositoryImpl(
         authDataSource.sendCode(email)
             .retryOnError()
             .retrofitResponseToResult(CommonUtils::mapServerErrors)
-            .mapResult({ it.asResult() }, { it })
+            .mapResult({ true.asResult() }, { it })
 
     override fun getRestoreToken(code: String): Single<RequestResult<UserKeyResult>> =
         authDataSource.getUserKey(code)
@@ -102,7 +102,7 @@ internal class AuthRepositoryImpl(
         authDataSource.sendCode(email)
             .retryOnError()
             .retrofitResponseToResult(CommonUtils::mapServerErrors)
-            .mapResult({ it.asResult() }, { it })
+            .mapResult({ true.asResult() }, { it })
 
     override fun changeEmail(code: String, email: String): Single<RequestResult<Boolean>> =
         authDataSource.changeEmail(code,ChangeEmailBody(email))

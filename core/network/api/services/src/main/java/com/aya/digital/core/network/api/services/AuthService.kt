@@ -22,9 +22,9 @@ interface AuthService {
     fun verifyProfile(@Query("codeInput") code: String): Single<Boolean>
 
     @POST("verify-operations/send-code")
-    fun sendCode(@Query("login") login: String): Single<Boolean>
+    fun sendCode(@Query("login") login: String): Single<Unit>
 
-    @POST("verify-operations/get-user-key")
+    @GET("verify-operations/get-user-key")
     fun getUserKey(@Query("codeInput") code: String): Single<UserKeyResponse>
 
     @POST("base/forget-password-userkey")

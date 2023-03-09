@@ -8,6 +8,7 @@ import kotlinx.parcelize.Parcelize
 internal data class RestorePasswordState(
     val operationState: RestorePasswordOperationState,
     val code:String? = null,
+    val userKey:String? = null,
     val email: String = "",
     val emailError: String? = null,
     val passwordNew: String = "",

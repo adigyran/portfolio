@@ -26,7 +26,7 @@ fun authDomainDiModule() = DI.Module("authDomainDiModule") {
     bind<VerifyRegistrationUseCase>() with singleton { VerifyRegistrationUseCaseImpl(instance()) }
 
     bind<MakeNewPasswordUseCase>() with singleton { MakeNewPasswordUseCaseImpl() }
-    bind<RestorePasswordSendCodeUseCase>() with singleton { RestorePasswordSendCodeUseCaseImpl(instance()) }
+    bind<RestorePasswordSendCodeGetUserKeyUseCase>() with singleton { RestorePasswordSendCodeUseCaseImpl(instance()) }
     bind<RestorePasswordGetCodeUseCase>() with singleton { RestorePasswordGetCodeUseCaseImpl(instance()) }
     bind<RestorePasswordChangePasswordUseCase>() with singleton { RestorePasswordChangePasswordUseCaseImpl(instance()) }
 

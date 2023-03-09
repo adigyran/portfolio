@@ -33,7 +33,7 @@ class RetrofitAuthNetwork(private val network: AuthService) :
         network.generateToken(loginBody)
 
     override fun verifyProfile(code: String): Single<Boolean> = network.verifyProfile(code)
-    override fun sendCode(login: String): Single<Boolean> = network.sendCode(login)
+    override fun sendCode(login: String): Single<Unit> = network.sendCode(login)
 
     override fun getUserKey(code: String): Single<UserKeyResponse> = network.getUserKey(code)
 
