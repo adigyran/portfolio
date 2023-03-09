@@ -26,7 +26,7 @@ fun nameFieldDelegate(delegateListeners: NameFieldDelegateListeners) =
                 binding.tilField.suffixText = item.suffix
                 fieldSet = true
             }
-            if(!valueSet && item.text!=null && item.text!!.isNotBlank() )
+            if(!valueSet && item.text!=null && item.text!!.isNotEmpty() && item.text!=binding.edField.text.toString())
             {
                 binding.edField.setText(item.text)
                 valueSet = true
