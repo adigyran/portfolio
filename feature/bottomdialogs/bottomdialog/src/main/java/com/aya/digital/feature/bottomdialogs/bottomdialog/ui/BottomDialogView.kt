@@ -34,9 +34,7 @@ class BottomDialogView :
         container: ViewGroup?
     ): ViewBottomDialogBinding = ViewBottomDialogBinding.inflate(inflater, container, false)
 
-    override fun sideEffect(sideEffect: BaseSideEffect) {
-        super.sideEffect(sideEffect)
-    }
+    override fun sideEffect(sideEffect: BaseSideEffect) = Unit
 
     override fun render(state: BottomDialogState) = Unit
 }

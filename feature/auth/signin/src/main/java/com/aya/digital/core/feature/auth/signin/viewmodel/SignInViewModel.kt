@@ -10,17 +10,17 @@ import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
 import com.aya.digital.core.util.requestcodes.RequestCodes
 import kotlinx.coroutines.rx3.await
 import org.orbitmvi.orbit.syntax.simple.intent
+import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
-import timber.log.Timber
 
 class SignInViewModel(
     private val coordinatorRouter: CoordinatorRouter,
     private val rootCoordinatorRouter: CoordinatorRouter,
     private val signInUseCase: SignInUseCase
 ) :
-    BaseViewModel<SignInState, BaseSideEffect>() {
-    override val container = container<SignInState, BaseSideEffect>(
+    BaseViewModel<SignInState, SignInSideEffects>() {
+    override val container = container<SignInState, SignInSideEffects>(
         initialState = SignInState(),
     )
     {
@@ -41,7 +41,7 @@ class SignInViewModel(
         if (state.email.isNotBlank() && state.password.isNotBlank()) {
             val signIn = signInUseCase(state.email, state.password).await()
             signIn.processResult({ coordinatorRouter.sendEvent(SignInNavigationEvents.SignedIn) },
-                { error -> Timber.e(error.toString()) })
+                { error -> processError(error) })
         }
     }
 
@@ -65,6 +65,10 @@ class SignInViewModel(
     private fun passwordRestored(passwordRestored: Boolean) = intent {
         if(!passwordRestored) return@intent
         reduce { state.copy(password = "", passwordError = null) }
+    }
+
+    override fun postErrorSideEffect(errorSideEffect: ErrorSideEffect) = intent {
+        postSideEffect(SignInSideEffects.Error(errorSideEffect))
     }
 
 }

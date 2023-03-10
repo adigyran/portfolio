@@ -18,6 +18,7 @@ import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.ui.adapters.base.BaseDelegateAdapter
 import com.aya.digital.core.ui.base.ext.SpannableObject
 import com.aya.digital.core.ext.colors
+import com.aya.digital.core.feature.auth.signin.viewmodel.SignInSideEffects
 import com.aya.digital.core.ui.base.ext.createSpannableText
 import com.aya.digital.core.ui.base.screens.DiFragment
 import com.aya.digital.core.ui.base.utils.LinkTouchMovementMethod
@@ -34,7 +35,7 @@ import org.kodein.di.factory
 import org.kodein.di.on
 
 class SignInView :
-    DiFragment<ViewSigninBinding, SignInViewModel, SignInState, BaseSideEffect, SignInUiModel, SignInStateTransformer>() {
+    DiFragment<ViewSigninBinding, SignInViewModel, SignInState, SignInSideEffects, SignInUiModel, SignInStateTransformer>() {
 
     private val viewModelFactory: ((Unit) -> SignInViewModel) by kodein.on(
         context = this
@@ -104,8 +105,11 @@ class SignInView :
         container: ViewGroup?
     ): ViewSigninBinding = ViewSigninBinding.inflate(inflater, container, false)
 
-    override fun sideEffect(sideEffect: BaseSideEffect) {
-        super.sideEffect(sideEffect)
+    override fun sideEffect(sideEffect: SignInSideEffects)= when(sideEffect)
+    {
+        is SignInSideEffects.Error -> {
+            processErrorSideEffect(sideEffect.error)
+        }
     }
 
     override fun render(state: SignInState) {

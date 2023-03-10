@@ -5,11 +5,13 @@ import com.aya.digital.core.domain.dictionaries.GetMultiSelectItemsUseCase
 import com.aya.digital.core.feature.choosers.multiselect.model.SelectionItem
 import com.aya.digital.core.feature.choosers.multiselect.navigation.SelectWithSearchNavigationEvents
 import com.aya.digital.core.feature.choosers.multiselect.ui.SelectWithSearchView
+import com.aya.digital.core.feature.choosers.selectwithsearch.viewmodel.SelectWithSearchChooserSideEffects
 import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.mvi.BaseViewModel
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
 import kotlinx.coroutines.reactive.asFlow
 import org.orbitmvi.orbit.syntax.simple.intent
+import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
@@ -18,8 +20,8 @@ class SelectWithSearchChooserViewModel(
     private val getMultiSelectItemsUseCase: GetMultiSelectItemsUseCase,
     private val param: SelectWithSearchView.Param
 ) :
-    BaseViewModel<SelectWithSearchChooserState, BaseSideEffect>() {
-    override val container = container<SelectWithSearchChooserState, BaseSideEffect>(
+    BaseViewModel<SelectWithSearchChooserState, SelectWithSearchChooserSideEffects>() {
+    override val container = container<SelectWithSearchChooserState, SelectWithSearchChooserSideEffects>(
         initialState = SelectWithSearchChooserState(),
     )
     {
@@ -43,7 +45,7 @@ class SelectWithSearchChooserViewModel(
                 reduce {
                     state.copy(items = selectedItems)
                 }
-            }, {})
+            }, {processError(it)})
 
         }
     }
@@ -60,5 +62,7 @@ class SelectWithSearchChooserViewModel(
             MultiSelectResultModel(state.selectedItems)))
     }
 
-
+    override fun postErrorSideEffect(errorSideEffect: ErrorSideEffect) = intent {
+        postSideEffect(SelectWithSearchChooserSideEffects.Error(errorSideEffect))
+    }
 }

@@ -94,7 +94,7 @@ class ProfileGeneralInfoEditView :
             is ProfileGeneralInfoEditSideEffect.ShowBirthdayDatePicker -> {
                 showBirthdayDatePicker(sideEffect.selectedDate)
             }
-            else -> {}
+            is ProfileGeneralInfoEditSideEffect.Error -> processErrorSideEffect(sideEffect.error)
         }
 
     private fun showBirthdayDatePicker(selectedDate: LocalDate?) {

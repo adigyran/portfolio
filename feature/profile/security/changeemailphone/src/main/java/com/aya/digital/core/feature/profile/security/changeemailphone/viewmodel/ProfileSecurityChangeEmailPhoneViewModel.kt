@@ -10,6 +10,7 @@ import com.aya.digital.core.mvi.BaseViewModel
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
 import kotlinx.coroutines.rx3.await
 import org.orbitmvi.orbit.syntax.simple.intent
+import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 import timber.log.Timber
@@ -20,8 +21,8 @@ internal class ProfileSecurityChangeEmailPhoneViewModel(
     private val changeEmailUseCase: ChangeEmailUseCase,
     private val changeEmailGetCodeUseCase: ChangeEmailGetCodeUseCase
 ) :
-    BaseViewModel<ProfileSecurityChangeEmailPhoneState, BaseSideEffect>() {
-    override val container = container<ProfileSecurityChangeEmailPhoneState, BaseSideEffect>(
+    BaseViewModel<ProfileSecurityChangeEmailPhoneState, ProfileSecurityChangeEmailPhoneSideEffects>() {
+    override val container = container<ProfileSecurityChangeEmailPhoneState, ProfileSecurityChangeEmailPhoneSideEffects>(
         initialState = ProfileSecurityChangeEmailPhoneState(),
     )
     {
@@ -31,19 +32,22 @@ internal class ProfileSecurityChangeEmailPhoneViewModel(
     private fun changeEmail(email: String) = intent {
         state.code?.let { code ->
             val await = changeEmailUseCase(code = code, newEmail = email).await()
-            await.processResult({}, { Timber.d(it.toString()) })
+            await.processResult({}, { processError(it) })
         }
     }
 
     private fun requestCode() = intent {
         val await = changeEmailGetCodeUseCase().await()
         await.processResult({
-        }, { Timber.d(it.toString()) })
+        }, { processError(it) })
     }
 
     fun emailChanged(email: String) = intent {
         if (state.email != email) reduce { state.copy(email = email) }
     }
 
+    override fun postErrorSideEffect(errorSideEffect: ErrorSideEffect) = intent {
+        postSideEffect(ProfileSecurityChangeEmailPhoneSideEffects.Error(errorSideEffect))
+    }
 }
 

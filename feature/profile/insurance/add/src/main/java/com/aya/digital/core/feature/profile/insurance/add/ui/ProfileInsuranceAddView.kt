@@ -12,6 +12,7 @@ import com.aya.digital.core.feature.profile.insurance.add.databinding.ViewProfil
 import com.aya.digital.core.feature.profile.insurance.add.di.profileInsuranceAddDiModule
 import com.aya.digital.core.feature.profile.insurance.add.ui.model.ProfileInsuranceAddStateTransformer
 import com.aya.digital.core.feature.profile.insurance.add.ui.model.ProfileInsuranceAddUiModel
+import com.aya.digital.core.feature.profile.insurance.add.viewmodel.ProfileInsuranceAddSideEffects
 import com.aya.digital.core.feature.profile.insurance.add.viewmodel.ProfileInsuranceAddState
 import com.aya.digital.core.feature.profile.insurance.add.viewmodel.ProfileInsuranceAddViewModel
 import com.aya.digital.core.mvi.BaseSideEffect
@@ -28,7 +29,7 @@ import org.kodein.di.factory
 import org.kodein.di.on
 
 class ProfileInsuranceAddView :
-    DiFragment<ViewProfileInsuranceAddBinding, ProfileInsuranceAddViewModel, ProfileInsuranceAddState, BaseSideEffect, ProfileInsuranceAddUiModel, ProfileInsuranceAddStateTransformer>() {
+    DiFragment<ViewProfileInsuranceAddBinding, ProfileInsuranceAddViewModel, ProfileInsuranceAddState, ProfileInsuranceAddSideEffects, ProfileInsuranceAddUiModel, ProfileInsuranceAddStateTransformer>() {
 
     private var param: Param by argument("param")
 
@@ -82,9 +83,11 @@ class ProfileInsuranceAddView :
     ): ViewProfileInsuranceAddBinding =
         ViewProfileInsuranceAddBinding.inflate(inflater, container, false)
 
-    override fun sideEffect(sideEffect: BaseSideEffect) {
-        super.sideEffect(sideEffect)
-    }
+    override fun sideEffect(sideEffect: ProfileInsuranceAddSideEffects) =
+        when(sideEffect)
+        {
+            is ProfileInsuranceAddSideEffects.Error -> processErrorSideEffect(sideEffect.error)
+        }
 
     override fun render(state: ProfileInsuranceAddState) {
         stateTransformer(state).data?.let {

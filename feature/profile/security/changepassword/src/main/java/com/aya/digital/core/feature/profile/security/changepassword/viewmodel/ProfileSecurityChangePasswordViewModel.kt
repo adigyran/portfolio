@@ -8,6 +8,7 @@ import com.aya.digital.core.mvi.BaseViewModel
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
 import kotlinx.coroutines.rx3.await
 import org.orbitmvi.orbit.syntax.simple.intent
+import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.viewmodel.container
 import timber.log.Timber
 
@@ -16,8 +17,8 @@ internal class ProfileSecurityChangePasswordViewModel(
     private val coordinatorRouter: CoordinatorRouter,
     private val changePasswordUseCase: ChangePasswordUseCase
 ) :
-    BaseViewModel<ProfileSecurityChangePasswordState, BaseSideEffect>() {
-    override val container = container<ProfileSecurityChangePasswordState, BaseSideEffect>(
+    BaseViewModel<ProfileSecurityChangePasswordState, ProfileSecurityChangePasswordSideEffects>() {
+    override val container = container<ProfileSecurityChangePasswordState, ProfileSecurityChangePasswordSideEffects>(
         initialState = ProfileSecurityChangePasswordState(),
     )
     {
@@ -34,8 +35,11 @@ internal class ProfileSecurityChangePasswordViewModel(
         val changePasswordModel =
             ChangePasswordModel(state.currentPassword, state.newPassword, state.newRepeatPassword)
         changePasswordUseCase(changePasswordModel).await()
-            .processResult({}, { Timber.d(it.toString()) })
+            .processResult({}, { processError(it) })
     }
 
+    override fun postErrorSideEffect(errorSideEffect: ErrorSideEffect) = intent {
+        postSideEffect(ProfileSecurityChangePasswordSideEffects.Error(errorSideEffect))
+    }
 }
 

@@ -23,7 +23,6 @@ import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
-import timber.log.Timber
 
 internal class RestorePasswordViewModel(
     private val coordinatorRouter: CoordinatorRouter,
@@ -33,8 +32,12 @@ internal class RestorePasswordViewModel(
     private val restorePasswordSendCodeUseCase: RestorePasswordSendCodeGetUserKeyUseCase,
     private val changePasswordUseCase: RestorePasswordChangePasswordUseCase
 ) :
-    BaseViewModel<RestorePasswordState, BaseSideEffect>() {
-    override val container = container<RestorePasswordState, BaseSideEffect>(
+    BaseViewModel<RestorePasswordState, RestorePasswordSideEffects>() {
+    override fun postErrorSideEffect(errorSideEffect: ErrorSideEffect) = intent {
+        postSideEffect(RestorePasswordSideEffects.Error(errorSideEffect))
+    }
+
+    override val container = container<RestorePasswordState, RestorePasswordSideEffects>(
         initialState = RestorePasswordState(operationState = param.operationState.getInitialOperationState()),
     )
     {
@@ -117,7 +120,7 @@ internal class RestorePasswordViewModel(
                 .processResult({
                     exitWithResult(true)
                 }, {
-                    Timber.d(it.toString())
+                    processError(it)
                     exitWithResult(false)
                 })
 
@@ -138,7 +141,7 @@ internal class RestorePasswordViewModel(
             .await()
             .processResult({
                 requestCodeScreen()
-            }, { Timber.d(it.toString()) })
+            }, { processError(it) })
     }
 
     private fun requestCodeScreen() = intent {
@@ -158,5 +161,10 @@ internal class RestorePasswordViewModel(
             }
         }
     }
+
+    private fun postErrorSideEffect() = intent {
+
+    }
+
 }
 

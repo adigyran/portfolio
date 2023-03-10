@@ -12,6 +12,7 @@ import com.aya.digital.core.feature.profile.security.changeemailphone.databindin
 import com.aya.digital.core.feature.profile.security.changeemailphone.di.profileSecurityChangeEmailPhoneDiModule
 import com.aya.digital.core.feature.profile.security.changeemailphone.ui.model.ProfileSecurityChangeEmailPhoneStateTransformer
 import com.aya.digital.core.feature.profile.security.changeemailphone.ui.model.ProfileSecurityChangeEmailPhoneUiModel
+import com.aya.digital.core.feature.profile.security.changeemailphone.viewmodel.ProfileSecurityChangeEmailPhoneSideEffects
 import com.aya.digital.core.feature.profile.security.changeemailphone.viewmodel.ProfileSecurityChangeEmailPhoneState
 import com.aya.digital.core.feature.profile.security.changeemailphone.viewmodel.ProfileSecurityChangeEmailPhoneViewModel
 import com.aya.digital.core.mvi.BaseSideEffect
@@ -26,7 +27,7 @@ import org.kodein.di.factory
 import org.kodein.di.on
 
 internal class ProfileSecurityChangeEmailPhoneView :
-    DiFragment<ViewProfileSecurityChangeEmailphoneBinding, ProfileSecurityChangeEmailPhoneViewModel, ProfileSecurityChangeEmailPhoneState, BaseSideEffect, ProfileSecurityChangeEmailPhoneUiModel, ProfileSecurityChangeEmailPhoneStateTransformer>() {
+    DiFragment<ViewProfileSecurityChangeEmailphoneBinding, ProfileSecurityChangeEmailPhoneViewModel, ProfileSecurityChangeEmailPhoneState, ProfileSecurityChangeEmailPhoneSideEffects, ProfileSecurityChangeEmailPhoneUiModel, ProfileSecurityChangeEmailPhoneStateTransformer>() {
 
     private var param: Param by argument("param")
 
@@ -76,9 +77,11 @@ internal class ProfileSecurityChangeEmailPhoneView :
     ): ViewProfileSecurityChangeEmailphoneBinding =
         ViewProfileSecurityChangeEmailphoneBinding.inflate(inflater, container, false)
 
-    override fun sideEffect(sideEffect: BaseSideEffect) {
-        super.sideEffect(sideEffect)
-    }
+    override fun sideEffect(sideEffect: ProfileSecurityChangeEmailPhoneSideEffects) =
+        when(sideEffect)
+        {
+            is ProfileSecurityChangeEmailPhoneSideEffects.Error -> processErrorSideEffect(sideEffect.error)
+        }
 
     override fun render(state: ProfileSecurityChangeEmailPhoneState) {
         stateTransformer(state).data?.let {

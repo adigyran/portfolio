@@ -61,9 +61,7 @@ class DoctorSearchTabView :
 
     override fun provideViewModel() = viewModelFactory(Unit)
 
-    override fun sideEffect(sideEffect: BaseSideEffect) {
-        super.sideEffect(sideEffect)
-    }
+    override fun sideEffect(sideEffect: BaseSideEffect) = Unit
 
     override fun render(state: DoctorSearchTabState) = Unit
 

@@ -12,6 +12,7 @@ import com.aya.digital.core.feature.profile.security.changepassword.databinding.
 import com.aya.digital.core.feature.profile.security.changepassword.di.profileSecurityChangePasswordDiModule
 import com.aya.digital.core.feature.profile.security.changepassword.ui.model.ProfileSecurityChangePasswordStateTransformer
 import com.aya.digital.core.feature.profile.security.changepassword.ui.model.ProfileSecurityChangePasswordUiModel
+import com.aya.digital.core.feature.profile.security.changepassword.viewmodel.ProfileSecurityChangePasswordSideEffects
 import com.aya.digital.core.feature.profile.security.changepassword.viewmodel.ProfileSecurityChangePasswordState
 import com.aya.digital.core.feature.profile.security.changepassword.viewmodel.ProfileSecurityChangePasswordViewModel
 import com.aya.digital.core.mvi.BaseSideEffect
@@ -26,7 +27,7 @@ import org.kodein.di.factory
 import org.kodein.di.on
 
 internal class ProfileSecurityChangePasswordView :
-    DiFragment<ViewProfileChangePasswordBinding, ProfileSecurityChangePasswordViewModel, ProfileSecurityChangePasswordState, BaseSideEffect, ProfileSecurityChangePasswordUiModel, ProfileSecurityChangePasswordStateTransformer>() {
+    DiFragment<ViewProfileChangePasswordBinding, ProfileSecurityChangePasswordViewModel, ProfileSecurityChangePasswordState, ProfileSecurityChangePasswordSideEffects, ProfileSecurityChangePasswordUiModel, ProfileSecurityChangePasswordStateTransformer>() {
 
     private var param: Param by argument("param")
 
@@ -74,9 +75,11 @@ internal class ProfileSecurityChangePasswordView :
     ): ViewProfileChangePasswordBinding =
         ViewProfileChangePasswordBinding.inflate(inflater, container, false)
 
-    override fun sideEffect(sideEffect: BaseSideEffect) {
-        super.sideEffect(sideEffect)
-    }
+    override fun sideEffect(sideEffect: ProfileSecurityChangePasswordSideEffects) =
+        when(sideEffect)
+        {
+            is ProfileSecurityChangePasswordSideEffects.Error -> processErrorSideEffect(sideEffect.error)
+        }
 
     override fun render(state: ProfileSecurityChangePasswordState) {
         stateTransformer(state).data?.let {

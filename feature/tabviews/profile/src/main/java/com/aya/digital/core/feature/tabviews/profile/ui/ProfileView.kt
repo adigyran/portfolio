@@ -14,6 +14,7 @@ import com.aya.digital.core.feature.tabviews.profile.viewmodel.ProfileState
 import com.aya.digital.core.feature.tabviews.profile.viewmodel.ProfileViewModel
 import com.aya.digital.core.feature.tabviews.profile.databinding.ViewProfileBinding
 import com.aya.digital.core.feature.tabviews.profile.di.profileDiModule
+import com.aya.digital.core.feature.tabviews.profile.viewmodel.ProfileSideEffects
 import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.ui.adapters.base.BaseDelegateAdapter
 import com.aya.digital.core.ui.base.screens.DiFragment
@@ -27,7 +28,7 @@ import org.kodein.di.factory
 import org.kodein.di.on
 
 class ProfileView :
-    DiFragment<ViewProfileBinding, ProfileViewModel, ProfileState, BaseSideEffect, ProfileUiModel, ProfileStateTransformer>() {
+    DiFragment<ViewProfileBinding, ProfileViewModel, ProfileState, ProfileSideEffects, ProfileUiModel, ProfileStateTransformer>() {
 
     private val viewModelFactory: ((Unit) -> ProfileViewModel) by kodein.on(
         context = this
@@ -75,9 +76,11 @@ class ProfileView :
         container: ViewGroup?
     ): ViewProfileBinding = ViewProfileBinding.inflate(inflater, container, false)
 
-    override fun sideEffect(sideEffect: BaseSideEffect) {
-        super.sideEffect(sideEffect)
-    }
+    override fun sideEffect(sideEffect: ProfileSideEffects) =
+        when(sideEffect)
+        {
+            is ProfileSideEffects.Error -> processErrorSideEffect(sideEffect.error)
+        }
 
     override fun render(state: ProfileState) {
         stateTransformer(state).run {

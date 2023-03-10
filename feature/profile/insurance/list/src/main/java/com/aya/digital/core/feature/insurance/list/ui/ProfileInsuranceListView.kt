@@ -9,6 +9,7 @@ import com.aya.digital.core.ext.bindClick
 import com.aya.digital.core.feature.insurance.list.di.profileInsuranceListDiModule
 import com.aya.digital.core.feature.insurance.list.ui.model.ProfileInsuranceListStateTransformer
 import com.aya.digital.core.feature.insurance.list.ui.model.ProfileInsuranceListUiModel
+import com.aya.digital.core.feature.insurance.list.viewmodel.ProfileInsuranceListSideEffects
 import com.aya.digital.core.feature.insurance.list.viewmodel.ProfileInsuranceListState
 import com.aya.digital.core.feature.insurance.list.viewmodel.ProfileInsuranceListViewModel
 import com.aya.digital.core.feature.profile.insurance.list.databinding.ViewProfileInsuranceListBinding
@@ -21,7 +22,7 @@ import org.kodein.di.factory
 import org.kodein.di.on
 
 class ProfileInsuranceListView :
-    DiFragment<ViewProfileInsuranceListBinding, ProfileInsuranceListViewModel, ProfileInsuranceListState, BaseSideEffect, ProfileInsuranceListUiModel, ProfileInsuranceListStateTransformer>() {
+    DiFragment<ViewProfileInsuranceListBinding, ProfileInsuranceListViewModel, ProfileInsuranceListState, ProfileInsuranceListSideEffects, ProfileInsuranceListUiModel, ProfileInsuranceListStateTransformer>() {
 
     private val viewModelFactory: ((Unit) -> ProfileInsuranceListViewModel) by kodein.on(
         context = this
@@ -71,9 +72,11 @@ class ProfileInsuranceListView :
     ): ViewProfileInsuranceListBinding =
         ViewProfileInsuranceListBinding.inflate(inflater, container, false)
 
-    override fun sideEffect(sideEffect: BaseSideEffect) {
-        super.sideEffect(sideEffect)
-    }
+    override fun sideEffect(sideEffect: ProfileInsuranceListSideEffects) =
+        when(sideEffect)
+        {
+            is ProfileInsuranceListSideEffects.Error -> processErrorSideEffect(sideEffect.error)
+        }
 
     override fun render(state: ProfileInsuranceListState) {
         stateTransformer(state).data?.let {

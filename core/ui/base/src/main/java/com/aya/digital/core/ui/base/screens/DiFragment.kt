@@ -60,9 +60,7 @@ abstract class DiFragment<Binding : ViewBinding, ViewModel : BaseViewModel<State
 
     abstract fun render(state: State)
 
-    protected open fun sideEffect(sideEffect: SideEffect) {
-        if(sideEffect is BaseViewModel.ErrorSideEffect)processErrorSideEffect(sideEffect)
-    }
+    abstract fun sideEffect(sideEffect: SideEffect)
 
     protected fun processErrorSideEffect(errorSideEffect: BaseViewModel.ErrorSideEffect){
         when(errorSideEffect)

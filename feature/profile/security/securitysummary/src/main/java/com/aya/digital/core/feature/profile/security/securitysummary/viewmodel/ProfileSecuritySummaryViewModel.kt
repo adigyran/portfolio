@@ -9,6 +9,7 @@ import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
 import com.aya.digital.core.util.requestcodes.RequestCodes
 import kotlinx.coroutines.rx3.await
 import org.orbitmvi.orbit.syntax.simple.intent
+import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 import timber.log.Timber
@@ -17,8 +18,8 @@ internal class ProfileSecuritySummaryViewModel(
     private val coordinatorRouter: CoordinatorRouter,
     private val getSecuritySummaryUseCase: GetSecuritySummaryUseCase,
 ) :
-    BaseViewModel<ProfileSecuritySummaryState, BaseSideEffect>() {
-    override val container = container<ProfileSecuritySummaryState, BaseSideEffect>(
+    BaseViewModel<ProfileSecuritySummaryState, ProfileSecuritySummarySideEffects>() {
+    override val container = container<ProfileSecuritySummaryState, ProfileSecuritySummarySideEffects>(
         initialState = ProfileSecuritySummaryState(),
     )
     {
@@ -33,7 +34,7 @@ internal class ProfileSecuritySummaryViewModel(
         val await = getSecuritySummaryUseCase().await()
         await.processResult({
             reduce { state.copy(email = it.email, password = it.password) }
-        }, { Timber.d(it.toString()) })
+        }, { processError(it) })
     }
 
     fun itemClicked(tag: Int) = intent {
@@ -48,6 +49,8 @@ internal class ProfileSecuritySummaryViewModel(
         )
     }
 
-
+    override fun postErrorSideEffect(errorSideEffect: ErrorSideEffect) = intent {
+        postSideEffect(ProfileSecuritySummarySideEffects.Error(errorSideEffect))
+    }
 }
 

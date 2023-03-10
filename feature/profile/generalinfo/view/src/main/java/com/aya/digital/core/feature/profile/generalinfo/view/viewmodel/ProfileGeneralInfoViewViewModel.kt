@@ -8,6 +8,7 @@ import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
 import com.aya.digital.core.util.requestcodes.RequestCodes
 import kotlinx.coroutines.rx3.await
 import org.orbitmvi.orbit.syntax.simple.intent
+import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 import timber.log.Timber
@@ -16,8 +17,8 @@ class ProfileGeneralInfoViewViewModel(
     private val coordinatorRouter: CoordinatorRouter,
     private val profileInfoUseCase: GetProfileInfoUseCase
 ) :
-    BaseViewModel<ProfileGeneralInfoViewState, BaseSideEffect>() {
-    override val container = container<ProfileGeneralInfoViewState, BaseSideEffect>(
+    BaseViewModel<ProfileGeneralInfoViewState, ProfileGeneralInfoSideEffects>() {
+    override val container = container<ProfileGeneralInfoViewState, ProfileGeneralInfoSideEffects>(
         initialState = ProfileGeneralInfoViewState(),
     )
     {
@@ -66,5 +67,8 @@ class ProfileGeneralInfoViewViewModel(
         }
     }
 
+    override fun postErrorSideEffect(errorSideEffect: ErrorSideEffect) = intent {
+        postSideEffect(ProfileGeneralInfoSideEffects.Error(errorSideEffect))
+    }
 }
 

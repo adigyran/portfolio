@@ -10,6 +10,7 @@ import com.aya.digital.core.feature.profile.generalinfo.view.databinding.ViewPro
 import com.aya.digital.core.feature.profile.generalinfo.view.di.profileGeneralInfoViewDiModule
 import com.aya.digital.core.feature.profile.generalinfo.view.ui.model.ProfileGeneralInfoViewStateTransformer
 import com.aya.digital.core.feature.profile.generalinfo.view.ui.model.ProfileGeneralInfoViewUiModel
+import com.aya.digital.core.feature.profile.generalinfo.view.viewmodel.ProfileGeneralInfoSideEffects
 import com.aya.digital.core.feature.profile.generalinfo.view.viewmodel.ProfileGeneralInfoViewState
 import com.aya.digital.core.feature.profile.generalinfo.view.viewmodel.ProfileGeneralInfoViewViewModel
 import com.aya.digital.core.mvi.BaseSideEffect
@@ -21,7 +22,7 @@ import org.kodein.di.factory
 import org.kodein.di.on
 
 class ProfileGeneralInfoViewView :
-    DiFragment<ViewProfileGeneralinfoViewBinding, ProfileGeneralInfoViewViewModel, ProfileGeneralInfoViewState, BaseSideEffect, ProfileGeneralInfoViewUiModel, ProfileGeneralInfoViewStateTransformer>() {
+    DiFragment<ViewProfileGeneralinfoViewBinding, ProfileGeneralInfoViewViewModel, ProfileGeneralInfoViewState, ProfileGeneralInfoSideEffects, ProfileGeneralInfoViewUiModel, ProfileGeneralInfoViewStateTransformer>() {
 
     private val viewModelFactory: ((Unit) -> ProfileGeneralInfoViewViewModel) by kodein.on(
         context = this
@@ -67,9 +68,11 @@ class ProfileGeneralInfoViewView :
     ): ViewProfileGeneralinfoViewBinding =
         ViewProfileGeneralinfoViewBinding.inflate(inflater, container, false)
 
-    override fun sideEffect(sideEffect: BaseSideEffect) {
-        super.sideEffect(sideEffect)
-    }
+    override fun sideEffect(sideEffect: ProfileGeneralInfoSideEffects) =
+        when(sideEffect)
+        {
+            is ProfileGeneralInfoSideEffects.Error -> processErrorSideEffect(sideEffect.error)
+        }
 
     override fun render(state: ProfileGeneralInfoViewState) {
         stateTransformer(state).data?.let {

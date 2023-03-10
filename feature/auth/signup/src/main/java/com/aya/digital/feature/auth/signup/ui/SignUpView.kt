@@ -109,10 +109,7 @@ class SignUpView :
 
     override fun sideEffect(sideEffect: SignUpSideEffects) {
         when (sideEffect) {
-            SignUpSideEffects.ListenForInsuranceEvent -> {
-            }
-            SignUpSideEffects.ListenForCodeEvent -> {
-            }
+            is SignUpSideEffects.Error -> processErrorSideEffect(sideEffect.error)
         }
     }
 

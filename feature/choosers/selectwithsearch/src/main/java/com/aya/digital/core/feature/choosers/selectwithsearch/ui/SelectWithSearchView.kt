@@ -15,6 +15,7 @@ import com.aya.digital.core.feature.choosers.multiselect.ui.model.SelectWithSear
 import com.aya.digital.core.feature.choosers.multiselect.viewmodel.SelectWithSearchChooserState
 import com.aya.digital.core.feature.choosers.multiselect.viewmodel.SelectWithSearchChooserViewModel
 import com.aya.digital.core.feature.choosers.selectwithsearch.databinding.ViewSelectWithSearchBinding
+import com.aya.digital.core.feature.choosers.selectwithsearch.viewmodel.SelectWithSearchChooserSideEffects
 import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.ui.base.screens.DiFragment
 import kotlinx.parcelize.Parcelize
@@ -23,7 +24,7 @@ import org.kodein.di.factory
 import org.kodein.di.on
 
 class SelectWithSearchView :
-    DiFragment<ViewSelectWithSearchBinding, SelectWithSearchChooserViewModel, SelectWithSearchChooserState, BaseSideEffect, SelectWithSearchChooserUiModel, SelectWithSearchStateTransformer>() {
+    DiFragment<ViewSelectWithSearchBinding, SelectWithSearchChooserViewModel, SelectWithSearchChooserState, SelectWithSearchChooserSideEffects, SelectWithSearchChooserUiModel, SelectWithSearchStateTransformer>() {
 
     private var param: Param by argument("param")
 
@@ -72,9 +73,11 @@ class SelectWithSearchView :
         container: ViewGroup?
     ): ViewSelectWithSearchBinding = ViewSelectWithSearchBinding.inflate(inflater, container, false)
 
-    override fun sideEffect(sideEffect: BaseSideEffect) {
-        super.sideEffect(sideEffect)
-    }
+    override fun sideEffect(sideEffect: SelectWithSearchChooserSideEffects) =
+        when(sideEffect)
+        {
+            is SelectWithSearchChooserSideEffects.Error -> {processErrorSideEffect(sideEffect.error)}
+        }
 
     override fun render(state: SelectWithSearchChooserState) {
         stateTransformer(state).data?.let {

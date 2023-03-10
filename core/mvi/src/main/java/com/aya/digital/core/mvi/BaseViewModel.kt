@@ -1,36 +1,32 @@
 package com.aya.digital.core.mvi
 
-import android.content.Context
 import androidx.lifecycle.ViewModel
 import com.aya.digital.core.data.base.dataprocessing.RequestResultModel
 import com.aya.digital.core.localisation.R.string as LocalisationR
-import com.aya.digital.core.networkbase.server.HttpCodeHandler
 import com.aya.digital.core.networkbase.server.HttpResponseCode
 import com.aya.digital.core.networkbase.server.IServerError
 import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
 import org.orbitmvi.orbit.ContainerHost
-import org.orbitmvi.orbit.syntax.simple.intent
-import org.orbitmvi.orbit.syntax.simple.postSideEffect
+import timber.log.Timber
 
 abstract class BaseViewModel<STATE : BaseState, SideEffect : BaseSideEffect> : ViewModel(),
     ContainerHost<STATE, SideEffect> {
 
-    protected fun postError(errorSideEffect: ErrorSideEffect?) = intent {
-        errorSideEffect?.let {
-            postSideEffect(it as SideEffect)
-        }
-    }
+    protected fun processError(error: RequestResultModel.Error) = processErrorGetSideEffect(error)?.let { postErrorSideEffect(it) }
+
+
     sealed class ErrorSideEffect : BaseSideEffect {
         data class Message(val msg: String) : ErrorSideEffect()
         data class MessageResource(val msgResource:Int): ErrorSideEffect()
     }
 
     companion object {
-        fun processError(
+        internal fun processErrorGetSideEffect(
             error: RequestResultModel.Error,
             vararg httpHttpCodeHandlers: Pair<HttpResponseCode, ((errorList: List<IServerError>) -> Boolean)>,
         ): ErrorSideEffect? {
+            Timber.d(error.toString())
             when (error) {
                 is RequestResultModel.Error.Another -> {
                     error.throwable.printStackTrace()
@@ -114,5 +110,8 @@ abstract class BaseViewModel<STATE : BaseState, SideEffect : BaseSideEffect> : V
             }
             return null
         }
+
+
     }
+    protected open fun postErrorSideEffect(errorSideEffect: ErrorSideEffect) = Unit
 }

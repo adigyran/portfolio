@@ -55,9 +55,7 @@ class RootView :
     }
 
 
-    override fun sideEffect(sideEffect: BaseSideEffect){
-        super.sideEffect(sideEffect)
-    }
+    override fun sideEffect(sideEffect: BaseSideEffect) = Unit
 
     override fun render(state: RootContainerState) = Unit
 

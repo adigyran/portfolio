@@ -16,6 +16,15 @@ class CodeDialogViewModel(
 
 ) :
     BaseViewModel<CodeDialogState, BaseSideEffect>() {
+    override val container = container<CodeDialogState, BaseSideEffect>(
+        initialState = CodeDialogState(
+            email = param.email,
+            code = ""
+        ),
+    )
+    {
+
+    }
     fun codeChanged(newCode: String) = intent {
         reduce {
             state.copy(code = newCode)
@@ -35,14 +44,8 @@ class CodeDialogViewModel(
         )
     }
 
-    override val container = container<CodeDialogState, BaseSideEffect>(
-        initialState = CodeDialogState(
-            email = param.email,
-            code = ""
-        ),
-    )
-    {
-
+    override fun postErrorSideEffect(errorSideEffect: ErrorSideEffect) {
+        TODO("Not yet implemented")
     }
 }
 

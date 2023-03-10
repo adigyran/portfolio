@@ -15,6 +15,7 @@ import com.aya.digital.feature.auth.signup.navigation.SignUpNavigationEvents
 import kotlinx.coroutines.rx3.asFlow
 import kotlinx.coroutines.rx3.await
 import org.orbitmvi.orbit.syntax.simple.intent
+import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 import timber.log.Timber
@@ -28,6 +29,10 @@ class SignUpViewModel(
     private val checkIsVerifiedUseCase: CheckIsVerifiedUseCase
 ) :
     BaseViewModel<SignUpState, SignUpSideEffects>() {
+    override fun postErrorSideEffect(errorSideEffect: ErrorSideEffect) = intent {
+        postSideEffect(SignUpSideEffects.Error(errorSideEffect))
+    }
+
     override val container = container<SignUpState, SignUpSideEffects>(
         initialState = SignUpState(),
     )

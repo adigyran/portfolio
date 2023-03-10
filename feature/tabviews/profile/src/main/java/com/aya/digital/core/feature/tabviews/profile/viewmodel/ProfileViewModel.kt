@@ -17,8 +17,8 @@ class ProfileViewModel(
     private val coordinatorRouter: CoordinatorRouter,
     private val getProfileUseCase: GetProfileBriefUseCase
 ) :
-    BaseViewModel<ProfileState, BaseSideEffect>() {
-    override val container = container<ProfileState, BaseSideEffect>(
+    BaseViewModel<ProfileState, ProfileSideEffects>() {
+    override val container = container<ProfileState, ProfileSideEffects>(
         initialState = ProfileState(""),
     )
     {
@@ -26,14 +26,13 @@ class ProfileViewModel(
     }
 
     init {
-        Timber.d("ProfileViewModel Init")
     }
 
     private fun loadProfile() = intent {
         val profile = getProfileUseCase().await()
         profile.processResult({
             processBriefProfile(it)
-        }, { Timber.e(it.toString()) })
+        }, { processError(it) })
     }
 
     private fun processBriefProfile(profile: BriefProfileModel) = intent {

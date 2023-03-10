@@ -17,6 +17,7 @@ import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.ui.adapters.base.BaseDelegateAdapter
 import com.aya.digital.core.ext.createFragment
 import com.aya.digital.core.feature.auth.restorepassword.navigation.RestorePasswordOperationStateParam
+import com.aya.digital.core.feature.auth.restorepassword.viewmodel.RestorePasswordSideEffects
 import com.aya.digital.core.feature.auth.signin.restorepassword.databinding.ViewRestorePasswordBinding
 import com.aya.digital.core.ui.base.screens.DiFragment
 import com.aya.digital.core.ui.delegates.components.fields.emailphone.ui.EmailPhoneDelegateListeners
@@ -31,7 +32,7 @@ import org.kodein.di.factory
 import org.kodein.di.on
 
 internal class RestorePasswordView :
-    DiFragment<ViewRestorePasswordBinding, RestorePasswordViewModel, RestorePasswordState, BaseSideEffect, RestorePasswordUiModel, RestorePasswordStateTransformer>() {
+    DiFragment<ViewRestorePasswordBinding, RestorePasswordViewModel, RestorePasswordState, RestorePasswordSideEffects, RestorePasswordUiModel, RestorePasswordStateTransformer>() {
 
     private var param: Param by argument("param")
 
@@ -53,9 +54,9 @@ internal class RestorePasswordView :
 
     override fun prepareUi(savedInstanceState: Bundle?) {
         super.prepareUi(savedInstanceState)
-        if(savedInstanceState==null) {
+        if (savedInstanceState == null) {
             recyclers.add(binding.recycler)
-            binding.saveBtn bindClick {viewModel.saveButtonClicked()}
+            binding.saveBtn bindClick { viewModel.saveButtonClicked() }
             with(binding.recycler) {
                 itemAnimator = null
                 setHasFixedSize(true)
@@ -79,16 +80,20 @@ internal class RestorePasswordView :
 
     }
 
-    override fun provideDiModule(): DI.Module = restorePasswordDiModule(tryTyGetParentRouter(),param)
+    override fun provideDiModule(): DI.Module =
+        restorePasswordDiModule(tryTyGetParentRouter(), param)
 
     override fun provideViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
     ): ViewRestorePasswordBinding = ViewRestorePasswordBinding.inflate(inflater, container, false)
 
-    override fun sideEffect(sideEffect: BaseSideEffect){
-        super.sideEffect(sideEffect)
-    }
+    override fun sideEffect(sideEffect: RestorePasswordSideEffects) =
+        when (sideEffect) {
+            is RestorePasswordSideEffects.Error -> {
+                processErrorSideEffect(sideEffect.error)
+            }
+        }
 
     override fun render(state: RestorePasswordState) {
         stateTransformer(state).run {
@@ -111,12 +116,15 @@ internal class RestorePasswordView :
     class Param(
         val requestCode: String,
         val operationState: RestorePasswordOperationStateParam
-    ) : Parcelable
-    {
+    ) : Parcelable {
     }
+
     companion object {
-        fun getNewInstance(requestCode: String, operationState: RestorePasswordOperationStateParam): RestorePasswordView = createFragment(
-            Param(requestCode,operationState)
+        fun getNewInstance(
+            requestCode: String,
+            operationState: RestorePasswordOperationStateParam
+        ): RestorePasswordView = createFragment(
+            Param(requestCode, operationState)
         )
     }
 

@@ -9,6 +9,7 @@ import com.aya.digital.core.feature.profile.security.securitysummary.databinding
 import com.aya.digital.core.feature.profile.security.securitysummary.di.profileSecuritySummaryDiModule
 import com.aya.digital.core.feature.profile.security.securitysummary.ui.model.ProfileSecuritySummaryStateTransformer
 import com.aya.digital.core.feature.profile.security.securitysummary.ui.model.ProfileSecuritySummaryUiModel
+import com.aya.digital.core.feature.profile.security.securitysummary.viewmodel.ProfileSecuritySummarySideEffects
 import com.aya.digital.core.feature.profile.security.securitysummary.viewmodel.ProfileSecuritySummaryState
 import com.aya.digital.core.feature.profile.security.securitysummary.viewmodel.ProfileSecuritySummaryViewModel
 import com.aya.digital.core.mvi.BaseSideEffect
@@ -20,7 +21,7 @@ import org.kodein.di.factory
 import org.kodein.di.on
 
 internal class ProfileSecuritySummaryView :
-    DiFragment<ViewProfileSecuritySummaryBinding, ProfileSecuritySummaryViewModel, ProfileSecuritySummaryState, BaseSideEffect, ProfileSecuritySummaryUiModel, ProfileSecuritySummaryStateTransformer>() {
+    DiFragment<ViewProfileSecuritySummaryBinding, ProfileSecuritySummaryViewModel, ProfileSecuritySummaryState, ProfileSecuritySummarySideEffects, ProfileSecuritySummaryUiModel, ProfileSecuritySummaryStateTransformer>() {
 
     private val viewModelFactory: ((Unit) -> ProfileSecuritySummaryViewModel) by kodein.on(
         context = this
@@ -65,9 +66,11 @@ internal class ProfileSecuritySummaryView :
     ): ViewProfileSecuritySummaryBinding =
         ViewProfileSecuritySummaryBinding.inflate(inflater, container, false)
 
-    override fun sideEffect(sideEffect: BaseSideEffect) {
-        super.sideEffect(sideEffect)
-    }
+    override fun sideEffect(sideEffect: ProfileSecuritySummarySideEffects) =
+        when(sideEffect)
+        {
+            is ProfileSecuritySummarySideEffects.Error -> processErrorSideEffect(sideEffect.error)
+        }
 
     override fun render(state: ProfileSecuritySummaryState) {
         stateTransformer(state).data?.let {

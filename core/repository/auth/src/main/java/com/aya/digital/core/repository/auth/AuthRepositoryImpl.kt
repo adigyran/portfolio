@@ -114,6 +114,6 @@ internal class AuthRepositoryImpl(
         authDataSource.checkIsVerified(email)
             .retryOnError()
             .retrofitResponseToResult(CommonUtils::mapServerErrors)
-            .mapResult({ it.asResult() }, { it })
+            .mapResult({ it.verified.asResult() }, { it })
 
 }

@@ -9,6 +9,7 @@ import com.aya.digital.core.mvi.BaseViewModel
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
 import kotlinx.coroutines.rx3.await
 import org.orbitmvi.orbit.syntax.simple.intent
+import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 import timber.log.Timber
@@ -18,8 +19,8 @@ class ProfileEmergencyContactViewModel(
     private val getEmergencyContactUseCase: GetEmergencyContactUseCase,
     private val saveEmergencyContactUseCase: SaveEmergencyContactUseCase
 ) :
-    BaseViewModel<ProfileEmergencyContactState, BaseSideEffect>() {
-    override val container = container<ProfileEmergencyContactState, BaseSideEffect>(
+    BaseViewModel<ProfileEmergencyContactState, ProfileEmergencyContactSideEffects>() {
+    override val container = container<ProfileEmergencyContactState, ProfileEmergencyContactSideEffects>(
         initialState = ProfileEmergencyContactState(),
     )
     {
@@ -62,6 +63,10 @@ class ProfileEmergencyContactViewModel(
 
     private fun toggleEdit() = intent {
         reduce { state.copy(editMode = true) }
+    }
+
+    override fun postErrorSideEffect(errorSideEffect: ErrorSideEffect) = intent {
+        postSideEffect(ProfileEmergencyContactSideEffects.Error(errorSideEffect))
     }
 }
 

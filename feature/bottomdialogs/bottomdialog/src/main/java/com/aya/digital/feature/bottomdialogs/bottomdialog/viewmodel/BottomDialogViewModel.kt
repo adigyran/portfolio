@@ -8,6 +8,10 @@ import org.orbitmvi.orbit.viewmodel.container
 
 class BottomDialogViewModel(val coordinatorRouter: CoordinatorRouter) :
     BaseViewModel<BottomDialogState, BaseSideEffect>() {
+    override fun postErrorSideEffect(errorSideEffect: ErrorSideEffect) {
+        TODO("Not yet implemented")
+    }
+
     override val container = container<BottomDialogState, BaseSideEffect>(
         initialState = BottomDialogState,
     )

@@ -64,9 +64,7 @@ abstract class DiTabContainerFragment<Binding : ViewBinding, ViewModel : BaseVie
 
     abstract fun render(state: State)
 
-    protected open fun sideEffect(sideEffect: SideEffect) {
-        if(sideEffect is BaseViewModel.ErrorSideEffect)processErrorSideEffect(sideEffect)
-    }
+    abstract fun sideEffect(sideEffect: SideEffect)
 
     protected fun processErrorSideEffect(errorSideEffect: BaseViewModel.ErrorSideEffect){
         when(errorSideEffect)

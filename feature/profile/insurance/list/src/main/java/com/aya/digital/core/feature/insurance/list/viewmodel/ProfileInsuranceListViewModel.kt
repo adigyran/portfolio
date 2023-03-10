@@ -10,6 +10,7 @@ import com.aya.digital.core.util.requestcodes.RequestCodes
 import kotlinx.coroutines.rx3.asFlow
 import kotlinx.coroutines.rx3.await
 import org.orbitmvi.orbit.syntax.simple.intent
+import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 import timber.log.Timber
@@ -19,8 +20,8 @@ class ProfileInsuranceListViewModel(
     private val getInsurancesUseCase: GetInsurancesUseCase,
     private val deleteInsuranceUseCase: DeleteInsuranceUseCase,
 ) :
-    BaseViewModel<ProfileInsuranceListState, BaseSideEffect>() {
-    override val container = container<ProfileInsuranceListState, BaseSideEffect>(
+    BaseViewModel<ProfileInsuranceListState, ProfileInsuranceListSideEffects>() {
+    override val container = container<ProfileInsuranceListState, ProfileInsuranceListSideEffects>(
         initialState = ProfileInsuranceListState(),
     )
     {
@@ -74,5 +75,8 @@ class ProfileInsuranceListViewModel(
         }
     }
 
+    override fun postErrorSideEffect(errorSideEffect: ErrorSideEffect) = intent {
+        postSideEffect(ProfileInsuranceListSideEffects.Error(errorSideEffect))
+    }
 }
 

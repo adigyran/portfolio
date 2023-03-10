@@ -9,6 +9,7 @@ import com.aya.digital.core.feature.tabviews.home.ui.model.HomeUiModel
 import com.aya.digital.core.feature.tabviews.home.viewmodel.HomeState
 import com.aya.digital.core.feature.auth.signin.viewmodel.HomeViewModel
 import com.aya.digital.core.feature.tabviews.home.databinding.ViewHomeBinding
+import com.aya.digital.core.feature.tabviews.home.viewmodel.HomeSideEffects
 import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.ui.adapters.base.BaseDelegateAdapter
 import com.aya.digital.core.ui.base.screens.DiFragment
@@ -17,7 +18,7 @@ import org.kodein.di.factory
 import org.kodein.di.on
 
 class HomeView :
-    DiFragment<ViewHomeBinding, HomeViewModel, HomeState, BaseSideEffect, HomeUiModel, HomeStateTransformer>() {
+    DiFragment<ViewHomeBinding, HomeViewModel, HomeState, HomeSideEffects, HomeUiModel, HomeStateTransformer>() {
 
     private val viewModelFactory: ((Unit) -> HomeViewModel) by kodein.on(
         context = this
@@ -47,9 +48,11 @@ class HomeView :
         container: ViewGroup?
     ): ViewHomeBinding = ViewHomeBinding.inflate(inflater, container, false)
 
-    override fun sideEffect(sideEffect: BaseSideEffect) {
-        super.sideEffect(sideEffect)
-    }
+    override fun sideEffect(sideEffect: HomeSideEffects) =
+        when(sideEffect)
+        {
+            is HomeSideEffects.Error -> processErrorSideEffect(sideEffect.error)
+        }
 
     override fun render(state: HomeState) {
         stateTransformer(state).data?.let {

@@ -11,6 +11,7 @@ import com.aya.digital.core.mvi.BaseViewModel
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
 import kotlinx.coroutines.rx3.await
 import org.orbitmvi.orbit.syntax.simple.intent
+import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 import timber.log.Timber
@@ -21,8 +22,8 @@ class ProfileInsuranceAddViewModel(
     private val addInsuranceUseCase: AddInsuranceUseCase,
     private val deleteInsuranceUseCase: DeleteInsuranceUseCase
 ) :
-    BaseViewModel<ProfileInsuranceAddState, BaseSideEffect>() {
-    override val container = container<ProfileInsuranceAddState, BaseSideEffect>(
+    BaseViewModel<ProfileInsuranceAddState, ProfileInsuranceAddSideEffects>() {
+    override val container = container<ProfileInsuranceAddState, ProfileInsuranceAddSideEffects>(
         initialState = ProfileInsuranceAddState(),
     )
     {
@@ -65,5 +66,8 @@ class ProfileInsuranceAddViewModel(
         }, { Timber.d(it.toString()) })
     }
 
+    override fun postErrorSideEffect(errorSideEffect: ErrorSideEffect)= intent {
+        postSideEffect(ProfileInsuranceAddSideEffects.Error(errorSideEffect))
+    }
 }
 

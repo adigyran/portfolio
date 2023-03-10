@@ -44,7 +44,7 @@ class ProfileGeneralInfoEditViewModel(
         val resultModel = profileInfoUseCase().await()
         resultModel.processResult({ profileInfo ->
             setProfileInfoFields(profileInfo)
-        }, { Timber.d(it.toString()) })
+        }, { processError(it) })
     }
 
 
@@ -99,7 +99,7 @@ class ProfileGeneralInfoEditViewModel(
             if (it) {
                 val await = saveProfileInfoUseCase(profileEditModel).await()
                 await.processResult({
-                }, { Timber.d(it.toString()) })
+                }, { processError(it) })
             }
         }
 
@@ -152,7 +152,9 @@ class ProfileGeneralInfoEditViewModel(
         return true
     }
 
-
+    override fun postErrorSideEffect(errorSideEffect: ErrorSideEffect) = intent {
+        postSideEffect(ProfileGeneralInfoEditSideEffect.Error(errorSideEffect))
+    }
 }
 
 

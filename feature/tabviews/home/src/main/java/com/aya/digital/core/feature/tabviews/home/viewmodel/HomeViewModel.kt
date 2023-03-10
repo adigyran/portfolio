@@ -1,6 +1,7 @@
 package com.aya.digital.core.feature.auth.signin.viewmodel
 
 
+import com.aya.digital.core.feature.tabviews.home.viewmodel.HomeSideEffects
 import com.aya.digital.core.feature.tabviews.home.viewmodel.HomeState
 import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.mvi.BaseViewModel
@@ -10,8 +11,8 @@ import org.orbitmvi.orbit.viewmodel.container
 class HomeViewModel(
     private val coordinatorRouter: CoordinatorRouter
 ) :
-    BaseViewModel<HomeState, BaseSideEffect>() {
-    override val container = container<HomeState, BaseSideEffect>(
+    BaseViewModel<HomeState, HomeSideEffects>() {
+    override val container = container<HomeState, HomeSideEffects>(
         initialState = HomeState(""),
     )
     {

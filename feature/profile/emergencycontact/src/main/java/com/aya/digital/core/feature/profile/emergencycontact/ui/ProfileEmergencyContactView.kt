@@ -10,6 +10,7 @@ import com.aya.digital.core.feature.profile.emergencycontact.databinding.ViewPro
 import com.aya.digital.core.feature.profile.emergencycontact.di.profileEmergencyContactDiModule
 import com.aya.digital.core.feature.profile.emergencycontact.ui.model.ProfileEmergencyContactStateTransformer
 import com.aya.digital.core.feature.profile.emergencycontact.ui.model.ProfileEmergencyContactUiModel
+import com.aya.digital.core.feature.profile.emergencycontact.viewmodel.ProfileEmergencyContactSideEffects
 import com.aya.digital.core.feature.profile.emergencycontact.viewmodel.ProfileEmergencyContactState
 import com.aya.digital.core.feature.profile.emergencycontact.viewmodel.ProfileEmergencyContactViewModel
 import com.aya.digital.core.mvi.BaseSideEffect
@@ -23,7 +24,7 @@ import org.kodein.di.factory
 import org.kodein.di.on
 
 class ProfileEmergencyContactView :
-    DiFragment<ViewProfileEmergencyContactBinding, ProfileEmergencyContactViewModel, ProfileEmergencyContactState, BaseSideEffect, ProfileEmergencyContactUiModel, ProfileEmergencyContactStateTransformer>() {
+    DiFragment<ViewProfileEmergencyContactBinding, ProfileEmergencyContactViewModel, ProfileEmergencyContactState, ProfileEmergencyContactSideEffects, ProfileEmergencyContactUiModel, ProfileEmergencyContactStateTransformer>() {
 
     private val viewModelFactory: ((Unit) -> ProfileEmergencyContactViewModel) by kodein.on(
         context = this
@@ -71,9 +72,11 @@ class ProfileEmergencyContactView :
     ): ViewProfileEmergencyContactBinding =
         ViewProfileEmergencyContactBinding.inflate(inflater, container, false)
 
-    override fun sideEffect(sideEffect: BaseSideEffect) {
-        super.sideEffect(sideEffect)
-    }
+    override fun sideEffect(sideEffect: ProfileEmergencyContactSideEffects) =
+        when(sideEffect)
+        {
+            is ProfileEmergencyContactSideEffects.Error -> processErrorSideEffect(sideEffect.error)
+        }
 
     override fun render(state: ProfileEmergencyContactState) {
         stateTransformer(state).run {
