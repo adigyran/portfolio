@@ -5,6 +5,8 @@ import com.aya.digital.core.network.api.services.DictionariesService
 import com.aya.digital.core.network.main.di.modules.createApiService
 import com.aya.digital.core.network.model.request.*
 import com.aya.digital.core.network.model.response.base.PagedResponse
+import com.aya.digital.core.network.model.response.profile.InsuranceCompanyResponse
+import com.aya.digital.core.network.model.response.profile.InsurancePolicyResponse
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
@@ -25,7 +27,7 @@ fun dictionariesNetworkModule() = DI.Module("dictionariesNetworkModule") {
 
 class RetrofitDictionariesNetwork(private val network: DictionariesService) :
     DictionariesDataSource {
-    override fun getInsuranceCompanies(searchTerm: String): Flowable<PagedResponse<InsuranceBody>>  = network.getInsurances(searchTerm)
-    override fun getInsuranceCompanyById(id: Int): Single<List<InsuranceBody>>  = network.getInsuranceById(id)
-    override fun getInsuranceCompaniesByIds(ids: List<Int>): Observable<List<InsuranceBody>> = network.getInsurancesByIds(ids)
+    override fun getInsuranceCompanies(searchTerm: String): Flowable<PagedResponse<InsuranceCompanyResponse>>  = network.getInsurances(searchTerm)
+    override fun getInsuranceCompanyById(id: Int): Single<List<InsuranceCompanyResponse>>  = network.getInsuranceById(id)
+    override fun getInsuranceCompaniesByIds(ids: List<Int>): Observable<List<InsuranceCompanyResponse>> = network.getInsurancesByIds(ids)
 }

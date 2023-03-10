@@ -7,12 +7,12 @@ import com.aya.digital.core.network.api.services.ProfileService
 import com.aya.digital.core.network.main.di.modules.createApiService
 import com.aya.digital.core.network.model.request.*
 import com.aya.digital.core.network.model.response.EmergencyContactResponse
-import com.aya.digital.core.network.model.response.doctor.PractitionerProfileResponse
-import com.aya.digital.core.network.model.response.patient.PatientProfileResponse
-import com.aya.digital.core.network.model.response.profile.AddressResponse
 import com.aya.digital.core.network.model.response.profile.CurrentProfileResponse
 import com.aya.digital.core.network.model.response.profile.ImageUploadResponse
+import com.aya.digital.core.network.model.response.profile.InsuranceCompanyResponse
+import com.aya.digital.core.network.model.response.profile.InsurancePolicyResponse
 import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import okhttp3.MultipartBody
 import org.kodein.di.DI
@@ -60,45 +60,23 @@ class RetrofitProfileNetwork(private val network: ProfileService) :
     override fun updateEmergencyContact(body: EmergencyContactBody): Completable =
         network.updateEmergencyContact(body)
 
-    override fun uploadAvatar(file: MultipartBody.Part): Single<ImageUploadResponse> =
-        network.uploadAvatar(file)
+    override fun uploadImage(file: MultipartBody.Part): Single<ImageUploadResponse> = network.uploadImage(file)
+    override fun addInsurance(insurancePolicyBody: InsurancePolicyBody): Single<Unit>  = network.addInsurance(insurancePolicyBody)
 
-    override fun deleteAvatar(): Completable = network.deleteAvatar()
+    override fun saveInsurance(insuranceId: Int, insurancePolicyBody: InsurancePolicyBody): Single<Unit> = network.saveInsurance(insuranceId, insurancePolicyBody)
+
+    override fun getInsurances(): Observable<Unit> = network.getInsurances()
+
+    override fun getInsuranceById(insuranceId: Int): Single<InsurancePolicyResponse> = network.getInsuranceById(insuranceId)
 }
 
 class RetrofitProfilePractitionerNetwork(private val network: ProfileService) :
     ProfilePractitionerDataSource {
-    override fun currentPractitioner(): Single<PractitionerProfileResponse> =
-        network.currentPractitioner()
 
-    override fun getPractitionerPhoneNumber(): Single<PractitionerProfileResponse> =
-        network.getPractitionerPhoneNumber()
-
-    override fun updatePractitioner(body: PractitionerProfileBody): Completable =
-        network.updatePractitioner(body)
-
-    override fun updatePractitionerPhoneNumber(body: PractitionerProfileBody): Completable =
-        network.updatePractitionerPhoneNumber(body)
-
-    override fun updatePractitionerAddress(body: PractitionerProfileBody): Completable =
-        network.updatePractitionerAddress(body)
-
-    override fun getPractitionerAddress(): Single<AddressResponse> =
-        network.getPractitionerAddress()
 }
 
 class RetrofitProfilePatientNetwork(private val network: ProfileService) :
     ProfilePatientDataSource {
-    override fun currentPatient(): Single<PatientProfileResponse> =
-        network.currentPatient()
 
-    override fun updatePatient(body: PatientProfileBody): Completable =
-        network.updatePatient(body)
-
-    override fun getPatientAddress(): Single<AddressResponse> =
-        network.getPatientAddress()
-
-    override fun updatePatientAddress(body: PatientProfileBody): Completable =
-        network.updatePatientAddress(body)
 
 }

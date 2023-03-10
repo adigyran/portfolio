@@ -13,10 +13,12 @@ import com.aya.digital.core.domain.profile.generalinfo.view.impl.GetProfileInfoU
 import com.aya.digital.core.domain.profile.generalinfo.view.impl.GetProfileUseCaseImpl
 import com.aya.digital.core.domain.profile.insurance.AddInsuranceUseCase
 import com.aya.digital.core.domain.profile.insurance.DeleteInsuranceUseCase
-import com.aya.digital.core.domain.profile.insurance.GetInsuransesUseCase
+import com.aya.digital.core.domain.profile.insurance.GetInsuranceByIdUseCase
+import com.aya.digital.core.domain.profile.insurance.GetInsurancesUseCase
 import com.aya.digital.core.domain.profile.insurance.impl.AddInsuranceUseCaseImpl
 import com.aya.digital.core.domain.profile.insurance.impl.DeleteInsuranceUseCaseImpl
-import com.aya.digital.core.domain.profile.insurance.impl.GetInsuransesUseCaseImpl
+import com.aya.digital.core.domain.profile.insurance.impl.GetInsuranceByIdUseCaseImpl
+import com.aya.digital.core.domain.profile.insurance.impl.GetInsurancesUseCaseImpl
 import com.aya.digital.core.domain.profile.notifications.GetEmailNotificationsStatusUseCase
 import com.aya.digital.core.domain.profile.notifications.impl.GetEmailNotificationsStatusUseCaseImpl
 import com.aya.digital.core.domain.profile.notifications.SetEmailNotificationsStatusUseCase
@@ -49,9 +51,10 @@ fun profileDomainDiModule() = DI.Module("profileDomainDiModule") {
     bind<SaveEmergencyContactUseCase>() with singleton { SaveEmergencyContactUseCaseImpl() }
 
     //insurance
-    bind<GetInsuransesUseCase>() with singleton { GetInsuransesUseCaseImpl() }
-    bind<AddInsuranceUseCase>() with singleton { AddInsuranceUseCaseImpl() }
-    bind<DeleteInsuranceUseCase>() with singleton { DeleteInsuranceUseCaseImpl() }
+    bind<GetInsurancesUseCase>() with singleton { GetInsurancesUseCaseImpl(instance()) }
+    bind<GetInsuranceByIdUseCase>() with singleton { GetInsuranceByIdUseCaseImpl(instance()) }
+    bind<AddInsuranceUseCase>() with singleton { AddInsuranceUseCaseImpl(instance()) }
+    bind<DeleteInsuranceUseCase>() with singleton { DeleteInsuranceUseCaseImpl(instance()) }
 
     //notifications
     bind<GetEmailNotificationsStatusUseCase>() with singleton { GetEmailNotificationsStatusUseCaseImpl() }

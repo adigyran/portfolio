@@ -2,13 +2,9 @@ package com.aya.digital.core.network.api.services
 
 import com.aya.digital.core.network.model.request.*
 import com.aya.digital.core.network.model.response.EmergencyContactResponse
-import com.aya.digital.core.network.model.response.MessageResponse
-import com.aya.digital.core.network.model.response.doctor.PractitionerProfileResponse
-import com.aya.digital.core.network.model.response.patient.PatientProfileResponse
-import com.aya.digital.core.network.model.response.profile.AddressResponse
-import com.aya.digital.core.network.model.response.profile.CurrentProfileResponse
-import com.aya.digital.core.network.model.response.profile.ImageUploadResponse
+import com.aya.digital.core.network.model.response.profile.*
 import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import okhttp3.MultipartBody
 import retrofit2.http.*
@@ -23,13 +19,21 @@ interface ProfileService {
         @Body body: ProfileBody
     ): Single<CurrentProfileResponse>
 
-    @GET("account/patient")
-    fun currentPatient(): Single<PatientProfileResponse>
+    @Multipart
+    @POST("attachment")
+    fun uploadImage(@Part image:MultipartBody.Part) : Single<ImageUploadResponse>
 
-    @PATCH("account/patient")
-    fun updatePatient(
-        @Body body: PatientProfileBody
-    ): Completable
+    @POST("profile/insurances")
+    fun addInsurance(@Body insurancePolicyBody: InsurancePolicyBody):Single<Unit>
+
+    @PATCH("profile/insurances/{id}")
+    fun saveInsurance(@Path("id") insuranceId:Int, @Body insurancePolicyBody: InsurancePolicyBody) : Single<Unit>
+
+    @GET("profile/insurances")
+    fun getInsurances():Observable<Unit>
+
+    @GET("profile/insurances/{id}")
+    fun getInsuranceById(@Path("id") insuranceId: Int):Single<InsurancePolicyResponse>
 
     @GET("account/patient/address")
     fun getPatientAddress(): Single<AddressResponse>
@@ -46,38 +50,5 @@ interface ProfileService {
     fun updateEmergencyContact(
         @Body body: EmergencyContactBody
     ): Completable
-
-    @GET("account/practitioner")
-    fun currentPractitioner(): Single<PractitionerProfileResponse>
-
-    @GET("account/practitioner/phone-number")
-    fun getPractitionerPhoneNumber(): Single<PractitionerProfileResponse>
-
-    @PATCH("account/practitioner/profile-data")
-    fun updatePractitioner(
-        @Body body: PractitionerProfileBody
-    ): Completable
-
-    @PATCH("account/practitioner/phone-number")
-    fun updatePractitionerPhoneNumber(
-        @Body body: PractitionerProfileBody
-    ): Completable
-
-    @PATCH("account/practitioner/address")
-    fun updatePractitionerAddress(
-        @Body body: PractitionerProfileBody
-    ): Completable
-
-    @GET("account/practitioner/address")
-    fun getPractitionerAddress(): Single<AddressResponse>
-
-    @Multipart
-    @POST("account/upload")
-    fun uploadAvatar(
-        @Part file: MultipartBody.Part
-    ): Single<ImageUploadResponse>
-
-    @DELETE("account/profile/avatar")
-    fun deleteAvatar(): Completable
 
 }

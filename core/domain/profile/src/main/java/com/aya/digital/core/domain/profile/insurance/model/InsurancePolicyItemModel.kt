@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class InsuranceModel(
+data class InsurancePolicyItemModel(
     val id: Int,
     val name: String,
     val number: String,

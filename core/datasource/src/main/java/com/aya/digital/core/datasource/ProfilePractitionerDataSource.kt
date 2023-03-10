@@ -8,21 +8,5 @@ import io.reactivex.rxjava3.core.Single
 
 interface ProfilePractitionerDataSource {
 
-    fun currentPractitioner(): Single<PractitionerProfileResponse>
 
-    fun getPractitionerPhoneNumber(): Single<PractitionerProfileResponse>
-
-    fun updatePractitioner(
-        body: PractitionerProfileBody
-    ): Completable
-
-    fun updatePractitionerPhoneNumber(
-        body: PractitionerProfileBody
-    ): Completable
-
-    fun updatePractitionerAddress(
-        body: PractitionerProfileBody
-    ): Completable
-
-    fun getPractitionerAddress(): Single<AddressResponse>
 }

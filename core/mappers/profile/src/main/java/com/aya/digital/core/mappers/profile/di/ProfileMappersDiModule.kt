@@ -1,5 +1,6 @@
 package com.aya.digital.core.mappers.doctors.di
 
+import com.aya.digital.core.data.mappers.profile.InsurancePolicyMapper
 import com.aya.digital.core.data.mappers.profile.LoginResultMapper
 import com.aya.digital.core.data.profile.mappers.UserKeyResultMapper
 import com.aya.digital.core.data.profile.mappers.AvatarMapper
@@ -21,6 +22,8 @@ fun profileMappersDiModule() = DI.Module("profileMappersDiModule") {
     bind<RoleMapper>() with singleton { RoleMapperImpl() }
     bind<AvatarMapper>() with singleton { AvatarMapperImpl() }
     bind<UserKeyResultMapper>() with singleton { UserKeyResultMapperImpl() }
+    bind<InsurancePolicyMapper>() with singleton { InsurancePolicyMapperImpl() }
+
 
 
     bind<CurrentProfileMapper>() with singleton { CurrentProfileMapperImpl(instance(),instance()) }

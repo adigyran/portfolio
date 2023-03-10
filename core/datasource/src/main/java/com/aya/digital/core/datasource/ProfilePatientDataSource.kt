@@ -8,15 +8,4 @@ import io.reactivex.rxjava3.core.Single
 
 interface ProfilePatientDataSource {
 
-    fun currentPatient(): Single<PatientProfileResponse>
-
-    fun updatePatient(
-        body: PatientProfileBody
-    ): Completable
-
-    fun getPatientAddress(): Single<AddressResponse>
-
-    fun updatePatientAddress(
-        body: PatientProfileBody
-    ): Completable
 }

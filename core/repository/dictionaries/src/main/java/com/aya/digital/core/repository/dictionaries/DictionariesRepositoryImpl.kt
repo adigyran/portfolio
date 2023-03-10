@@ -1,9 +1,9 @@
 package com.aya.digital.core.repository.auth
 
 import com.aya.digital.core.data.base.dataprocessing.PaginationPageModel
-import com.aya.digital.core.data.profile.InsuranceModel
-import com.aya.digital.core.data.profile.mappers.InsuranceMapper
-import com.aya.digital.core.data.profile.repository.DictionariesRepository
+import com.aya.digital.core.data.dictionaries.InsuranceCompanyModel
+import com.aya.digital.core.data.dictionaries.mappers.InsuranceCompanyMapper
+import com.aya.digital.core.data.dictionaries.repository.DictionariesRepository
 import com.aya.digital.core.datasource.DictionariesDataSource
 import com.aya.digital.core.ext.*
 import com.aya.digital.core.networkbase.CommonUtils
@@ -13,10 +13,10 @@ import io.reactivex.rxjava3.core.Single
 
 class DictionariesRepositoryImpl(
     private val dictionariesDataSource: DictionariesDataSource,
-    private val insuranceMapper: InsuranceMapper
+    private val insuranceMapper: InsuranceCompanyMapper
 ) : DictionariesRepository {
 
-    override fun getInsurances(searchTerm: String) =
+    override fun getInsuranceCompanies(searchTerm: String) =
         dictionariesDataSource.getInsuranceCompanies(searchTerm)
             .retryOnError()
             .retrofitResponseToResult(CommonUtils::mapServerErrors)
@@ -32,7 +32,7 @@ class DictionariesRepositoryImpl(
                 ).asResult()
             }, { it })
 
-    override fun getInsuranceById(id: Int): Single<RequestResult<InsuranceModel>> =
+    override fun getInsuranceCompanyById(id: Int): Single<RequestResult<InsuranceCompanyModel>> =
         dictionariesDataSource.getInsuranceCompanyById(id)
             .retryOnError()
             .retrofitResponseToResult(CommonUtils::mapServerErrors)
@@ -40,27 +40,11 @@ class DictionariesRepositoryImpl(
                 insuranceMapper.mapFrom(result.first()).asResult()
             }, { it })
 
-    override fun getInsurancesByIds(ids: List<Int>): Observable<RequestResult<Set<InsuranceModel>>> =
+    override fun getInsuranceCompaniesByIds(ids: List<Int>): Observable<RequestResult<Set<InsuranceCompanyModel>>> =
         dictionariesDataSource.getInsuranceCompaniesByIds(ids)
             .retryOnError()
             .retrofitResponseToResult(CommonUtils::mapServerErrors)
             .mapResult({ result ->
                 insuranceMapper.mapFromList(result).toSet().asResult()
             }, { it })
-
-    /* override fun getInsurancesByIds(ids: List<Int>): Observable<RequestResult<Set<InsuranceModel>>> {
-         return Observable.fromIterable(ids)
-             .flatMap { getInsuranceById(it).toObservable() }
-             .flatMapResult({
-                 Observable.just(it)
-                     .collectInto(mutableSetOf<InsuranceModel>(), { l, i -> l.add(i) })
-                     .toObservable()
-                     .map { it.asResult() }
-             }, {
-                 Observable.just(it)
-             })
-
-     }*/
-
-
 }
