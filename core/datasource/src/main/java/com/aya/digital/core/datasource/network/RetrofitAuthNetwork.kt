@@ -8,6 +8,7 @@ import com.aya.digital.core.network.model.request.*
 import com.aya.digital.core.network.model.response.auth.LoginResponse
 import com.aya.digital.core.network.model.response.auth.RegistrationResponse
 import com.aya.digital.core.network.model.response.auth.UserKeyResponse
+import com.aya.digital.core.network.model.response.auth.VerifiedResponse
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 import org.kodein.di.DI
@@ -47,6 +48,7 @@ class RetrofitAuthNetwork(private val network: AuthService) :
 
     override fun changeEmail(code: String, changeEmailBody: ChangeEmailBody): Single<Boolean> =
         network.changeEmail(code, changeEmailBody)
+    override fun checkIsVerified(email: String): Single<VerifiedResponse> = network.checkIsVerified(email)
 
 
 }

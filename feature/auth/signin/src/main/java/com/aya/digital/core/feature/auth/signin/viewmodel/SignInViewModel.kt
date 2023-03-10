@@ -1,7 +1,7 @@
 package com.aya.digital.core.feature.auth.signin.viewmodel
 
 import com.aya.digital.core.data.base.result.models.auth.PasswordRestoreResultModel
-import com.aya.digital.core.domain.auth.SignInUseCase
+import com.aya.digital.core.domain.auth.signin.SignInUseCase
 import com.aya.digital.core.feature.auth.signin.FieldsTags
 import com.aya.digital.core.feature.auth.signin.navigation.SignInNavigationEvents
 import com.aya.digital.core.mvi.BaseSideEffect

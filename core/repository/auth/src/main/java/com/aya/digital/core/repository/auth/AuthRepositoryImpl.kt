@@ -110,4 +110,10 @@ internal class AuthRepositoryImpl(
             .retrofitResponseToResult(CommonUtils::mapServerErrors)
             .mapResult({ it.asResult() }, { it })
 
+    override fun checkIsVerified(email: String): Single<RequestResult<Boolean>> =
+        authDataSource.checkIsVerified(email)
+            .retryOnError()
+            .retrofitResponseToResult(CommonUtils::mapServerErrors)
+            .mapResult({ it.asResult() }, { it })
+
 }

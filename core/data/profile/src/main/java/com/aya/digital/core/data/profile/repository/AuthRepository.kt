@@ -34,4 +34,5 @@ interface AuthRepository {
     fun changeEmailSendCode(email:String) : Single<RequestResult<Boolean>>
 
     fun changeEmail(code:String, email:String) : Single<RequestResult<Boolean>>
+    fun checkIsVerified(email: String): Single<RequestResult<Boolean>>
 }

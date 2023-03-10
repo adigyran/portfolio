@@ -1,14 +1,19 @@
 package com.aya.digital.core.domain.auth.di
 
-import com.aya.digital.core.domain.auth.*
-import com.aya.digital.core.domain.auth.impl.*
-import com.aya.digital.core.domain.auth.impl.CheckIsAuthenticatedUseCaseImpl
-import com.aya.digital.core.domain.auth.impl.SignInUseCaseImpl
-import com.aya.digital.core.domain.auth.impl.SignUpGetSelectedInsurancesUseCaseImpl
-import com.aya.digital.core.domain.auth.impl.SignUpUseCaseImpl
-import com.aya.digital.core.domain.auth.impl.VerifyRegistrationUseCaseImpl
-import com.aya.digital.core.domain.auth.RestorePasswordChangePasswordUseCase
-import com.aya.digital.core.domain.auth.RestorePasswordGetCodeUseCase
+import com.aya.digital.core.domain.auth.signin.impl.CheckIsAuthenticatedUseCaseImpl
+import com.aya.digital.core.domain.auth.signin.impl.SignInUseCaseImpl
+import com.aya.digital.core.domain.auth.signup.impl.VerifyRegistrationUseCaseImpl
+import com.aya.digital.core.domain.auth.restorepassword.*
+import com.aya.digital.core.domain.auth.restorepassword.impl.RestorePasswordChangePasswordUseCaseImpl
+import com.aya.digital.core.domain.auth.restorepassword.impl.RestorePasswordGetCodeUseCaseImpl
+import com.aya.digital.core.domain.auth.restorepassword.impl.RestorePasswordSendCodeUseCaseImpl
+import com.aya.digital.core.domain.auth.restorepassword.impl.MakeNewPasswordUseCaseImpl
+import com.aya.digital.core.domain.auth.signin.CheckIsAuthenticatedUseCase
+import com.aya.digital.core.domain.auth.signin.SignInUseCase
+import com.aya.digital.core.domain.auth.signup.*
+import com.aya.digital.core.domain.auth.signup.impl.CheckIsVerifiedUseCaseImpl
+import com.aya.digital.core.domain.auth.signup.impl.SignUpGetSelectedInsurancesUseCaseImpl
+import com.aya.digital.core.domain.auth.signup.impl.SignUpUseCaseImpl
 import org.kodein.di.DI
 import org.kodein.di.bind
 import org.kodein.di.instance
@@ -23,6 +28,7 @@ fun authDomainDiModule() = DI.Module("authDomainDiModule") {
         )
     }
     bind<CheckIsAuthenticatedUseCase>() with singleton { CheckIsAuthenticatedUseCaseImpl(instance()) }
+    bind<CheckIsVerifiedUseCase>() with singleton { CheckIsVerifiedUseCaseImpl(instance()) }
     bind<VerifyRegistrationUseCase>() with singleton { VerifyRegistrationUseCaseImpl(instance()) }
 
     bind<MakeNewPasswordUseCase>() with singleton { MakeNewPasswordUseCaseImpl() }

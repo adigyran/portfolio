@@ -4,6 +4,7 @@ import com.aya.digital.core.network.model.request.*
 import com.aya.digital.core.network.model.response.auth.LoginResponse
 import com.aya.digital.core.network.model.response.auth.RegistrationResponse
 import com.aya.digital.core.network.model.response.auth.UserKeyResponse
+import com.aya.digital.core.network.model.response.auth.VerifiedResponse
 import com.aya.digital.core.network.model.response.profile.CurrentProfileResponse
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
@@ -34,5 +35,8 @@ interface AuthService {
     fun changePassword(@Body changePasswordBody: ChangePasswordBody): Single<Boolean>
     @POST("base/change-email")
     fun changeEmail(@Query("codeVerify") code: String, @Body changeEmailBody: ChangeEmailBody): Single<Boolean>
+
+    @GET("base/check-verified")
+    fun checkIsVerified(@Query("login") login: String): Single<VerifiedResponse>
 
 }

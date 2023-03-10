@@ -3,10 +3,12 @@ package com.aya.digital.core.feature.auth.restorepassword.viewmodel
 import com.aya.digital.core.data.base.dataprocessing.RequestResultModel
 import com.aya.digital.core.data.base.result.models.auth.PasswordRestoreResultModel
 import com.aya.digital.core.data.base.result.models.code.CodeResultModel
-import com.aya.digital.core.domain.auth.RestorePasswordChangePasswordUseCase
-import com.aya.digital.core.domain.auth.RestorePasswordGetCodeUseCase
-import com.aya.digital.core.domain.auth.RestorePasswordSendCodeGetUserKeyUseCase
-import com.aya.digital.core.domain.auth.model.*
+import com.aya.digital.core.domain.auth.restorepassword.RestorePasswordSendCodeGetUserKeyUseCase
+import com.aya.digital.core.domain.auth.restorepassword.*
+import com.aya.digital.core.domain.auth.restorepassword.model.RestoreCodeResult
+import com.aya.digital.core.domain.auth.restorepassword.model.RestorePasswordChangePasswordModel
+import com.aya.digital.core.domain.auth.restorepassword.model.RestorePasswordGetCodeModel
+import com.aya.digital.core.domain.auth.restorepassword.model.RestorePasswordSendCodeModel
 import com.aya.digital.core.feature.auth.restorepassword.FieldsTags
 import com.aya.digital.core.feature.auth.restorepassword.navigation.RestorePasswordNavigationEvents
 import com.aya.digital.core.feature.auth.restorepassword.navigation.RestorePasswordOperationStateParam
