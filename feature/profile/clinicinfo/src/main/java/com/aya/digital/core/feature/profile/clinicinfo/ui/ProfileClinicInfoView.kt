@@ -87,7 +87,9 @@ class ProfileClinicInfoView :
     ): ViewProfileClinicInfoBinding =
         ViewProfileClinicInfoBinding.inflate(inflater, container, false)
 
-    override fun sideEffect(sideEffect: BaseSideEffect) = Unit
+    override fun sideEffect(sideEffect: BaseSideEffect) {
+        super.sideEffect(sideEffect)
+    }
 
     override fun render(state: ProfileClinicInfoState) {
         stateTransformer(state).data?.let {

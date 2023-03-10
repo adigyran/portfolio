@@ -2,6 +2,7 @@ package com.aya.digital.feature.auth.signup.viewmodel
 
 import com.aya.digital.core.data.base.result.models.code.CodeResultModel
 import com.aya.digital.core.data.base.result.models.dictionaries.MultiSelectResultModel
+import com.aya.digital.core.domain.auth.signup.CheckIsVerifiedUseCase
 import com.aya.digital.core.domain.auth.signup.SignUpGetSelectedInsurancesUseCase
 import com.aya.digital.core.domain.auth.signup.SignUpUseCase
 import com.aya.digital.core.domain.auth.signup.model.VerifyCodeResult
@@ -23,7 +24,8 @@ class SignUpViewModel(
     private val rootCoordinatorRouter: CoordinatorRouter,
     private val signUpUseCase: SignUpUseCase,
     private val selectedInsurancesUseCase: SignUpGetSelectedInsurancesUseCase,
-    private val verifyRegistrationUseCase: VerifyRegistrationUseCase
+    private val verifyRegistrationUseCase: VerifyRegistrationUseCase,
+    private val checkIsVerifiedUseCase: CheckIsVerifiedUseCase
 ) :
     BaseViewModel<SignUpState, SignUpSideEffects>() {
     override val container = container<SignUpState, SignUpSideEffects>(

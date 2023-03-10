@@ -76,7 +76,9 @@ internal class ProfileSecurityChangeEmailPhoneView :
     ): ViewProfileSecurityChangeEmailphoneBinding =
         ViewProfileSecurityChangeEmailphoneBinding.inflate(inflater, container, false)
 
-    override fun sideEffect(sideEffect: BaseSideEffect) = Unit
+    override fun sideEffect(sideEffect: BaseSideEffect) {
+        super.sideEffect(sideEffect)
+    }
 
     override fun render(state: ProfileSecurityChangeEmailPhoneState) {
         stateTransformer(state).data?.let {

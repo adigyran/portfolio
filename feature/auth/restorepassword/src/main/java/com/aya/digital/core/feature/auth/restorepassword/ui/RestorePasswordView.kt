@@ -86,7 +86,9 @@ internal class RestorePasswordView :
         container: ViewGroup?
     ): ViewRestorePasswordBinding = ViewRestorePasswordBinding.inflate(inflater, container, false)
 
-    override fun sideEffect(sideEffect: BaseSideEffect) = Unit
+    override fun sideEffect(sideEffect: BaseSideEffect){
+        super.sideEffect(sideEffect)
+    }
 
     override fun render(state: RestorePasswordState) {
         stateTransformer(state).run {

@@ -20,6 +20,7 @@ import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
 import com.aya.digital.core.util.requestcodes.RequestCodes
 import kotlinx.coroutines.rx3.await
 import org.orbitmvi.orbit.syntax.simple.intent
+import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 import timber.log.Timber
@@ -95,8 +96,7 @@ internal class RestorePasswordViewModel(
                 }
             }
         }, {
-            if(it == RequestResultModel.Error.HttpCode400(listOf())) reenterCode()
-            Timber.d(it.toString())
+            if(it == RequestResultModel.Error.HttpCode400(listOf())) reenterCode() else processError(it)
         })
     }
 

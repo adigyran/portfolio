@@ -191,6 +191,7 @@ tink = { group = "com.google.crypto.tink", name = "tink-android", version.ref = 
 
 #firebase
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebase" }
+firebase-common-ktx = { group = "com.google.firebase", name = "firebase-common-ktx" }
 firebase-messaging-ktx = { group = "com.google.firebase", name = "firebase-messaging-ktx" }
 firebase-crashlytics-ktx = { group = "com.google.firebase", name = "firebase-crashlytics-ktx" }
 firebase-analytics-ktx = { group = "com.google.firebase", name = "firebase-analytics-ktx" }

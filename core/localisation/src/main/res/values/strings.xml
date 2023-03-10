@@ -11,5 +11,10 @@
     <string name="male_sex_name">Male</string>
     <string name="female_sex_name">Female</string>
     <string name="other_sex_name">Other</string>
+    <string name="server_error">Server Error</string>
+    <string name="unknown_error">Unknown Error</string>
+    <string name="unknown_host_error">Unknown Host Error</string>
+    <string name="socket_timeout_error">Socket Timeout Error</string>
+    <string name="no_role_defined_error">No Role Defined Error</string>
 
 </resources>

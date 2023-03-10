@@ -6,7 +6,7 @@ import com.aya.digital.core.ext.colors
 import com.aya.digital.core.ui.adapters.base.DiffItem
 import com.aya.digital.core.ui.base.utils.LinkTouchMovementMethod
 import com.aya.digital.core.designsystem.R.color
-import com.aya.digital.core.localisation.R.string.*
+import com.aya.digital.core.localisation.R.string as LocalisationR
 import com.aya.digital.core.ui.base.ext.SpannableObject
 import com.aya.digital.core.ui.base.ext.createSpannableText
 import com.aya.digital.core.ext.strings
@@ -27,7 +27,7 @@ fun chooserDescriptionDelegate(delegateListeners: DescriptionDelegateListeners) 
 
         //By registering, you agree to the Terms of Service, Privacy Policy, and Cookie Policy.
         val descriptionText =
-            context.strings[auth_chooser_description_formatted].createSpannableText(
+            context.strings[LocalisationR.auth_chooser_description_formatted].createSpannableText(
                 context.colors[color.button_text_blue],
                 context.colors[color.button_bg_dark_blue],
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE,
@@ -49,9 +49,9 @@ fun createSpannableObjects(
     delegateListeners: DescriptionDelegateListeners
 ): List<SpannableObject> = with(context) {
     listOf(
-        SpannableObject(strings[terms_of_service_button], { delegateListeners.termOfServiceClick() }),
-        SpannableObject(strings[privacy_policy_button], { delegateListeners.privacyPolicyClick() }),
-        SpannableObject(strings[cookie_policy_button], { delegateListeners.cookiePolicyClick() })
+        SpannableObject(strings[LocalisationR.terms_of_service_button], { delegateListeners.termOfServiceClick() }),
+        SpannableObject(strings[LocalisationR.privacy_policy_button], { delegateListeners.privacyPolicyClick() }),
+        SpannableObject(strings[LocalisationR.cookie_policy_button], { delegateListeners.cookiePolicyClick() })
     )
 }
 

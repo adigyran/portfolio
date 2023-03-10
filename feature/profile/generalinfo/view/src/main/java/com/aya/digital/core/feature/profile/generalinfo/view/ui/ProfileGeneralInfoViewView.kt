@@ -67,7 +67,9 @@ class ProfileGeneralInfoViewView :
     ): ViewProfileGeneralinfoViewBinding =
         ViewProfileGeneralinfoViewBinding.inflate(inflater, container, false)
 
-    override fun sideEffect(sideEffect: BaseSideEffect) = Unit
+    override fun sideEffect(sideEffect: BaseSideEffect) {
+        super.sideEffect(sideEffect)
+    }
 
     override fun render(state: ProfileGeneralInfoViewState) {
         stateTransformer(state).data?.let {

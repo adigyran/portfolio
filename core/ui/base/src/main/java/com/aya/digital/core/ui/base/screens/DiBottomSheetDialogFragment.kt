@@ -8,6 +8,8 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.viewbinding.ViewBinding
 import com.aya.digital.core.dibase.KodeinInjectionManager
+import com.aya.digital.core.ext.strings
+import com.aya.digital.core.localisation.strings
 import com.aya.digital.core.mvi.*
 import com.aya.digital.core.ui.core.CoreBottomSheetDialogFragment
 import com.jakewharton.rxrelay3.PublishRelay
@@ -64,7 +66,17 @@ abstract class DiBottomSheetDialogFragment<Binding : ViewBinding,ViewModel : Bas
 
     abstract fun render(state: State)
 
-    abstract fun sideEffect(sideEffect: SideEffect)
+    protected open fun sideEffect(sideEffect: SideEffect) {
+        if(sideEffect is BaseViewModel.ErrorSideEffect) processErrorSideEffect(sideEffect)
+    }
+
+    protected fun processErrorSideEffect(errorSideEffect: BaseViewModel.ErrorSideEffect){
+        when(errorSideEffect)
+        {
+            is BaseViewModel.ErrorSideEffect.Message -> {showErrorMsg(errorSideEffect.msg)}
+            is BaseViewModel.ErrorSideEffect.MessageResource -> {showErrorMsg(strings[errorSideEffect.msgResource])}
+        }
+    }
 
     abstract fun provideStateTransformer(): StateTransformer
 

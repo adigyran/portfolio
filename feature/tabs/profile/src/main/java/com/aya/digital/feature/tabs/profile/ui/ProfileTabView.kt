@@ -71,7 +71,9 @@ class ProfileTabView :
 
     override fun provideViewModel() = viewModelFactory(Unit)
 
-    override fun sideEffect(sideEffect: BaseSideEffect) = Unit
+    override fun sideEffect(sideEffect: BaseSideEffect){
+        super.sideEffect(sideEffect)
+    }
 
     override fun render(state: ProfileTabState) = Unit
 

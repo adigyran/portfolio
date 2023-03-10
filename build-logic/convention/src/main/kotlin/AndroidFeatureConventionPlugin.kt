@@ -20,6 +20,7 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
                 "kotlin-android",
                 "dokka",
                 "detekt",
+                "firebase-crashlytics",
                 "dependency-graph-generator"
             )
             pluginManager.apply {

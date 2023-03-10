@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import com.aya.digital.base.appbase.BaseApp
 import com.aya.digital.core.dibase.KodeinInjectionManager
+import com.aya.digital.core.ext.strings
 import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.mvi.BaseState
 import com.aya.digital.core.mvi.BaseViewModel
@@ -83,11 +84,23 @@ abstract class DiActivity<Binding : ViewBinding,ViewModel : BaseViewModel<State,
 
     abstract fun render(state: State)
 
-    abstract fun sideEffect(sideEffect: SideEffect)
+    protected open fun sideEffect(sideEffect: SideEffect) {
+        if(sideEffect is BaseViewModel.ErrorSideEffect) processErrorSideEffect(sideEffect)
+    }
+
+    protected fun processErrorSideEffect(errorSideEffect: BaseViewModel.ErrorSideEffect){
+        when(errorSideEffect)
+        {
+            is BaseViewModel.ErrorSideEffect.Message -> {showErrorMsg(errorSideEffect.msg)}
+            is BaseViewModel.ErrorSideEffect.MessageResource -> {showErrorMsg(strings[errorSideEffect.msgResource])}
+        }
+    }
 
     override fun prepareUi() {
         super.prepareUi()
     }
+
+
 
     final override fun initDi() {
         kodein.baseDI = KodeinInjectionManager.instance.bindKodein(this)

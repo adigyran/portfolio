@@ -7,6 +7,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.viewbinding.ViewBinding
 import com.aya.digital.core.dibase.KodeinInjectionManager
+import com.aya.digital.core.ext.strings
 import com.aya.digital.core.mvi.*
 import com.aya.digital.core.ui.core.CoreFragment
 import com.jakewharton.rxrelay3.PublishRelay
@@ -59,7 +60,17 @@ abstract class DiFragment<Binding : ViewBinding, ViewModel : BaseViewModel<State
 
     abstract fun render(state: State)
 
-    abstract fun sideEffect(sideEffect: SideEffect)
+    protected open fun sideEffect(sideEffect: SideEffect) {
+        if(sideEffect is BaseViewModel.ErrorSideEffect)processErrorSideEffect(sideEffect)
+    }
+
+    protected fun processErrorSideEffect(errorSideEffect: BaseViewModel.ErrorSideEffect){
+        when(errorSideEffect)
+        {
+            is BaseViewModel.ErrorSideEffect.Message -> {showErrorMsg(errorSideEffect.msg)}
+            is BaseViewModel.ErrorSideEffect.MessageResource -> {showErrorMsg(strings[errorSideEffect.msgResource])}
+        }
+    }
 
     final override fun initDi() {
         parentKodein.baseDI = getClosestParentKodein()

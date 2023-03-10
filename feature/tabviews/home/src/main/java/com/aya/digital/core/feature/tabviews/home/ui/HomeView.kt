@@ -47,7 +47,9 @@ class HomeView :
         container: ViewGroup?
     ): ViewHomeBinding = ViewHomeBinding.inflate(inflater, container, false)
 
-    override fun sideEffect(sideEffect: BaseSideEffect) = Unit
+    override fun sideEffect(sideEffect: BaseSideEffect) {
+        super.sideEffect(sideEffect)
+    }
 
     override fun render(state: HomeState) {
         stateTransformer(state).data?.let {
