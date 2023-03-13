@@ -50,9 +50,22 @@ class SelectWithSearchChooserViewModel(
     }
 
     fun selectItem(itemId: Int) = intent {
-        val selectedItems = state.selectedItems.toMutableSet()
-        if (selectedItems.contains(itemId)) selectedItems.remove(itemId)
-        else selectedItems.add(itemId)
+        val selectedItems = when(param.isMultiChoose)
+        {
+            true -> {
+                val selectedItemsTemp = state.selectedItems.toMutableSet()
+                if (selectedItemsTemp.contains(itemId)) selectedItemsTemp.remove(itemId)
+                else selectedItemsTemp.add(itemId)
+                selectedItemsTemp.toSet()
+            }
+            false -> {
+                val selectedItemsTemp = state.selectedItems.toMutableSet()
+                selectedItemsTemp.clear()
+                selectedItemsTemp.add(itemId)
+                selectedItemsTemp.toSet()
+            }
+        }
+
         reduce { state.copy(selectedItems = selectedItems.toSet()) }
     }
 

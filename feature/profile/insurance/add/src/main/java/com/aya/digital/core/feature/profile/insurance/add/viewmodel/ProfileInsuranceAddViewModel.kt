@@ -1,6 +1,8 @@
 package com.aya.digital.core.feature.profile.insurance.add.viewmodel
 
 import com.aya.digital.core.data.base.dataprocessing.mapResult
+import com.aya.digital.core.data.base.result.models.dictionaries.MultiSelectResultModel
+import com.aya.digital.core.data.base.result.models.insurance.AddInsuranceResultModel
 import com.aya.digital.core.domain.profile.insurance.AddInsuranceUseCase
 import com.aya.digital.core.domain.profile.insurance.DeleteInsuranceUseCase
 import com.aya.digital.core.domain.profile.insurance.GetInsuranceByIdUseCase
@@ -8,9 +10,11 @@ import com.aya.digital.core.domain.profile.insurance.SaveInsuranceUseCase
 import com.aya.digital.core.domain.profile.insurance.model.InsuranceAddModel
 import com.aya.digital.core.domain.profile.insurance.model.InsuranceSaveModel
 import com.aya.digital.core.feature.profile.insurance.add.FieldsTags
+import com.aya.digital.core.feature.profile.insurance.add.navigation.ProfileInsuranceAddNavigationEvents
 import com.aya.digital.core.feature.profile.insurance.add.ui.ProfileInsuranceAddView
 import com.aya.digital.core.mvi.BaseViewModel
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
+import com.aya.digital.core.util.requestcodes.RequestCodes
 import kotlinx.coroutines.rx3.await
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.postSideEffect
@@ -20,6 +24,7 @@ import org.orbitmvi.orbit.viewmodel.container
 class ProfileInsuranceAddViewModel(
     private val param: ProfileInsuranceAddView.Param,
     private val coordinatorRouter: CoordinatorRouter,
+    private val rootCoordinatorRouter : CoordinatorRouter,
     private val getInsuranceCompanyByIdUseCase: GetInsuranceByIdUseCase,
     private val getInsuranceByIdUseCase: GetInsuranceByIdUseCase,
     private val addInsuranceUseCase: AddInsuranceUseCase,
@@ -81,7 +86,8 @@ class ProfileInsuranceAddViewModel(
 
 
     private fun selectInsuranceCompany() = intent {
-
+        listenForInsuranceCompany()
+        coordinatorRouter.sendEvent(ProfileInsuranceAddNavigationEvents.SelectInsuranceCompany(RequestCodes.INSURANCE_LIST_REQUEST_CODE,state.organisationId))
     }
 
     fun photoClicked() = intent {
@@ -105,7 +111,9 @@ class ProfileInsuranceAddViewModel(
             InsuranceAddModel(state.photo!!, state.organisationId!!, state.number!!)
         val await = addInsuranceUseCase(insuranceAddModel).await()
         await.processResult({
-            //  coordinatorRouter.sendEvent(ProfileInsuranceAddNavigationEvents.FinishWithResult())
+            coordinatorRouter.sendEvent(ProfileInsuranceAddNavigationEvents.FinishWithResult(param.requestCode,
+                AddInsuranceResultModel(true)
+            ))
         }, { processError(it) })
     }
 
@@ -115,8 +123,30 @@ class ProfileInsuranceAddViewModel(
             InsuranceSaveModel(state.id!!, state.photo!!, state.organisationId!!, state.number!!)
         val await = saveInsuranceUseCase(insuranceSaveModel).await()
         await.processResult({
-            //  coordinatorRouter.sendEvent(ProfileInsuranceAddNavigationEvents.FinishWithResult())
+            coordinatorRouter.sendEvent(ProfileInsuranceAddNavigationEvents.FinishWithResult(param.requestCode,
+                AddInsuranceResultModel(true)
+            ))
         }, { processError(it) })
+    }
+
+
+    private fun listenForInsuranceCompany() = intent {
+        rootCoordinatorRouter.setResultListener(RequestCodes.INSURANCE_LIST_REQUEST_CODE) {
+            if(it is MultiSelectResultModel && it.selectedItems.isNotEmpty())
+            {
+                setInsuranceCompany(it.selectedItems.first())
+
+            }
+        }
+    }
+
+    private fun setInsuranceCompany(companyId: Int) = intent {
+        reduce {
+            state.copy(
+                organisationId = companyId
+            )
+        }
+        getInsuranceCompanyName()
     }
 
     override fun postErrorSideEffect(errorSideEffect: ErrorSideEffect) = intent {
