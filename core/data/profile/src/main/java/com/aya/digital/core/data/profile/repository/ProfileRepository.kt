@@ -36,7 +36,7 @@ interface ProfileRepository {
         insurancePolicyBody: InsurancePolicyBody
     ): Single<RequestResult<Boolean>>
 
-    fun getInsurances(): Observable<RequestResult<Boolean>>
+    fun getInsurances(): Observable<RequestResult<List<InsurancePolicyModel>>>
 
     fun getInsuranceById(insuranceId: Int): Single<RequestResult<InsurancePolicyModel>>
 
