@@ -51,4 +51,7 @@ interface ProfileService {
         @Body body: EmergencyContactBody
     ): Completable
 
+    @DELETE("profile/insurances/{id}")
+    fun deleteInsurance(@Path("id") insuranceId: Int): Single<Unit>
+
 }

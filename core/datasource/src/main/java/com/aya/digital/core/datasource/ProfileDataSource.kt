@@ -41,4 +41,6 @@ interface ProfileDataSource {
 
     fun getInsuranceById(insuranceId: Int):Single<InsurancePolicyResponse>
 
+    fun deleteInsurance(insuranceId: Int):Single<Unit>
+
 }

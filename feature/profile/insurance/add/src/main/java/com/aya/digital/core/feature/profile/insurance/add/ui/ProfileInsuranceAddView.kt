@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.aya.digital.core.ext.argument
+import com.aya.digital.core.ext.bindClick
 import com.aya.digital.core.ext.createFragment
 import com.aya.digital.core.feature.profile.insurance.add.databinding.ViewProfileInsuranceAddBinding
 import com.aya.digital.core.feature.profile.insurance.add.di.profileInsuranceAddDiModule
@@ -23,6 +24,7 @@ import com.aya.digital.core.ui.delegates.components.fields.name.model.ui.nameFie
 import com.aya.digital.core.ui.delegates.components.fields.selection.ui.SelectionFieldDelegateListeners
 import com.aya.digital.core.ui.delegates.components.fields.selection.ui.selectionFieldDelegate
 import com.aya.digital.core.ui.delegates.profile.emergencycontactinfo.ui.insurancePolicyPhotoDelegate
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.parcelize.Parcelize
 import org.kodein.di.DI
 import org.kodein.di.factory
@@ -57,6 +59,7 @@ class ProfileInsuranceAddView :
     override fun prepareCreatedUi(savedInstanceState: Bundle?) {
         super.prepareCreatedUi(savedInstanceState)
         recyclers.add(binding.recycler)
+        binding.saveAddButton bindClick {viewModel.onSaveAddClicked()}
         with(binding.recycler) {
             itemAnimator = null
             setHasFixedSize(true)
@@ -87,14 +90,32 @@ class ProfileInsuranceAddView :
         when(sideEffect)
         {
             is ProfileInsuranceAddSideEffects.Error -> processErrorSideEffect(sideEffect.error)
+            ProfileInsuranceAddSideEffects.ShowInsuranceActionsDialog -> showInsuranceActionsDialog()
         }
 
-    override fun render(state: ProfileInsuranceAddState) {
-        stateTransformer(state).data?.let {
-            adapter.items = it
-            if (binding.recycler.adapter == null) {
-                binding.recycler.swapAdapter(adapter, true)
+
+    private fun showInsuranceActionsDialog() {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle("Delete?")
+            .setMessage("Are you sure you want to remove this insurance?")
+            .setNegativeButton("Cancel") { dialog, which ->
+                dialog.dismiss()
             }
+            .setPositiveButton("Delete") { dialog, which ->
+                viewModel.deleteInsurance()
+                dialog.dismiss()
+            }
+            .show()
+    }
+    override fun render(state: ProfileInsuranceAddState) {
+        stateTransformer(state).let {
+            it.data?.let {
+                adapter.items = it
+                if (binding.recycler.adapter == null) {
+                    binding.recycler.swapAdapter(adapter, true)
+                }
+            }
+            it.saveAddButtonText.run { binding.saveAddButton.text = this }
         }
     }
 

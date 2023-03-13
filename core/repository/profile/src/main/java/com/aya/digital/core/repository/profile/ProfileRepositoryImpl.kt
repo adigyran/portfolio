@@ -95,6 +95,15 @@ internal class ProfileRepositoryImpl(
             .mapResult({insuranceMapper.mapFrom(it).asResult()
             }, { it })
 
+    override fun deleteInsurance(insuranceId: Int): Single<RequestResult<Boolean>> =
+        profileDataSource.deleteInsurance(insuranceId)
+            .retryOnError()
+            .retrofitResponseToResult(CommonUtils::mapServerErrors)
+            .mapResult({
+                true.asResult()
+            }, { it })
+
+
     override fun clear() {
         TODO("Not yet implemented")
     }

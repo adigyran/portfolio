@@ -6,7 +6,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class InsurancePolicyItemModel(
     val id: Int,
-    val name: String,
+    val name: Int,
     val number: String,
-    val photo: String
+    val photo: Int
 ) : Parcelable

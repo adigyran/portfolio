@@ -5,8 +5,10 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class ProfileInsuranceAddState(
-    val name: String? = null,
+    val organisationId: Int? = null,
+    val organisationName: String? = null,
     val number: String? = null,
     val numberError: String? = null,
-    val photo: String? = null
+    val photo: Int? = null,
+    val id:Int? = null
 ) : BaseState

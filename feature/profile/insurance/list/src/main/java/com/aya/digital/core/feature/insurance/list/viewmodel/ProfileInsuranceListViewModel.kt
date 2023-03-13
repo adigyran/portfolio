@@ -30,11 +30,8 @@ class ProfileInsuranceListViewModel(
 
     private fun loadInsurancesList() = intent(registerIdling = false) {
         getInsurancesUseCase().asFlow().collect{result->
-            result.processResult({},{Timber.d(it.toString())})
+            result.processResult({},{processError(it)})
         }
-       /* getInsurancesUseCase().await()
-            .processResult({ insuranceModels -> reduce { state.copy(insuranceModels = insuranceModels) } },
-                { Timber.d(it.toString()) })*/
     }
 
     fun insuranceItemClicked(id: Int) = intent {
@@ -53,14 +50,14 @@ class ProfileInsuranceListViewModel(
     }
 
     fun insuranceItemMoreClicked(id: Int) = intent {
-
+        postSideEffect(ProfileInsuranceListSideEffects.ShowInsuranceActionsDialog(id))
     }
 
     fun deleteInsurance(id: Int) = intent {
         deleteInsuranceUseCase(id).await()
             .processResult({
                 loadInsurancesList()
-            }, { Timber.d(it.toString()) })
+            }, { processError(it) })
     }
 
     private fun listenForInsuranceEditEvent() = intent {

@@ -11,13 +11,10 @@ import com.aya.digital.core.domain.profile.generalinfo.view.GetProfileBriefUseCa
 import com.aya.digital.core.domain.profile.generalinfo.view.GetProfileInfoUseCase
 import com.aya.digital.core.domain.profile.generalinfo.view.impl.GetProfileInfoUseCaseImpl
 import com.aya.digital.core.domain.profile.generalinfo.view.impl.GetProfileUseCaseImpl
-import com.aya.digital.core.domain.profile.insurance.AddInsuranceUseCase
-import com.aya.digital.core.domain.profile.insurance.DeleteInsuranceUseCase
-import com.aya.digital.core.domain.profile.insurance.GetInsuranceByIdUseCase
-import com.aya.digital.core.domain.profile.insurance.GetInsurancesUseCase
+import com.aya.digital.core.domain.profile.insurance.*
+import com.aya.digital.core.domain.profile.insurance.impl.*
 import com.aya.digital.core.domain.profile.insurance.impl.AddInsuranceUseCaseImpl
 import com.aya.digital.core.domain.profile.insurance.impl.DeleteInsuranceUseCaseImpl
-import com.aya.digital.core.domain.profile.insurance.impl.GetInsuranceByIdUseCaseImpl
 import com.aya.digital.core.domain.profile.insurance.impl.GetInsurancesUseCaseImpl
 import com.aya.digital.core.domain.profile.notifications.GetEmailNotificationsStatusUseCase
 import com.aya.digital.core.domain.profile.notifications.impl.GetEmailNotificationsStatusUseCaseImpl
@@ -54,6 +51,7 @@ fun profileDomainDiModule() = DI.Module("profileDomainDiModule") {
     bind<GetInsurancesUseCase>() with singleton { GetInsurancesUseCaseImpl(instance()) }
     bind<GetInsuranceByIdUseCase>() with singleton { GetInsuranceByIdUseCaseImpl(instance()) }
     bind<AddInsuranceUseCase>() with singleton { AddInsuranceUseCaseImpl(instance()) }
+    bind<SaveInsuranceUseCase>() with singleton { SaveInsuranceUseCaseImpl(instance()) }
     bind<DeleteInsuranceUseCase>() with singleton { DeleteInsuranceUseCaseImpl(instance()) }
 
     //notifications

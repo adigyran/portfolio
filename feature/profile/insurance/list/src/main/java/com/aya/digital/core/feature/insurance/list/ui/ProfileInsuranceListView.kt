@@ -17,6 +17,7 @@ import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.ui.adapters.base.BaseDelegateAdapter
 import com.aya.digital.core.ui.base.screens.DiFragment
 import com.aya.digital.core.ui.delegates.profile.emergencycontactinfo.ui.insurancePolicyDelegate
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.kodein.di.DI
 import org.kodein.di.factory
 import org.kodein.di.on
@@ -76,7 +77,22 @@ class ProfileInsuranceListView :
         when(sideEffect)
         {
             is ProfileInsuranceListSideEffects.Error -> processErrorSideEffect(sideEffect.error)
+            is ProfileInsuranceListSideEffects.ShowInsuranceActionsDialog -> showInsuranceActionsDialog(sideEffect.insuranceId)
         }
+
+    private fun showInsuranceActionsDialog(insuranceId: Int) {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle("Delete?")
+            .setMessage("Are you sure you want to remove this insurance?")
+            .setNegativeButton("Cancel") { dialog, which ->
+                dialog.dismiss()
+            }
+            .setPositiveButton("Delete") { dialog, which ->
+                viewModel.deleteInsurance(insuranceId)
+                dialog.dismiss()
+            }
+            .show()
+    }
 
     override fun render(state: ProfileInsuranceListState) {
         stateTransformer(state).data?.let {

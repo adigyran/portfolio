@@ -4,14 +4,14 @@ import com.aya.digital.core.data.base.dataprocessing.RequestResultModel
 import com.aya.digital.core.data.base.dataprocessing.asResultModel
 import com.aya.digital.core.data.base.dataprocessing.toModelError
 import com.aya.digital.core.data.profile.repository.ProfileRepository
-import com.aya.digital.core.domain.profile.insurance.AddInsuranceUseCase
-import com.aya.digital.core.domain.profile.insurance.model.InsuranceAddModel
+import com.aya.digital.core.domain.profile.insurance.SaveInsuranceUseCase
+import com.aya.digital.core.domain.profile.insurance.model.InsuranceSaveModel
 import com.aya.digital.core.ext.mapResult
 import com.aya.digital.core.network.model.request.InsurancePolicyBody
 import io.reactivex.rxjava3.core.Single
 
-internal class AddInsuranceUseCaseImpl(private val profileRepository: ProfileRepository) : AddInsuranceUseCase {
-    override fun invoke(addInsuranceModel: InsuranceAddModel): Single<RequestResultModel<Boolean>> =
-        profileRepository.addInsurance(InsurancePolicyBody(addInsuranceModel.number,addInsuranceModel.name,addInsuranceModel.photo))
+internal class SaveInsuranceUseCaseImpl(private val profileRepository: ProfileRepository) : SaveInsuranceUseCase {
+    override fun invoke(saveModel: InsuranceSaveModel): Single<RequestResultModel<Boolean>> =
+        profileRepository.saveInsurance(saveModel.id, InsurancePolicyBody(saveModel.number,saveModel.name,saveModel.photo))
             .mapResult({it.asResultModel()},{it.toModelError()})
 }

@@ -40,6 +40,8 @@ interface ProfileRepository {
 
     fun getInsuranceById(insuranceId: Int): Single<RequestResult<InsurancePolicyModel>>
 
+    fun deleteInsurance(insuranceId: Int): Single<RequestResult<Boolean>>
+
     fun clear()
 
 

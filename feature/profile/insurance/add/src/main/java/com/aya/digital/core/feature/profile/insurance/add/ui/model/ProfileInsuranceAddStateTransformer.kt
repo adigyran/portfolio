@@ -21,7 +21,7 @@ class ProfileInsuranceAddStateTransformer(private val context: Context) :
                         SelectionFieldUIModel(
                             FieldsTags.NAME_FIELD_TAG,
                             "Insurance Company Name",
-                            state.name,
+                            state.organisationName,
                             null
                         )
                     )
@@ -34,7 +34,8 @@ class ProfileInsuranceAddStateTransformer(private val context: Context) :
                         )
                     )
                 }
-            }
+            },
+            saveAddButtonText = kotlin.run { if (state.id != null) "Save" else "Add" }
         )
 
 

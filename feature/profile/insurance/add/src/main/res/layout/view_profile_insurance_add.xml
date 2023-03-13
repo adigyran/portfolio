@@ -11,7 +11,7 @@
         android:layout_height="0dp"
         android:clipToPadding="true"
         android:paddingBottom="60dp"
-        app:layout_constraintBottom_toTopOf="@id/signInBtn"
+        app:layout_constraintBottom_toTopOf="@id/saveAddButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -26,8 +26,8 @@
         app:layout_constraintBottom_toTopOf="@id/descrLabl"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:id="@+id/signInBtn"
-        android:text="@string/sign_in" />
+        android:id="@+id/saveAddButton"
+        android:text="Add" />
 
     <TextView
         android:layout_width="0dp"
