@@ -46,8 +46,8 @@ fun profileDomainDiModule() = DI.Module("profileDomainDiModule") {
     bind<SetAvatarUseCase>() with singleton { SetAvatarUseCaseImpl() }
 
     //emergencyContact
-    bind<GetEmergencyContactUseCase>() with singleton { GetEmergencyContactUseCaseImpl() }
-    bind<SaveEmergencyContactUseCase>() with singleton { SaveEmergencyContactUseCaseImpl() }
+    bind<GetEmergencyContactUseCase>() with singleton { GetEmergencyContactUseCaseImpl(instance()) }
+    bind<SaveEmergencyContactUseCase>() with singleton { SaveEmergencyContactUseCaseImpl(instance()) }
 
     //insurance
     bind<GetInsurancesUseCase>() with singleton { GetInsurancesUseCaseImpl(instance(),instance()) }

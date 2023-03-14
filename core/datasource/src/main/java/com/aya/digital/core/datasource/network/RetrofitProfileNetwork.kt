@@ -57,7 +57,7 @@ class RetrofitProfileNetwork(private val network: ProfileService) :
     override fun getEmergencyContact(): Single<EmergencyContactResponse> =
         network.getEmergencyContact()
 
-    override fun updateEmergencyContact(body: EmergencyContactBody): Completable =
+    override fun updateEmergencyContact(body: EmergencyContactBody): Single<Unit> =
         network.updateEmergencyContact(body)
 
     override fun uploadImage(file: MultipartBody.Part): Single<ImageUploadResponse> = network.uploadImage(file)

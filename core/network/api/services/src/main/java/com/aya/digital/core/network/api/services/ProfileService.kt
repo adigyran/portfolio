@@ -43,13 +43,13 @@ interface ProfileService {
         @Body body: PatientProfileBody
     ): Completable
 
-    @GET("account/patient/contact")
+    @GET("profile/emergency")
     fun getEmergencyContact(): Single<EmergencyContactResponse>
 
-    @PATCH("account/patient/contact")
+    @POST("profile/emergency")
     fun updateEmergencyContact(
         @Body body: EmergencyContactBody
-    ): Completable
+    ): Single<Unit>
 
     @DELETE("profile/insurances/{id}")
     fun deleteInsurance(@Path("id") insuranceId: Int): Single<Unit>

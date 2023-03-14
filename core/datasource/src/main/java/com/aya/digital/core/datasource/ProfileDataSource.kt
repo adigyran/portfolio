@@ -27,7 +27,7 @@ interface ProfileDataSource {
 
     fun updateEmergencyContact(
         body: EmergencyContactBody
-    ): Completable
+    ): Single<Unit>
 
     fun uploadImage(
         file: MultipartBody.Part

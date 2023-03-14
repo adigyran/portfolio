@@ -7,6 +7,7 @@ import com.aya.digital.core.data.profile.EmergencyContact
 import com.aya.digital.core.data.profile.ImageUploadResult
 import com.aya.digital.core.data.profile.InsurancePolicyModel
 import com.aya.digital.core.data.profile.mappers.CurrentProfileMapper
+import com.aya.digital.core.data.profile.mappers.EmergencyContactMapper
 import com.aya.digital.core.data.profile.repository.ProfileRepository
 import com.aya.digital.core.datasource.DictionariesDataSource
 import com.aya.digital.core.datasource.ProfileDataSource
@@ -26,6 +27,7 @@ internal class ProfileRepositoryImpl(
     private val profileDataSource: ProfileDataSource,
     private val currentProfileMapper: CurrentProfileMapper,
     private val insuranceMapper: InsurancePolicyMapper,
+    private val emergencyContactMapper: EmergencyContactMapper,
     private val dictionariesDataSource: DictionariesDataSource,
     private val insuranceCompanyMapper: InsuranceCompanyMapper
 ) :
@@ -50,13 +52,21 @@ internal class ProfileRepositoryImpl(
                 currentProfileMapper.mapFrom(it).asResult()
             }, { it })
 
-    override fun getEmergencyContact(): Single<RequestResult<EmergencyContact>> {
-        TODO("Not yet implemented")
-    }
+    override fun getEmergencyContact(): Single<RequestResult<EmergencyContact>> =
+        profileDataSource.getEmergencyContact()
+            .retryOnError()
+            .retrofitResponseToResult(CommonUtils::mapServerErrors)
+            .mapResult({
+                emergencyContactMapper.mapFrom(it).asResult()
+            }, { it })
 
-    override fun updateEmergencyContact(body: EmergencyContactBody): Single<RequestResult<Unit>> {
-        TODO("Not yet implemented")
-    }
+    override fun updateEmergencyContact(body: EmergencyContactBody): Single<RequestResult<Unit>> =
+        profileDataSource.updateEmergencyContact(body)
+            .retryOnError()
+            .retrofitResponseToResult(CommonUtils::mapServerErrors)
+            .mapResult({
+                Unit.asResult()
+            }, { it })
 
     override fun uploadImage(file: File): RequestResult<ImageUploadResult> {
         TODO("Not yet implemented")

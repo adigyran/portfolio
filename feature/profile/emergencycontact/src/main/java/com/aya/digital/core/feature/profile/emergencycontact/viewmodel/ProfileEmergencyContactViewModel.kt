@@ -33,7 +33,11 @@ class ProfileEmergencyContactViewModel(
 
 
     fun onNameFieldChanged(tag: Int, text: String) = intent {
-
+        when(tag)
+        {
+          FieldsTags.NAME_FIELD -> reduce { state.copy(contactName = text) }
+          FieldsTags.PHONE_FIELD -> reduce { state.copy(contactPhone = text) }
+        }
     }
 
     private fun getEmergencyContact() = intent {
@@ -42,7 +46,7 @@ class ProfileEmergencyContactViewModel(
             reduce {
                 state.copy(contactName = it.name, contactPhone = it.phone)
             }
-        }, { Timber.d(it.toString()) })
+        }, { processError(it) })
     }
 
     private fun saveEmergencyContact() = intent {
@@ -50,7 +54,7 @@ class ProfileEmergencyContactViewModel(
         val await = saveEmergencyContactUseCase(state.contactName!!, state.contactPhone!!).await()
         await.processResult({
             reduce { state.copy(editMode = false) }
-        }, { Timber.d(it.toString()) })
+        }, { processError(it) })
     }
 
     fun buttonClicked() = intent {
