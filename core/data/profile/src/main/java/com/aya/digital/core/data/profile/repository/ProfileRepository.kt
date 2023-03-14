@@ -42,6 +42,8 @@ interface ProfileRepository {
 
     fun deleteInsurance(insuranceId: Int): Single<RequestResult<Boolean>>
 
+    fun getAttachmentById(attachmentId: Int): Single<RequestResult<Boolean>>
+
     fun clear()
 
 

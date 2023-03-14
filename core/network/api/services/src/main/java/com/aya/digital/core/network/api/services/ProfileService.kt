@@ -30,7 +30,7 @@ interface ProfileService {
     fun saveInsurance(@Path("id") insuranceId:Int, @Body insurancePolicyBody: InsurancePolicyBody) : Single<Unit>
 
     @GET("profile/insurances")
-    fun getInsurances():Observable<Unit>
+    fun getInsurances():Observable<List<InsurancePolicyResponse>>
 
     @GET("profile/insurances/{id}")
     fun getInsuranceById(@Path("id") insuranceId: Int):Single<InsurancePolicyResponse>
@@ -53,5 +53,8 @@ interface ProfileService {
 
     @DELETE("profile/insurances/{id}")
     fun deleteInsurance(@Path("id") insuranceId: Int): Single<Unit>
+
+    @GET("attachment/{id}")
+    fun getAttachmentById(@Path("id") attachmentId: Int): Single<Unit>
 
 }

@@ -37,10 +37,12 @@ interface ProfileDataSource {
 
     fun saveInsurance(insuranceId:Int, insurancePolicyBody: InsurancePolicyBody) : Single<Unit>
 
-    fun getInsurances(): Observable<Unit>
+    fun getInsurances(): Observable<List<InsurancePolicyResponse>>
 
     fun getInsuranceById(insuranceId: Int):Single<InsurancePolicyResponse>
 
     fun deleteInsurance(insuranceId: Int):Single<Unit>
+
+    fun getAttachmentById(attachmentId:Int):Single<Unit>
 
 }

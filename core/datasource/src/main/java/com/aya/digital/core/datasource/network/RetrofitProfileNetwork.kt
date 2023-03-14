@@ -65,10 +65,11 @@ class RetrofitProfileNetwork(private val network: ProfileService) :
 
     override fun saveInsurance(insuranceId: Int, insurancePolicyBody: InsurancePolicyBody): Single<Unit> = network.saveInsurance(insuranceId, insurancePolicyBody)
 
-    override fun getInsurances(): Observable<Unit> = network.getInsurances()
+    override fun getInsurances(): Observable<List<InsurancePolicyResponse>> = network.getInsurances()
 
     override fun getInsuranceById(insuranceId: Int): Single<InsurancePolicyResponse> = network.getInsuranceById(insuranceId)
     override fun deleteInsurance(insuranceId: Int): Single<Unit> = network.deleteInsurance(insuranceId)
+    override fun getAttachmentById(attachmentId: Int): Single<Unit> = network.getAttachmentById(attachmentId)
 }
 
 class RetrofitProfilePractitionerNetwork(private val network: ProfileService) :

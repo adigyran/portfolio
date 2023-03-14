@@ -1,6 +1,5 @@
 package com.aya.digital.core.feature.profile.insurance.add.viewmodel
 
-import com.aya.digital.core.data.base.dataprocessing.mapResult
 import com.aya.digital.core.data.base.result.models.dictionaries.MultiSelectResultModel
 import com.aya.digital.core.data.base.result.models.insurance.AddInsuranceResultModel
 import com.aya.digital.core.domain.profile.insurance.AddInsuranceUseCase
@@ -48,9 +47,7 @@ class ProfileInsuranceAddViewModel(
                     state.copy(
                         number = it.number,
                         organisationId = it.organisationId,
-                        organisationName = it.organisationName,
-                        photo = it.photoAttachment
-                    )
+                        organisationName = it.organisationName)
                 }
             }, { processError(it) })
     }

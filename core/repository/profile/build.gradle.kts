@@ -16,6 +16,7 @@ dependencies {
     implementation(project(":core:datastore"))
     implementation(project(":core:data:base"))
     implementation(project(":core:data:profile"))
+    implementation(project(":core:data:dictionaries"))
     implementation(libs.kodein)
     implementation(libs.jwt.decode)
     implementation(libs.rxkotlin)

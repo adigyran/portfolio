@@ -7,10 +7,7 @@ import com.aya.digital.core.data.dictionaries.repository.DictionariesRepository
 import com.aya.digital.core.data.profile.repository.ProfileRepository
 import com.aya.digital.core.domain.profile.insurance.GetInsurancesUseCase
 import com.aya.digital.core.domain.profile.insurance.model.InsurancePolicyItemModel
-import com.aya.digital.core.ext.asResult
-import com.aya.digital.core.ext.flatMapResult
 import com.aya.digital.core.ext.mapResult
-import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Observable
 
 internal class GetInsurancesUseCaseImpl(
@@ -19,18 +16,18 @@ internal class GetInsurancesUseCaseImpl(
 ) : GetInsurancesUseCase {
     override fun invoke(): Observable<RequestResultModel<List<InsurancePolicyItemModel>>> =
         profileRepository.getInsurances()
-            .flatMapResult({ insurancePolicyModels ->
-                Observable.fromIterable(insurancePolicyModels)
-                    .flatMap { insurancePolicyModel ->
-                        dictionariesRepository.getInsuranceCompanyById(insurancePolicyModel.organisationId)
-                            .toObservable()
-                            .mapResult({ insuranceCompanyModel ->
-                                insurancePolicyModel.organisationName = insuranceCompanyModel.name
-                                insurancePolicyModel.asResult()
-                            }, { it })
-                    }
-            }, { Observable.just(it) })
-            .mapResult({ listOf<InsurancePolicyItemModel>().asResultModel() },
+            .mapResult({
+                it.map { insurancePolicyModel ->
+                    InsurancePolicyItemModel(
+                        insurancePolicyModel.id,
+                        insurancePolicyModel.organisationId,
+                        insurancePolicyModel.organisationName,
+                        insurancePolicyModel.number,
+                        insurancePolicyModel.photoAttachment,
+                        insurancePolicyModel.attachment
+                    )
+                }.asResultModel()
+            },
                 { it.toModelError() })
 
 }

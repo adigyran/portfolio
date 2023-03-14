@@ -16,7 +16,7 @@ class ProfileInsuranceAddStateTransformer(private val context: Context) :
         ProfileInsuranceAddUiModel(
             data = kotlin.run {
                 return@run mutableListOf<DiffItem>().apply {
-                    add(InsurancePolicyPhotoUIModel(state.photo))
+                    add(InsurancePolicyPhotoUIModel(state.photoLink))
                     add(
                         SelectionFieldUIModel(
                             FieldsTags.NAME_FIELD_TAG,

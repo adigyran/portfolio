@@ -35,7 +35,7 @@ abstract class BaseViewModel<STATE : BaseState, SideEffect : BaseSideEffect> : V
                     return errorMessage
                 }
                 is RequestResultModel.Error.HttpCode400 -> {
-                    if (httpHttpCodeHandlers.find { it.first == HttpResponseCode.CODE_400 }?.second?.invoke(
+                   /* if (httpHttpCodeHandlers.find { it.first == HttpResponseCode.CODE_400 }?.second?.invoke(
                             error.errorList
                         ) != true
                     ) {
@@ -53,7 +53,7 @@ abstract class BaseViewModel<STATE : BaseState, SideEffect : BaseSideEffect> : V
                                 errorMessage
                             }
                         }
-                    }
+                    }*/
                     return null
                 }
                 RequestResultModel.Error.HttpCode401 -> {

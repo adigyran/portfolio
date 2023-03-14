@@ -7,5 +7,12 @@ import com.aya.digital.core.network.model.response.profile.InsurancePolicyRespon
 
 class InsurancePolicyMapperImpl : InsurancePolicyMapper() {
     override fun mapFrom(type: InsurancePolicyResponse): InsurancePolicyModel =
-        InsurancePolicyModel(0)
+        InsurancePolicyModel(
+            id = type.id,
+            organisationId = type.organizationId,
+            organisationName = "",
+            photoAttachment = type.attachmentId,
+            number = type.number,
+            attachment = null
+        )
 }

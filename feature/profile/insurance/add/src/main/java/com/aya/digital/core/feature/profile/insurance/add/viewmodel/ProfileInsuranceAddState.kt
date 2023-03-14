@@ -10,5 +10,6 @@ data class ProfileInsuranceAddState(
     val number: String? = null,
     val numberError: String? = null,
     val photo: Int? = null,
+    val photoLink: String? = null,
     val id:Int? = null
 ) : BaseState

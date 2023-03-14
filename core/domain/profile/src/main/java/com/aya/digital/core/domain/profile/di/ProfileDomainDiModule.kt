@@ -1,4 +1,6 @@
 package com.aya.digital.core.domain.profile.di
+import com.aya.digital.core.domain.profile.attachment.GetAttachmentByIdUseCase
+import com.aya.digital.core.domain.profile.attachment.impl.GetAttachmentByIdUseCaseImpl
 import com.aya.digital.core.domain.profile.emergencycontact.GetEmergencyContactUseCase
 import com.aya.digital.core.domain.profile.emergencycontact.impl.GetEmergencyContactUseCaseImpl
 import com.aya.digital.core.domain.profile.emergencycontact.SaveEmergencyContactUseCase
@@ -48,8 +50,8 @@ fun profileDomainDiModule() = DI.Module("profileDomainDiModule") {
     bind<SaveEmergencyContactUseCase>() with singleton { SaveEmergencyContactUseCaseImpl() }
 
     //insurance
-    bind<GetInsurancesUseCase>() with singleton { GetInsurancesUseCaseImpl(instance()) }
-    bind<GetInsuranceByIdUseCase>() with singleton { GetInsuranceByIdUseCaseImpl(instance()) }
+    bind<GetInsurancesUseCase>() with singleton { GetInsurancesUseCaseImpl(instance(),instance()) }
+    bind<GetInsuranceByIdUseCase>() with singleton { GetInsuranceByIdUseCaseImpl(instance(),instance()) }
     bind<AddInsuranceUseCase>() with singleton { AddInsuranceUseCaseImpl(instance()) }
     bind<SaveInsuranceUseCase>() with singleton { SaveInsuranceUseCaseImpl(instance()) }
     bind<DeleteInsuranceUseCase>() with singleton { DeleteInsuranceUseCaseImpl(instance()) }
@@ -66,5 +68,8 @@ fun profileDomainDiModule() = DI.Module("profileDomainDiModule") {
     bind<ChangeEmailGetCodeUseCase>() with singleton { ChangeEmailGetCodeUseCaseImpl(instance(),instance()) }
     //change password
     bind<ChangePasswordUseCase>() with singleton { ChangePasswordUseCaseImpl(instance(),instance()) }
+
+    bind<GetAttachmentByIdUseCase>() with singleton { GetAttachmentByIdUseCaseImpl(instance()) }
+
 
 }
