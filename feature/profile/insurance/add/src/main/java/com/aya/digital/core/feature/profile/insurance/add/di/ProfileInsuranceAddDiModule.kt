@@ -20,7 +20,7 @@ fun profileInsuranceAddDiModule(
 
     bind {
         scoped(CustomFragmentScope).singleton {
-            ProfileInsuranceAddViewModel(param, parentCoordinatorEvent,instance("root_navigation"), instance(), instance(),instance(),instance(),instance())
+            ProfileInsuranceAddViewModel(param, parentCoordinatorEvent,instance("parent_coordinator_bottomnav"), instance(),instance(), instance(),instance(),instance(),instance())
         }
     }
 }

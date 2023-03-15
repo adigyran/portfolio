@@ -29,6 +29,7 @@ fun insurancePolicyPhotoDelegate(onPhotoClick: () -> Unit, onPhotoMoreClick: () 
             binding.emptyImageGroup.visible()
             binding.insuranceCardIv.gone()
         }
+        binding.uploadPhotoBtn bindClick {onPhotoClick()}
         binding.moreBtn bindClick {onPhotoMoreClick()}
         bind {
             if (!initialised) {

@@ -1,9 +1,15 @@
 package com.aya.digital.core.feature.profile.insurance.add.ui
 
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.os.Parcelable
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.aya.digital.core.ext.argument
@@ -11,6 +17,7 @@ import com.aya.digital.core.ext.bindClick
 import com.aya.digital.core.ext.createFragment
 import com.aya.digital.core.feature.profile.insurance.add.databinding.ViewProfileInsuranceAddBinding
 import com.aya.digital.core.feature.profile.insurance.add.di.profileInsuranceAddDiModule
+import com.aya.digital.core.feature.profile.insurance.add.ui.contract.ProfileInsuranceAddImageSelectContract
 import com.aya.digital.core.feature.profile.insurance.add.ui.model.ProfileInsuranceAddStateTransformer
 import com.aya.digital.core.feature.profile.insurance.add.ui.model.ProfileInsuranceAddUiModel
 import com.aya.digital.core.feature.profile.insurance.add.viewmodel.ProfileInsuranceAddSideEffects
@@ -77,6 +84,20 @@ class ProfileInsuranceAddView :
         }
     }
 
+    private val singlePhotoPickerLauncher = registerForActivityResult(ProfileInsuranceAddImageSelectContract()) { imageUri: Uri? ->
+        imageUri?.let(viewModel::imageSelected)
+    }
+
+    /*private val pickSingleMediaLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        if (it.resultCode != Activity.RESULT_OK) {
+            it.data
+            Toast.makeText(requireContext(), "Failed picking media.", Toast.LENGTH_SHORT).show()
+        } else {
+            val uri = it.data?.data
+            Toast.makeText(requireContext(), "Picked media.", Toast.LENGTH_SHORT).show()
+        }
+    }*/
+
     override fun provideDiModule(): DI.Module =
         profileInsuranceAddDiModule(tryTyGetParentRouter(), param)
 
@@ -91,6 +112,9 @@ class ProfileInsuranceAddView :
         {
             is ProfileInsuranceAddSideEffects.Error -> processErrorSideEffect(sideEffect.error)
             ProfileInsuranceAddSideEffects.ShowInsuranceActionsDialog -> showInsuranceActionsDialog()
+            ProfileInsuranceAddSideEffects.SelectImage -> {
+                singlePhotoPickerLauncher.launch(null)
+            }
         }
 
 

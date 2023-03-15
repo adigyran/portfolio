@@ -22,6 +22,8 @@ fun bottomNavHostModule(
     parentCoordinatorEvent: CoordinatorRouter
 ) = DI.Module("bottomNavHostModule") {
 
+    bind<CoordinatorRouter>("parent_coordinator_bottomnav") with multiton {parentCoordinatorEvent}
+
     bind<BottomNavHostStateTransformer>() with singleton { BottomNavHostStateTransformer(instance()) }
 
     bind<Coordinator>(overrides = true) {

@@ -1,5 +1,6 @@
 package com.aya.digital.core.data.profile.repository
 
+import android.net.Uri
 import com.aya.digital.core.data.profile.CurrentProfile
 import com.aya.digital.core.data.profile.EmergencyContact
 import com.aya.digital.core.data.profile.ImageUploadResult
@@ -25,7 +26,10 @@ interface ProfileRepository {
 
     fun updateEmergencyContact(body: EmergencyContactBody): Single<RequestResult<Unit>>
 
-    fun uploadImage(file: File): RequestResult<ImageUploadResult>
+
+    fun uploadAttachment(uri: Uri): Single<RequestResult<Boolean>>
+
+    fun uploadImage(file: File): RequestResult<Boolean>
 
     fun updatePhoneNumber(number: String): Single<RequestResult<Unit>>
 

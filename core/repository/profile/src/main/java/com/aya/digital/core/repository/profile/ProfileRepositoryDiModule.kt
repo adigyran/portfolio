@@ -7,5 +7,5 @@ import org.kodein.di.instance
 import org.kodein.di.singleton
 
 fun profileRepositoryDiModule() = DI.Module("profileRepositoryDiModule") {
-    bind<ProfileRepository>() with singleton { ProfileRepositoryImpl(instance(),instance(),instance(),instance(),instance(),instance()) }
+    bind<ProfileRepository>() with singleton { ProfileRepositoryImpl(instance(),instance(),instance(),instance(),instance(),instance(),instance()) }
 }

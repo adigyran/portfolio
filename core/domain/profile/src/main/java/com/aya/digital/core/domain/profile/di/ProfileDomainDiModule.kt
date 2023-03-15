@@ -55,6 +55,8 @@ fun profileDomainDiModule() = DI.Module("profileDomainDiModule") {
     bind<AddInsuranceUseCase>() with singleton { AddInsuranceUseCaseImpl(instance()) }
     bind<SaveInsuranceUseCase>() with singleton { SaveInsuranceUseCaseImpl(instance()) }
     bind<DeleteInsuranceUseCase>() with singleton { DeleteInsuranceUseCaseImpl(instance()) }
+    bind<UploadAttachmentUseCase>() with singleton { UploadAttachmentUseCaseImpl(instance()) }
+
 
     //notifications
     bind<GetEmailNotificationsStatusUseCase>() with singleton { GetEmailNotificationsStatusUseCaseImpl() }

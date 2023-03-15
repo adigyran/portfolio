@@ -1,11 +1,11 @@
 package com.aya.digital.core.feature.profile.insurance.add.viewmodel
 
+import android.content.Context
+import android.net.Uri
 import com.aya.digital.core.data.base.result.models.dictionaries.MultiSelectResultModel
 import com.aya.digital.core.data.base.result.models.insurance.AddInsuranceResultModel
-import com.aya.digital.core.domain.profile.insurance.AddInsuranceUseCase
-import com.aya.digital.core.domain.profile.insurance.DeleteInsuranceUseCase
-import com.aya.digital.core.domain.profile.insurance.GetInsuranceByIdUseCase
-import com.aya.digital.core.domain.profile.insurance.SaveInsuranceUseCase
+import com.aya.digital.core.domain.dictionaries.insurancecompany.GetInsuranceCompanyItemByIdUseCase
+import com.aya.digital.core.domain.profile.insurance.*
 import com.aya.digital.core.domain.profile.insurance.model.InsuranceAddModel
 import com.aya.digital.core.domain.profile.insurance.model.InsuranceSaveModel
 import com.aya.digital.core.feature.profile.insurance.add.FieldsTags
@@ -19,13 +19,15 @@ import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
+import java.io.InputStream
 
 class ProfileInsuranceAddViewModel(
     private val param: ProfileInsuranceAddView.Param,
     private val coordinatorRouter: CoordinatorRouter,
     private val rootCoordinatorRouter : CoordinatorRouter,
-    private val getInsuranceCompanyByIdUseCase: GetInsuranceByIdUseCase,
+    private val getInsuranceCompanyByIdUseCase: GetInsuranceCompanyItemByIdUseCase,
     private val getInsuranceByIdUseCase: GetInsuranceByIdUseCase,
+    private val uploadAttachmentUseCase: UploadAttachmentUseCase,
     private val addInsuranceUseCase: AddInsuranceUseCase,
     private val saveInsuranceUseCase: SaveInsuranceUseCase,
     private val deleteInsuranceUseCase: DeleteInsuranceUseCase
@@ -56,7 +58,7 @@ class ProfileInsuranceAddViewModel(
         if(state.organisationId==null) return@intent
         getInsuranceCompanyByIdUseCase(state.organisationId!!).await()
             .processResult({
-                           reduce { state.copy(organisationName = it.organisationName) }
+                           reduce { state.copy(organisationName = it.text) }
             },{processError(it)})
     }
 
@@ -88,7 +90,7 @@ class ProfileInsuranceAddViewModel(
     }
 
     fun photoClicked() = intent {
-
+        postSideEffect(ProfileInsuranceAddSideEffects.SelectImage)
     }
 
     fun photoMoreClicked() = intent {
@@ -148,6 +150,11 @@ class ProfileInsuranceAddViewModel(
 
     override fun postErrorSideEffect(errorSideEffect: ErrorSideEffect) = intent {
         postSideEffect(ProfileInsuranceAddSideEffects.Error(errorSideEffect))
+    }
+
+    fun imageSelected(imageUri: Uri)  = intent(registerIdling = false){
+        uploadAttachmentUseCase(imageUri).await()
+            .processResult({},{processError(it)})
     }
 }
 

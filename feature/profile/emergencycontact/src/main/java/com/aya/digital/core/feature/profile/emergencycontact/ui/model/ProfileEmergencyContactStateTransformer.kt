@@ -20,7 +20,7 @@ class ProfileEmergencyContactStateTransformer(context: Context) :
                             NameFieldUIModel(
                                 FieldsTags.NAME_FIELD,
                                 "Contact Name",
-                                state.contactName.getField(),
+                                state.contactName,
                                 state.contactNameError
                             )
                         )
@@ -28,7 +28,7 @@ class ProfileEmergencyContactStateTransformer(context: Context) :
                             NameFieldUIModel(
                                 FieldsTags.PHONE_FIELD,
                                 "Contact Phone",
-                                state.contactPhone.getField(),
+                                state.contactPhone,
                                 state.contactPhoneError
                             )
                         )

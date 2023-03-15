@@ -46,7 +46,7 @@ interface ProfileService {
     @GET("profile/emergency")
     fun getEmergencyContact(): Single<EmergencyContactResponse>
 
-    @POST("profile/emergency")
+    @PATCH("profile/emergency")
     fun updateEmergencyContact(
         @Body body: EmergencyContactBody
     ): Single<Unit>

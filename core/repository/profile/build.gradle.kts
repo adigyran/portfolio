@@ -21,4 +21,5 @@ dependencies {
     implementation(libs.jwt.decode)
     implementation(libs.rxkotlin)
     implementation(libs.open.auth)
+    implementation(libs.okhttp)
 }
