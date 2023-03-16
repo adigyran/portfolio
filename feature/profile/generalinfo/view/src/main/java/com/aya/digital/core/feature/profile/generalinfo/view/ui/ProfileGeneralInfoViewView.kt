@@ -17,6 +17,8 @@ import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.ui.adapters.base.BaseDelegateAdapter
 import com.aya.digital.core.ui.base.screens.DiFragment
 import com.aya.digital.core.ui.delegates.profile.info.ui.profileInfoDelegate
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import org.kodein.di.DI
 import org.kodein.di.factory
 import org.kodein.di.on
@@ -75,10 +77,22 @@ class ProfileGeneralInfoViewView :
         }
 
     override fun render(state: ProfileGeneralInfoViewState) {
-        stateTransformer(state).data?.let {
-            adapter.items = it
-            if (binding.recycler.adapter == null) {
-                binding.recycler.swapAdapter(adapter, true)
+        stateTransformer(state).run {
+            this.data?.let {
+                adapter.items = it
+                if (binding.recycler.adapter == null) {
+                    binding.recycler.swapAdapter(adapter, true)
+                }
+            }
+            this.avatar?.let {avatarUrl->
+                Glide
+                    .with(binding.avatarIv)
+                    .load(avatarUrl)
+                    .transform(
+                        CircleCrop()
+                    )
+                    .dontAnimate()
+                    .into(binding.avatarIv)
             }
         }
     }

@@ -7,7 +7,7 @@ import java.time.LocalDate
 
 @Parcelize
 data class ProfileGeneralInfoViewState(
-    val avatar: String? = null,
+    val avatar: String = "",
     val firstName: String? = null,
     val lastName: String? = null,
     val middleName: String? = null,

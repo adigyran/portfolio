@@ -22,6 +22,7 @@ import com.aya.digital.core.ui.delegates.profile.info.ui.ProfileMainDelegateList
 import com.aya.digital.core.ui.delegates.profile.info.ui.profileMainDelegate
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import org.kodein.di.DI
 import org.kodein.di.factory
@@ -106,8 +107,7 @@ class ProfileView :
                 .with(binding.avatarIv)
                 .load(it)
                 .transform(
-                    CenterCrop(),
-                    RoundedCorners(10.dpToPx())
+                   CircleCrop()
                 )
                 .dontAnimate()
                 .into(binding.avatarIv)

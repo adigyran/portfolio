@@ -40,7 +40,7 @@ class ProfileViewModel(
             state.copy(
                 firstName = profile.firstName,
                 lastName = profile.lastName,
-                avatar = null
+                avatar = profile.avatar
             )
         }
     }

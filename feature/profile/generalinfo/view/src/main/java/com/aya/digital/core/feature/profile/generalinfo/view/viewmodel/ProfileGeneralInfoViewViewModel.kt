@@ -34,7 +34,7 @@ class ProfileGeneralInfoViewViewModel(
         resultModel.processResult({ profileInfo ->
             reduce {
                 state.copy(
-                    avatar = profileInfo.avatar,
+                    avatar = profileInfo.avatar?:"",
                     firstName = profileInfo.firstName,
                     middleName = profileInfo.middleName,
                     lastName = profileInfo.lastName,
