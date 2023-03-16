@@ -83,7 +83,6 @@ class SignUpView :
 
         }
     }
-
     private fun prepareDescription() {
         binding.descrLabl.movementMethod = LinkTouchMovementMethod()
         //Already have an account? Sign In
@@ -96,7 +95,6 @@ class SignUpView :
         binding.descrLabl.text = description
 
     }
-
 
     private fun signIn() = viewModel.onSignInClicked()
 
@@ -114,8 +112,6 @@ class SignUpView :
         }
     }
 
-
-
     override fun render(state: SignUpState) {
         stateTransformer(state).data?.let {
             adapter.items = it
@@ -128,5 +124,4 @@ class SignUpView :
     override fun provideViewModel(): SignUpViewModel = viewModelFactory(Unit)
     override fun provideStateTransformer(): SignUpStateTransformer =
         stateTransformerFactory(Unit)
-
 }
