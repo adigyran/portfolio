@@ -12,7 +12,7 @@ import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
 
 fun insurancePolicyDelegate(
     onPolicyClick: (id: Int) -> Unit,
-    onPolicyMoreClick: (id: Int) -> Unit
+    onPolicyMoreClick: (id: Int) -> Unit,
 ) =
     adapterDelegateViewBinding<InsurancePolicyUIModel, DiffItem, ItemInsurancePolicyBinding>(
         { layoutInflater, root ->
@@ -23,25 +23,19 @@ fun insurancePolicyDelegate(
             )
         }
     ) {
-        binding.root bindClick {onPolicyClick(item.id)}
-        binding.moreBtn bindClick {onPolicyMoreClick(item.id)}
-        var initialised = false
+        binding.root bindClick { onPolicyClick(item.id) }
+        binding.moreBtn bindClick { onPolicyMoreClick(item.id) }
         bind {
-            if (!initialised) {
-                binding.name.text = item.name
-                binding.number.text = item.number
-                Glide
-                    .with(binding.insuranceCardIv)
-                    .load(item.photo)
-                    .transform(
-                        CenterCrop(),
-                        RoundedCorners(12.dpToPx())
-                    )
-                    .dontAnimate()
-                    .into(binding.insuranceCardIv)
-                initialised = true
-            }
+            binding.name.text = item.name
+            binding.number.text = item.number
+            Glide
+                .with(binding.insuranceCardIv)
+                .load(item.photo)
+                .transform(
+                    CenterCrop(),
+                    RoundedCorners(12.dpToPx())
+                )
+                .dontAnimate()
+                .into(binding.insuranceCardIv)
         }
-
-
     }

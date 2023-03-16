@@ -12,6 +12,6 @@ import io.reactivex.rxjava3.core.Single
 
 internal class SaveInsuranceUseCaseImpl(private val profileRepository: ProfileRepository) : SaveInsuranceUseCase {
     override fun invoke(saveModel: InsuranceSaveModel): Single<RequestResultModel<Boolean>> =
-        profileRepository.saveInsurance(saveModel.id, InsurancePolicyBody(saveModel.number,saveModel.name,saveModel.photo))
+        profileRepository.saveInsurance(saveModel.id, InsurancePolicyBody(saveModel.number,saveModel.name))
             .mapResult({it.asResultModel()},{it.toModelError()})
 }

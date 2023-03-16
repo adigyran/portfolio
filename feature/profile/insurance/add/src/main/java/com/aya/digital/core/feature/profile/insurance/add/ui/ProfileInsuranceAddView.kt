@@ -52,8 +52,8 @@ class ProfileInsuranceAddView :
 
     private val adapter by lazy(LazyThreadSafetyMode.NONE) {
         BaseDelegateAdapter.create {
-            delegate { nameFieldDelegate(NameFieldDelegateListeners(viewModel::nameFieldChanged)) }
-            delegate { selectionFieldDelegate(SelectionFieldDelegateListeners(viewModel::onSelectionFieldClicked)) }
+            delegate { nameFieldDelegate(NameFieldDelegateListeners(viewModel::nameFieldChanged),true) }
+            delegate { selectionFieldDelegate(SelectionFieldDelegateListeners(viewModel::onSelectionFieldClicked),true) }
             delegate {
                 insurancePolicyPhotoDelegate(
                     viewModel::photoClicked,

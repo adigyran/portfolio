@@ -10,14 +10,17 @@ import com.aya.digital.core.ui.delegates.components.fields.selection.databinding
 import com.aya.digital.core.ui.delegates.components.fields.selection.model.SelectionFieldUIModel
 import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
 
-fun selectionFieldDelegate(delegateListeners: SelectionFieldDelegateListeners) = adapterDelegateViewBinding<SelectionFieldUIModel,DiffItem,ItemSelectionFieldBinding>(
+fun selectionFieldDelegate(
+    delegateListeners: SelectionFieldDelegateListeners,
+    settable: Boolean = false
+) = adapterDelegateViewBinding<SelectionFieldUIModel, DiffItem, ItemSelectionFieldBinding>(
     { layoutInflater, root -> ItemSelectionFieldBinding.inflate(layoutInflater, root, false) }
 ) {
 
     var fieldSet = false
     var valueSet = false
 
-    binding.btn bindClick {delegateListeners.fieldClick(item.tag)}
+    binding.btn bindClick { delegateListeners.fieldClick(item.tag) }
 
     bind {
         if (!fieldSet) {
@@ -27,10 +30,8 @@ fun selectionFieldDelegate(delegateListeners: SelectionFieldDelegateListeners) =
             }
             fieldSet = true
         }
-        if(!valueSet && item.text!=null && item.text!!.isNotEmpty() && item.text!=binding.edField.text.toString() )
-        {
+        if (item.text != null && item.text!!.isNotEmpty() && item.text != binding.edField.text.toString()) {
             binding.edField.setText(item.text)
-            valueSet = true
         }
     }
 
