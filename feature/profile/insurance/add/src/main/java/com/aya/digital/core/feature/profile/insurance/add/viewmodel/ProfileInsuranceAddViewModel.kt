@@ -100,13 +100,19 @@ class ProfileInsuranceAddViewModel(
     }
 
     fun photoMoreClicked() = intent {
-
+        postSideEffect(ProfileInsuranceAddSideEffects.ShowInsuranceActionsDialog)
     }
 
     fun deleteInsurance() = intent {
         if (state.id == null) return@intent
         deleteInsuranceUseCase(state.id!!).await()
             .processResult({
+                coordinatorRouter.sendEvent(
+                    ProfileInsuranceAddNavigationEvents.FinishWithResult(
+                        param.requestCode,
+                        AddInsuranceResultModel(false)
+                    )
+                )
             }, { processError(it) })
     }
 
@@ -128,7 +134,7 @@ class ProfileInsuranceAddViewModel(
     private fun saveInsurance() = intent {
         if (state.id == null || state.organisationName == null || state.number == null) return@intent
         val insuranceSaveModel =
-            InsuranceSaveModel(state.id!!,state.organisationId!!, state.number!!)
+            InsuranceSaveModel(state.id!!, state.organisationId!!, state.number!!)
         val await = saveInsuranceUseCase(insuranceSaveModel).await()
         await.processResult({
             coordinatorRouter.sendEvent(
@@ -165,9 +171,8 @@ class ProfileInsuranceAddViewModel(
 
     fun imageSelected(imageUri: Uri) = intent(registerIdling = false) {
         uploadInsuranceAttachmentUseCase(imageUri).await()
-            .processResult({uploadModel ->
-                if(uploadModel.uploaded)
-                {
+            .processResult({ uploadModel ->
+                if (uploadModel.uploaded) {
                     reduce {
                         state.copy(photo = uploadModel.id, photoLink = uploadModel.link)
                     }

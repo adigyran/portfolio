@@ -7,5 +7,5 @@ import com.squareup.moshi.JsonClass
 data class InsurancePolicyBody(
     val number: String,
     val organizationId: Int,
-    val photo:Int? = null
+    val attachmentId:Int? = null
 )

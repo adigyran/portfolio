@@ -88,16 +88,6 @@ class ProfileInsuranceAddView :
         imageUri?.let(viewModel::imageSelected)
     }
 
-    /*private val pickSingleMediaLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-        if (it.resultCode != Activity.RESULT_OK) {
-            it.data
-            Toast.makeText(requireContext(), "Failed picking media.", Toast.LENGTH_SHORT).show()
-        } else {
-            val uri = it.data?.data
-            Toast.makeText(requireContext(), "Picked media.", Toast.LENGTH_SHORT).show()
-        }
-    }*/
-
     override fun provideDiModule(): DI.Module =
         profileInsuranceAddDiModule(tryTyGetParentRouter(), param)
 
