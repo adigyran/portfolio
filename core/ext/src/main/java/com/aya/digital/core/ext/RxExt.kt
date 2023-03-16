@@ -47,7 +47,10 @@ fun <T> Throwable.asErrorResult(errorMapper: (String) -> List<IServerError>): Re
                     val errorString = this.response()?.errorBody()?.string() ?: ""
                     return RequestResult.Error.HttpCode406(errorMapper.invoke(errorString))
                 }
-                409 -> return RequestResult.Error.HttpCode409
+                409 -> {
+                    val errorString = this.response()?.errorBody()?.string() ?: ""
+                    return RequestResult.Error.HttpCode409(errorMapper.invoke(errorString))
+                }
                 else -> return RequestResult.Error.HttpCodeAnother
             }
         }

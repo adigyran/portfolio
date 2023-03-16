@@ -72,6 +72,12 @@ internal class AuthRepositoryImpl(
             .retrofitResponseToResult(CommonUtils::mapServerErrors)
             .mapResult({ it.asResult() }, { it })
 
+    override fun getVerificationCode(email: String): Single<RequestResult<Boolean>> =
+        authDataSource.sendCode(email)
+            .retryOnError()
+            .retrofitResponseToResult(CommonUtils::mapServerErrors)
+            .mapResult({ true.asResult() }, { it })
+
     override fun getRestoreCode(email: String): Single<RequestResult<Boolean>>  =
         authDataSource.sendCode(email)
             .retryOnError()

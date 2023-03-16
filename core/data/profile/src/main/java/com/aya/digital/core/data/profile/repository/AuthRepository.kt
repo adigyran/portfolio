@@ -25,6 +25,8 @@ interface AuthRepository {
     fun saveToken(token: String, refreshToken: String): Single<RequestResult<Boolean>>
 
     fun verifyCode(code: String) : Single<RequestResult<Boolean>>
+
+    fun getVerificationCode(email: String) : Single<RequestResult<Boolean>>
     fun getRestoreCode(email: String): Single<RequestResult<Boolean>>
 
     fun getRestoreToken(code: String):Single<RequestResult<UserKeyResult>>

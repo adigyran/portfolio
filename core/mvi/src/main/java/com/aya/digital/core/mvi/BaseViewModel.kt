@@ -1,10 +1,10 @@
 package com.aya.digital.core.mvi
 
 import androidx.lifecycle.ViewModel
+import com.aya.digital.core.data.base.dataprocessing.HttpCodeHandler
 import com.aya.digital.core.data.base.dataprocessing.RequestResultModel
 import com.aya.digital.core.localisation.R.string as LocalisationR
-import com.aya.digital.core.networkbase.server.HttpResponseCode
-import com.aya.digital.core.networkbase.server.IServerError
+import com.aya.digital.core.data.base.dataprocessing.HttpResponseCode
 import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
 import org.orbitmvi.orbit.ContainerHost
@@ -13,7 +13,7 @@ import timber.log.Timber
 abstract class BaseViewModel<STATE : BaseState, SideEffect : BaseSideEffect> : ViewModel(),
     ContainerHost<STATE, SideEffect> {
 
-    protected fun processError(error: RequestResultModel.Error) = processErrorGetSideEffect(error)?.let { postErrorSideEffect(it) }
+    protected fun processError(error: RequestResultModel.Error,vararg httpHttpCodeHandlers: HttpCodeHandler) = processErrorGetSideEffect(error = error, httpHttpCodeHandlers = httpHttpCodeHandlers)?.let { postErrorSideEffect(it) }
 
 
     sealed class ErrorSideEffect : BaseSideEffect {
@@ -24,7 +24,7 @@ abstract class BaseViewModel<STATE : BaseState, SideEffect : BaseSideEffect> : V
     companion object {
         internal fun processErrorGetSideEffect(
             error: RequestResultModel.Error,
-            vararg httpHttpCodeHandlers: Pair<HttpResponseCode, ((errorList: List<IServerError>) -> Boolean)>,
+            vararg httpHttpCodeHandlers: HttpCodeHandler,
         ): ErrorSideEffect? {
             Timber.d(error.toString())
             when (error) {
@@ -35,7 +35,7 @@ abstract class BaseViewModel<STATE : BaseState, SideEffect : BaseSideEffect> : V
                     return errorMessage
                 }
                 is RequestResultModel.Error.HttpCode400 -> {
-                   /* if (httpHttpCodeHandlers.find { it.first == HttpResponseCode.CODE_400 }?.second?.invoke(
+                   if (httpHttpCodeHandlers.find { it.first == HttpResponseCode.CODE_400 }?.second?.invoke(
                             error.errorList
                         ) != true
                     ) {
@@ -53,7 +53,7 @@ abstract class BaseViewModel<STATE : BaseState, SideEffect : BaseSideEffect> : V
                                 errorMessage
                             }
                         }
-                    }*/
+                    }
                     return null
                 }
                 RequestResultModel.Error.HttpCode401 -> {
@@ -76,10 +76,27 @@ abstract class BaseViewModel<STATE : BaseState, SideEffect : BaseSideEffect> : V
                     Firebase.crashlytics.log("406 error ")
                     return errorMessage
                 }
-                RequestResultModel.Error.HttpCode409 -> {
-                    val errorMessage = ErrorSideEffect.MessageResource(LocalisationR.server_error)
-                    Firebase.crashlytics.log("409 error ")
-                    return errorMessage
+                is RequestResultModel.Error.HttpCode409 -> {
+                    if (httpHttpCodeHandlers.find { it.first == HttpResponseCode.CODE_409 }?.second?.invoke(
+                            error.errorList
+                        ) != true
+                    ) {
+                        return when {
+                            error.errorList.isNotEmpty() -> {
+                                val errorMessage = ErrorSideEffect.Message(
+                                    error.errorList.first().getDetail()
+                                )
+                                Firebase.crashlytics.log("409 error ${errorMessage.msg}")
+                                errorMessage
+                            }
+                            else -> {
+                                val errorMessage = ErrorSideEffect.MessageResource(LocalisationR.server_error)
+                                Firebase.crashlytics.log("409 error ")
+                                errorMessage
+                            }
+                        }
+                    }
+                    return null
                 }
                 RequestResultModel.Error.HttpCodeAnother -> {
                     val errorMessage = ErrorSideEffect.MessageResource(LocalisationR.server_error)

@@ -1,12 +1,11 @@
 package com.aya.digital.feature.auth.signup.viewmodel
 
+import com.aya.digital.core.data.base.dataprocessing.HttpCodeHandler
+import com.aya.digital.core.data.base.dataprocessing.HttpResponseCode
 import com.aya.digital.core.data.base.result.models.code.CodeResultModel
 import com.aya.digital.core.data.base.result.models.dictionaries.MultiSelectResultModel
-import com.aya.digital.core.domain.auth.signup.CheckIsVerifiedUseCase
-import com.aya.digital.core.domain.auth.signup.SignUpGetSelectedInsurancesUseCase
-import com.aya.digital.core.domain.auth.signup.SignUpUseCase
+import com.aya.digital.core.domain.auth.signup.*
 import com.aya.digital.core.domain.auth.signup.model.VerifyCodeResult
-import com.aya.digital.core.domain.auth.signup.VerifyRegistrationUseCase
 import com.aya.digital.core.mvi.BaseViewModel
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
 import com.aya.digital.core.util.requestcodes.RequestCodes
@@ -24,6 +23,7 @@ class SignUpViewModel(
     private val coordinatorRouter: CoordinatorRouter,
     private val rootCoordinatorRouter: CoordinatorRouter,
     private val signUpUseCase: SignUpUseCase,
+    private val signUpGetCodeUseCase: SignUpGetCodeUseCase,
     private val selectedInsurancesUseCase: SignUpGetSelectedInsurancesUseCase,
     private val verifyRegistrationUseCase: VerifyRegistrationUseCase,
     private val checkIsVerifiedUseCase: CheckIsVerifiedUseCase
@@ -104,7 +104,7 @@ class SignUpViewModel(
         reduce {
             state.copy(code = code)
         }
-        if(code.length == 6) verifyCode()
+        if (code.length == 6) verifyCode()
 
     }
 
@@ -112,20 +112,40 @@ class SignUpViewModel(
         val verifyCodeResult = verifyRegistrationUseCase(state.code ?: "").await()
         verifyCodeResult.processResult({
             when (it) {
-                VerifyCodeResult.Error -> {reenterCode()}
+                VerifyCodeResult.Error -> {
+                    reenterCode()
+                }
                 VerifyCodeResult.Success -> {
                     coordinatorRouter.sendEvent(SignUpNavigationEvents.SignIn)
                 }
             }
-        }, {
-
-            Timber.d(it.toString()) })
+        }, { processError(it) })
     }
 
     private fun reenterCode() {
-        requestCode()
+        enterCode()
     }
 
+    private fun requestCode() = intent {
+        signUpGetCodeUseCase(state.email).await()
+            .processResult({ enterCode() }, {
+                processError(
+                    it,
+                    HttpCodeHandler(HttpResponseCode.CODE_400) { errorList ->
+                        Timber.d(errorList.toString())
+                        enterCode()
+                        true
+                    }
+                )
+            })
+    }
+
+    private fun processSignUpError() = intent {
+        checkIsVerifiedUseCase(state.email).await()
+            .processResult({ verified ->
+                if (verified) postSideEffect(SignUpSideEffects.AttemptToRegisterVerifiedProfile) else requestCode()
+            }, { processError(it) })
+    }
 
     fun onSignUpClicked() = intent {
         val signUpUseCase = signUpUseCase(
@@ -137,11 +157,19 @@ class SignUpViewModel(
             state.confirmPassword
         ).await()
         signUpUseCase.processResult({
-            requestCode()
-        }, { Timber.d(it.toString()) })
+            enterCode()
+        }, {
+            processError(it, HttpCodeHandler(
+                HttpResponseCode.CODE_409
+            ) { errorList ->
+                Timber.d(errorList.toString())
+                processSignUpError()
+                true
+            })
+        })
     }
 
-    private fun requestCode() = intent {
+    private fun enterCode() = intent {
         listenForCodeEvent()
         coordinatorRouter.sendEvent(
             SignUpNavigationEvents.EnterCode(

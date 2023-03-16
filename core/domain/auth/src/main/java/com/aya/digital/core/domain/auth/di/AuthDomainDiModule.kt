@@ -2,7 +2,6 @@ package com.aya.digital.core.domain.auth.di
 
 import com.aya.digital.core.domain.auth.signin.impl.CheckIsAuthenticatedUseCaseImpl
 import com.aya.digital.core.domain.auth.signin.impl.SignInUseCaseImpl
-import com.aya.digital.core.domain.auth.signup.impl.VerifyRegistrationUseCaseImpl
 import com.aya.digital.core.domain.auth.restorepassword.*
 import com.aya.digital.core.domain.auth.restorepassword.impl.RestorePasswordChangePasswordUseCaseImpl
 import com.aya.digital.core.domain.auth.restorepassword.impl.RestorePasswordGetCodeUseCaseImpl
@@ -11,9 +10,11 @@ import com.aya.digital.core.domain.auth.restorepassword.impl.MakeNewPasswordUseC
 import com.aya.digital.core.domain.auth.signin.CheckIsAuthenticatedUseCase
 import com.aya.digital.core.domain.auth.signin.SignInUseCase
 import com.aya.digital.core.domain.auth.signup.*
+import com.aya.digital.core.domain.auth.signup.impl.*
 import com.aya.digital.core.domain.auth.signup.impl.CheckIsVerifiedUseCaseImpl
 import com.aya.digital.core.domain.auth.signup.impl.SignUpGetSelectedInsurancesUseCaseImpl
 import com.aya.digital.core.domain.auth.signup.impl.SignUpUseCaseImpl
+import com.aya.digital.core.domain.auth.signup.impl.VerifyRegistrationUseCaseImpl
 import org.kodein.di.DI
 import org.kodein.di.bind
 import org.kodein.di.instance
@@ -22,6 +23,8 @@ import org.kodein.di.singleton
 fun authDomainDiModule() = DI.Module("authDomainDiModule") {
     bind<SignInUseCase>() with singleton { SignInUseCaseImpl(instance()) }
     bind<SignUpUseCase>() with singleton { SignUpUseCaseImpl(instance()) }
+    bind<SignUpGetCodeUseCase>() with singleton { SignUpGetCodeUseCaseImpl(instance()) }
+
     bind<SignUpGetSelectedInsurancesUseCase>() with singleton {
         SignUpGetSelectedInsurancesUseCaseImpl(
             instance()
@@ -32,9 +35,21 @@ fun authDomainDiModule() = DI.Module("authDomainDiModule") {
     bind<VerifyRegistrationUseCase>() with singleton { VerifyRegistrationUseCaseImpl(instance()) }
 
     bind<MakeNewPasswordUseCase>() with singleton { MakeNewPasswordUseCaseImpl() }
-    bind<RestorePasswordSendCodeGetUserKeyUseCase>() with singleton { RestorePasswordSendCodeUseCaseImpl(instance()) }
-    bind<RestorePasswordGetCodeUseCase>() with singleton { RestorePasswordGetCodeUseCaseImpl(instance()) }
-    bind<RestorePasswordChangePasswordUseCase>() with singleton { RestorePasswordChangePasswordUseCaseImpl(instance()) }
+    bind<RestorePasswordSendCodeGetUserKeyUseCase>() with singleton {
+        RestorePasswordSendCodeUseCaseImpl(
+            instance()
+        )
+    }
+    bind<RestorePasswordGetCodeUseCase>() with singleton {
+        RestorePasswordGetCodeUseCaseImpl(
+            instance()
+        )
+    }
+    bind<RestorePasswordChangePasswordUseCase>() with singleton {
+        RestorePasswordChangePasswordUseCaseImpl(
+            instance()
+        )
+    }
 
 
 }

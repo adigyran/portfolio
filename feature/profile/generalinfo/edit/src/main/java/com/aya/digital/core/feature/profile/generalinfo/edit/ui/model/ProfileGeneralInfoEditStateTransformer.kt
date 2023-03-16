@@ -52,7 +52,7 @@ class ProfileGeneralInfoEditStateTransformer(
                     add(
                         ValidatedNumberFieldUIModel(
                             FieldsTags.HEIGHT_FIELD_TAG,
-                            "SSR or TIM",
+                            "SSN or TIN",
                             state.ssnOrTin.getField(),
                             state.ssnOrTinError,
                             suffix = null

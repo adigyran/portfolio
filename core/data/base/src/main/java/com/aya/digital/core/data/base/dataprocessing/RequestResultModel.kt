@@ -20,7 +20,11 @@ sealed class RequestResultModel<out T> {
         data class HttpCode406(
             val errorList: List<IServerErrorModel>
         ) : Error()
-        object HttpCode409 : Error()
+
+        data class HttpCode409(
+            val errorList: List<IServerErrorModel>
+        ) : Error()
+
         object HttpCodeAnother : Error()
 
         object UnknownHost : Error()
@@ -40,20 +44,21 @@ sealed class RequestResultModel<out T> {
 
 fun <T> T.asResultModel(): RequestResultModel<T> = RequestResultModel.Success(this)
 
-fun IServerError.asServerErrorModel() = ServerErrorModel(this.getCode(),this.getDetail())
+fun IServerError.asServerErrorModel() = ServerErrorModel(this.getCode(), this.getDetail())
 
 fun RequestResult.Error.toModelError(): RequestResultModel.Error =
-    when(this)
-    {
+    when (this) {
         is RequestResult.Error.HttpCode400 -> RequestResultModel.Error.HttpCode400(errorList.map { it.asServerErrorModel() })
         is RequestResult.Error.Another -> RequestResultModel.Error.Another(throwable)
         RequestResult.Error.HttpCode401 -> RequestResultModel.Error.HttpCode401
         RequestResult.Error.HttpCode403 -> RequestResultModel.Error.HttpCode403
         RequestResult.Error.HttpCode404 -> RequestResultModel.Error.HttpCode404
         is RequestResult.Error.HttpCode406 -> RequestResultModel.Error.HttpCode406(errorList.map { it.asServerErrorModel() })
-        RequestResult.Error.HttpCode409 -> RequestResultModel.Error.HttpCode409
+        is RequestResult.Error.HttpCode409 -> RequestResultModel.Error.HttpCode409(errorList.map { it.asServerErrorModel() })
         RequestResult.Error.HttpCodeAnother -> RequestResultModel.Error.HttpCodeAnother
-        is RequestResult.Error.JsonParsingError -> RequestResultModel.Error.JsonParsingError(throwable)
+        is RequestResult.Error.JsonParsingError -> RequestResultModel.Error.JsonParsingError(
+            throwable
+        )
         RequestResult.Error.NoRoleDefined -> RequestResultModel.Error.NoRoleDefined
         RequestResult.Error.SocketTimeout -> RequestResultModel.Error.SocketTimeout
         RequestResult.Error.UnknownHost -> RequestResultModel.Error.UnknownHost

@@ -110,6 +110,7 @@ class SignUpView :
     override fun sideEffect(sideEffect: SignUpSideEffects) {
         when (sideEffect) {
             is SignUpSideEffects.Error -> processErrorSideEffect(sideEffect.error)
+            SignUpSideEffects.AttemptToRegisterVerifiedProfile -> showErrorMsg("This email already registered")
         }
     }
 

@@ -14,7 +14,9 @@ sealed class RequestResult<out T> {
         data class HttpCode406(
             val errorList: List<IServerError>
         ) : Error()
-        object HttpCode409 : Error()
+        data class HttpCode409(
+            val errorList: List<IServerError>
+        ) : Error()
         object HttpCodeAnother : Error()
 
         object UnknownHost : Error()
