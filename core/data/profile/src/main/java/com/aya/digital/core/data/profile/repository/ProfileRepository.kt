@@ -27,7 +27,7 @@ interface ProfileRepository {
     fun updateEmergencyContact(body: EmergencyContactBody): Single<RequestResult<Unit>>
 
 
-    fun uploadAttachment(uri: Uri): Single<RequestResult<Boolean>>
+    fun uploadAttachment(uri: Uri): Single<RequestResult<ImageUploadResult>>
 
     fun uploadImage(file: File): RequestResult<Boolean>
 

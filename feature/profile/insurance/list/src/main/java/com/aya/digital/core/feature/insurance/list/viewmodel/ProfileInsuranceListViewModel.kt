@@ -10,6 +10,7 @@ import kotlinx.coroutines.rx3.asFlow
 import kotlinx.coroutines.rx3.await
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.postSideEffect
+import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
 class ProfileInsuranceListViewModel(
@@ -26,8 +27,10 @@ class ProfileInsuranceListViewModel(
     }
 
     private fun loadInsurancesList() = intent(registerIdling = false) {
-        getInsurancesUseCase().asFlow().collect{ result->
-            result.processResult({},{processError(it)})
+        getInsurancesUseCase().asFlow().collect { result ->
+            result.processResult({ models ->
+                reduce { state.copy(insuranceModels = models) }
+            }, { processError(it) })
         }
     }
 

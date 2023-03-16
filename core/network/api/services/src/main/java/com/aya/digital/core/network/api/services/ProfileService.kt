@@ -6,7 +6,6 @@ import com.aya.digital.core.network.model.response.profile.*
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
-import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.http.*
 
@@ -21,7 +20,7 @@ interface ProfileService {
     ): Single<CurrentProfileResponse>
 
     @POST("attachment")
-    fun uploadImage(@Part image: MultipartBody.Part) : Single<Unit>
+    fun uploadImage(@Body image: RequestBody) : Single<ImageUploadResponse>
 
     @POST("profile/insurances")
     fun addInsurance(@Body insurancePolicyBody: InsurancePolicyBody):Single<Unit>

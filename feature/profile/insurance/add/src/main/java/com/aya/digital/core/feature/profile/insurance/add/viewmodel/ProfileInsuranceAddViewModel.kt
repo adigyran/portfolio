@@ -1,6 +1,5 @@
 package com.aya.digital.core.feature.profile.insurance.add.viewmodel
 
-import android.content.Context
 import android.net.Uri
 import com.aya.digital.core.data.base.result.models.dictionaries.MultiSelectResultModel
 import com.aya.digital.core.data.base.result.models.insurance.AddInsuranceResultModel
@@ -19,19 +18,19 @@ import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
-import java.io.InputStream
 
 class ProfileInsuranceAddViewModel(
     private val param: ProfileInsuranceAddView.Param,
     private val coordinatorRouter: CoordinatorRouter,
-    private val rootCoordinatorRouter : CoordinatorRouter,
+    private val rootCoordinatorRouter: CoordinatorRouter,
     private val getInsuranceCompanyByIdUseCase: GetInsuranceCompanyItemByIdUseCase,
     private val getInsuranceByIdUseCase: GetInsuranceByIdUseCase,
-    private val uploadAttachmentUseCase: UploadAttachmentUseCase,
+    private val uploadInsuranceAttachmentUseCase: UploadInsuranceAttachmentUseCase,
     private val addInsuranceUseCase: AddInsuranceUseCase,
     private val saveInsuranceUseCase: SaveInsuranceUseCase,
-    private val deleteInsuranceUseCase: DeleteInsuranceUseCase
-    ) :
+    private val deleteInsuranceUseCase: DeleteInsuranceUseCase,
+    private val getInsuranceAttachmentByIdUseCase: GetInsuranceAttachmentByIdUseCase
+) :
     BaseViewModel<ProfileInsuranceAddState, ProfileInsuranceAddSideEffects>() {
     override val container = container<ProfileInsuranceAddState, ProfileInsuranceAddSideEffects>(
         initialState = ProfileInsuranceAddState(id = param.insuranceId),
@@ -49,17 +48,19 @@ class ProfileInsuranceAddViewModel(
                     state.copy(
                         number = it.number,
                         organisationId = it.organisationId,
-                        organisationName = it.organisationName)
+                        organisationName = it.organisationName,
+                        photoLink = it.attachmentUrl
+                    )
                 }
             }, { processError(it) })
     }
 
     private fun getInsuranceCompanyName() = intent {
-        if(state.organisationId==null) return@intent
+        if (state.organisationId == null) return@intent
         getInsuranceCompanyByIdUseCase(state.organisationId!!).await()
             .processResult({
-                           reduce { state.copy(organisationName = it.text) }
-            },{processError(it)})
+                reduce { state.copy(organisationName = it.text) }
+            }, { processError(it) })
     }
 
     fun nameFieldChanged(tag: Int, text: String) = intent {
@@ -86,7 +87,12 @@ class ProfileInsuranceAddViewModel(
 
     private fun selectInsuranceCompany() = intent {
         listenForInsuranceCompany()
-        coordinatorRouter.sendEvent(ProfileInsuranceAddNavigationEvents.SelectInsuranceCompany(RequestCodes.INSURANCE_LIST_REQUEST_CODE,state.organisationId))
+        coordinatorRouter.sendEvent(
+            ProfileInsuranceAddNavigationEvents.SelectInsuranceCompany(
+                RequestCodes.INSURANCE_LIST_REQUEST_CODE,
+                state.organisationId
+            )
+        )
     }
 
     fun photoClicked() = intent {
@@ -110,9 +116,12 @@ class ProfileInsuranceAddViewModel(
             InsuranceAddModel(state.photo!!, state.organisationId!!, state.number!!)
         val await = addInsuranceUseCase(insuranceAddModel).await()
         await.processResult({
-            coordinatorRouter.sendEvent(ProfileInsuranceAddNavigationEvents.FinishWithResult(param.requestCode,
-                AddInsuranceResultModel(true)
-            ))
+            coordinatorRouter.sendEvent(
+                ProfileInsuranceAddNavigationEvents.FinishWithResult(
+                    param.requestCode,
+                    AddInsuranceResultModel(true)
+                )
+            )
         }, { processError(it) })
     }
 
@@ -122,17 +131,19 @@ class ProfileInsuranceAddViewModel(
             InsuranceSaveModel(state.id!!, state.photo!!, state.organisationId!!, state.number!!)
         val await = saveInsuranceUseCase(insuranceSaveModel).await()
         await.processResult({
-            coordinatorRouter.sendEvent(ProfileInsuranceAddNavigationEvents.FinishWithResult(param.requestCode,
-                AddInsuranceResultModel(true)
-            ))
+            coordinatorRouter.sendEvent(
+                ProfileInsuranceAddNavigationEvents.FinishWithResult(
+                    param.requestCode,
+                    AddInsuranceResultModel(true)
+                )
+            )
         }, { processError(it) })
     }
 
 
     private fun listenForInsuranceCompany() = intent {
         rootCoordinatorRouter.setResultListener(RequestCodes.INSURANCE_LIST_REQUEST_CODE) {
-            if(it is MultiSelectResultModel && it.selectedItems.isNotEmpty())
-            {
+            if (it is MultiSelectResultModel && it.selectedItems.isNotEmpty()) {
                 setInsuranceCompany(it.selectedItems.first())
 
             }
@@ -152,9 +163,16 @@ class ProfileInsuranceAddViewModel(
         postSideEffect(ProfileInsuranceAddSideEffects.Error(errorSideEffect))
     }
 
-    fun imageSelected(imageUri: Uri)  = intent(registerIdling = false){
-        uploadAttachmentUseCase(imageUri).await()
-            .processResult({},{processError(it)})
+    fun imageSelected(imageUri: Uri) = intent(registerIdling = false) {
+        uploadInsuranceAttachmentUseCase(imageUri).await()
+            .processResult({uploadModel ->
+                if(uploadModel.uploaded)
+                {
+                    reduce {
+                        state.copy(photo = uploadModel.id, photoLink = uploadModel.link)
+                    }
+                }
+            }, { processError(it) })
     }
 }
 

@@ -23,8 +23,7 @@ internal class GetInsurancesUseCaseImpl(
                         insurancePolicyModel.organisationId,
                         insurancePolicyModel.organisationName,
                         insurancePolicyModel.number,
-                        insurancePolicyModel.photoAttachment,
-                        insurancePolicyModel.attachment
+                        insurancePolicyModel.photoUrl
                     )
                 }.asResultModel()
             },

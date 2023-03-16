@@ -29,29 +29,23 @@ fun insurancePolicyPhotoDelegate(onPhotoClick: () -> Unit, onPhotoMoreClick: () 
             binding.emptyImageGroup.visible()
             binding.insuranceCardIv.gone()
         }
-        binding.uploadPhotoBtn bindClick {onPhotoClick()}
-        binding.moreBtn bindClick {onPhotoMoreClick()}
+        binding.uploadPhotoBtn bindClick { onPhotoClick() }
+        binding.moreBtn bindClick { onPhotoMoreClick() }
         bind {
-            if (!initialised) {
-                item.photo?.let {
-                    binding.emptyImageGroup.gone()
-                    binding.insuranceCardIv.visible()
-                    Glide
-                        .with(binding.insuranceCardIv)
-                        .load(item.photo)
-                        .transform(
-                            CenterCrop(),
-                            RoundedCorners(12.dpToPx())
-                        )
-                        .dontAnimate()
-                        .into(binding.insuranceCardIv)
-                } ?: showEmptyPhoto()
-
-                initialised = true
-            }
+            item.photo?.let {
+                binding.emptyImageGroup.gone()
+                binding.insuranceCardIv.visible()
+                Glide
+                    .with(binding.insuranceCardIv)
+                    .load(item.photo)
+                    .transform(
+                        CenterCrop(),
+                        RoundedCorners(12.dpToPx())
+                    )
+                    .dontAnimate()
+                    .into(binding.insuranceCardIv)
+            } ?: showEmptyPhoto()
         }
-
-
     }
 
 

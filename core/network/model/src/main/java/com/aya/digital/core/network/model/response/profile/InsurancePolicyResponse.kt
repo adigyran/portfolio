@@ -8,5 +8,6 @@ data class InsurancePolicyResponse(
     val id:Int,
     val number: String,
     val organizationId: Int,
-    val attachmentId:Int
+    val organizationName:String,
+    val fullUrl:String
 )

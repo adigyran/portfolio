@@ -12,7 +12,6 @@ import com.aya.digital.core.network.model.response.profile.ImageUploadResponse
 import com.aya.digital.core.network.model.response.profile.InsurancePolicyResponse
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
-import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import org.kodein.di.DI
 import org.kodein.di.bind
@@ -59,7 +58,7 @@ class RetrofitProfileNetwork(private val network: ProfileService) :
     override fun updateEmergencyContact(body: EmergencyContactBody): Single<Unit> =
         network.updateEmergencyContact(body)
 
-    override fun uploadImage(file: MultipartBody.Part): Single<Unit> = network.uploadImage(file)
+    override fun uploadImage(mime: String, file: RequestBody): Single<ImageUploadResponse> = network.uploadImage(file)
     override fun addInsurance(insurancePolicyBody: InsurancePolicyBody): Single<Unit>  = network.addInsurance(insurancePolicyBody)
 
     override fun saveInsurance(insuranceId: Int, insurancePolicyBody: InsurancePolicyBody): Single<Unit> = network.saveInsurance(insuranceId, insurancePolicyBody)

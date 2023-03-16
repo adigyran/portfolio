@@ -10,9 +10,8 @@ class InsurancePolicyMapperImpl : InsurancePolicyMapper() {
         InsurancePolicyModel(
             id = type.id,
             organisationId = type.organizationId,
-            organisationName = "",
-            photoAttachment = type.attachmentId,
+            organisationName = type.organizationName,
             number = type.number,
-            attachment = null
+            photoUrl = type.fullUrl
         )
 }

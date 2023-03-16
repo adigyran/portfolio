@@ -1,5 +1,6 @@
 package com.aya.digital.core.datasource
 
+import android.media.Image
 import com.aya.digital.core.network.model.request.EmergencyContactBody
 import com.aya.digital.core.network.model.request.InsurancePolicyBody
 import com.aya.digital.core.network.model.request.ProfileBody
@@ -9,7 +10,6 @@ import com.aya.digital.core.network.model.response.profile.ImageUploadResponse
 import com.aya.digital.core.network.model.response.profile.InsurancePolicyResponse
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
-import okhttp3.MultipartBody
 import okhttp3.RequestBody
 
 interface ProfileDataSource {
@@ -28,8 +28,9 @@ interface ProfileDataSource {
     ): Single<Unit>
 
     fun uploadImage(
-        file: MultipartBody.Part
-    ): Single<Unit>
+        mime:String,
+        file: RequestBody
+    ): Single<ImageUploadResponse>
 
     fun addInsurance(insurancePolicyBody: InsurancePolicyBody):Single<Unit>
 

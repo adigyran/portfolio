@@ -4,5 +4,6 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class ImageUploadResponse(
-    val downloadPath: String
+    val id:Int,
+    val urlPath: String
 )

@@ -21,6 +21,8 @@ fun profileMappersDiModule() = DI.Module("profileMappersDiModule") {
     bind<UserKeyResultMapper>() with singleton { UserKeyResultMapperImpl() }
     bind<InsurancePolicyMapper>() with singleton { InsurancePolicyMapperImpl() }
     bind<EmergencyContactMapper>() with singleton { EmergencyContactMapperImpl() }
+    bind<ImageUploadResultMapper>() with singleton { ImageUploadResultMapperImpl() }
+
 
 
     bind<CurrentProfileMapper>() with singleton { CurrentProfileMapperImpl(instance(),instance()) }
