@@ -16,6 +16,7 @@ import com.aya.digital.feature.tabs.appointments.viewmodel.AppointmentsTabViewMo
 import com.github.terrakok.cicerone.Navigator
 import org.kodein.di.factory
 import org.kodein.di.on
+import com.aya.digital.core.baseresources.R as BaseresourcesR
 
 class AppointmentsTabView :
     DiTabContainerFragment<ViewFragmentContainerBinding, AppointmentsTabViewModel, AppointmentsTabState, BaseSideEffect>() {
@@ -44,9 +45,9 @@ class AppointmentsTabView :
             CustomNavigatorParam(
                 requireActivity(),
                 childFragmentManager,
-                com.aya.digital.core.baseresources.R.id.fragmentContainer
+                BaseresourcesR.id.fragmentContainer
             ) {
-
+                tryTyGetParentRouter().sendEvent(AppointmentsTabNavigationEvents.Finish)
             })
 
     override fun provideDiModule() = appointmentsTabDiModule(tryTyGetParentRouter())

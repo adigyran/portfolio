@@ -19,6 +19,7 @@ import com.github.terrakok.cicerone.Navigator
 import org.kodein.di.factory
 import org.kodein.di.instance
 import org.kodein.di.on
+import com.aya.digital.core.baseresources.R as BaseresourcesR
 
 class HomeTabView :
     DiTabContainerFragment<ViewFragmentContainerBinding, HomeTabViewModel, HomeTabState, BaseSideEffect>() {
@@ -51,9 +52,9 @@ class HomeTabView :
             CustomNavigatorParam(
                 requireActivity(),
                 childFragmentManager,
-                com.aya.digital.core.baseresources.R.id.fragmentContainer
+                BaseresourcesR.id.fragmentContainer
             ) {
-
+                tryTyGetParentRouter().sendEvent(HomeTabNavigationEvents.Finish)
             })
 
     override fun provideDiModule() = homeTabDiModule(tryTyGetParentRouter())

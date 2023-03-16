@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.aya.digital.core.baseresources.R as BaseResourcesR
 import com.aya.digital.core.baseresources.databinding.ViewFragmentContainerBinding
 import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.navigation.CustomNavigator
@@ -52,9 +53,9 @@ class ProfileTabView :
             CustomNavigatorParam(
                 requireActivity(),
                 childFragmentManager,
-                com.aya.digital.core.baseresources.R.id.fragmentContainer
+                BaseResourcesR.id.fragmentContainer
             ) {
-
+                tryTyGetParentRouter().sendEvent(ProfileTabNavigationEvents.Finish)
             })
 
     override fun rootScreen(): Fragment = defaultRootScreenManager.processDefaultRootScreen().createFragment(childFragmentManager.fragmentFactory)

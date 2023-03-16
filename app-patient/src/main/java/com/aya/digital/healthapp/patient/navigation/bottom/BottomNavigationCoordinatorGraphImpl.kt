@@ -11,9 +11,13 @@ import com.aya.digital.core.navigation.graph.coordinator.BottomCoordinatorGraph
 import com.aya.digital.core.navigation.graph.coordinator.RootCoordinatorGraph
 import com.aya.digital.feature.auth.container.navigation.AuthContainerScreen
 import com.aya.digital.feature.rootcontainer.navigation.RootContainerNavigationEvents
+import com.aya.digital.feature.tabs.appointments.navigation.AppointmentsTabNavigationEvents
 import com.aya.digital.feature.tabs.appointments.navigation.AppointmentsTabScreen
+import com.aya.digital.feature.tabs.doctorsearch.navigation.DoctorSearchTabNavigationEvents
 import com.aya.digital.feature.tabs.doctorsearch.navigation.DoctorSearchTabScreen
+import com.aya.digital.feature.tabs.home.navigation.HomeTabNavigationEvents
 import com.aya.digital.feature.tabs.home.navigation.HomeTabScreen
+import com.aya.digital.feature.tabs.profile.navigation.ProfileTabNavigationEvents
 import com.aya.digital.feature.tabs.profile.navigation.ProfileTabScreen
 import com.github.terrakok.cicerone.Router
 import java.lang.ref.WeakReference
@@ -46,6 +50,10 @@ class BottomNavigationCoordinatorGraphImpl(context: Context) : BottomCoordinator
             is BottomNavHostNavigationEvents.OpenProfile-> {
                 navigationRouter.replaceScreen(ProfileTabScreen)
             }
+            HomeTabNavigationEvents.Finish -> navigationRouter.exit()
+            DoctorSearchTabNavigationEvents.Finish -> navigationRouter.exit()
+            AppointmentsTabNavigationEvents.Finish -> navigationRouter.exit()
+            ProfileTabNavigationEvents.Finish -> navigationRouter.exit()
             else -> parentCoordinatorRouter.sendEvent(event)
         }
     }

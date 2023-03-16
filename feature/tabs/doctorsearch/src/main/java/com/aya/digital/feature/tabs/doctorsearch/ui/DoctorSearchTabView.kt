@@ -16,6 +16,7 @@ import com.aya.digital.feature.tabs.doctorsearch.viewmodel.DoctorSearchTabViewMo
 import com.github.terrakok.cicerone.Navigator
 import org.kodein.di.factory
 import org.kodein.di.on
+import com.aya.digital.core.baseresources.R as BaseresourcesR
 
 class DoctorSearchTabView :
     DiTabContainerFragment<ViewFragmentContainerBinding, DoctorSearchTabViewModel, DoctorSearchTabState, BaseSideEffect>() {
@@ -44,9 +45,9 @@ class DoctorSearchTabView :
             CustomNavigatorParam(
                 requireActivity(),
                 childFragmentManager,
-                com.aya.digital.core.baseresources.R.id.fragmentContainer
+                BaseresourcesR.id.fragmentContainer
             ) {
-
+                tryTyGetParentRouter().sendEvent(DoctorSearchTabNavigationEvents.Finish)
             })
 
     override fun provideDiModule() = doctorSearchTabDiModule(tryTyGetParentRouter())
