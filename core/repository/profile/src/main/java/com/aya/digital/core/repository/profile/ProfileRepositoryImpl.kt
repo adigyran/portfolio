@@ -12,7 +12,10 @@ import com.aya.digital.core.data.profile.mappers.EmergencyContactMapper
 import com.aya.digital.core.data.profile.repository.ProfileRepository
 import com.aya.digital.core.datasource.DictionariesDataSource
 import com.aya.digital.core.datasource.ProfileDataSource
-import com.aya.digital.core.ext.*
+import com.aya.digital.core.ext.asResult
+import com.aya.digital.core.ext.mapResult
+import com.aya.digital.core.ext.retrofitResponseToResult
+import com.aya.digital.core.ext.retryOnError
 import com.aya.digital.core.network.model.request.EmergencyContactBody
 import com.aya.digital.core.network.model.request.InsurancePolicyBody
 import com.aya.digital.core.network.model.request.ProfileBody
@@ -22,11 +25,9 @@ import com.aya.digital.core.networkbase.server.RequestResult
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
-import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 
@@ -83,19 +84,14 @@ internal class ProfileRepositoryImpl(
                 val openInputStream = context.contentResolver.openInputStream(it)
                 openInputStream?.let { inputStream ->
                     val part = MultipartBody.Part.createFormData(
-                        "file", null, inputStream.readBytes()
+                        "file", "", inputStream.readBytes()
                             .toRequestBody(
-                                context.contentResolver.getType(uri)!!.toMediaTypeOrNull()
+                                "application/octet-stream".toMediaTypeOrNull(),
                             )
                     )
                     uploadBody(part)
                         .doFinally { openInputStream.close() }
                 } ?: Single.just(false.asResult())
-                /*  it.path?.let { path ->
-                      val file: File = File(path)
-                      val requestBody = file.asRequestBody(context.getContentResolver().getType(uri)?.toMediaTypeOrNull())
-                      Single.just(false.asResult())
-                  } ?: Single.just(false.asResult())*/
             }
 
     private fun uploadBody(body: MultipartBody.Part): Single<RequestResult<Boolean>> =

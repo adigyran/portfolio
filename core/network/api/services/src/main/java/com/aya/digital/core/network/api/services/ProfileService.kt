@@ -7,6 +7,7 @@ import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.http.*
 
 interface ProfileService {
@@ -19,9 +20,8 @@ interface ProfileService {
         @Body body: ProfileBody
     ): Single<CurrentProfileResponse>
 
-    @Multipart
     @POST("attachment")
-    fun uploadImage(@Part image:MultipartBody.Part) : Single<ImageUploadResponse>
+    fun uploadImage(@Part image: MultipartBody.Part) : Single<Unit>
 
     @POST("profile/insurances")
     fun addInsurance(@Body insurancePolicyBody: InsurancePolicyBody):Single<Unit>
