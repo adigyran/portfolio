@@ -22,18 +22,15 @@ import com.aya.digital.core.network.model.request.EmergencyContactBody
 import com.aya.digital.core.network.model.request.InsurancePolicyBody
 import com.aya.digital.core.network.model.request.ProfileBody
 import com.aya.digital.core.network.model.response.profile.ImageUploadResponse
-import com.aya.digital.core.network.model.response.profile.InsurancePolicyResponse
 import com.aya.digital.core.networkbase.CommonUtils
 import com.aya.digital.core.networkbase.server.RequestResult
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
-import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
-import java.io.File
 
 internal class ProfileRepositoryImpl(
     private val context: Context,
@@ -97,23 +94,48 @@ internal class ProfileRepositoryImpl(
                                 )
                         )
                         .build()
-                    uploadBody(body)
+                    uploadAttachmentBody(body)
                         .doFinally { openInputStream.close() }
                         .mapResult({ imageUploadResultMapper.mapFrom(it).asResult() }, { it })
                 } ?: Single.just(ImageUploadResult(null, null).asResult())
             }
 
-    private fun uploadBody(body: RequestBody): Single<RequestResult<ImageUploadResponse>> =
-        profileDataSource.uploadImage("application/octet-stream", body)
+    private fun uploadAttachmentBody(body: RequestBody): Single<RequestResult<ImageUploadResponse>> =
+        profileDataSource.uploadAttachmentImage("application/octet-stream", body)
             .retryOnError()
             .retrofitResponseToResult(CommonUtils::mapServerErrors)
             .mapResult({
                 it.asResult()
             }, { it })
 
-    override fun uploadImage(file: File): RequestResult<Boolean> {
-        TODO("Not yet implemented")
-    }
+    override fun uploadAvatar(uri: Uri): Single<RequestResult<Boolean>> =
+        Single.just(uri)
+            .observeOn(Schedulers.io())
+            .flatMap {
+                val openInputStream = context.contentResolver.openInputStream(it)
+                openInputStream?.let { inputStream ->
+                    val body: RequestBody = MultipartBody.Builder().setType(MultipartBody.FORM)
+                        .addFormDataPart(
+                            "file", "image.jpg",
+                            inputStream.readBytes()
+                                .toRequestBody(
+                                    "application/octet-stream".toMediaTypeOrNull()
+                                )
+                        )
+                        .build()
+                     uploadAvatarBody(body)
+                        .doFinally { openInputStream.close() }
+                        .mapResult({ it.asResult() }, { it })
+                } ?: Single.just(false.asResult())
+            }
+
+    private fun uploadAvatarBody(body: RequestBody): Single<RequestResult<Boolean>> =
+        profileDataSource.uploadAvatar(body)
+            .retryOnError()
+            .retrofitResponseToResult(CommonUtils::mapServerErrors)
+            .mapResult({
+                true.asResult()
+            }, { it })
 
     override fun addInsurance(insurancePolicyBody: InsurancePolicyBody): Single<RequestResult<Boolean>> =
         profileDataSource.addInsurance(insurancePolicyBody)

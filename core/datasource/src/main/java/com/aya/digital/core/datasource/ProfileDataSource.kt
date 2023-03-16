@@ -1,6 +1,5 @@
 package com.aya.digital.core.datasource
 
-import android.media.Image
 import com.aya.digital.core.network.model.request.EmergencyContactBody
 import com.aya.digital.core.network.model.request.InsurancePolicyBody
 import com.aya.digital.core.network.model.request.ProfileBody
@@ -21,13 +20,16 @@ interface ProfileDataSource {
         body: ProfileBody
     ): Single<CurrentProfileResponse>
 
+    fun uploadAvatar(
+        file: RequestBody
+    ): Single<Unit>
     fun getEmergencyContact(): Single<EmergencyContactResponse>
 
     fun updateEmergencyContact(
         body: EmergencyContactBody
     ): Single<Unit>
 
-    fun uploadImage(
+    fun uploadAttachmentImage(
         mime:String,
         file: RequestBody
     ): Single<ImageUploadResponse>

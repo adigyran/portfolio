@@ -6,13 +6,11 @@ import com.aya.digital.core.data.profile.EmergencyContact
 import com.aya.digital.core.data.profile.ImageUploadResult
 import com.aya.digital.core.data.profile.InsurancePolicyModel
 import com.aya.digital.core.network.model.request.EmergencyContactBody
-import com.aya.digital.core.network.model.request.InsuranceBody
 import com.aya.digital.core.network.model.request.InsurancePolicyBody
 import com.aya.digital.core.network.model.request.ProfileBody
 import com.aya.digital.core.networkbase.server.RequestResult
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
-import java.io.File
 
 interface ProfileRepository {
 
@@ -29,7 +27,7 @@ interface ProfileRepository {
 
     fun uploadAttachment(uri: Uri): Single<RequestResult<ImageUploadResult>>
 
-    fun uploadImage(file: File): RequestResult<Boolean>
+    fun uploadAvatar(uri: Uri): Single<RequestResult<Boolean>>
 
     fun updatePhoneNumber(number: String): Single<RequestResult<Unit>>
 

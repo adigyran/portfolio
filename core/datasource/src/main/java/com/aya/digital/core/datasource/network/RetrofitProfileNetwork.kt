@@ -52,13 +52,15 @@ class RetrofitProfileNetwork(private val network: ProfileService) :
     override fun updateProfile(body: ProfileBody): Single<CurrentProfileResponse> =
         network.updateProfile(body)
 
+    override fun uploadAvatar(file: RequestBody): Single<Unit>  = network.uploadAvatar(file)
+
     override fun getEmergencyContact(): Single<EmergencyContactResponse> =
         network.getEmergencyContact()
 
     override fun updateEmergencyContact(body: EmergencyContactBody): Single<Unit> =
         network.updateEmergencyContact(body)
 
-    override fun uploadImage(mime: String, file: RequestBody): Single<ImageUploadResponse> = network.uploadImage(file)
+    override fun uploadAttachmentImage(mime: String, file: RequestBody): Single<ImageUploadResponse> = network.uploadImage(file)
     override fun addInsurance(insurancePolicyBody: InsurancePolicyBody): Single<Unit>  = network.addInsurance(insurancePolicyBody)
 
     override fun saveInsurance(insuranceId: Int, insurancePolicyBody: InsurancePolicyBody): Single<Unit> = network.saveInsurance(insuranceId, insurancePolicyBody)

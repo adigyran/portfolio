@@ -19,6 +19,8 @@ interface ProfileService {
         @Body body: ProfileBody
     ): Single<CurrentProfileResponse>
 
+    @POST("profile/avatar/upload")
+    fun uploadAvatar(@Body image: RequestBody) : Single<Unit>
     @POST("attachment")
     fun uploadImage(@Body image: RequestBody) : Single<ImageUploadResponse>
 
