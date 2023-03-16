@@ -103,7 +103,8 @@ class ProfileGeneralInfoEditStateTransformer(
                         )
                     )
                 }
-            }
+            },
+            avatarUrl = state.avatarUrl
         )
 
 

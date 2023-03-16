@@ -1,6 +1,8 @@
 package com.aya.digital.core.feature.profile.generalinfo.edit.viewmodel
 
+import android.net.Uri
 import com.aya.digital.core.domain.profile.generalinfo.edit.SaveProfileInfoUseCase
+import com.aya.digital.core.domain.profile.generalinfo.edit.SetAvatarUseCase
 import com.aya.digital.core.domain.profile.generalinfo.edit.model.ProfileEditModel
 import com.aya.digital.core.domain.profile.generalinfo.view.GetProfileInfoUseCase
 import com.aya.digital.core.domain.profile.generalinfo.view.model.ProfileInfoModel
@@ -21,7 +23,8 @@ class ProfileGeneralInfoEditViewModel(
     private val param: ProfileGeneralInfoEditView.Param,
     private val coordinatorRouter: CoordinatorRouter,
     private val profileInfoUseCase: GetProfileInfoUseCase,
-    private val saveProfileInfoUseCase: SaveProfileInfoUseCase
+    private val saveProfileInfoUseCase: SaveProfileInfoUseCase,
+    private val setAvatarUseCase: SetAvatarUseCase
 ) :
     BaseViewModel<ProfileGeneralInfoEditState, ProfileGeneralInfoEditSideEffect>() {
     override val container =
@@ -123,6 +126,14 @@ class ProfileGeneralInfoEditViewModel(
             tin = state.ssnOrTin
         }
 
+    fun avatarSelectClicked() = intent {
+        postSideEffect(ProfileGeneralInfoEditSideEffect.SelectAvatar)
+    }
+    fun profileAvatarImageSelected(uri: Uri) = intent(registerIdling = false) {
+        setAvatarUseCase(uri).await()
+            .processResult({loadProfile()},{processError(it)})
+    }
+
     private inline fun <reified T> compareFields(fieldFirst: T?, fieldSecond: T?): Boolean? =
         fieldFirst?.run {
             if (fieldSecond == null) return@run false
@@ -141,8 +152,8 @@ class ProfileGeneralInfoEditViewModel(
                 height = profileInfo.height,
                 sex = profileInfo.sex,
                 weight = profileInfo.weight,
-                ssnOrTin = profileInfo.ssn ?: profileInfo.tin
-
+                ssnOrTin = profileInfo.ssn ?: profileInfo.tin,
+                avatarUrl = profileInfo.avatar?:""
             )
 
         }

@@ -43,7 +43,7 @@ fun profileDomainDiModule() = DI.Module("profileDomainDiModule") {
     //save profile
     bind<SaveProfileInfoUseCase>() with singleton { SaveProfileInfoUseCaseImpl(instance(),instance()) }
     //set avatar
-    bind<SetAvatarUseCase>() with singleton { SetAvatarUseCaseImpl() }
+    bind<SetAvatarUseCase>() with singleton { SetAvatarUseCaseImpl(instance()) }
 
     //emergencyContact
     bind<GetEmergencyContactUseCase>() with singleton { GetEmergencyContactUseCaseImpl(instance()) }
