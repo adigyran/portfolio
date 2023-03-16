@@ -10,3 +10,7 @@ profile security with ability to change email and password(currently doesn't wor
 profile emergency contact, profile notification settings,
 profile insurances (doesn't work due to server)
 added screen to restore/change temp password
+added proper signup profile validation
+insurances working now
+emergency contact is done, need one server fix (which is not require changes in app)
+added avatar
