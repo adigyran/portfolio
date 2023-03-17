@@ -9,6 +9,7 @@ import com.aya.digital.core.domain.profile.generalinfo.edit.model.ProfileEditMod
 import com.aya.digital.core.domain.profile.generalinfo.view.model.ProfileInfoModel
 import com.aya.digital.core.domain.profile.generalinfo.view.model.mapToProfileInfo
 import com.aya.digital.core.ext.flatMapResult
+import com.aya.digital.core.ext.mapResult
 import com.aya.digital.core.network.model.request.ProfileBody
 import com.aya.digital.core.util.datetime.DateTimeUtils
 import io.reactivex.rxjava3.core.Single
@@ -16,26 +17,8 @@ import io.reactivex.rxjava3.core.Single
 internal class SaveProfileInfoUseCaseImpl(private val profileRepository: ProfileRepository,private val dateTimeUtils: DateTimeUtils) :
     SaveProfileInfoUseCase {
     override fun invoke(editModel: ProfileEditModel): Single<RequestResultModel<Boolean>> =
-        profileRepository.currentProfile()
-            .flatMapResult({ currentProfile ->
-                Single.just(editModel)
-                    .map { deltaSaveProfile(it, currentProfile.mapToProfileInfo()) }
-                    .flatMap { deltaSaveProfile ->
-                        if (deltaSaveProfile.first) profileRepository.updateProfile(
-                            deltaSaveProfile.second.toProfileBody()
-                        ) else Single.just(false.asResultModel())
-                    }
-                    .map { true.asResultModel() }
-            },
-
-                { Single.just(it.toModelError()) })
-
-    /*Single.just(editModel)
-    .map { deltaSaveProfile(editModel) }
-    .flatMap<RequestResultModel<Boolean>> { }
-    .map { true.asResultModel() }*/
-
-
+        profileRepository.updateProfile(editModel.toProfileBody())
+            .mapResult({true.asResultModel()},{it.toModelError()})
     private fun ProfileEditModel.toProfileBody() = ProfileBody(
         firstName = this.firstName,
         lastName = this.lastName,

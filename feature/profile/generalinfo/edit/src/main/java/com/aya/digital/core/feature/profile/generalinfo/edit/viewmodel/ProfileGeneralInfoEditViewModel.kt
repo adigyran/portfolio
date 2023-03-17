@@ -96,16 +96,9 @@ class ProfileGeneralInfoEditViewModel(
     }
 
     fun onSaveProfileClicked() = intent {
-
         val profileEditModel = getProfileEditModel(state)
-        profileEditModel.shouldSaveProfile(state)?.let {
-            if (it) {
                 val await = saveProfileInfoUseCase(profileEditModel).await()
-                await.processResult({
-                }, { processError(it) })
-            }
-        }
-
+                await.processResult({if(it) loadProfile()}, { processError(it) })
     }
 
     fun birthDaySelected(date: LocalDate) = intent {
