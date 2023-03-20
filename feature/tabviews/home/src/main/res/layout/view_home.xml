@@ -42,6 +42,23 @@
                 app:layout_constraintEnd_toStartOf="@id/appointmentsBtn"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+            <TextView
+                android:id="@+id/findDoctorBtnTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Find Doctor"
+                app:layout_constraintStart_toStartOf="@id/findDoctorBtn"
+                app:layout_constraintEnd_toEndOf="@id/findDoctorBtn"
+                app:layout_constraintBottom_toBottomOf="@id/findDoctorBtnDescr" />
+            <TextView
+                android:id="@+id/findDoctorBtnDescr"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Hello!\nWe hope you're okay."
+                app:layout_constraintStart_toStartOf="@id/findDoctorBtn"
+                app:layout_constraintEnd_toEndOf="@id/findDoctorBtn"
+                app:layout_constraintBottom_toBottomOf="@id/findDoctorBtn"
+                />
 
             <View
                 android:id="@+id/appointmentsBtn"
@@ -55,36 +72,40 @@
                 android:id="@+id/covidBtn"
                 android:layout_width="159dp"
                 android:layout_height="154dp"
+                app:layout_constraintEnd_toStartOf="@id/recipesBtn"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+                app:layout_constraintTop_toBottomOf="@id/findDoctorBtn" />
 
             <View
                 android:id="@+id/recipesBtn"
                 android:layout_width="159dp"
                 android:layout_height="154dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/findDoctorBtn"
+                app:layout_constraintTop_toBottomOf="@id/appointmentsBtn" />
 
             <View
                 android:id="@+id/pharmaciesBtn"
                 android:layout_width="159dp"
                 android:layout_height="154dp"
+                app:layout_constraintEnd_toStartOf="@id/serviceCostBtn"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+                app:layout_constraintTop_toBottomOf="@id/covidBtn" />
 
             <View
                 android:id="@+id/serviceCostBtn"
                 android:layout_width="159dp"
                 android:layout_height="154dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/pharmaciesBtn"
+                app:layout_constraintTop_toBottomOf="@id/recipesBtn" />
 
             <View
                 android:id="@+id/documentsBtn"
                 android:layout_width="159dp"
                 android:layout_height="154dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+                app:layout_constraintTop_toBottomOf="@id/pharmaciesBtn" />
             <View
                 android:layout_width="0dp"
                 android:layout_height="0dp"
@@ -102,8 +123,8 @@
                 android:text="News"
                 android:id="@+id/newsTitle"
                 />
-            <androidx.core.widget.NestedScrollView
-                android:layout_width="0dp"
+            <HorizontalScrollView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
@@ -148,9 +169,79 @@
                         app:layout_constraintTop_toBottomOf="@id/news1Title"
                         android:text="Nov 20, 2022"
                         />
+                    <View
+                        android:layout_width="220dp"
+                        android:layout_height="272dp"
+                        android:id="@+id/news2Bg"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/news1Bg"
+                        />
+                    <ImageView
+                        android:layout_width="188dp"
+                        android:layout_height="126dp"
+                        android:src="@drawable/news_1"
+                        android:id="@+id/news2Image"
+                        app:layout_constraintTop_toTopOf="@id/news2Bg"
+                        app:layout_constraintStart_toStartOf="@id/news2Bg"
+                        app:layout_constraintEnd_toEndOf="@id/news2Bg"
+                        />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/news2Title"
+                        app:layout_constraintStart_toStartOf="@id/news2Bg"
+                        app:layout_constraintEnd_toEndOf="@id/news2Bg"
+                        app:layout_constraintTop_toBottomOf="@id/news2Image"
+                        android:text="Case Report: COVID-19 Pneumonia Complicated by Lung Abscess"
+                        />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/news2Date"
+                        app:layout_constraintStart_toStartOf="@id/news2Bg"
+                        app:layout_constraintEnd_toEndOf="@id/news2Bg"
+                        app:layout_constraintTop_toBottomOf="@id/news2Title"
+                        android:text="Nov 20, 2022"
+                        />
+                    <View
+                        android:layout_width="220dp"
+                        android:layout_height="272dp"
+                        android:id="@+id/news3Bg"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/news2Bg"
+                        />
+                    <ImageView
+                        android:layout_width="188dp"
+                        android:layout_height="126dp"
+                        android:src="@drawable/news_1"
+                        android:id="@+id/news3Image"
+                        app:layout_constraintTop_toTopOf="@id/news3Bg"
+                        app:layout_constraintStart_toStartOf="@id/news3Bg"
+                        app:layout_constraintEnd_toEndOf="@id/news3Bg"
+                        />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/news3Title"
+                        app:layout_constraintStart_toStartOf="@id/news3Bg"
+                        app:layout_constraintEnd_toEndOf="@id/news3Bg"
+                        app:layout_constraintTop_toBottomOf="@id/news3Image"
+                        android:text="Case Report: COVID-19 Pneumonia Complicated by Lung Abscess"
+                        />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/news3Date"
+                        app:layout_constraintStart_toStartOf="@id/news3Bg"
+                        app:layout_constraintEnd_toEndOf="@id/news3Bg"
+                        app:layout_constraintTop_toBottomOf="@id/news3Title"
+                        android:text="Nov 20, 2022"
+                        />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.core.widget.NestedScrollView>
+            </HorizontalScrollView>
             <View
                 android:layout_width="0dp"
                 android:layout_height="0dp"
