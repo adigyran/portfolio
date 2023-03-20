@@ -1,7 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:id="@+id/btnsBg"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/documentsBtn"
+                />
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Hello!\nWe hope you're okay."
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/findDoctorBtn"
+                android:layout_width="159dp"
+                android:layout_height="154dp"
+                app:layout_constraintEnd_toStartOf="@id/appointmentsBtn"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+
+            <View
+                android:id="@+id/appointmentsBtn"
+                android:layout_width="159dp"
+                android:layout_height="154dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/findDoctorBtn"
+                app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+
+            <View
+                android:id="@+id/covidBtn"
+                android:layout_width="159dp"
+                android:layout_height="154dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+
+            <View
+                android:id="@+id/recipesBtn"
+                android:layout_width="159dp"
+                android:layout_height="154dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+
+            <View
+                android:id="@+id/pharmaciesBtn"
+                android:layout_width="159dp"
+                android:layout_height="154dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+
+            <View
+                android:id="@+id/serviceCostBtn"
+                android:layout_width="159dp"
+                android:layout_height="154dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+
+            <View
+                android:id="@+id/documentsBtn"
+                android:layout_width="159dp"
+                android:layout_height="154dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:id="@+id/newsBg"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btnsBg"
+                app:layout_constraintBottom_toBottomOf="@id/newsSv"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="@id/newsBg"
+                app:layout_constraintStart_toStartOf="parent"
+                android:text="News"
+                android:id="@+id/newsTitle"
+                />
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/newsTitle"
+                android:id="@+id/newsSv"
+                >
+            </androidx.core.widget.NestedScrollView>
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:id="@+id/bottomBg"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/newsBg"
+                app:layout_constraintBottom_toBottomOf="@id/updatesBg"
+                />
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:id="@+id/clinicsBg"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/bottomBg"
+                />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:id="@+id/updatesBg"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/clinicsBg"
+                />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
