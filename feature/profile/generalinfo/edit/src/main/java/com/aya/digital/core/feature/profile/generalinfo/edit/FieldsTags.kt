@@ -9,6 +9,5 @@ object FieldsTags {
     const val HEIGHT_FIELD_TAG = 1655165
     const val WEIGHT_FIELD_TAG = 3129545
     const val SHORT_ADDRESS_FIELD_TAG = 2105840
-
-
+    const val SSN_OR_TIN_FIELD_TAG = 35432125
 }

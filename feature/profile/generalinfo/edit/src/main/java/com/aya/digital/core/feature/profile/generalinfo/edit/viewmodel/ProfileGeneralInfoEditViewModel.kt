@@ -92,6 +92,9 @@ class ProfileGeneralInfoEditViewModel(
             FieldsTags.HEIGHT_FIELD_TAG -> {
                 reduce { state.copy(height = text) }
             }
+            FieldsTags.SSN_OR_TIN_FIELD_TAG -> {
+                reduce { state.copy(ssnOrTin = text) }
+            }
         }
     }
 

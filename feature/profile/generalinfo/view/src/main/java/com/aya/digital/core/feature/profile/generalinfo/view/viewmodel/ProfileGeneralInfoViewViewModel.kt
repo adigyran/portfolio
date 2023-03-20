@@ -43,7 +43,7 @@ class ProfileGeneralInfoViewViewModel(
                     height = profileInfo.height,
                     sex = profileInfo.sex,
                     weight = profileInfo.weight,
-                    ssn = profileInfo.ssn,
+                    ssn = profileInfo.ssn ?: profileInfo.tin,
                     tin = profileInfo.tin
                 )
             }

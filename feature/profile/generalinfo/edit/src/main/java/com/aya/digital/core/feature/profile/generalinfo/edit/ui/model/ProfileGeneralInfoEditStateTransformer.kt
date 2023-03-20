@@ -51,7 +51,7 @@ class ProfileGeneralInfoEditStateTransformer(
                     )
                     add(
                         ValidatedNumberFieldUIModel(
-                            FieldsTags.HEIGHT_FIELD_TAG,
+                            FieldsTags.SSN_OR_TIN_FIELD_TAG,
                             "SSN or TIN",
                             state.ssnOrTin.getField(),
                             state.ssnOrTinError,
