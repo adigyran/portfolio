@@ -16,20 +16,22 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <View
+                android:id="@+id/btnsBg"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:id="@+id/btnsBg"
-                app:layout_constraintStart_toStartOf="parent"
+                android:background="@drawable/bg_buttons_gradient"
+                app:layout_constraintBottom_toTopOf="@id/newsBg"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="@id/documentsBtn"
-                />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tvTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
                 android:text="Hello!\nWe hope you're okay."
                 android:textAppearance="@style/TextAppearance.App.H2"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -40,455 +42,576 @@
                 android:id="@+id/findDoctorBtn"
                 android:layout_width="159dp"
                 android:layout_height="154dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="8.5dp"
                 android:background="@drawable/bg_buttons_active"
-                app:layout_constraintEnd_toStartOf="@id/appointmentsBtn"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+
             <ImageView
+                android:id="@+id/findDoctorImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/findDoctorImage"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
                 android:src="@drawable/ic_finddoctor"
-                app:layout_constraintTop_toTopOf="@id/findDoctorBtn"
                 app:layout_constraintStart_toStartOf="@id/findDoctorBtn"
-                />
+                app:layout_constraintTop_toTopOf="@id/findDoctorBtn" />
+
             <TextView
                 android:id="@+id/findDoctorBtnTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Find Doctor"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="8dp"
                 android:textAppearance="@style/TextAppearance.App.H4"
-                app:layout_constraintStart_toStartOf="@id/findDoctorBtn"
+                app:layout_constraintBottom_toTopOf="@id/findDoctorBtnDescr"
                 app:layout_constraintEnd_toEndOf="@id/findDoctorBtn"
-                app:layout_constraintBottom_toTopOf="@id/findDoctorBtnDescr" />
+                app:layout_constraintStart_toStartOf="@id/findDoctorBtn" />
+
             <TextView
                 android:id="@+id/findDoctorBtnDescr"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.App.Body.LabelMiniText"
                 android:text="2 812 specialists"
-                app:layout_constraintStart_toStartOf="@id/findDoctorBtn"
-                app:layout_constraintEnd_toEndOf="@id/findDoctorBtn"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="16dp"
+                android:textAppearance="@style/TextAppearance.App.Body.LabelMiniText"
                 app:layout_constraintBottom_toBottomOf="@id/findDoctorBtn"
-                />
+                app:layout_constraintEnd_toEndOf="@id/findDoctorBtn"
+                app:layout_constraintStart_toStartOf="@id/findDoctorBtn" />
+
             <View
                 android:id="@+id/appointmentsBtn"
                 android:layout_width="159dp"
                 android:layout_height="154dp"
+                android:layout_marginStart="8.5dp"
+                android:layout_marginEnd="20dp"
                 android:background="@drawable/bg_buttons_active"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/findDoctorBtn"
                 app:layout_constraintTop_toBottomOf="@id/tvTitle" />
 
             <ImageView
+                android:id="@+id/appointmentsImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/appointmentsImage"
                 android:src="@drawable/ic_appointments"
-                app:layout_constraintTop_toTopOf="@id/appointmentsBtn"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
                 app:layout_constraintStart_toStartOf="@id/appointmentsBtn"
-                />
+                app:layout_constraintTop_toTopOf="@id/appointmentsBtn" />
+
             <TextView
                 android:id="@+id/appointmentsBtnTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Appointments"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="8dp"
                 android:textAppearance="@style/TextAppearance.App.H4"
-                app:layout_constraintStart_toStartOf="@id/appointmentsBtn"
+                app:layout_constraintBottom_toTopOf="@id/appointmentsBtnDescr"
                 app:layout_constraintEnd_toEndOf="@id/appointmentsBtn"
-                app:layout_constraintBottom_toTopOf="@id/appointmentsBtnDescr" />
+                app:layout_constraintStart_toStartOf="@id/appointmentsBtn" />
+
             <TextView
                 android:id="@+id/appointmentsBtnDescr"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="0 appointments"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="16dp"
                 android:textAppearance="@style/TextAppearance.App.Body.LabelMiniText"
-                app:layout_constraintStart_toStartOf="@id/appointmentsBtn"
-                app:layout_constraintEnd_toEndOf="@id/appointmentsBtn"
                 app:layout_constraintBottom_toBottomOf="@id/appointmentsBtn"
-                />
+                app:layout_constraintEnd_toEndOf="@id/appointmentsBtn"
+                app:layout_constraintStart_toStartOf="@id/appointmentsBtn" />
+
             <View
                 android:id="@+id/covidBtn"
                 android:layout_width="159dp"
                 android:layout_height="154dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="17dp"
+                android:layout_marginEnd="8.5dp"
                 android:background="@drawable/bg_buttons_inactive"
-                app:layout_constraintEnd_toStartOf="@id/recipesBtn"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/findDoctorBtn" />
 
             <ImageView
+                android:id="@+id/covidImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/covidImage"
                 android:src="@drawable/ic_covid"
-                app:layout_constraintTop_toTopOf="@id/covidBtn"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
                 app:layout_constraintStart_toStartOf="@id/covidBtn"
-                />
+                app:layout_constraintTop_toTopOf="@id/covidBtn" />
+
             <TextView
                 android:id="@+id/covidBtnTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="COVID-19"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="8dp"
                 android:textAppearance="@style/TextAppearance.App.H4"
-                app:layout_constraintStart_toStartOf="@id/covidBtn"
+                app:layout_constraintBottom_toTopOf="@id/covidBtnDescr"
                 app:layout_constraintEnd_toEndOf="@id/covidBtn"
-                app:layout_constraintBottom_toTopOf="@id/covidBtnDescr" />
+                app:layout_constraintStart_toStartOf="@id/covidBtn" />
+
             <TextView
                 android:id="@+id/covidBtnDescr"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Coming soon"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="16dp"
                 android:textAppearance="@style/TextAppearance.App.Body.LabelMiniText"
-                app:layout_constraintStart_toStartOf="@id/covidBtn"
-                app:layout_constraintEnd_toEndOf="@id/covidBtn"
                 app:layout_constraintBottom_toBottomOf="@id/covidBtn"
-                />
+                app:layout_constraintEnd_toEndOf="@id/covidBtn"
+                app:layout_constraintStart_toStartOf="@id/covidBtn" />
+
             <View
                 android:id="@+id/recipesBtn"
                 android:layout_width="159dp"
                 android:layout_height="154dp"
+                android:layout_marginStart="8.5dp"
+                android:layout_marginTop="17dp"
+                android:layout_marginEnd="20dp"
                 android:background="@drawable/bg_buttons_inactive"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/findDoctorBtn"
                 app:layout_constraintTop_toBottomOf="@id/appointmentsBtn" />
+
             <ImageView
+                android:id="@+id/recipesImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/recipesImage"
                 android:src="@drawable/ic_recipes"
-                app:layout_constraintTop_toTopOf="@id/recipesBtn"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
                 app:layout_constraintStart_toStartOf="@id/recipesBtn"
-                />
+                app:layout_constraintTop_toTopOf="@id/recipesBtn" />
+
             <TextView
                 android:id="@+id/recipesBtnTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Recipes"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="8dp"
                 android:textAppearance="@style/TextAppearance.App.H4"
-                app:layout_constraintStart_toStartOf="@id/recipesBtn"
+                app:layout_constraintBottom_toTopOf="@id/recipesBtnDescr"
                 app:layout_constraintEnd_toEndOf="@id/recipesBtn"
-                app:layout_constraintBottom_toTopOf="@id/recipesBtnDescr" />
+                app:layout_constraintStart_toStartOf="@id/recipesBtn" />
+
             <TextView
                 android:id="@+id/recipesBtnDescr"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Coming soon"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="16dp"
                 android:textAppearance="@style/TextAppearance.App.Body.LabelMiniText"
-                app:layout_constraintStart_toStartOf="@id/recipesBtn"
-                app:layout_constraintEnd_toEndOf="@id/recipesBtn"
                 app:layout_constraintBottom_toBottomOf="@id/recipesBtn"
-                />
+                app:layout_constraintStart_toStartOf="@id/recipesBtn" />
+
             <View
                 android:id="@+id/pharmaciesBtn"
                 android:layout_width="159dp"
                 android:layout_height="154dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="17dp"
+                android:layout_marginEnd="8.5dp"
                 android:background="@drawable/bg_buttons_inactive"
-                app:layout_constraintEnd_toStartOf="@id/serviceCostBtn"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/covidBtn" />
+
             <ImageView
+                android:id="@+id/pharmaciesImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/pharmaciesImage"
                 android:src="@drawable/ic_pharmacy"
-                app:layout_constraintTop_toTopOf="@id/pharmaciesBtn"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
                 app:layout_constraintStart_toStartOf="@id/pharmaciesBtn"
-                />
+                app:layout_constraintTop_toTopOf="@id/pharmaciesBtn" />
+
             <TextView
                 android:id="@+id/pharmaciesBtnTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Pharmacies"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="8dp"
                 android:textAppearance="@style/TextAppearance.App.H4"
-                app:layout_constraintStart_toStartOf="@id/pharmaciesBtn"
-                app:layout_constraintEnd_toEndOf="@id/pharmaciesBtn"
-                app:layout_constraintBottom_toTopOf="@id/pharmaciesBtnDescr" />
+                app:layout_constraintBottom_toTopOf="@id/pharmaciesBtnDescr"
+                app:layout_constraintStart_toStartOf="@id/pharmaciesBtn" />
+
             <TextView
                 android:id="@+id/pharmaciesBtnDescr"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Coming soon"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="16dp"
                 android:textAppearance="@style/TextAppearance.App.Body.LabelMiniText"
-                app:layout_constraintStart_toStartOf="@id/pharmaciesBtn"
-                app:layout_constraintEnd_toEndOf="@id/pharmaciesBtn"
                 app:layout_constraintBottom_toBottomOf="@id/pharmaciesBtn"
-                />
+                app:layout_constraintEnd_toEndOf="@id/pharmaciesBtn"
+                app:layout_constraintStart_toStartOf="@id/pharmaciesBtn" />
+
             <View
                 android:id="@+id/serviceCostBtn"
                 android:layout_width="159dp"
                 android:layout_height="154dp"
+                android:layout_marginStart="8.5dp"
+                android:layout_marginTop="17dp"
+                android:layout_marginEnd="20dp"
                 android:background="@drawable/bg_buttons_inactive"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/pharmaciesBtn"
                 app:layout_constraintTop_toBottomOf="@id/recipesBtn" />
+
             <ImageView
+                android:id="@+id/serviceCostImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/serviceCostImage"
                 android:src="@drawable/ic_service"
-                app:layout_constraintTop_toTopOf="@id/serviceCostBtn"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
                 app:layout_constraintStart_toStartOf="@id/serviceCostBtn"
-                />
+                app:layout_constraintTop_toTopOf="@id/serviceCostBtn" />
+
             <TextView
                 android:id="@+id/serviceCostBtnTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Service cost"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="8dp"
                 android:textAppearance="@style/TextAppearance.App.H4"
-                app:layout_constraintStart_toStartOf="@id/serviceCostBtn"
+                app:layout_constraintBottom_toTopOf="@id/serviceCostBtnDescr"
                 app:layout_constraintEnd_toEndOf="@id/serviceCostBtn"
-                app:layout_constraintBottom_toTopOf="@id/serviceCostBtnDescr" />
+                app:layout_constraintStart_toStartOf="@id/serviceCostBtn" />
+
             <TextView
                 android:id="@+id/serviceCostBtnDescr"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Coming soon"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="16dp"
                 android:textAppearance="@style/TextAppearance.App.Body.LabelMiniText"
-                app:layout_constraintStart_toStartOf="@id/serviceCostBtn"
-                app:layout_constraintEnd_toEndOf="@id/serviceCostBtn"
                 app:layout_constraintBottom_toBottomOf="@id/serviceCostBtn"
-                />
+                app:layout_constraintEnd_toEndOf="@id/serviceCostBtn"
+                app:layout_constraintStart_toStartOf="@id/serviceCostBtn" />
+
             <View
                 android:id="@+id/documentsBtn"
                 android:layout_width="159dp"
                 android:layout_height="154dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="17dp"
+                android:layout_marginEnd="8.5dp"
                 android:background="@drawable/bg_buttons_inactive"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/pharmaciesBtn" />
+
             <ImageView
+                android:id="@+id/documentsImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/documentsImage"
                 android:src="@drawable/ic_documents"
-                app:layout_constraintTop_toTopOf="@id/documentsBtn"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
                 app:layout_constraintStart_toStartOf="@id/documentsBtn"
-                />
+                app:layout_constraintTop_toTopOf="@id/documentsBtn" />
+
             <TextView
                 android:id="@+id/documentsBtnTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Documents"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="8dp"
                 android:textAppearance="@style/TextAppearance.App.H4"
-                app:layout_constraintStart_toStartOf="@id/documentsBtn"
+                app:layout_constraintBottom_toTopOf="@id/documentsBtnDescr"
                 app:layout_constraintEnd_toEndOf="@id/documentsBtn"
-                app:layout_constraintBottom_toTopOf="@id/documentsBtnDescr" />
+                app:layout_constraintStart_toStartOf="@id/documentsBtn" />
+
             <TextView
                 android:id="@+id/documentsBtnDescr"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Coming soon"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="16dp"
                 android:textAppearance="@style/TextAppearance.App.Body.LabelMiniText"
-                app:layout_constraintStart_toStartOf="@id/documentsBtn"
-                app:layout_constraintEnd_toEndOf="@id/documentsBtn"
                 app:layout_constraintBottom_toBottomOf="@id/documentsBtn"
-                />
+                app:layout_constraintEnd_toEndOf="@id/documentsBtn"
+                app:layout_constraintStart_toStartOf="@id/documentsBtn" />
+
             <View
+                android:id="@+id/newsBg"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:id="@+id/newsBg"
-                app:layout_constraintStart_toStartOf="parent"
+                android:background="@drawable/bg_news_gradient"
+                app:layout_constraintBottom_toTopOf="@id/bottomBg"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btnsBg"
-                app:layout_constraintBottom_toBottomOf="@id/newsSv"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="@id/newsBg"
                 app:layout_constraintStart_toStartOf="parent"
-                android:textAppearance="@style/TextAppearance.App.H3"
-                android:text="News"
-                android:id="@+id/newsTitle"
+                app:layout_constraintTop_toBottomOf="@id/documentsBtn"
+                android:layout_marginTop="24dp"
                 />
-            <HorizontalScrollView
+
+            <TextView
+                android:id="@+id/newsTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="24dp"
+                android:text="News"
+                android:textAppearance="@style/TextAppearance.App.H3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/newsBg" />
+
+            <HorizontalScrollView
+                android:id="@+id/newsSv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="12dp"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/newsTitle"
-                android:id="@+id/newsSv"
-                >
+                app:layout_constraintTop_toBottomOf="@id/newsTitle">
+
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
+
                     <View
+                        android:id="@+id/news1Bg"
                         android:layout_width="220dp"
                         android:layout_height="272dp"
-                        android:id="@+id/news1Bg"
                         android:background="@drawable/bg_news"
-                        app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        />
+                        app:layout_constraintTop_toTopOf="parent" />
+
                     <ImageView
+                        android:id="@+id/news1Image"
                         android:layout_width="188dp"
                         android:layout_height="126dp"
                         android:src="@drawable/news_1"
-                        android:id="@+id/news1Image"
-                        app:layout_constraintTop_toTopOf="@id/news1Bg"
-                        app:layout_constraintStart_toStartOf="@id/news1Bg"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
                         app:layout_constraintEnd_toEndOf="@id/news1Bg"
-                        />
+                        app:layout_constraintStart_toStartOf="@id/news1Bg"
+                        app:layout_constraintTop_toTopOf="@id/news1Bg" />
+
                     <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
                         android:id="@+id/news1Title"
-                        app:layout_constraintStart_toStartOf="@id/news1Bg"
-                        app:layout_constraintEnd_toEndOf="@id/news1Bg"
-                        app:layout_constraintTop_toBottomOf="@id/news1Image"
-                        android:textAppearance="@style/TextAppearance.App.Body.DescriptionText"
-                        android:text="Case Report: COVID-19 Pneumonia Complicated by Lung Abscess"
-                        />
-                    <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:id="@+id/news1Date"
-                        app:layout_constraintStart_toStartOf="@id/news1Bg"
+                        android:text="Case Report: COVID-19 Pneumonia Complicated by Lung Abscess"
+                        android:textAppearance="@style/TextAppearance.App.Body.DescriptionText"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginTop="12dp"
                         app:layout_constraintEnd_toEndOf="@id/news1Bg"
-                        app:layout_constraintTop_toBottomOf="@id/news1Title"
-                        android:textAppearance="@style/TextAppearance.App.Body.LabelMiniText"
+                        app:layout_constraintStart_toStartOf="@id/news1Bg"
+                        app:layout_constraintTop_toBottomOf="@id/news1Image" />
+
+                    <TextView
+                        android:id="@+id/news1Date"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
                         android:text="Nov 20, 2022"
-                        />
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginTop="12dp"
+                        android:textAppearance="@style/TextAppearance.App.Body.LabelMiniText"
+                        app:layout_constraintEnd_toEndOf="@id/news1Bg"
+                        app:layout_constraintStart_toStartOf="@id/news1Bg"
+                        app:layout_constraintTop_toBottomOf="@id/news1Title" />
+
                     <View
+                        android:id="@+id/news2Bg"
                         android:layout_width="220dp"
                         android:layout_height="272dp"
-                        android:id="@+id/news2Bg"
                         android:background="@drawable/bg_news"
-                        app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@id/news1Bg"
-                        />
+                        app:layout_constraintTop_toTopOf="parent" />
+
                     <ImageView
+                        android:id="@+id/news2Image"
                         android:layout_width="188dp"
                         android:layout_height="126dp"
                         android:src="@drawable/news_1"
-                        android:id="@+id/news2Image"
-                        app:layout_constraintTop_toTopOf="@id/news2Bg"
-                        app:layout_constraintStart_toStartOf="@id/news2Bg"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
                         app:layout_constraintEnd_toEndOf="@id/news2Bg"
-                        />
+                        app:layout_constraintStart_toStartOf="@id/news2Bg"
+                        app:layout_constraintTop_toTopOf="@id/news2Bg" />
+
                     <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
                         android:id="@+id/news2Title"
-                        app:layout_constraintStart_toStartOf="@id/news2Bg"
-                        app:layout_constraintEnd_toEndOf="@id/news2Bg"
-                        app:layout_constraintTop_toBottomOf="@id/news2Image"
-                        android:text="Case Report: COVID-19 Pneumonia Complicated by Lung Abscess"
-                        />
-                    <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:id="@+id/news2Date"
-                        app:layout_constraintStart_toStartOf="@id/news2Bg"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginTop="12dp"
+                        android:text="Case Report: COVID-19 Pneumonia Complicated by Lung Abscess"
                         app:layout_constraintEnd_toEndOf="@id/news2Bg"
-                        app:layout_constraintTop_toBottomOf="@id/news2Title"
+                        app:layout_constraintStart_toStartOf="@id/news2Bg"
+                        app:layout_constraintTop_toBottomOf="@id/news2Image" />
+
+                    <TextView
+                        android:id="@+id/news2Date"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
                         android:text="Nov 20, 2022"
-                        />
+                        android:layout_marginTop="12dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        app:layout_constraintEnd_toEndOf="@id/news2Bg"
+                        app:layout_constraintStart_toStartOf="@id/news2Bg"
+                        app:layout_constraintTop_toBottomOf="@id/news2Title" />
+
                     <View
+                        android:id="@+id/news3Bg"
                         android:layout_width="220dp"
                         android:layout_height="272dp"
-                        android:id="@+id/news3Bg"
                         android:background="@drawable/bg_news"
-                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginStart="16dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@id/news2Bg"
-                        />
+                        app:layout_constraintTop_toTopOf="parent" />
+
                     <ImageView
+                        android:id="@+id/news3Image"
                         android:layout_width="188dp"
                         android:layout_height="126dp"
                         android:src="@drawable/news_1"
-                        android:id="@+id/news3Image"
-                        app:layout_constraintTop_toTopOf="@id/news3Bg"
-                        app:layout_constraintStart_toStartOf="@id/news3Bg"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
                         app:layout_constraintEnd_toEndOf="@id/news3Bg"
-                        />
+                        app:layout_constraintStart_toStartOf="@id/news3Bg"
+                        app:layout_constraintTop_toTopOf="@id/news3Bg" />
+
                     <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
                         android:id="@+id/news3Title"
-                        app:layout_constraintStart_toStartOf="@id/news3Bg"
-                        app:layout_constraintEnd_toEndOf="@id/news3Bg"
-                        app:layout_constraintTop_toBottomOf="@id/news3Image"
-                        android:text="Case Report: COVID-19 Pneumonia Complicated by Lung Abscess"
-                        />
-                    <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:id="@+id/news3Date"
-                        app:layout_constraintStart_toStartOf="@id/news3Bg"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginTop="12dp"
+                        android:text="Case Report: COVID-19 Pneumonia Complicated by Lung Abscess"
                         app:layout_constraintEnd_toEndOf="@id/news3Bg"
-                        app:layout_constraintTop_toBottomOf="@id/news3Title"
+                        app:layout_constraintStart_toStartOf="@id/news3Bg"
+                        app:layout_constraintTop_toBottomOf="@id/news3Image" />
+
+                    <TextView
+                        android:id="@+id/news3Date"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginTop="12dp"
                         android:text="Nov 20, 2022"
-                        />
+                        app:layout_constraintEnd_toEndOf="@id/news3Bg"
+                        app:layout_constraintStart_toStartOf="@id/news3Bg"
+                        app:layout_constraintTop_toBottomOf="@id/news3Title" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </HorizontalScrollView>
+
             <View
-                android:layout_width="0dp"
-                android:layout_height="0dp"
                 android:id="@+id/bottomBg"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/newsBg"
-                app:layout_constraintBottom_toBottomOf="@id/updatesBg"
-                />
-            <View
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:id="@+id/clinicsBg"
-                android:background="@drawable/bg_clinic"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/updatesBg"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/bottomBg"
-                app:layout_constraintBottom_toBottomOf="@id/mapView"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/clinicsTitle"
-                app:layout_constraintStart_toStartOf="@id/clinicsBg"
-                app:layout_constraintTop_toTopOf="@id/clinicsBg"
-                android:textAppearance="@style/TextAppearance.App.H3"
-                android:text="Clinics Nearby"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/clinicsCount"
-                app:layout_constraintStart_toStartOf="@id/clinicsBg"
-                app:layout_constraintTop_toBottomOf="@id/clinicsTitle"
-                android:textAppearance="@style/TextAppearance.App.Body.DescriptionMiniText"
-                android:text="3 clinics"
-                />
-            <ImageView
-                android:layout_width="303dp"
-                android:layout_height="200dp"
-                android:id="@+id/mapView"
-                android:src="@drawable/map"
-                app:layout_constraintStart_toStartOf="@id/clinicsBg"
-                app:layout_constraintEnd_toEndOf="@id/clinicsBg"
-                app:layout_constraintTop_toBottomOf="@id/clinicsCount"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/newsSv"
+                android:layout_marginTop="24dp"
+                android:background="#fff"
                 />
 
             <View
+                android:id="@+id/clinicsBg"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:id="@+id/updatesBg"
-                android:background="@drawable/bg_latest_update"
-                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/bg_clinic"
+                app:layout_constraintBottom_toBottomOf="@id/mapView"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/clinicsBg"
-                />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/bottomBg" />
+
             <TextView
+                android:id="@+id/clinicsTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/latestUpdatesTitle"
-                app:layout_constraintStart_toStartOf="@id/updatesBg"
-                app:layout_constraintTop_toTopOf="@id/updatesBg"
-                android:text="Latest update"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="Clinics Nearby"
                 android:textAppearance="@style/TextAppearance.App.H3"
-                />
+                app:layout_constraintStart_toStartOf="@id/clinicsBg"
+                app:layout_constraintTop_toTopOf="@id/clinicsBg" />
+
+            <TextView
+                android:id="@+id/clinicsCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:text="3 clinics"
+                android:textAppearance="@style/TextAppearance.App.Body.DescriptionMiniText"
+                app:layout_constraintStart_toStartOf="@id/clinicsBg"
+                app:layout_constraintTop_toBottomOf="@id/clinicsTitle" />
+
+            <ImageView
+                android:id="@+id/mapView"
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:src="@drawable/map"
+                app:layout_constraintEnd_toEndOf="@id/clinicsBg"
+                app:layout_constraintStart_toStartOf="@id/clinicsBg"
+                app:layout_constraintTop_toBottomOf="@id/clinicsCount" />
+
+            <View
+                android:id="@+id/updatesBg"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="24dp"
+                android:background="@drawable/bg_latest_update"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/clinicsBg" />
+
+            <TextView
+                android:id="@+id/latestUpdatesTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Latest update"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:textAppearance="@style/TextAppearance.App.H3"
+                app:layout_constraintStart_toStartOf="@id/updatesBg"
+                app:layout_constraintTop_toTopOf="@id/updatesBg" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
