@@ -1,15 +1,23 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.HealthAppAya" parent="Theme.Material3.Light.NoActionBar">
+    <style name="Theme.HealthAppAya" parent="Base.Theme.HealthAppAya"/>
+
+    <style name="Base.Theme.HealthAppAya" parent="Theme.Material3.Light.NoActionBar">
         <item name="colorPrimary">@color/bg_white</item>
+        <item name="colorOnPrimary">@color/bg_white</item>
+        <item name="colorPrimaryVariant">@color/bg_white</item>
         <item name="colorPrimaryDark">@color/bg_white</item>
         <item name="colorSecondary">@color/bg_light_grey</item>
+        <item name="colorSecondaryVariant">@color/bg_light_grey</item>
         <item name="android:colorBackground">@color/bg_white</item>
         <item name="colorError">@color/stroke_red</item>
         <!-- Primary brand color. -->
         <!-- Secondary brand color. -->
         <!-- Status bar color. -->
         <!-- Customize your theme here. -->
+
+        <item name="android:windowBackground">?android:colorBackground</item>
+        <item name="android:windowLightStatusBar" tools:ignore="NewApi">true</item>
     </style>
 
 </resources>

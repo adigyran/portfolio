@@ -17,5 +17,7 @@
     <string name="socket_timeout_error">Socket Timeout Error</string>
     <string name="no_role_defined_error">No Role Defined Error</string>
     <string name="auth_chooser_welcome_text">Welcome,\nto the organizer for your wellness</string>
+    <string name="auth_chooser_sign_up">Sign Up</string>
+    <string name="auth_chooser_sign_in">Sign In</string>
 
 </resources>

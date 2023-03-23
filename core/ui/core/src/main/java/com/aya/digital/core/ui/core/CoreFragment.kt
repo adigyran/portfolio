@@ -72,11 +72,11 @@ abstract class CoreFragment<Binding : ViewBinding> : Fragment(), ContextAware,
             originalInputMode!!
         )
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (originalIsLightStatusBar != null && isLightStatusBar != null) toggleStatusBar(
                 originalIsLightStatusBar!!
             )
-        }
+        }*/
 
         super.onDestroyView()
 
@@ -91,7 +91,7 @@ abstract class CoreFragment<Binding : ViewBinding> : Fragment(), ContextAware,
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?,
     ): View? {
-        originalInputMode = activity?.window?.attributes?.softInputMode
+        /*originalInputMode = activity?.window?.attributes?.softInputMode
         inputMode?.let { activity?.window?.setSoftInputMode(it) }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -99,7 +99,7 @@ abstract class CoreFragment<Binding : ViewBinding> : Fragment(), ContextAware,
             isLightStatusBar?.let {
                 toggleStatusBar(it)
             }
-        }
+        }*/
 
         _binding = provideViewBinding(inflater, container)
         val view = binding.root
@@ -111,7 +111,7 @@ abstract class CoreFragment<Binding : ViewBinding> : Fragment(), ContextAware,
 
 
     override fun onResume() {
-        statusBarId?.let { setStatusBarColor(colors[it]) }
+       // statusBarId?.let { setStatusBarColor(colors[it]) }
         super.onResume()
     }
 

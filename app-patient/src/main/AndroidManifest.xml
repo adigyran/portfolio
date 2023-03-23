@@ -12,7 +12,7 @@
         android:theme="@style/Theme.HealthAppAya">
         <activity
             android:name="com.aya.digital.feature.rootcontainer.ui.RootView"
-            android:windowSoftInputMode="adjustResize"
+            android:theme="@style/Theme.HealthAppAya"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

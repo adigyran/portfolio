@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Widget.App.Button.FilledButton" parent="Widget.Material3.Button">
-        <!--<item name="materialThemeOverlay">@style/ThemeOverlay.App.Button</item>-->
-        <item name="shapeAppearance">@style/ShapeAppearance.App.SmallComponent</item>
-        <item name="android:textAppearance">@style/TextAppearance.App.ButtonText.Default</item>
+    <style name="TextAppearance.App.Button" parent="TextAppearance.Material3.LabelLarge">
+        <item name="fontFamily">@font/poppins_semibold</item>
+        <item name="android:fontFamily">@font/poppins_semibold</item>
+    </style>
 
+    <style name="Widget.App.Button.FilledButton" parent="Widget.Material3.Button">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.Button</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.App.SmallComponent</item>
+        <item name="android:textAppearance">@style/TextAppearance.App.Button</item>
     </style>
 
     <style name="Widget.App.Button.OutlinedButton" parent="Widget.Material3.Button.OutlinedButton.Icon">
@@ -16,7 +20,7 @@
 
     <style name="Widget.App.Button.TextButton" parent="Widget.Material3.Button.TextButton.Icon">
         <item name="materialThemeOverlay">@style/ThemeOverlay.App.Button.TextButton</item>
-        <item name="android:textAppearance">@style/TextAppearance.App.ButtonText.Default</item>
+        <item name="android:textAppearance">@style/TextAppearance.App.Button</item>
         <item name="shapeAppearance">@style/ShapeAppearance.App.SmallComponent</item>
     </style>
 
@@ -25,7 +29,7 @@
     </style>
 
     <style name="ThemeOverlay.App.Button" parent="">
-        <item name="colorPrimary">@color/button_background_color_selector</item>
-        <item name="colorOnPrimary">@color/button_ripple_color_selector</item>
+        <item name="colorPrimary">@color/button_ripple_color_selector</item>
+        <item name="colorOnPrimary">@color/button_background_color_selector</item>
     </style>
 </resources>

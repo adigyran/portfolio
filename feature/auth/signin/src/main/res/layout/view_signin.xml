@@ -20,7 +20,7 @@
         tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:orientation="vertical" />
 
-    <com.aya.digital.core.designsystem.buttons.filled.ButtonFilledView
+    <Button
         android:id="@+id/signInBtn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -28,6 +28,7 @@
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="28dp"
         android:text="@string/sign_in"
+        style="@style/Widget.App.Button.FilledButton"
         app:layout_constraintBottom_toTopOf="@id/descrLabl"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
