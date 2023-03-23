@@ -26,10 +26,10 @@ import com.aya.digital.core.feature.profile.insurance.add.viewmodel.ProfileInsur
 import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.ui.adapters.base.BaseDelegateAdapter
 import com.aya.digital.core.ui.base.screens.DiFragment
+import com.aya.digital.core.ui.delegates.components.fields.name.model.ui.NameFieldDelegate
 import com.aya.digital.core.ui.delegates.components.fields.name.model.ui.NameFieldDelegateListeners
-import com.aya.digital.core.ui.delegates.components.fields.name.model.ui.nameFieldDelegate
+import com.aya.digital.core.ui.delegates.components.fields.selection.ui.SelectionFieldDelegate
 import com.aya.digital.core.ui.delegates.components.fields.selection.ui.SelectionFieldDelegateListeners
-import com.aya.digital.core.ui.delegates.components.fields.selection.ui.selectionFieldDelegate
 import com.aya.digital.core.ui.delegates.profile.emergencycontactinfo.ui.insurancePolicyPhotoDelegate
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.parcelize.Parcelize
@@ -52,8 +52,8 @@ class ProfileInsuranceAddView :
 
     private val adapter by lazy(LazyThreadSafetyMode.NONE) {
         BaseDelegateAdapter.create {
-            delegate { nameFieldDelegate(NameFieldDelegateListeners(viewModel::nameFieldChanged),true) }
-            delegate { selectionFieldDelegate(SelectionFieldDelegateListeners(viewModel::onSelectionFieldClicked),true) }
+            delegate { NameFieldDelegate(NameFieldDelegateListeners(viewModel::nameFieldChanged)) }
+            delegate { SelectionFieldDelegate(SelectionFieldDelegateListeners(viewModel::onSelectionFieldClicked)) }
             delegate {
                 insurancePolicyPhotoDelegate(
                     viewModel::photoClicked,

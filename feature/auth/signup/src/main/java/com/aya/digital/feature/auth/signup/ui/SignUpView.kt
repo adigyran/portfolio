@@ -16,15 +16,15 @@ import com.aya.digital.core.ui.base.ext.createSpannableText
 import com.aya.digital.core.ui.base.screens.DiFragment
 import com.aya.digital.core.ui.base.utils.LinkTouchMovementMethod
 import com.aya.digital.core.ui.delegates.components.fields.emailphone.ui.EmailPhoneDelegateListeners
-import com.aya.digital.core.ui.delegates.components.fields.emailphone.ui.emailPhoneFieldDelegate
+import com.aya.digital.core.ui.delegates.components.fields.emailphone.ui.EmailPhoneFieldDelegate
+import com.aya.digital.core.ui.delegates.components.fields.name.model.ui.NameFieldDelegate
 import com.aya.digital.core.ui.delegates.components.fields.name.model.ui.NameFieldDelegateListeners
-import com.aya.digital.core.ui.delegates.components.fields.name.model.ui.nameFieldDelegate
+import com.aya.digital.core.ui.delegates.components.fields.password.ui.PasswordFieldDelegate
 import com.aya.digital.core.ui.delegates.components.fields.password.ui.PasswordFieldDelegateListeners
-import com.aya.digital.core.ui.delegates.components.fields.password.ui.passwordFieldDelegate
+import com.aya.digital.core.ui.delegates.components.fields.selection.ui.SelectionFieldDelegate
 import com.aya.digital.core.ui.delegates.components.fields.selection.ui.SelectionFieldDelegateListeners
-import com.aya.digital.core.ui.delegates.components.fields.selection.ui.selectionFieldDelegate
+import com.aya.digital.core.ui.delegates.components.labels.headline.ui.HeadlineLabelDelegate
 import com.aya.digital.core.ui.delegates.components.labels.headline.ui.HeadlineLabelDelegateListeners
-import com.aya.digital.core.ui.delegates.components.labels.headline.ui.headlineLabelDelegate
 import com.aya.digital.feature.auth.signup.databinding.ViewSignupBinding
 import com.aya.digital.feature.auth.signup.di.signUpDiModule
 import com.aya.digital.feature.auth.signup.ui.model.SignUpStateTransformer
@@ -54,11 +54,11 @@ class SignUpView :
 
     private val adapter by lazy(LazyThreadSafetyMode.NONE) {
         BaseDelegateAdapter.create {
-            delegate { headlineLabelDelegate(HeadlineLabelDelegateListeners()) }
-            delegate { emailPhoneFieldDelegate(EmailPhoneDelegateListeners(viewModel::emailChanged)) }
-            delegate { passwordFieldDelegate(PasswordFieldDelegateListeners(viewModel::passwordChanged)) }
-            delegate { nameFieldDelegate(NameFieldDelegateListeners(viewModel::nameChanged)) }
-            delegate { selectionFieldDelegate(SelectionFieldDelegateListeners(viewModel::insuranceCompanyFieldSelected)) }
+            delegate { HeadlineLabelDelegate(HeadlineLabelDelegateListeners()) }
+            delegate { EmailPhoneFieldDelegate(EmailPhoneDelegateListeners(viewModel::emailChanged)) }
+            delegate { PasswordFieldDelegate(PasswordFieldDelegateListeners(viewModel::passwordChanged)) }
+            delegate { NameFieldDelegate(NameFieldDelegateListeners(viewModel::nameChanged)) }
+            delegate { SelectionFieldDelegate(SelectionFieldDelegateListeners(viewModel::insuranceCompanyFieldSelected)) }
 
         }
     }
@@ -80,7 +80,7 @@ class SignUpView :
             )
 
             layoutManager = lm
-
+            addItemDecoration(SignUpDecoration())
         }
     }
     private fun prepareDescription() {
@@ -90,6 +90,9 @@ class SignUpView :
             colors[R.color.button_text_blue],
             colors[R.color.button_bg_dark_blue],
             Spanned.SPAN_EXCLUSIVE_EXCLUSIVE,
+            binding.descrLabl.context,
+            R.style.TextAppearance_App_Body_DescriptionMiniText,
+            R.style.TextAppearance_App_ButtonText_Default,
             listOf(SpannableObject("Sign In", { signIn() }))
         )
         binding.descrLabl.text = description

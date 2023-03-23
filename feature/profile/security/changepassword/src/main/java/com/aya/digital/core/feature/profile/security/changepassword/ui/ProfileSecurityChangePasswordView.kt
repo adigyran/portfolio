@@ -18,9 +18,9 @@ import com.aya.digital.core.feature.profile.security.changepassword.viewmodel.Pr
 import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.ui.adapters.base.BaseDelegateAdapter
 import com.aya.digital.core.ui.base.screens.DiFragment
+import com.aya.digital.core.ui.delegates.components.fields.password.ui.PasswordFieldDelegate
 import com.aya.digital.core.ui.delegates.components.fields.password.ui.PasswordFieldDelegateListeners
-import com.aya.digital.core.ui.delegates.components.fields.password.ui.passwordFieldDelegate
-import com.aya.digital.core.ui.delegates.components.labels.headline.ui.headlineTwoLineLabelDelegate
+import com.aya.digital.core.ui.delegates.components.labels.headline.ui.HeadlineTwoLineLabelDelegate
 import kotlinx.parcelize.Parcelize
 import org.kodein.di.DI
 import org.kodein.di.factory
@@ -41,8 +41,8 @@ internal class ProfileSecurityChangePasswordView :
 
     private val adapter by lazy(LazyThreadSafetyMode.NONE) {
         BaseDelegateAdapter.create {
-            delegate { headlineTwoLineLabelDelegate() }
-            delegate { passwordFieldDelegate(PasswordFieldDelegateListeners(viewModel::passwordFieldChanged)) }
+            delegate { HeadlineTwoLineLabelDelegate() }
+            delegate { PasswordFieldDelegate(PasswordFieldDelegateListeners(viewModel::passwordFieldChanged)) }
         }
     }
 

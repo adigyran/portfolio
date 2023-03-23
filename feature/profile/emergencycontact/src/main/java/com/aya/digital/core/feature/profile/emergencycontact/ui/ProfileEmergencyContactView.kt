@@ -16,8 +16,8 @@ import com.aya.digital.core.feature.profile.emergencycontact.viewmodel.ProfileEm
 import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.ui.adapters.base.BaseDelegateAdapter
 import com.aya.digital.core.ui.base.screens.DiFragment
+import com.aya.digital.core.ui.delegates.components.fields.name.model.ui.NameFieldDelegate
 import com.aya.digital.core.ui.delegates.components.fields.name.model.ui.NameFieldDelegateListeners
-import com.aya.digital.core.ui.delegates.components.fields.name.model.ui.nameFieldDelegate
 import com.aya.digital.core.ui.delegates.profile.info.ui.emergencyContactInfoDelegate
 import org.kodein.di.DI
 import org.kodein.di.factory
@@ -36,7 +36,7 @@ class ProfileEmergencyContactView :
 
     private val adapter by lazy(LazyThreadSafetyMode.NONE) {
         BaseDelegateAdapter.create {
-            delegate { nameFieldDelegate(NameFieldDelegateListeners(viewModel::onNameFieldChanged)) }
+            delegate { NameFieldDelegate(NameFieldDelegateListeners(viewModel::onNameFieldChanged)) }
             delegate { emergencyContactInfoDelegate() }
         }
     }

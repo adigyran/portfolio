@@ -21,11 +21,11 @@ import com.aya.digital.core.feature.auth.restorepassword.viewmodel.RestorePasswo
 import com.aya.digital.core.feature.auth.signin.restorepassword.databinding.ViewRestorePasswordBinding
 import com.aya.digital.core.ui.base.screens.DiFragment
 import com.aya.digital.core.ui.delegates.components.fields.emailphone.ui.EmailPhoneDelegateListeners
-import com.aya.digital.core.ui.delegates.components.fields.emailphone.ui.emailPhoneFieldDelegate
+import com.aya.digital.core.ui.delegates.components.fields.emailphone.ui.EmailPhoneFieldDelegate
+import com.aya.digital.core.ui.delegates.components.fields.password.ui.PasswordFieldDelegate
 import com.aya.digital.core.ui.delegates.components.fields.password.ui.PasswordFieldDelegateListeners
-import com.aya.digital.core.ui.delegates.components.fields.password.ui.passwordFieldDelegate
+import com.aya.digital.core.ui.delegates.components.labels.headline.ui.HeadlineLabelDelegate
 import com.aya.digital.core.ui.delegates.components.labels.headline.ui.HeadlineLabelDelegateListeners
-import com.aya.digital.core.ui.delegates.components.labels.headline.ui.headlineLabelDelegate
 import kotlinx.parcelize.Parcelize
 import org.kodein.di.DI
 import org.kodein.di.factory
@@ -46,9 +46,9 @@ internal class RestorePasswordView :
 
     private val adapter by lazy(LazyThreadSafetyMode.NONE) {
         BaseDelegateAdapter.create {
-            delegate { headlineLabelDelegate(HeadlineLabelDelegateListeners()) }
-            delegate { emailPhoneFieldDelegate(EmailPhoneDelegateListeners(viewModel::emailFieldChanging)) }
-            delegate { passwordFieldDelegate(PasswordFieldDelegateListeners(viewModel::passwordFieldsChanging)) }
+            delegate { HeadlineLabelDelegate(HeadlineLabelDelegateListeners()) }
+            delegate { EmailPhoneFieldDelegate(EmailPhoneDelegateListeners(viewModel::emailFieldChanging)) }
+            delegate { PasswordFieldDelegate(PasswordFieldDelegateListeners(viewModel::passwordFieldsChanging)) }
         }
     }
 
@@ -70,7 +70,7 @@ internal class RestorePasswordView :
                 )
 
                 layoutManager = lm
-
+                addItemDecoration(RestorePasswordDecoration())
             }
         }
     }

@@ -66,6 +66,7 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
                     add("implementation", libs.findLibrary("androidx.appcompat").get())
                     add("implementation", libs.findLibrary("material.design").get())
                     add("implementation", libs.findLibrary("adapter.delegates").get())
+                    add("implementation", libs.findLibrary("groupie").get())
                     add("implementation", libs.findLibrary("cicerone").get())
                     add("implementation", libs.findLibrary("orbit.viewmodel").get())
                     add("implementation", libs.findLibrary("glide").get())

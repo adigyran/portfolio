@@ -37,6 +37,8 @@ material = "1.8.0"
 constraintLayout = "2.1.4"
 #adapterDelegates
 adapterDelegates = "4.3.2"
+#groupie
+groupie = "2.10.1"
 #pin view
 pinView = "3.0.0"
 #glide
@@ -163,6 +165,11 @@ constraint-layout = { group = "androidx.constraintlayout", name = "constraintlay
 #ui-adapterDelegates
 adapter-delegates = { group = "com.hannesdorfmann", name = "adapterdelegates4-kotlin-dsl", version.ref = "adapterDelegates" }
 adapter-delegates-view-binding = { group = "com.hannesdorfmann", name = "adapterdelegates4-kotlin-dsl-viewbinding", version.ref = "adapterDelegates" }
+
+#ui-groupie
+groupie = { group = "com.github.lisawray.groupie", name = "groupie", version.ref = "groupie" }
+groupie-view-binding = { group = "com.github.lisawray.groupie", name = "groupie-viewbinding", version.ref = "groupie" }
+
 
 #ui-pinview
 pinview = { group = "com.github.mukeshsolanki", name = "android-otpview-pinview", version.ref = "pinView" }

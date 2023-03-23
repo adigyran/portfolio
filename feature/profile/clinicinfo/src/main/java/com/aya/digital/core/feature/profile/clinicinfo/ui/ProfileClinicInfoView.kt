@@ -72,6 +72,9 @@ class ProfileClinicInfoView :
             colors[R.color.button_text_blue],
             colors[R.color.button_bg_dark_blue],
             Spanned.SPAN_EXCLUSIVE_EXCLUSIVE,
+            binding.descrLabl.context,
+            R.style.TextAppearance_App_Body_DescriptionMiniText,
+            R.style.TextAppearance_App_ButtonText_Default,
             listOf(SpannableObject("Sign Up", { signUp() }))
         )
         binding.descrLabl.text = description

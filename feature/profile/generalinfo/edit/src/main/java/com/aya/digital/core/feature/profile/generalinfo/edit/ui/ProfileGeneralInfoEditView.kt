@@ -23,14 +23,11 @@ import com.aya.digital.core.feature.profile.generalinfo.edit.viewmodel.ProfileGe
 import com.aya.digital.core.feature.profile.generalinfo.edit.viewmodel.ProfileGeneralInfoEditViewModel
 import com.aya.digital.core.ui.adapters.base.BaseDelegateAdapter
 import com.aya.digital.core.ui.base.screens.DiFragment
-import com.aya.digital.core.ui.delegates.components.fields.name.model.ui.NameFieldDelegateListeners
-import com.aya.digital.core.ui.delegates.components.fields.name.model.ui.ValidatedNumberFieldDelegateListeners
-import com.aya.digital.core.ui.delegates.components.fields.name.model.ui.nameFieldDelegate
-import com.aya.digital.core.ui.delegates.components.fields.name.model.ui.validatedNumberFieldDelegate
 import com.aya.digital.core.ui.delegates.components.fields.dropdown.ui.DropDownFieldDelegateListeners
 import com.aya.digital.core.ui.delegates.components.fields.selection.ui.SelectionFieldDelegateListeners
 import com.aya.digital.core.ui.delegates.components.fields.dropdown.ui.dropDownFieldDelegate
-import com.aya.digital.core.ui.delegates.components.fields.selection.ui.selectionFieldDelegate
+import com.aya.digital.core.ui.delegates.components.fields.name.model.ui.*
+import com.aya.digital.core.ui.delegates.components.fields.selection.ui.SelectionFieldDelegate
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
@@ -60,9 +57,9 @@ class ProfileGeneralInfoEditView :
 
     private val adapter by lazy(LazyThreadSafetyMode.NONE) {
         BaseDelegateAdapter.create {
-            delegate { nameFieldDelegate(NameFieldDelegateListeners(viewModel::nameFieldChanged)) }
+            delegate { NameFieldDelegate(NameFieldDelegateListeners(viewModel::nameFieldChanged)) }
             delegate { validatedNumberFieldDelegate(ValidatedNumberFieldDelegateListeners(viewModel::numberFieldChanged)) }
-            delegate { selectionFieldDelegate(SelectionFieldDelegateListeners(viewModel::selectFieldClicked)) }
+            delegate { SelectionFieldDelegate(SelectionFieldDelegateListeners(viewModel::selectFieldClicked)) }
             delegate {
                 dropDownFieldDelegate(DropDownFieldDelegateListeners { tag, selectedItem ->
                     viewModel.dropDownSelected(

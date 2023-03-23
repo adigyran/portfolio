@@ -60,6 +60,8 @@ class AndroidUiDelegatesConventionPlugin : Plugin<Project> {
                 add("implementation", libs.findLibrary("material.design").get())
                 add("implementation", libs.findLibrary("adapter.delegates").get())
                 add("implementation", libs.findLibrary("adapter.delegates.view.binding").get())
+                add("implementation", libs.findLibrary("groupie").get())
+                add("implementation", libs.findLibrary("groupie.view.binding").get())
                 add("implementation", libs.findLibrary("glide").get())
                 add("implementation", libs.findLibrary("timber").get())
                 add("kapt", libs.findLibrary("glide.annotationprocessor").get())

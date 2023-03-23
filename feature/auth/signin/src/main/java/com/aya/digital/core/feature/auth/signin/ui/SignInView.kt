@@ -23,13 +23,10 @@ import com.aya.digital.core.ui.base.ext.createSpannableText
 import com.aya.digital.core.ui.base.screens.DiFragment
 import com.aya.digital.core.ui.base.utils.LinkTouchMovementMethod
 import com.aya.digital.core.ui.delegates.components.fields.emailphone.ui.EmailPhoneDelegateListeners
-import com.aya.digital.core.ui.delegates.components.fields.emailphone.ui.emailPhoneFieldDelegate
+import com.aya.digital.core.ui.delegates.components.fields.emailphone.ui.EmailPhoneFieldDelegate
+import com.aya.digital.core.ui.delegates.components.fields.password.ui.PasswordFieldDelegate
 import com.aya.digital.core.ui.delegates.components.fields.password.ui.PasswordFieldDelegateListeners
-import com.aya.digital.core.ui.delegates.components.fields.password.ui.passwordFieldDelegate
-import com.aya.digital.core.ui.delegates.components.labels.headline.ui.HeadlineLabelDelegateListeners
-import com.aya.digital.core.ui.delegates.components.labels.headline.ui.SpannableHelperLabelDelegateListeners
-import com.aya.digital.core.ui.delegates.components.labels.headline.ui.headlineLabelDelegate
-import com.aya.digital.core.ui.delegates.components.labels.headline.ui.spannableHelperLabelDelegate
+import com.aya.digital.core.ui.delegates.components.labels.headline.ui.*
 import org.kodein.di.DI
 import org.kodein.di.factory
 import org.kodein.di.on
@@ -47,10 +44,10 @@ class SignInView :
 
     private val adapter by lazy(LazyThreadSafetyMode.NONE) {
         BaseDelegateAdapter.create {
-            delegate { headlineLabelDelegate(HeadlineLabelDelegateListeners()) }
-            delegate { spannableHelperLabelDelegate(SpannableHelperLabelDelegateListeners{viewModel.restorePassword()}) }
-            delegate { emailPhoneFieldDelegate(EmailPhoneDelegateListeners(viewModel::emailChanged)) }
-            delegate { passwordFieldDelegate(PasswordFieldDelegateListeners(viewModel::passwordChanged)) }
+            delegate { HeadlineLabelDelegate(HeadlineLabelDelegateListeners()) }
+            delegate { SpannableHelperLabelDelegate(SpannableHelperLabelDelegateListeners{viewModel.restorePassword()}) }
+            delegate { EmailPhoneFieldDelegate(EmailPhoneDelegateListeners(viewModel::emailChanged)) }
+            delegate { PasswordFieldDelegate(PasswordFieldDelegateListeners(viewModel::passwordChanged)) }
 
         }
     }
@@ -74,7 +71,7 @@ class SignInView :
                 )
 
                 layoutManager = lm
-
+                addItemDecoration(SignInDecoration())
             }
         }
     }
@@ -91,6 +88,9 @@ class SignInView :
             colors[R.color.button_text_blue],
             colors[R.color.button_bg_dark_blue],
             Spanned.SPAN_EXCLUSIVE_EXCLUSIVE,
+            binding.descrLabl.context,
+            R.style.TextAppearance_App_Body_DescriptionMiniText,
+            R.style.TextAppearance_App_ButtonText_Default,
             listOf(SpannableObject("Sign Up", { signUp() }))
         )
         binding.descrLabl.text = description

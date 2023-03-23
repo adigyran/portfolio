@@ -9,9 +9,9 @@ import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.ui.adapters.base.BaseDelegateAdapter
 import com.aya.digital.core.ui.base.screens.DiFragment
 import com.aya.digital.core.ui.delegates.auth.chooser.buttons.ui.ButtonsDelegateListeners
-import com.aya.digital.core.ui.delegates.auth.chooser.buttons.ui.chooserButtonsDelegate
+import com.aya.digital.core.ui.delegates.auth.chooser.buttons.ui.ChooserButtonsDelegate
+import com.aya.digital.core.ui.delegates.auth.chooser.description.ui.ChooserDescriptionDelegate
 import com.aya.digital.core.ui.delegates.auth.chooser.description.ui.DescriptionDelegateListeners
-import com.aya.digital.core.ui.delegates.auth.chooser.description.ui.chooserDescriptionDelegate
 import com.aya.digital.feature.auth.chooser.databinding.ViewAuthChooserBinding
 import com.aya.digital.feature.auth.chooser.di.authChooserDiModule
 import com.aya.digital.feature.auth.chooser.ui.model.AuthChooserStateTransformer
@@ -35,8 +35,8 @@ internal class AuthChooserView :
 
     private val adapter by lazy(LazyThreadSafetyMode.NONE) {
         BaseDelegateAdapter.create {
-            delegate { chooserDescriptionDelegate(DescriptionDelegateListeners({},{},{})) }
-            delegate { chooserButtonsDelegate(ButtonsDelegateListeners(viewModel::onSignInClicked,viewModel::onSignUpClicked)) }
+            delegate { ChooserDescriptionDelegate(DescriptionDelegateListeners({},{},{})) }
+            delegate { ChooserButtonsDelegate(ButtonsDelegateListeners(viewModel::onSignInClicked,viewModel::onSignUpClicked)) }
         }
     }
 
@@ -54,6 +54,7 @@ internal class AuthChooserView :
                 true
             )
             layoutManager = lm
+            addItemDecoration(AuthChooserDecoration())
 
         }
     }

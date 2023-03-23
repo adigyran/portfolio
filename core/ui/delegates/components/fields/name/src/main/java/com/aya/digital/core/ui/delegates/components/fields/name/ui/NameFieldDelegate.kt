@@ -1,21 +1,44 @@
 package com.aya.digital.core.ui.delegates.components.fields.name.model.ui
 
 import android.text.Editable
+import android.text.Spanned
 import android.text.TextWatcher
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.core.widget.doAfterTextChanged
 import androidx.core.widget.doOnTextChanged
+import com.aya.digital.core.ext.colors
+import com.aya.digital.core.ext.strings
+import com.aya.digital.core.localisation.R
+import com.aya.digital.core.ui.adapters.base.BaseDelegate
+import com.aya.digital.core.ui.adapters.base.BaseViewHolder
 import com.aya.digital.core.ui.adapters.base.DiffItem
+import com.aya.digital.core.ui.base.ext.createSpannableText
+import com.aya.digital.core.ui.base.utils.LinkTouchMovementMethod
 import com.aya.digital.core.ui.delegates.components.fields.name.databinding.ItemNameFieldBinding
 import com.aya.digital.core.ui.delegates.components.fields.name.model.NameFieldUIModel
 import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
 
-fun nameFieldDelegate(delegateListeners: NameFieldDelegateListeners, settable: Boolean = false) =
-    adapterDelegateViewBinding<NameFieldUIModel, DiffItem, ItemNameFieldBinding>(
-        { layoutInflater, root -> ItemNameFieldBinding.inflate(layoutInflater, root, false) }
-    ) {
+
+class NameFieldDelegate(private val delegateListeners: NameFieldDelegateListeners) :
+    BaseDelegate<NameFieldUIModel>() {
+    override fun isForViewType(
+        item: DiffItem,
+        items: MutableList<DiffItem>,
+        position: Int
+    ): Boolean = item is NameFieldUIModel
+
+    override fun onCreateViewHolder(parent: ViewGroup): BaseViewHolder<NameFieldUIModel> {
+        val binding =
+            ItemNameFieldBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+
+        return ViewHolder(binding)
+    }
+
+    inner class ViewHolder(private val binding: ItemNameFieldBinding) :
+        BaseViewHolder<NameFieldUIModel>(binding.root) {
 
         var fieldSet = false
-        var valueSet = false
 
         val textWatcher = object : TextWatcher {
             var firstCall = true
@@ -30,10 +53,10 @@ fun nameFieldDelegate(delegateListeners: NameFieldDelegateListeners, settable: B
 
             override fun afterTextChanged(s: Editable) = delegateListeners.inputFieldChangeListener(item.tag,s.toString())
         }
-        /*binding.edField.doAfterTextChanged { text ->
-            delegateListeners.inputFieldChangeListener(item.tag, text.toString())
-        }*/
-        bind {
+
+        override fun bind(item: NameFieldUIModel) {
+            super.bind(item)
+
             if (!fieldSet) {
                 binding.tilField.hint = item.label
                 binding.tilField.suffixText = item.suffix
@@ -44,18 +67,8 @@ fun nameFieldDelegate(delegateListeners: NameFieldDelegateListeners, settable: B
                 binding.edField.setText(item.text)
             }
             binding.edField.addTextChangedListener(textWatcher)
-            /*  if (settable || !fieldSet) {
-                  binding.tilField.hint = item.label
-                  binding.tilField.suffixText = item.suffix
-                  fieldSet = true
-              }
-              if(settable || !valueSet && item.text!=null && item.text!!.isNotEmpty() && item.text!=binding.edField.text.toString())
-              {
-                  binding.edField.setText(item.text)
-                  valueSet = true
-              }*/
         }
-
     }
+}
 
 class NameFieldDelegateListeners(val inputFieldChangeListener: ((tag: Int, text: String) -> Unit))
