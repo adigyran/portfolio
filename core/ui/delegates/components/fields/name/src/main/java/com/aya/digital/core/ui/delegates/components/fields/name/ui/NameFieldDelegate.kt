@@ -38,9 +38,9 @@ class NameFieldDelegate(private val delegateListeners: NameFieldDelegateListener
     inner class ViewHolder(private val binding: ItemNameFieldBinding) :
         BaseViewHolder<NameFieldUIModel>(binding.root) {
 
-        var fieldSet = false
+        private var fieldSet = false
 
-        val textWatcher = object : TextWatcher {
+        private val textWatcher = object : TextWatcher {
             var firstCall = true
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 if (firstCall) {

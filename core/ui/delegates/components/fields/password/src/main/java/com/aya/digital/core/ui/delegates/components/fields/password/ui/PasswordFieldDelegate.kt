@@ -39,12 +39,20 @@ class PasswordFieldDelegate(private val delegateListeners: PasswordFieldDelegate
     inner class ViewHolder(private val binding: ItemPasswordFieldBinding) :
         BaseViewHolder<PasswordFieldUIModel>(binding.root) {
 
-        var fieldSet = false
-        var valueSet = false
-        init {
-            binding.edField.doAfterTextChanged { text ->
-                delegateListeners.inputFieldChangeListener(item.tag,text.toString())
+        private var fieldSet = false
+        private val textWatcher = object : TextWatcher {
+            var firstCall = true
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                if (firstCall) {
+                    firstCall = false
+                    return
+                }
             }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) = Unit
+
+            override fun afterTextChanged(s: Editable) =
+                delegateListeners.inputFieldChangeListener(item.tag, s.toString())
         }
 
         override fun bind(item: PasswordFieldUIModel) {
@@ -53,14 +61,14 @@ class PasswordFieldDelegate(private val delegateListeners: PasswordFieldDelegate
                 binding.tilField.hint = item.label
                 fieldSet = true
             }
-            if(!valueSet && item.text!=null && item.text!!.isNotEmpty() && item.text!=binding.edField.text.toString() )
-            {
+            binding.edField.removeTextChangedListener(textWatcher)
+            if (binding.edField.text.toString() != item.text) {
                 binding.edField.setText(item.text)
-                valueSet = true
             }
+            binding.edField.addTextChangedListener(textWatcher)
         }
     }
 
 }
 
-class PasswordFieldDelegateListeners(val inputFieldChangeListener: ((tag: Int,text:String) -> Unit))
+class PasswordFieldDelegateListeners(val inputFieldChangeListener: ((tag: Int, text: String) -> Unit))

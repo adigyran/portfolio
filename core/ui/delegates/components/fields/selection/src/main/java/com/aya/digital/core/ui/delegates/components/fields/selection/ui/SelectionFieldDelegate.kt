@@ -44,7 +44,21 @@ class SelectionFieldDelegate(private val delegateListeners: SelectionFieldDelega
             binding.btn bindClick { delegateListeners.fieldClick(item.tag) }
         }
 
-        var fieldSet = false
+        private var fieldSet = false
+
+        private val textWatcher = object : TextWatcher {
+            var firstCall = true
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                if (firstCall) {
+                    firstCall = false
+                    return
+                }
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) = Unit
+
+            override fun afterTextChanged(s: Editable) = Unit
+        }
 
         override fun bind(item: SelectionFieldUIModel) {
             super.bind(item)
@@ -56,9 +70,11 @@ class SelectionFieldDelegate(private val delegateListeners: SelectionFieldDelega
                 }
                 fieldSet = true
             }
-            if (item.text != null && item.text!!.isNotEmpty() && item.text != binding.edField.text.toString()) {
+            binding.edField.removeTextChangedListener(textWatcher)
+            if (binding.edField.text.toString() != item.text) {
                 binding.edField.setText(item.text)
             }
+            binding.edField.addTextChangedListener(textWatcher)
         }
     }
 }

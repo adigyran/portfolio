@@ -23,9 +23,9 @@ import com.aya.digital.core.feature.profile.generalinfo.edit.viewmodel.ProfileGe
 import com.aya.digital.core.feature.profile.generalinfo.edit.viewmodel.ProfileGeneralInfoEditViewModel
 import com.aya.digital.core.ui.adapters.base.BaseDelegateAdapter
 import com.aya.digital.core.ui.base.screens.DiFragment
+import com.aya.digital.core.ui.delegates.components.fields.dropdown.ui.DropDownFieldDelegate
 import com.aya.digital.core.ui.delegates.components.fields.dropdown.ui.DropDownFieldDelegateListeners
 import com.aya.digital.core.ui.delegates.components.fields.selection.ui.SelectionFieldDelegateListeners
-import com.aya.digital.core.ui.delegates.components.fields.dropdown.ui.dropDownFieldDelegate
 import com.aya.digital.core.ui.delegates.components.fields.name.model.ui.*
 import com.aya.digital.core.ui.delegates.components.fields.selection.ui.SelectionFieldDelegate
 import com.bumptech.glide.Glide
@@ -58,10 +58,10 @@ class ProfileGeneralInfoEditView :
     private val adapter by lazy(LazyThreadSafetyMode.NONE) {
         BaseDelegateAdapter.create {
             delegate { NameFieldDelegate(NameFieldDelegateListeners(viewModel::nameFieldChanged)) }
-            delegate { validatedNumberFieldDelegate(ValidatedNumberFieldDelegateListeners(viewModel::numberFieldChanged)) }
+            delegate { ValidatedNumberFieldDelegate(ValidatedNumberFieldDelegateListeners(viewModel::numberFieldChanged)) }
             delegate { SelectionFieldDelegate(SelectionFieldDelegateListeners(viewModel::selectFieldClicked)) }
             delegate {
-                dropDownFieldDelegate(DropDownFieldDelegateListeners { tag, selectedItem ->
+                DropDownFieldDelegate(DropDownFieldDelegateListeners { tag, selectedItem ->
                     viewModel.dropDownSelected(
                         tag,
                         selectedItem.tag

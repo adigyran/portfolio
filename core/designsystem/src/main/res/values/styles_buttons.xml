@@ -7,7 +7,8 @@
     </style>
 
     <style name="Widget.App.Button.FilledButton" parent="Widget.Material3.Button">
-        <item name="materialThemeOverlay">@style/ThemeOverlay.App.Button</item>
+        <item name="rippleColor">@color/button_ripple_color_selector</item>
+        <item name="backgroundTint">@color/button_background_color_selector</item>
         <item name="shapeAppearance">@style/ShapeAppearance.App.SmallComponent</item>
         <item name="android:textAppearance">@style/TextAppearance.App.Button</item>
     </style>
@@ -29,7 +30,6 @@
     </style>
 
     <style name="ThemeOverlay.App.Button" parent="">
-        <item name="colorPrimary">@color/button_ripple_color_selector</item>
-        <item name="colorOnPrimary">@color/button_background_color_selector</item>
+
     </style>
 </resources>
