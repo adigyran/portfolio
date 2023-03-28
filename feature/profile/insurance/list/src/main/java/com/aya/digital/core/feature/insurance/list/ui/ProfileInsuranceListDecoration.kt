@@ -5,7 +5,7 @@ import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.aya.digital.core.ext.dpToPx
-import com.aya.digital.core.ui.delegates.profile.emergencycontactinfo.ui.InsurancePolicyDelegate
+import com.aya.digital.core.ui.delegates.profile.insurance.ui.InsurancePolicyDelegate
 
 internal class ProfileInsuranceListDecoration : RecyclerView.ItemDecoration() {
 

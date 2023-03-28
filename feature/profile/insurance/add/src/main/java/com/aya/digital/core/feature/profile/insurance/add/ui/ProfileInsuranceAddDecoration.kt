@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.aya.digital.core.ext.dpToPx
 import com.aya.digital.core.ui.delegates.components.fields.name.model.ui.NameFieldDelegate
 import com.aya.digital.core.ui.delegates.components.fields.selection.ui.SelectionFieldDelegate
-import com.aya.digital.core.ui.delegates.profile.emergencycontactinfo.ui.InsurancePolicyDelegate
 import com.aya.digital.core.ui.delegates.profile.emergencycontactinfo.ui.InsurancePolicyPhotoDelegate
 
 internal class ProfileInsuranceAddDecoration : RecyclerView.ItemDecoration() {

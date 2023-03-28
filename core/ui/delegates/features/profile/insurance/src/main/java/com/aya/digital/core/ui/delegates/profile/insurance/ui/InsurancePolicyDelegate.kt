@@ -1,4 +1,4 @@
-package com.aya.digital.core.ui.delegates.profile.emergencycontactinfo.ui
+package com.aya.digital.core.ui.delegates.profile.insurance.ui
 
 import android.text.Editable
 import android.text.TextWatcher

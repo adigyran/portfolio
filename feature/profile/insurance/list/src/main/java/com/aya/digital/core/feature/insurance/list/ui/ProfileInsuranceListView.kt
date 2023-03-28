@@ -13,10 +13,9 @@ import com.aya.digital.core.feature.insurance.list.viewmodel.ProfileInsuranceLis
 import com.aya.digital.core.feature.insurance.list.viewmodel.ProfileInsuranceListState
 import com.aya.digital.core.feature.insurance.list.viewmodel.ProfileInsuranceListViewModel
 import com.aya.digital.core.feature.profile.insurance.list.databinding.ViewProfileInsuranceListBinding
-import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.ui.adapters.base.BaseDelegateAdapter
 import com.aya.digital.core.ui.base.screens.DiFragment
-import com.aya.digital.core.ui.delegates.profile.emergencycontactinfo.ui.InsurancePolicyDelegate
+import com.aya.digital.core.ui.delegates.profile.insurance.ui.InsurancePolicyDelegate
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.kodein.di.DI
 import org.kodein.di.factory

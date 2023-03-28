@@ -65,7 +65,7 @@ fun profileDomainDiModule() = DI.Module("profileDomainDiModule") {
 
     //security
     //summary
-    bind<GetSecuritySummaryUseCase>() with singleton { GetSecuritySummaryUseCaseImpl() }
+    bind<GetSecuritySummaryUseCase>() with singleton { GetSecuritySummaryUseCaseImpl(instance()) }
     //change email
     bind<ChangeEmailUseCase>() with singleton { ChangeEmailUseCaseImpl(instance()) }
     bind<ChangeEmailGetCodeUseCase>() with singleton { ChangeEmailGetCodeUseCaseImpl(instance(),instance()) }

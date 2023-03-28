@@ -33,6 +33,6 @@ internal class ProfileSecuritySummaryStateTransformer(context: Context) :
 
     private fun String?.getField() = this ?: "Not added"
     private fun String?.getPasswordField() =
-        this?.map { '•' }?.toString() ?: "Not added"
+        this?.replace(Regex(".*"),"*") ?: "Not added"
 
 }
