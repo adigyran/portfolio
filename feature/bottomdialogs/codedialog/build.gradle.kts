@@ -16,4 +16,5 @@ android {
 
 dependencies {
     implementation(libs.pinview)
+    implementation(libs.otpview)
 }

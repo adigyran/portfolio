@@ -41,6 +41,8 @@ adapterDelegates = "4.3.2"
 groupie = "2.10.1"
 #pin view
 pinView = "3.0.0"
+#otp view
+otpView = "3.1.0"
 #glide
 glide = "4.15.0"
 #end Ui
@@ -173,6 +175,9 @@ groupie-view-binding = { group = "com.github.lisawray.groupie", name = "groupie-
 
 #ui-pinview
 pinview = { group = "com.github.mukeshsolanki", name = "android-otpview-pinview", version.ref = "pinView" }
+
+#ui-otpview
+otpview = { group = "com.github.mukeshsolanki.android-otpview-pinview", name = "otpview", version.ref = "otpView" }
 
 #ui-glide
 glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }

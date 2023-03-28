@@ -46,14 +46,6 @@ class CodeDialogView :
         context = this
     ).factory()
 
-
-
-    var code: String by Delegates.observable("") {
-            prop, old, new ->
-        println("$old -> $new")
-        viewModel.codeChanged(new)
-    }
-
     override fun provideViewModel(): CodeDialogViewModel = viewModelFactory(Unit)
     override fun provideStateTransformer(): CodeDialogStateTransformer =
         stateTransformerFactory(Unit)
@@ -67,27 +59,7 @@ class CodeDialogView :
 
     override fun prepareUi(savedInstanceState: Bundle?) {
         super.prepareUi(savedInstanceState)
-        binding.otpView.apply {
-            setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
-            setContent {
-                var otpValue by remember { mutableStateOf("") }
-                MaterialTheme {
-                    OtpView(
-                        otpText = otpValue,
-                        onOtpTextChange = {
-                            otpValue = it
-                            code = it
-                        },
-
-                        type = OTP_VIEW_TYPE_BORDER,
-                        otpCount = 6,
-                        containerSize = 48.dp,
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                        charColor = Color.Black
-                    )
-                }
-            }
-        }
+        binding.otpView.setOtpCompletionListener(viewModel::codeChanged)
         binding.btnClose bindClick {viewModel.close()}
         binding.sendBtn bindClick {viewModel.sendCode()}
     }
