@@ -462,6 +462,7 @@
                         android:layout_marginEnd="16dp"
                         android:layout_marginTop="12dp"
                         android:text="Case Report: COVID-19 Pneumonia Complicated by Lung Abscess"
+                        android:textAppearance="@style/TextAppearance.App.Body.DescriptionText"
                         app:layout_constraintEnd_toEndOf="@id/news2Bg"
                         app:layout_constraintStart_toStartOf="@id/news2Bg"
                         app:layout_constraintTop_toBottomOf="@id/news2Image" />
@@ -471,6 +472,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:text="Nov 20, 2022"
+                        android:textAppearance="@style/TextAppearance.App.Body.LabelMiniText"
                         android:layout_marginTop="12dp"
                         android:layout_marginStart="16dp"
                         android:layout_marginEnd="16dp"
@@ -509,6 +511,7 @@
                         android:layout_marginEnd="16dp"
                         android:layout_marginTop="12dp"
                         android:text="Case Report: COVID-19 Pneumonia Complicated by Lung Abscess"
+                        android:textAppearance="@style/TextAppearance.App.Body.DescriptionText"
                         app:layout_constraintEnd_toEndOf="@id/news3Bg"
                         app:layout_constraintStart_toStartOf="@id/news3Bg"
                         app:layout_constraintTop_toBottomOf="@id/news3Image" />
@@ -521,6 +524,7 @@
                         android:layout_marginEnd="16dp"
                         android:layout_marginTop="12dp"
                         android:text="Nov 20, 2022"
+                        android:textAppearance="@style/TextAppearance.App.Body.LabelMiniText"
                         app:layout_constraintEnd_toEndOf="@id/news3Bg"
                         app:layout_constraintStart_toStartOf="@id/news3Bg"
                         app:layout_constraintTop_toBottomOf="@id/news3Title" />
@@ -532,12 +536,12 @@
                 android:id="@+id/bottomBg"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                app:layout_constraintBottom_toBottomOf="@id/updatesBg"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/newsSv"
                 android:layout_marginTop="24dp"
-                android:background="#fff"
+                android:background="@color/bg_light_grey"
                 />
 
             <View
@@ -548,7 +552,7 @@
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="20dp"
                 android:background="@drawable/bg_clinic"
-                app:layout_constraintBottom_toBottomOf="@id/mapView"
+                app:layout_constraintBottom_toBottomOf="@id/clinicsBgV"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/bottomBg" />
@@ -582,12 +586,18 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
                 android:src="@drawable/map"
                 app:layout_constraintEnd_toEndOf="@id/clinicsBg"
                 app:layout_constraintStart_toStartOf="@id/clinicsBg"
                 app:layout_constraintTop_toBottomOf="@id/clinicsCount" />
-
+            <View
+                android:layout_width="0dp"
+                android:layout_height="16dp"
+                app:layout_constraintEnd_toEndOf="@id/clinicsBg"
+                app:layout_constraintStart_toStartOf="@id/clinicsBg"
+                app:layout_constraintTop_toBottomOf="@id/mapView"
+                android:id="@+id/clinicsBgV"
+                />
             <View
                 android:id="@+id/updatesBg"
                 android:layout_width="0dp"

@@ -63,7 +63,7 @@ internal class ProfileSecurityChangeEmailPhoneView :
             )
 
             layoutManager = lm
-
+            addItemDecoration(ProfileSecurityChangeEmailPhoneDecoration())
         }
     }
 

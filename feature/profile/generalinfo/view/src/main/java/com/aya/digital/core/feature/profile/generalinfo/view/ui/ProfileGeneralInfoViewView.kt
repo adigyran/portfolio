@@ -16,7 +16,7 @@ import com.aya.digital.core.feature.profile.generalinfo.view.viewmodel.ProfileGe
 import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.ui.adapters.base.BaseDelegateAdapter
 import com.aya.digital.core.ui.base.screens.DiFragment
-import com.aya.digital.core.ui.delegates.profile.info.ui.profileInfoDelegate
+import com.aya.digital.core.ui.delegates.profile.info.ui.ProfileInfoDelegate
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import org.kodein.di.DI
@@ -36,7 +36,7 @@ class ProfileGeneralInfoViewView :
 
     private val adapter by lazy(LazyThreadSafetyMode.NONE) {
         BaseDelegateAdapter.create {
-            delegate { profileInfoDelegate() }
+            delegate { ProfileInfoDelegate() }
         }
     }
 
@@ -57,6 +57,7 @@ class ProfileGeneralInfoViewView :
             )
 
             layoutManager = lm
+            addItemDecoration(ProfileGeneralInfoDecoration())
 
         }
     }

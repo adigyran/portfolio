@@ -30,7 +30,7 @@ import com.aya.digital.core.ui.delegates.components.fields.name.model.ui.NameFie
 import com.aya.digital.core.ui.delegates.components.fields.name.model.ui.NameFieldDelegateListeners
 import com.aya.digital.core.ui.delegates.components.fields.selection.ui.SelectionFieldDelegate
 import com.aya.digital.core.ui.delegates.components.fields.selection.ui.SelectionFieldDelegateListeners
-import com.aya.digital.core.ui.delegates.profile.emergencycontactinfo.ui.insurancePolicyPhotoDelegate
+import com.aya.digital.core.ui.delegates.profile.emergencycontactinfo.ui.InsurancePolicyPhotoDelegate
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.parcelize.Parcelize
 import org.kodein.di.DI
@@ -55,7 +55,7 @@ class ProfileInsuranceAddView :
             delegate { NameFieldDelegate(NameFieldDelegateListeners(viewModel::nameFieldChanged)) }
             delegate { SelectionFieldDelegate(SelectionFieldDelegateListeners(viewModel::onSelectionFieldClicked)) }
             delegate {
-                insurancePolicyPhotoDelegate(
+                InsurancePolicyPhotoDelegate(
                     viewModel::photoClicked,
                     viewModel::photoMoreClicked
                 )
@@ -80,7 +80,7 @@ class ProfileInsuranceAddView :
             )
 
             layoutManager = lm
-
+            addItemDecoration(ProfileInsuranceAddDecoration())
         }
     }
 

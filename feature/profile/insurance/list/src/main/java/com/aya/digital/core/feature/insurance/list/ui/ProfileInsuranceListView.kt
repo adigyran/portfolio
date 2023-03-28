@@ -16,7 +16,7 @@ import com.aya.digital.core.feature.profile.insurance.list.databinding.ViewProfi
 import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.ui.adapters.base.BaseDelegateAdapter
 import com.aya.digital.core.ui.base.screens.DiFragment
-import com.aya.digital.core.ui.delegates.profile.emergencycontactinfo.ui.insurancePolicyDelegate
+import com.aya.digital.core.ui.delegates.profile.emergencycontactinfo.ui.InsurancePolicyDelegate
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.kodein.di.DI
 import org.kodein.di.factory
@@ -36,7 +36,7 @@ class ProfileInsuranceListView :
     private val adapter by lazy(LazyThreadSafetyMode.NONE) {
         BaseDelegateAdapter.create {
             delegate {
-                insurancePolicyDelegate(
+                InsurancePolicyDelegate(
                     viewModel::insuranceItemClicked,
                     viewModel::insuranceItemMoreClicked
                 )
@@ -61,7 +61,7 @@ class ProfileInsuranceListView :
             )
 
             layoutManager = lm
-
+            addItemDecoration(ProfileInsuranceListDecoration())
         }
     }
 

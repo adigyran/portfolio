@@ -62,7 +62,7 @@ internal class ProfileSecurityChangePasswordView :
             )
 
             layoutManager = lm
-
+            addItemDecoration(ProfileSecurityChangePasswordDecoration())
         }
     }
 

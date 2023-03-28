@@ -3,14 +3,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/bg_light_grey"
+    >
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:clipToPadding="true"
-        android:paddingBottom="60dp"
+        android:layout_marginTop="12dp"
+        android:paddingBottom="20dp"
         app:layout_constraintBottom_toTopOf="@id/addInsuranceBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,12 +23,16 @@
         tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:orientation="vertical" />
 
-    <com.aya.digital.core.designsystem.buttons.filled.ButtonFilledView
+    <Button
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:id="@+id/addInsuranceBtn"
+        style="@style/Widget.App.Button.FilledButton"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
         android:text="Add Insurance" />
 </androidx.constraintlayout.widget.ConstraintLayout>

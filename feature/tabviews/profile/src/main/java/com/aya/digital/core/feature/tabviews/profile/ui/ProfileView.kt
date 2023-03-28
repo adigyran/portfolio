@@ -5,8 +5,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.aya.digital.core.ext.bindClick
-import com.aya.digital.core.ext.dpToPx
 
 import com.aya.digital.core.feature.tabviews.profile.ui.model.ProfileStateTransformer
 import com.aya.digital.core.feature.tabviews.profile.ui.model.ProfileUiModel
@@ -15,15 +13,12 @@ import com.aya.digital.core.feature.tabviews.profile.viewmodel.ProfileViewModel
 import com.aya.digital.core.feature.tabviews.profile.databinding.ViewProfileBinding
 import com.aya.digital.core.feature.tabviews.profile.di.profileDiModule
 import com.aya.digital.core.feature.tabviews.profile.viewmodel.ProfileSideEffects
-import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.ui.adapters.base.BaseDelegateAdapter
 import com.aya.digital.core.ui.base.screens.DiFragment
-import com.aya.digital.core.ui.delegates.profile.info.ui.ProfileMainDelegateListeners
-import com.aya.digital.core.ui.delegates.profile.info.ui.profileMainDelegate
+import com.aya.digital.core.ui.delegates.profile.main.ui.ProfileMainDelegate
+import com.aya.digital.core.ui.delegates.profile.main.ui.ProfileMainDelegateListeners
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import org.kodein.di.DI
 import org.kodein.di.factory
 import org.kodein.di.on
@@ -41,7 +36,7 @@ class ProfileView :
 
     private val adapter by lazy(LazyThreadSafetyMode.NONE) {
         BaseDelegateAdapter.create {
-            delegate { profileMainDelegate(ProfileMainDelegateListeners(viewModel::onProfileButtonClicked)) }
+            delegate { ProfileMainDelegate(ProfileMainDelegateListeners(viewModel::onProfileButtonClicked)) }
         }
     }
 
@@ -62,6 +57,7 @@ class ProfileView :
                     false
                 )
                 layoutManager = lm
+                addItemDecoration(ProfileTabDecoration())
             }
         }
     }

@@ -89,7 +89,7 @@ class ProfileGeneralInfoEditView :
             )
 
             layoutManager = lm
-
+            addItemDecoration(ProfileGeneralInfoEditDecoration())
         }
     }
 

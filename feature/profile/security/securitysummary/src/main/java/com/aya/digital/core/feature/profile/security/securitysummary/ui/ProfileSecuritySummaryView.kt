@@ -15,7 +15,7 @@ import com.aya.digital.core.feature.profile.security.securitysummary.viewmodel.P
 import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.ui.adapters.base.BaseDelegateAdapter
 import com.aya.digital.core.ui.base.screens.DiFragment
-import com.aya.digital.core.ui.delegates.profile.emergencycontactinfo.ui.securitySummaryDelegate
+import com.aya.digital.core.ui.delegates.profile.emergencycontactinfo.ui.SecuritySummaryDelegate
 import org.kodein.di.DI
 import org.kodein.di.factory
 import org.kodein.di.on
@@ -33,7 +33,7 @@ internal class ProfileSecuritySummaryView :
 
     private val adapter by lazy(LazyThreadSafetyMode.NONE) {
         BaseDelegateAdapter.create {
-            delegate { securitySummaryDelegate(viewModel::itemClicked) }
+            delegate { SecuritySummaryDelegate(viewModel::itemClicked) }
         }
     }
 
@@ -53,7 +53,7 @@ internal class ProfileSecuritySummaryView :
             )
 
             layoutManager = lm
-
+            addItemDecoration(ProfileSecuritySummaryDecoration())
         }
     }
 
