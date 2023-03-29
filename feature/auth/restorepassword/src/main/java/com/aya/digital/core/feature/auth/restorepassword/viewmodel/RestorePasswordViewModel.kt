@@ -141,7 +141,7 @@ internal class RestorePasswordViewModel(
             .await()
             .processResult({
                 requestCodeScreen()
-            }, { processError(it) })
+            }, {  processError(it) })
     }
 
     private fun requestCodeScreen() = intent {

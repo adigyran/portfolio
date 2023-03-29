@@ -31,28 +31,19 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:textAppearance="@style/TextAppearance.App.Body.DescriptionText"
+        android:textColor="@color/text_grey"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/titleTv" />
-
-    <com.mukeshsolanki.OtpView
+    <androidx.compose.ui.platform.ComposeView
         android:id="@+id/otp_view"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        android:inputType="text"
-        android:itemBackground="@drawable/bg_otp_item"
-        android:textAllCaps="true"
-        android:textColor="@android:color/white"
-        app:OtpHideLineWhenFilled="true"
-        app:OtpItemCount="6"
-        app:OtpItemSpacing="6dp"
-        app:OtpState_filled="true"
-        app:OtpViewType="rectangle"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/descriptionTv"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/descriptionTv" />
-
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="24dp"
+        />
     <TextView
         android:id="@+id/bottomDescriptionTv"
         android:layout_width="0dp"
@@ -63,13 +54,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/otp_view" />
 
-    <com.aya.digital.core.designsystem.buttons.filled.ButtonFilledView
+    <Button
         android:id="@+id/sendBtn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:layout_marginBottom="12dp"
         android:text="@string/send_btn"
+        style="@style/Widget.App.Button.FilledButton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

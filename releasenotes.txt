@@ -14,3 +14,4 @@ added proper signup profile validation
 insurances working now
 emergency contact is done, need one server fix (which is not require changes in app)
 added avatar
+auth, profile main screen design

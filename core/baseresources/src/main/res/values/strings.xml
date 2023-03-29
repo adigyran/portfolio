@@ -1,7 +1,7 @@
 <resources>
-    <string name="server_error">Ведутся технические работы</string>
-    <string name="no_internet_connection">Отсутствует интернет-соединение</string>
-    <string name="error_occupied">Произошла ошибка</string>
-    <string name="api_deprecated">Необходимо обновить приложение</string>
+    <string name="server_error">Server Error</string>
+    <string name="no_internet_connection">No internet connection</string>
+    <string name="error_occupied">Error occurred</string>
+    <string name="api_deprecated">You need to update your app</string>
     <string name="error_no_role">ERROR STUB NO ROLE DEFINED</string>
 </resources>
