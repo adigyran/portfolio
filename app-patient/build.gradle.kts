@@ -12,8 +12,8 @@ android {
 
     defaultConfig {
         applicationId = "com.aya.digital.healthapp.patient"
-        versionCode = 7
-        versionName = "0.0.7" // X.Y.Z; X = Major, Y = minor, Z = Patch level
+        versionCode = 8
+        versionName = "0.0.8" // X.Y.Z; X = Major, Y = minor, Z = Patch level
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

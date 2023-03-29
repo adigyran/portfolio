@@ -1,4 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="main_latest_updates">Added Stuff</string>
+    <string name="main_latest_updates">Added Firebase Distribution
+        Testing distribution notificationsAdded Auth and Sign in Screens with insurance selector
+        Added bottom navigation, proper auth endpoints, code dialog
+added check for auth to show main screen, added main and profile screens
+added code input screen
+now insurances loading by id,
+added profile screens - profile edit, profile view,
+        profile security with ability to change email and password,
+profile emergency contact, profile notification settings,
+profile insurances
+added screen to restore/change temp password
+added proper signup profile validation
+insurances working now
+emergency contact is done, need one server fix (which is not require changes in app)
+added avatar
+auth, profile, main screen design
+main screen WIP due to font oddities
+    </string>
 </resources>
