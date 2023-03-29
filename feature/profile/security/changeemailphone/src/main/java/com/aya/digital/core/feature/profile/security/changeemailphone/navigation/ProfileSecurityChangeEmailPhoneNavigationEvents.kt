@@ -5,6 +5,9 @@ import com.aya.digital.core.data.base.result.models.profile.ProfileEmailChangeRe
 import com.aya.digital.core.navigation.coordinator.CoordinatorEvent
 
 sealed class ProfileSecurityChangeEmailPhoneNavigationEvents : CoordinatorEvent() {
+
+    data class EnterCode(val requestCode:String, val email:String) : ProfileSecurityChangeEmailPhoneNavigationEvents()
+
     data class FinishWithResult(val requestCode: String, val result: ProfileEmailChangeResult) :
         ProfileSecurityChangeEmailPhoneNavigationEvents()
 

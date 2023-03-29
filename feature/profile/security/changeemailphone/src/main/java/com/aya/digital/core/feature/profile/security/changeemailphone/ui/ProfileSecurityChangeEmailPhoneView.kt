@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.aya.digital.core.ext.argument
+import com.aya.digital.core.ext.bindClick
 import com.aya.digital.core.ext.createFragment
 import com.aya.digital.core.feature.profile.security.changeemailphone.databinding.ViewProfileSecurityChangeEmailphoneBinding
 import com.aya.digital.core.feature.profile.security.changeemailphone.di.profileSecurityChangeEmailPhoneDiModule
@@ -49,6 +50,7 @@ internal class ProfileSecurityChangeEmailPhoneView :
 
     override fun prepareCreatedUi(savedInstanceState: Bundle?) {
         super.prepareCreatedUi(savedInstanceState)
+        binding.saveBtn bindClick {viewModel.saveClicked()}
         recyclers.add(binding.recycler)
         with(binding.recycler) {
             itemAnimator = null

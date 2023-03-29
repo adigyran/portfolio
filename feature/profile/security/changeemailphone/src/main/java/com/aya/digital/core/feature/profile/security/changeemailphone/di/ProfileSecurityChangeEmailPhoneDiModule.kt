@@ -22,6 +22,7 @@ internal fun profileSecurityChangeEmailPhoneDiModule(
         scoped(CustomFragmentScope).singleton {
             ProfileSecurityChangeEmailPhoneViewModel(
                 param,
+                instance("parent_coordinator_bottomnav"),
                 parentCoordinatorEvent,
                 instance(),
                 instance()

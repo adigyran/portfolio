@@ -19,5 +19,6 @@
     <string name="auth_chooser_welcome_text">Welcome,\nto the organizer for your wellness</string>
     <string name="auth_chooser_sign_up">Sign Up</string>
     <string name="auth_chooser_sign_in">Sign In</string>
+    <string name="btn_save">Save</string>
 
 </resources>

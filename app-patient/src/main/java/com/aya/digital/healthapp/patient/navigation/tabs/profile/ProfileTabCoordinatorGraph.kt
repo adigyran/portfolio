@@ -99,6 +99,11 @@ class ProfileTabCoordinatorGraph : FragmentContainerGraph {
                 parentCoordinatorRouter.sendEvent(RootContainerNavigationEvents.SelectSingleItem(event.requestCode,event.selectedInsurance))
             }
 
+            is ProfileSecurityChangeEmailPhoneNavigationEvents.EnterCode ->
+            {
+                parentCoordinatorRouter.sendEvent(RootContainerNavigationEvents.EnterCode(event.requestCode,event.email))
+            }
+
             is ProfileInsuranceAddNavigationEvents.FinishWithResult -> {
                 mainRouter.sendResult(event.requestCode, event.result)
                 mainRouter.exit()

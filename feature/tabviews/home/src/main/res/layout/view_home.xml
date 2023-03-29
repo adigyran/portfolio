@@ -603,11 +603,11 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="24dp"
                 android:background="@drawable/bg_latest_update"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/updatesBgV"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/clinicsBg" />
@@ -622,6 +622,32 @@
                 android:textAppearance="@style/TextAppearance.App.H3"
                 app:layout_constraintStart_toStartOf="@id/updatesBg"
                 app:layout_constraintTop_toTopOf="@id/updatesBg" />
+            <TextView
+                android:id="@+id/latestUpdatesText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/main_latest_updates"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="12dp"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:textAppearance="@style/TextAppearance.App.Body.DescriptionText"
+                app:layout_constraintStart_toStartOf="@id/updatesBg"
+                app:layout_constraintEnd_toEndOf="@id/updatesBg"
+                android:background="@drawable/bg_latest_update_text"
+                app:layout_constraintTop_toBottomOf="@id/latestUpdatesTitle" />
+            <View
+                android:layout_width="0dp"
+                android:layout_height="16dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="@id/updatesBg"
+                app:layout_constraintStart_toStartOf="@id/updatesBg"
+                app:layout_constraintTop_toBottomOf="@id/latestUpdatesText"
+                android:id="@+id/updatesBgV"
+                />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
