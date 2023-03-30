@@ -7,8 +7,8 @@ import com.aya.digital.core.domain.auth.restorepassword.impl.RestorePasswordChan
 import com.aya.digital.core.domain.auth.restorepassword.impl.RestorePasswordGetCodeUseCaseImpl
 import com.aya.digital.core.domain.auth.restorepassword.impl.RestorePasswordSendCodeUseCaseImpl
 import com.aya.digital.core.domain.auth.restorepassword.impl.MakeNewPasswordUseCaseImpl
-import com.aya.digital.core.domain.auth.signin.CheckIsAuthenticatedUseCase
-import com.aya.digital.core.domain.auth.signin.SignInUseCase
+import com.aya.digital.core.domain.auth.signin.*
+import com.aya.digital.core.domain.auth.signin.impl.SignInOAuthUseCaseImpl
 import com.aya.digital.core.domain.auth.signup.*
 import com.aya.digital.core.domain.auth.signup.impl.*
 import com.aya.digital.core.domain.auth.signup.impl.CheckIsVerifiedUseCaseImpl
@@ -22,6 +22,8 @@ import org.kodein.di.singleton
 
 fun authDomainDiModule() = DI.Module("authDomainDiModule") {
     bind<SignInUseCase>() with singleton { SignInUseCaseImpl(instance()) }
+    bind<SignInOAuthUseCase>() with singleton { SignInOAuthUseCaseImpl(instance()) }
+    bind<PerformTokenRequestOAuthUseCase>() with singleton { PerformTokenRequestOAuthUseCaseImpl(instance(),instance()) }
     bind<SignUpUseCase>() with singleton { SignUpUseCaseImpl(instance()) }
     bind<SignUpGetCodeUseCase>() with singleton { SignUpGetCodeUseCaseImpl(instance()) }
 

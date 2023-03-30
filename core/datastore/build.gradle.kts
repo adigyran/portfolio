@@ -42,5 +42,7 @@ dependencies {
     implementation(libs.kotlinx.serialization.protobuf)
     implementation(libs.tink)
     implementation(libs.timber)
+    implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.kotlinx.coroutines.rxjava3)
 
 }

@@ -29,10 +29,21 @@
         android:layout_marginBottom="28dp"
         android:text="@string/sign_in"
         style="@style/Widget.App.Button.FilledButton"
+        app:layout_constraintBottom_toTopOf="@id/signInOauthBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+    <Button
+        android:id="@+id/signInOauthBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="28dp"
+        android:text="@string/sign_in_google"
+        style="@style/Widget.App.Button.FilledButton"
         app:layout_constraintBottom_toTopOf="@id/descrLabl"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
     <TextView
         android:id="@+id/descrLabl"
         android:layout_width="0dp"

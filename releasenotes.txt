@@ -16,3 +16,4 @@ emergency contact is done, need one server fix (which is not require changes in 
 added avatar
 auth, profile, main screen design
 main screen WIP due to font oddities
+added google auth

@@ -12,4 +12,5 @@ dependencies {
     implementation(project(":core:network:model"))
     implementation(libs.rxkotlin)
     implementation(libs.kotlinx.time)
+    implementation(libs.open.auth)
 }

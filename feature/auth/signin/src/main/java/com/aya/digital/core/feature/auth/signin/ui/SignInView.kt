@@ -1,9 +1,12 @@
 package com.aya.digital.core.feature.auth.signin.ui
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.text.Spanned
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.aya.digital.core.designsystem.R
@@ -27,6 +30,8 @@ import com.aya.digital.core.ui.delegates.components.fields.emailphone.ui.EmailPh
 import com.aya.digital.core.ui.delegates.components.fields.password.ui.PasswordFieldDelegate
 import com.aya.digital.core.ui.delegates.components.fields.password.ui.PasswordFieldDelegateListeners
 import com.aya.digital.core.ui.delegates.components.labels.headline.ui.*
+import net.openid.appauth.AuthorizationException
+import net.openid.appauth.AuthorizationResponse
 import org.kodein.di.DI
 import org.kodein.di.factory
 import org.kodein.di.on
@@ -49,6 +54,16 @@ class SignInView :
             delegate { EmailPhoneFieldDelegate(EmailPhoneDelegateListeners(viewModel::emailChanged)) }
             delegate { PasswordFieldDelegate(PasswordFieldDelegateListeners(viewModel::passwordChanged)) }
 
+        }
+    }
+
+    private val authResponse = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        val dataIntent = it.data
+        if (dataIntent != null) {
+            handleAuthResponseIntent(dataIntent)
+        }
+        if (it.resultCode == Activity.RESULT_CANCELED) {
+            viewModel.loginCanceled()
         }
     }
 
@@ -94,10 +109,20 @@ class SignInView :
             listOf(SpannableObject("Sign Up", { signUp() }))
         )
         binding.descrLabl.text = description
+        binding.signInOauthBtn bindClick {viewModel.onSignInOathClicked()}
     }
 
     private fun signUp() = viewModel.onSignUpClicked()
 
+    private fun handleAuthResponseIntent(intent: Intent) {
+        val exception = AuthorizationException.fromIntent(intent)
+        val tokenExchangeRequest = AuthorizationResponse.fromIntent(intent)
+            ?.createTokenExchangeRequest()
+        when {
+            exception != null -> viewModel.onAuthCodeFailed(exception)
+            tokenExchangeRequest != null -> viewModel.onAuthCodeReceived(tokenExchangeRequest)
+        }
+    }
     override fun provideDiModule(): DI.Module = signInDiModule(tryTyGetParentRouter())
 
     override fun provideViewBinding(
@@ -109,6 +134,9 @@ class SignInView :
     {
         is SignInSideEffects.Error -> {
             processErrorSideEffect(sideEffect.error)
+        }
+        is SignInSideEffects.OpenOAuthPage -> {
+            authResponse.launch(sideEffect.intent)
         }
     }
 

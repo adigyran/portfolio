@@ -1,5 +1,6 @@
 package com.aya.digital.core.datastore.di
 
+import androidx.datastore.core.DataStore
 import androidx.datastore.rxjava3.RxDataStore
 import androidx.datastore.rxjava3.RxDataStoreBuilder
 import com.aya.digital.core.datastore.HealthAppAuthDataSource

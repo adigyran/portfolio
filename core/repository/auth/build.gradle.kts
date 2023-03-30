@@ -21,4 +21,6 @@ dependencies {
     implementation(libs.jwt.decode)
     implementation(libs.rxkotlin)
     implementation(libs.open.auth)
+    implementation(libs.kotlinx.coroutines.rxjava3)
+    implementation(libs.kotlinx.coroutines.android)
 }

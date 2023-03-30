@@ -17,4 +17,5 @@ dependencies {
     implementation(libs.rxkotlin)
     implementation(libs.kotlinx.time)
     implementation(libs.kodein)
+    implementation(libs.open.auth)
 }

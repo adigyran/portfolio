@@ -13,4 +13,6 @@ dependencies {
     implementation(project(":core:ui:delegates:components:fields:password"))
     implementation(project(":core:ui:delegates:components:labels:headline"))
     implementation(project(":core:ui:delegates:components:labels:spannablehelper"))
+
+    implementation(libs.open.auth)
 }

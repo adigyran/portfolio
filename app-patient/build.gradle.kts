@@ -12,8 +12,8 @@ android {
 
     defaultConfig {
         applicationId = "com.aya.digital.healthapp.patient"
-        versionCode = 8
-        versionName = "0.0.8" // X.Y.Z; X = Major, Y = minor, Z = Patch level
+        versionCode = 9
+        versionName = "0.0.9" // X.Y.Z; X = Major, Y = minor, Z = Patch level
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -93,4 +93,5 @@ dependencies {
     implementation(libs.cicerone)
     implementation(libs.eventbus)
     implementation(libs.timber)
+    implementation(libs.open.auth)
 }

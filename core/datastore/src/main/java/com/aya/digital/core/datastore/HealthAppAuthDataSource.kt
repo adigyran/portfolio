@@ -5,6 +5,7 @@ import com.aya.digital.core.data.preferences.AuthUserData
 import com.aya.digital.core.datastore.UserPreferencesOuterClass.UserPreferences
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.internal.operators.completable.CompletableFromSingle
+import kotlinx.coroutines.rx3.await
 
 class HealthAppAuthDataSource constructor(
     private val userPreferences: RxDataStore<UserPreferences>
@@ -42,6 +43,13 @@ class HealthAppAuthDataSource constructor(
         Single.just(copy)
     }
 
+    suspend fun saveAuthDataSuspend(token :String, refreshTokenIn:String) = userPreferences.updateDataAsync{
+        val copy = it.copy {
+            accessToken = token
+            refreshToken = refreshTokenIn
+        }
+        Single.just(copy)
+    }.await()
 
     fun clearAuthData() =
         CompletableFromSingle(userPreferences.updateDataAsync {
