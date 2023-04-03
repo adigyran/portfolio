@@ -133,7 +133,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="17dp"
                 android:layout_marginEnd="8.5dp"
-                android:background="@drawable/bg_buttons_inactive"
+                android:background="@drawable/bg_buttons_active"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/findDoctorBtn" />
 
@@ -144,6 +144,7 @@
                 android:src="@drawable/ic_covid"
                 android:layout_marginTop="16dp"
                 android:layout_marginStart="16dp"
+                android:visibility="invisible"
                 app:layout_constraintStart_toStartOf="@id/covidBtn"
                 app:layout_constraintTop_toTopOf="@id/covidBtn" />
 
@@ -151,7 +152,7 @@
                 android:id="@+id/covidBtnTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="COVID-19"
+                android:text="Telemedicine"
                 android:layout_marginStart="16dp"
                 android:layout_marginBottom="8dp"
                 android:textAppearance="@style/TextAppearance.App.H4"
@@ -383,15 +384,16 @@
                 app:layout_constraintTop_toBottomOf="@id/newsTitle">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top"
+                    >
 
                     <View
                         android:id="@+id/news1Bg"
                         android:layout_width="220dp"
                         android:layout_height="272dp"
                         android:background="@drawable/bg_news"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -411,11 +413,11 @@
                         android:id="@+id/news1Title"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginEnd="16dp"
                         android:text="Case Report: COVID-19 Pneumonia Complicated by Lung Abscess"
                         android:textAppearance="@style/TextAppearance.App.Body.DescriptionText"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginEnd="16dp"
-                        android:layout_marginTop="12dp"
                         app:layout_constraintEnd_toEndOf="@id/news1Bg"
                         app:layout_constraintStart_toStartOf="@id/news1Bg"
                         app:layout_constraintTop_toBottomOf="@id/news1Image" />
@@ -437,8 +439,8 @@
                         android:id="@+id/news2Bg"
                         android:layout_width="220dp"
                         android:layout_height="272dp"
+                        android:layout_marginStart="10dp"
                         android:background="@drawable/bg_news"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@id/news1Bg"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -485,9 +487,7 @@
                         android:layout_width="220dp"
                         android:layout_height="272dp"
                         android:background="@drawable/bg_news"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginStart="16dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_marginStart="10dp"
                         app:layout_constraintStart_toEndOf="@id/news2Bg"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -582,11 +582,12 @@
             <ImageView
                 android:id="@+id/mapView"
                 android:layout_width="0dp"
-                android:layout_height="200dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="16dp"
                 android:src="@drawable/map"
+                android:scaleType="fitXY"
                 app:layout_constraintEnd_toEndOf="@id/clinicsBg"
                 app:layout_constraintStart_toStartOf="@id/clinicsBg"
                 app:layout_constraintTop_toBottomOf="@id/clinicsCount" />

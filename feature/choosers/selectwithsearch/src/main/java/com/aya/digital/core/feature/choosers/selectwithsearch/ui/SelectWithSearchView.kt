@@ -15,9 +15,12 @@ import com.aya.digital.core.feature.choosers.multiselect.ui.model.SelectWithSear
 import com.aya.digital.core.feature.choosers.multiselect.viewmodel.SelectWithSearchChooserState
 import com.aya.digital.core.feature.choosers.multiselect.viewmodel.SelectWithSearchChooserViewModel
 import com.aya.digital.core.feature.choosers.selectwithsearch.databinding.ViewSelectWithSearchBinding
+import com.aya.digital.core.feature.choosers.selectwithsearch.ui.SelectWithSearchDecoration
 import com.aya.digital.core.feature.choosers.selectwithsearch.viewmodel.SelectWithSearchChooserSideEffects
 import com.aya.digital.core.mvi.BaseSideEffect
+import com.aya.digital.core.ui.adapters.base.BaseDelegateAdapter
 import com.aya.digital.core.ui.base.screens.DiFragment
+import com.aya.digital.core.ui.delegates.features.choosers.selectwithsearch.ui.SelectWithSearchItemDelegate
 import kotlinx.parcelize.Parcelize
 import org.kodein.di.DI
 import org.kodein.di.factory
@@ -38,9 +41,13 @@ class SelectWithSearchView :
     ).factory()
 
     private val adapter by lazy(LazyThreadSafetyMode.NONE) {
-        SelectWithSearchAdapter(
-            MultiSelectChooserAdapterListeners(viewModel::selectItem)
-        )
+        BaseDelegateAdapter.create {
+            delegate {
+                SelectWithSearchItemDelegate(
+                   viewModel::selectItem
+                )
+            }
+        }
     }
 
     override fun prepareCreatedUi(savedInstanceState: Bundle?) {
@@ -61,6 +68,7 @@ class SelectWithSearchView :
             )
 
             layoutManager = lm
+            addItemDecoration(SelectWithSearchDecoration())
 
         }
     }

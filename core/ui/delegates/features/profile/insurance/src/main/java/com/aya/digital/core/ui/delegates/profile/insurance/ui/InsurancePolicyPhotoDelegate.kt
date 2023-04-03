@@ -40,6 +40,9 @@ class InsurancePolicyPhotoDelegate(private val onPhotoClick: () -> Unit, private
         BaseViewHolder<InsurancePolicyPhotoUIModel>(binding.root) {
 
         init {
+            binding.emptyImageGroup.gone()
+            binding.moreBtn.gone()
+            binding.insuranceCardIv.gone()
             binding.uploadPhotoBtn bindClick { onPhotoClick() }
             binding.moreBtn bindClick { onPhotoMoreClick() }
         }
@@ -47,6 +50,7 @@ class InsurancePolicyPhotoDelegate(private val onPhotoClick: () -> Unit, private
         override fun bind(item: InsurancePolicyPhotoUIModel) {
             super.bind(item)
             item.photo?.let {
+                binding.moreBtn.visible()
                 binding.emptyImageGroup.gone()
                 binding.insuranceCardIv.visible()
                 Glide
@@ -61,8 +65,9 @@ class InsurancePolicyPhotoDelegate(private val onPhotoClick: () -> Unit, private
             } ?: showEmptyPhoto()
         }
 
-        fun showEmptyPhoto() {
+        private fun showEmptyPhoto() {
             binding.emptyImageGroup.visible()
+            binding.moreBtn.gone()
             binding.insuranceCardIv.gone()
         }
     }
