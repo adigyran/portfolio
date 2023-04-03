@@ -10,7 +10,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:gravity="start"
-        android:textAppearance="@style/TextAppearance.App.H1"
+        android:textAppearance="@style/TextAppearance.App.H3"
         android:id="@+id/topTextTv"
         />
     <TextView
@@ -21,7 +21,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:gravity="start"
-        android:textAppearance="@style/TextAppearance.App.Body.DescriptionText"
+        android:textAppearance="@style/TextAppearance.App.Body.DescriptionMiniText"
+        android:textColor="@color/text_grey"
         android:id="@+id/bottomTextTv"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>

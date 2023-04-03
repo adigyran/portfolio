@@ -6,38 +6,72 @@
     android:layout_height="wrap_content">
 
     <ImageView
+        android:id="@+id/moreBtn"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:id="@+id/moreBtn"
-        android:src="@drawable/ic_more"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"/>
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/ic_more"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
+        android:id="@+id/insuranceCardIv"
         android:layout_width="335dp"
         android:layout_height="220dp"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:id="@+id/insuranceCardIv"
-        />
-    <com.aya.digital.core.designsystem.buttons.filled.ButtonFilledView
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivEmptyPhoto"
+        android:layout_width="335dp"
+        android:layout_height="220dp"
+        android:src="@drawable/ic_upload_photo_empty_frame"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivUploadIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/uploadPhotoBtn"
-        android:text="Upload photo"
-        app:layout_constraintStart_toStartOf="parent"
+        android:src="@drawable/ic_upload"
+        app:layout_constraintBottom_toTopOf="@id/tvUploadText"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvUploadText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Upload a photo of the insurance"
+        android:textAppearance="@style/TextAppearance.App.Body.DescriptionText"
+        app:layout_constraintBottom_toTopOf="@id/uploadPhotoBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivUploadIcon" />
+
+    <Button
+        android:id="@+id/uploadPhotoBtn"
+        style="@style/Widget.App.Button.FilledButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Upload photo"
+        android:layout_marginTop="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvUploadText" />
 
     <androidx.constraintlayout.widget.Group
+        android:id="@+id/emptyImageGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/emptyImageGroup"
-        app:constraint_referenced_ids="uploadPhotoBtn"
-        />
+        android:visibility="gone"
+        app:constraint_referenced_ids="uploadPhotoBtn,ivEmptyPhoto,tvUploadText,ivUploadIcon" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -29,8 +29,10 @@
         <item name="autoCompleteTextViewStyle">
             @style/Widget.Material3.AutoCompleteTextView.OutlinedBox
         </item>
-        <item name="colorPrimary">@color/text_black</item>
-        <item name="colorOnSurface">@color/text_black</item>
+        <item name="textAppearanceTitleMedium">@style/TextAppearance.App.InputText.Title</item>
+        <item name="textAppearanceBodySmall">@style/TextAppearance.App.InputText.Default</item>
+        <item name="colorPrimary">@color/bg_light_grey</item>
+        <item name="colorOnSurface">@color/bg_light_grey</item>
         <item name="colorError">@color/stroke_red</item>
         <item name="editTextStyle">@style/Widget.Material3.TextInputEditText.OutlinedBox</item>
     </style>
