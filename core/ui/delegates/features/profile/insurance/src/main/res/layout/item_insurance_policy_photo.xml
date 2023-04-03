@@ -17,7 +17,7 @@
 
     <ImageView
         android:id="@+id/insuranceCardIv"
-        android:layout_width="335dp"
+        android:layout_width="0dp"
         android:layout_height="220dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -26,7 +26,7 @@
 
     <ImageView
         android:id="@+id/ivEmptyPhoto"
-        android:layout_width="335dp"
+        android:layout_width="0dp"
         android:layout_height="220dp"
         android:src="@drawable/ic_upload_photo_empty_frame"
         app:layout_constraintBottom_toBottomOf="parent"
