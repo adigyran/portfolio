@@ -384,7 +384,7 @@
                 app:layout_constraintTop_toBottomOf="@id/newsTitle">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="top"
                     >
@@ -400,7 +400,7 @@
                     <ImageView
                         android:id="@+id/news1Image"
                         android:layout_width="188dp"
-                        android:layout_height="126dp"
+                        android:layout_height="wrap_content"
                         android:src="@drawable/news_1"
                         android:layout_marginTop="16dp"
                         android:layout_marginStart="16dp"
