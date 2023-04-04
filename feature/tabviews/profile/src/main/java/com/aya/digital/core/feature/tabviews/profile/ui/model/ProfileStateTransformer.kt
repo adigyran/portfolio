@@ -7,6 +7,8 @@ import com.aya.digital.core.feature.tabviews.profile.viewmodel.ProfileState
 import com.aya.digital.core.mvi.BaseStateTransformer
 import com.aya.digital.core.ui.adapters.base.DiffItem
 import com.aya.digital.core.ui.delegates.profile.info.model.ProfileMainUIModel
+import java.time.LocalDate
+import java.time.temporal.ChronoUnit
 
 
 class ProfileStateTransformer(context: Context) :
@@ -23,7 +25,7 @@ class ProfileStateTransformer(context: Context) :
                 }
             },
             avatar = state.avatar,
-            address = state.address,
+            age = state.dateOFBirth?.let { birthday-> "${ChronoUnit.DAYS.between(LocalDate.now(), birthday)}"}?:"",
             name = kotlin.run {
                 if (state.firstName == null || state.lastName == null) return@run null
                 val lastNameInitial =

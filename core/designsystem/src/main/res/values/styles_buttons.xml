@@ -10,7 +10,7 @@
         <item name="rippleColor">@color/button_ripple_color_selector</item>
         <item name="backgroundTint">@color/button_background_color_selector</item>
         <item name="shapeAppearance">@style/ShapeAppearance.App.SmallComponent</item>
-        <item name="android:textAppearance">@style/TextAppearance.App.Button</item>
+        <item name="android:textAppearance">@style/TextAppearance.App.ButtonText.Default</item>
     </style>
 
     <style name="Widget.App.Button.OutlinedButton" parent="Widget.Material3.Button.OutlinedButton.Icon">
@@ -23,6 +23,10 @@
         <item name="materialThemeOverlay">@style/ThemeOverlay.App.Button.TextButton</item>
         <item name="android:textAppearance">@style/TextAppearance.App.Button</item>
         <item name="shapeAppearance">@style/ShapeAppearance.App.SmallComponent</item>
+    </style>
+
+    <style name="Widget.App.Button.FilledButton.White">
+        <item name="android:textColor">@color/button_text_blue</item>
     </style>
 
     <style name="ThemeOverlay.App.Button.TextButton" parent="">

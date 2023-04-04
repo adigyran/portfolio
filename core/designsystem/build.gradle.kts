@@ -10,6 +10,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:baseresources"))
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.core.ktx)
     implementation(libs.material.design)

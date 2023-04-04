@@ -87,13 +87,13 @@ class ProfileGeneralInfoViewView :
             }
             this.avatar?.let {avatarUrl->
                 Glide
-                    .with(binding.avatarIv)
+                    .with(binding.toolbar.avatar)
                     .load(avatarUrl)
                     .transform(
                         CircleCrop()
                     )
                     .dontAnimate()
-                    .into(binding.avatarIv)
+                    .into(binding.toolbar.avatar)
             }
         }
     }

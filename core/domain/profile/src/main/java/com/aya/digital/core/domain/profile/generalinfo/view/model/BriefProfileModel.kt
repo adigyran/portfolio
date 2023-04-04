@@ -10,7 +10,8 @@ data class BriefProfileModel(
     val firstName: String,
     val lastName: String,
     val middleName: String,
-    val avatar: String?
+    val avatar: String?,
+    val birthday:LocalDate
 ) {
 
 }
@@ -21,7 +22,8 @@ fun CurrentProfile.mapToBriefProfile() = BriefProfileModel(
     this.firstName ?: "",
     this.lastName ?: "",
     this.middleName ?: "",
-    this.avatar?.fullUrl
+    this.avatar?.fullUrl,
+    this.dateOfBirth ?: LocalDate.now()
 )
 
 

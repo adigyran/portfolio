@@ -88,10 +88,10 @@ class ProfileView :
                 }
             }
             name?.let {
-                binding.nameTv.text = it
+                binding.toolbar.nameTv.text = it
             }
-            address?.let {
-                binding.addressTv.text = it
+            age?.let {
+                binding.toolbar.ageTv.text = it
             }
             setAvatar(avatar)
         }
@@ -100,13 +100,13 @@ class ProfileView :
     private fun setAvatar(avatar: String?) {
         avatar?.let {
             Glide
-                .with(binding.avatarIv)
+                .with(binding.toolbar.avatar)
                 .load(it)
                 .transform(
                    CircleCrop()
                 )
                 .dontAnimate()
-                .into(binding.avatarIv)
+                .into(binding.toolbar.avatar)
         }
     }
 

@@ -140,16 +140,6 @@ class ProfileGeneralInfoEditView :
                     binding.recycler.swapAdapter(adapter, true)
                 }
             }
-            this.avatarUrl?.let {avatarUrl->
-                Glide
-                    .with(binding.avatarIv)
-                    .load(avatarUrl)
-                    .transform(
-                        CircleCrop()
-                    )
-                    .dontAnimate()
-                    .into(binding.avatarIv)
-            }
         }
     }
 
