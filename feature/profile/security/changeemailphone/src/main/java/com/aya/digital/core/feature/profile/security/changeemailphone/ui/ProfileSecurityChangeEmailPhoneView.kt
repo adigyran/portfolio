@@ -51,6 +51,7 @@ internal class ProfileSecurityChangeEmailPhoneView :
     override fun prepareCreatedUi(savedInstanceState: Bundle?) {
         super.prepareCreatedUi(savedInstanceState)
         binding.saveBtn bindClick {viewModel.saveClicked()}
+        binding.toolbar.title.text = "Change password"
         recyclers.add(binding.recycler)
         with(binding.recycler) {
             itemAnimator = null

@@ -40,6 +40,7 @@ internal class ProfileSecuritySummaryView :
     override fun prepareCreatedUi(savedInstanceState: Bundle?) {
         super.prepareCreatedUi(savedInstanceState)
         recyclers.add(binding.recycler)
+        binding.toolbar.title.text = "Security"
         with(binding.recycler) {
             itemAnimator = null
             setHasFixedSize(true)

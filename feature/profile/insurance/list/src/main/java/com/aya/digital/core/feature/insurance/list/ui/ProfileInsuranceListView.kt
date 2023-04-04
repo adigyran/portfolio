@@ -46,6 +46,7 @@ class ProfileInsuranceListView :
     override fun prepareCreatedUi(savedInstanceState: Bundle?) {
         super.prepareCreatedUi(savedInstanceState)
         recyclers.add(binding.recycler)
+        binding.toolbar.title.text = "Insurance"
         binding.addInsuranceBtn bindClick { viewModel.addInsuranceClicked() }
         with(binding.recycler) {
             itemAnimator = null
