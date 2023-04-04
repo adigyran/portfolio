@@ -46,7 +46,7 @@ class ProfileGeneralInfoViewView :
         super.prepareCreatedUi(savedInstanceState)
         recyclers.add(binding.recycler)
         binding.toolbar.title.text = "Personal information"
-        binding.toolbar.avatar bindClick {viewModel.avatarSelectClicked()}
+        binding.toolbar.btnEditPhoto bindClick {viewModel.avatarSelectClicked()}
         binding.editBtn bindClick { viewModel.onEditClicked() }
         with(binding.recycler) {
             itemAnimator = null
