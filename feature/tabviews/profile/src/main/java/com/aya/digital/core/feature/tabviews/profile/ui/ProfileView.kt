@@ -43,6 +43,7 @@ class ProfileView :
 
     override fun prepareUi(savedInstanceState: Bundle?) {
         super.prepareUi(savedInstanceState)
+        binding.toolbar.title.text = "Profile"
         if (savedInstanceState == null) {
             recyclers.add(binding.recycler)
             with(binding.recycler) {

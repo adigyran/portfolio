@@ -1,5 +1,6 @@
 package com.aya.digital.core.feature.profile.generalinfo.view.ui
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.aya.digital.core.ext.bindClick
 import com.aya.digital.core.feature.profile.generalinfo.view.databinding.ViewProfileGeneralinfoViewBinding
 import com.aya.digital.core.feature.profile.generalinfo.view.di.profileGeneralInfoViewDiModule
+import com.aya.digital.core.feature.profile.generalinfo.view.ui.contract.ProfileGeneralInfoEditAvatarImageSelectContract
 import com.aya.digital.core.feature.profile.generalinfo.view.ui.model.ProfileGeneralInfoViewStateTransformer
 import com.aya.digital.core.feature.profile.generalinfo.view.ui.model.ProfileGeneralInfoViewUiModel
 import com.aya.digital.core.feature.profile.generalinfo.view.viewmodel.ProfileGeneralInfoSideEffects
@@ -43,6 +45,8 @@ class ProfileGeneralInfoViewView :
     override fun prepareCreatedUi(savedInstanceState: Bundle?) {
         super.prepareCreatedUi(savedInstanceState)
         recyclers.add(binding.recycler)
+        binding.toolbar.title.text = "Personal information"
+        binding.toolbar.avatar bindClick {viewModel.avatarSelectClicked()}
         binding.editBtn bindClick { viewModel.onEditClicked() }
         with(binding.recycler) {
             itemAnimator = null
@@ -62,6 +66,13 @@ class ProfileGeneralInfoViewView :
         }
     }
 
+    private val singlePhotoPickerLauncher = registerForActivityResult(
+        ProfileGeneralInfoEditAvatarImageSelectContract()
+    ) { imageUri: Uri? ->
+        imageUri?.let(viewModel::profileAvatarImageSelected)
+    }
+
+
     override fun provideDiModule(): DI.Module =
         profileGeneralInfoViewDiModule(tryTyGetParentRouter())
 
@@ -75,6 +86,9 @@ class ProfileGeneralInfoViewView :
         when(sideEffect)
         {
             is ProfileGeneralInfoSideEffects.Error -> processErrorSideEffect(sideEffect.error)
+            is ProfileGeneralInfoSideEffects.SelectAvatar -> {
+                singlePhotoPickerLauncher.launch(null)
+            }
         }
 
     override fun render(state: ProfileGeneralInfoViewState) {

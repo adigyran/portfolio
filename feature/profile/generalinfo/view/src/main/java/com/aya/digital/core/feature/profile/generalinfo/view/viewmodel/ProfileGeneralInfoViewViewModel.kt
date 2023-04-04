@@ -1,5 +1,7 @@
 package com.aya.digital.core.feature.profile.generalinfo.view.viewmodel
 
+import android.net.Uri
+import com.aya.digital.core.domain.profile.generalinfo.edit.SetAvatarUseCase
 import com.aya.digital.core.domain.profile.generalinfo.view.GetProfileInfoUseCase
 import com.aya.digital.core.feature.profile.generalinfo.view.navigation.ProfileGeneralInfoViewNavigationEvents
 import com.aya.digital.core.mvi.BaseSideEffect
@@ -15,7 +17,8 @@ import timber.log.Timber
 
 class ProfileGeneralInfoViewViewModel(
     private val coordinatorRouter: CoordinatorRouter,
-    private val profileInfoUseCase: GetProfileInfoUseCase
+    private val profileInfoUseCase: GetProfileInfoUseCase,
+    private val setAvatarUseCase: SetAvatarUseCase
 ) :
     BaseViewModel<ProfileGeneralInfoViewState, ProfileGeneralInfoSideEffects>() {
     override val container = container<ProfileGeneralInfoViewState, ProfileGeneralInfoSideEffects>(
@@ -49,6 +52,14 @@ class ProfileGeneralInfoViewViewModel(
             }
         }, { Timber.d(it.toString()) })
 
+    }
+
+    fun avatarSelectClicked() = intent {
+        postSideEffect(ProfileGeneralInfoSideEffects.SelectAvatar)
+    }
+    fun profileAvatarImageSelected(uri: Uri) = intent(registerIdling = false) {
+        setAvatarUseCase(uri).await()
+            .processResult({loadProfile()},{processError(it)})
     }
 
     fun onEditClicked() = intent {

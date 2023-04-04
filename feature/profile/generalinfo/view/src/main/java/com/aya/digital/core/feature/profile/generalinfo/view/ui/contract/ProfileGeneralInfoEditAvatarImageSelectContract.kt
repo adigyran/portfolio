@@ -1,4 +1,4 @@
-package com.aya.digital.core.feature.profile.generalinfo.edit.ui.contract
+package com.aya.digital.core.feature.profile.generalinfo.view.ui.contract
 
 import android.app.Activity
 import android.content.Context

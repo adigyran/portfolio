@@ -5,4 +5,6 @@ import com.aya.digital.core.mvi.BaseViewModel
 
 sealed class ProfileGeneralInfoSideEffects:BaseSideEffect {
     data class Error(val error:BaseViewModel.ErrorSideEffect) : ProfileGeneralInfoSideEffects()
+    object SelectAvatar:ProfileGeneralInfoSideEffects()
+
 }

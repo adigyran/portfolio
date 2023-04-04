@@ -8,5 +8,4 @@ sealed class ProfileGeneralInfoEditSideEffect : BaseSideEffect {
     data class Error(val error: BaseViewModel.ErrorSideEffect) : ProfileGeneralInfoEditSideEffect()
     data class ShowBirthdayDatePicker(val selectedDate: LocalDate?) :
         ProfileGeneralInfoEditSideEffect()
-    object SelectAvatar:ProfileGeneralInfoEditSideEffect()
 }

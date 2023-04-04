@@ -15,7 +15,6 @@ import com.aya.digital.core.ext.createFragment
 import com.aya.digital.core.ext.dpToPx
 import com.aya.digital.core.feature.profile.generalinfo.edit.databinding.ViewProfileGeneralinfoEditBinding
 import com.aya.digital.core.feature.profile.generalinfo.edit.di.profileGeneralInfoEditDiModule
-import com.aya.digital.core.feature.profile.generalinfo.edit.ui.contract.ProfileGeneralInfoEditAvatarImageSelectContract
 import com.aya.digital.core.feature.profile.generalinfo.edit.ui.model.ProfileGeneralInfoEditStateTransformer
 import com.aya.digital.core.feature.profile.generalinfo.edit.ui.model.ProfileGeneralInfoEditUiModel
 import com.aya.digital.core.feature.profile.generalinfo.edit.viewmodel.ProfileGeneralInfoEditSideEffect
@@ -74,7 +73,7 @@ class ProfileGeneralInfoEditView :
     override fun prepareCreatedUi(savedInstanceState: Bundle?) {
         super.prepareCreatedUi(savedInstanceState)
         binding.saveBtn bindClick { viewModel.onSaveProfileClicked() }
-        binding.btnEditAvatar bindClick {viewModel.avatarSelectClicked()}
+        binding.toolbar.title.text = "Edit personal information"
         recyclers.add(binding.recycler)
         with(binding.recycler) {
             itemAnimator = null
@@ -93,9 +92,6 @@ class ProfileGeneralInfoEditView :
         }
     }
 
-    private val singlePhotoPickerLauncher = registerForActivityResult(ProfileGeneralInfoEditAvatarImageSelectContract()) { imageUri: Uri? ->
-        imageUri?.let(viewModel::profileAvatarImageSelected)
-    }
 
     override fun sideEffect(sideEffect: ProfileGeneralInfoEditSideEffect) =
         when (sideEffect) {
@@ -104,9 +100,6 @@ class ProfileGeneralInfoEditView :
                 showBirthdayDatePicker(sideEffect.selectedDate)
             }
             is ProfileGeneralInfoEditSideEffect.Error -> processErrorSideEffect(sideEffect.error)
-            ProfileGeneralInfoEditSideEffect.SelectAvatar -> {
-                singlePhotoPickerLauncher.launch(null)
-            }
         }
 
     private fun showBirthdayDatePicker(selectedDate: LocalDate?) {

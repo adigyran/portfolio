@@ -122,13 +122,7 @@ class ProfileGeneralInfoEditViewModel(
             tin = state.ssnOrTin
         }
 
-    fun avatarSelectClicked() = intent {
-        postSideEffect(ProfileGeneralInfoEditSideEffect.SelectAvatar)
-    }
-    fun profileAvatarImageSelected(uri: Uri) = intent(registerIdling = false) {
-        setAvatarUseCase(uri).await()
-            .processResult({loadProfile()},{processError(it)})
-    }
+
 
     private inline fun <reified T> compareFields(fieldFirst: T?, fieldSecond: T?): Boolean? =
         fieldFirst?.run {
