@@ -11,6 +11,4 @@ dependencies {
     implementation(project(":core:ui:delegates:features:profile:generalinfo"))
     implementation(project(":core:model"))
     implementation(libs.kotlinx.time)
-
-
 }

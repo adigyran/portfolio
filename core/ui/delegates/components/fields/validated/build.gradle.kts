@@ -8,4 +8,9 @@ android {
     buildFeatures {
         viewBinding = true
     }
+
+}
+
+dependencies {
+    implementation(libs.decoro)
 }

@@ -45,6 +45,8 @@ pinView = "3.0.0"
 otpView = "3.1.0"
 #glide
 glide = "4.15.0"
+#decoro
+decoro = "1.5.1"
 #end Ui
 
 #maps
@@ -178,6 +180,9 @@ pinview = { group = "com.github.mukeshsolanki", name = "android-otpview-pinview"
 
 #ui-otpview
 otpview = { group = "com.github.mukeshsolanki.android-otpview-pinview", name = "otpview", version.ref = "otpView" }
+
+#ui-decoro
+decoro = { group = "ru.tinkoff.decoro", name = "decoro", version.ref = "decoro" }
 
 #ui-glide
 glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
