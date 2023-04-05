@@ -5,13 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar_home_blue" />
+
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -27,17 +32,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/tvTitle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:text="Hello!\nWe hope you're okay."
-                android:textAppearance="@style/TextAppearance.App.H2"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
             <View
                 android:id="@+id/findDoctorBtn"
                 android:layout_width="159dp"
@@ -46,14 +40,14 @@
                 android:layout_marginEnd="8.5dp"
                 android:background="@drawable/bg_buttons_active"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/findDoctorImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
                 android:src="@drawable/ic_finddoctor"
                 app:layout_constraintStart_toStartOf="@id/findDoctorBtn"
                 app:layout_constraintTop_toTopOf="@id/findDoctorBtn" />
@@ -62,9 +56,9 @@
                 android:id="@+id/findDoctorBtnTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Find Doctor"
                 android:layout_marginStart="16dp"
                 android:layout_marginBottom="8dp"
+                android:text="Find Doctor"
                 android:textAppearance="@style/TextAppearance.App.H4"
                 app:layout_constraintBottom_toTopOf="@id/findDoctorBtnDescr"
                 app:layout_constraintEnd_toEndOf="@id/findDoctorBtn"
@@ -74,9 +68,9 @@
                 android:id="@+id/findDoctorBtnDescr"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="2 812 specialists"
                 android:layout_marginStart="16dp"
                 android:layout_marginBottom="16dp"
+                android:text="2 812 specialists"
                 android:textAppearance="@style/TextAppearance.App.Body.LabelMiniText"
                 app:layout_constraintBottom_toBottomOf="@id/findDoctorBtn"
                 app:layout_constraintEnd_toEndOf="@id/findDoctorBtn"
@@ -90,15 +84,15 @@
                 android:layout_marginEnd="20dp"
                 android:background="@drawable/bg_buttons_active"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/appointmentsImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_appointments"
-                android:layout_marginTop="16dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/ic_appointments"
                 app:layout_constraintStart_toStartOf="@id/appointmentsBtn"
                 app:layout_constraintTop_toTopOf="@id/appointmentsBtn" />
 
@@ -106,9 +100,9 @@
                 android:id="@+id/appointmentsBtnTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Appointments"
                 android:layout_marginStart="16dp"
                 android:layout_marginBottom="8dp"
+                android:text="Appointments"
                 android:textAppearance="@style/TextAppearance.App.H4"
                 app:layout_constraintBottom_toTopOf="@id/appointmentsBtnDescr"
                 app:layout_constraintEnd_toEndOf="@id/appointmentsBtn"
@@ -118,9 +112,9 @@
                 android:id="@+id/appointmentsBtnDescr"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="0 appointments"
                 android:layout_marginStart="16dp"
                 android:layout_marginBottom="16dp"
+                android:text="0 appointments"
                 android:textAppearance="@style/TextAppearance.App.Body.LabelMiniText"
                 app:layout_constraintBottom_toBottomOf="@id/appointmentsBtn"
                 app:layout_constraintEnd_toEndOf="@id/appointmentsBtn"
@@ -141,9 +135,9 @@
                 android:id="@+id/covidImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_covid"
-                android:layout_marginTop="16dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/ic_covid"
                 android:visibility="invisible"
                 app:layout_constraintStart_toStartOf="@id/covidBtn"
                 app:layout_constraintTop_toTopOf="@id/covidBtn" />
@@ -152,9 +146,9 @@
                 android:id="@+id/covidBtnTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Telemedicine"
                 android:layout_marginStart="16dp"
                 android:layout_marginBottom="8dp"
+                android:text="Telemedicine"
                 android:textAppearance="@style/TextAppearance.App.H4"
                 app:layout_constraintBottom_toTopOf="@id/covidBtnDescr"
                 app:layout_constraintEnd_toEndOf="@id/covidBtn"
@@ -164,9 +158,9 @@
                 android:id="@+id/covidBtnDescr"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Coming soon"
                 android:layout_marginStart="16dp"
                 android:layout_marginBottom="16dp"
+                android:text="Coming soon"
                 android:textAppearance="@style/TextAppearance.App.Body.LabelMiniText"
                 app:layout_constraintBottom_toBottomOf="@id/covidBtn"
                 app:layout_constraintEnd_toEndOf="@id/covidBtn"
@@ -187,9 +181,9 @@
                 android:id="@+id/recipesImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_recipes"
-                android:layout_marginTop="16dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/ic_recipes"
                 app:layout_constraintStart_toStartOf="@id/recipesBtn"
                 app:layout_constraintTop_toTopOf="@id/recipesBtn" />
 
@@ -197,9 +191,9 @@
                 android:id="@+id/recipesBtnTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Recipes"
                 android:layout_marginStart="16dp"
                 android:layout_marginBottom="8dp"
+                android:text="Recipes"
                 android:textAppearance="@style/TextAppearance.App.H4"
                 app:layout_constraintBottom_toTopOf="@id/recipesBtnDescr"
                 app:layout_constraintEnd_toEndOf="@id/recipesBtn"
@@ -209,9 +203,9 @@
                 android:id="@+id/recipesBtnDescr"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Coming soon"
                 android:layout_marginStart="16dp"
                 android:layout_marginBottom="16dp"
+                android:text="Coming soon"
                 android:textAppearance="@style/TextAppearance.App.Body.LabelMiniText"
                 app:layout_constraintBottom_toBottomOf="@id/recipesBtn"
                 app:layout_constraintStart_toStartOf="@id/recipesBtn" />
@@ -231,9 +225,9 @@
                 android:id="@+id/pharmaciesImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_pharmacy"
-                android:layout_marginTop="16dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/ic_pharmacy"
                 app:layout_constraintStart_toStartOf="@id/pharmaciesBtn"
                 app:layout_constraintTop_toTopOf="@id/pharmaciesBtn" />
 
@@ -241,9 +235,9 @@
                 android:id="@+id/pharmaciesBtnTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Pharmacies"
                 android:layout_marginStart="16dp"
                 android:layout_marginBottom="8dp"
+                android:text="Pharmacies"
                 android:textAppearance="@style/TextAppearance.App.H4"
                 app:layout_constraintBottom_toTopOf="@id/pharmaciesBtnDescr"
                 app:layout_constraintStart_toStartOf="@id/pharmaciesBtn" />
@@ -252,9 +246,9 @@
                 android:id="@+id/pharmaciesBtnDescr"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Coming soon"
                 android:layout_marginStart="16dp"
                 android:layout_marginBottom="16dp"
+                android:text="Coming soon"
                 android:textAppearance="@style/TextAppearance.App.Body.LabelMiniText"
                 app:layout_constraintBottom_toBottomOf="@id/pharmaciesBtn"
                 app:layout_constraintEnd_toEndOf="@id/pharmaciesBtn"
@@ -275,9 +269,9 @@
                 android:id="@+id/serviceCostImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_service"
-                android:layout_marginTop="16dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/ic_service"
                 app:layout_constraintStart_toStartOf="@id/serviceCostBtn"
                 app:layout_constraintTop_toTopOf="@id/serviceCostBtn" />
 
@@ -285,9 +279,9 @@
                 android:id="@+id/serviceCostBtnTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Service cost"
                 android:layout_marginStart="16dp"
                 android:layout_marginBottom="8dp"
+                android:text="Service cost"
                 android:textAppearance="@style/TextAppearance.App.H4"
                 app:layout_constraintBottom_toTopOf="@id/serviceCostBtnDescr"
                 app:layout_constraintEnd_toEndOf="@id/serviceCostBtn"
@@ -297,9 +291,9 @@
                 android:id="@+id/serviceCostBtnDescr"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Coming soon"
                 android:layout_marginStart="16dp"
                 android:layout_marginBottom="16dp"
+                android:text="Coming soon"
                 android:textAppearance="@style/TextAppearance.App.Body.LabelMiniText"
                 app:layout_constraintBottom_toBottomOf="@id/serviceCostBtn"
                 app:layout_constraintEnd_toEndOf="@id/serviceCostBtn"
@@ -320,9 +314,9 @@
                 android:id="@+id/documentsImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_documents"
-                android:layout_marginTop="16dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/ic_documents"
                 app:layout_constraintStart_toStartOf="@id/documentsBtn"
                 app:layout_constraintTop_toTopOf="@id/documentsBtn" />
 
@@ -330,9 +324,9 @@
                 android:id="@+id/documentsBtnTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Documents"
                 android:layout_marginStart="16dp"
                 android:layout_marginBottom="8dp"
+                android:text="Documents"
                 android:textAppearance="@style/TextAppearance.App.H4"
                 app:layout_constraintBottom_toTopOf="@id/documentsBtnDescr"
                 app:layout_constraintEnd_toEndOf="@id/documentsBtn"
@@ -342,9 +336,9 @@
                 android:id="@+id/documentsBtnDescr"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Coming soon"
                 android:layout_marginStart="16dp"
                 android:layout_marginBottom="16dp"
+                android:text="Coming soon"
                 android:textAppearance="@style/TextAppearance.App.Body.LabelMiniText"
                 app:layout_constraintBottom_toBottomOf="@id/documentsBtn"
                 app:layout_constraintEnd_toEndOf="@id/documentsBtn"
@@ -354,13 +348,12 @@
                 android:id="@+id/newsBg"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:layout_marginTop="24dp"
                 android:background="@drawable/bg_news_gradient"
                 app:layout_constraintBottom_toTopOf="@id/bottomBg"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/documentsBtn"
-                android:layout_marginTop="24dp"
-                />
+                app:layout_constraintTop_toBottomOf="@id/documentsBtn" />
 
             <TextView
                 android:id="@+id/newsTitle"
@@ -386,25 +379,25 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="top"
-                    >
+                    android:layout_gravity="top">
+
                     <LinearLayout
+                        android:id="@+id/news1Bg"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:id="@+id/news1Bg"
                         android:background="@drawable/bg_news"
+                        android:orientation="vertical"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
+
                         <ImageView
                             android:id="@+id/news1Image"
                             android:layout_width="188dp"
                             android:layout_height="126dp"
-                            android:src="@drawable/news_1"
-                            android:layout_marginTop="16dp"
                             android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
                             android:layout_marginEnd="16dp"
-                            />
+                            android:src="@drawable/news_1" />
 
                         <TextView
                             android:id="@+id/news1Title"
@@ -420,29 +413,31 @@
                             android:id="@+id/news1Date"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Nov 20, 2022"
                             android:layout_marginStart="16dp"
-                            android:layout_marginEnd="16dp"
                             android:layout_marginTop="12dp"
+                            android:layout_marginEnd="16dp"
+                            android:text="Nov 20, 2022"
                             android:textAppearance="@style/TextAppearance.App.Body.LabelMiniText" />
                     </LinearLayout>
+
                     <LinearLayout
+                        android:id="@+id/news2Bg"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:id="@+id/news2Bg"
-                        android:background="@drawable/bg_news"
-                        app:layout_constraintStart_toEndOf="@id/news1Bg"
                         android:layout_marginStart="10dp"
+                        android:background="@drawable/bg_news"
+                        android:orientation="vertical"
+                        app:layout_constraintStart_toEndOf="@id/news1Bg"
                         app:layout_constraintTop_toTopOf="parent">
+
                         <ImageView
                             android:id="@+id/news2Image"
                             android:layout_width="188dp"
                             android:layout_height="126dp"
-                            android:src="@drawable/news_1"
-                            android:layout_marginTop="16dp"
                             android:layout_marginStart="16dp"
-                            android:layout_marginEnd="16dp" />
+                            android:layout_marginTop="16dp"
+                            android:layout_marginEnd="16dp"
+                            android:src="@drawable/news_1" />
 
                         <TextView
                             android:id="@+id/news2Title"
@@ -458,29 +453,31 @@
                             android:id="@+id/news2Date"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Nov 20, 2022"
                             android:layout_marginStart="16dp"
-                            android:layout_marginEnd="16dp"
                             android:layout_marginTop="12dp"
+                            android:layout_marginEnd="16dp"
+                            android:text="Nov 20, 2022"
                             android:textAppearance="@style/TextAppearance.App.Body.LabelMiniText" />
                     </LinearLayout>
+
                     <LinearLayout
+                        android:id="@+id/news3Bg"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:id="@+id/news3Bg"
-                        android:background="@drawable/bg_news"
-                        app:layout_constraintStart_toEndOf="@id/news2Bg"
                         android:layout_marginStart="10dp"
+                        android:background="@drawable/bg_news"
+                        android:orientation="vertical"
+                        app:layout_constraintStart_toEndOf="@id/news2Bg"
                         app:layout_constraintTop_toTopOf="parent">
+
                         <ImageView
                             android:id="@+id/news3Image"
                             android:layout_width="188dp"
                             android:layout_height="126dp"
-                            android:src="@drawable/news_1"
-                            android:layout_marginTop="16dp"
                             android:layout_marginStart="16dp"
-                            android:layout_marginEnd="16dp" />
+                            android:layout_marginTop="16dp"
+                            android:layout_marginEnd="16dp"
+                            android:src="@drawable/news_1" />
 
                         <TextView
                             android:id="@+id/news3Title"
@@ -496,10 +493,10 @@
                             android:id="@+id/news3Date"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Nov 20, 2022"
                             android:layout_marginStart="16dp"
-                            android:layout_marginEnd="16dp"
                             android:layout_marginTop="12dp"
+                            android:layout_marginEnd="16dp"
+                            android:text="Nov 20, 2022"
                             android:textAppearance="@style/TextAppearance.App.Body.LabelMiniText" />
                     </LinearLayout>
 
@@ -510,13 +507,12 @@
                 android:id="@+id/bottomBg"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:layout_marginTop="24dp"
+                android:background="@color/bg_light_grey"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/newsSv"
-                android:layout_marginTop="24dp"
-                android:background="@color/bg_light_grey"
-                />
+                app:layout_constraintTop_toBottomOf="@id/newsSv" />
 
             <View
                 android:id="@+id/clinicsBg"
@@ -560,19 +556,20 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="16dp"
-                android:src="@drawable/map"
                 android:scaleType="fitXY"
+                android:src="@drawable/map"
                 app:layout_constraintEnd_toEndOf="@id/clinicsBg"
                 app:layout_constraintStart_toStartOf="@id/clinicsBg"
                 app:layout_constraintTop_toBottomOf="@id/clinicsCount" />
+
             <View
+                android:id="@+id/clinicsBgV"
                 android:layout_width="0dp"
                 android:layout_height="16dp"
                 app:layout_constraintEnd_toEndOf="@id/clinicsBg"
                 app:layout_constraintStart_toStartOf="@id/clinicsBg"
-                app:layout_constraintTop_toBottomOf="@id/mapView"
-                android:id="@+id/clinicsBgV"
-                />
+                app:layout_constraintTop_toBottomOf="@id/mapView" />
+
             <View
                 android:id="@+id/updatesBg"
                 android:layout_width="0dp"
@@ -591,38 +588,39 @@
                 android:id="@+id/latestUpdatesTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Latest update"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
+                android:text="Latest update"
                 android:textAppearance="@style/TextAppearance.App.H3"
                 app:layout_constraintStart_toStartOf="@id/updatesBg"
                 app:layout_constraintTop_toTopOf="@id/updatesBg" />
+
             <TextView
                 android:id="@+id/latestUpdatesText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@string/main_latest_updates"
                 android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
                 android:layout_marginTop="12dp"
-                android:paddingTop="6dp"
-                android:paddingBottom="6dp"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp"
-                android:textAppearance="@style/TextAppearance.App.Body.DescriptionText"
-                app:layout_constraintStart_toStartOf="@id/updatesBg"
-                app:layout_constraintEnd_toEndOf="@id/updatesBg"
+                android:layout_marginEnd="16dp"
                 android:background="@drawable/bg_latest_update_text"
+                android:paddingStart="12dp"
+                android:paddingTop="6dp"
+                android:paddingEnd="12dp"
+                android:paddingBottom="6dp"
+                android:text="@string/main_latest_updates"
+                android:textAppearance="@style/TextAppearance.App.Body.DescriptionText"
+                app:layout_constraintEnd_toEndOf="@id/updatesBg"
+                app:layout_constraintStart_toStartOf="@id/updatesBg"
                 app:layout_constraintTop_toBottomOf="@id/latestUpdatesTitle" />
+
             <View
+                android:id="@+id/updatesBgV"
                 android:layout_width="0dp"
                 android:layout_height="16dp"
                 android:layout_marginTop="16dp"
                 app:layout_constraintEnd_toEndOf="@id/updatesBg"
                 app:layout_constraintStart_toStartOf="@id/updatesBg"
-                app:layout_constraintTop_toBottomOf="@id/latestUpdatesText"
-                android:id="@+id/updatesBgV"
-                />
+                app:layout_constraintTop_toBottomOf="@id/latestUpdatesText" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

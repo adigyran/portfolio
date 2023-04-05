@@ -21,5 +21,8 @@
     <string name="auth_chooser_sign_in">Sign In</string>
     <string name="btn_save">Save</string>
     <string name="sign_in_google">Sign in with Google</string>
+    <string name="filter_field_speciality">Speciality</string>
+    <string name="filter_field_location">Location</string>
+    <string name="filter_field_insurance">Choose insurance</string>
 
 </resources>
