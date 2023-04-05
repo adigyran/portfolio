@@ -1,6 +1,7 @@
 package com.aya.digital.core.feature.profile.generalinfo.edit.ui.model
 
 import android.content.Context
+import android.text.InputType
 import com.aya.digital.core.baseresources.R.*
 import com.aya.digital.core.feature.profile.generalinfo.edit.FieldsTags
 import com.aya.digital.core.feature.profile.generalinfo.edit.viewmodel.ProfileGeneralInfoEditState
@@ -8,11 +9,13 @@ import com.aya.digital.core.model.ProfileSex
 import com.aya.digital.core.model.getSexName
 import com.aya.digital.core.mvi.BaseStateTransformer
 import com.aya.digital.core.ui.adapters.base.DiffItem
+import com.aya.digital.core.ui.base.masks.CommonMasks
 import com.aya.digital.core.ui.delegates.components.fields.dropdown.model.AutoCompleteItem
 import com.aya.digital.core.ui.delegates.components.fields.name.model.NameFieldUIModel
 import com.aya.digital.core.ui.delegates.components.fields.name.model.ValidatedNumberFieldUIModel
 import com.aya.digital.core.ui.delegates.components.fields.dropdown.model.DropdownFieldUIModel
 import com.aya.digital.core.ui.delegates.components.fields.selection.model.SelectionFieldUIModel
+import com.aya.digital.core.ui.delegates.components.fields.validated.model.ValidatedFieldUIModel
 import com.aya.digital.core.util.datetime.DateTimeUtils
 import java.time.LocalDate
 
@@ -50,12 +53,14 @@ class ProfileGeneralInfoEditStateTransformer(
                         )
                     )
                     add(
-                        ValidatedNumberFieldUIModel(
-                            FieldsTags.SSN_OR_TIN_FIELD_TAG,
-                            "SSN or TIN",
-                            state.ssnOrTin.getField(),
-                            state.ssnOrTinError,
-                            suffix = null
+                        ValidatedFieldUIModel(
+                            tag = FieldsTags.SSN_OR_TIN_FIELD_TAG,
+                            label = "SSN or TIN",
+                            text = state.ssnOrTin.getField(),
+                            error = state.ssnOrTinError,
+                            mask = CommonMasks.getSSNValidator(),
+                            suffix = null,
+                            inputType = InputType.TYPE_CLASS_NUMBER
                         )
                     )
                     add(

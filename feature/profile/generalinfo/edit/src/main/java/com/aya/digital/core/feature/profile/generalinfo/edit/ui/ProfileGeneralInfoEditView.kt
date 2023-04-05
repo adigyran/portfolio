@@ -27,6 +27,8 @@ import com.aya.digital.core.ui.delegates.components.fields.dropdown.ui.DropDownF
 import com.aya.digital.core.ui.delegates.components.fields.selection.ui.SelectionFieldDelegateListeners
 import com.aya.digital.core.ui.delegates.components.fields.name.model.ui.*
 import com.aya.digital.core.ui.delegates.components.fields.selection.ui.SelectionFieldDelegate
+import com.aya.digital.core.ui.delegates.components.fields.validated.ui.ValidatedFieldDelegate
+import com.aya.digital.core.ui.delegates.components.fields.validated.ui.ValidatedFieldDelegateListeners
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
@@ -58,6 +60,7 @@ class ProfileGeneralInfoEditView :
         BaseDelegateAdapter.create {
             delegate { NameFieldDelegate(NameFieldDelegateListeners(viewModel::nameFieldChanged)) }
             delegate { ValidatedNumberFieldDelegate(ValidatedNumberFieldDelegateListeners(viewModel::numberFieldChanged)) }
+            delegate { ValidatedFieldDelegate(ValidatedFieldDelegateListeners(viewModel::numberFieldChanged)) }
             delegate { SelectionFieldDelegate(SelectionFieldDelegateListeners(viewModel::selectFieldClicked)) }
             delegate {
                 DropDownFieldDelegate(DropDownFieldDelegateListeners { tag, selectedItem ->

@@ -25,4 +25,5 @@ dependencies {
     implementation(libs.kodein)
     implementation(libs.androidx.appcompat)
     implementation(libs.material.design)
+    implementation(libs.decoro)
 }
