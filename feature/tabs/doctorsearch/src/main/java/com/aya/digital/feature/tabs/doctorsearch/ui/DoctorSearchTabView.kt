@@ -3,10 +3,12 @@ package com.aya.digital.feature.tabs.doctorsearch.ui
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.aya.digital.core.baseresources.databinding.ViewFragmentContainerBinding
 import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.navigation.CustomNavigator
 import com.aya.digital.core.navigation.di.CustomNavigatorParam
+import com.aya.digital.core.navigation.graph.DefaultRootScreenManager
 import com.aya.digital.core.ui.base.screens.DiContainerFragment
 import com.aya.digital.core.ui.base.screens.DiTabContainerFragment
 import com.aya.digital.feature.tabs.doctorsearch.di.doctorSearchTabDiModule
@@ -15,6 +17,7 @@ import com.aya.digital.feature.tabs.doctorsearch.viewmodel.DoctorSearchTabState
 import com.aya.digital.feature.tabs.doctorsearch.viewmodel.DoctorSearchTabViewModel
 import com.github.terrakok.cicerone.Navigator
 import org.kodein.di.factory
+import org.kodein.di.instance
 import org.kodein.di.on
 import com.aya.digital.core.baseresources.R as BaseresourcesR
 
@@ -35,9 +38,14 @@ class DoctorSearchTabView :
 
     }
 
+    private val defaultRootScreenManager: DefaultRootScreenManager by kodein.on(context = this).instance("doctors_search_tab_navigation")
+
+
     private fun openDefaultScreen() {
         coordinatorHolder.sendEvent(DoctorSearchTabNavigationEvents.OpenDefaultScreen)
     }
+
+    override fun rootScreen(): Fragment = defaultRootScreenManager.processDefaultRootScreen().createFragment(childFragmentManager.fragmentFactory)
 
 
     override fun provideNavigator(): Navigator =
