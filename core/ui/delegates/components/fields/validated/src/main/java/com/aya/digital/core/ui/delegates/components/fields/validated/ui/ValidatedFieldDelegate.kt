@@ -43,7 +43,14 @@ class ValidatedFieldDelegate(private val delegateListeners: ValidatedFieldDelega
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) = Unit
 
-            override fun afterTextChanged(s: Editable) = delegateListeners.inputFieldChangeListener(item.tag,s.toString())
+            override fun afterTextChanged(s: Editable) = delegateListeners.inputFieldChangeListener(item.tag,maskFormatWatcher.mask.toUnformattedString())
+        }
+
+        private fun formattedValue(): String {
+            val mask = item.mask
+            mask.clear()
+            mask.insertFront(item.text)
+            return mask.toString()
         }
 
         init {
@@ -57,15 +64,17 @@ class ValidatedFieldDelegate(private val delegateListeners: ValidatedFieldDelega
                 maskFormatWatcher = MaskFormatWatcher(item.mask)
                 binding.tilField.hint = item.label
                 binding.tilField.suffixText = item.suffix
-                binding.edField.setInputType(item.inputType);
+                binding.edField.setRawInputType(item.inputType)
                 fieldSet = true
             }
             maskFormatWatcher.removeFromTextView()
             binding.edField.removeTextChangedListener(textWatcher)
-            if (binding.edField.text.toString() != item.text) {
-                binding.edField.setText(item.text)
+            val formattedValue = formattedValue()
+            if (binding.edField.text.toString() != formattedValue) {
+                binding.edField.setText(formattedValue)
             }
             maskFormatWatcher.installOn(binding.edField)
+            maskFormatWatcher.refreshMask(formattedValue)
             binding.edField.addTextChangedListener(textWatcher)
         }
 

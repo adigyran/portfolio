@@ -82,21 +82,25 @@ class ProfileGeneralInfoEditStateTransformer(
                         )
                     )
                     add(
-                        ValidatedNumberFieldUIModel(
+                        ValidatedFieldUIModel(
                             FieldsTags.HEIGHT_FIELD_TAG,
                             "Height",
                             state.height.getField(),
                             state.heightError,
-                            suffix = getHeightUnit()
+                            suffix = getHeightUnit(),
+                            inputType = InputType.TYPE_CLASS_NUMBER,
+                            mask = CommonMasks.getHeightValidator()
                         )
                     )
                     add(
-                        ValidatedNumberFieldUIModel(
+                        ValidatedFieldUIModel(
                             FieldsTags.WEIGHT_FIELD_TAG,
                             "Weight",
-                            state.height.getField(),
+                            state.weight.getField(),
                             state.weightError,
-                            suffix = getWeightUnit()
+                            suffix = getWeightUnit(),
+                            inputType = InputType.TYPE_CLASS_NUMBER,
+                            mask = CommonMasks.getWeightValidator()
                         )
                     )
                     add(
