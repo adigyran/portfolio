@@ -1,4 +1,4 @@
-package com.aya.digital.healthapp.patient.navigation.tabs.home
+package com.aya.digital.healthapp.patient.navigation.tabs.appointments
 
 import com.aya.digital.core.feature.tabviews.appointments.navigation.AppointmentsScreen
 import com.aya.digital.core.feature.tabviews.home.navigation.HomeScreen
@@ -8,7 +8,7 @@ import com.aya.digital.core.navigation.graph.navigator.FragmentContainerGraph
 import com.aya.digital.feature.tabs.home.navigation.HomeTabNavigationEvents
 import com.github.terrakok.cicerone.Router
 
-class HomeTabCoordinatorGraph : FragmentContainerGraph {
+class AppointmentsTabCoordinatorGraph : FragmentContainerGraph {
     override fun processEvent(
         event: CoordinatorEvent,
         navigationRouter: Router,
@@ -16,7 +16,7 @@ class HomeTabCoordinatorGraph : FragmentContainerGraph {
     ) {
         when (event) {
             HomeTabNavigationEvents.OpenDefaultScreen -> {
-                navigationRouter.newRootScreen(HomeScreen)
+                navigationRouter.newRootScreen(AppointmentsScreen)
             }
             else -> parentCoordinatorRouter.sendEvent(event)
         }

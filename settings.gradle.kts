@@ -126,6 +126,9 @@ include(":feature:tabs:doctorsearch")
 //tabviews
 include(":feature:tabviews:home")
 include(":feature:tabviews:profile")
+include(":feature:tabviews:doctorsearch")
+include(":feature:tabviews:appointments")
+
 //containers
 include(":feature:rootcontainer")
 include(":feature:bottomnavhost")

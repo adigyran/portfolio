@@ -16,6 +16,10 @@ import com.aya.digital.healthapp.patient.navigation.auth.PatientAuthGraph
 import com.aya.digital.healthapp.patient.navigation.bottom.*
 import com.aya.digital.healthapp.patient.navigation.root.PatientRootCoordinatorGraph
 import com.aya.digital.healthapp.patient.navigation.root.PatientRootNavigationGraph
+import com.aya.digital.healthapp.patient.navigation.tabs.appointments.AppointmentsTabCoordinatorGraph
+import com.aya.digital.healthapp.patient.navigation.tabs.appointments.AppointmentsTabDefaultRootScreenManager
+import com.aya.digital.healthapp.patient.navigation.tabs.doctorsearch.DoctorSearchTabCoordinatorGraph
+import com.aya.digital.healthapp.patient.navigation.tabs.doctorsearch.DoctorSearchTabDefaultRootScreenManager
 import com.aya.digital.healthapp.patient.navigation.tabs.home.HomeTabCoordinatorGraph
 import com.aya.digital.healthapp.patient.navigation.tabs.home.HomeTabDefaultRootScreenManager
 import com.aya.digital.healthapp.patient.navigation.tabs.profile.ProfileTabCoordinatorGraph
@@ -55,8 +59,9 @@ fun patientAppDiModule() = DI.Module("patientAppDiModule") {
     bind<FragmentContainerGraph>("home_tab_navigation") with singleton { HomeTabCoordinatorGraph() }
     bind<DefaultRootScreenManager>("profile_tab_navigation") with singleton { ProfileTabDefaultRootScreenManager() }
     bind<FragmentContainerGraph>("profile_tab_navigation") with singleton { ProfileTabCoordinatorGraph() }
-
-
-
+    bind<DefaultRootScreenManager>("doctors_search_tab_navigation") with singleton { DoctorSearchTabDefaultRootScreenManager() }
+    bind<FragmentContainerGraph>("doctors_search_tab_navigation") with singleton { DoctorSearchTabCoordinatorGraph() }
+    bind<DefaultRootScreenManager>("appointments_tab_navigation") with singleton { AppointmentsTabDefaultRootScreenManager() }
+    bind<FragmentContainerGraph>("appointments_tab_navigation") with singleton { AppointmentsTabCoordinatorGraph() }
 
 }

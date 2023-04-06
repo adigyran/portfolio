@@ -19,7 +19,7 @@ fun doctorSearchTabDiModule(
                 instance<Cicerone<Router>>().router,
                 parentCoordinatorEvent,
                 instance(),
-                instance("auth_navigation")
+                instance("doctors_search_tab_navigation")
             )
         }
     }

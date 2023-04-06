@@ -19,7 +19,7 @@ fun appointmentsTabDiModule(
                 instance<Cicerone<Router>>().router,
                 parentCoordinatorEvent,
                 instance(),
-                instance("auth_navigation")
+                instance("appointments_tab_navigation")
             )
         }
     }

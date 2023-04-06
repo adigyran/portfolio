@@ -53,6 +53,8 @@ dependencies {
     implementation(project(":feature:tabs:doctorsearch"))
     implementation(project(":feature:tabs:home"))
     implementation(project(":feature:tabviews:home"))
+    implementation(project(":feature:tabviews:doctorsearch"))
+    implementation(project(":feature:tabviews:appointments"))
     implementation(project(":feature:tabs:profile"))
     implementation(project(":feature:tabviews:profile"))
     implementation(project(":feature:profile:generalinfo:edit"))
