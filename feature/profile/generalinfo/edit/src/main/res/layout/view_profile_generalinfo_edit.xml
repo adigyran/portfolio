@@ -12,6 +12,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:clipToPadding="true"
+        android:paddingBottom="20dp"
         android:nestedScrollingEnabled="false"
         app:layout_constraintBottom_toTopOf="@id/saveBtn"
         app:layout_constraintEnd_toEndOf="parent"

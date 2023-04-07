@@ -1,5 +1,7 @@
 
 import com.aya.digital.healthapp.AyaPatientBuildType
+import java.io.FileInputStream
+import java.util.Properties
 
 plugins {
     id("healthapp.android.application")
@@ -9,6 +11,9 @@ plugins {
 
 android {
 
+    lint{
+        disable.add("Instantiatable")
+    }
 
     defaultConfig {
         applicationId = "com.aya.digital.healthapp.patient"
@@ -22,7 +27,31 @@ android {
         viewBinding = true
         buildConfig = true
     }
+    val keystorePropertiesFile = rootProject.file("keystore_patient.properties");
+    val keystoreProperties =  Properties()
+    keystoreProperties.load(FileInputStream(keystorePropertiesFile))
+    signingConfigs {
+        create("release") {
+            keyAlias = keystoreProperties.getProperty("keyAlias")
+            keyPassword = keystoreProperties.getProperty("keyPassword")
+            storeFile = file(keystoreProperties.getProperty("storeFile"))
+            storePassword = keystoreProperties.getProperty("storePassword")
+        }
+    }
+   /* if (project.hasProperty("propertyfile") && project.hasProperty("key.store")) {
+        val keystorePropertiesFile = rootProject.file(project.properties["propertyfile"]!!)
+        val keystoreProperties = Properties()
+        keystoreProperties.load(FileInputStream(keystorePropertiesFile))
 
+        signingConfigs {
+            create("release") {
+                keyAlias = keystoreProperties.getProperty("key.alias")
+                keyPassword = keystoreProperties.getProperty("key.alias.password")
+                storeFile = file(project.properties["key.store"]!!)
+                storePassword = keystoreProperties.getProperty("key.store.passord")
+            }
+        }
+    }*/
     buildTypes {
         val debug by getting {
             applicationIdSuffix = AyaPatientBuildType.DEBUG.applicationIdSuffix
@@ -30,6 +59,13 @@ android {
                 groups="general"
                 releaseNotesFile = "${parent!!.projectDir}/releasenotes.txt"
             }
+        }
+        val release by getting {
+
+            // To publish on the Play store a private signing key is required, but to allow anyone
+            // who clones the code to sign and run the release variant, use the debug signing key.
+            // TODO: Abstract the signing configuration to a separate file to avoid hardcoding this.
+            signingConfig = signingConfigs.getByName("release")
         }
     }
     packagingOptions {

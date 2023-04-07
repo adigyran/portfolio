@@ -14,9 +14,13 @@ internal class ProfileGeneralInfoEditDecoration : RecyclerView.ItemDecoration() 
         parent: RecyclerView,
         state: RecyclerView.State
     ) {
+        val itemPosition = parent.getChildAdapterPosition(view);
+        if (itemPosition == RecyclerView.NO_POSITION) {
+            return;
+        }
         val viewHolder = parent.findContainingViewHolder(view)
         val horizontal = (20).dpToPx()
-        val top = (20).dpToPx()
+        val top = if(itemPosition == 0) (20).dpToPx() else (12).dpToPx()
         outRect.top = top
         outRect.left = horizontal
         outRect.right = horizontal
