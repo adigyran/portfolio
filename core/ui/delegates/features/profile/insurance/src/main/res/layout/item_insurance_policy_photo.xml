@@ -7,27 +7,29 @@
 
     <ImageView
         android:id="@+id/moreBtn"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
         android:src="@drawable/ic_more"
+        android:layout_marginEnd="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/insuranceCardIv"
-        android:layout_width="0dp"
-        android:layout_height="220dp"
+        android:layout_width="72dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/ivEmptyPhoto"
+        android:id="@+id/ivFrame"
         android:layout_width="0dp"
-        android:layout_height="220dp"
+        android:layout_height="0dp"
         android:src="@drawable/ic_upload_photo_empty_frame"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -49,8 +51,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Upload a photo of the insurance"
-        android:textAppearance="@style/TextAppearance.App.Body.DescriptionText"
+        android:text="Upload or photograph\nthe insurance card"
+        android:textAppearance="@style/TextAppearance.App.H4"
         app:layout_constraintBottom_toTopOf="@id/uploadPhotoBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -58,20 +60,28 @@
 
     <Button
         android:id="@+id/uploadPhotoBtn"
-        style="@style/Widget.App.Button.FilledButton"
+        style="@style/Widget.App.Button.FilledButton.Rounded"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Upload photo"
         android:layout_marginTop="16dp"
+        android:layout_marginBottom="24dp"
+        android:text="Upload photo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tvUploadText" />
+        app:layout_constraintTop_toBottomOf="@id/tvUploadText" />
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/emptyImageGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        app:constraint_referenced_ids="uploadPhotoBtn,ivEmptyPhoto,tvUploadText,ivUploadIcon" />
+        app:constraint_referenced_ids="uploadPhotoBtn,tvUploadText,ivUploadIcon" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/notEmptyImageGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="insuranceCardIv,moreBtn" />
 </androidx.constraintlayout.widget.ConstraintLayout>

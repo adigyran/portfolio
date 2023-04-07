@@ -16,10 +16,10 @@ internal class ProfileInsuranceListDecoration : RecyclerView.ItemDecoration() {
         state: RecyclerView.State
     ) {
         val viewHolder = parent.findContainingViewHolder(view)
-        val horizontal = (20).dpToPx()
+        val horizontal = (12).dpToPx()
         val top = when(viewHolder)
         {
-            is InsurancePolicyDelegate.ViewHolder -> (12).dpToPx()
+            is InsurancePolicyDelegate.ViewHolder -> (8).dpToPx()
             else -> 0
         }
         outRect.top = top

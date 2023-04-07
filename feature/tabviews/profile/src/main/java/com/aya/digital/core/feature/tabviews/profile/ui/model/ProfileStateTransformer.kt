@@ -25,7 +25,7 @@ class ProfileStateTransformer(context: Context) :
                 }
             },
             avatar = state.avatar,
-            age = state.dateOFBirth?.let { birthday-> "${ChronoUnit.DAYS.between(LocalDate.now(), birthday)}"}?:"",
+            age = state.dateOFBirth?.let { birthday-> "${ChronoUnit.YEARS.between(birthday, LocalDate.now())}"}?:"",
             name = kotlin.run {
                 if (state.firstName == null || state.lastName == null) return@run null
                 val lastNameInitial =

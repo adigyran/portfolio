@@ -22,8 +22,8 @@ internal class ProfileInsuranceAddDecoration : RecyclerView.ItemDecoration() {
         val top = when(viewHolder)
         {
             is InsurancePolicyPhotoDelegate.ViewHolder -> (24).dpToPx()
-            is NameFieldDelegate.ViewHolder -> (24).dpToPx()
-            is SelectionFieldDelegate.ViewHolder -> (24).dpToPx()
+            is NameFieldDelegate.ViewHolder -> (12).dpToPx()
+            is SelectionFieldDelegate.ViewHolder -> (32).dpToPx()
             else -> 0
         }
         outRect.top = top

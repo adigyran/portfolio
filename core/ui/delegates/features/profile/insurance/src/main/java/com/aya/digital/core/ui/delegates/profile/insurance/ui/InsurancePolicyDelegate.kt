@@ -49,7 +49,7 @@ class InsurancePolicyDelegate(private val onPolicyClick: (id: Int) -> Unit,
                 .load(item.photo)
                 .transform(
                     CenterCrop(),
-                    RoundedCorners(12.dpToPx())
+                    RoundedCorners(8.dpToPx())
                 )
                 .dontAnimate()
                 .into(binding.insuranceCardIv)

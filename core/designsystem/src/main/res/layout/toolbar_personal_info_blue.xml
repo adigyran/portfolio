@@ -43,7 +43,7 @@
         app:layout_constraintTop_toBottomOf="@id/backButton" />
 
     <Button
-        style="@style/Widget.App.Button.FilledButton.White"
+        style="@style/Widget.App.Button.FilledButton.Rounded.White"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
