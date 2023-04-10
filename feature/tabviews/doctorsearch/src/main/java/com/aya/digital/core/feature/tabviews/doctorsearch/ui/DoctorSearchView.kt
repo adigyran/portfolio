@@ -3,6 +3,7 @@ package com.aya.digital.core.feature.tabviews.doctorsearch.ui
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import com.aya.digital.core.ext.bindClick
 import com.aya.digital.core.feature.tabviews.doctorsearch.databinding.ViewDoctorsearchBinding
 import com.aya.digital.core.feature.tabviews.doctorsearch.di.doctorSearchDiModule
 import com.aya.digital.core.feature.tabviews.doctorsearch.ui.model.DoctorSearchStateTransformer
@@ -36,7 +37,7 @@ class DoctorSearchView :
 
     override fun prepareCreatedUi(savedInstanceState: Bundle?) {
         super.prepareCreatedUi(savedInstanceState)
-
+        binding.toolbar.btnFindDoctor bindClick {viewModel.findDoctorClicked()}
     }
 
 

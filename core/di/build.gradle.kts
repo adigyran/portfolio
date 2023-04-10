@@ -25,6 +25,8 @@ dependencies {
     implementation(project(":core:repository:profile"))
     implementation(project(":core:domain:profile"))
     implementation(project(":core:domain:dictionaries"))
+    implementation(project(":core:domain:appointment"))
+    implementation(project(":core:domain:doctors"))
     implementation(project(":core:security"))
     implementation(libs.kodein)
     implementation(libs.glide)

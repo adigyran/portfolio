@@ -1,8 +1,11 @@
 package com.aya.digital.core.feature.doctors.doctorcard.ui
 
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import com.aya.digital.core.ext.argument
+import com.aya.digital.core.ext.createFragment
 import com.aya.digital.core.feature.doctors.doctorcard.databinding.ViewDoctorCardBinding
 import com.aya.digital.core.feature.doctors.doctorcard.di.doctorCardDiModule
 import com.aya.digital.core.feature.doctors.doctorcard.ui.model.DoctorCardStateTransformer
@@ -11,12 +14,15 @@ import com.aya.digital.core.feature.doctors.doctorcard.viewmodel.DoctorCardState
 import com.aya.digital.core.feature.doctors.doctorcard.viewmodel.DoctorCardViewModel
 import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.ui.base.screens.DiFragment
+import kotlinx.parcelize.Parcelize
 import org.kodein.di.DI
 import org.kodein.di.factory
 import org.kodein.di.on
 
 class DoctorCardView :
     DiFragment<ViewDoctorCardBinding, DoctorCardViewModel, DoctorCardState, BaseSideEffect, DoctorCardUiModel, DoctorCardStateTransformer>() {
+
+    private var param: Param by argument("param")
 
     private val viewModelFactory: ((Unit) -> DoctorCardViewModel) by kodein.on(
         context = this
@@ -31,7 +37,7 @@ class DoctorCardView :
 
     }
 
-    override fun provideDiModule(): DI.Module = doctorCardDiModule(tryTyGetParentRouter())
+    override fun provideDiModule(): DI.Module = doctorCardDiModule(tryTyGetParentRouter(),param)
 
     override fun provideViewBinding(
         inflater: LayoutInflater,
@@ -47,8 +53,19 @@ class DoctorCardView :
         }
     }
 
+    @Parcelize
+    class Param(
+        val doctorId: Int
+    ) : Parcelable
+
     override fun provideViewModel(): DoctorCardViewModel = viewModelFactory(Unit)
     override fun provideStateTransformer(): DoctorCardStateTransformer =
         stateTransformerFactory(Unit)
 
+    companion object {
+        fun getNewInstance(doctorId: Int): DoctorCardView =
+            createFragment(
+                Param(doctorId)
+            )
+    }
 }

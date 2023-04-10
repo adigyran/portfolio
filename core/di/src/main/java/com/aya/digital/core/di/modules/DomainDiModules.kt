@@ -8,5 +8,4 @@ import com.aya.digital.core.domain.profile.di.profileDomainDiModule
 fun domainDiModules() = listOf(
     authDomainDiModule(),
     profileDomainDiModule(),
-    dictionariesDomainDiModule()
-)
+    dictionariesDomainDiModule())

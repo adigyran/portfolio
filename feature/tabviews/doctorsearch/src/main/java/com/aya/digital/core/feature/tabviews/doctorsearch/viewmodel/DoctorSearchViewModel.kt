@@ -1,10 +1,12 @@
 package com.aya.digital.core.feature.tabviews.doctorsearch.viewmodel
 
 
+import com.aya.digital.core.feature.tabviews.doctorsearch.navigation.DoctorSearchNavigationEvents
 import com.aya.digital.core.feature.tabviews.doctorsearch.viewmodel.DoctorSearchSideEffects
 import com.aya.digital.core.feature.tabviews.doctorsearch.viewmodel.DoctorSearchState
 import com.aya.digital.core.mvi.BaseViewModel
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
+import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.viewmodel.container
 
 class DoctorSearchViewModel(
@@ -18,6 +20,9 @@ class DoctorSearchViewModel(
 
     }
 
+    fun findDoctorClicked() = intent {
+        coordinatorRouter.sendEvent(DoctorSearchNavigationEvents.OpenDoctorCard(doctorId = 1185))
+    }
 
 }
 

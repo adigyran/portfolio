@@ -13,6 +13,11 @@ class AppointmentsViewModel(
         initialState = AppointmentsState(""),
     )
     {
+        loadAppointments()
+    }
+
+    private fun loadAppointments()
+    {
 
     }
 

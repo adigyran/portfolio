@@ -1,13 +1,15 @@
 package com.aya.digital.core.feature.doctors.doctorcard.di
 
 import com.aya.digital.core.dibase.scopes.CustomFragmentScope
+import com.aya.digital.core.feature.doctors.doctorcard.ui.DoctorCardView
 import com.aya.digital.core.feature.doctors.doctorcard.ui.model.DoctorCardStateTransformer
 import com.aya.digital.core.feature.doctors.doctorcard.viewmodel.DoctorCardViewModel
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
 import org.kodein.di.*
 
 fun doctorCardDiModule(
-    parentCoordinatorEvent: CoordinatorRouter
+    parentCoordinatorEvent: CoordinatorRouter,
+    param: DoctorCardView.Param
 ) = DI.Module("doctorCardDiModule") {
 
     bind<DoctorCardStateTransformer>() with singleton {
@@ -18,7 +20,7 @@ fun doctorCardDiModule(
 
     bind {
         scoped(CustomFragmentScope).singleton {
-            DoctorCardViewModel(parentCoordinatorEvent)
+            DoctorCardViewModel(parentCoordinatorEvent, param)
         }
     }
 }

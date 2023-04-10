@@ -102,6 +102,7 @@ dependencies {
     implementation(project(":feature:profile:security:changepassword"))
     implementation(project(":feature:profile:emergencycontact"))
     implementation(project(":feature:profile:notifications"))
+    implementation(project(":feature:doctors:doctorcard"))
 
     implementation(project(":feature:choosers:selectwithsearch"))
     implementation(project(":feature:auth:chooser"))
