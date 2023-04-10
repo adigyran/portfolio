@@ -116,6 +116,8 @@ include(":core:ui:delegates:features:profile:emergencycontactinfo")
 include(":core:ui:delegates:features:profile:securitysummary")
 include(":core:ui:delegates:features:profile:clinicinfo")
 include(":core:ui:delegates:features:profile:insurance")
+//appointments
+include(":core:ui:delegates:features:appointments:patientappointment")
 
 
 //tabs
@@ -154,9 +156,8 @@ include(":feature:profile:clinicinfo")
 include(":feature:profile:security:securitysummary")
 include(":feature:profile:security:changepassword")
 include(":feature:profile:security:changeemailphone")
-
-
-
+//doctors
+include(":feature:doctors:doctorcard")
 
 include(":core:localisation")
 

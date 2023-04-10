@@ -7,5 +7,6 @@ android {
 }
 
 dependencies {
-
+    implementation(project(":core:ext"))
+    implementation(project(":core:ui:delegates:features:appointments:patientappointment"))
 }

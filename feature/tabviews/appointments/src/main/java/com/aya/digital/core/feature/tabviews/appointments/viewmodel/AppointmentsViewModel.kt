@@ -16,6 +16,9 @@ class AppointmentsViewModel(
 
     }
 
+    fun onAppointmentClicked(appointmentId: Int) {
+
+    }
 
 }
 

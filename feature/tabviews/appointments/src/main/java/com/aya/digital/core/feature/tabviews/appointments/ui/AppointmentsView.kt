@@ -3,6 +3,8 @@ package com.aya.digital.core.feature.tabviews.appointments.ui
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.aya.digital.core.feature.tabviews.appointments.databinding.ViewAppointmentsBinding
 import com.aya.digital.core.feature.tabviews.appointments.di.appointmentsDiModule
 import com.aya.digital.core.feature.tabviews.appointments.ui.model.AppointmentsStateTransformer
@@ -12,6 +14,7 @@ import com.aya.digital.core.feature.tabviews.appointments.viewmodel.Appointments
 import com.aya.digital.core.feature.tabviews.appointments.viewmodel.AppointmentsSideEffects
 import com.aya.digital.core.ui.adapters.base.BaseDelegateAdapter
 import com.aya.digital.core.ui.base.screens.DiFragment
+import com.aya.digital.core.ui.delegates.appointments.patientappointment.ui.PatientAppointmentDelegate
 import org.kodein.di.DI
 import org.kodein.di.factory
 import org.kodein.di.on
@@ -29,14 +32,29 @@ class AppointmentsView :
 
     private val adapter by lazy(LazyThreadSafetyMode.NONE) {
         BaseDelegateAdapter.create {
-
-
+            delegate { PatientAppointmentDelegate(viewModel::onAppointmentClicked) }
         }
     }
 
     override fun prepareCreatedUi(savedInstanceState: Bundle?) {
         super.prepareCreatedUi(savedInstanceState)
+        if (savedInstanceState == null) {
+            recyclers.add(binding.recycler)
+            with(binding.recycler) {
+                itemAnimator = null
+                setHasFixedSize(true)
+                setItemViewCacheSize(30)
+                isNestedScrollingEnabled = false
 
+                val lm = LinearLayoutManager(
+                    context,
+                    RecyclerView.VERTICAL,
+                    false
+                )
+                layoutManager = lm
+                addItemDecoration(AppointmentsTabDecoration())
+            }
+        }
     }
 
 
@@ -55,7 +73,10 @@ class AppointmentsView :
 
     override fun render(state: AppointmentsState) {
         stateTransformer(state).data?.let {
-
+            adapter.items = it
+            if (binding.recycler.adapter == null) {
+                binding.recycler.swapAdapter(adapter, true)
+            }
         }
     }
 
