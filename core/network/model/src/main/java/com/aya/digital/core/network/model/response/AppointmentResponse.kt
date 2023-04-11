@@ -7,18 +7,10 @@ import kotlinx.datetime.LocalDateTime
 @JsonClass(generateAdapter = true)
 data class AppointmentResponse(
     val id: Int,
-    val comment: String?,
-    val createdAt: Any?,
-    val description: Any?,
-    val endDate: LocalDateTime,
-    val minutesDuration: Int?,
-    val address: String?,
-    val priority: Int?,
-    val startDate: LocalDateTime?,
-    val appointmentStatus: String?,
-    @Json(name = "refPatient") val patient: com.aya.digital.core.network.model.response.PatientResponse?,
-    @Json(name = "refPractitioner") val practitioner: com.aya.digital.core.network.model.response.PractitionerResponse?,
-    @Json(name = "refSlot") val slot: com.aya.digital.core.network.model.response.SlotResponse?,
+    val createdAt: String,
+    val endDate: String,
+    val minutesDuration: Int,
+    val startDate: String,
 )
 
 @JsonClass(generateAdapter = true)

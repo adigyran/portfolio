@@ -12,8 +12,9 @@ dependencies {
     implementation(project(":core:network:main"))
     implementation(project(":core:datasource"))
     implementation(project(":core:datastore"))
+    implementation(project(":core:data:base"))
+    implementation(project(":core:data:doctors"))
     implementation(libs.kodein)
     implementation(libs.jwt.decode)
     implementation(libs.rxkotlin)
-    implementation(libs.open.auth)
 }

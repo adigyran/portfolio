@@ -21,6 +21,8 @@ dependencies {
     implementation(project(":core:mappers:dictionaries"))
     implementation(project(":core:repository:auth"))
     implementation(project(":core:repository:dictionaries"))
+    implementation(project(":core:repository:doctors"))
+    implementation(project(":core:repository:appointment"))
     implementation(project(":core:domain:auth"))
     implementation(project(":core:repository:profile"))
     implementation(project(":core:domain:profile"))

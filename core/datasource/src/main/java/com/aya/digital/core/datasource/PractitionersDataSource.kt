@@ -2,7 +2,6 @@ package com.aya.digital.core.datasource
 
 import com.aya.digital.core.network.model.response.base.PagedResponse
 import com.aya.digital.core.network.model.response.doctors.DoctorDataResponse
-import com.aya.digital.core.network.model.response.doctors.PractitionersResponse
 import com.aya.digital.core.network.model.response.doctors.SpecialityResponse
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Single
@@ -23,7 +22,7 @@ interface PractitionersDataSource {
         id: Int,
     ): Single<DoctorDataResponse>
 
-    fun searchPractitioners(
+   /* fun searchPractitioners(
         search: String,
         page: Int = 0,
         limit: Int = 10
@@ -36,7 +35,7 @@ interface PractitionersDataSource {
         page: Int = 0,
         limit: Int = 10
     ): Flowable<PractitionersResponse>
-
+*/
     fun fetchSpecialities(
         page: Int,
         limit: Int,

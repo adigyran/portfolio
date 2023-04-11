@@ -10,4 +10,7 @@ dependencies {
     implementation(project(":core:data:base"))
     implementation(project(":core:data:appointment"))
     implementation(project(":core:network:model"))
+    implementation(libs.kotlinx.time)
+    implementation(libs.kodein)
+
 }

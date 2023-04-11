@@ -4,7 +4,6 @@ import com.aya.digital.core.network.api.services.PractitionersService
 import com.aya.digital.core.network.main.di.modules.createApiService
 import com.aya.digital.core.network.model.response.base.PagedResponse
 import com.aya.digital.core.network.model.response.doctors.DoctorDataResponse
-import com.aya.digital.core.network.model.response.doctors.PractitionersResponse
 import com.aya.digital.core.network.model.response.doctors.SpecialityResponse
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Single
@@ -48,21 +47,6 @@ class RetrofitPractitionersNetwork(private val network: PractitionersService) :
 
     override fun fetchPractitionerById(id: Int): Single<DoctorDataResponse> =
         network.fetchPractitionerById(id)
-
-    override fun searchPractitioners(
-        search: String,
-        page: Int,
-        limit: Int
-    ): Flowable<PractitionersResponse> =
-        network.searchPractitioners(search, page, limit)
-
-    override fun searchPractitionersWithCode(
-        code: String,
-        search: String,
-        page: Int,
-        limit: Int
-    ): Flowable<PractitionersResponse> =
-        network.searchPractitionersWithCode(code, search, page, limit)
 
     override fun fetchSpecialities(
         page: Int,

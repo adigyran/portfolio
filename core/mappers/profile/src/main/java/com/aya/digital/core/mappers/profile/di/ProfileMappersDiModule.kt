@@ -1,4 +1,4 @@
-package com.aya.digital.core.mappers.doctors.di
+package com.aya.digital.core.mappers.profile.di
 
 import com.aya.digital.core.data.mappers.profile.InsurancePolicyMapper
 import com.aya.digital.core.data.mappers.profile.LoginResultMapper
