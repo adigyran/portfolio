@@ -21,8 +21,15 @@ class DoctorCardViewModel(
         initialState = DoctorCardState(),
     )
     {
+        loadDoctor(param.doctorId)
     }
 
+    private fun loadDoctor(doctorId:Int) = intent {
+        getDoctorByIdUseCase(doctorId).await()
+            .processResult({
+                           reduce { state.copy(doctorName = it.firstName) }
+            },{processError(it)})
+    }
 
 
 }
