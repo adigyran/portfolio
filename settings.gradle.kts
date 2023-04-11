@@ -118,7 +118,8 @@ include(":core:ui:delegates:features:profile:clinicinfo")
 include(":core:ui:delegates:features:profile:insurance")
 //appointments
 include(":core:ui:delegates:features:appointments:patientappointment")
-
+//doctorcard
+include(":core:ui:delegates:features:doctorcard:doctorslot")
 
 //tabs
 include(":feature:tabs:home")
