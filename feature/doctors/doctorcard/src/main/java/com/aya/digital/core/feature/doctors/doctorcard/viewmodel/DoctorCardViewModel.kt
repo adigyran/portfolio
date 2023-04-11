@@ -1,5 +1,6 @@
 package com.aya.digital.core.feature.doctors.doctorcard.viewmodel
 
+import com.aya.digital.core.domain.doctors.base.GetDoctorByIdUseCase
 import com.aya.digital.core.feature.doctors.doctorcard.ui.DoctorCardView
 import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.mvi.BaseViewModel
@@ -12,7 +13,8 @@ import timber.log.Timber
 
 class DoctorCardViewModel(
     private val coordinatorRouter: CoordinatorRouter,
-    private val param: DoctorCardView.Param
+    private val param: DoctorCardView.Param,
+    private val getDoctorByIdUseCase: GetDoctorByIdUseCase
 ) :
     BaseViewModel<DoctorCardState, BaseSideEffect>() {
     override val container = container<DoctorCardState, BaseSideEffect>(
