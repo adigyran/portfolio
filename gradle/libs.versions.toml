@@ -55,6 +55,9 @@ gmsMaps = "18.1.0"
 mapsUtils = "3.0.0"
 ktxMaps = "3.4.0"
 
+#videocalls
+twilio = "7.6.1"
+
 #location
 googlePlayLocation = "21.0.1"
 
@@ -174,7 +177,6 @@ adapter-delegates-view-binding = { group = "com.hannesdorfmann", name = "adapter
 groupie = { group = "com.github.lisawray.groupie", name = "groupie", version.ref = "groupie" }
 groupie-view-binding = { group = "com.github.lisawray.groupie", name = "groupie-viewbinding", version.ref = "groupie" }
 
-
 #ui-pinview
 pinview = { group = "com.github.mukeshsolanki", name = "android-otpview-pinview", version.ref = "pinView" }
 
@@ -187,6 +189,9 @@ decoro = { group = "ru.tinkoff.decoro", name = "decoro", version.ref = "decoro" 
 #ui-glide
 glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
 glide-annotationprocessor = { group = "com.github.bumptech.glide", name = "compiler", version.ref = "glide" }
+
+#videocalls
+twilio = { group = "com.twilio", name = "video-android", version.ref = "twilio" }
 
 #maps
 gradle-secrets = { group = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", name = "secrets-gradle-plugin", version.ref = "gradleSecrets" }

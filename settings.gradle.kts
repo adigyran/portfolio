@@ -159,6 +159,8 @@ include(":feature:profile:security:changepassword")
 include(":feature:profile:security:changeemailphone")
 //doctors
 include(":feature:doctors:doctorcard")
+//videocall
+include(":feature:videocall:videocallscreen")
 
 include(":core:localisation")
 

@@ -111,6 +111,9 @@ dependencies {
     implementation(project(":feature:auth:signup"))
     implementation(project(":feature:auth:restorepassword"))
 
+    implementation(project(":feature:videocall:videocallscreen"))
+
+
     implementation(project(":core:appbase"))
     implementation(project(":core:data:base"))
     implementation(project(":core:ui:base"))
