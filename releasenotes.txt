@@ -19,3 +19,7 @@ main screen WIP due to font oddities
 added google auth
 added toolbars, fixed design
 masks and toolbars
+added appointments list
+doctor search test
+doctor card test
+video calls
