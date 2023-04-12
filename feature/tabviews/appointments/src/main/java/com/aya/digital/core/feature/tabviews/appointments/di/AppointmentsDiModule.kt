@@ -14,7 +14,7 @@ fun appointmentsDiModule(
 
     bind {
         scoped(CustomFragmentScope).singleton {
-            AppointmentsViewModel(parentCoordinatorEvent)
+            AppointmentsViewModel(parentCoordinatorEvent,instance())
         }
     }
 }

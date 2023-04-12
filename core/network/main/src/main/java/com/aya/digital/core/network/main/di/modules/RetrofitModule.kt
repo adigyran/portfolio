@@ -36,6 +36,12 @@ internal fun retrofitModule() = DI.Module("retrofitModule") {
             .baseUrl(Constants.BASE_AUTH_URL_API)
             .build()
     }
+
+    bind<Retrofit>(RetrofitTags.RETROFIT_TELEHEALTH_TOKEN_TAG) with singleton {
+        instance<Retrofit.Builder>(Constants.RETROFIT_BUILDER_NORMAL)
+            .baseUrl(Constants.BASE_TELEHEALTH_URL_API)
+            .build()
+    }
 }
 
 inline fun <reified T> createApiService(retrofit: Retrofit): T {

@@ -1,6 +1,5 @@
 package com.aya.digital.core.network.model.response
 
-import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import kotlinx.datetime.LocalDateTime
 
@@ -9,7 +8,7 @@ data class AppointmentResponse(
     val id: Int,
     val createdAt: String,
     val endDate: String,
-    val minutesDuration: Int,
+    val minutesDurations: Int,
     val startDate: String,
 )
 

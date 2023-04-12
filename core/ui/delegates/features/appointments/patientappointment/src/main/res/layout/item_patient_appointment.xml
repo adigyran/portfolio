@@ -14,6 +14,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:textAppearance="@style/TextAppearance.App.H2"
         android:id="@+id/tvStartDate"
         />
     <TextView
@@ -23,6 +24,7 @@
         app:layout_constraintTop_toBottomOf="@id/tvStartDate"
         app:layout_constraintStart_toStartOf="parent"
         android:id="@+id/tvDuration"
+        android:textAppearance="@style/TextAppearance.App.Body.DescriptionText"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

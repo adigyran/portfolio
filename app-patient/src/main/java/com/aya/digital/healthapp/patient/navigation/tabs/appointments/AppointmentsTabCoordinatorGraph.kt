@@ -1,7 +1,9 @@
 package com.aya.digital.healthapp.patient.navigation.tabs.appointments
 
+import com.aya.digital.core.feature.tabviews.appointments.navigation.AppointmentsNavigationEvents
 import com.aya.digital.core.feature.tabviews.appointments.navigation.AppointmentsScreen
 import com.aya.digital.core.feature.tabviews.home.navigation.HomeScreen
+import com.aya.digital.core.feature.videocall.videocallscreen.navigation.VideoCallScreenScreen
 import com.aya.digital.core.navigation.coordinator.CoordinatorEvent
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
 import com.aya.digital.core.navigation.graph.navigator.FragmentContainerGraph
@@ -17,6 +19,10 @@ class AppointmentsTabCoordinatorGraph : FragmentContainerGraph {
         when (event) {
             HomeTabNavigationEvents.OpenDefaultScreen -> {
                 navigationRouter.newRootScreen(AppointmentsScreen)
+            }
+            is AppointmentsNavigationEvents.OpenVideoCall ->
+            {
+                navigationRouter.navigateTo(VideoCallScreenScreen(event.roomId))
             }
             else -> parentCoordinatorRouter.sendEvent(event)
         }

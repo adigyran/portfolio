@@ -13,6 +13,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import com.aya.digital.core.ext.argument
 import com.aya.digital.core.ext.createFragment
+import com.aya.digital.core.feature.videocall.videocallscreen.databinding.ContentVideoBinding
 import com.aya.digital.core.feature.videocall.videocallscreen.databinding.ViewVideocallScreenBinding
 import com.aya.digital.core.feature.videocall.videocallscreen.di.videoCallScreenDiModule
 import com.aya.digital.core.feature.videocall.videocallscreen.ui.model.VideoCallScreenStateTransformer
@@ -313,11 +314,16 @@ class VideoCallScreenView :
     override fun provideDiModule(): DI.Module =
         videoCallScreenDiModule(tryTyGetParentRouter(), param)
 
+    private lateinit var contentVideoBinding : ContentVideoBinding
     override fun provideViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ): ViewVideocallScreenBinding =
-        ViewVideocallScreenBinding.inflate(inflater, container, false)
+    ): ViewVideocallScreenBinding {
+
+        val viewVideocallScreenBinding = ViewVideocallScreenBinding.inflate(inflater, container, false)
+        contentVideoBinding = ContentVideoBinding.bind(viewVideocallScreenBinding.root)
+        return viewVideocallScreenBinding
+    }
 
     override fun sideEffect(sideEffect: BaseSideEffect) = Unit
 
@@ -447,7 +453,7 @@ class VideoCallScreenView :
         /*
          * This app only displays video for one additional participant per Room
          */
-        if (binding.videoContainer.thumbnailVideoView.visibility == View.VISIBLE) {
+        if (contentVideoBinding.thumbnailVideoView.visibility == View.VISIBLE) {
             Snackbar.make(
                 binding.connectActionFab,
                 "Multiple participants are not currently support in this UI",
@@ -457,7 +463,7 @@ class VideoCallScreenView :
             return
         }
         participantIdentity = remoteParticipant.identity
-        binding.videoContainer.videoStatusTextView.text = "Participant $participantIdentity joined"
+        contentVideoBinding.videoStatusTextView.text = "Participant $participantIdentity joined"
 
         /*
          * Add participant renderer
@@ -479,19 +485,19 @@ class VideoCallScreenView :
      */
     private fun addRemoteParticipantVideo(videoTrack: VideoTrack) {
         moveLocalVideoTothumbnailView()
-        binding.videoContainer.primaryVideoView.mirror = false
-        videoTrack.addSink(binding.videoContainer.primaryVideoView)
+        contentVideoBinding.primaryVideoView.mirror = false
+        videoTrack.addSink(contentVideoBinding.primaryVideoView)
     }
 
     private fun moveLocalVideoTothumbnailView() {
-        if (binding.videoContainer.thumbnailVideoView.visibility == View.GONE) {
-            binding.videoContainer.thumbnailVideoView.visibility = View.VISIBLE
+        if (contentVideoBinding.thumbnailVideoView.visibility == View.GONE) {
+            contentVideoBinding.thumbnailVideoView.visibility = View.VISIBLE
             with(localVideoTrack) {
-                this?.removeSink(binding.videoContainer.primaryVideoView)
-                this?.addSink(binding.videoContainer.thumbnailVideoView)
+                this?.removeSink(contentVideoBinding.primaryVideoView)
+                this?.addSink(contentVideoBinding.thumbnailVideoView)
             }
-            localVideoView = binding.videoContainer.thumbnailVideoView
-            binding.videoContainer.thumbnailVideoView.mirror = cameraCapturerCompat.cameraSource ==
+            localVideoView = contentVideoBinding.thumbnailVideoView
+            contentVideoBinding.thumbnailVideoView.mirror = cameraCapturerCompat.cameraSource ==
                     CameraCapturerCompat.Source.FRONT_CAMERA
         }
     }
@@ -500,7 +506,7 @@ class VideoCallScreenView :
      * Called when participant leaves the room
      */
     private fun removeRemoteParticipant(remoteParticipant: RemoteParticipant) {
-        binding.videoContainer.videoStatusTextView.text = "Participant $remoteParticipant.identity left."
+        contentVideoBinding.videoStatusTextView.text = "Participant $remoteParticipant.identity left."
         if (remoteParticipant.identity != participantIdentity) {
             return
         }
@@ -517,18 +523,18 @@ class VideoCallScreenView :
     }
 
     private fun removeParticipantVideo(videoTrack: VideoTrack) {
-        videoTrack.removeSink(binding.videoContainer.primaryVideoView)
+        videoTrack.removeSink(contentVideoBinding.primaryVideoView)
     }
 
     private fun moveLocalVideoToprimaryView() {
-        if (binding.videoContainer.thumbnailVideoView.visibility == View.VISIBLE) {
-            binding.videoContainer.thumbnailVideoView.visibility = View.GONE
+        if (contentVideoBinding.thumbnailVideoView.visibility == View.VISIBLE) {
+            contentVideoBinding.thumbnailVideoView.visibility = View.GONE
             with(localVideoTrack) {
-                this?.removeSink(binding.videoContainer.thumbnailVideoView)
-                this?.addSink(binding.videoContainer.primaryVideoView)
+                this?.removeSink(contentVideoBinding.thumbnailVideoView)
+                this?.addSink(contentVideoBinding.primaryVideoView)
             }
-            localVideoView = binding.videoContainer.primaryVideoView
-            binding.videoContainer.primaryVideoView.mirror = cameraCapturerCompat.cameraSource ==
+            localVideoView = contentVideoBinding.primaryVideoView
+            contentVideoBinding.primaryVideoView.mirror = cameraCapturerCompat.cameraSource ==
                     CameraCapturerCompat.Source.FRONT_CAMERA
         }
     }

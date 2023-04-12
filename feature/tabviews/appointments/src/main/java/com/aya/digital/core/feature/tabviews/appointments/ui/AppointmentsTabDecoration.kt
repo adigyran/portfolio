@@ -15,7 +15,7 @@ internal class AppointmentsTabDecoration : RecyclerView.ItemDecoration() {
         state: RecyclerView.State
     ) {
         val viewHolder = parent.findContainingViewHolder(view)
-        val horizontal = (13).dpToPx()
+        val horizontal = (12).dpToPx()
         val top = (18).dpToPx()
         outRect.top = top
         outRect.left = horizontal
