@@ -15,6 +15,6 @@ import retrofit2.http.*
 
 interface TeleHealthService {
 
-    @GET("token/new")
+    @POST("token")
     fun getRoomToken(@Body getTelehealthRoomTokenBody: GetTelehealthRoomTokenBody): Single<TelehealthRoomTokenResponse>
 }

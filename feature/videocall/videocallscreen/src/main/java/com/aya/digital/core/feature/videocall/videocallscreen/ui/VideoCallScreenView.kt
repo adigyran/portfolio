@@ -1,6 +1,10 @@
 package com.aya.digital.core.feature.videocall.videocallscreen.ui
 
+import android.Manifest
 import android.content.DialogInterface
+import android.content.pm.PackageManager
+import android.media.AudioManager
+import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
 import android.util.Log
@@ -9,7 +13,9 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.aya.digital.core.ext.argument
 import com.aya.digital.core.ext.createFragment
@@ -33,12 +39,16 @@ import kotlinx.parcelize.Parcelize
 import org.kodein.di.DI
 import org.kodein.di.factory
 import org.kodein.di.on
+import timber.log.Timber
 import tvi.webrtc.VideoSink
 import kotlin.properties.Delegates
 import com.aya.digital.core.feature.videocall.videocallscreen.R as VideocallscreenR
 
 class VideoCallScreenView :
     DiFragment<ViewVideocallScreenBinding, VideoCallScreenViewModel, VideoCallScreenState, BaseSideEffect, VideoCallScreenUiModel, VideoCallScreenStateTransformer>() {
+    private val CAMERA_MIC_PERMISSION_REQUEST_CODE = 1
+    private val CAMERA_PERMISSION_INDEX = 0
+    private val MIC_PERMISSION_INDEX = 1
 
     private var param: Param by argument("param")
 
@@ -93,19 +103,23 @@ class VideoCallScreenView :
     private val roomListener = object : Room.Listener {
         override fun onConnected(room: Room) {
             localParticipant = room.localParticipant
-
+            Timber.d("Connected to ${room.name}")
 
             // Only one participant is supported
             room.remoteParticipants.firstOrNull()?.let { addRemoteParticipant(it) }
         }
 
         override fun onReconnected(room: Room) {
+            Timber.d("Connected to ${room.name}")
         }
 
         override fun onReconnecting(room: Room, twilioException: TwilioException) {
+            Timber.d("Reconnecting to ${room.name}")
+
         }
 
         override fun onConnectFailure(room: Room, e: TwilioException) {
+            Timber.d("Failed to connect")
             audioSwitch.deactivate()
         }
 
@@ -239,7 +253,7 @@ class VideoCallScreenView :
             remoteVideoTrackPublication: RemoteVideoTrackPublication,
             remoteVideoTrack: RemoteVideoTrack
         ) {
-
+            addRemoteParticipantVideo(remoteVideoTrack)
         }
 
         override fun onVideoTrackUnsubscribed(
@@ -255,6 +269,7 @@ class VideoCallScreenView :
             remoteVideoTrackPublication: RemoteVideoTrackPublication,
             twilioException: TwilioException
         ) {
+            Timber.d("onVideoTrackSubscriptionFailed ${twilioException.message}")
         }
 
         override fun onAudioTrackEnabled(
@@ -311,6 +326,21 @@ class VideoCallScreenView :
 
     }
 
+    override fun prepareCreatedUi(savedInstanceState: Bundle?) {
+        super.prepareCreatedUi(savedInstanceState)
+
+        localVideoView = contentVideoBinding.primaryVideoView
+
+        savedVolumeControlStream = requireActivity().volumeControlStream
+        requireActivity().volumeControlStream = AudioManager.STREAM_VOICE_CALL
+        if (!checkPermissionForCameraAndMicrophone()) {
+            requestPermissionForCameraMicrophoneAndBluetooth()
+        } else {
+            createAudioAndVideoTracks()
+            audioSwitch.start { audioDevices, audioDevice -> updateAudioDeviceIcon(audioDevice) }
+        }
+    }
+
     override fun provideDiModule(): DI.Module =
         videoCallScreenDiModule(tryTyGetParentRouter(), param)
 
@@ -329,8 +359,90 @@ class VideoCallScreenView :
 
     override fun render(state: VideoCallScreenState) {
         stateTransformer(state).run {
-
+            this.roomToken?.let { accessToken->
+                this@VideoCallScreenView.accessToken = accessToken
+                connectToRoom("${param.roomId}")
+            }
         }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
+        if (requestCode == CAMERA_MIC_PERMISSION_REQUEST_CODE) {
+            /*
+             * The first two permissions are Camera & Microphone, bluetooth isn't required but
+             * enabling it enables bluetooth audio routing functionality.
+             */
+            val cameraAndMicPermissionGranted =
+                ((PackageManager.PERMISSION_GRANTED == grantResults[CAMERA_PERMISSION_INDEX])
+                        and (PackageManager.PERMISSION_GRANTED == grantResults[MIC_PERMISSION_INDEX]))
+
+            /*
+             * Due to bluetooth permissions being requested at the same time as camera and mic
+             * permissions, AudioSwitch should be started after providing the user the option
+             * to grant the necessary permissions for bluetooth.
+             */
+            audioSwitch.start { audioDevices, audioDevice -> updateAudioDeviceIcon(audioDevice) }
+
+            if (cameraAndMicPermissionGranted) {
+                createAudioAndVideoTracks()
+            } else {
+                Toast.makeText(
+                    requireContext(),
+                    VideocallscreenR.string.permissions_needed,
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        }
+    }
+    private fun checkPermissions(permissions: Array<String>): Boolean {
+        var shouldCheck = true
+        for (permission in permissions) {
+            shouldCheck = shouldCheck and (PackageManager.PERMISSION_GRANTED ==
+                    ContextCompat.checkSelfPermission(requireActivity(), permission))
+        }
+        return shouldCheck
+    }
+
+    private fun requestPermissions(permissions: Array<String>) {
+        var displayRational = false
+        for (permission in permissions) {
+            displayRational =
+                displayRational or ActivityCompat.shouldShowRequestPermissionRationale(
+                    requireActivity(),
+                    permission
+                )
+        }
+        if (displayRational) {
+            Toast.makeText(requireContext(), VideocallscreenR.string.permissions_needed, Toast.LENGTH_LONG).show()
+        } else {
+            ActivityCompat.requestPermissions(
+                requireActivity(), permissions, CAMERA_MIC_PERMISSION_REQUEST_CODE)
+        }
+    }
+
+    private fun checkPermissionForCameraAndMicrophone(): Boolean {
+        return checkPermissions(
+            arrayOf(Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO))
+    }
+
+    private fun requestPermissionForCameraMicrophoneAndBluetooth() {
+        val permissionsList: Array<String> = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            arrayOf(
+                Manifest.permission.CAMERA,
+                Manifest.permission.RECORD_AUDIO,
+                Manifest.permission.BLUETOOTH_CONNECT
+            )
+        } else {
+            arrayOf(
+                Manifest.permission.CAMERA,
+                Manifest.permission.RECORD_AUDIO
+            )
+        }
+        requestPermissions(permissionsList)
     }
 
     private fun createAudioAndVideoTracks() {
@@ -453,6 +565,7 @@ class VideoCallScreenView :
         /*
          * This app only displays video for one additional participant per Room
          */
+        Timber.d("addRemoteParticipant $remoteParticipant")
         if (contentVideoBinding.thumbnailVideoView.visibility == View.VISIBLE) {
             Snackbar.make(
                 binding.connectActionFab,
@@ -469,6 +582,7 @@ class VideoCallScreenView :
          * Add participant renderer
          */
         remoteParticipant.remoteVideoTracks.firstOrNull()?.let { remoteVideoTrackPublication ->
+            Timber.d("addRemoteParticipant ${remoteVideoTrackPublication.isTrackSubscribed} $remoteVideoTrackPublication")
             if (remoteVideoTrackPublication.isTrackSubscribed) {
                 remoteVideoTrackPublication.remoteVideoTrack?.let { addRemoteParticipantVideo(it) }
             }
@@ -484,6 +598,7 @@ class VideoCallScreenView :
      * Set primary view as renderer for participant video track
      */
     private fun addRemoteParticipantVideo(videoTrack: VideoTrack) {
+        Timber.d("addRemoteParticipantVideo $videoTrack")
         moveLocalVideoTothumbnailView()
         contentVideoBinding.primaryVideoView.mirror = false
         videoTrack.addSink(contentVideoBinding.primaryVideoView)
@@ -565,6 +680,84 @@ class VideoCallScreenView :
         }
     }
 
+
+    override fun onResume() {
+        super.onResume()
+        /*
+         * If the local video track was released when the app was put in the background, recreate.
+         */
+        localVideoTrack = if (localVideoTrack == null && checkPermissionForCameraAndMicrophone()) {
+            createLocalVideoTrack(
+                requireActivity(),
+                true,
+                cameraCapturerCompat
+            )
+        } else {
+            localVideoTrack
+        }
+        localVideoTrack?.addSink(localVideoView)
+
+        /*
+         * If connected to a Room then share the local video track.
+         */
+        localVideoTrack?.let { localParticipant?.publishTrack(it) }
+
+        /*
+         * Update encoding parameters if they have changed.
+         */
+        localParticipant?.setEncodingParameters(encodingParameters)
+
+        /*
+         * Update reconnecting UI
+         */
+        room?.let {
+          /*  reconnectingProgressBar.visibility = if (it.state != Room.State.RECONNECTING)
+                View.GONE else
+                View.VISIBLE
+            videoStatusTextView.text = "Connected to ${it.name}"*/
+        }
+    }
+
+    override fun onPause() {
+        /*
+         * If this local video track is being shared in a Room, remove from local
+         * participant before releasing the video track. Participants will be notified that
+         * the track has been removed.
+         */
+        localVideoTrack?.let { localParticipant?.unpublishTrack(it) }
+
+        /*
+         * Release the local video track before going in the background. This ensures that the
+         * camera can be used by other applications while this app is in the background.
+         */
+        localVideoTrack?.release()
+        localVideoTrack = null
+        super.onPause()
+    }
+
+    override fun onDestroy() {
+        /*
+         * Tear down audio management and restore previous volume stream
+         */
+        audioSwitch.stop()
+        requireActivity().volumeControlStream = savedVolumeControlStream
+
+        /*
+         * Always disconnect from the room before leaving the Activity to
+         * ensure any memory allocated to the Room resource is freed.
+         */
+        room?.disconnect()
+        disconnectedFromOnDestroy = true
+
+        /*
+         * Release the local audio and video tracks ensuring any memory allocated to audio
+         * or video is freed.
+         */
+        localAudioTrack?.release()
+        localVideoTrack?.release()
+
+        super.onDestroy()
+    }
 
     @Parcelize
     class Param(

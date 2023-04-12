@@ -14,7 +14,7 @@ fun appointmentNetworkModule() = DI.Module("appointmentNetworkModule") {
     bind<com.aya.digital.core.datasource.AppointmentDataSource>() with singleton {
         val apiService =
             createApiService<AppointmentService>(instance())
-        return@singleton RetrofitTeleHealthNetwork(apiService)
+        return@singleton RetrofitAppointmentNetwork(apiService)
     }
 }
 

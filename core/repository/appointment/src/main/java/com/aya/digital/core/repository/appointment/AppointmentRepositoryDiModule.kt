@@ -7,5 +7,5 @@ import org.kodein.di.instance
 import org.kodein.di.singleton
 
 fun appointmentRepositoryDiModule() = DI.Module("appointmentRepositoryDiModule") {
-    bind<AppointmentRepository>() with singleton { AppointmentRepositoryImpl(instance(),instance()) }
+    bind<AppointmentRepository>() with singleton { AppointmentRepositoryImpl(instance(),instance(),instance()) }
 }
