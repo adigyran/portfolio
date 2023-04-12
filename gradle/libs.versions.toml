@@ -56,7 +56,10 @@ mapsUtils = "3.0.0"
 ktxMaps = "3.4.0"
 
 #videocalls
-twilio = "7.6.1"
+
+#twilio
+twilioVideoAndroid = "7.6.1"
+twilioAudioSwitch = "1.1.7"
 
 #location
 googlePlayLocation = "21.0.1"
@@ -191,7 +194,10 @@ glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "gl
 glide-annotationprocessor = { group = "com.github.bumptech.glide", name = "compiler", version.ref = "glide" }
 
 #videocalls
-twilio = { group = "com.twilio", name = "video-android", version.ref = "twilio" }
+#twilio
+twilio = { group = "com.twilio", name = "video-android-ktx", version.ref = "twilioVideoAndroid" }
+twilio-audioswitch = { group = "com.twilio", name = "audioswitch", version.ref = "twilioAudioSwitch" }
+
 
 #maps
 gradle-secrets = { group = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", name = "secrets-gradle-plugin", version.ref = "gradleSecrets" }

@@ -2,7 +2,6 @@ package com.aya.digital.core.network.api.services
 
 import com.aya.digital.core.network.model.response.base.PagedResponse
 import com.aya.digital.core.network.model.response.doctors.DoctorDataResponse
-import com.aya.digital.core.network.model.response.doctors.PractitionersResponse
 import com.aya.digital.core.network.model.response.doctors.SpecialityResponse
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Single
@@ -27,22 +26,8 @@ interface PractitionersService {
     @GET("practitioners/{id}")
     fun fetchPractitionerById(
         @Path("id") id: Int,
-    ): Single<com.aya.digital.core.network.model.response.doctors.DoctorDataResponse>
+    ): Single<DoctorDataResponse>
 
-    @GET("practitioners/filter-search-full")
-    fun searchPractitioners(
-        @Query("search") search: String,
-        @Query("page") page: Int = 0,
-        @Query("limit") limit: Int = 10
-    ): Flowable<PractitionersResponse>
-
-    @GET("practitioners/filter-search-by-speciality-area/{specialityCode}")
-    fun searchPractitionersWithCode(
-        @Path("specialityCode") code: String,
-        @Query("search") search: String,
-        @Query("page") page: Int = 0,
-        @Query("limit") limit: Int = 10
-    ): Flowable<PractitionersResponse>
 
     @GET("specialities")
     fun fetchSpecialities(

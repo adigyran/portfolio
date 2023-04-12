@@ -8,5 +8,7 @@ android {
 
 dependencies {
     implementation(project(":core:domain:doctors"))
-
+    implementation(project(":core:appbase"))
+    implementation(libs.twilio)
+    implementation(libs.twilio.audioswitch)
 }

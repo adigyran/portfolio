@@ -7,7 +7,6 @@ import com.aya.digital.core.mappers.doctors.ClinicMapperImpl
 import com.aya.digital.core.mappers.doctors.InsuranceMapperImpl
 import com.aya.digital.core.mappers.doctors.LocationMapperImpl
 import com.aya.digital.core.mappers.doctors.SpecialityMapperImpl
-import com.aya.digital.core.mappers.profile.*
 
 import org.kodein.di.DI
 import org.kodein.di.bind

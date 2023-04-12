@@ -135,6 +135,8 @@ abstract class CoreFragment<Binding : ViewBinding> : Fragment(), ContextAware,
         else -> BaseApp.appInstance.di
     }
 
+    protected fun getAppInstance() = BaseApp.appInstance
+
     protected fun tryTyGetParentRouter(): CoordinatorRouter = when {
         parentFragment is ParentRouterProvider -> (parentFragment as ParentRouterProvider).getParentRouter()
         activity is ParentRouterProvider -> (activity as ParentRouterProvider).getParentRouter()
