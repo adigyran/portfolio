@@ -5,5 +5,5 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class VideoCallScreenState(
-    val stub: Boolean = false
+    val roomToken:String?=null
 ) : BaseState

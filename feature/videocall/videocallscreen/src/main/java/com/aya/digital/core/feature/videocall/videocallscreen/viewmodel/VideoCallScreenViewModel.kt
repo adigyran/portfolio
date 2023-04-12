@@ -1,6 +1,6 @@
 package com.aya.digital.core.feature.videocall.videocallscreen.viewmodel
 
-import com.aya.digital.core.domain.doctors.base.GetDoctorByIdUseCase
+import com.aya.digital.core.domain.appointment.telehealth.GetTeleHealthRoomTokenUseCase
 import com.aya.digital.core.feature.videocall.videocallscreen.ui.VideoCallScreenView
 import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.mvi.BaseViewModel
@@ -12,13 +12,23 @@ import org.orbitmvi.orbit.viewmodel.container
 
 class VideoCallScreenViewModel(
     private val coordinatorRouter: CoordinatorRouter,
-    private val param: VideoCallScreenView.Param
+    private val param: VideoCallScreenView.Param,
+    private val getTeleHealthRoomTokenUseCase: GetTeleHealthRoomTokenUseCase
 ) :
     BaseViewModel<VideoCallScreenState, BaseSideEffect>() {
     override val container = container<VideoCallScreenState, BaseSideEffect>(
         initialState = VideoCallScreenState(),
     )
     {
+        getRoomToken()
+    }
+
+    private fun getRoomToken() = intent {
+        getTeleHealthRoomTokenUseCase(param.roomId)
+            .await()
+            .processResult({
+                           reduce { state.copy(roomToken = it) }
+            },{processError(it)})
     }
 
 }

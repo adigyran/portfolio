@@ -8,7 +8,7 @@ class VideoCallScreenStateTransformer(context: Context) :
     BaseStateTransformer<VideoCallScreenState, VideoCallScreenUiModel>() {
     override fun invoke(state: VideoCallScreenState): VideoCallScreenUiModel =
         VideoCallScreenUiModel(
-           stub = false
+           roomToken = state.roomToken
         )
 
 
