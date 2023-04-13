@@ -4,6 +4,43 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-
+    <include layout="@layout/toolbar_doctor_blue" android:id="@+id/toolbar"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        style="@style/Widget.App.Button.FilledButton.Rounded.White"
+        android:text="Book"
+        android:id="@+id/bookBtn"
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toEndOf="@id/bookBtn"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        style="@style/Widget.App.Button.FilledButton.Rounded.White"
+        android:text="Details Info"
+        android:id="@+id/detailsBtn"
+        />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="12dp"
+        android:clipToPadding="true"
+        android:nestedScrollingEnabled="false"
+        android:paddingBottom="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bookBtn"
+        tools:itemCount="5"
+        tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        tools:orientation="vertical" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

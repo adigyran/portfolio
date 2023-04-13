@@ -4,6 +4,9 @@ import android.os.Bundle
 import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.aya.digital.core.ext.argument
 import com.aya.digital.core.ext.createFragment
 import com.aya.digital.core.feature.doctors.doctorcard.databinding.ViewDoctorCardBinding
@@ -13,6 +16,7 @@ import com.aya.digital.core.feature.doctors.doctorcard.ui.model.DoctorCardUiMode
 import com.aya.digital.core.feature.doctors.doctorcard.viewmodel.DoctorCardState
 import com.aya.digital.core.feature.doctors.doctorcard.viewmodel.DoctorCardViewModel
 import com.aya.digital.core.mvi.BaseSideEffect
+import com.aya.digital.core.ui.adapters.base.BaseDelegateAdapter
 import com.aya.digital.core.ui.base.screens.DiFragment
 import kotlinx.parcelize.Parcelize
 import org.kodein.di.DI
@@ -32,12 +36,33 @@ class DoctorCardView :
         context = this
     ).factory()
 
-    override fun prepareUi(savedInstanceState: Bundle?) {
-        super.prepareUi(savedInstanceState)
+    private val adapter by lazy(LazyThreadSafetyMode.NONE) {
+        BaseDelegateAdapter.create {
 
+        }
     }
 
-    override fun provideDiModule(): DI.Module = doctorCardDiModule(tryTyGetParentRouter(),param)
+    override fun prepareUi(savedInstanceState: Bundle?) {
+        super.prepareUi(savedInstanceState)
+        with(binding.recycler) {
+            itemAnimator = null
+            setHasFixedSize(true)
+            setItemViewCacheSize(30)
+            isNestedScrollingEnabled = false
+
+            val lm = GridLayoutManager(
+                context,
+                4,
+                RecyclerView.VERTICAL,
+                false
+            )
+            lm.spanSizeLookup = DoctorCardSpanSizeLookup(binding.recycler)
+            layoutManager = lm
+            addItemDecoration(DoctorCardDecoration())
+        }
+    }
+
+    override fun provideDiModule(): DI.Module = doctorCardDiModule(tryTyGetParentRouter(), param)
 
     override fun provideViewBinding(
         inflater: LayoutInflater,
