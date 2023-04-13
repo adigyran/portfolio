@@ -21,7 +21,15 @@ class VideoCallScreenViewModel(
         initialState = VideoCallScreenState(),
     )
     {
+       // getRoomToken()
+    }
+
+    fun connectClicked() = intent {
         getRoomToken()
+    }
+
+    fun disconnectClicked() = intent {
+
     }
 
     private fun getRoomToken() = intent {

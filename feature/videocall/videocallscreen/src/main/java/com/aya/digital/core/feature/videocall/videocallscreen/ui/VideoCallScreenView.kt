@@ -7,7 +7,6 @@ import android.media.AudioManager
 import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -27,8 +26,8 @@ import com.aya.digital.core.feature.videocall.videocallscreen.ui.model.VideoCall
 import com.aya.digital.core.feature.videocall.videocallscreen.viewmodel.VideoCallScreenSideEffects
 import com.aya.digital.core.feature.videocall.videocallscreen.viewmodel.VideoCallScreenState
 import com.aya.digital.core.feature.videocall.videocallscreen.viewmodel.VideoCallScreenViewModel
-import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.ui.base.screens.DiFragment
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.twilio.audioswitch.AudioDevice
 import com.twilio.audioswitch.AudioSwitch
@@ -105,7 +104,7 @@ class VideoCallScreenView :
         override fun onConnected(room: Room) {
             localParticipant = room.localParticipant
             Timber.d("Connected to ${room.name}")
-
+            contentVideoBinding.videoStatusTextView.text = "connected to room ${room.name}"
             // Only one participant is supported
             room.remoteParticipants.firstOrNull()?.let { addRemoteParticipant(it) }
         }
@@ -122,6 +121,7 @@ class VideoCallScreenView :
         override fun onConnectFailure(room: Room, e: TwilioException) {
             Timber.d("Failed to connect")
             audioSwitch.deactivate()
+            initializeUI()
         }
 
         override fun onDisconnected(room: Room, e: TwilioException?) {
@@ -340,6 +340,25 @@ class VideoCallScreenView :
             createAudioAndVideoTracks()
             audioSwitch.start { audioDevices, audioDevice -> updateAudioDeviceIcon(audioDevice) }
         }
+        initializeUI()
+    }
+
+    private fun initializeUI() {
+        binding.connectActionFab.setImageDrawable(
+            ContextCompat.getDrawable(
+                requireContext(),
+                VideocallscreenR.drawable.ic_video_call_white_24dp
+            )
+        )
+        contentVideoBinding.videoStatusTextView.text = "not connected, room ${param.roomId}"
+        binding.connectActionFab.show()
+        binding.connectActionFab.setOnClickListener(connectActionClickListener())
+        binding.switchCameraActionFab.show()
+        binding.switchCameraActionFab.setOnClickListener(switchCameraClickListener())
+        binding.localVideoActionFab.show()
+        binding.localVideoActionFab.setOnClickListener(localVideoClickListener())
+        binding.muteActionFab.show()
+        binding.muteActionFab.setOnClickListener(muteClickListener())
     }
 
     override fun sideEffect(sideEffect: VideoCallScreenSideEffects) {
@@ -408,6 +427,22 @@ class VideoCallScreenView :
                 ).show()
             }
         }
+    }
+
+    private fun showDisconnectActionsDialog() {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle("Disconnect?")
+            .setMessage("Are you sure you want to disconnect?")
+            .setNegativeButton("Cancel") { dialog, which ->
+                dialog.dismiss()
+            }
+            .setPositiveButton("Disconnect") { dialog, which ->
+
+                dialog.dismiss()
+                room?.disconnect()
+                viewModel.disconnectClicked()
+            }
+            .show()
     }
 
     private fun checkPermissions(permissions: Array<String>): Boolean {
@@ -509,6 +544,7 @@ class VideoCallScreenView :
              */
             enableAutomaticSubscription(enableAutomaticSubscription)
         }
+        contentVideoBinding.videoStatusTextView.text = "Connecting to room ${param.roomId}"
         setDisconnectAction()
     }
 
@@ -682,21 +718,82 @@ class VideoCallScreenView :
         }
     }
 
+
+    private fun connectActionClickListener(): View.OnClickListener {
+        return View.OnClickListener { viewModel.connectClicked() }
+    }
+
+    private fun cancelConnectDialogClickListener(): DialogInterface.OnClickListener {
+        return DialogInterface.OnClickListener { _, _ ->
+        }
+    }
+
+    private fun localVideoClickListener(): View.OnClickListener {
+        return View.OnClickListener {
+            /*
+             * Enable/disable the local video track
+             */
+            localVideoTrack?.let {
+                val enable = !it.isEnabled
+                it.enable(enable)
+                val icon: Int
+                if (enable) {
+                    icon = VideocallscreenR.drawable.ic_videocam_white_24dp
+                    binding.switchCameraActionFab.show()
+                } else {
+                    icon = VideocallscreenR.drawable.ic_videocam_off_black_24dp
+                    binding.switchCameraActionFab.hide()
+                }
+                binding.localVideoActionFab.setImageDrawable(
+                    ContextCompat.getDrawable(requireContext(), icon)
+                )
+            }
+        }
+    }
+
+    private fun muteClickListener(): View.OnClickListener {
+        return View.OnClickListener {
+            /*
+             * Enable/disable the local audio track. The results of this operation are
+             * signaled to other Participants in the same Room. When an audio track is
+             * disabled, the audio is muted.
+             */
+            localAudioTrack?.let {
+                val enable = !it.isEnabled
+                it.enable(enable)
+                val icon = if (enable)
+                    VideocallscreenR.drawable.ic_mic_white_24dp
+                else
+                    VideocallscreenR.drawable.ic_mic_off_black_24dp
+                binding.muteActionFab.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        requireContext(), icon
+                    )
+                )
+            }
+        }
+    }
+
+    private fun switchCameraClickListener(): View.OnClickListener {
+        return View.OnClickListener {
+            val cameraSource = cameraCapturerCompat.cameraSource
+            cameraCapturerCompat.switchCamera()
+            if (contentVideoBinding.thumbnailVideoView.visibility == View.VISIBLE) {
+                contentVideoBinding.thumbnailVideoView.mirror =
+                    cameraSource == CameraCapturerCompat.Source.BACK_CAMERA
+            } else {
+                contentVideoBinding.primaryVideoView.mirror =
+                    cameraSource == CameraCapturerCompat.Source.BACK_CAMERA
+            }
+        }
+    }
+
     private fun disconnectClickListener(): View.OnClickListener {
         return View.OnClickListener {
             /*
              * Disconnect from room
              */
-            room?.disconnect()
-        }
-    }
-
-    private fun connectActionClickListener(): View.OnClickListener {
-        return View.OnClickListener { showConnectDialog() }
-    }
-
-    private fun cancelConnectDialogClickListener(): DialogInterface.OnClickListener {
-        return DialogInterface.OnClickListener { _, _ ->
+            showDisconnectActionsDialog()
         }
     }
 

@@ -8,7 +8,7 @@ internal class SpecialityMapperImpl : SpecialityMapper() {
     override fun mapFrom(type: SpecialityResponse): Speciality =
         Speciality(
             id = type.id,
-            specialtyCode = type.specialtyCode,
-            specialtyName = type.specialtyName
+            specialtyCode = type.code,
+            specialtyName = type.name
         )
 }
