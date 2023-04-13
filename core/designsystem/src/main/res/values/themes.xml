@@ -15,17 +15,12 @@
         <!-- Secondary brand color. -->
         <!-- Status bar color. -->
         <!-- Customize your theme here. -->
+        <item name="materialAlertDialogTheme">@style/ThemeOverlay.App.MaterialAlertDialog</item>
         <item name="android:windowBackground">?android:colorBackground</item>
         <item name="android:windowLightStatusBar" tools:ignore="NewApi">true</item>
     </style>
 
     <style name="ThemeOverlay.App.MaterialAlertDialog" parent="ThemeOverlay.Material3.MaterialAlertDialog">
-        <item name="colorPrimary">@color/bg_white</item>
-        <item name="colorSecondary">@color/bg_white</item>
-        <item name="colorSurface">@color/button_text_black</item>
-        <item name="colorOnSurface">@color/button_text_black</item>
-        <item name="alertDialogStyle">@style/MaterialAlertDialog.App</item>
-        <item name="materialAlertDialogTitleTextStyle">@style/TextAppearance.App.H4</item>
         <item name="buttonBarPositiveButtonStyle">@style/Widget.App.Dialog.Button</item>
         <item name="buttonBarNegativeButtonStyle">@style/Widget.App.Dialog.Button</item>
     </style>
