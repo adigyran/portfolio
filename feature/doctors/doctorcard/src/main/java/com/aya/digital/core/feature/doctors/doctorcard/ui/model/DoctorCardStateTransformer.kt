@@ -9,14 +9,11 @@ class DoctorCardStateTransformer(context: Context) :
     override fun invoke(state: DoctorCardState): DoctorCardUiModel =
         DoctorCardUiModel(
             doctorCardMode = state.doctorCardMode,
-            doctorName = "Dr. %s".format(state.doctorLastName.getField())
-
-         /*   doctorCardMode = state.doctorCardMode,
-            doctorName = state.doctorName,
-            doctorSpeciality = state.doctorSpeciality,
+            doctorName = "Dr. %s".format(state.doctorLastName.getField()),
+            doctorSpeciality = state.doctorSpecialities?.let { specialityModels -> specialityModels.firstOrNull()?.name?:getNotSpecifiedText() }?:getNotSpecifiedText(),
+            doctorClinic = state.doctorClinics?.let { clinicModels -> clinicModels.firstOrNull()?.clinicName?:getNotSpecifiedText() }?:getNotSpecifiedText(),
             doctorAvatar = state.doctorAvatar,
-            doctorClinic = state.doctorClinic,
-            doctorAddress = state.doctorAddress*/
+            doctorAddress = state.doctorAddress.getField()
         )
     private fun getNotSpecifiedText() = "Not specified"
     private fun String?.getField() = this ?: getNotSpecifiedText()
