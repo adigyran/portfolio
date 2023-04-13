@@ -24,6 +24,7 @@ import com.aya.digital.core.feature.videocall.videocallscreen.databinding.ViewVi
 import com.aya.digital.core.feature.videocall.videocallscreen.di.videoCallScreenDiModule
 import com.aya.digital.core.feature.videocall.videocallscreen.ui.model.VideoCallScreenStateTransformer
 import com.aya.digital.core.feature.videocall.videocallscreen.ui.model.VideoCallScreenUiModel
+import com.aya.digital.core.feature.videocall.videocallscreen.viewmodel.VideoCallScreenSideEffects
 import com.aya.digital.core.feature.videocall.videocallscreen.viewmodel.VideoCallScreenState
 import com.aya.digital.core.feature.videocall.videocallscreen.viewmodel.VideoCallScreenViewModel
 import com.aya.digital.core.mvi.BaseSideEffect
@@ -45,7 +46,7 @@ import kotlin.properties.Delegates
 import com.aya.digital.core.feature.videocall.videocallscreen.R as VideocallscreenR
 
 class VideoCallScreenView :
-    DiFragment<ViewVideocallScreenBinding, VideoCallScreenViewModel, VideoCallScreenState, BaseSideEffect, VideoCallScreenUiModel, VideoCallScreenStateTransformer>() {
+    DiFragment<ViewVideocallScreenBinding, VideoCallScreenViewModel, VideoCallScreenState, VideoCallScreenSideEffects, VideoCallScreenUiModel, VideoCallScreenStateTransformer>() {
     private val CAMERA_MIC_PERMISSION_REQUEST_CODE = 1
     private val CAMERA_PERMISSION_INDEX = 0
     private val MIC_PERMISSION_INDEX = 1
@@ -341,27 +342,37 @@ class VideoCallScreenView :
         }
     }
 
+    override fun sideEffect(sideEffect: VideoCallScreenSideEffects) {
+        when (sideEffect) {
+            is VideoCallScreenSideEffects.Error -> {
+                processErrorSideEffect(sideEffect.error)
+            }
+            is VideoCallScreenSideEffects.ConnectToRoom -> {
+                this@VideoCallScreenView.accessToken = sideEffect.roomToken
+                connectToRoom(sideEffect.roomId)
+            }
+        }
+    }
+
     override fun provideDiModule(): DI.Module =
         videoCallScreenDiModule(tryTyGetParentRouter(), param)
 
-    private lateinit var contentVideoBinding : ContentVideoBinding
+    private lateinit var contentVideoBinding: ContentVideoBinding
     override fun provideViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
     ): ViewVideocallScreenBinding {
 
-        val viewVideocallScreenBinding = ViewVideocallScreenBinding.inflate(inflater, container, false)
+        val viewVideocallScreenBinding =
+            ViewVideocallScreenBinding.inflate(inflater, container, false)
         contentVideoBinding = ContentVideoBinding.bind(viewVideocallScreenBinding.root)
         return viewVideocallScreenBinding
     }
 
-    override fun sideEffect(sideEffect: BaseSideEffect) = Unit
-
     override fun render(state: VideoCallScreenState) {
         stateTransformer(state).run {
-            this.roomToken?.let { accessToken->
-                this@VideoCallScreenView.accessToken = accessToken
-                connectToRoom("${param.roomId}")
+            this.roomToken?.let { accessToken ->
+
             }
         }
     }
@@ -398,6 +409,7 @@ class VideoCallScreenView :
             }
         }
     }
+
     private fun checkPermissions(permissions: Array<String>): Boolean {
         var shouldCheck = true
         for (permission in permissions) {
@@ -417,16 +429,22 @@ class VideoCallScreenView :
                 )
         }
         if (displayRational) {
-            Toast.makeText(requireContext(), VideocallscreenR.string.permissions_needed, Toast.LENGTH_LONG).show()
+            Toast.makeText(
+                requireContext(),
+                VideocallscreenR.string.permissions_needed,
+                Toast.LENGTH_LONG
+            ).show()
         } else {
             ActivityCompat.requestPermissions(
-                requireActivity(), permissions, CAMERA_MIC_PERMISSION_REQUEST_CODE)
+                requireActivity(), permissions, CAMERA_MIC_PERMISSION_REQUEST_CODE
+            )
         }
     }
 
     private fun checkPermissionForCameraAndMicrophone(): Boolean {
         return checkPermissions(
-            arrayOf(Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO))
+            arrayOf(Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO)
+        )
     }
 
     private fun requestPermissionForCameraMicrophoneAndBluetooth() {
@@ -621,7 +639,8 @@ class VideoCallScreenView :
      * Called when participant leaves the room
      */
     private fun removeRemoteParticipant(remoteParticipant: RemoteParticipant) {
-        contentVideoBinding.videoStatusTextView.text = "Participant $remoteParticipant.identity left."
+        contentVideoBinding.videoStatusTextView.text =
+            "Participant $remoteParticipant.identity left."
         if (remoteParticipant.identity != participantIdentity) {
             return
         }
@@ -653,6 +672,7 @@ class VideoCallScreenView :
                     CameraCapturerCompat.Source.FRONT_CAMERA
         }
     }
+
     private fun connectClickListener(roomEditText: EditText): DialogInterface.OnClickListener {
         return DialogInterface.OnClickListener { _, _ ->
             /*
@@ -711,10 +731,10 @@ class VideoCallScreenView :
          * Update reconnecting UI
          */
         room?.let {
-          /*  reconnectingProgressBar.visibility = if (it.state != Room.State.RECONNECTING)
-                View.GONE else
-                View.VISIBLE
-            videoStatusTextView.text = "Connected to ${it.name}"*/
+            /*  reconnectingProgressBar.visibility = if (it.state != Room.State.RECONNECTING)
+                  View.GONE else
+                  View.VISIBLE
+              videoStatusTextView.text = "Connected to ${it.name}"*/
         }
     }
 
