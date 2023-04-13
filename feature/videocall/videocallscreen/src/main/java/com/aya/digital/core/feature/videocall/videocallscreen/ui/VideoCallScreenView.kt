@@ -120,7 +120,7 @@ class VideoCallScreenView :
 
         override fun onConnectFailure(room: Room, e: TwilioException) {
             Timber.d("Failed to connect")
-            audioSwitch.deactivate()
+            //audioSwitch.deactivate()
             initializeUI()
         }
 
@@ -129,7 +129,7 @@ class VideoCallScreenView :
             this@VideoCallScreenView.room = null
             // Only reinitialize the UI if disconnect was not called from onDestroy()
             if (!disconnectedFromOnDestroy) {
-                audioSwitch.deactivate()
+              //  audioSwitch.deactivate()
             }
         }
 
@@ -338,7 +338,7 @@ class VideoCallScreenView :
             requestPermissionForCameraMicrophoneAndBluetooth()
         } else {
             createAudioAndVideoTracks()
-            audioSwitch.start { audioDevices, audioDevice -> updateAudioDeviceIcon(audioDevice) }
+           // audioSwitch.start { audioDevices, audioDevice -> updateAudioDeviceIcon(audioDevice) }
         }
         initializeUI()
     }
@@ -415,7 +415,7 @@ class VideoCallScreenView :
              * permissions, AudioSwitch should be started after providing the user the option
              * to grant the necessary permissions for bluetooth.
              */
-            audioSwitch.start { audioDevices, audioDevice -> updateAudioDeviceIcon(audioDevice) }
+           // audioSwitch.start { audioDevices, audioDevice -> updateAudioDeviceIcon(audioDevice) }
 
             if (cameraAndMicPermissionGranted) {
                 createAudioAndVideoTracks()
@@ -511,8 +511,11 @@ class VideoCallScreenView :
     }
 
     private fun connectToRoom(roomName: String) {
-        audioSwitch.activate()
-
+       // audioSwitch.activate()
+        if (!checkPermissionForCameraAndMicrophone()) {
+            requestPermissionForCameraMicrophoneAndBluetooth()
+            return
+        }
         room = Video.connect(requireActivity(), accessToken, roomListener) {
             roomName(roomName)
             /*
@@ -856,7 +859,7 @@ class VideoCallScreenView :
         /*
          * Tear down audio management and restore previous volume stream
          */
-        audioSwitch.stop()
+       // audioSwitch.stop()
         requireActivity().volumeControlStream = savedVolumeControlStream
 
         /*
