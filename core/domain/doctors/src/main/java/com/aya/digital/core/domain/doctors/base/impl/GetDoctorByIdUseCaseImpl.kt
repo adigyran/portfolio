@@ -17,11 +17,22 @@ internal class GetDoctorByIdUseCaseImpl(private val doctorRepository: DoctorRepo
         .mapResult({ it.mapToDoctorModel().asResultModel() }, { it.toModelError() })
 
     private fun DoctorData.mapToDoctorModel() = DoctorModel(
-        id = this.id,
-        firstName = this.firstName,
-        lastName = this.lastName,
-        middleName = this.middleName,
-        avatarPhotoLink = this.avatarPhotoLink,
-        bio = this.bio
+        id = id,
+        firstName = firstName,
+        lastName = lastName,
+        middleName = middleName,
+        avatarPhotoLink = avatarPhotoLink,
+        bio = bio,
+        clinics = clinics.map { DoctorModel.ClinicModel(it.name) },
+        location = location?.let {
+            DoctorModel.LocationModel(
+                it.latitude ?: 0.0,
+                it.longitude ?: 0.0
+            )
+        } ?: DoctorModel.LocationModel(0.0, 0.0),
+        postCode = postalCode,
+        city = city,
+        address = address,
+        specialities = this.specialities.map { DoctorModel.SpecialityModel(it.specialtyName) }
     )
 }

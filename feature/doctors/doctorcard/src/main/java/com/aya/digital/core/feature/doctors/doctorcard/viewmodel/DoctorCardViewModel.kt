@@ -1,6 +1,7 @@
 package com.aya.digital.core.feature.doctors.doctorcard.viewmodel
 
 import com.aya.digital.core.domain.doctors.base.GetDoctorByIdUseCase
+import com.aya.digital.core.feature.doctors.doctorcard.DoctorCardMode
 import com.aya.digital.core.feature.doctors.doctorcard.ui.DoctorCardView
 import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.mvi.BaseViewModel
@@ -27,10 +28,33 @@ class DoctorCardViewModel(
     private fun loadDoctor(doctorId: Int) = intent {
         getDoctorByIdUseCase(doctorId).await()
             .processResult({
-                reduce { state.copy(doctorName = it.firstName) }
+                reduce {
+                    state.copy(
+                        doctorAvatar = it.avatarPhotoLink,
+                        doctorFirstName = it.firstName,
+                        doctorLastName = it.lastName,
+                        doctorMiddleName = it.middleName,
+                        doctorBio = it.bio,
+                        doctorAddress = it.address,
+                        doctorClinics = it.clinics,
+                        doctorLocation = it.location,
+                        doctorSpecialities = it.specialities
+                    )
+                }
             }, { processError(it) })
     }
 
+    fun onBookClicked() = intent {
+        if (state.doctorCardMode != DoctorCardMode.ShowingSlots) reduce {
+            state.copy(doctorCardMode = DoctorCardMode.ShowingSlots)
+        }
+    }
+
+    fun onDetailsClicked() = intent {
+        if (state.doctorCardMode != DoctorCardMode.ShowingDetailsInfo) reduce {
+            state.copy(doctorCardMode = DoctorCardMode.ShowingDetailsInfo)
+        }
+    }
 
 }
 

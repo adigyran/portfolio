@@ -8,7 +8,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.aya.digital.core.ext.argument
+import com.aya.digital.core.ext.bindClick
 import com.aya.digital.core.ext.createFragment
+import com.aya.digital.core.ext.dpToPx
 import com.aya.digital.core.feature.doctors.doctorcard.databinding.ViewDoctorCardBinding
 import com.aya.digital.core.feature.doctors.doctorcard.di.doctorCardDiModule
 import com.aya.digital.core.feature.doctors.doctorcard.ui.model.DoctorCardStateTransformer
@@ -18,6 +20,10 @@ import com.aya.digital.core.feature.doctors.doctorcard.viewmodel.DoctorCardViewM
 import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.ui.adapters.base.BaseDelegateAdapter
 import com.aya.digital.core.ui.base.screens.DiFragment
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import kotlinx.parcelize.Parcelize
 import org.kodein.di.DI
 import org.kodein.di.factory
@@ -44,6 +50,8 @@ class DoctorCardView :
 
     override fun prepareUi(savedInstanceState: Bundle?) {
         super.prepareUi(savedInstanceState)
+        binding.bookBtn bindClick {viewModel.onBookClicked()}
+        binding.detailsBtn bindClick {viewModel.onDetailsClicked()}
         with(binding.recycler) {
             itemAnimator = null
             setHasFixedSize(true)
@@ -74,7 +82,25 @@ class DoctorCardView :
 
     override fun render(state: DoctorCardState) {
         stateTransformer(state).run {
-
+            doctorName?.let {
+                binding.toolbar.nameTv.text = it
+            }
+            doctorSpeciality?.let {
+                binding.toolbar.title.text = it
+            }
+            doctorClinic?.let {
+                binding.toolbar.clinicTv.text = it
+            }
+            doctorAvatar?.let {
+                Glide
+                    .with(binding.toolbar.avatar)
+                    .load(it)
+                    .transform(
+                        CircleCrop()
+                    )
+                    .dontAnimate()
+                    .into(binding.toolbar.avatar)
+            }
         }
     }
 

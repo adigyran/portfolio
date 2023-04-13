@@ -8,7 +8,12 @@ class DoctorCardStateTransformer(context: Context) :
     BaseStateTransformer<DoctorCardState, DoctorCardUiModel>() {
     override fun invoke(state: DoctorCardState): DoctorCardUiModel =
         DoctorCardUiModel(
-            doctorName = ""
+            doctorCardMode = state.doctorCardMode,
+            doctorName = state.doctorName,
+            doctorSpeciality = state.doctorSpeciality,
+            doctorAvatar = state.doctorAvatar,
+            doctorClinic = state.doctorClinic,
+            doctorAddress = state.doctorAddress
         )
 
 
