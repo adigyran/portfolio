@@ -3,7 +3,6 @@ package com.aya.digital.core.repository.doctors
 import com.aya.digital.core.data.doctors.DoctorData
 import com.aya.digital.core.data.doctors.mappers.DoctorDataMapper
 import com.aya.digital.core.data.doctors.repository.DoctorRepository
-import com.aya.digital.core.data.schedule.mappers.ScheduleSlotMapper
 import com.aya.digital.core.datasource.PractitionersDataSource
 import com.aya.digital.core.datasource.ScheduleDataSource
 import com.aya.digital.core.ext.asResult

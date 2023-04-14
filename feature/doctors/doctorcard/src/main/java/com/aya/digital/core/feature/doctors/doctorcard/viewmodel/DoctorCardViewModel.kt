@@ -2,11 +2,14 @@ package com.aya.digital.core.feature.doctors.doctorcard.viewmodel
 
 import com.aya.digital.core.domain.doctors.base.GetDoctorByIdUseCase
 import com.aya.digital.core.domain.schedule.base.GetLatestScheduleByDoctorIdUseCase
+import com.aya.digital.core.domain.schedule.base.model.ScheduleSlotModel
 import com.aya.digital.core.feature.doctors.doctorcard.DoctorCardMode
 import com.aya.digital.core.feature.doctors.doctorcard.ui.DoctorCardView
 import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.mvi.BaseViewModel
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.reactive.asFlow
 import kotlinx.coroutines.rx3.await
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.reduce
@@ -24,6 +27,7 @@ class DoctorCardViewModel(
         initialState = DoctorCardState(),
     )
     {
+        loadDoctorSchedule(param.doctorId)
         loadDoctor(param.doctorId)
     }
 
@@ -47,7 +51,24 @@ class DoctorCardViewModel(
             }, { processError(it) })
     }
 
-    fun onSlotClicked(slotId:Int) = intent {
+    private fun loadDoctorSchedule(doctorId: Int) = intent {
+        getLatestScheduleByDoctorIdUseCase(doctorId, days = 3).asFlow()
+            .collect {
+                it.processResult({ scheduleSlotModels ->
+                    updateSlots(slots = scheduleSlotModels)
+                }, { processError(it) })
+            }
+    }
+
+    private fun updateSlots(slots: List<ScheduleSlotModel>) = intent {
+        reduce {
+            state.copy(
+                doctorSlots = slots
+            )
+        }
+    }
+
+    fun onSlotClicked(slotId: Int) = intent {
 
     }
 
