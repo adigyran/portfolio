@@ -31,12 +31,10 @@ data class PractitionerResponse(
 
 @JsonClass(generateAdapter = true)
 data class SlotResponse(
-    val id: Int?,
-    val scheduleId: Int,
-    val slotStart: LocalDateTime,
-    val slotEnd: LocalDateTime,
-    val type: String?,
-    val comment: String?,
-    val status: String,
-    val date: LocalDateTime
+    val id: Int,
+    val startDate: String,
+    val endDate: String,
+    val statusSlot: String?,
+    val commentSlot: String?,
+    val overbooked:Boolean
 )

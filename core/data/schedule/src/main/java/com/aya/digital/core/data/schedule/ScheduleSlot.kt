@@ -4,9 +4,9 @@ import kotlinx.datetime.LocalDateTime
 
 data class ScheduleSlot(
     val id: Int,
-    val scheduleId: Int?,
-    val slotStart: LocalDateTime,
-    val slotEnd: LocalDateTime,
-    val status: String?,
-    val appointmentType: String?
+    val startDate: LocalDateTime,
+    val endDate: LocalDateTime,
+    val statusSlot: String,
+    val commentSlot: String,
+    val overBooked:Boolean
 )

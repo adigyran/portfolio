@@ -3,8 +3,6 @@ package com.aya.digital.core.network.api.services
 import com.aya.digital.core.network.model.request.ScheduleWithSlotsBody
 import com.aya.digital.core.network.model.request.SlotBody
 import com.aya.digital.core.network.model.response.SlotResponse
-import com.aya.digital.core.network.model.response.base.PagedResponse
-import com.aya.digital.core.network.model.response.schedule.ScheduleResponse
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Single
@@ -13,14 +11,12 @@ import retrofit2.http.*
 
 interface ScheduleService {
 
-    @GET("schedules/")
-    fun fetchSchedules(
+    @GET("slots")
+    fun fetchSlots(
         @Query("practitioner") practitionerId: Int,
-        @Query("start") start: LocalDate,
-        @Query("end") end: LocalDate,
-        @Query("page") page: Int,
-        @Query("limit") limit: Int,
-    ): Flowable<PagedResponse<ScheduleResponse>>
+        @Query("start") start: String,
+        @Query("end") end: String
+    ): Flowable<List<SlotResponse>>
 
     @POST("schedules/with-slots")
     fun create(

@@ -3,7 +3,6 @@ package com.aya.digital.core.datasource
 import com.aya.digital.core.network.model.request.ScheduleWithSlotsBody
 import com.aya.digital.core.network.model.request.SlotBody
 import com.aya.digital.core.network.model.response.SlotResponse
-import com.aya.digital.core.network.model.response.base.PagedResponse
 import com.aya.digital.core.network.model.response.schedule.ScheduleResponse
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Flowable
@@ -12,13 +11,11 @@ import kotlinx.datetime.LocalDate
 
 interface ScheduleDataSource {
 
-    fun fetchSchedules(
+    fun fetchSlots(
         practitionerId: Int,
-        start: LocalDate,
-        end: LocalDate,
-        page: Int,
-        limit: Int,
-    ): Flowable<PagedResponse<ScheduleResponse>>
+        start: String,
+        end: String
+    ): Flowable<List<SlotResponse>>
 
     fun create(
         scheduleWithSlots: ScheduleWithSlotsBody

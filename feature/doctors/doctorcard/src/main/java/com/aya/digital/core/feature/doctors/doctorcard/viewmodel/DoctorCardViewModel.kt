@@ -1,6 +1,7 @@
 package com.aya.digital.core.feature.doctors.doctorcard.viewmodel
 
 import com.aya.digital.core.domain.doctors.base.GetDoctorByIdUseCase
+import com.aya.digital.core.domain.schedule.base.GetLatestScheduleByDoctorIdUseCase
 import com.aya.digital.core.feature.doctors.doctorcard.DoctorCardMode
 import com.aya.digital.core.feature.doctors.doctorcard.ui.DoctorCardView
 import com.aya.digital.core.mvi.BaseSideEffect
@@ -10,12 +11,13 @@ import kotlinx.coroutines.rx3.await
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
-import timber.log.Timber
 
 class DoctorCardViewModel(
     private val coordinatorRouter: CoordinatorRouter,
     private val param: DoctorCardView.Param,
-    private val getDoctorByIdUseCase: GetDoctorByIdUseCase
+    private val getDoctorByIdUseCase: GetDoctorByIdUseCase,
+    private val getLatestScheduleByDoctorIdUseCase: GetLatestScheduleByDoctorIdUseCase
+
 ) :
     BaseViewModel<DoctorCardState, BaseSideEffect>() {
     override val container = container<DoctorCardState, BaseSideEffect>(

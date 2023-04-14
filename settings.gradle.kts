@@ -50,6 +50,8 @@ include(":core:repository:profile")
 include(":core:repository:appointment")
 include(":core:repository:doctors")
 include(":core:repository:dictionaries")
+include(":core:repository:schedule")
+
 //data
 include(":core:data:base")
 include(":core:data:profile")
@@ -85,6 +87,7 @@ include(":core:domain:doctors")
 include(":core:domain:profile")
 include(":core:domain:auth")
 include(":core:domain:dictionaries")
+include(":core:domain:schedule")
 //ui delegates
 //components
 //fields
