@@ -15,18 +15,26 @@ import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Single
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toInstant
 
 internal class ScheduleRepositoryImpl(
     private val scheduleDataSource: ScheduleDataSource,
-    private val scheduleSlotMapper:ScheduleSlotMapper
+    private val scheduleSlotMapper: ScheduleSlotMapper
 ) : ScheduleRepository {
     override fun getSlots(
         practitionerId: Int,
         start: LocalDateTime,
         end: LocalDateTime
     ): Flowable<RequestResult<List<ScheduleSlot>>> =
-        scheduleDataSource.fetchSlots(practitionerId,start.toString(),end.toString())
+        scheduleDataSource.fetchSlots(
+            practitionerId,
+            start.toInstant(TimeZone.currentSystemDefault()).toString(),
+            end.toInstant(
+                TimeZone.currentSystemDefault()
+            ).toString()
+        )
             .retryOnError()
             .retrofitResponseToResult(CommonUtils::mapServerErrors)
-            .mapResult({result-> scheduleSlotMapper.mapFromList(result).asResult()   },{it})
+            .mapResult({ result -> scheduleSlotMapper.mapFromList(result).asResult() }, { it })
 }

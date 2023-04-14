@@ -33,6 +33,7 @@ import kotlinx.parcelize.Parcelize
 import org.kodein.di.DI
 import org.kodein.di.factory
 import org.kodein.di.on
+import timber.log.Timber
 
 class DoctorCardView :
     DiFragment<ViewDoctorCardBinding, DoctorCardViewModel, DoctorCardState, BaseSideEffect, DoctorCardUiModel, DoctorCardStateTransformer>() {
@@ -61,6 +62,8 @@ class DoctorCardView :
         }
     }
 
+    private lateinit var lm: GridLayoutManager
+
     override fun prepareUi(savedInstanceState: Bundle?) {
         super.prepareUi(savedInstanceState)
         binding.bookBtn bindClick { viewModel.onBookClicked() }
@@ -71,13 +74,15 @@ class DoctorCardView :
             setItemViewCacheSize(30)
             isNestedScrollingEnabled = false
 
-            val lm = GridLayoutManager(
+
+            lm = GridLayoutManager(
                 context,
                 4,
                 RecyclerView.VERTICAL,
                 false
             )
-            lm.spanSizeLookup = DoctorCardSpanSizeLookup(binding.recycler)
+            //lm.spanSizeLookup = DoctorCardSpanSizeLookup(binding.recycler)
+
             layoutManager = lm
             addItemDecoration(DoctorCardDecoration())
         }
@@ -118,6 +123,30 @@ class DoctorCardView :
                 adapter.items = it
                 if (binding.recycler.adapter == null) {
                     binding.recycler.swapAdapter(adapter, true)
+                    lm.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup(){
+                        override fun getSpanSize(position: Int): Int {
+                            val findViewHolderForAdapterPosition =
+                                binding.recycler.findViewHolderForAdapterPosition(position)
+                            Timber.d(findViewHolderForAdapterPosition.toString())
+                            return 4
+                            /*val findViewByPosition = lm.findViewByPosition(position) ?: return 4
+                            val findContainingViewHolder =
+                                binding.recycler.findContainingViewHolder(findViewByPosition)
+                            Timber.d(findContainingViewHolder.toString())
+                            return findContainingViewHolder?.let { viewHolder ->
+                                when(viewHolder)
+                                {
+                                    is DoctorDetailsTitleDelegate.ViewHolder -> 4
+                                    is DoctorDetailsBioDelegate.ViewHolder -> 4
+                                    is DoctorDetailsInsuranceDelegate.ViewHolder -> 4
+                                    is DoctorDateTitleDelegate.ViewHolder -> 4
+                                    is DoctorSlotDelegate.ViewHolder -> 1
+                                    else -> -1
+                                }
+                            }?: 4*/
+                        }
+
+                    }
                 }
             }
         }

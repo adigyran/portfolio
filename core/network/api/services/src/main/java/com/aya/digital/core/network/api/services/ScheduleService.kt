@@ -13,7 +13,7 @@ interface ScheduleService {
 
     @GET("slots")
     fun fetchSlots(
-        @Query("practitioner") practitionerId: Int,
+        @Query("practitionerId") practitionerId: Int,
         @Query("start") start: String,
         @Query("end") end: String
     ): Flowable<List<SlotResponse>>

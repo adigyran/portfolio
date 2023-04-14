@@ -11,11 +11,13 @@ import com.aya.digital.core.ui.delegates.doctorcard.doctordetails.ui.DoctorDetai
 import com.aya.digital.core.ui.delegates.doctorcard.doctordetails.ui.DoctorDetailsTitleDelegate
 import com.aya.digital.core.ui.delegates.doctorcard.doctorslot.ui.DoctorDateTitleDelegate
 import com.aya.digital.core.ui.delegates.doctorcard.doctorslot.ui.DoctorSlotDelegate
+import timber.log.Timber
 
 internal class DoctorCardSpanSizeLookup(private val recyclerView: RecyclerView) : GridLayoutManager.SpanSizeLookup() {
     override fun getSpanSize(position: Int): Int {
         val findViewHolderForAdapterPosition =
             recyclerView.findViewHolderForAdapterPosition(position)
+        Timber.d(findViewHolderForAdapterPosition.toString())
         return findViewHolderForAdapterPosition?.let { viewHolder ->
             when(viewHolder)
             {
