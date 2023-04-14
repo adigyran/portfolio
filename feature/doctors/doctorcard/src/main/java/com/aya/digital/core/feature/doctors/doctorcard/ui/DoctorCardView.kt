@@ -20,6 +20,11 @@ import com.aya.digital.core.feature.doctors.doctorcard.viewmodel.DoctorCardViewM
 import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.ui.adapters.base.BaseDelegateAdapter
 import com.aya.digital.core.ui.base.screens.DiFragment
+import com.aya.digital.core.ui.delegates.doctorcard.doctordetails.ui.DoctorDetailsBioDelegate
+import com.aya.digital.core.ui.delegates.doctorcard.doctordetails.ui.DoctorDetailsInsuranceDelegate
+import com.aya.digital.core.ui.delegates.doctorcard.doctordetails.ui.DoctorDetailsTitleDelegate
+import com.aya.digital.core.ui.delegates.doctorcard.doctorslot.ui.DoctorDateTitleDelegate
+import com.aya.digital.core.ui.delegates.doctorcard.doctorslot.ui.DoctorSlotDelegate
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
@@ -44,14 +49,22 @@ class DoctorCardView :
 
     private val adapter by lazy(LazyThreadSafetyMode.NONE) {
         BaseDelegateAdapter.create {
-
+            delegate {
+                DoctorDetailsTitleDelegate()
+            }
+            delegate {
+                DoctorDetailsBioDelegate()
+            }
+            delegate { DoctorSlotDelegate(viewModel::onSlotClicked) }
+            delegate { DoctorDateTitleDelegate() }
+            delegate { DoctorDetailsInsuranceDelegate() }
         }
     }
 
     override fun prepareUi(savedInstanceState: Bundle?) {
         super.prepareUi(savedInstanceState)
-        binding.bookBtn bindClick {viewModel.onBookClicked()}
-        binding.detailsBtn bindClick {viewModel.onDetailsClicked()}
+        binding.bookBtn bindClick { viewModel.onBookClicked() }
+        binding.detailsBtn bindClick { viewModel.onDetailsClicked() }
         with(binding.recycler) {
             itemAnimator = null
             setHasFixedSize(true)
@@ -100,6 +113,12 @@ class DoctorCardView :
                     )
                     .dontAnimate()
                     .into(binding.toolbar.avatar)
+            }
+            data?.let {
+                adapter.items = it
+                if (binding.recycler.adapter == null) {
+                    binding.recycler.swapAdapter(adapter, true)
+                }
             }
         }
     }

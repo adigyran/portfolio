@@ -38,10 +38,15 @@ class DoctorCardViewModel(
                         doctorAddress = it.address,
                         doctorClinics = it.clinics,
                         doctorLocation = it.location,
-                        doctorSpecialities = it.specialities
+                        doctorSpecialities = it.specialities,
+                        doctorInsurances = it.insurances
                     )
                 }
             }, { processError(it) })
+    }
+
+    fun onSlotClicked(slotId:Int) = intent {
+
     }
 
     fun onBookClicked() = intent {

@@ -15,7 +15,7 @@ internal class DoctorCardDecoration : RecyclerView.ItemDecoration() {
         state: RecyclerView.State
     ) {
         val viewHolder = parent.findContainingViewHolder(view)
-        val horizontal = (12).dpToPx()
+        val horizontal = (20).dpToPx()
         val top = when(viewHolder)
         {
             else -> 0

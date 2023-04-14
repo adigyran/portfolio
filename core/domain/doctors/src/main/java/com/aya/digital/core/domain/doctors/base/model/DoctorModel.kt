@@ -15,7 +15,8 @@ data class DoctorModel(
     val postCode:String,
     val city:String,
     val address:String,
-    val specialities:List<SpecialityModel>
+    val specialities:List<SpecialityModel>,
+    val insurances:List<InsuranceModel>
 )
 {
     @Parcelize
@@ -29,6 +30,11 @@ data class DoctorModel(
     ):Parcelable
     @Parcelize
     data class SpecialityModel(
+        val name:String
+    ):Parcelable
+
+    @Parcelize
+    data class InsuranceModel(
         val name:String
     ):Parcelable
 

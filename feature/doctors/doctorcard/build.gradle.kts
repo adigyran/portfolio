@@ -8,5 +8,6 @@ android {
 
 dependencies {
     implementation(project(":core:domain:doctors"))
-
+    implementation(project(":core:ui:delegates:features:doctorcard:doctorslot"))
+    implementation(project(":core:ui:delegates:features:doctorcard:doctordetails"))
 }

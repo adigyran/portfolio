@@ -33,6 +33,7 @@ internal class GetDoctorByIdUseCaseImpl(private val doctorRepository: DoctorRepo
         postCode = postalCode,
         city = city,
         address = address,
-        specialities = this.specialities.map { DoctorModel.SpecialityModel(it.specialtyName) }
+        specialities = this.specialities.map { DoctorModel.SpecialityModel(it.specialtyName) },
+        insurances = this.insurances.map { DoctorModel.InsuranceModel(it.name) }
     )
 }

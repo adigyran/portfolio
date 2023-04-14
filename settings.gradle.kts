@@ -120,6 +120,7 @@ include(":core:ui:delegates:features:profile:insurance")
 include(":core:ui:delegates:features:appointments:patientappointment")
 //doctorcard
 include(":core:ui:delegates:features:doctorcard:doctorslot")
+include(":core:ui:delegates:features:doctorcard:doctordetails")
 
 //tabs
 include(":feature:tabs:home")
