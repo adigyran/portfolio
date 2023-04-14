@@ -6,34 +6,36 @@ import com.aya.digital.core.ext.bindClick
 import com.aya.digital.core.ui.adapters.base.BaseDelegate
 import com.aya.digital.core.ui.adapters.base.BaseViewHolder
 import com.aya.digital.core.ui.adapters.base.DiffItem
+import com.aya.digital.core.ui.delegates.doctorcard.doctorslot.model.DoctorDateTitleUIModel
 import com.aya.digital.core.ui.delegates.doctorcard.doctorslot.model.DoctorSlotUIModel
+import com.aya.digital.core.ui.delegates.features.doctorcard.doctorslot.databinding.ItemDoctorDateTitleBinding
 import com.aya.digital.core.ui.delegates.features.doctorcard.doctorslot.databinding.ItemDoctorSlotBinding
 
-class DoctorSlotDelegate(private val onSlotClick: (id: Int) -> Unit) :
-    BaseDelegate<DoctorSlotUIModel>() {
+class DoctorDateTitleDelegate() :
+    BaseDelegate<DoctorDateTitleUIModel>() {
     override fun isForViewType(
         item: DiffItem,
         items: MutableList<DiffItem>,
         position: Int
-    ): Boolean = item is DoctorSlotUIModel
+    ): Boolean = item is DoctorDateTitleUIModel
 
-    override fun onCreateViewHolder(parent: ViewGroup): BaseViewHolder<DoctorSlotUIModel> {
+    override fun onCreateViewHolder(parent: ViewGroup): BaseViewHolder<DoctorDateTitleUIModel> {
         val binding =
-            ItemDoctorSlotBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemDoctorDateTitleBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
         return ViewHolder(binding)
     }
 
 
-    inner class ViewHolder(private val binding: ItemDoctorSlotBinding) :
-        BaseViewHolder<DoctorSlotUIModel>(binding.root) {
+    inner class ViewHolder(private val binding: ItemDoctorDateTitleBinding) :
+        BaseViewHolder<DoctorDateTitleUIModel>(binding.root) {
 
         init {
-            binding.root bindClick { onSlotClick(item.id) }
+
         }
-        override fun bind(item: DoctorSlotUIModel) {
+        override fun bind(item: DoctorDateTitleUIModel) {
             super.bind(item)
-            binding.tvTime.text = item.timeText
+            binding.tvDate.text = item.dateText
         }
     }
 }
