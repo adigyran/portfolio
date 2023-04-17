@@ -13,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -129,7 +130,7 @@ class VideoCallScreenView :
             this@VideoCallScreenView.room = null
             // Only reinitialize the UI if disconnect was not called from onDestroy()
             if (!disconnectedFromOnDestroy) {
-              //  audioSwitch.deactivate()
+                //  audioSwitch.deactivate()
             }
         }
 
@@ -338,7 +339,7 @@ class VideoCallScreenView :
             requestPermissionForCameraMicrophoneAndBluetooth()
         } else {
             createAudioAndVideoTracks()
-           // audioSwitch.start { audioDevices, audioDevice -> updateAudioDeviceIcon(audioDevice) }
+            // audioSwitch.start { audioDevices, audioDevice -> updateAudioDeviceIcon(audioDevice) }
         }
         initializeUI()
     }
@@ -368,6 +369,8 @@ class VideoCallScreenView :
             }
             is VideoCallScreenSideEffects.ConnectToRoom -> {
                 this@VideoCallScreenView.accessToken = sideEffect.roomToken
+                contentVideoBinding.videoStatusTextView.text = "Connecting to room ${param.roomId}"
+                setDisconnectAction()
                 connectToRoom(sideEffect.roomId)
             }
         }
@@ -396,28 +399,50 @@ class VideoCallScreenView :
         }
     }
 
-    override fun onRequestPermissionsResult(
+
+    private val requestMultiplePermissions = registerForActivityResult(
+        ActivityResultContracts.RequestMultiplePermissions()
+    ) { permissions ->
+        Timber.d("$permissions")
+        var permissionsGranted = false
+        permissions.entries.forEach {
+            permissionsGranted = it.value
+        }
+        if (permissionsGranted) {
+            Timber.d("permission granted")
+            createAudioAndVideoTracks()
+        } else {
+            Toast.makeText(
+                requireContext(),
+                VideocallscreenR.string.permissions_needed,
+                Toast.LENGTH_LONG
+            ).show()
+        }
+    }
+  /*  override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<String>,
         grantResults: IntArray
     ) {
+        Timber.d("$requestCode $permissions $grantResults")
         if (requestCode == CAMERA_MIC_PERMISSION_REQUEST_CODE) {
-            /*
+            *//*
              * The first two permissions are Camera & Microphone, bluetooth isn't required but
              * enabling it enables bluetooth audio routing functionality.
-             */
+             *//*
             val cameraAndMicPermissionGranted =
                 ((PackageManager.PERMISSION_GRANTED == grantResults[CAMERA_PERMISSION_INDEX])
                         and (PackageManager.PERMISSION_GRANTED == grantResults[MIC_PERMISSION_INDEX]))
 
-            /*
+            *//*
              * Due to bluetooth permissions being requested at the same time as camera and mic
              * permissions, AudioSwitch should be started after providing the user the option
              * to grant the necessary permissions for bluetooth.
-             */
-           // audioSwitch.start { audioDevices, audioDevice -> updateAudioDeviceIcon(audioDevice) }
+             *//*
+            // audioSwitch.start { audioDevices, audioDevice -> updateAudioDeviceIcon(audioDevice) }
 
             if (cameraAndMicPermissionGranted) {
+                Timber.d("permission granted")
                 createAudioAndVideoTracks()
             } else {
                 Toast.makeText(
@@ -427,7 +452,7 @@ class VideoCallScreenView :
                 ).show()
             }
         }
-    }
+    }*/
 
     private fun showDisconnectActionsDialog() {
         MaterialAlertDialogBuilder(requireContext())
@@ -437,12 +462,15 @@ class VideoCallScreenView :
                 dialog.dismiss()
             }
             .setPositiveButton("Disconnect") { dialog, which ->
-
+                disconnect()
                 dialog.dismiss()
-                room?.disconnect()
-                viewModel.disconnectClicked()
             }
             .show()
+    }
+
+    private fun disconnect() {
+        room?.disconnect()
+        viewModel.disconnectClicked()
     }
 
     private fun checkPermissions(permissions: Array<String>): Boolean {
@@ -470,8 +498,12 @@ class VideoCallScreenView :
                 Toast.LENGTH_LONG
             ).show()
         } else {
-            ActivityCompat.requestPermissions(
-                requireActivity(), permissions, CAMERA_MIC_PERMISSION_REQUEST_CODE
+            Timber.d("$permissions")
+            requestMultiplePermissions.launch(
+                arrayOf(
+                    Manifest.permission.CAMERA,
+                    Manifest.permission.RECORD_AUDIO
+                )
             )
         }
     }
@@ -486,8 +518,7 @@ class VideoCallScreenView :
         val permissionsList: Array<String> = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             arrayOf(
                 Manifest.permission.CAMERA,
-                Manifest.permission.RECORD_AUDIO,
-                Manifest.permission.BLUETOOTH_CONNECT
+                Manifest.permission.RECORD_AUDIO
             )
         } else {
             arrayOf(
@@ -499,6 +530,7 @@ class VideoCallScreenView :
     }
 
     private fun createAudioAndVideoTracks() {
+        Timber.d("create tracks")
         // Share your microphone
         localAudioTrack = createLocalAudioTrack(requireActivity(), true)
 
@@ -511,7 +543,7 @@ class VideoCallScreenView :
     }
 
     private fun connectToRoom(roomName: String) {
-       // audioSwitch.activate()
+        // audioSwitch.activate()
         if (!checkPermissionForCameraAndMicrophone()) {
             requestPermissionForCameraMicrophoneAndBluetooth()
             return
@@ -547,8 +579,6 @@ class VideoCallScreenView :
              */
             enableAutomaticSubscription(enableAutomaticSubscription)
         }
-        contentVideoBinding.videoStatusTextView.text = "Connecting to room ${param.roomId}"
-        setDisconnectAction()
     }
 
     private fun showAudioDevices() {
@@ -723,7 +753,11 @@ class VideoCallScreenView :
 
 
     private fun connectActionClickListener(): View.OnClickListener {
-        return View.OnClickListener { viewModel.connectClicked() }
+        return View.OnClickListener {
+            contentVideoBinding.videoStatusTextView.text = "Connecting to room ${param.roomId}"
+            setDisconnectAction()
+            viewModel.connectClicked()
+        }
     }
 
     private fun cancelConnectDialogClickListener(): DialogInterface.OnClickListener {
@@ -859,7 +893,7 @@ class VideoCallScreenView :
         /*
          * Tear down audio management and restore previous volume stream
          */
-       // audioSwitch.stop()
+        // audioSwitch.stop()
         requireActivity().volumeControlStream = savedVolumeControlStream
 
         /*

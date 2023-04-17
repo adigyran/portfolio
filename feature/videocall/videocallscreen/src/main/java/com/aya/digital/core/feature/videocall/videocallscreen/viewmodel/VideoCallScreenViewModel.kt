@@ -1,6 +1,7 @@
 package com.aya.digital.core.feature.videocall.videocallscreen.viewmodel
 
 import com.aya.digital.core.domain.appointment.telehealth.GetTeleHealthRoomTokenUseCase
+import com.aya.digital.core.feature.videocall.videocallscreen.navigation.VideoCallScreenNavigationEvents
 import com.aya.digital.core.feature.videocall.videocallscreen.ui.VideoCallScreenView
 import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.mvi.BaseViewModel
@@ -29,7 +30,7 @@ class VideoCallScreenViewModel(
     }
 
     fun disconnectClicked() = intent {
-
+        coordinatorRouter.sendEvent(VideoCallScreenNavigationEvents.Back)
     }
 
     private fun getRoomToken() = intent {
