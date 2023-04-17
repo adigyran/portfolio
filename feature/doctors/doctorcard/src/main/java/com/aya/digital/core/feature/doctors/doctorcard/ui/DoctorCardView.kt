@@ -5,12 +5,10 @@ import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.aya.digital.core.ext.argument
 import com.aya.digital.core.ext.bindClick
 import com.aya.digital.core.ext.createFragment
-import com.aya.digital.core.ext.dpToPx
 import com.aya.digital.core.feature.doctors.doctorcard.databinding.ViewDoctorCardBinding
 import com.aya.digital.core.feature.doctors.doctorcard.di.doctorCardDiModule
 import com.aya.digital.core.feature.doctors.doctorcard.ui.model.DoctorCardStateTransformer
@@ -26,14 +24,11 @@ import com.aya.digital.core.ui.delegates.doctorcard.doctordetails.ui.DoctorDetai
 import com.aya.digital.core.ui.delegates.doctorcard.doctorslot.ui.DoctorDateTitleDelegate
 import com.aya.digital.core.ui.delegates.doctorcard.doctorslot.ui.DoctorSlotDelegate
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import kotlinx.parcelize.Parcelize
 import org.kodein.di.DI
 import org.kodein.di.factory
 import org.kodein.di.on
-import timber.log.Timber
 
 class DoctorCardView :
     DiFragment<ViewDoctorCardBinding, DoctorCardViewModel, DoctorCardState, BaseSideEffect, DoctorCardUiModel, DoctorCardStateTransformer>() {
@@ -81,7 +76,7 @@ class DoctorCardView :
                 RecyclerView.VERTICAL,
                 false
             )
-            //lm.spanSizeLookup = DoctorCardSpanSizeLookup(binding.recycler)
+
 
             layoutManager = lm
             addItemDecoration(DoctorCardDecoration())
@@ -123,13 +118,16 @@ class DoctorCardView :
                 adapter.items = it
                 if (binding.recycler.adapter == null) {
                     binding.recycler.swapAdapter(adapter, true)
-                    lm.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup(){
+                    lm.spanSizeLookup = DoctorCardSpanSizeLookup(adapter)
+                    /*lm.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup(){
                         override fun getSpanSize(position: Int): Int {
+                            val itemViewType = adapter.getItemViewType(position)
+                            Timber.d("$itemViewType")
                             val findViewHolderForAdapterPosition =
                                 binding.recycler.findViewHolderForAdapterPosition(position)
                             Timber.d(findViewHolderForAdapterPosition.toString())
                             return 4
-                            /*val findViewByPosition = lm.findViewByPosition(position) ?: return 4
+                            *//*val findViewByPosition = lm.findViewByPosition(position) ?: return 4
                             val findContainingViewHolder =
                                 binding.recycler.findContainingViewHolder(findViewByPosition)
                             Timber.d(findContainingViewHolder.toString())
@@ -143,10 +141,10 @@ class DoctorCardView :
                                     is DoctorSlotDelegate.ViewHolder -> 1
                                     else -> -1
                                 }
-                            }?: 4*/
+                            }?: 4*//*
                         }
 
-                    }
+                    }*/
                 }
             }
         }
