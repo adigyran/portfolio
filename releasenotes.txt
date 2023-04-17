@@ -24,3 +24,4 @@ doctor search test
 doctor card test
 video calls
 changed app icon
+fixed videocalls
