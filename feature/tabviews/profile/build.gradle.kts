@@ -11,5 +11,5 @@ dependencies {
     implementation(project(":core:domain:profile"))
     implementation(libs.glide)
     kapt(libs.glide.annotationprocessor)
-
+    implementation(libs.kotlinx.time)
 }

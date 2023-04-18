@@ -20,4 +20,5 @@ data class DoctorCardState(
     val doctorAddress: String? = null,
     val doctorSpecialities: List<DoctorModel.SpecialityModel>? = null,
     val doctorInsurances:List<DoctorModel.InsuranceModel>? = null,
+    val bioReadMore:Boolean = false
 ) : BaseState

@@ -2,4 +2,6 @@
 <resources>
     <string name="ymd_format">YYYY-MM-dd</string>
     <string name="birthday_format">MMM d, YYYY</string>
+    <string name="time_slot_format">h:mm a</string>
+    <string name="time_slot_title_format">MMM dd</string>
 </resources>

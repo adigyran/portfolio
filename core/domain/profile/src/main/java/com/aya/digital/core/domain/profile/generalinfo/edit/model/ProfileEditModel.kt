@@ -2,7 +2,7 @@ package com.aya.digital.core.domain.profile.generalinfo.edit.model
 
 import com.aya.digital.core.model.ProfileSex
 import com.aya.digital.core.network.model.request.ProfileBody
-import java.time.LocalDate
+import kotlinx.datetime.LocalDate
 
 data class ProfileEditModel(
     var firstName: String? = null,

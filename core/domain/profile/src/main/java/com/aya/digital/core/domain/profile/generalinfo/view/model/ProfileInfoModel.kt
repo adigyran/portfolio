@@ -4,8 +4,9 @@ import android.app.Activity
 import android.os.Parcelable
 import com.aya.digital.core.data.profile.CurrentProfile
 import com.aya.digital.core.model.ProfileSex
+import kotlinx.datetime.LocalDate
 import kotlinx.parcelize.Parcelize
-import java.time.LocalDate
+import kotlinx.parcelize.RawValue
 
 @Parcelize
 data class ProfileInfoModel(
@@ -15,7 +16,7 @@ data class ProfileInfoModel(
     val lastName: String?,
     val middleName: String?,
     val avatar: String?,
-    val dateOfBirth: LocalDate?,
+    val dateOfBirth: @RawValue LocalDate?,
     val sex: ProfileSex?,
     val height: String?,
     val weight: String?,

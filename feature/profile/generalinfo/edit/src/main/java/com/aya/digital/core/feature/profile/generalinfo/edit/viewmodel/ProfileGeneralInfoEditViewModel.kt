@@ -12,6 +12,8 @@ import com.aya.digital.core.model.ProfileSex
 import com.aya.digital.core.mvi.BaseViewModel
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
 import kotlinx.coroutines.rx3.await
+import kotlinx.datetime.toJavaLocalDate
+import kotlinx.datetime.toKotlinLocalDate
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
@@ -63,7 +65,7 @@ class ProfileGeneralInfoEditViewModel(
     fun selectFieldClicked(tag: Int) = intent {
         when (tag) {
             FieldsTags.BIRTH_DATE_FIELD_TAG -> {
-                postSideEffect(ProfileGeneralInfoEditSideEffect.ShowBirthdayDatePicker(state.dateOfBirth))
+                postSideEffect(ProfileGeneralInfoEditSideEffect.ShowBirthdayDatePicker(state.dateOfBirth?.toJavaLocalDate()))
             }
         }
     }
@@ -105,7 +107,7 @@ class ProfileGeneralInfoEditViewModel(
     }
 
     fun birthDaySelected(date: LocalDate) = intent {
-        reduce { state.copy(dateOfBirth = date) }
+        reduce { state.copy(dateOfBirth = date.toKotlinLocalDate()) }
     }
 
     private fun getProfileEditModel(state: ProfileGeneralInfoEditState) =

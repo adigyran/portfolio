@@ -3,15 +3,16 @@ package com.aya.digital.core.feature.profile.generalinfo.edit.viewmodel
 import android.net.Uri
 import com.aya.digital.core.model.ProfileSex
 import com.aya.digital.core.mvi.BaseState
+import kotlinx.datetime.LocalDate
 import kotlinx.parcelize.Parcelize
-import java.time.LocalDate
+import kotlinx.parcelize.RawValue
 
 @Parcelize
 data class ProfileGeneralInfoEditState(
     val firstName: String? = null,
     val lastName: String? = null,
     val middleName: String? = null,
-    val dateOfBirth: LocalDate? = null,
+    val dateOfBirth: @RawValue LocalDate? = null,
     val sex: ProfileSex? = null,
     val height: String? = null,
     val heightError: String? = null,

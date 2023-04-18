@@ -49,7 +49,7 @@ class DoctorCardView :
                 DoctorDetailsTitleDelegate()
             }
             delegate {
-                DoctorDetailsBioDelegate()
+                DoctorDetailsBioDelegate(viewModel::onBioReadMoreClicked)
             }
             delegate { DoctorSlotDelegate(viewModel::onSlotClicked) }
             delegate { DoctorDateTitleDelegate() }
@@ -119,32 +119,6 @@ class DoctorCardView :
                 if (binding.recycler.adapter == null) {
                     binding.recycler.swapAdapter(adapter, true)
                     lm.spanSizeLookup = DoctorCardSpanSizeLookup(adapter)
-                    /*lm.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup(){
-                        override fun getSpanSize(position: Int): Int {
-                            val itemViewType = adapter.getItemViewType(position)
-                            Timber.d("$itemViewType")
-                            val findViewHolderForAdapterPosition =
-                                binding.recycler.findViewHolderForAdapterPosition(position)
-                            Timber.d(findViewHolderForAdapterPosition.toString())
-                            return 4
-                            *//*val findViewByPosition = lm.findViewByPosition(position) ?: return 4
-                            val findContainingViewHolder =
-                                binding.recycler.findContainingViewHolder(findViewByPosition)
-                            Timber.d(findContainingViewHolder.toString())
-                            return findContainingViewHolder?.let { viewHolder ->
-                                when(viewHolder)
-                                {
-                                    is DoctorDetailsTitleDelegate.ViewHolder -> 4
-                                    is DoctorDetailsBioDelegate.ViewHolder -> 4
-                                    is DoctorDetailsInsuranceDelegate.ViewHolder -> 4
-                                    is DoctorDateTitleDelegate.ViewHolder -> 4
-                                    is DoctorSlotDelegate.ViewHolder -> 1
-                                    else -> -1
-                                }
-                            }?: 4*//*
-                        }
-
-                    }*/
                 }
             }
         }

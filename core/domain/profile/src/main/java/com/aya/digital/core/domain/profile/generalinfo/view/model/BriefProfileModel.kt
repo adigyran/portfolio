@@ -2,7 +2,8 @@ package com.aya.digital.core.domain.profile.generalinfo.view.model
 
 import com.aya.digital.core.data.profile.CurrentProfile
 import com.aya.digital.core.model.ProfileSex
-import java.time.LocalDate
+import kotlinx.datetime.Instant
+import kotlinx.datetime.LocalDate
 
 data class BriefProfileModel(
     val id: Int,
@@ -11,7 +12,7 @@ data class BriefProfileModel(
     val lastName: String,
     val middleName: String,
     val avatar: String?,
-    val birthday:LocalDate
+    val birthday: LocalDate
 ) {
 
 }
@@ -23,7 +24,7 @@ fun CurrentProfile.mapToBriefProfile() = BriefProfileModel(
     this.lastName ?: "",
     this.middleName ?: "",
     this.avatar?.fullUrl,
-    this.dateOfBirth ?: LocalDate.now()
+    this.dateOfBirth ?: LocalDate(0,0,0)
 )
 
 

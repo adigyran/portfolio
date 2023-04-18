@@ -7,6 +7,7 @@ import com.aya.digital.core.feature.tabviews.profile.viewmodel.ProfileState
 import com.aya.digital.core.mvi.BaseStateTransformer
 import com.aya.digital.core.ui.adapters.base.DiffItem
 import com.aya.digital.core.ui.delegates.profile.info.model.ProfileMainUIModel
+import kotlinx.datetime.toJavaLocalDate
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit
 
@@ -25,7 +26,7 @@ class ProfileStateTransformer(context: Context) :
                 }
             },
             avatar = state.avatar,
-            age = state.dateOFBirth?.let { birthday-> "${ChronoUnit.YEARS.between(birthday, LocalDate.now())}"}?:"",
+            age = state.dateOFBirth?.let { birthday-> "${ChronoUnit.YEARS.between(birthday.toJavaLocalDate(), LocalDate.now())}"}?:"",
             name = kotlin.run {
                 if (state.firstName == null || state.lastName == null) return@run null
                 val lastNameInitial =

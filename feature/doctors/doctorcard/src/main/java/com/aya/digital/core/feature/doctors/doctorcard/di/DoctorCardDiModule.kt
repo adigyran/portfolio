@@ -14,13 +14,14 @@ fun doctorCardDiModule(
 
     bind<DoctorCardStateTransformer>() with singleton {
         DoctorCardStateTransformer(
+            instance(),
             instance()
         )
     }
 
     bind {
         scoped(CustomFragmentScope).singleton {
-            DoctorCardViewModel(parentCoordinatorEvent, param,instance(),instance())
+            DoctorCardViewModel(parentCoordinatorEvent, param, instance(), instance())
         }
     }
 }

@@ -8,7 +8,7 @@ import com.aya.digital.core.mvi.BaseStateTransformer
 import com.aya.digital.core.ui.adapters.base.DiffItem
 import com.aya.digital.core.ui.delegates.profile.info.model.ProfileInfoUIModel
 import com.aya.digital.core.util.datetime.DateTimeUtils
-import java.time.LocalDate
+import kotlinx.datetime.LocalDate
 
 class ProfileGeneralInfoViewStateTransformer(
     private val context: Context,

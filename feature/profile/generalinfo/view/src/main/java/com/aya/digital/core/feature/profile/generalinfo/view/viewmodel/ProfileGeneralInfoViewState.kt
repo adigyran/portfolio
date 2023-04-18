@@ -2,8 +2,9 @@ package com.aya.digital.core.feature.profile.generalinfo.view.viewmodel
 
 import com.aya.digital.core.model.ProfileSex
 import com.aya.digital.core.mvi.BaseState
+import kotlinx.datetime.LocalDate
 import kotlinx.parcelize.Parcelize
-import java.time.LocalDate
+import kotlinx.parcelize.RawValue
 
 @Parcelize
 data class ProfileGeneralInfoViewState(
@@ -11,7 +12,7 @@ data class ProfileGeneralInfoViewState(
     val firstName: String? = null,
     val lastName: String? = null,
     val middleName: String? = null,
-    val dateOfBirth: LocalDate? = null,
+    val dateOfBirth: @RawValue LocalDate? = null,
     val ssn: String? = null,
     val tin: String? = null,
     val sex: ProfileSex? = null,

@@ -13,5 +13,5 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.kodein)
     implementation(libs.timber)
-
+    implementation(libs.kotlinx.time)
 }

@@ -1,6 +1,7 @@
 package com.aya.digital.core.feature.doctors.doctorcard.ui.model
 
 import android.content.Context
+import android.text.format.DateUtils
 import com.aya.digital.core.domain.schedule.base.model.ScheduleSlotModel
 import com.aya.digital.core.feature.doctors.doctorcard.DoctorCardMode
 import com.aya.digital.core.feature.doctors.doctorcard.viewmodel.DoctorCardState
@@ -9,11 +10,15 @@ import com.aya.digital.core.ui.adapters.base.DiffItem
 import com.aya.digital.core.ui.delegates.doctorcard.doctordetails.model.DoctorDetailsBioUIModel
 import com.aya.digital.core.ui.delegates.doctorcard.doctordetails.model.DoctorDetailsInsuranceUIModel
 import com.aya.digital.core.ui.delegates.doctorcard.doctordetails.model.DoctorDetailsTitleUIModel
-import com.aya.digital.core.ui.delegates.doctorcard.doctordetails.ui.DoctorDetailsTitleDelegate
 import com.aya.digital.core.ui.delegates.doctorcard.doctorslot.model.DoctorDateTitleUIModel
 import com.aya.digital.core.ui.delegates.doctorcard.doctorslot.model.DoctorSlotUIModel
+import com.aya.digital.core.util.datetime.DateTimeUtils
+import kotlinx.datetime.*
 
-class DoctorCardStateTransformer(private val context: Context) :
+class DoctorCardStateTransformer(
+    private val context: Context,
+    private val dateTimeUtils: DateTimeUtils
+) :
     BaseStateTransformer<DoctorCardState, DoctorCardUiModel>() {
     override fun invoke(state: DoctorCardState): DoctorCardUiModel =
         DoctorCardUiModel(
@@ -54,20 +59,38 @@ class DoctorCardStateTransformer(private val context: Context) :
                 .sortedWith { t, t2 -> t.startDate.compareTo(t2.startDate) }
                 .groupBy { it.startDate.dayOfMonth }
                 .forEach { entry ->
-                    val firstSlotDate = entry.value.first().startDate
-                    add(DoctorDateTitleUIModel(entry.key,firstSlotDate.toString()))
-                    addAll(entry.value.map { DoctorSlotUIModel(it.id,it.startDate.toString()) })
+                    val firstSlotDateTime = entry.value.first().startDate
+                    val slotTitle = "%s, %s".format(
+                        firstSlotDateTime.getRelativeText(),
+                        dateTimeUtils.formatSlotTitleDate(firstSlotDateTime)
+                    )
+                    add(DoctorDateTitleUIModel(entry.key, slotTitle))
+                    addAll(entry.value
+                        .take(7)
+                        .map {
+                            DoctorSlotUIModel(
+                                it.id,
+                                dateTimeUtils.formatSlotTime(it.startDate.time)
+                            )
+                        })
+                    if (entry.value.size > 7) add(
+                        DoctorSlotUIModel(
+                            entry.key,
+                            "more",
+                            firstSlotDateTime.date
+                        )
+                    )
                 }
         }
 
     private fun getDetailsData(state: DoctorCardState): List<DiffItem> =
         mutableListOf<DiffItem>().apply {
             state.doctorBio?.let { bio ->
-                add(DoctorDetailsTitleUIModel("Doctor bio"))
-                add(DoctorDetailsBioUIModel(bio = bio))
+                add(DoctorDetailsTitleUIModel("Doctor’s BIO"))
+                add(DoctorDetailsBioUIModel(bio = bio, isExpanded = state.bioReadMore))
             }
             state.doctorInsurances?.let { insurances ->
-                add(DoctorDetailsTitleUIModel("Served insurances"))
+                add(DoctorDetailsTitleUIModel("Insurances"))
                 addAll(insurances.map { DoctorDetailsInsuranceUIModel(it.name) })
             }
 
@@ -75,5 +98,11 @@ class DoctorCardStateTransformer(private val context: Context) :
 
     private fun getNotSpecifiedText() = "Not specified"
     private fun String?.getField() = this ?: getNotSpecifiedText()
+
+    private fun LocalDateTime.getRelativeText() = DateUtils.getRelativeTimeSpanString(
+        this.toInstant(
+            TimeZone.currentSystemDefault()
+        ).toEpochMilliseconds(), System.currentTimeMillis(), 0L, DateUtils.FORMAT_ABBREV_ALL
+    );
 
 }

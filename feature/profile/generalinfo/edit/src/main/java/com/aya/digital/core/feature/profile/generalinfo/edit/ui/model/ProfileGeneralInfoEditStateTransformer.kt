@@ -17,7 +17,7 @@ import com.aya.digital.core.ui.delegates.components.fields.dropdown.model.Dropdo
 import com.aya.digital.core.ui.delegates.components.fields.selection.model.SelectionFieldUIModel
 import com.aya.digital.core.ui.delegates.components.fields.validated.model.ValidatedFieldUIModel
 import com.aya.digital.core.util.datetime.DateTimeUtils
-import java.time.LocalDate
+import kotlinx.datetime.LocalDate
 
 class ProfileGeneralInfoEditStateTransformer(
     private val context: Context,

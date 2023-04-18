@@ -4,13 +4,16 @@ import com.aya.digital.core.domain.doctors.base.GetDoctorByIdUseCase
 import com.aya.digital.core.domain.schedule.base.GetLatestScheduleByDoctorIdUseCase
 import com.aya.digital.core.domain.schedule.base.model.ScheduleSlotModel
 import com.aya.digital.core.feature.doctors.doctorcard.DoctorCardMode
+import com.aya.digital.core.feature.doctors.doctorcard.navigation.DoctorCardNavigationEvents
 import com.aya.digital.core.feature.doctors.doctorcard.ui.DoctorCardView
 import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.mvi.BaseViewModel
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
+import com.aya.digital.core.util.requestcodes.RequestCodes
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.reactive.asFlow
 import kotlinx.coroutines.rx3.await
+import kotlinx.datetime.LocalDate
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
@@ -68,16 +71,43 @@ class DoctorCardViewModel(
         }
     }
 
-    fun onSlotClicked(slotId: Int) = intent {
-
+    fun onSlotClicked(slotId: Int, date:LocalDate?) = intent {
+        if(date!=null)
+        {
+            listenForAppointmentCreation()
+            coordinatorRouter.sendEvent(DoctorCardNavigationEvents.CreateAppointment(
+                requestCode =  RequestCodes.CREATE_APPOINTMENT_REQUEST_COOE,
+                slotDateTime = null,
+                date = date
+            ))
+        }
+        else
+        {
+            state.doctorSlots?.firstOrNull { it.id == slotId }?.let {slot->
+                listenForAppointmentCreation()
+                coordinatorRouter.sendEvent(DoctorCardNavigationEvents.CreateAppointment(
+                    requestCode =  RequestCodes.CREATE_APPOINTMENT_REQUEST_COOE,
+                    slotDateTime = slot.startDate,
+                    date = slot.startDate.date
+                ))
+            }
+        }
     }
 
+    private fun listenForAppointmentCreation() {
+        coordinatorRouter.setResultListener(RequestCodes.CREATE_APPOINTMENT_REQUEST_COOE) {
+        }
+    }
+
+    fun onBioReadMoreClicked() = intent {
+        val readMoreOld = state.bioReadMore
+        reduce { state.copy(bioReadMore = !readMoreOld) }
+    }
     fun onBookClicked() = intent {
         if (state.doctorCardMode != DoctorCardMode.ShowingSlots) reduce {
             state.copy(doctorCardMode = DoctorCardMode.ShowingSlots)
         }
     }
-
     fun onDetailsClicked() = intent {
         if (state.doctorCardMode != DoctorCardMode.ShowingDetailsInfo) reduce {
             state.copy(doctorCardMode = DoctorCardMode.ShowingDetailsInfo)

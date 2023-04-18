@@ -8,8 +8,9 @@ import com.aya.digital.core.ui.adapters.base.BaseViewHolder
 import com.aya.digital.core.ui.adapters.base.DiffItem
 import com.aya.digital.core.ui.delegates.doctorcard.doctorslot.model.DoctorSlotUIModel
 import com.aya.digital.core.ui.delegates.features.doctorcard.doctorslot.databinding.ItemDoctorSlotBinding
+import kotlinx.datetime.LocalDate
 
-class DoctorSlotDelegate(private val onSlotClick: (id: Int) -> Unit) :
+class DoctorSlotDelegate(private val onSlotClick: (id: Int, date : LocalDate?) -> Unit) :
     BaseDelegate<DoctorSlotUIModel>() {
     override fun isForViewType(
         item: DiffItem,
@@ -29,7 +30,7 @@ class DoctorSlotDelegate(private val onSlotClick: (id: Int) -> Unit) :
         BaseViewHolder<DoctorSlotUIModel>(binding.root) {
 
         init {
-            binding.root bindClick { onSlotClick(item.id) }
+            binding.root bindClick { onSlotClick(item.id, item.date) }
         }
         override fun bind(item: DoctorSlotUIModel) {
             super.bind(item)
