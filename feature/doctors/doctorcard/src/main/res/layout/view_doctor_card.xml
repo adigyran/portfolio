@@ -13,7 +13,7 @@
         app:layout_constraintTop_toBottomOf="@id/toolbar"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
-        style="@style/Widget.App.Button.FilledButton.Rounded.White"
+        style="@style/Widget.App.Button.FilledButton.Rounded.Gray"
         android:text="Book"
         android:id="@+id/bookBtn"
         />
@@ -24,7 +24,7 @@
         android:layout_marginTop="20dp"
         app:layout_constraintStart_toEndOf="@id/bookBtn"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
-        style="@style/Widget.App.Button.FilledButton.Rounded.White"
+        style="@style/Widget.App.Button.FilledButton.Rounded.Gray"
         android:text="Details Info"
         android:id="@+id/detailsBtn"
         />

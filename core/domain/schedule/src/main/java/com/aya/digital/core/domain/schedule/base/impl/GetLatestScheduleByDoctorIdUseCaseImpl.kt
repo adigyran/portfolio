@@ -18,9 +18,9 @@ internal class GetLatestScheduleByDoctorIdUseCaseImpl(
     override fun invoke(doctorId: Int, days: Int): Flowable<RequestResultModel<List<ScheduleSlotModel>>> {
         val currentInstant = Clock.System.now()
         val systemTZ = TimeZone.currentSystemDefault()
-        val startDateTime = currentInstant.minus(days, DateTimeUnit.DAY,systemTZ).toLocalDateTime(systemTZ)
-        val endDateTime = currentInstant.toLocalDateTime(systemTZ)
-        return repository.getSlots(doctorId,startDateTime,endDateTime)
+        val startDateTime = currentInstant.toLocalDateTime(systemTZ)
+        val endDateTime =  currentInstant.minus(days, DateTimeUnit.DAY,systemTZ).toLocalDateTime(systemTZ)
+        return repository.getSlots(doctorId,endDateTime,startDateTime)
             .mapResult({scheduleSlots -> scheduleSlots.map { it.toSlotModel() }.asResultModel() },{it.toModelError()})
     }
 

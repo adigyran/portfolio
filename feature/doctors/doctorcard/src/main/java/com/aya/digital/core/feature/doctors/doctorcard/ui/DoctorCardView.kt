@@ -6,9 +6,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.aya.digital.core.ext.argument
-import com.aya.digital.core.ext.bindClick
-import com.aya.digital.core.ext.createFragment
+import com.aya.digital.core.ext.*
+import com.aya.digital.core.feature.doctors.doctorcard.DoctorCardMode
 import com.aya.digital.core.feature.doctors.doctorcard.databinding.ViewDoctorCardBinding
 import com.aya.digital.core.feature.doctors.doctorcard.di.doctorCardDiModule
 import com.aya.digital.core.feature.doctors.doctorcard.ui.model.DoctorCardStateTransformer
@@ -119,6 +118,19 @@ class DoctorCardView :
                 if (binding.recycler.adapter == null) {
                     binding.recycler.swapAdapter(adapter, true)
                     lm.spanSizeLookup = DoctorCardSpanSizeLookup(adapter)
+                }
+            }
+            doctorCardMode.let {doctorCardMode->
+                when(doctorCardMode)
+                {
+                    DoctorCardMode.ShowingDetailsInfo -> {
+                        binding.bookBtn.unselect()
+                        binding.detailsBtn.select()
+                    }
+                    DoctorCardMode.ShowingSlots -> {
+                        binding.bookBtn.select()
+                        binding.detailsBtn.unselect()
+                    }
                 }
             }
         }

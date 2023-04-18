@@ -27,11 +27,18 @@
 
     <style name="Widget.App.Button.FilledButton.Rounded">
         <item name="shapeAppearance">@style/ShapeAppearance.App.RoundedButton</item>
+        <item name="android:textAppearance">@style/TextAppearance.App.Body.DescriptionText</item>
     </style>
     <style name="Widget.App.Button.FilledButton.Rounded.White">
         <item name="android:textColor">@color/button_text_blue</item>
         <item name="rippleColor">@color/button_ripple_color_selector_white</item>
         <item name="backgroundTint">@color/button_background_color_selector_white</item>
+    </style>
+
+    <style name="Widget.App.Button.FilledButton.Rounded.Gray">
+        <item name="android:textColor">@color/button_text_color_selector_gray</item>
+        <item name="rippleColor">@color/button_ripple_color_selector_gray</item>
+        <item name="backgroundTint">@color/button_background_color_selector_gray</item>
     </style>
 
     <style name="Widget.App.Button.FilledButton.DarkBlue">
