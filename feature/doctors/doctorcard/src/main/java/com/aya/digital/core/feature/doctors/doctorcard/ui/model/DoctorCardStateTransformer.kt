@@ -9,6 +9,7 @@ import com.aya.digital.core.mvi.BaseStateTransformer
 import com.aya.digital.core.ui.adapters.base.DiffItem
 import com.aya.digital.core.ui.delegates.doctorcard.doctordetails.model.DoctorDetailsBioUIModel
 import com.aya.digital.core.ui.delegates.doctorcard.doctordetails.model.DoctorDetailsInsuranceUIModel
+import com.aya.digital.core.ui.delegates.doctorcard.doctordetails.model.DoctorDetailsLocationUIModel
 import com.aya.digital.core.ui.delegates.doctorcard.doctordetails.model.DoctorDetailsTitleUIModel
 import com.aya.digital.core.ui.delegates.doctorcard.doctorslot.model.DoctorDateTitleUIModel
 import com.aya.digital.core.ui.delegates.doctorcard.doctorslot.model.DoctorSlotUIModel
@@ -92,6 +93,10 @@ class DoctorCardStateTransformer(
             state.doctorInsurances?.let { insurances ->
                 add(DoctorDetailsTitleUIModel("Insurances"))
                 addAll(insurances.map { DoctorDetailsInsuranceUIModel(it.name) })
+            }
+            state.doctorAddress?.let {address ->
+                add(DoctorDetailsTitleUIModel("Location"))
+                add(DoctorDetailsLocationUIModel(address = address))
             }
 
         }

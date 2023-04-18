@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.aya.digital.core.ext.dpToPx
 import com.aya.digital.core.ui.delegates.doctorcard.doctordetails.ui.DoctorDetailsBioDelegate
 import com.aya.digital.core.ui.delegates.doctorcard.doctordetails.ui.DoctorDetailsInsuranceDelegate
+import com.aya.digital.core.ui.delegates.doctorcard.doctordetails.ui.DoctorDetailsLocationDelegate
 import com.aya.digital.core.ui.delegates.doctorcard.doctordetails.ui.DoctorDetailsTitleDelegate
 import com.aya.digital.core.ui.delegates.doctorcard.doctorslot.ui.DoctorDateTitleDelegate
 import com.aya.digital.core.ui.delegates.doctorcard.doctorslot.ui.DoctorSlotDelegate
@@ -45,6 +46,7 @@ internal class DoctorCardDecoration : RecyclerView.ItemDecoration() {
             is DoctorDetailsTitleDelegate.ViewHolder -> (if(position == 0) 20 else 40 )
             is DoctorDetailsBioDelegate.ViewHolder -> 8
             is DoctorDetailsInsuranceDelegate.ViewHolder -> 12
+            is DoctorDetailsLocationDelegate.ViewHolder -> 12
             else -> 0
         }
         outRect.top = top.dpToPx()

@@ -19,6 +19,7 @@ import com.aya.digital.core.ui.adapters.base.BaseDelegateAdapter
 import com.aya.digital.core.ui.base.screens.DiFragment
 import com.aya.digital.core.ui.delegates.doctorcard.doctordetails.ui.DoctorDetailsBioDelegate
 import com.aya.digital.core.ui.delegates.doctorcard.doctordetails.ui.DoctorDetailsInsuranceDelegate
+import com.aya.digital.core.ui.delegates.doctorcard.doctordetails.ui.DoctorDetailsLocationDelegate
 import com.aya.digital.core.ui.delegates.doctorcard.doctordetails.ui.DoctorDetailsTitleDelegate
 import com.aya.digital.core.ui.delegates.doctorcard.doctorslot.ui.DoctorDateTitleDelegate
 import com.aya.digital.core.ui.delegates.doctorcard.doctorslot.ui.DoctorSlotDelegate
@@ -53,6 +54,7 @@ class DoctorCardView :
             delegate { DoctorSlotDelegate(viewModel::onSlotClicked) }
             delegate { DoctorDateTitleDelegate() }
             delegate { DoctorDetailsInsuranceDelegate() }
+            delegate { DoctorDetailsLocationDelegate() }
         }
     }
 
