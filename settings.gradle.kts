@@ -139,9 +139,10 @@ include(":feature:tabviews:appointments")
 //containers
 include(":feature:rootcontainer")
 include(":feature:bottomnavhost")
-//
+//dialogs
 include(":feature:bottomdialogs:bottomdialog")
 include(":feature:bottomdialogs:codedialog")
+include(":feature:bottomdialogs:createappointmentdialog")
 //auth
 include(":feature:auth:chooser")
 include(":feature:auth:signup")

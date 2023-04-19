@@ -8,12 +8,14 @@ import com.aya.digital.core.feature.auth.restorepassword.navigation.RestorePassw
 import com.aya.digital.core.feature.bottomnavhost.navigation.BottomNavHostScreen
 import com.aya.digital.core.feature.choosers.multiselect.navigation.SelectWithSearchNavigationEvents
 import com.aya.digital.core.feature.choosers.multiselect.navigation.SelectWithSearchScreen
+import com.aya.digital.core.feature.doctors.doctorcard.navigation.DoctorCardNavigationEvents
 import com.aya.digital.core.navigation.bottomnavigation.StartScreen
 import com.aya.digital.core.navigation.coordinator.CoordinatorEvent
 import com.aya.digital.core.navigation.graph.coordinator.RootCoordinatorGraph
 import com.aya.digital.feature.auth.container.navigation.AuthContainerScreen
 import com.aya.digital.feature.bottomdialogs.codedialog.navigation.CodeDialogNavigationEvents
 import com.aya.digital.feature.bottomdialogs.codedialog.navigation.CodeDialogScreen
+import com.aya.digital.feature.bottomdialogs.createappointmentdialog.navigation.CreateAppointmentDialogScreen
 import com.aya.digital.feature.rootcontainer.navigation.RootContainerNavigationEvents
 import com.github.terrakok.cicerone.Router
 import java.lang.ref.WeakReference
@@ -104,6 +106,10 @@ class PatientRootCoordinatorGraph(context: Context) : RootCoordinatorGraph {
             is RestorePasswordNavigationEvents.FinishWithResult -> {
                 navigationRouter.sendResult(event.requestCode, event.result)
                 navigationRouter.exit()
+            }
+
+            is DoctorCardNavigationEvents.CreateAppointment -> {
+                navigationRouter.navigateTo(CreateAppointmentDialogScreen("CREATE_APPOINTMENT",event.requestCode,event.slotDateTime,event.date))
             }
         }
     }

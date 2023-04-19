@@ -5,7 +5,10 @@ import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 
 
-sealed class DoctorCardNavigationEvents : CoordinatorEvent()
-{
-    data class CreateAppointment(val requestCode:String, val slotDateTime: LocalDateTime?, val date: LocalDate):DoctorCardNavigationEvents()
+sealed class DoctorCardNavigationEvents : CoordinatorEvent() {
+    data class CreateAppointment(
+        val requestCode: String,
+        val slotDateTime: LocalDateTime?,
+        val date: LocalDate
+    ) : DoctorCardNavigationEvents()
 }
