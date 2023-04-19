@@ -73,7 +73,7 @@ class SignUpViewModel(
         }
     }
 
-    private fun onInsurancesSelected(items: Set<Int>) = intent {
+    private fun onInsurancesSelected(items: Set<Int>) = intent(registerIdling = false) {
         if (items.isEmpty()) {
             reduce {
                 state.copy(

@@ -23,7 +23,7 @@ class AppointmentsViewModel(
         loadAppointments()
     }
 
-    private fun loadAppointments() = intent {
+    private fun loadAppointments() = intent(registerIdling = false) {
         getAppointmentsUseCase().asFlow()
             .collect { resultModel ->
                 resultModel.processResult({

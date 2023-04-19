@@ -54,8 +54,8 @@ class DoctorCardViewModel(
             }, { processError(it) })
     }
 
-    private fun loadDoctorSchedule(doctorId: Int) = intent {
-        getLatestScheduleByDoctorIdUseCase(doctorId, days = 7).asFlow()
+    private fun loadDoctorSchedule(doctorId: Int) = intent(registerIdling = false) {
+        getLatestScheduleByDoctorIdUseCase(doctorId, days = 3).asFlow()
             .collect {
                 it.processResult({ scheduleSlotModels ->
                     updateSlots(slots = scheduleSlotModels)
