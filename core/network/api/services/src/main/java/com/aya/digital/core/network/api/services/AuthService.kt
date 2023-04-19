@@ -31,7 +31,7 @@ interface AuthService {
     @POST("base/forget-password-userkey")
     fun resetPassword(@Header("userkey") userKey: String, @Body resetPasswordBody: ResetPasswordBody): Single<Boolean>
 
-    @POST("base/base/change-password")
+    @POST("base/change-password")
     fun changePassword(@Body changePasswordBody: ChangePasswordBody): Single<Boolean>
     @POST("base/change-email")
     fun changeEmail(@Query("codeVerify") code: String, @Body changeEmailBody: ChangeEmailBody): Single<Boolean>

@@ -24,7 +24,7 @@ fun CurrentProfile.mapToBriefProfile() = BriefProfileModel(
     this.lastName ?: "",
     this.middleName ?: "",
     this.avatar?.fullUrl,
-    this.dateOfBirth ?: LocalDate(0,0,0)
+    this.dateOfBirth ?: LocalDate(2000,1,1)
 )
 
 

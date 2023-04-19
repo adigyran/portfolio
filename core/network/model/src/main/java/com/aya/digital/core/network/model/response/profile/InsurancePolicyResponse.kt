@@ -9,5 +9,5 @@ data class InsurancePolicyResponse(
     val number: String,
     val organizationId: Int,
     val organizationName:String,
-    val fullUrl:String
+    val fullUrl:String?
 )

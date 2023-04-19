@@ -44,15 +44,17 @@ class InsurancePolicyDelegate(private val onPolicyClick: (id: Int) -> Unit,
             super.bind(item)
             binding.name.text = item.name
             binding.number.text = item.number
-            Glide
-                .with(binding.insuranceCardIv)
-                .load(item.photo)
-                .transform(
-                    CenterCrop(),
-                    RoundedCorners(8.dpToPx())
-                )
-                .dontAnimate()
-                .into(binding.insuranceCardIv)
+            item.photo?.let {
+                Glide
+                    .with(binding.insuranceCardIv)
+                    .load(item.photo)
+                    .transform(
+                        CenterCrop(),
+                        RoundedCorners(8.dpToPx())
+                    )
+                    .dontAnimate()
+                    .into(binding.insuranceCardIv)
+            }
         }
     }
 }

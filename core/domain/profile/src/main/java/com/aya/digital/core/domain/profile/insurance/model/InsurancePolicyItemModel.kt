@@ -9,5 +9,5 @@ data class InsurancePolicyItemModel(
     val organisationId: Int,
     val organisationName:String,
     val number: String,
-    val attachmentUrl:String
+    val attachmentUrl:String?
 ) : Parcelable

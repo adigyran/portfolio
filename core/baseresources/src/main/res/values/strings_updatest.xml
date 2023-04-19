@@ -1,30 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="main_latest_updates">Added Firebase Distribution
-        Testing distribution notificationsAdded Auth and Sign in Screens with insurance selector
-        Added bottom navigation, proper auth endpoints, code dialog
-added check for auth to show main screen, added main and profile screens
-added code input screen
-now insurances loading by id,
-added profile screens - profile edit, profile view,
-        profile security with ability to change email and password,
-profile emergency contact, profile notification settings,
-profile insurances
-added screen to restore/change temp password
-added proper signup profile validation
-insurances working now
-emergency contact is done, need one server fix (which is not require changes in app)
-added avatar
-auth, profile, main screen design
-main screen WIP due to font oddities
-added google auth
-        added toolbars, fixed design
-        added appointments list
-doctor search test
-doctor card test
-video calls
-        changed app icon
-        fixed videocalls
-        version 15
+    <string name="main_latest_updates">Added Firebase Distribution\n
+        Testing distribution notifications\nAdded Auth and Sign in Screens with insurance selector\n
+        Added bottom navigation, proper auth endpoints, code dialog\n
+        added check for auth to show main screen, added main and profile screens\n
+        added code input screen\n
+        now insurances loading by id\n
+        added profile screens - profile edit, profile view\n
+        profile security with ability to change email and password\n
+        profile emergency contact, profile notification settings\n
+        profile insurances\n
+        added screen to restore/change temp password\n
+        added proper signup profile validation\n
+        insurances working now\n
+        emergency contact\n
+        added avatar\n
+        auth, profile, main screen design\n
+        main screen WIP due to font oddities\n
+        added google auth\n
+        added toolbars, fixed design\n
+        added appointments list\n
+        doctor search test\n
+        doctor card test\n
+        video calls\nchanged app icon\n
+        fixed videocalls\n
+        version 17\n
     </string>
 </resources>

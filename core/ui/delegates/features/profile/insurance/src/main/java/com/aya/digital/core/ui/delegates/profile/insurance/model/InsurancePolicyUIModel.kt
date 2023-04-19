@@ -7,7 +7,7 @@ data class InsurancePolicyUIModel(
     val id: Int,
     val number: String,
     val name: String,
-    val photo:String,
+    val photo:String?,
     val status: InsuranceStatus?
 ) : DiffItem {
 
