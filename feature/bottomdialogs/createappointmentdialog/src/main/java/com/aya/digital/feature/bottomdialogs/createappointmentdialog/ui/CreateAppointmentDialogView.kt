@@ -5,14 +5,8 @@ import android.os.Bundle
 import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.MaterialTheme
-import androidx.compose.runtime.*
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.ViewCompositionStrategy
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.unit.dp
-import com.aya.digital.core.domain.schedule.base.model.ScheduleSlotModel
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.aya.digital.core.ext.argument
 import com.aya.digital.core.ext.bindClick
 import com.aya.digital.core.ext.createFragment
@@ -20,12 +14,13 @@ import com.aya.digital.feature.bottomdialogs.createappointmentdialog.di.createAp
 import com.aya.digital.feature.bottomdialogs.createappointmentdialog.viewmodel.CreateAppointmentDialogState
 import com.aya.digital.feature.bottomdialogs.createappointmentdialog.viewmodel.CreateAppointmentDialogViewModel
 import com.aya.digital.core.mvi.BaseSideEffect
+import com.aya.digital.core.ui.adapters.base.BaseDelegateAdapter
 import com.aya.digital.core.ui.base.screens.DiBottomSheetDialogFragment
+import com.aya.digital.core.ui.delegates.doctorcard.doctorslot.ui.DoctorDateTitleDelegate
+import com.aya.digital.core.ui.delegates.doctorcard.doctorslot.ui.DoctorSlotDelegate
 import com.aya.digital.feature.bottomdialogs.createappointmentdialog.databinding.ViewCreateAppointmentDialogBinding
 import com.aya.digital.feature.bottomdialogs.createappointmentdialog.ui.model.CreateAppointmentDialogStateTransformer
 import com.aya.digital.feature.bottomdialogs.createappointmentdialog.ui.model.CreateAppointmentDialogUiModel
-import com.mukesh.OTP_VIEW_TYPE_BORDER
-import com.mukesh.OtpView
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.parcelize.Parcelize
@@ -33,7 +28,6 @@ import kotlinx.parcelize.RawValue
 import org.kodein.di.DI
 import org.kodein.di.factory
 import org.kodein.di.on
-import kotlin.properties.Delegates
 
 class CreateAppointmentDialogView :
     DiBottomSheetDialogFragment<ViewCreateAppointmentDialogBinding, CreateAppointmentDialogViewModel, CreateAppointmentDialogState, BaseSideEffect, CreateAppointmentDialogUiModel, CreateAppointmentDialogStateTransformer>() {
@@ -55,6 +49,14 @@ class CreateAppointmentDialogView :
         stateTransformerFactory(Unit)
 
 
+    private val adapter by lazy(LazyThreadSafetyMode.NONE) {
+        BaseDelegateAdapter.create {
+            delegate { DoctorSlotDelegate(viewModel::onSlotClicked) }
+        }
+    }
+
+    private lateinit var lm: GridLayoutManager
+
     override fun provideDiModule(): DI.Module = createAppointmentDialogDiModule(tryTyGetParentRouter(), param)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,9 +65,25 @@ class CreateAppointmentDialogView :
 
     override fun prepareUi(savedInstanceState: Bundle?) {
         super.prepareUi(savedInstanceState)
-       // binding.otpView.setOtpCompletionListener(viewModel::codeChanged)
         binding.btnClose bindClick {viewModel.close()}
+        with(binding.recycler) {
+            itemAnimator = null
+            setHasFixedSize(true)
+            setItemViewCacheSize(30)
+            isNestedScrollingEnabled = false
 
+
+            lm = GridLayoutManager(
+                context,
+                4,
+                RecyclerView.VERTICAL,
+                false
+            )
+
+
+            layoutManager = lm
+            addItemDecoration(CreateAppointmentDecoration())
+        }
     }
 
     override fun provideViewBinding(
@@ -76,10 +94,17 @@ class CreateAppointmentDialogView :
     override fun sideEffect(sideEffect: BaseSideEffect) = Unit
 
     override fun render(state: CreateAppointmentDialogState) {
-        val uiModel = stateTransformer(state)
-        if (!initialised) {
-            initialised = true
-
+        stateTransformer(state).run {
+            dateText?.let { date->
+                binding.titleTv.text = date
+            }
+            data?.let {
+                adapter.items = it
+                if (binding.recycler.adapter == null) {
+                    binding.recycler.swapAdapter(adapter, true)
+                    lm.spanSizeLookup = CreateAppointmentSpanSizeLookup(adapter)
+                }
+            }
         }
     }
 

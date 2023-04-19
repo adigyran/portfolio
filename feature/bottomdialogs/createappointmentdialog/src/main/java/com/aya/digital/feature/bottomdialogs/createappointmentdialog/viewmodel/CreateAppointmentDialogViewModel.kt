@@ -6,6 +6,7 @@ import com.aya.digital.core.mvi.BaseViewModel
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
 import com.aya.digital.feature.bottomdialogs.createappointmentdialog.navigation.CreateAppointmentDialogNavigationEvents
 import com.aya.digital.feature.bottomdialogs.createappointmentdialog.ui.CreateAppointmentDialogView
+import kotlinx.datetime.LocalDate
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
@@ -28,6 +29,10 @@ class CreateAppointmentDialogViewModel(
         coordinatorRouter.sendEvent(CreateAppointmentDialogNavigationEvents.Exit)
     }
 
+
+    fun onSlotClicked(slotId: Int, date: LocalDate?) = intent {
+
+    }
 
 
     override fun postErrorSideEffect(errorSideEffect: ErrorSideEffect) {

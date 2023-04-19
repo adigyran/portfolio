@@ -5,6 +5,6 @@ import com.aya.digital.core.ui.adapters.base.DiffItem
 
 data class CreateAppointmentDialogUiModel(
     val data: List<DiffItem>? = null,
-    val selectedSlotId: Int? = null,
-    val comment: String? = null
+    val comment: String? = null,
+    val dateText:String? = null
 ) : BaseUiModel

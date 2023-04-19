@@ -12,7 +12,7 @@ fun createAppointmentDialogDiModule(
     param: CreateAppointmentDialogView.Param
 ) = DI.Module("createAppointmentDialogDiModule") {
 
-    bind<CreateAppointmentDialogStateTransformer>() with singleton { CreateAppointmentDialogStateTransformer(instance()) }
+    bind<CreateAppointmentDialogStateTransformer>() with singleton { CreateAppointmentDialogStateTransformer(instance(),instance()) }
 
 
     bind {
