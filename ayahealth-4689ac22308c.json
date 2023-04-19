@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "ayahealth",
+  "private_key_id": "4689ac22308cd5df70e0521a3a25223870f63d29",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQC7Rgg7k6jQJfzb\nsW3BmCselVZ5vH+DRS6DGDIeITAmTi997j9/fVt//w+t0OaL45FeAAvCKWa3wMwj\npGqW1pd9IZWELf53f9p6yWrc3Jtptb2kE8kAI4So3fk9uM0mx+so437d7p91Yvy9\nvmMh8tJbfMeJQpoZrLMJI09ClQ1uBnbMk2abGel4VdAd2afHxvyzjS2k/tjXBm80\nwZxCJwjFwr7iODhfbf/tm12z1IxurCMj2dYzULdzAKlhynLAoNLa3e3KCxLNCMNu\nzYWKnOwpdq3TdQOzqhztTpgkxKF2jDSYVipDKMfyYPUQH9L7OmnC4OPcCh92MDH2\nEbkgg+X5AgMBAAECggEACYBTGJq0PONAgfDtjZ3nyiRvf7uliIZxBquql0a9x6O9\n2xjEVfaJNuQ86men2r8P+AHulso88OOyN7i2w7JdezbB/DPNLkjpT8N6TXxP0jwr\nQ/DRCNXEfEDOzWfb2LTZ5HguTpo1suHzyrinFOjZ7VRWV0tuwBC4AKWu9sTTKprJ\nHfmBjUIjuqt82nkOlETeuvjm89hnX9mlFjWUXHLNJ502OXHTymIm2JWEE7sf+xnq\nwSOI/isbrDrlF8SGuyRP2rlaFO6st87atAjOlhblq2xO3wCCbdbdth7ybeIQI4K4\nGvJwQ2UWqZnQ/1PJEf2A3PfWnucFkGfdC9icdjSWFQKBgQDj1eGes4Y1ahxCJCoG\nfF0BzmDHpE/WyqvDFFC+AbMjqk6bVoBwZk40XW3pFweddxP0P/W0b4haEJCz0ZEg\npn+zsZevEsWuGVtGMGKkc+/W5SkkCyQ540qfXV/58x3mg0UGfHr9N6srYl5P2t7u\n8mbcZbDc/ad8lyApgV2500bvcwKBgQDSbIWfp9nYLgGKb8ym94japcKKIa+bZdFm\nTkbwulG9p7SrxZy9Gdm231/9GeXTAGElB+a9T/psEGWKVr1mwvh4UNUocXUn1zRD\ngg36gQrg4yPc1V//6a5J0wTTkBVKMGvH9yp2Rw5GqbBfDosBADxtYDaaVEnPCDh/\nC/FWKdFh4wKBgQCcc0NiIi73wOy0sna1S3LmiZxFm1xDx5pY9DtZrnsf85PU8Xpz\nNJ1hMgMGe4z8IUfvgngrtibwic2D3VWGES9B6qKZUw+xtLHLqfAis4Yvj99HY+s1\nYRHeC1WbosmWf+/HO3WNKkv9F6hht488j/H4SFBCAGChmnk4ZyBAOYfNZwKBgQC0\nvLfNWVvYvjNemAadRzJKM2Q0RxjRjhPdHtD6Bd8d2oVpoPOuzRxeYeDNwcfQg5vt\nNasv4hlDZpYAy94k/MR0e2GLOmCZltPyRCwDhYE1hoOQM8ogQrQL/u8/VJukvJBn\nElprez683RV7oD8u3egJPkHILyuyYuo73aMuEf8hZwKBgQDPcKjDrZgvS2nQJuF8\nkHsaTh75FsO1bzifI3zs7SY3gzfpoSTQwNCqjOtrXqiEId29TyL2CR3Y4UwnJ+GW\n/PgKlKeimq1bmOYMD/4GmDIIWTqV1fxT2ZyYBhnwCIM7im7RSGs0Ci+1Figjq/CZ\n7OT8wSAwDHoSA6qPrFy9t0/UXg==\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-distribution@ayahealth.iam.gserviceaccount.com",
+  "client_id": "111904686181107056296",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-distribution%40ayahealth.iam.gserviceaccount.com"
+}

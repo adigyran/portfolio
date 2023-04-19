@@ -107,7 +107,7 @@ class DoctorCardStateTransformer(
     private fun LocalDateTime.getRelativeText() = DateUtils.getRelativeTimeSpanString(
         this.toInstant(
             TimeZone.currentSystemDefault()
-        ).toEpochMilliseconds(), System.currentTimeMillis(), 0L, DateUtils.FORMAT_ABBREV_ALL
+        ).toEpochMilliseconds(), System.currentTimeMillis(), DateUtils.DAY_IN_MILLIS, DateUtils.FORMAT_ABBREV_RELATIVE
     );
 
 }

@@ -20,6 +20,7 @@
         android:layout_width="0dp"
         android:layout_height="?attr/actionBarSize"
         android:layout_gravity="bottom"
+        app:labelVisibilityMode="unlabeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

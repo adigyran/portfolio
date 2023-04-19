@@ -12,6 +12,7 @@ import com.aya.digital.core.ui.adapters.base.DiffItem
 import com.aya.digital.core.ui.delegates.features.profile.main.databinding.ItemProfileMainBinding
 import com.aya.digital.core.ui.delegates.profile.info.model.ProfileMainUIModel
 import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
+
 class ProfileMainDelegate(private val delegateListeners: ProfileMainDelegateListeners) :
     BaseDelegate<ProfileMainUIModel>() {
     override fun isForViewType(
@@ -30,20 +31,18 @@ class ProfileMainDelegate(private val delegateListeners: ProfileMainDelegateList
     inner class ViewHolder(private val binding: ItemProfileMainBinding) :
         BaseViewHolder<ProfileMainUIModel>(binding.root) {
 
-        var initialised = false
+
         init {
-            binding.root bindClick {delegateListeners.onClick(item.tag)}
+            binding.root bindClick { delegateListeners.onClick(item.tag) }
         }
+
         override fun bind(item: ProfileMainUIModel) {
             super.bind(item)
-            if(!initialised)
-            {
-                binding.icon.setImageResource(item.icon)
-                binding.title.text = item.value
-                initialised = true
-            }
+            binding.icon.setImageResource(item.icon)
+            binding.title.text = item.value
         }
     }
 
 }
+
 class ProfileMainDelegateListeners(val onClick: ((Int) -> Unit))

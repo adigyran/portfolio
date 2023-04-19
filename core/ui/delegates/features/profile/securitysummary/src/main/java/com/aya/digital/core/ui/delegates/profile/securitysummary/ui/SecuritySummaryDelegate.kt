@@ -36,10 +36,7 @@ class SecuritySummaryDelegate(private val itemClick: (tag: Int) -> Unit) :
         }
         override fun bind(item: SecuritySummaryUIModel) {
             super.bind(item)
-            if(!initialised) {
-                binding.title.text = item.label
-                initialised = true
-            }
+            binding.title.text = item.label
             binding.value.text = item.value
         }
     }

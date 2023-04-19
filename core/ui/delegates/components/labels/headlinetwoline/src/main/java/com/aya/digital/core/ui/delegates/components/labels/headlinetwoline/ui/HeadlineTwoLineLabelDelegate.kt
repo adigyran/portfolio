@@ -34,16 +34,11 @@ class HeadlineTwoLineLabelDelegate() :
     inner class ViewHolder(private val binding: ItemHeadlineTwolineLabelBinding) :
         BaseViewHolder<HeadlineTwoLineLabelUIModel>(binding.root) {
 
-        var initialised = false
 
         override fun bind(item: HeadlineTwoLineLabelUIModel) {
             super.bind(item)
-            if(!initialised)
-            {
                 binding.topTextTv.text = item.topText
                 binding.bottomTextTv.text = item.bottomText
-                initialised = true
-            }
         }
     }
 

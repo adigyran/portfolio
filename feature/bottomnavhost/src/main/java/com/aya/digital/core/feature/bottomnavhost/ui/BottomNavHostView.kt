@@ -114,6 +114,7 @@ class BottomNavHostView : DiFragment<ViewBottomNavHostBinding, BottomNavHostView
 
     private fun prepareBottomBar() {
         binding.navView.menu.clear()
+        binding.navView.itemIconTintList = null
         binding.navView.inflateMenu(menuProvider.getMenu())
         with(binding.navView)
         {
