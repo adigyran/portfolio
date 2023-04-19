@@ -46,6 +46,7 @@
         <item name="backgroundTint">@color/button_background_color_selector_dark_blue</item>
     </style>
     <style name="Widget.App.Button.FilledButton.Gray">
+        <item name="android:textColor">@color/button_text_color_selector_gray</item>
         <item name="rippleColor">@color/button_ripple_color_selector_gray</item>
         <item name="backgroundTint">@color/button_background_color_selector_gray</item>
     </style>

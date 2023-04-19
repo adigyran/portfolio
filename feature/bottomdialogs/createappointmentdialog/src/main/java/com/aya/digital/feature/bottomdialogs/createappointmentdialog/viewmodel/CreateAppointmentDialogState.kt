@@ -10,6 +10,6 @@ import kotlinx.parcelize.RawValue
 data class CreateAppointmentDialogState(
     val slots: List<ScheduleSlotModel>? = null,
     val date: @RawValue LocalDate? = null,
-    val selectedSlot: ScheduleSlotModel? = null,
+    val selectedSlotId: Int? = null,
     val comment: String? = null
 ) : BaseState

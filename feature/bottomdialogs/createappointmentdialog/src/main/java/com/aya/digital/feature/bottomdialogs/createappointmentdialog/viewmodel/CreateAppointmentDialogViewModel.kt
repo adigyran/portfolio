@@ -1,14 +1,12 @@
 package com.aya.digital.feature.bottomdialogs.createappointmentdialog.viewmodel
 
-import com.aya.digital.core.data.base.result.models.code.CodeResultModel
 import com.aya.digital.core.domain.schedule.base.GetLatestScheduleByDoctorIdByDateUseCase
-import com.aya.digital.core.domain.schedule.base.GetLatestScheduleByDoctorIdUseCase
 import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.mvi.BaseViewModel
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
+import com.aya.digital.feature.bottomdialogs.createappointmentdialog.FieldsTags
 import com.aya.digital.feature.bottomdialogs.createappointmentdialog.navigation.CreateAppointmentDialogNavigationEvents
 import com.aya.digital.feature.bottomdialogs.createappointmentdialog.ui.CreateAppointmentDialogView
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.reactive.asFlow
 import kotlinx.datetime.LocalDate
 import org.orbitmvi.orbit.syntax.simple.intent
@@ -49,13 +47,20 @@ class CreateAppointmentDialogViewModel(
         }
     }
 
+    fun onNameFieldChanged(tag: Int, text: String) = intent {
+        when(tag)
+        {
+            FieldsTags.COMMENT_FIELD -> reduce { state.copy(comment = text) }
+        }
+    }
+
     fun close() = intent {
         coordinatorRouter.sendEvent(CreateAppointmentDialogNavigationEvents.Exit)
     }
 
 
     fun onSlotClicked(slotId: Int, date: LocalDate?) = intent {
-
+        reduce { state.copy(selectedSlotId = slotId) }
     }
 
 

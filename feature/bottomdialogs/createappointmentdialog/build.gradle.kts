@@ -9,6 +9,7 @@ android {
 dependencies {
     implementation(project(":core:domain:doctors"))
     implementation(project(":core:domain:schedule"))
+    implementation(project(":core:ui:delegates:components:fields:name"))
     implementation(project(":core:ui:delegates:features:doctorcard:doctorslot"))
     implementation(libs.kotlinx.time)
 }

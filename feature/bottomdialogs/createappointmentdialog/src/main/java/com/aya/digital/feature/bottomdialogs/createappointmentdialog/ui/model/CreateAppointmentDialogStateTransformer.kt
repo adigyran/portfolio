@@ -4,8 +4,12 @@ import android.content.Context
 import android.text.format.DateUtils
 import com.aya.digital.core.mvi.BaseStateTransformer
 import com.aya.digital.core.ui.adapters.base.DiffItem
+import com.aya.digital.core.ui.delegates.components.fields.name.model.NameFieldUIModel
+import com.aya.digital.core.ui.delegates.doctorcard.doctorslot.model.DoctorDateTitleUIModel
 import com.aya.digital.core.ui.delegates.doctorcard.doctorslot.model.DoctorSlotUIModel
+import com.aya.digital.core.ui.delegates.doctorcard.doctorslot.ui.DoctorDateTitleDelegate
 import com.aya.digital.core.util.datetime.DateTimeUtils
+import com.aya.digital.feature.bottomdialogs.createappointmentdialog.FieldsTags
 
 import com.aya.digital.feature.bottomdialogs.createappointmentdialog.viewmodel.CreateAppointmentDialogState
 import kotlinx.datetime.*
@@ -30,10 +34,23 @@ class CreateAppointmentDialogStateTransformer(
                         addAll(slots
                             .map {
                                 DoctorSlotUIModel(
-                                    it.id,
-                                    dateTimeUtils.formatSlotTime(it.startDate.time)
+                                    id = it.id,
+                                    timeText = dateTimeUtils.formatSlotTime(it.startDate.time),
+                                    selected = state.selectedSlotId?.let { selectedSlotId -> selectedSlotId == it.id }
+                                        ?: false
                                 )
                             })
+                    }
+                    if (state.selectedSlotId != null) {
+                        add(DoctorDateTitleUIModel(0, "Write the purpose of the record"))
+                        add(
+                            NameFieldUIModel(
+                                tag = FieldsTags.COMMENT_FIELD,
+                                label = "Write a comment",
+                                text = state.comment,
+                                error = null
+                            )
+                        )
                     }
                 }
             }

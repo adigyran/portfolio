@@ -36,6 +36,7 @@ class DoctorSlotDelegate(private val onSlotClick: (id: Int, date : LocalDate?) -
         override fun bind(item: DoctorSlotUIModel) {
             super.bind(item)
             binding.tvTime.text = item.timeText
+            binding.root.isSelected = item.selected
         }
     }
 }
