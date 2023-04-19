@@ -4,14 +4,6 @@ plugins {
 
 android {
     namespace = "com.aya.digital.feature.bottomdialogs.createappointmentdialog"
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.0"
-    }
-    buildFeatures {
-        compose = true
-    }
-
 }
 
 dependencies {

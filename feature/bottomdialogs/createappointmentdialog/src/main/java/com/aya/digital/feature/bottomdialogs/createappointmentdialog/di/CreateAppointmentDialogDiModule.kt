@@ -17,7 +17,7 @@ fun createAppointmentDialogDiModule(
 
     bind {
         scoped(CustomFragmentScope).singleton {
-            CreateAppointmentDialogViewModel(parentCoordinatorEvent,param)
+            CreateAppointmentDialogViewModel(parentCoordinatorEvent,param,instance())
         }
     }
 

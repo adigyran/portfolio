@@ -12,7 +12,7 @@ import io.reactivex.rxjava3.core.Flowable
 import kotlinx.datetime.*
 
 internal class GetLatestScheduleByDoctorIdUseCaseImpl(
-    private val repository: ScheduleRepository,
+    private val repository: ScheduleRepository
 ) :
     GetLatestScheduleByDoctorIdUseCase {
     override fun invoke(doctorId: Int, days: Int): Flowable<RequestResultModel<List<ScheduleSlotModel>>> {

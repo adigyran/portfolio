@@ -77,6 +77,7 @@ class DoctorCardViewModel(
             listenForAppointmentCreation()
             coordinatorRouter.sendEvent(DoctorCardNavigationEvents.CreateAppointment(
                 requestCode =  RequestCodes.CREATE_APPOINTMENT_REQUEST_COOE,
+                doctorId = param.doctorId,
                 slotDateTime = null,
                 date = date
             ))
@@ -87,6 +88,7 @@ class DoctorCardViewModel(
                 listenForAppointmentCreation()
                 coordinatorRouter.sendEvent(DoctorCardNavigationEvents.CreateAppointment(
                     requestCode =  RequestCodes.CREATE_APPOINTMENT_REQUEST_COOE,
+                    doctorId = param.doctorId,
                     slotDateTime = slot.startDate,
                     date = slot.startDate.date
                 ))

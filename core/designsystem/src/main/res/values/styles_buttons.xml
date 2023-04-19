@@ -45,6 +45,10 @@
         <item name="rippleColor">@color/button_ripple_color_selector_dark_blue</item>
         <item name="backgroundTint">@color/button_background_color_selector_dark_blue</item>
     </style>
+    <style name="Widget.App.Button.FilledButton.Gray">
+        <item name="rippleColor">@color/button_ripple_color_selector_gray</item>
+        <item name="backgroundTint">@color/button_background_color_selector_gray</item>
+    </style>
 
     <style name="ThemeOverlay.App.Button.TextButton" parent="">
         <item name="colorPrimary">@color/button_text_blue</item>

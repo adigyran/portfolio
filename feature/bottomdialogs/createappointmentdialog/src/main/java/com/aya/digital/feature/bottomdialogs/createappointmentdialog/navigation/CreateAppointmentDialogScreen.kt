@@ -8,12 +8,15 @@ import kotlinx.datetime.LocalDateTime
 class CreateAppointmentDialogScreen(
     tag: String,
     val requestCode: String,
+    val doctorId:Int,
     val slotDateTime: LocalDateTime?,
     val date: LocalDate
 ) :
     HealthAppDialogFragmentScreen(tag = tag, fragmentCreator = {
         CreateAppointmentDialogView.getNewInstance(
-            requestCode,
-            slotDateTime = slotDateTime, date = date
+            requestCode =  requestCode,
+            doctorId = doctorId,
+            slotDateTime = slotDateTime,
+            date = date
         )
     })

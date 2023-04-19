@@ -9,6 +9,7 @@ import com.aya.digital.core.ui.adapters.base.DiffItem
 import com.aya.digital.core.ui.delegates.doctorcard.doctorslot.model.DoctorSlotUIModel
 import com.aya.digital.core.ui.delegates.features.doctorcard.doctorslot.databinding.ItemDoctorSlotBinding
 import kotlinx.datetime.LocalDate
+import timber.log.Timber
 
 class DoctorSlotDelegate(private val onSlotClick: (id: Int, date : LocalDate?) -> Unit) :
     BaseDelegate<DoctorSlotUIModel>() {

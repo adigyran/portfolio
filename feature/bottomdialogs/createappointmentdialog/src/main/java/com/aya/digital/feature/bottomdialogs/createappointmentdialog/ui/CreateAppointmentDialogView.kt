@@ -21,6 +21,7 @@ import com.aya.digital.core.ui.delegates.doctorcard.doctorslot.ui.DoctorSlotDele
 import com.aya.digital.feature.bottomdialogs.createappointmentdialog.databinding.ViewCreateAppointmentDialogBinding
 import com.aya.digital.feature.bottomdialogs.createappointmentdialog.ui.model.CreateAppointmentDialogStateTransformer
 import com.aya.digital.feature.bottomdialogs.createappointmentdialog.ui.model.CreateAppointmentDialogUiModel
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.parcelize.Parcelize
@@ -57,7 +58,8 @@ class CreateAppointmentDialogView :
 
     private lateinit var lm: GridLayoutManager
 
-    override fun provideDiModule(): DI.Module = createAppointmentDialogDiModule(tryTyGetParentRouter(), param)
+    override fun provideDiModule(): DI.Module =
+        createAppointmentDialogDiModule(tryTyGetParentRouter(), param)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,14 +67,11 @@ class CreateAppointmentDialogView :
 
     override fun prepareUi(savedInstanceState: Bundle?) {
         super.prepareUi(savedInstanceState)
-        binding.btnClose bindClick {viewModel.close()}
+        binding.btnClose bindClick { viewModel.close() }
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+        bottomSheetBehavior.skipCollapsed = true
         with(binding.recycler) {
             itemAnimator = null
-            setHasFixedSize(true)
-            setItemViewCacheSize(30)
-            isNestedScrollingEnabled = false
-
-
             lm = GridLayoutManager(
                 context,
                 4,
@@ -89,13 +88,14 @@ class CreateAppointmentDialogView :
     override fun provideViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ): ViewCreateAppointmentDialogBinding = ViewCreateAppointmentDialogBinding.inflate(inflater, container, false)
+    ): ViewCreateAppointmentDialogBinding =
+        ViewCreateAppointmentDialogBinding.inflate(inflater, container, false)
 
     override fun sideEffect(sideEffect: BaseSideEffect) = Unit
 
     override fun render(state: CreateAppointmentDialogState) {
         stateTransformer(state).run {
-            dateText?.let { date->
+            dateText?.let { date ->
                 binding.titleTv.text = date
             }
             data?.let {
@@ -116,12 +116,25 @@ class CreateAppointmentDialogView :
     @Parcelize
     class Param(
         val requestCode: String,
-        val slotDateTime:@RawValue LocalDateTime?,
-        val date:@RawValue LocalDate?
+        val doctorId: Int,
+        val slotDateTime: @RawValue LocalDateTime?,
+        val date: @RawValue LocalDate?
     ) : Parcelable
 
     companion object {
-        fun getNewInstance(requestCode: String, slotDateTime: LocalDateTime?, date:LocalDate?): CreateAppointmentDialogView =
-            createFragment(Param(requestCode, slotDateTime = slotDateTime, date = date))
+        fun getNewInstance(
+            requestCode: String,
+            doctorId: Int,
+            slotDateTime: LocalDateTime?,
+            date: LocalDate?
+        ): CreateAppointmentDialogView =
+            createFragment(
+                Param(
+                    requestCode,
+                    doctorId = doctorId,
+                    slotDateTime = slotDateTime,
+                    date = date
+                )
+            )
     }
 }

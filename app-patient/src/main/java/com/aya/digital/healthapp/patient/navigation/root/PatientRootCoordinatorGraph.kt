@@ -109,7 +109,15 @@ class PatientRootCoordinatorGraph(context: Context) : RootCoordinatorGraph {
             }
 
             is DoctorCardNavigationEvents.CreateAppointment -> {
-                navigationRouter.navigateTo(CreateAppointmentDialogScreen("CREATE_APPOINTMENT",event.requestCode,event.slotDateTime,event.date))
+                navigationRouter.navigateTo(
+                    CreateAppointmentDialogScreen(
+                        "CREATE_APPOINTMENT",
+                        event.requestCode,
+                        event.doctorId,
+                        event.slotDateTime,
+                        event.date
+                    )
+                )
             }
         }
     }
