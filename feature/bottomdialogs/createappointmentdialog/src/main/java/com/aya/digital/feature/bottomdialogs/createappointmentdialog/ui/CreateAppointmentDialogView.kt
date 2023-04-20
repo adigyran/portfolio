@@ -72,6 +72,8 @@ class CreateAppointmentDialogView :
     override fun prepareUi(savedInstanceState: Bundle?) {
         super.prepareUi(savedInstanceState)
         binding.btnClose bindClick { viewModel.close() }
+        binding.btnBack.bindClick { viewModel.close() }
+        binding.btnBook.bindClick { viewModel.onBookClicked() }
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
         bottomSheetBehavior.skipCollapsed = true
         with(binding.recycler) {

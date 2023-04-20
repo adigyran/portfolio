@@ -6,8 +6,9 @@ import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Single
 
 interface AppointmentRepository {
-
     fun getRoomTokenById(roomId:Int):Single<RequestResult<String>>
 
     fun getAppointments():Flowable<RequestResult<List<Appointment>>>
+
+    fun createAppointment(slotId:Int, comment:String):Single<RequestResult<Appointment>>
 }

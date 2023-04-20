@@ -4,5 +4,5 @@
     <item android:alpha="@dimen/m3_ripple_focused_alpha" android:color="@color/button_bg_dark_blue" android:state_focused="true" />
     <item android:alpha="@dimen/m3_ripple_hovered_alpha" android:color="@color/button_bg_dark_blue" android:state_hovered="true" />
     <item android:alpha="@dimen/m3_ripple_hovered_alpha" android:color="@color/button_bg_dark_blue" android:state_selected="true" />
-    <item android:alpha="@dimen/m3_ripple_default_alpha" android:color="@color/button_bg_light_grey" />
+    <item android:alpha="@dimen/m3_ripple_default_alpha" android:color="@color/text_grey" />
 </selector>

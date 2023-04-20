@@ -16,8 +16,10 @@ internal class GetLatestScheduleByDoctorIdByDateUseCaseImpl(private val reposito
     override fun invoke(
         doctorId: Int, date: LocalDate
     ): Flowable<RequestResultModel<List<ScheduleSlotModel>>> {
-        val startDateTime = date.atStartOfDayIn(TimeZone.currentSystemDefault())
-            .toLocalDateTime(TimeZone.currentSystemDefault())
+        val currentInstant = Clock.System.now()
+        val startInstant = date.atStartOfDayIn(TimeZone.currentSystemDefault())
+        val properStartInstant =  if(startInstant >= currentInstant) startInstant else currentInstant
+        val startDateTime = properStartInstant.toLocalDateTime(TimeZone.currentSystemDefault())
         val endDateTime =
             startDateTime.toInstant(TimeZone.currentSystemDefault()).plus(24, DateTimeUnit.HOUR)
                 .toLocalDateTime(

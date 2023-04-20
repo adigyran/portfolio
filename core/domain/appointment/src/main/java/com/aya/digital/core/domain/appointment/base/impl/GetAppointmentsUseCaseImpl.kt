@@ -7,6 +7,7 @@ import com.aya.digital.core.data.base.dataprocessing.asResultModel
 import com.aya.digital.core.data.base.dataprocessing.toModelError
 import com.aya.digital.core.domain.appointment.base.GetAppointmentsUseCase
 import com.aya.digital.core.domain.appointment.base.model.AppointmentModel
+import com.aya.digital.core.domain.appointment.base.model.toAppointmentModel
 import com.aya.digital.core.ext.mapResult
 import io.reactivex.rxjava3.core.Flowable
 
@@ -17,13 +18,5 @@ internal class GetAppointmentsUseCaseImpl(private val appointmentRepository: App
             .mapResult({ it.map { item -> item.toAppointmentModel() }.asResultModel() },
                 { it.toModelError() })
 
-    private fun Appointment.toAppointmentModel() =
-        AppointmentModel(
-            id = this.id,
-            comment = this.comment,
-            createdAt = this.createdAt,
-            startDate = this.startDate,
-            endDate = this.endDate,
-            minutesDuration = this.minutesDuration
-        )
+
 }

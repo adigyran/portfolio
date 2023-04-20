@@ -1,4 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <style name="ThemeOverlay.App.MaterialCalendar" parent="ThemeOverlay.Material3.MaterialCalendar">
+        <item name="colorPrimary">@color/text_black</item>
+        <item name="colorOnPrimary">@color/text_black</item>
+        <item name="materialCalendarStyle">@style/Widget.App.Calendar</item>
+        <!-- Customize text field of the text input mode. -->
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.App.MediumComponent</item>
+    </style>
+    <style name="Widget.App.Calendar" parent="@style/Widget.MaterialComponents.MaterialCalendar">
+        <item name="dayStyle">@style/Widget.App.Calendar.Day</item>
+        <item name="dayInvalidStyle">@style/Widget.App.Calendar.Day.Invalid</item>
+        <item name="daySelectedStyle">@style/Widget.App.Calendar.Day.Selected</item>
+        <item name="dayTodayStyle">@style/Widget.App.Calendar.Day.Today</item>
+        <!-- Customize text field of the text input mode. --></style>
+
+    <style name="Widget.App.Calendar.Day" parent="Widget.Material3.MaterialCalendar.Item">
+        <item name="itemShapeAppearanceOverlay">@style/ShapeAppearanceOverlay.MaterialComponents.MaterialCalendar.Day</item>
+        <item name="android:textColor">@color/text_black</item>
+    </style>
+
+    <style name="Widget.App.Calendar.Day.Invalid">
+        <item name="itemTextColor">@color/text_black</item>
+        <item name="android:alpha">0.8</item>
+    </style>
+
+    <style name="Widget.App.Calendar.Day.Selected" >
+        <item name="itemFillColor">@color/bg_blue</item>
+        <item name="itemTextColor">@color/text_white</item>
+        <item name="itemStrokeWidth">0dp</item>
+    </style>
+
+    <style name="Widget.App.Calendar.Day.Today">
+        <item name="android:width">20dp</item>
+        <item name="android:height">20dp</item>
+        <item name="itemTextColor">@color/button_text_blue</item>
+        <item name="android:fillColor">@color/text_grey</item>
+    </style>
 </resources>

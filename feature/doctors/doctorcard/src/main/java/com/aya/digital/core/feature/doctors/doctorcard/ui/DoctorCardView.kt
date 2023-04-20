@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.aya.digital.core.designsystem.R
 import com.aya.digital.core.ext.*
 import com.aya.digital.core.feature.doctors.doctorcard.DoctorCardMode
 import com.aya.digital.core.feature.doctors.doctorcard.databinding.ViewDoctorCardBinding
@@ -153,7 +154,8 @@ class DoctorCardView :
                     .toLocalDateTime(TimeZone.currentSystemDefault()).date
                 viewModel.onDateSelected(date)
             }
-        materialDatePicker.show(childFragmentManager, "BirthDAY")
+        materialDatePicker
+            .show(childFragmentManager, "BirthDAY")
     }
 
     @Parcelize

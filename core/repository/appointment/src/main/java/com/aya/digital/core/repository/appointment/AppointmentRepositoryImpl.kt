@@ -15,16 +15,29 @@ import com.aya.digital.core.networkbase.server.RequestResult
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Single
 
-internal class AppointmentRepositoryImpl(private val appointmentDataSource: AppointmentDataSource,private val teleHealthDataSource: TeleHealthDataSource, private val appointmentMapper: AppointmentMapper):AppointmentRepository {
+internal class AppointmentRepositoryImpl(
+    private val appointmentDataSource: AppointmentDataSource,
+    private val teleHealthDataSource: TeleHealthDataSource,
+    private val appointmentMapper: AppointmentMapper
+) : AppointmentRepository {
     override fun getRoomTokenById(roomId: Int): Single<RequestResult<String>> =
         teleHealthDataSource.getRoomToken(GetTelehealthRoomTokenBody("$roomId"))
             .retryOnError()
             .retrofitResponseToResult(CommonUtils::mapServerErrors)
-            .mapResult({result-> result.token.asResult()},{it})
+            .mapResult({ result -> result.token.asResult() }, { it })
 
     override fun getAppointments(): Flowable<RequestResult<List<Appointment>>> =
         appointmentDataSource.getAppointments()
             .retryOnError()
             .retrofitResponseToResult(CommonUtils::mapServerErrors)
-            .mapResult({result-> appointmentMapper.mapFromList(result).asResult()   },{it})
+            .mapResult({ result -> appointmentMapper.mapFromList(result).asResult() }, { it })
+
+    override fun createAppointment(
+        slotId: Int,
+        comment: String
+    ): Single<RequestResult<Appointment>> =
+        appointmentDataSource.createAppointment(slotId, comment)
+            .retryOnError()
+            .retrofitResponseToResult(CommonUtils::mapServerErrors)
+            .mapResult({ result -> appointmentMapper.mapFrom(result).asResult() }, { it })
 }

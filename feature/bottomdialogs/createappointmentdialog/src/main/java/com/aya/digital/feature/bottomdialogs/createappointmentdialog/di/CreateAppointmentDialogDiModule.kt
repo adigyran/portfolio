@@ -12,12 +12,17 @@ fun createAppointmentDialogDiModule(
     param: CreateAppointmentDialogView.Param
 ) = DI.Module("createAppointmentDialogDiModule") {
 
-    bind<CreateAppointmentDialogStateTransformer>() with singleton { CreateAppointmentDialogStateTransformer(instance(),instance()) }
+    bind<CreateAppointmentDialogStateTransformer>() with singleton {
+        CreateAppointmentDialogStateTransformer(
+            instance(),
+            instance()
+        )
+    }
 
 
     bind {
         scoped(CustomFragmentScope).singleton {
-            CreateAppointmentDialogViewModel(parentCoordinatorEvent,param,instance())
+            CreateAppointmentDialogViewModel(parentCoordinatorEvent, param, instance(), instance())
         }
     }
 

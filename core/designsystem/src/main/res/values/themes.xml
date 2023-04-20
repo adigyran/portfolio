@@ -16,6 +16,7 @@
         <!-- Status bar color. -->
         <!-- Customize your theme here. -->
         <item name="materialAlertDialogTheme">@style/ThemeOverlay.App.MaterialAlertDialog</item>
+        <item name="materialCalendarTheme">@style/ThemeOverlay.App.MaterialCalendar</item>
         <item name="android:windowBackground">?android:colorBackground</item>
         <item name="android:windowLightStatusBar" tools:ignore="NewApi">true</item>
     </style>

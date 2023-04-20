@@ -16,4 +16,8 @@ interface AppointmentService {
     @GET("appointments?start=2023-04-10T23:00:00.305Z&end=2023-04-16T23:00:00.305Z")
     fun getAppointments(
     ): Flowable<List<AppointmentResponse>>
+
+    @POST("appointments")
+    fun createAppointment(@Body body:CreateAppointmentBody):Single<AppointmentResponse>
+
 }

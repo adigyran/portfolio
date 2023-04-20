@@ -10,4 +10,7 @@
         <item name="cornerSize">29dp</item>
         <item name="height">25dp</item>
     </style>
+    <style name="ShapeAppearance.App.MediumComponent" parent="ShapeAppearance.Material3.MediumComponent">
+        <item name="cornerSize">16dp</item>
+    </style>
 </resources>
