@@ -25,10 +25,15 @@ import com.aya.digital.core.ui.delegates.doctorcard.doctorslot.ui.DoctorDateTitl
 import com.aya.digital.core.ui.delegates.doctorcard.doctorslot.ui.DoctorSlotDelegate
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
+import com.google.android.material.datepicker.MaterialDatePicker
+import kotlinx.datetime.Instant
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 import kotlinx.parcelize.Parcelize
 import org.kodein.di.DI
 import org.kodein.di.factory
 import org.kodein.di.on
+
 
 class DoctorCardView :
     DiFragment<ViewDoctorCardBinding, DoctorCardViewModel, DoctorCardState, BaseSideEffect, DoctorCardUiModel, DoctorCardStateTransformer>() {
@@ -64,6 +69,7 @@ class DoctorCardView :
         super.prepareUi(savedInstanceState)
         binding.bookBtn bindClick { viewModel.onBookClicked() }
         binding.detailsBtn bindClick { viewModel.onDetailsClicked() }
+        binding.btnSelectDate bindClick {showDatePicker()}
         with(binding.recycler) {
             itemAnimator = null
             setHasFixedSize(true)
@@ -136,6 +142,18 @@ class DoctorCardView :
                 }
             }
         }
+    }
+
+    private fun showDatePicker() {
+        val materialDatePicker = MaterialDatePicker.Builder.datePicker()
+            .build()
+        materialDatePicker
+            .addOnPositiveButtonClickListener {
+                val date = Instant.fromEpochMilliseconds(it)
+                    .toLocalDateTime(TimeZone.currentSystemDefault()).date
+                viewModel.onDateSelected(date)
+            }
+        materialDatePicker.show(childFragmentManager, "BirthDAY")
     }
 
     @Parcelize

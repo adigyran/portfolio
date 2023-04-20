@@ -71,29 +71,41 @@ class DoctorCardViewModel(
         }
     }
 
-    fun onSlotClicked(slotId: Int, date:LocalDate?) = intent {
-        if(date!=null)
-        {
+    fun onSlotClicked(slotId: Int, date: LocalDate?) = intent {
+        if (date != null) {
             listenForAppointmentCreation()
-            coordinatorRouter.sendEvent(DoctorCardNavigationEvents.CreateAppointment(
-                requestCode =  RequestCodes.CREATE_APPOINTMENT_REQUEST_COOE,
+            coordinatorRouter.sendEvent(
+                DoctorCardNavigationEvents.CreateAppointment(
+                    requestCode = RequestCodes.CREATE_APPOINTMENT_REQUEST_COOE,
+                    doctorId = param.doctorId,
+                    slotDateTime = null,
+                    date = date
+                )
+            )
+        } else {
+            state.doctorSlots?.firstOrNull { it.id == slotId }?.let { slot ->
+                listenForAppointmentCreation()
+                coordinatorRouter.sendEvent(
+                    DoctorCardNavigationEvents.CreateAppointment(
+                        requestCode = RequestCodes.CREATE_APPOINTMENT_REQUEST_COOE,
+                        doctorId = param.doctorId,
+                        slotDateTime = slot.startDate,
+                        date = slot.startDate.date
+                    )
+                )
+            }
+        }
+    }
+
+    fun onDateSelected(date: LocalDate) = intent {
+        coordinatorRouter.sendEvent(
+            DoctorCardNavigationEvents.CreateAppointment(
+                requestCode = RequestCodes.CREATE_APPOINTMENT_REQUEST_COOE,
                 doctorId = param.doctorId,
                 slotDateTime = null,
                 date = date
-            ))
-        }
-        else
-        {
-            state.doctorSlots?.firstOrNull { it.id == slotId }?.let {slot->
-                listenForAppointmentCreation()
-                coordinatorRouter.sendEvent(DoctorCardNavigationEvents.CreateAppointment(
-                    requestCode =  RequestCodes.CREATE_APPOINTMENT_REQUEST_COOE,
-                    doctorId = param.doctorId,
-                    slotDateTime = slot.startDate,
-                    date = slot.startDate.date
-                ))
-            }
-        }
+            )
+        )
     }
 
     private fun listenForAppointmentCreation() {
@@ -105,11 +117,13 @@ class DoctorCardViewModel(
         val readMoreOld = state.bioReadMore
         reduce { state.copy(bioReadMore = !readMoreOld) }
     }
+
     fun onBookClicked() = intent {
         if (state.doctorCardMode != DoctorCardMode.ShowingSlots) reduce {
             state.copy(doctorCardMode = DoctorCardMode.ShowingSlots)
         }
     }
+
     fun onDetailsClicked() = intent {
         if (state.doctorCardMode != DoctorCardMode.ShowingDetailsInfo) reduce {
             state.copy(doctorCardMode = DoctorCardMode.ShowingDetailsInfo)
