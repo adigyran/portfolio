@@ -1,7 +1,6 @@
 package com.aya.digital.core.network.model.response
 
 import com.squareup.moshi.JsonClass
-import kotlinx.datetime.LocalDateTime
 
 @JsonClass(generateAdapter = true)
 data class AppointmentResponse(
@@ -29,12 +28,3 @@ data class PractitionerResponse(
     val speciality: String?
 )
 
-@JsonClass(generateAdapter = true)
-data class SlotResponse(
-    val id: Int,
-    val startDate: String,
-    val endDate: String,
-    val statusSlot: String?,
-    val commentSlot: String?,
-    val overbooked:Boolean
-)

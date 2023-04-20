@@ -1,6 +1,8 @@
 package com.aya.digital.core.repository.doctors
 
+import com.aya.digital.core.data.schedule.Schedule
 import com.aya.digital.core.data.schedule.ScheduleSlot
+import com.aya.digital.core.data.schedule.mappers.ScheduleMapper
 import com.aya.digital.core.data.schedule.mappers.ScheduleSlotMapper
 import com.aya.digital.core.data.schedule.repository.ScheduleRepository
 import com.aya.digital.core.datasource.PractitionersDataSource
@@ -20,7 +22,8 @@ import kotlinx.datetime.toInstant
 
 internal class ScheduleRepositoryImpl(
     private val scheduleDataSource: ScheduleDataSource,
-    private val scheduleSlotMapper: ScheduleSlotMapper
+    private val scheduleSlotMapper: ScheduleSlotMapper,
+    private val scheduleMapper: ScheduleMapper
 ) : ScheduleRepository {
     override fun getSlots(
         practitionerId: Int,
@@ -37,4 +40,20 @@ internal class ScheduleRepositoryImpl(
             .retryOnError()
             .retrofitResponseToResult(CommonUtils::mapServerErrors)
             .mapResult({ result -> scheduleSlotMapper.mapFromList(result).asResult() }, { it })
+
+    override fun getSelectableSchedule(
+        practitionerId: Int,
+        start: LocalDateTime,
+        end: LocalDateTime
+    ): Flowable<RequestResult<List<Schedule>>> =
+        scheduleDataSource.getSelectableSchedule(
+            practitionerId,
+            start.toInstant(TimeZone.currentSystemDefault()).toString(),
+            end.toInstant(
+                TimeZone.currentSystemDefault()
+            ).toString()
+        )
+            .retryOnError()
+            .retrofitResponseToResult(CommonUtils::mapServerErrors)
+            .mapResult({ result -> scheduleMapper.mapFromList(result).asResult() }, { it })
 }

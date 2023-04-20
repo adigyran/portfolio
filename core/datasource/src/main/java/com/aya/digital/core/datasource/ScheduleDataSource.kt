@@ -2,14 +2,19 @@ package com.aya.digital.core.datasource
 
 import com.aya.digital.core.network.model.request.ScheduleWithSlotsBody
 import com.aya.digital.core.network.model.request.SlotBody
-import com.aya.digital.core.network.model.response.SlotResponse
 import com.aya.digital.core.network.model.response.schedule.ScheduleResponse
+import com.aya.digital.core.network.model.response.schedule.SlotResponse
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Single
-import kotlinx.datetime.LocalDate
 
 interface ScheduleDataSource {
+
+    fun getSelectableSchedule(
+        practitionerId: Int,
+        start: String,
+        end: String
+    ): Flowable<List<ScheduleResponse>>
 
     fun fetchSlots(
         practitionerId: Int,

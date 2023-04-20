@@ -2,7 +2,7 @@ package com.aya.digital.core.mappers.schedule
 
 import com.aya.digital.core.data.schedule.ScheduleSlot
 import com.aya.digital.core.data.schedule.mappers.ScheduleSlotMapper
-import com.aya.digital.core.network.model.response.SlotResponse
+import com.aya.digital.core.network.model.response.schedule.SlotResponse
 import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime

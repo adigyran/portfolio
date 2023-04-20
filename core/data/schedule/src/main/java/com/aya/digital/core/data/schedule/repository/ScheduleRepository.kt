@@ -16,4 +16,10 @@ interface ScheduleRepository {
         end: LocalDateTime,
     ): Flowable<RequestResult<List<ScheduleSlot>>>
 
+    fun getSelectableSchedule(
+        practitionerId: Int,
+        start: LocalDateTime,
+        end: LocalDateTime,
+    ): Flowable<RequestResult<List<Schedule>>>
+
 }
