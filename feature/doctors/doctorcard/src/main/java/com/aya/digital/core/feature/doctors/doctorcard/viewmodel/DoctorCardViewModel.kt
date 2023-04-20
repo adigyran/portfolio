@@ -3,6 +3,7 @@ package com.aya.digital.core.feature.doctors.doctorcard.viewmodel
 import com.aya.digital.core.domain.doctors.base.GetDoctorByIdUseCase
 import com.aya.digital.core.domain.schedule.base.GetLatestScheduleByDoctorIdUseCase
 import com.aya.digital.core.domain.schedule.base.model.ScheduleSlotModel
+import com.aya.digital.core.domain.schedule.selectable.GetSelectableScheduleByDoctorIdUseCase
 import com.aya.digital.core.feature.doctors.doctorcard.DoctorCardMode
 import com.aya.digital.core.feature.doctors.doctorcard.navigation.DoctorCardNavigationEvents
 import com.aya.digital.core.feature.doctors.doctorcard.ui.DoctorCardView
@@ -15,6 +16,7 @@ import kotlinx.coroutines.reactive.asFlow
 import kotlinx.coroutines.rx3.await
 import kotlinx.datetime.LocalDate
 import org.orbitmvi.orbit.syntax.simple.intent
+import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
@@ -22,11 +24,11 @@ class DoctorCardViewModel(
     private val coordinatorRouter: CoordinatorRouter,
     private val param: DoctorCardView.Param,
     private val getDoctorByIdUseCase: GetDoctorByIdUseCase,
-    private val getLatestScheduleByDoctorIdUseCase: GetLatestScheduleByDoctorIdUseCase
-
+    private val getLatestScheduleByDoctorIdUseCase: GetLatestScheduleByDoctorIdUseCase,
+    private val getSelectableScheduleByDoctorIdUseCase: GetSelectableScheduleByDoctorIdUseCase
 ) :
-    BaseViewModel<DoctorCardState, BaseSideEffect>() {
-    override val container = container<DoctorCardState, BaseSideEffect>(
+    BaseViewModel<DoctorCardState, DoctorCardSideEffects>() {
+    override val container = container<DoctorCardState, DoctorCardSideEffects>(
         initialState = DoctorCardState(),
     )
     {
@@ -97,6 +99,23 @@ class DoctorCardViewModel(
         }
     }
 
+    fun onChooseDateClicked() = intent {
+        chooseDate()
+    }
+
+    private fun chooseDate() = intent(registerIdling = false) {
+        getSelectableScheduleByDoctorIdUseCase(param.doctorId, days = 50).asFlow()
+            .collect { scheduleResult ->
+                scheduleResult.processResult(
+                    { scheduleModels -> showDateSelector(scheduleModels.map { it.date }) },
+                    { processError(it) })
+            }
+    }
+
+    private fun showDateSelector(enabledDates: List<LocalDate>) = intent {
+        postSideEffect(DoctorCardSideEffects.ShowCustomDateDialog(enabledDates))
+    }
+
     fun onDateSelected(date: LocalDate) = intent {
         coordinatorRouter.sendEvent(
             DoctorCardNavigationEvents.CreateAppointment(
@@ -128,6 +147,11 @@ class DoctorCardViewModel(
         if (state.doctorCardMode != DoctorCardMode.ShowingDetailsInfo) reduce {
             state.copy(doctorCardMode = DoctorCardMode.ShowingDetailsInfo)
         }
+    }
+
+
+    override fun postErrorSideEffect(errorSideEffect: ErrorSideEffect) = intent {
+        postSideEffect(DoctorCardSideEffects.Error(errorSideEffect))
     }
 
 }

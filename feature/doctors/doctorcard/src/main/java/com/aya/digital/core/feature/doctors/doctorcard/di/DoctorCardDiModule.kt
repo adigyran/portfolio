@@ -21,7 +21,7 @@ fun doctorCardDiModule(
 
     bind {
         scoped(CustomFragmentScope).singleton {
-            DoctorCardViewModel(parentCoordinatorEvent, param, instance(), instance())
+            DoctorCardViewModel(parentCoordinatorEvent, param, instance(), instance(),instance())
         }
     }
 }

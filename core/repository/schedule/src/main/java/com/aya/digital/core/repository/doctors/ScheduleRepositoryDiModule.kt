@@ -7,5 +7,5 @@ import org.kodein.di.instance
 import org.kodein.di.singleton
 
 fun scheduleRepositoryDiModule() = DI.Module("scheduleRepositoryDiModule") {
-    bind<ScheduleRepository>() with singleton { ScheduleRepositoryImpl(instance(),instance()) }
+    bind<ScheduleRepository>() with singleton { ScheduleRepositoryImpl(instance(),instance(),instance()) }
 }

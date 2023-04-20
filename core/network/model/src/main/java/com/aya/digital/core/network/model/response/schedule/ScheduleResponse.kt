@@ -5,6 +5,6 @@ import kotlinx.datetime.LocalDateTime
 
 @JsonClass(generateAdapter = true)
 data class ScheduleResponse(
-    val id: Int,
+    val id: Int = 0,
     val startDate:String
 )

@@ -6,18 +6,18 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.aya.digital.core.designsystem.R
 import com.aya.digital.core.ext.*
 import com.aya.digital.core.feature.doctors.doctorcard.DoctorCardMode
 import com.aya.digital.core.feature.doctors.doctorcard.databinding.ViewDoctorCardBinding
 import com.aya.digital.core.feature.doctors.doctorcard.di.doctorCardDiModule
 import com.aya.digital.core.feature.doctors.doctorcard.ui.model.DoctorCardStateTransformer
 import com.aya.digital.core.feature.doctors.doctorcard.ui.model.DoctorCardUiModel
+import com.aya.digital.core.feature.doctors.doctorcard.viewmodel.DoctorCardSideEffects
 import com.aya.digital.core.feature.doctors.doctorcard.viewmodel.DoctorCardState
 import com.aya.digital.core.feature.doctors.doctorcard.viewmodel.DoctorCardViewModel
-import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.ui.adapters.base.BaseDelegateAdapter
 import com.aya.digital.core.ui.base.screens.DiFragment
+import com.aya.digital.core.ui.base.utils.DateValidatorSelectableDays
 import com.aya.digital.core.ui.delegates.doctorcard.doctordetails.ui.DoctorDetailsBioDelegate
 import com.aya.digital.core.ui.delegates.doctorcard.doctordetails.ui.DoctorDetailsInsuranceDelegate
 import com.aya.digital.core.ui.delegates.doctorcard.doctordetails.ui.DoctorDetailsLocationDelegate
@@ -26,8 +26,11 @@ import com.aya.digital.core.ui.delegates.doctorcard.doctorslot.ui.DoctorDateTitl
 import com.aya.digital.core.ui.delegates.doctorcard.doctorslot.ui.DoctorSlotDelegate
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
+import com.google.android.material.datepicker.CalendarConstraints
+import com.google.android.material.datepicker.DateValidatorPointBackward
 import com.google.android.material.datepicker.MaterialDatePicker
 import kotlinx.datetime.Instant
+import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import kotlinx.parcelize.Parcelize
@@ -37,7 +40,7 @@ import org.kodein.di.on
 
 
 class DoctorCardView :
-    DiFragment<ViewDoctorCardBinding, DoctorCardViewModel, DoctorCardState, BaseSideEffect, DoctorCardUiModel, DoctorCardStateTransformer>() {
+    DiFragment<ViewDoctorCardBinding, DoctorCardViewModel, DoctorCardState, DoctorCardSideEffects, DoctorCardUiModel, DoctorCardStateTransformer>() {
 
     private var param: Param by argument("param")
 
@@ -70,7 +73,7 @@ class DoctorCardView :
         super.prepareUi(savedInstanceState)
         binding.bookBtn bindClick { viewModel.onBookClicked() }
         binding.detailsBtn bindClick { viewModel.onDetailsClicked() }
-        binding.btnSelectDate bindClick {showDatePicker()}
+        binding.btnSelectDate bindClick { viewModel.onChooseDateClicked() }
         with(binding.recycler) {
             itemAnimator = null
             setHasFixedSize(true)
@@ -99,7 +102,11 @@ class DoctorCardView :
     ): ViewDoctorCardBinding =
         ViewDoctorCardBinding.inflate(inflater, container, false)
 
-    override fun sideEffect(sideEffect: BaseSideEffect) = Unit
+    override fun sideEffect(sideEffect: DoctorCardSideEffects) =
+        when (sideEffect) {
+            is DoctorCardSideEffects.Error -> processErrorSideEffect(sideEffect.error)
+            is DoctorCardSideEffects.ShowCustomDateDialog -> showDatePicker(sideEffect.selectableDates)
+        }
 
     override fun render(state: DoctorCardState) {
         stateTransformer(state).run {
@@ -129,9 +136,8 @@ class DoctorCardView :
                     lm.spanSizeLookup = DoctorCardSpanSizeLookup(adapter)
                 }
             }
-            doctorCardMode.let {doctorCardMode->
-                when(doctorCardMode)
-                {
+            doctorCardMode.let { doctorCardMode ->
+                when (doctorCardMode) {
                     DoctorCardMode.ShowingDetailsInfo -> {
                         binding.bookBtn.unselect()
                         binding.detailsBtn.select()
@@ -145,8 +151,11 @@ class DoctorCardView :
         }
     }
 
-    private fun showDatePicker() {
+    private fun showDatePicker(selectableDates: List<LocalDate>) {
+        val constraintsBuilderSelectable = CalendarConstraints.Builder()
+            .setValidator(DateValidatorSelectableDays(selectableDates))
         val materialDatePicker = MaterialDatePicker.Builder.datePicker()
+            .setCalendarConstraints(constraintsBuilderSelectable.build())
             .build()
         materialDatePicker
             .addOnPositiveButtonClickListener {

@@ -26,4 +26,6 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.material.design)
     implementation(libs.decoro)
+    implementation(libs.kotlinx.time)
+
 }

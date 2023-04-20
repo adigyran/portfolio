@@ -22,8 +22,7 @@
     </style>
 
     <style name="Widget.App.Calendar.Day.Invalid">
-        <item name="itemTextColor">@color/text_black</item>
-        <item name="android:alpha">0.8</item>
+        <item name="itemTextColor">@color/text_grey</item>
     </style>
 
     <style name="Widget.App.Calendar.Day.Selected" >
