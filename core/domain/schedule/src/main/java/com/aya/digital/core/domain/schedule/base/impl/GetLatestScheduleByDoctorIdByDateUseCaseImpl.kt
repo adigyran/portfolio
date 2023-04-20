@@ -20,11 +20,7 @@ internal class GetLatestScheduleByDoctorIdByDateUseCaseImpl(private val reposito
         val startInstant = date.atStartOfDayIn(TimeZone.currentSystemDefault())
         val properStartInstant =  if(startInstant >= currentInstant) startInstant else currentInstant
         val startDateTime = properStartInstant.toLocalDateTime(TimeZone.currentSystemDefault())
-        val endDateTime =
-            startDateTime.toInstant(TimeZone.currentSystemDefault()).plus(24, DateTimeUnit.HOUR)
-                .toLocalDateTime(
-                    TimeZone.currentSystemDefault()
-                )
+        val endDateTime = startInstant.plus(24, DateTimeUnit.HOUR).toLocalDateTime(TimeZone.currentSystemDefault())
         return repository.getSlots(doctorId, startDateTime, endDateTime)
             .mapResult({ scheduleSlots -> scheduleSlots.map { it.toSlotModel() }.asResultModel() },
                 { it.toModelError() })
