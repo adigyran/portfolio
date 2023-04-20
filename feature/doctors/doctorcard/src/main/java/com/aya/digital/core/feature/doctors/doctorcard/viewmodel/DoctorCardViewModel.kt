@@ -1,5 +1,6 @@
 package com.aya.digital.core.feature.doctors.doctorcard.viewmodel
 
+import com.aya.digital.core.data.base.result.models.appointment.CreateAppointmentResultModel
 import com.aya.digital.core.domain.doctors.base.GetDoctorByIdUseCase
 import com.aya.digital.core.domain.schedule.base.GetLatestScheduleByDoctorIdUseCase
 import com.aya.digital.core.domain.schedule.base.model.ScheduleSlotModel
@@ -19,9 +20,11 @@ import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
+import timber.log.Timber
 
 class DoctorCardViewModel(
     private val coordinatorRouter: CoordinatorRouter,
+    private val rootCoordinatorRouter: CoordinatorRouter,
     private val param: DoctorCardView.Param,
     private val getDoctorByIdUseCase: GetDoctorByIdUseCase,
     private val getLatestScheduleByDoctorIdUseCase: GetLatestScheduleByDoctorIdUseCase,
@@ -128,7 +131,10 @@ class DoctorCardViewModel(
     }
 
     private fun listenForAppointmentCreation() {
-        coordinatorRouter.setResultListener(RequestCodes.CREATE_APPOINTMENT_REQUEST_COOE) {
+        rootCoordinatorRouter.setResultListener(RequestCodes.CREATE_APPOINTMENT_REQUEST_COOE) {result->
+            if(result !is CreateAppointmentResultModel) return@setResultListener
+            val createAppointmentResultModel = result as CreateAppointmentResultModel
+            Timber.d("$createAppointmentResultModel")
         }
     }
 

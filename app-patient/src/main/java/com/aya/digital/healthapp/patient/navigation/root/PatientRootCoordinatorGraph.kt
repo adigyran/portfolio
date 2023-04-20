@@ -15,6 +15,7 @@ import com.aya.digital.core.navigation.graph.coordinator.RootCoordinatorGraph
 import com.aya.digital.feature.auth.container.navigation.AuthContainerScreen
 import com.aya.digital.feature.bottomdialogs.codedialog.navigation.CodeDialogNavigationEvents
 import com.aya.digital.feature.bottomdialogs.codedialog.navigation.CodeDialogScreen
+import com.aya.digital.feature.bottomdialogs.createappointmentdialog.navigation.CreateAppointmentDialogNavigationEvents
 import com.aya.digital.feature.bottomdialogs.createappointmentdialog.navigation.CreateAppointmentDialogScreen
 import com.aya.digital.feature.rootcontainer.navigation.RootContainerNavigationEvents
 import com.github.terrakok.cicerone.Router
@@ -100,6 +101,15 @@ class PatientRootCoordinatorGraph(context: Context) : RootCoordinatorGraph {
                 navigationRouter.exit()
             }
             is CodeDialogNavigationEvents.Exit -> {
+                navigationRouter.exit()
+            }
+
+            is CreateAppointmentDialogNavigationEvents.Exit -> {
+                navigationRouter.exit()
+            }
+
+            is CreateAppointmentDialogNavigationEvents.FinishWithResult -> {
+                navigationRouter.sendResult(event.requestCode, event.result)
                 navigationRouter.exit()
             }
 

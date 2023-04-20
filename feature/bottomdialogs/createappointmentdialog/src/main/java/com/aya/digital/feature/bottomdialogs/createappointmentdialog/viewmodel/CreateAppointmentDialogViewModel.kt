@@ -1,5 +1,7 @@
 package com.aya.digital.feature.bottomdialogs.createappointmentdialog.viewmodel
 
+import com.aya.digital.core.data.base.result.models.appointment.CreateAppointmentResultModel
+import com.aya.digital.core.domain.appointment.base.model.AppointmentModel
 import com.aya.digital.core.domain.appointment.create.CreateAppointmentUseCase
 import com.aya.digital.core.domain.schedule.base.GetLatestScheduleByDoctorIdByDateUseCase
 import com.aya.digital.core.mvi.BaseSideEffect
@@ -40,21 +42,23 @@ class CreateAppointmentDialogViewModel(
             getLatestScheduleByDoctorIdByDateUseCase(param.doctorId, date)
                 .asFlow()
                 .collect { resultModel ->
-                    resultModel.processResult({slots->
-                     val selectedSlotId = param.slotDateTime?.let {selectedSlot-> slots.firstOrNull{it.startDate == selectedSlot }?.id }
-                     reduce { state.copy(
-                         slots = slots,
-                         date = date,
-                         selectedSlotId = selectedSlotId
-                     ) }
+                    resultModel.processResult({ slots ->
+                        val selectedSlotId =
+                            param.slotDateTime?.let { selectedSlot -> slots.firstOrNull { it.startDate == selectedSlot }?.id }
+                        reduce {
+                            state.copy(
+                                slots = slots,
+                                date = date,
+                                selectedSlotId = selectedSlotId
+                            )
+                        }
                     }, { processError(it) })
                 }
         }
     }
 
     fun onNameFieldChanged(tag: Int, text: String) = intent {
-        when(tag)
-        {
+        when (tag) {
             FieldsTags.COMMENT_FIELD -> reduce { state.copy(comment = text) }
         }
     }
@@ -68,13 +72,19 @@ class CreateAppointmentDialogViewModel(
         bookAppointment()
     }
 
-    private fun bookAppointment()  = intent {
-        if(state.selectedSlotId==null) return@intent
-        createAppointmentUseCase(state.selectedSlotId!!,state.comment?:"")
+    private fun bookAppointment() = intent {
+        if (state.selectedSlotId == null) return@intent
+        createAppointmentUseCase(state.selectedSlotId!!, state.comment ?: "")
             .await()
-            .processResult({appointment->
-                           Timber.d("$appointment")
-            },{processError(it)})
+            .processResult({ appointment ->
+                onAppointmentCreated(appointment)
+            }, { processError(it) })
+    }
+
+    private fun onAppointmentCreated(appointmentModel: AppointmentModel) = intent {
+        coordinatorRouter.sendEvent(CreateAppointmentDialogNavigationEvents.FinishWithResult(param.requestCode,
+            CreateAppointmentResultModel(appointmentModel.startDate)
+        ))
     }
 
     fun onSlotClicked(slotId: Int, date: LocalDate?) = intent {
