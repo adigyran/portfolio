@@ -35,6 +35,8 @@
         fixed appointments dates\n
         added badge to appointments\n
         added telemedicine icon\n
-        version 20\n
+        added logout to security screen\n
+        fixed profile saving
+        version 21\n
     </string>
 </resources>
