@@ -24,15 +24,17 @@
         doctor card test\n
         video calls\nchanged app icon\n
         fixed videocalls\n
-        fully working doctor card (without share and favorite for now)
-        fully working doctor slots
-        ability to select custom day for slots
-        creating an appointment (without result screen rn)
-        disabled tinting and titles on bottom navhost
-        fixed password change endpoint
-        fixed empty insurance photo
-        fixed profile crash
-        fixed appointments dates
+        fully working doctor card (without share and favorite for now)\n
+        fully working doctor slots\n
+        ability to select custom day for slots\n
+        creating an appointment (without result screen rn)\n
+        disabled tinting and titles on bottom navhost\n
+        fixed password change endpoint\n
+        fixed empty insurance photo\n
+        fixed profile crash\n
+        fixed appointments dates\n
+        added badge to appointments\n
+        added telemedicine icon\n
         version 20\n
     </string>
 </resources>

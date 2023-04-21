@@ -6,9 +6,11 @@ import com.aya.digital.core.model.ProfileSex
 import com.aya.digital.core.model.getSexName
 import com.aya.digital.core.mvi.BaseStateTransformer
 import com.aya.digital.core.ui.adapters.base.DiffItem
+import com.aya.digital.core.ui.base.masks.CommonMasks
 import com.aya.digital.core.ui.delegates.profile.info.model.ProfileInfoUIModel
 import com.aya.digital.core.util.datetime.DateTimeUtils
 import kotlinx.datetime.LocalDate
+import ru.tinkoff.decoro.MaskImpl
 
 class ProfileGeneralInfoViewStateTransformer(
     private val context: Context,
@@ -23,12 +25,12 @@ class ProfileGeneralInfoViewStateTransformer(
                     add(ProfileInfoUIModel("First Name", state.firstName.getField()))
                     add(ProfileInfoUIModel("Last Name", state.lastName.getField()))
                     add(ProfileInfoUIModel("Middle Name", state.middleName.getField()))
-                    add(ProfileInfoUIModel("SSN", state.ssn.getField()))
-                    add(ProfileInfoUIModel("TIN", state.tin.getField()))
+                    add(ProfileInfoUIModel("SSN", state.ssn.getMaskedText(CommonMasks.getSSNValidator()).getField()))
+                    add(ProfileInfoUIModel("TIN", state.tin.getMaskedText(CommonMasks.getSSNValidator()).getField()))
                     add(ProfileInfoUIModel("Date of Birth", state.dateOfBirth.getField()))
                     add(ProfileInfoUIModel("Sex", state.sex.getField()))
-                    add(ProfileInfoUIModel("Height", state.height.getUnitField(getHeightUnit())))
-                    add(ProfileInfoUIModel("Weight", state.weight.getUnitField(getWeightUnit())))
+                    add(ProfileInfoUIModel("Height", state.height.getMaskedText(CommonMasks.getHeightValidator()).getUnitField(getHeightUnit())))
+                    add(ProfileInfoUIModel("Weight", state.weight.getMaskedText(CommonMasks.getWeightValidator()).getUnitField(getWeightUnit())))
                     add(ProfileInfoUIModel("Short Address", state.shortAddress.getField()))
 
                 }
@@ -46,6 +48,11 @@ class ProfileGeneralInfoViewStateTransformer(
 
     private fun String?.getUnitField(unit: String) =
         this?.let { "%s %s".format(it, unit) } ?: getNotSpecifiedText()
+
+    private fun String?.getMaskedText(mask:MaskImpl) = this?.let {
+        mask.insertFront(it)
+        mask.toString()
+    }
 
     private fun getHeightUnit() = "ft."
     private fun getWeightUnit() = "lbs"

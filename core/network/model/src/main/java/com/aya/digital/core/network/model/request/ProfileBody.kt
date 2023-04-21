@@ -8,7 +8,7 @@ data class ProfileBody(
     val firstName: String? = null,
     val lastName: String? = null,
     val middleName: String? = null,
-    val dateOfBirth: String? = null,
+    val birthDate: String? = null,
     val sex: String? = null,
     val height: String? = null,
     val weight: String? = null,

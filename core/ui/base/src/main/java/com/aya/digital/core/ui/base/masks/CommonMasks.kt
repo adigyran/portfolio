@@ -8,17 +8,17 @@ import ru.tinkoff.decoro.slots.SlotValidators
 object CommonMasks {
     fun getSSNValidator(): MaskImpl {
         val slots = arrayListOf<Slot>(
-            Slot(null, SlotValidators.DigitValidator()),
-            Slot(null, SlotValidators.DigitValidator()),
-            Slot(null, SlotValidators.DigitValidator()),
+            Slot(null, SlotValidators.DigitValidator(),SlotValidators.LetterValidator()),
+            Slot(null, SlotValidators.DigitValidator(),SlotValidators.LetterValidator()),
+            Slot(null, SlotValidators.DigitValidator(),SlotValidators.LetterValidator()),
             PredefinedSlots.hardcodedSlot('-').withTags(Slot.TAG_DECORATION),
-            Slot(null, SlotValidators.DigitValidator()),
-            Slot(null, SlotValidators.DigitValidator()),
+            Slot(null, SlotValidators.DigitValidator(),SlotValidators.LetterValidator()),
+            Slot(null, SlotValidators.DigitValidator(),SlotValidators.LetterValidator()),
             PredefinedSlots.hardcodedSlot('-').withTags(Slot.TAG_DECORATION),
-            Slot(null, SlotValidators.DigitValidator()),
-            Slot(null, SlotValidators.DigitValidator()),
-            Slot(null, SlotValidators.DigitValidator()),
-            Slot(null, SlotValidators.DigitValidator())
+            Slot(null, SlotValidators.DigitValidator(),SlotValidators.LetterValidator()),
+            Slot(null, SlotValidators.DigitValidator(),SlotValidators.LetterValidator()),
+            Slot(null, SlotValidators.DigitValidator(),SlotValidators.LetterValidator()),
+            Slot(null, SlotValidators.DigitValidator(),SlotValidators.LetterValidator())
         )
         return MaskImpl.createTerminated(slots.toTypedArray())
             .apply { this.isShowingEmptySlots = true

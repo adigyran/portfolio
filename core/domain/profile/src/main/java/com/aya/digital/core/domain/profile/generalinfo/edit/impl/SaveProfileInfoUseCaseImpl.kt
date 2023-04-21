@@ -23,7 +23,7 @@ internal class SaveProfileInfoUseCaseImpl(private val profileRepository: Profile
         firstName = this.firstName,
         lastName = this.lastName,
         middleName = this.middleName,
-        dateOfBirth = this.dateOfBirth?.let(dateTimeUtils::formatIsoDate),
+        birthDate = this.dateOfBirth?.let(dateTimeUtils::formatIsoDate),
         sex = this.sex?.tag,
         height = if(this.height.isNullOrBlank()) null else this.height,
         weight = if(this.weight.isNullOrBlank()) null else this.weight,
