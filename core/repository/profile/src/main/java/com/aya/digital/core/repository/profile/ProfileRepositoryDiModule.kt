@@ -18,6 +18,7 @@ fun profileRepositoryDiModule() = DI.Module("profileRepositoryDiModule") {
             instance(),
             instance(),
             instance(),
+            instance(),
             instance()
         )
     }

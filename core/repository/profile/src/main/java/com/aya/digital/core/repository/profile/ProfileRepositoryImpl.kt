@@ -23,6 +23,7 @@ import com.aya.digital.core.ext.flatMapResult
 import com.aya.digital.core.ext.mapResult
 import com.aya.digital.core.ext.retrofitResponseToResult
 import com.aya.digital.core.ext.retryOnError
+import com.aya.digital.core.navigation.events.invalidToken.InvalidTokenEventManager
 import com.aya.digital.core.network.model.request.EmergencyContactBody
 import com.aya.digital.core.network.model.request.InsurancePolicyBody
 import com.aya.digital.core.network.model.request.LogoutBody
@@ -48,6 +49,7 @@ internal class ProfileRepositoryImpl(
     private val emergencyContactMapper: EmergencyContactMapper,
     private val dictionariesDataSource: DictionariesDataSource,
     private val insuranceCompanyMapper: InsuranceCompanyMapper,
+    private val invalidTokenEventManager: InvalidTokenEventManager,
     private val imageUploadResultMapper: ImageUploadResultMapper
 ) :
     ProfileRepository {
@@ -208,6 +210,7 @@ internal class ProfileRepositoryImpl(
                     .retrofitResponseToResult(CommonUtils::mapServerErrors)
                     .flatMapResult({
                         appDataStore.clearAuthData()
+                            .doFinally{invalidTokenEventManager.onInvalidToken()}
                             .map { true.asResult() }
                     }, { Single.just(it) })
             }
