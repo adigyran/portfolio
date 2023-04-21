@@ -32,6 +32,7 @@
         fixed password change endpoint
         fixed empty insurance photo
         fixed profile crash
-        version 18\n
+        fixed appointments dates
+        version 19\n
     </string>
 </resources>
