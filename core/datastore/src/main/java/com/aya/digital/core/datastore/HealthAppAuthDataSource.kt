@@ -52,11 +52,11 @@ class HealthAppAuthDataSource constructor(
     }.await()
 
     fun clearAuthData() =
-        CompletableFromSingle(userPreferences.updateDataAsync {
+        userPreferences.updateDataAsync {
             val copy = it.copy {
                 accessToken = ""
                 refreshToken = ""
             }
             Single.just(copy)
-        })
+        }
 }

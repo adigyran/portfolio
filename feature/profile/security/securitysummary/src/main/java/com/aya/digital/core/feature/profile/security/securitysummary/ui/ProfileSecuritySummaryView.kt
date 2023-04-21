@@ -12,10 +12,9 @@ import com.aya.digital.core.feature.profile.security.securitysummary.ui.model.Pr
 import com.aya.digital.core.feature.profile.security.securitysummary.viewmodel.ProfileSecuritySummarySideEffects
 import com.aya.digital.core.feature.profile.security.securitysummary.viewmodel.ProfileSecuritySummaryState
 import com.aya.digital.core.feature.profile.security.securitysummary.viewmodel.ProfileSecuritySummaryViewModel
-import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.ui.adapters.base.BaseDelegateAdapter
 import com.aya.digital.core.ui.base.screens.DiFragment
-import com.aya.digital.core.ui.delegates.profile.emergencycontactinfo.ui.SecuritySummaryDelegate
+import com.aya.digital.core.ui.delegates.profile.securitysummary.ui.SecuritySummaryDelegate
 import org.kodein.di.DI
 import org.kodein.di.factory
 import org.kodein.di.on

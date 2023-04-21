@@ -28,6 +28,8 @@ import com.aya.digital.core.domain.profile.security.changeemail.impl.ChangeEmail
 import com.aya.digital.core.domain.profile.security.changeemail.impl.ChangeEmailUseCaseImpl
 import com.aya.digital.core.domain.profile.security.changepassword.ChangePasswordUseCase
 import com.aya.digital.core.domain.profile.security.changepassword.impl.ChangePasswordUseCaseImpl
+import com.aya.digital.core.domain.profile.security.logout.LogoutUseCase
+import com.aya.digital.core.domain.profile.security.logout.impl.LogoutUseCaseImpl
 import com.aya.digital.core.domain.profile.security.summary.GetSecuritySummaryUseCase
 import com.aya.digital.core.domain.profile.security.summary.impl.GetSecuritySummaryUseCaseImpl
 import org.kodein.di.DI
@@ -71,6 +73,8 @@ fun profileDomainDiModule() = DI.Module("profileDomainDiModule") {
     bind<ChangeEmailGetCodeUseCase>() with singleton { ChangeEmailGetCodeUseCaseImpl(instance(),instance()) }
     //change password
     bind<ChangePasswordUseCase>() with singleton { ChangePasswordUseCaseImpl(instance(),instance()) }
+    //logout
+    bind<LogoutUseCase>() with singleton { LogoutUseCaseImpl(instance()) }
 
     bind<GetAttachmentByIdUseCase>() with singleton { GetAttachmentByIdUseCaseImpl(instance()) }
 

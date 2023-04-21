@@ -46,6 +46,8 @@ interface ProfileRepository {
 
     fun getAttachmentById(attachmentId: Int): Single<RequestResult<Boolean>>
 
+    fun logout():Single<RequestResult<Boolean>>
+
     fun clear()
 
 

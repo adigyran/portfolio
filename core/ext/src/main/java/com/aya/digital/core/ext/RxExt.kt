@@ -86,6 +86,14 @@ fun <T : Any> Single<T>.retrofitResponseToResult(errorMapper: (String) -> List<I
             ) else throw it
         }
 
+fun Completable.retrofitResponseToResult(errorMapper: (String) -> List<IServerError>): Single<RequestResult<Boolean>> =
+    this.andThen(Single.just(true.asResult()))
+        .onErrorReturn {
+            if (it is HttpException || it is IOException || it is JsonDataException) return@onErrorReturn it.asErrorResult(
+                errorMapper
+            ) else throw it
+        }
+
 fun <T : Any> Single<T>.userDataResponseToResult(): Single<RequestResult<T>> =
     this.map { it.asResult() }
         .onErrorReturn {
@@ -146,7 +154,7 @@ fun <T : Any> Single<T>.retryOnError(
             ) else Single.error(throwable)
         }
 
-fun <T : Any> Completable.retryOnError(
+fun  Completable.retryOnError(
     retriesCount: Int = 3,
 ): Completable =
     this

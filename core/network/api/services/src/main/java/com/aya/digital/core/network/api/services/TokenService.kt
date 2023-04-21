@@ -13,6 +13,7 @@ interface TokenService {
     @FormUrlEncoded
     @POST("base/refresh-token")
     fun refreshToken(@Field("refresh_token") refreshToken:String): Single<LoginResponse>
-    @POST("openid-connect/logout")
-    fun logout(): Single<Void>
+    @FormUrlEncoded
+    @POST("base/logout")
+    fun logout(@Field("refresh_token") refreshToken: String): Completable
 }

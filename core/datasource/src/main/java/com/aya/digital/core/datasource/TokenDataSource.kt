@@ -15,5 +15,5 @@ interface TokenDataSource {
 
     fun refreshToken(refreshTokenBody: RefreshTokenBody): Single<LoginResponse>
 
-    fun logout(logoutBody: LogoutBody): Single<Void>
+    fun logout(logoutBody: LogoutBody): Completable
 }

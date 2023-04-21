@@ -1,5 +1,6 @@
 package com.aya.digital.core.feature.profile.security.securitysummary.viewmodel
 
+import com.aya.digital.core.domain.profile.security.logout.LogoutUseCase
 import com.aya.digital.core.domain.profile.security.summary.GetSecuritySummaryUseCase
 import com.aya.digital.core.feature.profile.security.securitysummary.FieldsTags
 import com.aya.digital.core.feature.profile.security.securitysummary.navigation.ProfileSecuritySummaryNavigationEvents
@@ -17,14 +18,16 @@ import timber.log.Timber
 internal class ProfileSecuritySummaryViewModel(
     private val coordinatorRouter: CoordinatorRouter,
     private val getSecuritySummaryUseCase: GetSecuritySummaryUseCase,
+    private val logoutUseCase: LogoutUseCase
 ) :
     BaseViewModel<ProfileSecuritySummaryState, ProfileSecuritySummarySideEffects>() {
-    override val container = container<ProfileSecuritySummaryState, ProfileSecuritySummarySideEffects>(
-        initialState = ProfileSecuritySummaryState(),
-    )
-    {
+    override val container =
+        container<ProfileSecuritySummaryState, ProfileSecuritySummarySideEffects>(
+            initialState = ProfileSecuritySummaryState(),
+        )
+        {
 
-    }
+        }
 
     init {
         getSecuritySummary()
@@ -38,15 +41,30 @@ internal class ProfileSecuritySummaryViewModel(
     }
 
     fun itemClicked(tag: Int) = intent {
+        if (tag == FieldsTags.LOGOUT_FIELD_TAG) {
+            logout()
+            return@intent
+        }
         coordinatorRouter.sendEvent(
             when (tag) {
-                FieldsTags.EMAIL_FIELD_TAG -> ProfileSecuritySummaryNavigationEvents.ChangeEmail(RequestCodes.CHANGE_EMAIL_REQUEST_CODE)
-                FieldsTags.PASSWORD_FIELD_TAG -> ProfileSecuritySummaryNavigationEvents.ChangePassword(RequestCodes.CHANGE_PASSWORD_REQUEST_CODE)
+                FieldsTags.EMAIL_FIELD_TAG -> ProfileSecuritySummaryNavigationEvents.ChangeEmail(
+                    RequestCodes.CHANGE_EMAIL_REQUEST_CODE
+                )
+
+                FieldsTags.PASSWORD_FIELD_TAG -> ProfileSecuritySummaryNavigationEvents.ChangePassword(
+                    RequestCodes.CHANGE_PASSWORD_REQUEST_CODE
+                )
+
                 else -> {
                     ProfileSecuritySummaryNavigationEvents.ChangeEmail(RequestCodes.CHANGE_EMAIL_REQUEST_CODE)
                 }
             }
         )
+    }
+
+    private fun logout() = intent {
+        logoutUseCase().await()
+            .processResult({},{processError(it)})
     }
 
     override fun postErrorSideEffect(errorSideEffect: ErrorSideEffect) = intent {

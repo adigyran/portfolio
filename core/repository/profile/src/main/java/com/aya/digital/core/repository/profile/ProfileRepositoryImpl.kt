@@ -12,14 +12,20 @@ import com.aya.digital.core.data.profile.mappers.CurrentProfileMapper
 import com.aya.digital.core.data.profile.mappers.EmergencyContactMapper
 import com.aya.digital.core.data.profile.mappers.ImageUploadResultMapper
 import com.aya.digital.core.data.profile.repository.ProfileRepository
+import com.aya.digital.core.datasource.AuthDataSource
 import com.aya.digital.core.datasource.DictionariesDataSource
 import com.aya.digital.core.datasource.ProfileDataSource
+import com.aya.digital.core.datasource.TokenDataSource
+import com.aya.digital.core.datastore.HealthAppAuthDataSource
+import com.aya.digital.core.datastore.HealthAppDataSource
 import com.aya.digital.core.ext.asResult
+import com.aya.digital.core.ext.flatMapResult
 import com.aya.digital.core.ext.mapResult
 import com.aya.digital.core.ext.retrofitResponseToResult
 import com.aya.digital.core.ext.retryOnError
 import com.aya.digital.core.network.model.request.EmergencyContactBody
 import com.aya.digital.core.network.model.request.InsurancePolicyBody
+import com.aya.digital.core.network.model.request.LogoutBody
 import com.aya.digital.core.network.model.request.ProfileBody
 import com.aya.digital.core.network.model.response.profile.ImageUploadResponse
 import com.aya.digital.core.networkbase.CommonUtils
@@ -35,6 +41,8 @@ import okhttp3.RequestBody.Companion.toRequestBody
 internal class ProfileRepositoryImpl(
     private val context: Context,
     private val profileDataSource: ProfileDataSource,
+    private val tokenDataSource: TokenDataSource,
+    private val appDataStore: HealthAppAuthDataSource,
     private val currentProfileMapper: CurrentProfileMapper,
     private val insuranceMapper: InsurancePolicyMapper,
     private val emergencyContactMapper: EmergencyContactMapper,
@@ -123,7 +131,7 @@ internal class ProfileRepositoryImpl(
                                 )
                         )
                         .build()
-                     uploadAvatarBody(body)
+                    uploadAvatarBody(body)
                         .doFinally { openInputStream.close() }
                         .mapResult({ it.asResult() }, { it })
                 } ?: Single.just(false.asResult())
@@ -191,6 +199,18 @@ internal class ProfileRepositoryImpl(
                 true.asResult()
             }, { it })
 
+    override fun logout(): Single<RequestResult<Boolean>> =
+        appDataStore.refreshTokenData
+            .first("")
+            .flatMap { refreshToken ->
+                tokenDataSource.logout(LogoutBody(refreshToken))
+                    .retryOnError()
+                    .retrofitResponseToResult(CommonUtils::mapServerErrors)
+                    .flatMapResult({
+                        appDataStore.clearAuthData()
+                            .map { true.asResult() }
+                    }, { Single.just(it) })
+            }
     override fun clear() {
         TODO("Not yet implemented")
     }

@@ -5,7 +5,7 @@ import com.aya.digital.core.feature.profile.security.securitysummary.FieldsTags
 import com.aya.digital.core.feature.profile.security.securitysummary.viewmodel.ProfileSecuritySummaryState
 import com.aya.digital.core.mvi.BaseStateTransformer
 import com.aya.digital.core.ui.adapters.base.DiffItem
-import com.aya.digital.core.ui.delegates.profile.emergencycontactinfo.model.SecuritySummaryUIModel
+import com.aya.digital.core.ui.delegates.profile.securitysummary.model.SecuritySummaryUIModel
 
 internal class ProfileSecuritySummaryStateTransformer(context: Context) :
     BaseStateTransformer<ProfileSecuritySummaryState, ProfileSecuritySummaryUiModel>() {
@@ -25,6 +25,13 @@ internal class ProfileSecuritySummaryStateTransformer(context: Context) :
                             FieldsTags.PASSWORD_FIELD_TAG,
                             "Password",
                             state.password.getPasswordField()
+                        )
+                    )
+                    add(
+                        SecuritySummaryUIModel(
+                            FieldsTags.LOGOUT_FIELD_TAG,
+                            "Logout",
+                            "press for logout"
                         )
                     )
                 }
