@@ -9,7 +9,8 @@ import kotlinx.datetime.LocalDate
 import retrofit2.http.Body
 
 interface AppointmentDataSource {
-    fun getAppointments(): Flowable<List<AppointmentResponse>>
+    fun getAppointments(start: String,
+                          end: String): Flowable<List<AppointmentResponse>>
 
     fun createAppointment(slotId: Int, comment: String): Single<AppointmentResponse>
 }

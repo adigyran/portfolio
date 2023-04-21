@@ -10,13 +10,24 @@ import com.aya.digital.core.domain.appointment.base.model.AppointmentModel
 import com.aya.digital.core.domain.appointment.base.model.toAppointmentModel
 import com.aya.digital.core.ext.mapResult
 import io.reactivex.rxjava3.core.Flowable
+import kotlinx.datetime.Clock
+import kotlinx.datetime.DateTimeUnit
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.plus
+import kotlinx.datetime.toLocalDateTime
 
 internal class GetAppointmentsUseCaseImpl(private val appointmentRepository: AppointmentRepository) :
     GetAppointmentsUseCase {
-    override fun invoke(): Flowable<RequestResultModel<List<AppointmentModel>>> =
-        appointmentRepository.getAppointments()
+    override fun invoke(): Flowable<RequestResultModel<List<AppointmentModel>>> {
+        val currentInstant = Clock.System.now()
+        val systemTZ = TimeZone.currentSystemDefault()
+        val startDateTime = currentInstant.toLocalDateTime(systemTZ)
+        val endDateTime =
+            currentInstant.plus(100, DateTimeUnit.DAY, systemTZ).toLocalDateTime(systemTZ)
+        return appointmentRepository.getAppointments(startDateTime, endDateTime/**/)
             .mapResult({ it.map { item -> item.toAppointmentModel() }.asResultModel() },
                 { it.toModelError() })
+    }
 
 
 }

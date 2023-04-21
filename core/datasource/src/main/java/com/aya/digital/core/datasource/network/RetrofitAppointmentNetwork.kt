@@ -22,7 +22,8 @@ fun appointmentNetworkModule() = DI.Module("appointmentNetworkModule") {
 
 class RetrofitAppointmentNetwork(private val networkApi: AppointmentService) :
     AppointmentDataSource {
-    override fun getAppointments(): Flowable<List<AppointmentResponse>> = networkApi.getAppointments()
+    override fun getAppointments(start: String, end: String): Flowable<List<AppointmentResponse>>  = networkApi.getAppointments(start, end)
+
     override fun createAppointment(slotId: Int, comment: String): Single<AppointmentResponse>  = networkApi.createAppointment(
         CreateAppointmentBody(slotId, comment)
     )

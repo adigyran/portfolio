@@ -14,6 +14,9 @@ import com.aya.digital.core.networkbase.CommonUtils
 import com.aya.digital.core.networkbase.server.RequestResult
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Single
+import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toInstant
 
 internal class AppointmentRepositoryImpl(
     private val appointmentDataSource: AppointmentDataSource,
@@ -26,8 +29,16 @@ internal class AppointmentRepositoryImpl(
             .retrofitResponseToResult(CommonUtils::mapServerErrors)
             .mapResult({ result -> result.token.asResult() }, { it })
 
-    override fun getAppointments(): Flowable<RequestResult<List<Appointment>>> =
-        appointmentDataSource.getAppointments()
+    override fun getAppointments(
+        start: LocalDateTime,
+        end: LocalDateTime
+    ): Flowable<RequestResult<List<Appointment>>> =
+        appointmentDataSource.getAppointments(
+            start.toInstant(TimeZone.currentSystemDefault()).toString(),
+            end.toInstant(
+                TimeZone.currentSystemDefault()
+            ).toString()
+        )
             .retryOnError()
             .retrofitResponseToResult(CommonUtils::mapServerErrors)
             .mapResult({ result -> appointmentMapper.mapFromList(result).asResult() }, { it })

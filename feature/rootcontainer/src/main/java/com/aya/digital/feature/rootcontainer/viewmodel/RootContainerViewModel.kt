@@ -23,6 +23,7 @@ class RootContainerViewModel(
     )
     {
     }
+
     fun openDefaultScreen() = intent {
         val isAuthenticatedResult = checkIsAuthenticatedUseCase().await()
         isAuthenticatedResult.processResult({ authenticated ->
@@ -32,8 +33,8 @@ class RootContainerViewModel(
     }
 
     fun listenForToken() = intent {
-        invalidTokenEventManager.subscribeToEvent().subscribe{
-            if(it) coordinatorRouter.sendEvent(RootContainerNavigationEvents.OpenDefaultScreen)
+        invalidTokenEventManager.subscribeToEvent().subscribe {
+            if (it) coordinatorRouter.sendEvent(RootContainerNavigationEvents.OpenDefaultScreen)
         }
     }
 }
