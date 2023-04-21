@@ -116,6 +116,8 @@ class BottomNavHostView : DiFragment<ViewBottomNavHostBinding, BottomNavHostView
         binding.navView.menu.clear()
         binding.navView.itemIconTintList = null
         binding.navView.inflateMenu(menuProvider.getMenu())
+        var badge = binding.navView.getOrCreateBadge(menuProvider.getFakeBadgeId())
+        badge.isVisible = true
         with(binding.navView)
         {
             setOnItemSelectedListener(navListener)

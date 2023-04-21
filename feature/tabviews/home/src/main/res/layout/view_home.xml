@@ -112,7 +112,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginBottom="16dp"
-                android:text="0 appointments"
+                android:text="2 appointments"
                 android:textAppearance="@style/TextAppearance.App.Body.LabelMiniText"
                 app:layout_constraintBottom_toBottomOf="@id/appointmentsBtn"
                 app:layout_constraintEnd_toEndOf="@id/appointmentsBtn"
@@ -135,8 +135,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:src="@drawable/ic_covid"
-                android:visibility="invisible"
+                android:src="@drawable/ic_appointments"
+                android:visibility="visible"
                 app:layout_constraintStart_toStartOf="@id/covidBtn"
                 app:layout_constraintTop_toTopOf="@id/covidBtn" />
 
@@ -158,7 +158,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginBottom="16dp"
-                android:text=""
+                android:text="2 appointments"
                 android:textAppearance="@style/TextAppearance.App.Body.LabelMiniText"
                 app:layout_constraintBottom_toBottomOf="@id/covidBtn"
                 app:layout_constraintEnd_toEndOf="@id/covidBtn"

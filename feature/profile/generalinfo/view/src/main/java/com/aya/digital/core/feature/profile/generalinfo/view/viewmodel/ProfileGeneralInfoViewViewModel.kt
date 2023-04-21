@@ -38,6 +38,7 @@ class ProfileGeneralInfoViewViewModel(
             reduce {
                 state.copy(
                     avatar = profileInfo.avatar?:"",
+                    email = profileInfo.email,
                     firstName = profileInfo.firstName,
                     middleName = profileInfo.middleName,
                     lastName = profileInfo.lastName,

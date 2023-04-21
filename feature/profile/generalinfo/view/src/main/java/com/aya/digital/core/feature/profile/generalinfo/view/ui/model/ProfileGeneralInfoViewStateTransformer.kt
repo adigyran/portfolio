@@ -19,6 +19,7 @@ class ProfileGeneralInfoViewStateTransformer(
         ProfileGeneralInfoViewUiModel(
             data = kotlin.run {
                 return@run mutableListOf<DiffItem>().apply {
+                    add(ProfileInfoUIModel("Email", state.email.getField()))
                     add(ProfileInfoUIModel("First Name", state.firstName.getField()))
                     add(ProfileInfoUIModel("Last Name", state.lastName.getField()))
                     add(ProfileInfoUIModel("Middle Name", state.middleName.getField()))

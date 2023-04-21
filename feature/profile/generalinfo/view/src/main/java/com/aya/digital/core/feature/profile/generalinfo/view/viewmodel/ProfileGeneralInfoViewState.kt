@@ -9,6 +9,7 @@ import kotlinx.parcelize.RawValue
 @Parcelize
 data class ProfileGeneralInfoViewState(
     val avatar: String = "",
+    val email:String? = null,
     val firstName: String? = null,
     val lastName: String? = null,
     val middleName: String? = null,

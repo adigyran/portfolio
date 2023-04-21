@@ -12,6 +12,7 @@
         <item name="colorPrimary">@color/text_black</item>
         <item name="colorOnSurface">@color/text_black</item>
         <item name="colorError">@color/stroke_red</item>
+        <item name="colorControlActivated">@color/text_black</item>
         <item name="editTextStyle">@style/Widget.Material3.TextInputEditText.OutlinedBox</item>
 
     </style>
