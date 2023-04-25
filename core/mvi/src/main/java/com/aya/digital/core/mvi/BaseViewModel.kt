@@ -130,5 +130,11 @@ abstract class BaseViewModel<STATE : BaseState, SideEffect : BaseSideEffect> : V
 
 
     }
+
+    protected fun sendExceptionToCrashlytics(throwable: Throwable)
+    {
+        Firebase.crashlytics.recordException(throwable)
+    }
+
     protected open fun postErrorSideEffect(errorSideEffect: ErrorSideEffect) = Unit
 }

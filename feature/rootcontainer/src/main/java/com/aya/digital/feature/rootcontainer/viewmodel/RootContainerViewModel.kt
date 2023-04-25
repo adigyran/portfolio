@@ -29,7 +29,10 @@ class RootContainerViewModel(
         isAuthenticatedResult.processResult({ authenticated ->
             if (authenticated) coordinatorRouter.sendEvent(RootContainerNavigationEvents.OpenDefaultScreenAuthorized)
             else coordinatorRouter.sendEvent(RootContainerNavigationEvents.OpenDefaultScreen)
-        }, { Timber.e((it as RequestResultModel.Error.Another).throwable) })
+        }, {
+            Timber.e((it as RequestResultModel.Error.Another).throwable)
+            sendExceptionToCrashlytics(it.throwable)
+        })
     }
 
     fun listenForToken() = intent {

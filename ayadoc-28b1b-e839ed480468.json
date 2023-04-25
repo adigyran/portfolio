@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "ayadoc-28b1b",
+  "private_key_id": "e839ed48046802a013fff4f0dbe05b8ac783df12",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDoN9x5Z1yDNMpx\nfPUacmbqjcgNM/+Qa0BEIJaIEHrxpCFyiuFUFlbPE42tVvl5IBupPruSZBAI6WZA\n/VX9pOJ6v9P/tBOjAo7WQolstx/nAqbriDjN9/yZCCaJfNNTsmpWzIJyYf46YHCi\n0koyje879K0gau4z13nGdzuROL7xVk5uENRJ+zWptOIgA4/2ji87cS1mIq1NZV6c\nspFo0IrHaE0n0QjTPwdJOz+oq8It2BDFSTs9VO/isC02zTFcMpZetfk7zUUNexPB\nE9uxlos5MfYSsfpPiZ0zFvmuKL+Zsr+9yuYO2YoWfdZbLmHBir7yeqgG+gOvy9y8\ntwN+mFQ3AgMBAAECggEAY/tRMPBA07kSBMTxXv6sswZygMTHny2eUPba+SBnXsz1\nHbUQCT1JCQV5NY3CAdXCMx9wcTol8UBUp1yr/nZUkNcw9uJYphG+4B9rveQmlzb8\nGWLgWkYQeu8YcI/PCTVDNbX94DOy2v2U4XW7PoL/4weY1uFTR/zZUIsbmY4eIBff\n3GSHE//AZXtjvXHGg4NXv0Nc/ETzxCRCzme60rSGMRuWR/f/T5uGBd3MbhY7E8l8\nOXEU2FC0ihTKZ8MPELn4bj1a3fgEEQZ69pb6OqFNHVxmlkuVVaK13UUK8Vz1J5WE\n+0RDdmOiueze+jQO85qos/dAXZ3zbqlvDwdawgyHSQKBgQD1vrlnENcETlcxfBfb\nOP6fUorFSn6e4+lROVInT4kw9HW3p9+HdgjPqVSko4SOlPqzo9lHQy9rlxqdn8FO\nUL9bZ/4DxPUrqgE2GYV3U25WdHh7pPiTqY++1dgMjUHuGG5v/G9wOUP9zjG0vEoi\nt1jrQHyYphCgfGxKOKTLSB3IWwKBgQDx6KGQLxvTBww1HCwxrQXY/iD3us0SrOAM\n5Gkal5MP7CKOWsntqFfQ9xlBP5MG+mqrJ7jI6k0HbodW/Y/d5LppfrMok3XC9D3e\nhAmpkVJHIBJA6VO4IHtyfeq42U1Qtxs1MV1b4YOAa2TF83TaJaknw8+yRKp8srLa\nDHkfUGfKVQKBgC2AtkXOSXIDq4N/Lc+q2wLXPtjPNWjoXKBsk7ixsn59FXr/O5WS\nlokVGpYtrPLVxSIUObxHRXWPkh8ToLCGpRggxlkeVCNUpErHKP5yVWDuygxi/KAi\n6nn0kL+qPEYBAhn8TQojoGJTlsKXhsas2msdErUVMsj0oPyRRnpZjSI3AoGBAJTs\nnBoBhmWh3xgLIgHq/MCbonwgGgO3Pa9yJmpiifyxaIyuw8V1b6qLlJagpskS/Pwl\nVhMKeyVqHBOnwhvepgwwHeeK8GJ2rmgAbVpgxoBW9CXV/t5J0PWpIwltbbWVJEDZ\nBRp9eNFkTAO5X2S07rA2UfTzZOmjsYufRinK/DqJAoGAOioRjMlWHfAj9noNUgCV\nyDGLY7V5txCLg3SYln6MIW5SafC54s23XqOoLn3eYG9950zVwT632ZttobaXjDx0\nBPnwgkU9iBmlVdSPzoWPqmhk1dRG9IZpA7dpmjsLZW1+8ql+acuKuMmrtD8Ykx3L\nOYb3hT7JF+5bc2/S+/BHre4=\n-----END PRIVATE KEY-----\n",
+  "client_email": "ayadocpatientappserviceaccount@ayadoc-28b1b.iam.gserviceaccount.com",
+  "client_id": "102421228893156841699",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/ayadocpatientappserviceaccount%40ayadoc-28b1b.iam.gserviceaccount.com"
+}

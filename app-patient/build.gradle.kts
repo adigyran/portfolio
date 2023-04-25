@@ -17,8 +17,8 @@ android {
 
     defaultConfig {
         applicationId = "com.aya.digital.healthapp.patient"
-        versionCode = 21
-        versionName = "0.0.21" // X.Y.Z; X = Major, Y = minor, Z = Patch level
+        versionCode = 22
+        versionName = "0.0.22" // X.Y.Z; X = Major, Y = minor, Z = Patch level
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -56,14 +56,14 @@ android {
         val debug by getting {
             applicationIdSuffix = AyaPatientBuildType.DEBUG.applicationIdSuffix
             firebaseAppDistribution {
-                serviceCredentialsFile = "./ayahealth-4689ac22308c.json"
+                serviceCredentialsFile = "./ayadoc-28b1b-e839ed480468.json"
                 groups="general"
                 releaseNotesFile = "${parent!!.projectDir}/releasenotes.txt"
             }
         }
         val release by getting {
             firebaseAppDistribution {
-                serviceCredentialsFile = "./ayahealth-4689ac22308c.json"
+                serviceCredentialsFile = "./ayadoc-28b1b-e839ed480468.json"
                 groups="general"
                 releaseNotesFile = "${parent!!.projectDir}/releasenotes.txt"
             }

@@ -21,11 +21,11 @@ internal class AuthRepositoryImpl(
     private val userKeyResultMapper: UserKeyResultMapper
 ) : AuthRepository {
     override fun checkIfTokenPresent(): Single<RequestResult<Boolean>> =
-        authDataStore.refreshTokenData
+        authDataStore.authUserData
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
             .userDataResponseToResult()
-            .mapResult({ it.isNotBlank().asResult() }, { it })
+            .mapResult({(it.accessToken.isNotEmpty()&&it.refreshToken.isNotEmpty()).asResult()},{it})
             .firstOrError()
 
 

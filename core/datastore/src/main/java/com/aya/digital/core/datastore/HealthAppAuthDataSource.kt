@@ -3,6 +3,7 @@ package com.aya.digital.core.datastore
 import androidx.datastore.rxjava3.RxDataStore
 import com.aya.digital.core.data.preferences.AuthUserData
 import com.aya.digital.core.datastore.UserPreferencesOuterClass.UserPreferences
+import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.internal.operators.completable.CompletableFromSingle
 import kotlinx.coroutines.rx3.await
@@ -10,7 +11,7 @@ import kotlinx.coroutines.rx3.await
 class HealthAppAuthDataSource constructor(
     private val userPreferences: RxDataStore<UserPreferences>
 ) {
-    val authUserData = userPreferences.data()
+    val authUserData: Flowable<AuthUserData> = userPreferences.data()
         .map {
             AuthUserData(
                 refreshToken = it.refreshToken,
@@ -19,11 +20,11 @@ class HealthAppAuthDataSource constructor(
         }
 
 
-    val accessTokenData = userPreferences.data()
+    val accessTokenData: Flowable<String> = userPreferences.data()
         .map {it.accessToken
         }
 
-    val refreshTokenData = userPreferences.data()
+    val refreshTokenData: Flowable<String> = userPreferences.data()
         .map { it.refreshToken }
 
     fun saveAuthData(authUserData: AuthUserData) =
@@ -43,7 +44,7 @@ class HealthAppAuthDataSource constructor(
         Single.just(copy)
     }
 
-    suspend fun saveAuthDataSuspend(token :String, refreshTokenIn:String) = userPreferences.updateDataAsync{
+    suspend fun saveAuthDataSuspend(token :String, refreshTokenIn:String): UserPreferences = userPreferences.updateDataAsync{
         val copy = it.copy {
             accessToken = token
             refreshToken = refreshTokenIn
