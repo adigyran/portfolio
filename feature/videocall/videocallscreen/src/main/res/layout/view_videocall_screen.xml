@@ -15,6 +15,15 @@
         android:orientation="vertical" >
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/switchAudioDeviceActionFab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:fabSize="mini"
+            android:layout_marginBottom="@dimen/fab_margin"
+            android:src="@drawable/ic_phonelink_ring_white_24dp" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/switchCameraActionFab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

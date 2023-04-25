@@ -2,12 +2,15 @@ package com.aya.digital.core.feature.videocall.videocallscreen.ui
 
 import android.Manifest
 import android.content.DialogInterface
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.media.AudioManager
 import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
@@ -372,6 +375,8 @@ class VideoCallScreenView :
             )
         )
         contentVideoBinding.videoStatusTextView.text = "not connected, room ${param.roomId}"
+        binding.switchAudioDeviceActionFab.show()
+        binding.switchAudioDeviceActionFab.setOnClickListener(switchAudioDeviceClickListener())
         binding.connectActionFab.show()
         binding.connectActionFab.setOnClickListener(connectActionClickListener())
         binding.switchCameraActionFab.show()
@@ -837,6 +842,14 @@ class VideoCallScreenView :
                     ContextCompat.getDrawable(requireContext(), icon)
                 )
             }
+        }
+    }
+
+
+    private fun switchAudioDeviceClickListener(): View.OnClickListener {
+        return View.OnClickListener {
+
+            showAudioDevices()
         }
     }
 
