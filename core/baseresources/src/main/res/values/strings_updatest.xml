@@ -36,7 +36,9 @@
         added badge to appointments\n
         added telemedicine icon\n
         added logout to security screen\n
-        fixed profile saving
-        version 21\n
+        fixed profile saving\n
+        added ability to change audio output in videocall\n
+        added telemedicine flag to slots\n
+        version 23\n
     </string>
 </resources>

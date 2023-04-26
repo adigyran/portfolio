@@ -1,27 +1,40 @@
-Added Firebase Distribution
-Testing distribution notifications
-Added Auth and Sign in Screens with insurance selector
-Added bottom navigation, proper auth endpoints, code dialog
-added check for auth to show main screen, added main and profile screens
-added code input screen
-now insurances loading by id,
-added profile screens - profile edit, profile view,
-profile security with ability to change email and password(currently doesn't work because server don't have needed methods),
-profile emergency contact, profile notification settings,
-profile insurances (doesn't work due to server)
-added screen to restore/change temp password
-added proper signup profile validation
-insurances working now
-emergency contact is done, need one server fix (which is not require changes in app)
-added avatar
-auth, profile, main screen design
-main screen WIP due to font oddities
-added google auth
-added toolbars, fixed design
-masks and toolbars
-added appointments list
-doctor search test
-doctor card test
-video calls
-changed app icon
-fixed videocalls
+Added Firebase Distribution\n
+        Testing distribution notifications\nAdded Auth and Sign in Screens with insurance selector\n
+        Added bottom navigation, proper auth endpoints, code dialog\n
+        added check for auth to show main screen, added main and profile screens\n
+        added code input screen\n
+        now insurances loading by id\n
+        added profile screens - profile edit, profile view\n
+        profile security with ability to change email and password\n
+        profile emergency contact, profile notification settings\n
+        profile insurances\n
+        added screen to restore/change temp password\n
+        added proper signup profile validation\n
+        insurances working now\n
+        emergency contact\n
+        added avatar\n
+        auth, profile, main screen design\n
+        main screen WIP due to font oddities\n
+        added google auth\n
+        added toolbars, fixed design\n
+        added appointments list\n
+        doctor search test\n
+        doctor card test\n
+        video calls\nchanged app icon\n
+        fixed videocalls\n
+        fully working doctor card (without share and favorite for now)\n
+        fully working doctor slots\n
+        ability to select custom day for slots\n
+        creating an appointment (without result screen rn)\n
+        disabled tinting and titles on bottom navhost\n
+        fixed password change endpoint\n
+        fixed empty insurance photo\n
+        fixed profile crash\n
+        fixed appointments dates\n
+        added badge to appointments\n
+        added telemedicine icon\n
+        added logout to security screen\n
+        fixed profile saving\n
+        added ability to change audio output in videocall\n
+        added telemedicine flag to slots\n
+        version 23\n
