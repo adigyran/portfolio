@@ -11,10 +11,12 @@ internal class ScheduleSlotMapperImpl : ScheduleSlotMapper() {
     override fun mapFrom(type: SlotResponse): ScheduleSlot =
         ScheduleSlot(
             id = type.id,
-            startDate = Instant.parse(type.startDate).toLocalDateTime(TimeZone.currentSystemDefault()),
+            startDate = Instant.parse(type.startDate)
+                .toLocalDateTime(TimeZone.currentSystemDefault()),
             endDate = Instant.parse(type.endDate).toLocalDateTime(TimeZone.currentSystemDefault()),
-            statusSlot = type.statusSlot?:"",
-            commentSlot = type.commentSlot?:"",
+            statusSlot = type.statusSlot ?: "",
+            commentSlot = type.commentSlot ?: "",
+            type = type.type ?: "",
             overBooked = type.overbooked
         )
 }

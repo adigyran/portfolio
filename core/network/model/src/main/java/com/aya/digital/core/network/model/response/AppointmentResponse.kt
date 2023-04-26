@@ -9,6 +9,8 @@ data class AppointmentResponse(
     val endDate: String,
     val minutesDurations: Int,
     val startDate: String,
+    val comment:String,
+    val type:String?
 )
 
 @JsonClass(generateAdapter = true)

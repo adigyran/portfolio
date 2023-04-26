@@ -32,6 +32,7 @@ internal class GetLatestScheduleByDoctorIdByDateUseCaseImpl(private val reposito
         endDate = endDate,
         status = statusSlot,
         overBooked = overBooked,
-        comment = commentSlot
+        comment = commentSlot,
+        type = type
     )
 }

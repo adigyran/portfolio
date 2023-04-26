@@ -13,5 +13,6 @@ data class ScheduleSlotModel(
     val endDate: @RawValue LocalDateTime,
     val overBooked: Boolean,
     val status: String,
-    val comment: String
+    val comment: String,
+    val type: String
 ) : Parcelable

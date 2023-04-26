@@ -18,7 +18,9 @@ class AppointmentsStateTransformer(context : Context): BaseStateTransformer<Appo
                           PatientAppointmentUIModel(
                               id = it.id,
                               startDate = it.startDate.toString(),
-                              duration = it.minutesDuration?.let {minutes-> "%d".format(minutes) }?:""
+                              duration = it.minutesDuration?.let {minutes-> "%d".format(minutes) }?:"",
+                              isTelemed = it.type.contains("online",true),
+                              comment = it.comment?:""
                           )
                        })
                    }

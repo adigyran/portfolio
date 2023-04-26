@@ -8,5 +8,6 @@ data class ScheduleSlot(
     val endDate: LocalDateTime,
     val statusSlot: String,
     val commentSlot: String,
-    val overBooked:Boolean
+    val overBooked:Boolean,
+    val type:String
 )

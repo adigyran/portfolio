@@ -9,5 +9,6 @@ data class SlotResponse(
     val endDate: String,
     val statusSlot: String?,
     val commentSlot: String?,
-    val overbooked:Boolean
+    val type: String?,
+    val overbooked: Boolean
 )

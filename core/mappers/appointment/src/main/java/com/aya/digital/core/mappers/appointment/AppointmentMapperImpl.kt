@@ -12,10 +12,11 @@ internal class AppointmentMapperImpl : AppointmentMapper() {
     override fun mapFrom(type: AppointmentResponse): Appointment  =
         Appointment(
             id = type.id,
-            comment = null,
+            comment = type.comment,
             createdAt = Instant.parse(type.createdAt).toLocalDateTime(TimeZone.currentSystemDefault()),
             startDate = Instant.parse(type.startDate).toLocalDateTime(TimeZone.currentSystemDefault()),
             endDate = Instant.parse(type.endDate).toLocalDateTime(TimeZone.currentSystemDefault()),
-            minutesDuration = type.minutesDurations
+            minutesDuration = type.minutesDurations,
+            type = type.type
         )
 }

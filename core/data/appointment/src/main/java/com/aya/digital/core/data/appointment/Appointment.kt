@@ -9,4 +9,5 @@ data class Appointment(
     val startDate: LocalDateTime,
     val endDate: LocalDateTime,
     val minutesDuration: Int?,
+    val type:String?
 )

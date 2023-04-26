@@ -40,6 +40,7 @@ class DoctorCardStateTransformer(
                             DoctorCardMode.ShowingDetailsInfo -> {
                                 getDetailsData(state)
                             }
+
                             DoctorCardMode.ShowingSlots -> {
                                 getSlotsData(state)
                             }
@@ -60,12 +61,20 @@ class DoctorCardStateTransformer(
                 .sortedWith { t, t2 -> t.startDate.compareTo(t2.startDate) }
                 .groupBy { it.startDate.dayOfMonth }
                 .forEach { entry ->
-                    val firstSlotDateTime = entry.value.first().startDate
+                    val firstSlot = entry.value.first()
+                    val isTelemed = firstSlot.type.contains("online", ignoreCase = true)
+                    val firstSlotDateTime = firstSlot.startDate
                     val slotTitle = "%s, %s".format(
                         firstSlotDateTime.getRelativeText(),
                         dateTimeUtils.formatSlotTitleDate(firstSlotDateTime)
                     )
-                    add(DoctorDateTitleUIModel(entry.key, slotTitle))
+                    add(
+                        DoctorDateTitleUIModel(
+                            id = entry.key,
+                            dateText = slotTitle,
+                            isTelemed = isTelemed
+                        )
+                    )
                     addAll(entry.value
                         .take(7)
                         .map {
@@ -94,7 +103,7 @@ class DoctorCardStateTransformer(
                 add(DoctorDetailsTitleUIModel("Insurances"))
                 addAll(insurances.map { DoctorDetailsInsuranceUIModel(it.name) })
             }
-            state.doctorAddress?.let {address ->
+            state.doctorAddress?.let { address ->
                 add(DoctorDetailsTitleUIModel("Location"))
                 add(DoctorDetailsLocationUIModel(address = address))
             }
@@ -107,7 +116,10 @@ class DoctorCardStateTransformer(
     private fun LocalDateTime.getRelativeText() = DateUtils.getRelativeTimeSpanString(
         this.toInstant(
             TimeZone.currentSystemDefault()
-        ).toEpochMilliseconds(), System.currentTimeMillis(), DateUtils.DAY_IN_MILLIS, DateUtils.FORMAT_ABBREV_RELATIVE
+        ).toEpochMilliseconds(),
+        System.currentTimeMillis(),
+        DateUtils.DAY_IN_MILLIS,
+        DateUtils.FORMAT_ABBREV_RELATIVE
     );
 
 }

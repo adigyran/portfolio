@@ -31,6 +31,7 @@ internal class GetLatestScheduleByDoctorIdUseCaseImpl(
             endDate = endDate,
             status = statusSlot,
             overBooked = overBooked,
-            comment = commentSlot
+            comment = commentSlot,
+            type = type
         )
 }
