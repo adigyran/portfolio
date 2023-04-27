@@ -37,7 +37,7 @@ class DoctorRootCoordinatorGraph(context: Context) : RootCoordinatorGraph {
             }
 
             is RootContainerNavigationEvents.OpenBottomNavigationScreenDefault -> {
-                openRootScreen(StartScreen.HOME)
+                openRootScreen(StartScreen.APPOINTMENTS)
             }
         }
     }

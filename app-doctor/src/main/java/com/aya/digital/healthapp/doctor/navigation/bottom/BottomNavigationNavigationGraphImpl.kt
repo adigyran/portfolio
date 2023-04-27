@@ -42,9 +42,10 @@ class BottomNavigationNavigationGraphImpl : BottomNavigationGraph {
 
         // Обрабатываем вкладку на которую переходим(если она есть в стеке)
         fragment.childFragmentManager.inTransaction {
-            screenViews.filter {checkFragmentNotNull(it.view) && it.screen == screen }.forEach { screenView ->
-                showFragment(this, screenView.view)
-            }
+            screenViews.filter { checkFragmentNotNull(it.view) && it.screen == screen }
+                .forEach { screenView ->
+                    showFragment(this, screenView.view)
+                }
             this
         }
 
@@ -72,13 +73,11 @@ class BottomNavigationNavigationGraphImpl : BottomNavigationGraph {
     )
 
     object Tags {
-        const val HOME_TAB_TAG = "HomeTabView"
         const val APPOINTMENT_TAB_TAG = "AppointmentsTabView"
-        const val DOCTOR_SEARCH_TAB_TAG = "DoctorSearchTabView"
         const val PROFILE_TAB_TAG = "ProfileTabView"
 
         fun getTags() = listOf<String>(
-            HOME_TAB_TAG, APPOINTMENT_TAB_TAG, DOCTOR_SEARCH_TAB_TAG,
+            APPOINTMENT_TAB_TAG,
             PROFILE_TAB_TAG
         )
     }
