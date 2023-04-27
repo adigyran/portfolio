@@ -10,7 +10,15 @@ data class AppointmentResponse(
     val minutesDurations: Int,
     val startDate: String,
     val comment:String,
+    val participant:ParticipantResponse?,
     val type:String?
+)
+
+@JsonClass(generateAdapter = true)
+data class ParticipantResponse(
+    val id: Int,
+    val firstname: String?,
+    val lastname: String?
 )
 
 @JsonClass(generateAdapter = true)

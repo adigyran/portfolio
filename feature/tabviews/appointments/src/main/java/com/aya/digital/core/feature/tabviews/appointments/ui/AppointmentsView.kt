@@ -40,6 +40,7 @@ class AppointmentsView :
         super.prepareCreatedUi(savedInstanceState)
         binding.swipeRefresh.setOnRefreshListener {
             viewModel.onRefreshAppointments()
+            binding.swipeRefresh.isRefreshing = false
         }
         if (savedInstanceState == null) {
             recyclers.add(binding.recycler)

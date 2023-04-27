@@ -13,6 +13,7 @@ data class AppointmentModel(
     val createdAt: @RawValue LocalDateTime,
     val startDate: @RawValue LocalDateTime,
     val endDate: @RawValue LocalDateTime,
+    val participantName:String,
     val minutesDuration: Int?,
     val type:String
 ) : Parcelable
@@ -25,5 +26,6 @@ internal fun Appointment.toAppointmentModel() =
         startDate = this.startDate,
         endDate = this.endDate,
         minutesDuration = minutesDuration,
+        participantName = participant?.let { "%s %s".format(it.firstName?:"",it.lastName?:"") }?:"",
         type = type ?:""
     )

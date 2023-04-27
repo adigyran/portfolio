@@ -9,5 +9,8 @@ data class Appointment(
     val startDate: LocalDateTime,
     val endDate: LocalDateTime,
     val minutesDuration: Int?,
-    val type:String?
+    val participant: Participant?,
+    val type: String?
 )
+
+data class Participant(val id: Int, val firstName: String?, val lastName: String?)

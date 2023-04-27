@@ -8,6 +8,7 @@ data class PatientAppointmentUIModel(
     val startDate: String,
     val duration: String,
     val comment:String,
+    val participantName:String,
     val isTelemed: Boolean = false
 ) : DiffItem {
 
@@ -20,5 +21,6 @@ data class PatientAppointmentUIModel(
                 && newItem.startDate == this.startDate
                 && newItem.duration == this.duration
                 && newItem.comment == this.comment
+                && newItem.participantName == this.participantName
                 && newItem.isTelemed == this.isTelemed
 }

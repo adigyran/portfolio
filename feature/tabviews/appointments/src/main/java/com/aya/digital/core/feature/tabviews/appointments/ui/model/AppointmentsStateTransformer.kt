@@ -21,6 +21,7 @@ class AppointmentsStateTransformer(private val context : Context, private val da
                               startDate = dateTimeUtils.formatAppointmentDateTime(it.startDate),
                               duration = it.minutesDuration?.let {minutes-> "duration: %d min".format(minutes) }?:"",
                               isTelemed = it.type.contains("online",true),
+                              participantName = "with %s".format(it.participantName),
                               comment = it.comment?:""
                           )
                        })

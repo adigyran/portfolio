@@ -39,6 +39,7 @@ class PatientAppointmentDelegate(private val onAppointmentClick: (id: Int) -> Un
             binding.tvDuration.text = item.duration
             if(item.isTelemed) binding.grTelemed.visible() else binding.grTelemed.gone()
             binding.tvAppintmentId.text = "appointment id: %d".format(item.id)
+            binding.tvParticipant.text = item.participantName
         }
     }
 }
