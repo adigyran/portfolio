@@ -8,6 +8,10 @@ plugins {
 
 android {
 
+    lint{
+        disable.add("Instantiatable")
+    }
+
     defaultConfig {
         applicationId = "com.aya.digital.healthapp.doctor"
         versionCode = 1
@@ -44,6 +48,20 @@ android {
 
 dependencies {
     implementation(project(":feature:rootcontainer"))
+    implementation(project(":feature:bottomdialogs:bottomdialog"))
+    implementation(project(":feature:bottomdialogs:codedialog"))
+    implementation(project(":feature:bottomnavhost"))
+    implementation(project(":feature:tabs:appointments"))
+    implementation(project(":feature:tabviews:appointments"))
+    implementation(project(":feature:tabs:profile"))
+    implementation(project(":feature:tabviews:profile"))
+    implementation(project(":feature:auth:chooser"))
+    implementation(project(":feature:auth:container"))
+    implementation(project(":feature:auth:signin"))
+    implementation(project(":feature:auth:signup"))
+    implementation(project(":feature:auth:restorepassword"))
+    implementation(project(":feature:choosers:selectwithsearch"))
+    implementation(project(":feature:videocall:videocallscreen"))
     implementation(project(":core:appbase"))
     implementation(project(":core:baseresources"))
     implementation(project(":core:dibase"))

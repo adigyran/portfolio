@@ -39,6 +39,7 @@
         fixed profile saving\n
         added ability to change audio output in videocall\n
         added telemedicine flag to slots\n
-        version 23\n
+        changed default doctor\n
+        version 24\n
     </string>
 </resources>

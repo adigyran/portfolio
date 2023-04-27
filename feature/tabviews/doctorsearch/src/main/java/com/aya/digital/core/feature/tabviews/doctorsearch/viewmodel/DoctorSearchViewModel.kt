@@ -21,7 +21,7 @@ class DoctorSearchViewModel(
     }
 
     fun findDoctorClicked() = intent {
-        coordinatorRouter.sendEvent(DoctorSearchNavigationEvents.OpenDoctorCard(doctorId = 1185))
+        coordinatorRouter.sendEvent(DoctorSearchNavigationEvents.OpenDoctorCard(doctorId = 1284))
     }
 
 }

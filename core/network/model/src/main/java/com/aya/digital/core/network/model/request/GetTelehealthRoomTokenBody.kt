@@ -5,6 +5,5 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class GetTelehealthRoomTokenBody(
-    @Json(name = "room_name")
-    val roomName: String,
+    val appointmentId: String,
 )
