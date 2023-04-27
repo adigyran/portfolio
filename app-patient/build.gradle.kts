@@ -140,4 +140,5 @@ dependencies {
     implementation(libs.timber)
     implementation(libs.open.auth)
     implementation(libs.kotlinx.time)
+    debugImplementation(libs.leak.canary)
 }

@@ -47,6 +47,7 @@ class PatientRootCoordinatorGraph(context: Context) : RootCoordinatorGraph {
             is RootContainerNavigationEvents.OpenBottomNavigationScreenDefault -> {
                 openRootScreen(StartScreen.HOME)
             }
+
             is RootContainerNavigationEvents.EnterCode -> {
                 navigationRouter.navigateTo(
                     CodeDialogScreen("ENTER_CODE", event.requestCode, event.email)
@@ -100,6 +101,7 @@ class PatientRootCoordinatorGraph(context: Context) : RootCoordinatorGraph {
                 navigationRouter.sendResult(event.requestCode, event.result)
                 navigationRouter.exit()
             }
+
             is CodeDialogNavigationEvents.Exit -> {
                 navigationRouter.exit()
             }
