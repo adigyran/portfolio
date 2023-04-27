@@ -34,6 +34,12 @@ internal class DateTimeUtilsImpl(private val context: Context) : DateTimeUtils {
                 .ofPattern(context.strings[R.string.time_slot_title_format])
                 .defaultLocale()
     }
+    private val dateFormatterAppointmentDateTime = object : ThreadLocal<DateTimeFormatter>() {
+        override fun initialValue(): DateTimeFormatter =
+            DateTimeFormatter
+                .ofPattern(context.strings[R.string.appointment_datatime_format])
+                .defaultLocale()
+    }
 
 
     override fun parseIsoDate(date: String): LocalDate = LocalDate.parse(date)
@@ -55,6 +61,8 @@ internal class DateTimeUtilsImpl(private val context: Context) : DateTimeUtils {
     override fun formatSlotTitleDate(date: LocalDateTime): String =
         date.toJavaLocalDateTime().format(dateFormatterTimeSlotTitle.get())
 
+    override fun formatAppointmentDateTime(dateTime: LocalDateTime): String  =
+        dateTime.toJavaLocalDateTime().format(dateFormatterAppointmentDateTime.get())
 
     private fun DateTimeFormatter.defaultLocale() = this.withLocale(Locale.US)
 }

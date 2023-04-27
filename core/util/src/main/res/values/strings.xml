@@ -4,4 +4,5 @@
     <string name="birthday_format">MMM d, YYYY</string>
     <string name="time_slot_format">h:mm a</string>
     <string name="time_slot_title_format">MMM dd</string>
+    <string name="appointment_datatime_format">MM-dd-yyyy h:mm</string>
 </resources>

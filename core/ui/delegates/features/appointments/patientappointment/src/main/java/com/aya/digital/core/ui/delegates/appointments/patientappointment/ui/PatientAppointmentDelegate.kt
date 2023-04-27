@@ -3,6 +3,8 @@ package com.aya.digital.core.ui.delegates.appointments.patientappointment.ui
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.aya.digital.core.ext.bindClick
+import com.aya.digital.core.ext.gone
+import com.aya.digital.core.ext.visible
 import com.aya.digital.core.ui.adapters.base.BaseDelegate
 import com.aya.digital.core.ui.adapters.base.BaseViewHolder
 import com.aya.digital.core.ui.adapters.base.DiffItem
@@ -35,6 +37,7 @@ class PatientAppointmentDelegate(private val onAppointmentClick: (id: Int) -> Un
             super.bind(item)
             binding.tvStartDate.text = item.startDate
             binding.tvDuration.text = item.duration
+            if(item.isTelemed) binding.grTelemed.visible() else binding.grTelemed.gone()
         }
     }
 }

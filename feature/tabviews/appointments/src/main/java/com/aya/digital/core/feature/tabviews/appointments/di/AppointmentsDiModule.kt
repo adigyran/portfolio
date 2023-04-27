@@ -10,7 +10,7 @@ fun appointmentsDiModule(
     parentCoordinatorEvent: CoordinatorRouter
 ) = DI.Module("appointmentsDiModule") {
 
-    bind<AppointmentsStateTransformer>() with singleton { AppointmentsStateTransformer(instance()) }
+    bind<AppointmentsStateTransformer>() with singleton { AppointmentsStateTransformer(instance(),instance()) }
 
     bind {
         scoped(CustomFragmentScope).singleton {
