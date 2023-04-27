@@ -38,4 +38,7 @@ Added Firebase Distribution\n
         added ability to change audio output in videocall\n
         added telemedicine flag to slots\n
         changed default doctor\n
-        version 24\n
+        added info to appointment card, created doctor app\n
+        added telemed icon everywhere\n
+        added pull to refresh on appointments\n
+        version 26 patient, doctor 1\n
