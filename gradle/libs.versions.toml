@@ -14,6 +14,7 @@ androidxCoreSplashscreen = "1.0.0"
 androidxDataStore = "1.0.0"
 androidxRecyclerView = "1.2.1"
 androidxViewpager = "1.0.0"
+androidxSwipeRefresh = "1.1.0"
 androidxWork = "2.7.1"
 androidxAppCompat = "1.5.1"
 androidxBrowser = "1.4.0"
@@ -151,6 +152,7 @@ androidx-datastore = { group = "androidx.datastore", name = "datastore-preferenc
 androidx-datastore-rxjava3 = { group = "androidx.datastore", name = "datastore-preferences-rxjava3", version.ref = "androidxDataStore" }
 androidx-recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version.ref = "androidxRecyclerView" }
 androidx-viewpager = { group = "androidx.viewpager2", name = "viewpager2", version.ref = "androidxViewpager" }
+androidx-swipe-refresh = { group = "androidx.swiperefreshlayout", name = "swiperefreshlayout", version.ref = "androidxSwipeRefresh" }
 androidx-lifecycle = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "androidxLifecycle" }
 androidx-lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "androidxLifecycle" }
 androidx-lifecycle-viewModel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "androidxLifecycle" }

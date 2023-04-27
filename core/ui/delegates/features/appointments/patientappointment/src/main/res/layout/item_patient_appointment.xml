@@ -74,4 +74,14 @@
         app:constraint_referenced_ids="bgTelemed,tvTelemed,ivTelemed"
         />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@id/bgTelemed"
+        app:layout_constraintStart_toStartOf="parent"
+        android:id="@+id/tvAppintmentId"
+        android:textAppearance="@style/TextAppearance.App.Body.DescriptionText"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

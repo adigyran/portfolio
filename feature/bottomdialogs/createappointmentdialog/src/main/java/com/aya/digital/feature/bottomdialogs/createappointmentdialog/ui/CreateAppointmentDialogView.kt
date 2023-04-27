@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.aya.digital.core.ext.argument
 import com.aya.digital.core.ext.bindClick
 import com.aya.digital.core.ext.createFragment
+import com.aya.digital.core.ext.toggleVisibility
 import com.aya.digital.feature.bottomdialogs.createappointmentdialog.di.createAppointmentDialogDiModule
 import com.aya.digital.feature.bottomdialogs.createappointmentdialog.viewmodel.CreateAppointmentDialogState
 import com.aya.digital.feature.bottomdialogs.createappointmentdialog.viewmodel.CreateAppointmentDialogViewModel
@@ -110,6 +111,9 @@ class CreateAppointmentDialogView :
                     binding.recycler.swapAdapter(adapter, true)
                     lm.spanSizeLookup = CreateAppointmentSpanSizeLookup(adapter)
                 }
+            }
+            isTelemed?.let {
+                binding.grTelemed.toggleVisibility(it)
             }
         }
     }

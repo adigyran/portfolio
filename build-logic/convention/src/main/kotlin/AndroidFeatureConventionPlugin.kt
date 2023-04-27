@@ -64,6 +64,7 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
                     add("implementation", libs.findLibrary("kotlinx.coroutines.rxjava3").get())
                     add("implementation", libs.findLibrary("androidx.core.ktx").get())
                     add("implementation", libs.findLibrary("androidx.appcompat").get())
+                    add("implementation", libs.findLibrary("androidx.swipe.refresh").get())
                     add("implementation", libs.findLibrary("material.design").get())
                     add("implementation", libs.findLibrary("adapter.delegates").get())
                     add("implementation", libs.findLibrary("groupie").get())

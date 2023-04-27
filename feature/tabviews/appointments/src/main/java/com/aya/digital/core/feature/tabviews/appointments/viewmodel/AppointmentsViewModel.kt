@@ -34,8 +34,15 @@ class AppointmentsViewModel(
             }
     }
 
-    fun onAppointmentClicked(appointmentId: Int) {
-        coordinatorRouter.sendEvent(AppointmentsNavigationEvents.OpenVideoCall(appointmentId))
+    fun onRefreshAppointments() = intent {
+        loadAppointments()
+    }
+    fun onAppointmentClicked(appointmentId: Int) = intent {
+        val appointmentModel = state.appointments?.firstOrNull { it.id == appointmentId }
+        appointmentModel?.let {
+            if(!appointmentModel.type.contains("online",true)) return@let
+            coordinatorRouter.sendEvent(AppointmentsNavigationEvents.OpenVideoCall(appointmentId))
+        }
     }
 
 }

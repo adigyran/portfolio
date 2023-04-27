@@ -38,6 +38,9 @@ class AppointmentsView :
 
     override fun prepareCreatedUi(savedInstanceState: Bundle?) {
         super.prepareCreatedUi(savedInstanceState)
+        binding.swipeRefresh.setOnRefreshListener {
+            viewModel.onRefreshAppointments()
+        }
         if (savedInstanceState == null) {
             recyclers.add(binding.recycler)
             with(binding.recycler) {
@@ -66,8 +69,7 @@ class AppointmentsView :
     ): ViewAppointmentsBinding = ViewAppointmentsBinding.inflate(inflater, container, false)
 
     override fun sideEffect(sideEffect: AppointmentsSideEffects) =
-        when(sideEffect)
-        {
+        when (sideEffect) {
             is AppointmentsSideEffects.Error -> processErrorSideEffect(sideEffect.error)
         }
 

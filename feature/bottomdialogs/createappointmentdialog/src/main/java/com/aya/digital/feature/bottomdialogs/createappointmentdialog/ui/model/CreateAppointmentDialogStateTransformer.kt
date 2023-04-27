@@ -53,7 +53,11 @@ class CreateAppointmentDialogStateTransformer(
                         )
                     }
                 }
-            }
+            },
+            isTelemed = state.slots?.let { slots ->
+                val firstSlot = slots.first()
+                return@let firstSlot.type.contains("online", true)
+            } ?: false
         )
 
     private fun LocalDateTime.getRelativeText() = DateUtils.getRelativeTimeSpanString(

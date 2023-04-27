@@ -29,6 +29,7 @@ android {
         val debug by getting {
             applicationIdSuffix = AyaPatientBuildType.DEBUG.applicationIdSuffix
             firebaseAppDistribution {
+                serviceCredentialsFile = "./ayadoc-28b1b-e839ed480468.json"
                 groups="general"
                 releaseNotesFile = "${parent!!.projectDir}/releasenotes.txt"
             }
