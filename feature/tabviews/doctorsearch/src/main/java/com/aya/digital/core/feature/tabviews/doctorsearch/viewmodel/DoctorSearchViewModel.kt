@@ -2,11 +2,11 @@ package com.aya.digital.core.feature.tabviews.doctorsearch.viewmodel
 
 
 import com.aya.digital.core.feature.tabviews.doctorsearch.navigation.DoctorSearchNavigationEvents
-import com.aya.digital.core.feature.tabviews.doctorsearch.viewmodel.DoctorSearchSideEffects
-import com.aya.digital.core.feature.tabviews.doctorsearch.viewmodel.DoctorSearchState
 import com.aya.digital.core.mvi.BaseViewModel
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
+import kotlinx.coroutines.reactive.asFlow
 import org.orbitmvi.orbit.syntax.simple.intent
+import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
 class DoctorSearchViewModel(
@@ -17,7 +17,15 @@ class DoctorSearchViewModel(
         initialState = DoctorSearchState(""),
     )
     {
+        loadDoctors()
+    }
 
+    private fun loadDoctors() = intent(registerIdling = false) {
+
+    }
+
+    fun onRefreshDoctors() = intent {
+        loadDoctors()
     }
 
     fun findDoctorClicked() = intent {

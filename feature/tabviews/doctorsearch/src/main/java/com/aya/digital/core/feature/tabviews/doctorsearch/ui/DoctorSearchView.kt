@@ -3,6 +3,8 @@ package com.aya.digital.core.feature.tabviews.doctorsearch.ui
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.aya.digital.core.ext.bindClick
 import com.aya.digital.core.feature.tabviews.doctorsearch.databinding.ViewDoctorsearchBinding
 import com.aya.digital.core.feature.tabviews.doctorsearch.di.doctorSearchDiModule
@@ -38,6 +40,27 @@ class DoctorSearchView :
     override fun prepareCreatedUi(savedInstanceState: Bundle?) {
         super.prepareCreatedUi(savedInstanceState)
         binding.toolbar.btnFindDoctor bindClick {viewModel.findDoctorClicked()}
+        binding.swipeRefresh.setOnRefreshListener {
+            viewModel.onRefreshDoctors()
+            binding.swipeRefresh.isRefreshing = false
+        }
+        if (savedInstanceState == null) {
+            recyclers.add(binding.recycler)
+            with(binding.recycler) {
+                itemAnimator = null
+                setHasFixedSize(true)
+                setItemViewCacheSize(30)
+                isNestedScrollingEnabled = false
+
+                val lm = LinearLayoutManager(
+                    context,
+                    RecyclerView.VERTICAL,
+                    false
+                )
+                layoutManager = lm
+                addItemDecoration(DoctorSearchTabDecoration())
+            }
+        }
     }
 
 
@@ -56,7 +79,10 @@ class DoctorSearchView :
 
     override fun render(state: DoctorSearchState) {
         stateTransformer(state).data?.let {
-
+            adapter.items = it
+            if (binding.recycler.adapter == null) {
+                binding.recycler.swapAdapter(adapter, true)
+            }
         }
     }
 
