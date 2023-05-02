@@ -1,8 +1,10 @@
 package com.aya.digital.core.domain.doctors.base.model
 
 import android.os.Parcelable
+import com.aya.digital.core.data.doctors.DoctorData
 import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class DoctorModel(
     val id: Int,
     val firstName: String,
@@ -17,7 +19,7 @@ data class DoctorModel(
     val address:String,
     val specialities:List<SpecialityModel>,
     val insurances:List<InsuranceModel>
-)
+):Parcelable
 {
     @Parcelize
     data class ClinicModel(
@@ -39,4 +41,25 @@ data class DoctorModel(
     ):Parcelable
 
 }
+
+internal fun DoctorData.mapToDoctorModel() = DoctorModel(
+    id = id,
+    firstName = firstName,
+    lastName = lastName,
+    middleName = middleName,
+    avatarPhotoLink = avatarPhotoLink,
+    bio = bio,
+    clinics = clinics.map { DoctorModel.ClinicModel(it.name) },
+    location = location?.let {
+        DoctorModel.LocationModel(
+            it.latitude ?: 0.0,
+            it.longitude ?: 0.0
+        )
+    } ?: DoctorModel.LocationModel(0.0, 0.0),
+    postCode = postalCode,
+    city = city,
+    address = address,
+    specialities = this.specialities.map { DoctorModel.SpecialityModel(it.specialtyName) },
+    insurances = this.insurances.map { DoctorModel.InsuranceModel(it.name) }
+)
 

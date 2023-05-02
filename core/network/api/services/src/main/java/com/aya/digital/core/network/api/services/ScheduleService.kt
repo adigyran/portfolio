@@ -10,41 +10,41 @@ import io.reactivex.rxjava3.core.Single
 import retrofit2.http.*
 
 interface ScheduleService {
-    @GET("schedules/freeslots")
+    @GET("api/schedules/freeslots")
     fun getFreeSlotsSchedule(
         @Query("practitionerId") practitionerId: Int,
         @Query("start") start: String,
         @Query("end") end: String
     ): Flowable<List<ScheduleResponse>>
 
-    @GET("slots")
+    @GET("api/slots")
     fun fetchSlots(
         @Query("practitionerId") practitionerId: Int,
         @Query("start") start: String,
         @Query("end") end: String
     ): Flowable<List<SlotResponse>>
 
-    @POST("schedules/with-slots")
+    @POST("api/schedules/with-slots")
     fun create(
         @Body scheduleWithSlots: ScheduleWithSlotsBody
     ): Completable
 
-    @GET("slots/{id}")
+    @GET("api/slots/{id}")
     fun getSlot(
         @Path("id") id: Int
     ): Single<SlotResponse>
 
-    @DELETE("slots/{id}")
+    @DELETE("api/slots/{id}")
     fun deleteSlot(
         @Path("id") id: Int
     ): Completable
 
-    @POST("slots/")
+    @POST("api/slots/")
     fun createSlot(
         @Body body: SlotBody
     ): Completable
 
-    @PUT("slots/{id}")
+    @PUT("api/slots/{id}")
     fun updateSlot(
         @Path("id") id: Int,
         @Body body: SlotBody

@@ -11,51 +11,51 @@ import retrofit2.http.*
 
 interface ProfileService {
 
-    @GET("profile")
+    @GET("api/profile")
     fun currentProfile(): Single<CurrentProfileResponse>
 
-    @PATCH("profile")
+    @PATCH("api/profile")
     fun updateProfile(
         @Body body: ProfileBody
     ): Single<CurrentProfileResponse>
 
-    @POST("profile/avatar/upload")
+    @POST("api/profile/avatar/upload")
     fun uploadAvatar(@Body image: RequestBody) : Single<Unit>
-    @POST("attachment")
+    @POST("api/attachment")
     fun uploadImage(@Body image: RequestBody) : Single<ImageUploadResponse>
 
-    @POST("profile/insurances")
+    @POST("api/profile/insurances")
     fun addInsurance(@Body insurancePolicyBody: InsurancePolicyBody):Single<Unit>
 
-    @PATCH("profile/insurances/{id}")
+    @PATCH("api/profile/insurances/{id}")
     fun saveInsurance(@Path("id") insuranceId:Int, @Body insurancePolicyBody: InsurancePolicyBody) : Single<Unit>
 
-    @GET("profile/insurances")
+    @GET("api/profile/insurances")
     fun getInsurances():Observable<List<InsurancePolicyResponse>>
 
-    @GET("profile/insurances/{id}")
+    @GET("api/profile/insurances/{id}")
     fun getInsuranceById(@Path("id") insuranceId: Int):Single<InsurancePolicyResponse>
 
-    @GET("account/patient/address")
+    @GET("api/account/patient/address")
     fun getPatientAddress(): Single<AddressResponse>
 
-    @PATCH("account/patient/address")
+    @PATCH("api/account/patient/address")
     fun updatePatientAddress(
         @Body body: PatientProfileBody
     ): Completable
 
-    @GET("profile/emergency")
+    @GET("api/profile/emergency")
     fun getEmergencyContact(): Single<EmergencyContactResponse>
 
-    @PATCH("profile/emergency")
+    @PATCH("api/profile/emergency")
     fun updateEmergencyContact(
         @Body body: EmergencyContactBody
     ): Single<Unit>
 
-    @DELETE("profile/insurances/{id}")
+    @DELETE("api/profile/insurances/{id}")
     fun deleteInsurance(@Path("id") insuranceId: Int): Single<Unit>
 
-    @GET("attachment/{id}")
+    @GET("api/attachment/{id}")
     fun getAttachmentById(@Path("id") attachmentId: Int): Single<Unit>
 
 }

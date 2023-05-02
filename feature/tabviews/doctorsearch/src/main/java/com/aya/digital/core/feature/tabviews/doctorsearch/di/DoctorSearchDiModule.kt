@@ -14,7 +14,7 @@ fun doctorSearchDiModule(
 
     bind {
         scoped(CustomFragmentScope).singleton {
-            DoctorSearchViewModel(parentCoordinatorEvent)
+            DoctorSearchViewModel(parentCoordinatorEvent,instance())
         }
     }
 }

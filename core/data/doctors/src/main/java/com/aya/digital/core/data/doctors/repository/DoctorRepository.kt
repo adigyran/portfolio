@@ -1,5 +1,6 @@
 package com.aya.digital.core.data.doctors.repository
 
+import com.aya.digital.core.data.base.dataprocessing.PaginationCursorModel
 import com.aya.digital.core.data.base.dataprocessing.PaginationPageModel
 import com.aya.digital.core.data.doctors.DoctorData
 import com.aya.digital.core.data.doctors.Speciality
@@ -10,4 +11,6 @@ import kotlinx.datetime.LocalDate
 
 interface DoctorRepository {
     fun fetchDoctorById(id: Int): Single<RequestResult<DoctorData>>
+
+    fun fetchDoctors() : Flowable<RequestResult<PaginationCursorModel<DoctorData>>>
 }

@@ -15,6 +15,7 @@ import com.aya.digital.core.feature.tabviews.doctorsearch.viewmodel.DoctorSearch
 import com.aya.digital.core.feature.tabviews.doctorsearch.viewmodel.DoctorSearchSideEffects
 import com.aya.digital.core.ui.adapters.base.BaseDelegateAdapter
 import com.aya.digital.core.ui.base.screens.DiFragment
+import com.aya.digital.core.ui.delegates.doctors.doctoritem.ui.DoctorItemDelegate
 import org.kodein.di.DI
 import org.kodein.di.factory
 import org.kodein.di.on
@@ -32,8 +33,9 @@ class DoctorSearchView :
 
     private val adapter by lazy(LazyThreadSafetyMode.NONE) {
         BaseDelegateAdapter.create {
-
-
+            delegate {
+                DoctorItemDelegate(viewModel::onDoctorClicked)
+            }
         }
     }
 

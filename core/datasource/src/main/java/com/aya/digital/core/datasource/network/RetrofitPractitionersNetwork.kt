@@ -2,7 +2,7 @@ package com.aya.digital.core.datasource.network
 
 import com.aya.digital.core.network.api.services.PractitionersService
 import com.aya.digital.core.network.main.di.modules.createApiService
-import com.aya.digital.core.network.model.response.base.PagedResponse
+import com.aya.digital.core.network.model.response.base.PagedCursorResponse
 import com.aya.digital.core.network.model.response.doctors.DoctorDataResponse
 import com.aya.digital.core.network.model.response.doctors.SpecialityResponse
 import io.reactivex.rxjava3.core.Flowable
@@ -27,23 +27,8 @@ class RetrofitPractitionersNetwork(private val network: PractitionersService) :
     com.aya.digital.core.datasource.PractitionersDataSource {
 
     override fun fetchPractitioners(
-        page: Int,
-        limit: Int,
-        search: String?,
-        specialty: String?,
-        specialtyCode: String?,
-        sortingFields: List<String>?,
-        sortDirection: String?
-    ): Flowable<PagedResponse<DoctorDataResponse>> =
-        network.fetchPractitioners(
-            page,
-            limit,
-            search,
-            specialty,
-            specialtyCode,
-            sortingFields,
-            sortDirection
-        )
+       ): Flowable<PagedCursorResponse<DoctorDataResponse>> =
+        network.fetchPractitioners()
 
     override fun fetchPractitionerById(id: Int): Single<DoctorDataResponse> =
         network.fetchPractitionerById(id)
@@ -54,7 +39,7 @@ class RetrofitPractitionersNetwork(private val network: PractitionersService) :
         sortingFields: List<String>?,
         sortDirection: String?,
         name: String?
-    ): Flowable<PagedResponse<SpecialityResponse>> =
+    ): Flowable<PagedCursorResponse<SpecialityResponse>> =
         network.fetchSpecialities(page, limit, sortingFields, sortDirection, name)
 
     override fun fetchSpeciality(id: Int): Single<SpecialityResponse> =

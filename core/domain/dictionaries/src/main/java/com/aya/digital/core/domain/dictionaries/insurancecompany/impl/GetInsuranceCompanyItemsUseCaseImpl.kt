@@ -1,5 +1,6 @@
 package com.aya.digital.core.domain.dictionaries.insurancecompany.impl
 
+import com.aya.digital.core.data.base.dataprocessing.PaginationCursorModel
 import com.aya.digital.core.data.base.dataprocessing.PaginationPageModel
 import com.aya.digital.core.data.base.dataprocessing.RequestResultModel
 import com.aya.digital.core.data.base.dataprocessing.asResultModel
@@ -15,13 +16,13 @@ import io.reactivex.rxjava3.core.Flowable
 internal class GetInsuranceCompanyItemsUseCaseImpl(private val dictionariesRepository: DictionariesRepository) :
     GetInsuranceCompanyItemsUseCase {
 
-    var paginationPageModel: PaginationPageModel<InsuranceCompanyModel>? = null
+    var paginationPageModel: PaginationCursorModel<InsuranceCompanyModel>? = null
 
     override fun invoke(searchTerm: String?): Flowable<RequestResultModel<List<InsuranceCompanyItem>>> =
         dictionariesRepository.getInsuranceCompanies(searchTerm ?: "")
             .mapResult({
                 paginationPageModel = it
-                it.results.map {
+                it.data.map {
                     InsuranceCompanyItem(it.id, it.name ?: "")
                 }.asResultModel()
             }, { it.toModelError() })

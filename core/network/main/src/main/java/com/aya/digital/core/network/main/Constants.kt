@@ -10,7 +10,7 @@ internal object Constants {
     const val RETROFIT_BUILDER_TOKEN = "retrofitBuilderToken"
 
 
-    const val BASE_URL_API = "https://api-v3.aya-doc.com/api/"
+    const val BASE_URL_API = "https://api-v3.aya-doc.com/"
     const val BASE_AUTH_URL_API = "https://api-reg.aya-doc.com/"
     const val BASE_TOKEN_URL_API = "https://auth-test.aya-doc.com/auth/realms/aya-realm/protocol/"
     const val BASE_TELEHEALTH_URL_API = "https://telehealth-token.aya-doc.com/"

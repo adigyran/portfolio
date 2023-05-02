@@ -7,5 +7,7 @@ android {
 }
 
 dependencies {
-
+    implementation(project(":core:ext"))
+    implementation(project(":core:domain:doctors"))
+    implementation(project(":core:ui:delegates:features:doctors:doctoritem"))
 }

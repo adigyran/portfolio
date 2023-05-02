@@ -1,6 +1,6 @@
-package com.aya.digital.core.repository.auth
+package com.aya.digital.core.repository.dictionaries
 
-import com.aya.digital.core.data.base.dataprocessing.PaginationPageModel
+import com.aya.digital.core.data.base.dataprocessing.PaginationCursorModel
 import com.aya.digital.core.data.dictionaries.InsuranceCompanyModel
 import com.aya.digital.core.data.dictionaries.mappers.InsuranceCompanyMapper
 import com.aya.digital.core.data.dictionaries.repository.DictionariesRepository
@@ -21,14 +21,11 @@ class DictionariesRepositoryImpl(
             .retryOnError()
             .retrofitResponseToResult(CommonUtils::mapServerErrors)
             .mapResult({ result ->
-                val insurances = insuranceMapper.mapFromList(result.content)
-                PaginationPageModel(
+                val insurances = insuranceMapper.mapFromList(result.data)
+                PaginationCursorModel(
                     insurances,
-                    result.offset,
-                    result.pageNumber,
-                    result.numberOfElements,
-                    result.totalPages,
-                    result.totalElements
+                    result.scrollToken,
+                    result.sizeResult
                 ).asResult()
             }, { it })
 

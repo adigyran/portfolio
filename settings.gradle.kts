@@ -121,6 +121,8 @@ include(":core:ui:delegates:features:profile:clinicinfo")
 include(":core:ui:delegates:features:profile:insurance")
 //appointments
 include(":core:ui:delegates:features:appointments:patientappointment")
+//doctors
+include(":core:ui:delegates:features:doctors:doctoritem")
 //doctorcard
 include(":core:ui:delegates:features:doctorcard:doctorslot")
 include(":core:ui:delegates:features:doctorcard:doctordetails")
