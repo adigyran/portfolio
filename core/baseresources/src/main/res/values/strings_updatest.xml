@@ -44,5 +44,8 @@
         added telemed icon everywhere\n
         added pull to refresh on appointments\n
         version 26 patient, doctor 1\n
+        fixed endpoints\n
+        doctors list without pagination\n
+        version 27 patient\n
     </string>
 </resources>
