@@ -3,6 +3,7 @@ package com.aya.digital.core.feature.tabviews.doctorsearch.ui
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.aya.digital.core.ext.bindClick
@@ -10,15 +11,17 @@ import com.aya.digital.core.feature.tabviews.doctorsearch.databinding.ViewDoctor
 import com.aya.digital.core.feature.tabviews.doctorsearch.di.doctorSearchDiModule
 import com.aya.digital.core.feature.tabviews.doctorsearch.ui.model.DoctorSearchStateTransformer
 import com.aya.digital.core.feature.tabviews.doctorsearch.ui.model.DoctorSearchUiModel
+import com.aya.digital.core.feature.tabviews.doctorsearch.viewmodel.DoctorSearchSideEffects
 import com.aya.digital.core.feature.tabviews.doctorsearch.viewmodel.DoctorSearchState
 import com.aya.digital.core.feature.tabviews.doctorsearch.viewmodel.DoctorSearchViewModel
-import com.aya.digital.core.feature.tabviews.doctorsearch.viewmodel.DoctorSearchSideEffects
 import com.aya.digital.core.ui.adapters.base.BaseDelegateAdapter
 import com.aya.digital.core.ui.base.screens.DiFragment
+import com.aya.digital.core.ui.base.utils.EndlessRecyclerViewScrollListener
 import com.aya.digital.core.ui.delegates.doctors.doctoritem.ui.DoctorItemDelegate
 import org.kodein.di.DI
 import org.kodein.di.factory
 import org.kodein.di.on
+
 
 class DoctorSearchView :
     DiFragment<ViewDoctorsearchBinding, DoctorSearchViewModel, DoctorSearchState, DoctorSearchSideEffects, DoctorSearchUiModel, DoctorSearchStateTransformer>() {
@@ -41,7 +44,7 @@ class DoctorSearchView :
 
     override fun prepareCreatedUi(savedInstanceState: Bundle?) {
         super.prepareCreatedUi(savedInstanceState)
-        binding.toolbar.btnFindDoctor bindClick {viewModel.findDoctorClicked()}
+        binding.toolbar.btnFindDoctor bindClick { viewModel.findDoctorClicked() }
         binding.swipeRefresh.setOnRefreshListener {
             viewModel.onRefreshDoctors()
             binding.swipeRefresh.isRefreshing = false
@@ -61,6 +64,12 @@ class DoctorSearchView :
                 )
                 layoutManager = lm
                 addItemDecoration(DoctorSearchTabDecoration())
+                val scrollListener = object : EndlessRecyclerViewScrollListener(lm) {
+                    override fun onLoadMore() {
+                        viewModel.loadNextPage()
+                    }
+                }
+                addOnScrollListener(scrollListener)
             }
         }
     }
@@ -74,8 +83,7 @@ class DoctorSearchView :
     ): ViewDoctorsearchBinding = ViewDoctorsearchBinding.inflate(inflater, container, false)
 
     override fun sideEffect(sideEffect: DoctorSearchSideEffects) =
-        when(sideEffect)
-        {
+        when (sideEffect) {
             is DoctorSearchSideEffects.Error -> processErrorSideEffect(sideEffect.error)
         }
 
