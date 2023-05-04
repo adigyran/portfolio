@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.aya.digital.core.ext.bindClick
 import com.aya.digital.core.feature.profile.security.securitysummary.databinding.ViewProfileSecuritySummaryBinding
 import com.aya.digital.core.feature.profile.security.securitysummary.di.profileSecuritySummaryDiModule
 import com.aya.digital.core.feature.profile.security.securitysummary.ui.model.ProfileSecuritySummaryStateTransformer
@@ -39,6 +40,7 @@ internal class ProfileSecuritySummaryView :
     override fun prepareCreatedUi(savedInstanceState: Bundle?) {
         super.prepareCreatedUi(savedInstanceState)
         recyclers.add(binding.recycler)
+        binding.toolbar.backButton bindClick {viewModel.onBack()}
         binding.toolbar.title.text = "Security"
         with(binding.recycler) {
             itemAnimator = null

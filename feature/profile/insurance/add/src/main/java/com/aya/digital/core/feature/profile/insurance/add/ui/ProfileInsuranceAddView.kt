@@ -66,6 +66,7 @@ class ProfileInsuranceAddView :
     override fun prepareCreatedUi(savedInstanceState: Bundle?) {
         super.prepareCreatedUi(savedInstanceState)
         recyclers.add(binding.recycler)
+        binding.toolbar.backButton bindClick {viewModel.onBack()}
         binding.toolbar.title.text = "Insurance"
         binding.saveAddButton bindClick {viewModel.onSaveAddClicked()}
         with(binding.recycler) {

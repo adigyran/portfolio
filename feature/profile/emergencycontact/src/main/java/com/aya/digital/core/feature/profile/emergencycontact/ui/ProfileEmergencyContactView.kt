@@ -43,6 +43,7 @@ class ProfileEmergencyContactView :
 
     override fun prepareCreatedUi(savedInstanceState: Bundle?) {
         super.prepareCreatedUi(savedInstanceState)
+        binding.toolbar.backButton bindClick {viewModel.onBack()}
         binding.editSaveBtn bindClick { viewModel.buttonClicked() }
         binding.toolbar.title.text = "Emergency Contact"
         recyclers.add(binding.recycler)

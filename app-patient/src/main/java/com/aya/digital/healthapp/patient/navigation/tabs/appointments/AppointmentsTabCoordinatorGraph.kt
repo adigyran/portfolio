@@ -28,6 +28,10 @@ class AppointmentsTabCoordinatorGraph : FragmentContainerGraph {
             VideoCallScreenNavigationEvents.Back -> {
                 navigationRouter.exit()
             }
+            CoordinatorEvent.Back ->
+            {
+                navigationRouter.exit()
+            }
             else -> parentCoordinatorRouter.sendEvent(event)
         }
 

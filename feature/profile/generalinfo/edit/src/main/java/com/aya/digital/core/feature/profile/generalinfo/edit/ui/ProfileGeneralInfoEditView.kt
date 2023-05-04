@@ -75,6 +75,7 @@ class ProfileGeneralInfoEditView :
 
     override fun prepareCreatedUi(savedInstanceState: Bundle?) {
         super.prepareCreatedUi(savedInstanceState)
+        binding.toolbar.backButton bindClick {viewModel.onBack()}
         binding.saveBtn bindClick { viewModel.onSaveProfileClicked() }
         binding.toolbar.title.text = "Edit personal information"
         recyclers.add(binding.recycler)

@@ -28,6 +28,10 @@ class DoctorSearchTabCoordinatorGraph : FragmentContainerGraph {
             is DoctorSearchNavigationEvents.OpenDoctorCard -> {
                 navigationRouter.navigateTo(DoctorCardScreen(event.doctorId))
             }
+            CoordinatorEvent.Back ->
+            {
+                navigationRouter.exit()
+            }
             else -> parentCoordinatorRouter.sendEvent(event)
         }
 

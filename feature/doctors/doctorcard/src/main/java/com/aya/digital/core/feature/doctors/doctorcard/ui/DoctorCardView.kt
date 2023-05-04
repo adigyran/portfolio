@@ -71,6 +71,7 @@ class DoctorCardView :
 
     override fun prepareUi(savedInstanceState: Bundle?) {
         super.prepareUi(savedInstanceState)
+        binding.toolbar.backButton bindClick {viewModel.onBack()}
         binding.bookBtn bindClick { viewModel.onBookClicked() }
         binding.detailsBtn bindClick { viewModel.onDetailsClicked() }
         binding.btnSelectDate bindClick { viewModel.onChooseDateClicked() }

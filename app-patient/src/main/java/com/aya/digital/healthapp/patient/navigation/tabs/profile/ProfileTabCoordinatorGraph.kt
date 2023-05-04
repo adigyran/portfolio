@@ -108,6 +108,10 @@ class ProfileTabCoordinatorGraph : FragmentContainerGraph {
                 mainRouter.sendResult(event.requestCode, event.result)
                 mainRouter.exit()
             }
+            CoordinatorEvent.Back ->
+            {
+                navigationRouter.exit()
+            }
 
             else -> parentCoordinatorRouter.sendEvent(event)
         }
