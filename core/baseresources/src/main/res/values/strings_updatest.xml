@@ -47,5 +47,8 @@
         fixed endpoints\n
         doctors list without pagination\n
         version 27 patient\n
+        added pagination to doctors list\n
+        fixed back buttons, every button work now\n
+        version 28 patient, doctor 2\n
     </string>
 </resources>
