@@ -3,6 +3,7 @@ package com.aya.digital.feature.bottomdialogs.codedialog.viewmodel
 import com.aya.digital.core.data.base.result.models.code.CodeResultModel
 import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.mvi.BaseViewModel
+import com.aya.digital.core.navigation.coordinator.CoordinatorEvent
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
 import com.aya.digital.feature.bottomdialogs.codedialog.navigation.CodeDialogNavigationEvents
 import com.aya.digital.feature.bottomdialogs.codedialog.ui.CodeDialogView
@@ -46,6 +47,10 @@ class CodeDialogViewModel(
 
     override fun postErrorSideEffect(errorSideEffect: ErrorSideEffect) {
         TODO("Not yet implemented")
+    }
+
+    override fun onBack() {
+        coordinatorRouter.sendEvent(CoordinatorEvent.Back)
     }
 }
 

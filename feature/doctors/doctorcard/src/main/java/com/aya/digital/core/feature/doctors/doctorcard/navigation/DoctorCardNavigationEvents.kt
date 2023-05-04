@@ -12,4 +12,5 @@ sealed class DoctorCardNavigationEvents : CoordinatorEvent() {
         val slotDateTime: LocalDateTime?,
         val date: LocalDate
     ) : DoctorCardNavigationEvents()
+
 }

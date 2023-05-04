@@ -57,7 +57,10 @@ abstract class DiFragment<Binding : ViewBinding, ViewModel : BaseViewModel<State
         super.prepareCreatedUi(savedInstanceState)
         viewModel.observe(viewLifecycleOwner, state = ::render, sideEffect = ::sideEffect)
     }
-
+    protected fun onBack()
+    {
+        viewModel.onBack()
+    }
     abstract fun render(state: State)
 
     abstract fun sideEffect(sideEffect: SideEffect)

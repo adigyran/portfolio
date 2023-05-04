@@ -6,6 +6,7 @@ import com.aya.digital.core.feature.profile.security.changepassword.FieldsTags
 import com.aya.digital.core.feature.profile.security.changepassword.ui.ProfileSecurityChangePasswordView
 import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.mvi.BaseViewModel
+import com.aya.digital.core.navigation.coordinator.CoordinatorEvent
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
 import kotlinx.coroutines.rx3.await
 import org.orbitmvi.orbit.syntax.simple.intent
@@ -44,6 +45,10 @@ internal class ProfileSecurityChangePasswordViewModel(
 
     override fun postErrorSideEffect(errorSideEffect: ErrorSideEffect) = intent {
         postSideEffect(ProfileSecurityChangePasswordSideEffects.Error(errorSideEffect))
+    }
+
+    override fun onBack() {
+        coordinatorRouter.sendEvent(CoordinatorEvent.Back)
     }
 }
 

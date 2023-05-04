@@ -73,13 +73,17 @@ class RootView :
         )
     )
 
+    /*onBackPressedDispatcher.addCallback(this *//* lifecycle owner *//*) {
+        // Back is pressed... Finishing the activity
+        finish()
+    }
     override fun onBackPressed() {
         val fragment = supportFragmentManager.findFragmentById(com.aya.digital.core.baseresources.R.id.fragmentContainer)
         if ((fragment as? BackButtonListener)?.onBackPressed() == true) {
             return
         }
         localCicerone.router.exit()
-    }
+    }*/
     override fun provideCoordinator(): Coordinator = coordinatorFactory(supportFragmentManager)
 
 }

@@ -9,6 +9,7 @@ import com.aya.digital.core.feature.profile.security.changeemailphone.navigation
 import com.aya.digital.core.feature.profile.security.changeemailphone.ui.ProfileSecurityChangeEmailPhoneView
 import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.mvi.BaseViewModel
+import com.aya.digital.core.navigation.coordinator.CoordinatorEvent
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
 import com.aya.digital.core.util.requestcodes.RequestCodes
 import kotlinx.coroutines.rx3.await
@@ -84,6 +85,8 @@ internal class ProfileSecurityChangeEmailPhoneViewModel(
         postSideEffect(ProfileSecurityChangeEmailPhoneSideEffects.Error(errorSideEffect))
     }
 
-
+    override fun onBack() {
+        coordinatorRouter.sendEvent(CoordinatorEvent.Back)
+    }
 }
 

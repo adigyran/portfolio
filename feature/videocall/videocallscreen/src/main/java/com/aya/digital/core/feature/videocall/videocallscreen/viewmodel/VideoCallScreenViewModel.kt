@@ -5,6 +5,7 @@ import com.aya.digital.core.feature.videocall.videocallscreen.navigation.VideoCa
 import com.aya.digital.core.feature.videocall.videocallscreen.ui.VideoCallScreenView
 import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.mvi.BaseViewModel
+import com.aya.digital.core.navigation.coordinator.CoordinatorEvent
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
 import kotlinx.coroutines.rx3.await
 import org.orbitmvi.orbit.syntax.simple.intent
@@ -46,7 +47,9 @@ class VideoCallScreenViewModel(
         postSideEffect(VideoCallScreenSideEffects.Error(errorSideEffect))
     }
 
-
+    override fun onBack() {
+        coordinatorRouter.sendEvent(CoordinatorEvent.Back)
+    }
 
 }
 

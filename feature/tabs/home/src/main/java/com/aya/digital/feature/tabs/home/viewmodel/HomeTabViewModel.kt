@@ -7,6 +7,9 @@ import org.orbitmvi.orbit.viewmodel.container
 
 class HomeTabViewModel(val coordinatorRouter: CoordinatorRouter) :
     BaseViewModel<HomeTabState, BaseSideEffect>() {
+    override fun onBack() {
+        TODO("Not yet implemented")
+    }
 
     override val container = container<HomeTabState, BaseSideEffect>(
         initialState = HomeTabState,

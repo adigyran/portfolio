@@ -2,6 +2,7 @@ package com.aya.digital.feature.auth.chooser.viewmodel
 
 import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.mvi.BaseViewModel
+import com.aya.digital.core.navigation.coordinator.CoordinatorEvent
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
 import com.aya.digital.feature.auth.chooser.navigation.AuthChooserNavigationEvents
 import org.orbitmvi.orbit.syntax.simple.intent
@@ -25,6 +26,10 @@ internal class AuthChooserViewModel(val coordinatorRouter: CoordinatorRouter) :
 
     fun onSignUpClicked() = intent {
         coordinatorRouter.sendEvent(AuthChooserNavigationEvents.SignUp)
+    }
+
+    override fun onBack() {
+        coordinatorRouter.sendEvent(CoordinatorEvent.Back)
     }
 
     override fun postErrorSideEffect(errorSideEffect: ErrorSideEffect) {

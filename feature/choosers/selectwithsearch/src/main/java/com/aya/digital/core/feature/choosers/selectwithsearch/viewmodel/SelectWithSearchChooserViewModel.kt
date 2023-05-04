@@ -7,6 +7,7 @@ import com.aya.digital.core.feature.choosers.multiselect.navigation.SelectWithSe
 import com.aya.digital.core.feature.choosers.multiselect.ui.SelectWithSearchView
 import com.aya.digital.core.feature.choosers.selectwithsearch.viewmodel.SelectWithSearchChooserSideEffects
 import com.aya.digital.core.mvi.BaseViewModel
+import com.aya.digital.core.navigation.coordinator.CoordinatorEvent
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
 import kotlinx.coroutines.reactive.asFlow
 import org.orbitmvi.orbit.syntax.simple.intent
@@ -76,5 +77,9 @@ class SelectWithSearchChooserViewModel(
 
     override fun postErrorSideEffect(errorSideEffect: ErrorSideEffect) = intent {
         postSideEffect(SelectWithSearchChooserSideEffects.Error(errorSideEffect))
+    }
+
+    override fun onBack() {
+        coordinatorRouter.sendEvent(CoordinatorEvent.Back)
     }
 }

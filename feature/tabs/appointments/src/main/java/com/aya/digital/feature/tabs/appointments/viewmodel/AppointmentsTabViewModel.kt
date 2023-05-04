@@ -7,6 +7,9 @@ import org.orbitmvi.orbit.viewmodel.container
 
 class AppointmentsTabViewModel(val coordinatorRouter: CoordinatorRouter) :
     BaseViewModel<AppointmentsTabState, BaseSideEffect>() {
+    override fun onBack() {
+        TODO("Not yet implemented")
+    }
 
     override val container = container<AppointmentsTabState, BaseSideEffect>(
         initialState = AppointmentsTabState,

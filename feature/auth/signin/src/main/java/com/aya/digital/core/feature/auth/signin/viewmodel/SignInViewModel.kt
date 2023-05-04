@@ -9,6 +9,7 @@ import com.aya.digital.core.domain.auth.signin.SignInUseCase
 import com.aya.digital.core.feature.auth.signin.FieldsTags
 import com.aya.digital.core.feature.auth.signin.navigation.SignInNavigationEvents
 import com.aya.digital.core.mvi.BaseViewModel
+import com.aya.digital.core.navigation.coordinator.CoordinatorEvent
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
 import com.aya.digital.core.util.requestcodes.RequestCodes
 import kotlinx.coroutines.launch
@@ -122,6 +123,10 @@ class SignInViewModel(
 
     override fun postErrorSideEffect(errorSideEffect: ErrorSideEffect) = intent {
         postSideEffect(SignInSideEffects.Error(errorSideEffect))
+    }
+
+    override fun onBack() {
+        coordinatorRouter.sendEvent(CoordinatorEvent.Back)
     }
 
 }

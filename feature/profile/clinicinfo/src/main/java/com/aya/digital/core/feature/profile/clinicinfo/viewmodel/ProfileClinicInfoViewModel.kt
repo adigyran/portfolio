@@ -3,6 +3,7 @@ package com.aya.digital.core.feature.profile.clinicinfo.viewmodel
 import com.aya.digital.core.feature.profile.clinicinfo.FieldsTags
 import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.mvi.BaseViewModel
+import com.aya.digital.core.navigation.coordinator.CoordinatorEvent
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.reduce
@@ -34,6 +35,10 @@ class ProfileClinicInfoViewModel(
     }
 
     fun onSignUpClicked() = intent {
+    }
+
+    override fun onBack() {
+        coordinatorRouter.sendEvent(CoordinatorEvent.Back)
     }
 
 }

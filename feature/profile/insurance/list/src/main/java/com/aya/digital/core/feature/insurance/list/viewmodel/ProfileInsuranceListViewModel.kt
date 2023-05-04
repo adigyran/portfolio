@@ -4,6 +4,7 @@ import com.aya.digital.core.domain.profile.insurance.DeleteInsuranceUseCase
 import com.aya.digital.core.domain.profile.insurance.GetInsurancesUseCase
 import com.aya.digital.core.feature.insurance.list.navigation.ProfileInsuranceListNavigationEvents
 import com.aya.digital.core.mvi.BaseViewModel
+import com.aya.digital.core.navigation.coordinator.CoordinatorEvent
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
 import com.aya.digital.core.util.requestcodes.RequestCodes
 import kotlinx.coroutines.rx3.asFlow
@@ -74,6 +75,10 @@ class ProfileInsuranceListViewModel(
 
     override fun postErrorSideEffect(errorSideEffect: ErrorSideEffect) = intent {
         postSideEffect(ProfileInsuranceListSideEffects.Error(errorSideEffect))
+    }
+
+    override fun onBack() {
+        coordinatorRouter.sendEvent(CoordinatorEvent.Back)
     }
 }
 

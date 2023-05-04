@@ -10,6 +10,6 @@ import com.squareup.moshi.JsonClass
 class PagedCursorResponse<T> (
     val data: List<T>,
     val scrollTime: String,
-    val scrollToken: String,
+    val scrollToken: String?,
     val sizeResult: Int
 )

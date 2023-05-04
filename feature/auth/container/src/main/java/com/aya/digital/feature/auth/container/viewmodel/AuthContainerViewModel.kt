@@ -2,6 +2,7 @@ package com.aya.digital.feature.auth.container.viewmodel
 
 import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.mvi.BaseViewModel
+import com.aya.digital.core.navigation.coordinator.CoordinatorEvent
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
 import com.aya.digital.core.navigation.graph.navigator.FragmentContainerGraph
 import com.aya.digital.feature.auth.container.navigation.AuthContainerNavigationEvents
@@ -21,6 +22,9 @@ class AuthContainerViewModel(val coordinatorRouter: CoordinatorRouter) :
 
     override fun postErrorSideEffect(errorSideEffect: ErrorSideEffect) {
         TODO("Not yet implemented")
+    }
+    override fun onBack() {
+        coordinatorRouter.sendEvent(CoordinatorEvent.Back)
     }
 }
 

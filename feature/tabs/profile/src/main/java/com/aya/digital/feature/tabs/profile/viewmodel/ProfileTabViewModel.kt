@@ -8,6 +8,9 @@ import org.orbitmvi.orbit.viewmodel.container
 
 class ProfileTabViewModel(val coordinatorRouter: CoordinatorRouter) :
     BaseViewModel<ProfileTabState, BaseSideEffect>() {
+    override fun onBack() {
+        TODO("Not yet implemented")
+    }
 
     override val container = container<ProfileTabState, BaseSideEffect>(
         initialState = ProfileTabState,

@@ -10,6 +10,7 @@ import com.aya.digital.core.feature.profile.generalinfo.edit.FieldsTags
 import com.aya.digital.core.feature.profile.generalinfo.edit.ui.ProfileGeneralInfoEditView
 import com.aya.digital.core.model.ProfileSex
 import com.aya.digital.core.mvi.BaseViewModel
+import com.aya.digital.core.navigation.coordinator.CoordinatorEvent
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
 import kotlinx.coroutines.rx3.await
 import kotlinx.datetime.toJavaLocalDate
@@ -157,6 +158,10 @@ class ProfileGeneralInfoEditViewModel(
 
     override fun postErrorSideEffect(errorSideEffect: ErrorSideEffect) = intent {
         postSideEffect(ProfileGeneralInfoEditSideEffect.Error(errorSideEffect))
+    }
+
+    override fun onBack() {
+        coordinatorRouter.sendEvent(CoordinatorEvent.Back)
     }
 }
 

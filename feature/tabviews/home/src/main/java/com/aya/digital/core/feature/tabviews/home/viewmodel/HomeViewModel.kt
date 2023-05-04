@@ -12,6 +12,10 @@ class HomeViewModel(
     private val coordinatorRouter: CoordinatorRouter
 ) :
     BaseViewModel<HomeState, HomeSideEffects>() {
+    override fun onBack() {
+        TODO("Not yet implemented")
+    }
+
     override val container = container<HomeState, HomeSideEffects>(
         initialState = HomeState(""),
     )

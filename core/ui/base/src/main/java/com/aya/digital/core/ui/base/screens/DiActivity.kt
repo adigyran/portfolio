@@ -4,6 +4,7 @@ import android.app.Activity
 import android.os.Bundle
 import android.os.Parcelable
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import com.aya.digital.base.appbase.BaseApp
@@ -43,7 +44,7 @@ abstract class DiActivity<Binding : ViewBinding,ViewModel : BaseViewModel<State,
     //region Перегруженные методы
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        registerOnBackPressed()
         navigator = provideNavigator()
         coordinator = provideCoordinator()
         viewModel = provideViewModel()
@@ -51,6 +52,19 @@ abstract class DiActivity<Binding : ViewBinding,ViewModel : BaseViewModel<State,
         coordinatorHolder.setCoordinator(coordinator)
         coordinatorHolder.setRouter(localCicerone.router)
         viewModel.observe(this, state = ::render, sideEffect = ::sideEffect)
+    }
+
+    private fun registerOnBackPressed() {
+       onBackPressedDispatcher.addCallback(this,object:OnBackPressedCallback(true){
+           override fun handleOnBackPressed() {
+               val fragment = getVisibleFragment()
+               if ((fragment as? BackButtonListener)?.onBackPressed() == true) {
+                   return
+               }
+               localCicerone.router.exit()
+           }
+
+       })
     }
 
 
@@ -104,13 +118,10 @@ abstract class DiActivity<Binding : ViewBinding,ViewModel : BaseViewModel<State,
         kodein.baseDI = KodeinInjectionManager.instance.bindKodein(this)
     }
 
-    override fun onBackPressed() {
-        val fragment = getVisibleFragment()
-        if ((fragment as? BackButtonListener)?.onBackPressed() == true) {
-            return
-        }
-        localCicerone.router.exit()
-    }
+
+  /*  override fun onBackPressed() {
+
+    }*/
     private fun getVisibleFragment(): Fragment? {
         val fragments = supportFragmentManager.fragments
         for (fragment in fragments) {

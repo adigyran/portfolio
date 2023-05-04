@@ -7,10 +7,15 @@ import org.orbitmvi.orbit.viewmodel.container
 
 class BottomNavHostViewModel(val coordinatorRouter: CoordinatorRouter) :
     BaseViewModel<BottomNavHostState, BaseSideEffect>() {
+    override fun onBack() {
+        TODO("Not yet implemented")
+    }
+
     override val container = container<BottomNavHostState, BaseSideEffect>(
         initialState = BottomNavHostState,
     )
     {
 
     }
+
 }

@@ -7,6 +7,7 @@ import com.aya.digital.core.data.base.result.models.dictionaries.MultiSelectResu
 import com.aya.digital.core.domain.auth.signup.*
 import com.aya.digital.core.domain.auth.signup.model.VerifyCodeResult
 import com.aya.digital.core.mvi.BaseViewModel
+import com.aya.digital.core.navigation.coordinator.CoordinatorEvent
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
 import com.aya.digital.core.util.requestcodes.RequestCodes
 import com.aya.digital.feature.auth.signup.FieldsTags
@@ -201,6 +202,10 @@ class SignUpViewModel(
                 codeEntered(it.code)
             }
         }
+    }
+
+    override fun onBack() {
+        coordinatorRouter.sendEvent(CoordinatorEvent.Back)
     }
 
 }

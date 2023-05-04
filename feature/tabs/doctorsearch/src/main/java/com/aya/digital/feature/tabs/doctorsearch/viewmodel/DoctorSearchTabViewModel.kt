@@ -7,6 +7,9 @@ import org.orbitmvi.orbit.viewmodel.container
 
 class DoctorSearchTabViewModel(val coordinatorRouter: CoordinatorRouter) :
     BaseViewModel<DoctorSearchTabState, BaseSideEffect>() {
+    override fun onBack() {
+        TODO("Not yet implemented")
+    }
 
     override val container = container<DoctorSearchTabState, BaseSideEffect>(
         initialState = DoctorSearchTabState,

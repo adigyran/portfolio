@@ -24,6 +24,10 @@ class AppointmentsViewModel(
     private val getAppointmentsUseCase: GetAppointmentsUseCase
 ) :
     BaseViewModel<AppointmentsState, AppointmentsSideEffects>() {
+    override fun onBack() {
+        TODO("Not yet implemented")
+    }
+
     override val container = container<AppointmentsState, AppointmentsSideEffects>(
         initialState = AppointmentsState(),
     )

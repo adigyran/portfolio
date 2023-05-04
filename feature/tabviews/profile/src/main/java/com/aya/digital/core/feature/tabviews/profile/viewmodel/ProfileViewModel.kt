@@ -18,6 +18,10 @@ class ProfileViewModel(
     private val getProfileUseCase: GetProfileBriefUseCase
 ) :
     BaseViewModel<ProfileState, ProfileSideEffects>() {
+    override fun onBack() {
+        TODO("Not yet implemented")
+    }
+
     override val container = container<ProfileState, ProfileSideEffects>(
         initialState = ProfileState(""),
     )

@@ -131,6 +131,8 @@ abstract class BaseViewModel<STATE : BaseState, SideEffect : BaseSideEffect> : V
 
     }
 
+    abstract fun onBack()
+
     protected fun sendExceptionToCrashlytics(throwable: Throwable)
     {
         Firebase.crashlytics.recordException(throwable)

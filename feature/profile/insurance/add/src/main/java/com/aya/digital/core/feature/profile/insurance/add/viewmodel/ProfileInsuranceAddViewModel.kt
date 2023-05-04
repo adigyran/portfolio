@@ -11,6 +11,7 @@ import com.aya.digital.core.feature.profile.insurance.add.FieldsTags
 import com.aya.digital.core.feature.profile.insurance.add.navigation.ProfileInsuranceAddNavigationEvents
 import com.aya.digital.core.feature.profile.insurance.add.ui.ProfileInsuranceAddView
 import com.aya.digital.core.mvi.BaseViewModel
+import com.aya.digital.core.navigation.coordinator.CoordinatorEvent
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
 import com.aya.digital.core.util.requestcodes.RequestCodes
 import kotlinx.coroutines.rx3.await
@@ -178,6 +179,10 @@ class ProfileInsuranceAddViewModel(
                     }
                 }
             }, { processError(it) })
+    }
+
+    override fun onBack() {
+        coordinatorRouter.sendEvent(CoordinatorEvent.Back)
     }
 }
 

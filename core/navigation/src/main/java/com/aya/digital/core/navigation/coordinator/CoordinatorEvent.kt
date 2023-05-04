@@ -7,3 +7,6 @@ package com.aya.digital.core.navigation.coordinator
  * @property eventAction
  */
 abstract class CoordinatorEvent
+{
+    object Back : CoordinatorEvent()
+}

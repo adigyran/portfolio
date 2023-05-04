@@ -17,6 +17,9 @@ class RootContainerViewModel(
     private val checkIsAuthenticatedUseCase: CheckIsAuthenticatedUseCase,
     private val invalidTokenEventManager: InvalidTokenEventManager
 ) : BaseViewModel<RootContainerState, BaseSideEffect>() {
+    override fun onBack() {
+        TODO("Not yet implemented")
+    }
 
     override val container = container<RootContainerState, BaseSideEffect>(
         initialState = RootContainerState,

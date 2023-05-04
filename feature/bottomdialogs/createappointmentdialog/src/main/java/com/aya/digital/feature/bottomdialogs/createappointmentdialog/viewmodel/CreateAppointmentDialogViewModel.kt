@@ -6,6 +6,7 @@ import com.aya.digital.core.domain.appointment.create.CreateAppointmentUseCase
 import com.aya.digital.core.domain.schedule.base.GetLatestScheduleByDoctorIdByDateUseCase
 import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.mvi.BaseViewModel
+import com.aya.digital.core.navigation.coordinator.CoordinatorEvent
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
 import com.aya.digital.feature.bottomdialogs.createappointmentdialog.FieldsTags
 import com.aya.digital.feature.bottomdialogs.createappointmentdialog.navigation.CreateAppointmentDialogNavigationEvents
@@ -93,6 +94,10 @@ class CreateAppointmentDialogViewModel(
 
 
     override fun postErrorSideEffect(errorSideEffect: ErrorSideEffect) {
+    }
+
+    override fun onBack() {
+        coordinatorRouter.sendEvent(CoordinatorEvent.Back)
     }
 }
 

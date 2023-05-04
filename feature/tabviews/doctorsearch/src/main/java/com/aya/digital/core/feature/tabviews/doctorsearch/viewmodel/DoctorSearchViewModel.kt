@@ -18,6 +18,10 @@ class DoctorSearchViewModel(
     private val getDoctorsUseCase: GetDoctorsUseCase
 ) :
     BaseViewModel<DoctorSearchState, DoctorSearchSideEffects>() {
+    override fun onBack() {
+        TODO("Not yet implemented")
+    }
+
     override val container = container<DoctorSearchState, DoctorSearchSideEffects>(
         initialState = DoctorSearchState(dataOperation = DataLoadingOperation.Idle),
     )

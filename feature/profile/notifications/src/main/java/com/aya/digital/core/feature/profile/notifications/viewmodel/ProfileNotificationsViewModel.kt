@@ -4,6 +4,7 @@ import com.aya.digital.core.domain.profile.notifications.GetEmailNotificationsSt
 import com.aya.digital.core.domain.profile.notifications.SetEmailNotificationsStatusUseCase
 import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.mvi.BaseViewModel
+import com.aya.digital.core.navigation.coordinator.CoordinatorEvent
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
 import kotlinx.coroutines.rx3.await
 import org.orbitmvi.orbit.syntax.simple.intent
@@ -42,6 +43,10 @@ class ProfileNotificationsViewModel(
     private fun setEmailNotificationsStatus() = intent {
         val await = setEmailNotificationsStatusUseCase(state.emailNotification).await()
         await.processResult({}, { Timber.d(it.toString()) })
+    }
+
+    override fun onBack() {
+        coordinatorRouter.sendEvent(CoordinatorEvent.Back)
     }
 
 }

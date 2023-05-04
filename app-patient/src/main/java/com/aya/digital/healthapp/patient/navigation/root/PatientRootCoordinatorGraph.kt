@@ -119,7 +119,6 @@ class PatientRootCoordinatorGraph(context: Context) : RootCoordinatorGraph {
                 navigationRouter.sendResult(event.requestCode, event.result)
                 navigationRouter.exit()
             }
-
             is DoctorCardNavigationEvents.CreateAppointment -> {
                 navigationRouter.navigateTo(
                     CreateAppointmentDialogScreen(
@@ -130,6 +129,9 @@ class PatientRootCoordinatorGraph(context: Context) : RootCoordinatorGraph {
                         event.date
                     )
                 )
+            }
+            is CoordinatorEvent.Back -> {
+                navigationRouter.exit()
             }
         }
     }
