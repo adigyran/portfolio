@@ -26,9 +26,9 @@ fun practitionersNetworkModule() = DI.Module("practitionersNetworkModule") {
 class RetrofitPractitionersNetwork(private val network: PractitionersService) :
     com.aya.digital.core.datasource.PractitionersDataSource {
 
-    override fun fetchPractitioners(
+    override fun fetchPractitioners(scrollId:String?
        ): Flowable<PagedCursorResponse<DoctorDataResponse>> =
-        network.fetchPractitioners()
+        network.fetchPractitioners(scrollId)
 
     override fun fetchPractitionerById(id: Int): Single<DoctorDataResponse> =
         network.fetchPractitionerById(id)

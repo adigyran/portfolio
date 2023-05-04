@@ -13,7 +13,7 @@ interface PractitionersService {
 
     //limit=10&sortDirection=ASC
     @GET("search-app/practitioners")
-    fun fetchPractitioners(): Flowable<PagedCursorResponse<DoctorDataResponse>>
+    fun fetchPractitioners(@Query("scrollId") scrollId: String?): Flowable<PagedCursorResponse<DoctorDataResponse>>
 
     @GET("search-app/practitioners/{id}")
     fun fetchPractitionerById(

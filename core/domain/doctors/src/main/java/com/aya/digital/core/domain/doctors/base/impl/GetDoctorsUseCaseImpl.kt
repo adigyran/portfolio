@@ -7,7 +7,7 @@ import com.aya.digital.core.data.base.dataprocessing.toModelError
 import com.aya.digital.core.data.doctors.DoctorData
 import com.aya.digital.core.data.doctors.repository.DoctorRepository
 import com.aya.digital.core.domain.doctors.base.GetDoctorsUseCase
-import com.aya.digital.core.domain.doctors.base.model.DoctorModel
+import com.aya.digital.core.domain.doctors.base.model.DoctorPaginationModel
 import com.aya.digital.core.domain.doctors.base.model.mapToDoctorModel
 import com.aya.digital.core.ext.mapResult
 import io.reactivex.rxjava3.core.Flowable
@@ -15,11 +15,14 @@ import io.reactivex.rxjava3.core.Flowable
 internal class GetDoctorsUseCaseImpl(private val doctorRepository: DoctorRepository) :
     GetDoctorsUseCase {
     var paginationPageModel: PaginationCursorModel<DoctorData>? = null
-    override fun invoke(): Flowable<RequestResultModel<List<DoctorModel>>> =
-        doctorRepository.fetchDoctors()
-            .mapResult({
-                paginationPageModel = it
-                it.data.map { doctorData -> doctorData.mapToDoctorModel()  }.asResultModel()
+    override fun invoke(cursor: String?): Flowable<RequestResultModel<DoctorPaginationModel>> =
+        doctorRepository.fetchDoctors(cursor)
+            .mapResult({ paginationModel ->
+                paginationPageModel = paginationModel
+                DoctorPaginationModel(
+                    cursor = paginationModel.scrollToken,
+                    doctors = paginationModel.data.map { doctorData -> doctorData.mapToDoctorModel() }
+                ).asResultModel()
+                //it.data.map { doctorData -> doctorData.mapToDoctorModel() }.asResultModel()
             }, { it.toModelError() })
-
 }

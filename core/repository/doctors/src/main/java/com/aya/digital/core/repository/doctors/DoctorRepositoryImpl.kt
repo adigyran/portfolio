@@ -27,8 +27,8 @@ internal class DoctorRepositoryImpl(
                 doctorDataMapper.mapFrom(result).asResult()
             }, { it })
 
-    override fun fetchDoctors(): Flowable<RequestResult<PaginationCursorModel<DoctorData>>> =
-        practitionersDataSource.fetchPractitioners()
+    override fun fetchDoctors(scrollId:String?): Flowable<RequestResult<PaginationCursorModel<DoctorData>>> =
+        practitionersDataSource.fetchPractitioners(scrollId)
             .retryOnError()
             .retrofitResponseToResult(CommonUtils::mapServerErrors)
             .mapResult({ result ->
