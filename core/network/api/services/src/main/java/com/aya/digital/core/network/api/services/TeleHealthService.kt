@@ -6,7 +6,6 @@ import io.reactivex.rxjava3.core.Single
 import retrofit2.http.*
 
 interface TeleHealthService {
-
     @POST("token")
     fun getRoomToken(@Body getTelehealthRoomTokenBody: GetTelehealthRoomTokenBody): Single<TelehealthRoomTokenResponse>
 }

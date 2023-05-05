@@ -7,11 +7,11 @@ import io.reactivex.rxjava3.core.Single
 import retrofit2.http.*
 
 interface AppointmentService {
-    @GET("appointments")
+    @GET("api/appointments")
     fun getAppointments(@Query("start") start: String,
                             @Query("end") end: String): Flowable<List<AppointmentResponse>>
 
-    @POST("appointments")
+    @POST("api/appointments")
     fun createAppointment(@Body body:CreateAppointmentBody):Single<AppointmentResponse>
 
 }
