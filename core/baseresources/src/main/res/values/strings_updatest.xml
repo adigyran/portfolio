@@ -50,5 +50,7 @@
         added pagination to doctors list\n
         fixed back buttons, every button work now\n
         version 28 patient, doctor 2\n
+        fixed api\n
+        version 29 patient, doctor 3\n
     </string>
 </resources>
