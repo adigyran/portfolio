@@ -60,3 +60,7 @@ Added Firebase Distribution\n
         version 32 patient\n
         added doctor caching (don't have cache update functionality yet)\n
         version 33 patient\n
+        appointments split by status\n
+        fixed insurances\n
+        version 34 patient\n
+

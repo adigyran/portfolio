@@ -62,5 +62,8 @@
         version 32 patient\n
         added doctor caching\n
         version 33 patient\n
+        appointments split by status\n
+        fixed insurances\n
+        version 34 patient\n
     </string>
 </resources>
