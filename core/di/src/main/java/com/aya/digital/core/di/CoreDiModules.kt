@@ -13,6 +13,7 @@ fun coreDiModules() = listOf(
     navigationDiModules(),
     securityDiModules(),
     dataDiModules(),
+    dataBaseDiModules(),
     domainDiModules(),
     mappersDiModules(),
     repositoryDiModules(),

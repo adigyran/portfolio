@@ -10,7 +10,14 @@ data class Appointment(
     val endDate: LocalDateTime,
     val minutesDuration: Int?,
     val participant: Participant?,
+    val practitioner: Practitioner?,
+    val status: Status,
     val type: String?
 )
 
+enum class Status(val statusName:String) {
+SCHEDULED("scheduled"),
+CANCELLED("cancelled"),
+DONE("done")
+}
 data class Participant(val id: Int, val firstName: String?, val lastName: String?)

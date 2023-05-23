@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.aya.digital.core.ext.bindClick
 import com.aya.digital.core.feature.tabviews.appointments.databinding.ViewAppointmentsBinding
 import com.aya.digital.core.feature.tabviews.appointments.di.appointmentsDiModule
 import com.aya.digital.core.feature.tabviews.appointments.ui.model.AppointmentsStateTransformer
@@ -14,7 +15,16 @@ import com.aya.digital.core.feature.tabviews.appointments.viewmodel.Appointments
 import com.aya.digital.core.feature.tabviews.appointments.viewmodel.AppointmentsSideEffects
 import com.aya.digital.core.ui.adapters.base.BaseDelegateAdapter
 import com.aya.digital.core.ui.base.screens.DiFragment
+import com.aya.digital.core.ui.base.utils.DateValidatorSelectableDays
 import com.aya.digital.core.ui.delegates.appointments.patientappointment.ui.PatientAppointmentDelegate
+import com.aya.digital.core.ui.delegates.appointments.patientappointment.ui.PatientAppointmentStatusFooterDelegate
+import com.aya.digital.core.ui.delegates.appointments.patientappointment.ui.PatientAppointmentStatusHeaderDelegate
+import com.google.android.material.datepicker.CalendarConstraints
+import com.google.android.material.datepicker.MaterialDatePicker
+import kotlinx.datetime.Instant
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 import org.kodein.di.DI
 import org.kodein.di.factory
 import org.kodein.di.on
@@ -33,6 +43,10 @@ class AppointmentsView :
     private val adapter by lazy(LazyThreadSafetyMode.NONE) {
         BaseDelegateAdapter.create {
             delegate { PatientAppointmentDelegate(viewModel::onAppointmentClicked) }
+            delegate { PatientAppointmentStatusHeaderDelegate() }
+            delegate { PatientAppointmentStatusFooterDelegate() }
+
+
         }
     }
 
@@ -42,6 +56,8 @@ class AppointmentsView :
             viewModel.onRefreshAppointments()
             binding.swipeRefresh.isRefreshing = false
         }
+        binding.toolbar.title.text = "Appointments"
+        binding.toolbar.calendarButton bindClick {showDatePicker()}
         if (savedInstanceState == null) {
             recyclers.add(binding.recycler)
             with(binding.recycler) {
@@ -56,11 +72,27 @@ class AppointmentsView :
                     false
                 )
                 layoutManager = lm
-                addItemDecoration(AppointmentsTabDecoration())
+                addItemDecoration(AppointmentsTabDecoration(context))
             }
         }
     }
 
+
+    private fun showDatePicker() {
+       /* val constraintsBuilderSelectable = CalendarConstraints.Builder()
+            .setValidator(DateValidatorSelectableDays(selectableDates))*/
+        val materialDatePicker = MaterialDatePicker.Builder.datePicker()
+           // .setCalendarConstraints(constraintsBuilderSelectable.build())
+            .build()
+        materialDatePicker
+            .addOnPositiveButtonClickListener {
+                val date = Instant.fromEpochMilliseconds(it)
+                    .toLocalDateTime(TimeZone.currentSystemDefault()).date
+                viewModel.onDateSelected(date)
+            }
+        materialDatePicker
+            .show(childFragmentManager, "BirthDAY")
+    }
 
     override fun provideDiModule(): DI.Module = appointmentsDiModule(tryTyGetParentRouter())
 

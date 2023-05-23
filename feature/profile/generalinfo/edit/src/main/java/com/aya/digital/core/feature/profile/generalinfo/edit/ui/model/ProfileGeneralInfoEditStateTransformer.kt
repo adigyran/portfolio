@@ -12,7 +12,6 @@ import com.aya.digital.core.ui.adapters.base.DiffItem
 import com.aya.digital.core.ui.base.masks.CommonMasks
 import com.aya.digital.core.ui.delegates.components.fields.dropdown.model.AutoCompleteItem
 import com.aya.digital.core.ui.delegates.components.fields.name.model.NameFieldUIModel
-import com.aya.digital.core.ui.delegates.components.fields.name.model.ValidatedNumberFieldUIModel
 import com.aya.digital.core.ui.delegates.components.fields.dropdown.model.DropdownFieldUIModel
 import com.aya.digital.core.ui.delegates.components.fields.selection.model.SelectionFieldUIModel
 import com.aya.digital.core.ui.delegates.components.fields.validated.model.ValidatedFieldUIModel
@@ -128,7 +127,7 @@ class ProfileGeneralInfoEditStateTransformer(
     private fun getHeightUnit() = "ft."
     private fun getWeightUnit() = "lbs"
 
-    private fun getBirthDayIcon() = drawable.ic_birthday_field_icon
+    private fun getBirthDayIcon() = drawable.ic_calendar_icon
 
 
 }

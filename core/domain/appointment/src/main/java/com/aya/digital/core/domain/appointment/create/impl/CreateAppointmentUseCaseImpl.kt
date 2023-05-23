@@ -4,9 +4,9 @@ import com.aya.digital.core.data.appointment.repository.AppointmentRepository
 import com.aya.digital.core.data.base.dataprocessing.RequestResultModel
 import com.aya.digital.core.data.base.dataprocessing.asResultModel
 import com.aya.digital.core.data.base.dataprocessing.toModelError
-import com.aya.digital.core.domain.appointment.base.model.AppointmentModel
-import com.aya.digital.core.domain.appointment.base.model.toAppointmentModel
 import com.aya.digital.core.domain.appointment.create.CreateAppointmentUseCase
+import com.aya.digital.core.domain.base.models.appointment.AppointmentModel
+import com.aya.digital.core.domain.base.models.appointment.toAppointmentModel
 import com.aya.digital.core.ext.mapResult
 import io.reactivex.rxjava3.core.Single
 

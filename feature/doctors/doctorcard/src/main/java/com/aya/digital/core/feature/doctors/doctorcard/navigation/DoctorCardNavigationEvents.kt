@@ -13,4 +13,5 @@ sealed class DoctorCardNavigationEvents : CoordinatorEvent() {
         val date: LocalDate
     ) : DoctorCardNavigationEvents()
 
+    data class OpenSuccessAppointmentCreation(val requestCode: String,val appointmentId:Int):DoctorCardNavigationEvents()
 }

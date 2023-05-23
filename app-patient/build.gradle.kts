@@ -17,8 +17,8 @@ android {
 
     defaultConfig {
         applicationId = "com.aya.digital.healthapp.patient"
-        versionCode = 29
-        versionName = "0.0.29" // X.Y.Z; X = Major, Y = minor, Z = Patch level
+        versionCode = 33
+        versionName = "0.0.33" // X.Y.Z; X = Major, Y = minor, Z = Patch level
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -87,6 +87,8 @@ dependencies {
     implementation(project(":feature:bottomdialogs:bottomdialog"))
     implementation(project(":feature:bottomdialogs:codedialog"))
     implementation(project(":feature:bottomdialogs:createappointmentdialog"))
+    implementation(project(":feature:bottomdialogs:dateappointmentsdialog"))
+    implementation(project(":feature:bottomdialogs:successappointmentdialog"))
     implementation(project(":feature:bottomnavhost"))
     implementation(project(":feature:tabs:appointments"))
     implementation(project(":feature:tabs:doctorsearch"))
@@ -106,6 +108,7 @@ dependencies {
     implementation(project(":feature:profile:emergencycontact"))
     implementation(project(":feature:profile:notifications"))
     implementation(project(":feature:doctors:doctorcard"))
+    implementation(project(":feature:appointments:appointmentcard"))
 
     implementation(project(":feature:choosers:selectwithsearch"))
     implementation(project(":feature:auth:chooser"))
@@ -124,6 +127,7 @@ dependencies {
     implementation(project(":core:dibase"))
     implementation(project(":core:di"))
     implementation(project(":core:datastore"))
+    implementation(project(":core:database"))
     implementation(project(":core:ext"))
     implementation(project(":core:mvi"))
     implementation(project(":core:navigation"))

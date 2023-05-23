@@ -19,10 +19,10 @@ internal class GetInsuranceCompanyItemsUseCaseImpl(private val dictionariesRepos
     var paginationPageModel: PaginationCursorModel<InsuranceCompanyModel>? = null
 
     override fun invoke(searchTerm: String?): Flowable<RequestResultModel<List<InsuranceCompanyItem>>> =
-        dictionariesRepository.getInsuranceCompanies(searchTerm ?: "")
-            .mapResult({
-                paginationPageModel = it
-                it.data.map {
+        dictionariesRepository.getInsuranceCompanies(searchTerm)
+            .mapResult({ result ->
+                paginationPageModel = result
+                result.data.map {
                     InsuranceCompanyItem(it.id, it.name ?: "")
                 }.asResultModel()
             }, { it.toModelError() })

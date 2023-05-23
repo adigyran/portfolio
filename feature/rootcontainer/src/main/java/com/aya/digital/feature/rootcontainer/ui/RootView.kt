@@ -12,6 +12,7 @@ import com.aya.digital.feature.rootcontainer.viewmodel.RootContainerState
 import com.aya.digital.feature.rootcontainer.viewmodel.RootContainerViewModel
 import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.navigation.AppFlavour
+import com.aya.digital.core.navigation.DataBaseClearer
 import com.aya.digital.core.navigation.coordinator.Coordinator
 import com.aya.digital.core.navigation.graph.DefaultRootScreenManager
 import com.aya.digital.core.navigation.utils.BackButtonListener
@@ -26,6 +27,7 @@ class RootView :
     DiActivity<ViewFragmentContainerBinding, RootContainerViewModel, RootContainerState, BaseSideEffect>() {
 
     private val appFlavour: AppFlavour by kodein.on(context = this).instance()
+
     private val defaultRootScreenManager: DefaultRootScreenManager by kodein.on(context = this).instance("root_navigation")
 
 

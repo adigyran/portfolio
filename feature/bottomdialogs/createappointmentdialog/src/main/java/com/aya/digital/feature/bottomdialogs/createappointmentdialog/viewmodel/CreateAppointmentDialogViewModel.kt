@@ -1,8 +1,8 @@
 package com.aya.digital.feature.bottomdialogs.createappointmentdialog.viewmodel
 
 import com.aya.digital.core.data.base.result.models.appointment.CreateAppointmentResultModel
-import com.aya.digital.core.domain.appointment.base.model.AppointmentModel
 import com.aya.digital.core.domain.appointment.create.CreateAppointmentUseCase
+import com.aya.digital.core.domain.base.models.appointment.AppointmentModel
 import com.aya.digital.core.domain.schedule.base.GetLatestScheduleByDoctorIdByDateUseCase
 import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.mvi.BaseViewModel
@@ -83,9 +83,15 @@ class CreateAppointmentDialogViewModel(
     }
 
     private fun onAppointmentCreated(appointmentModel: AppointmentModel) = intent {
-        coordinatorRouter.sendEvent(CreateAppointmentDialogNavigationEvents.FinishWithResult(param.requestCode,
-            CreateAppointmentResultModel(appointmentModel.startDate)
-        ))
+        coordinatorRouter.sendEvent(
+            CreateAppointmentDialogNavigationEvents.FinishWithResult(
+                param.requestCode,
+                CreateAppointmentResultModel(
+                    appointmentId = appointmentModel.id,
+                    appointmentDateTime = appointmentModel.startDate
+                )
+            )
+        )
     }
 
     fun onSlotClicked(slotId: Int, date: LocalDate?) = intent {

@@ -1,6 +1,6 @@
 package com.aya.digital.core.feature.doctors.doctorcard.viewmodel
 
-import com.aya.digital.core.domain.doctors.base.model.DoctorModel
+import com.aya.digital.core.domain.base.models.doctors.DoctorModel
 import com.aya.digital.core.domain.schedule.base.model.ScheduleSlotModel
 import com.aya.digital.core.feature.doctors.doctorcard.DoctorCardMode
 import com.aya.digital.core.mvi.BaseState

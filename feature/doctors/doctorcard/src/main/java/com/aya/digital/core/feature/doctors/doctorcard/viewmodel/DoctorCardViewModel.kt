@@ -8,12 +8,10 @@ import com.aya.digital.core.domain.schedule.selectable.GetSelectableScheduleByDo
 import com.aya.digital.core.feature.doctors.doctorcard.DoctorCardMode
 import com.aya.digital.core.feature.doctors.doctorcard.navigation.DoctorCardNavigationEvents
 import com.aya.digital.core.feature.doctors.doctorcard.ui.DoctorCardView
-import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.mvi.BaseViewModel
 import com.aya.digital.core.navigation.coordinator.CoordinatorEvent
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
 import com.aya.digital.core.util.requestcodes.RequestCodes
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.reactive.asFlow
 import kotlinx.coroutines.rx3.await
 import kotlinx.datetime.LocalDate
@@ -82,7 +80,7 @@ class DoctorCardViewModel(
             listenForAppointmentCreation()
             coordinatorRouter.sendEvent(
                 DoctorCardNavigationEvents.CreateAppointment(
-                    requestCode = RequestCodes.CREATE_APPOINTMENT_REQUEST_COOE,
+                    requestCode = RequestCodes.CREATE_APPOINTMENT_REQUEST_CODE,
                     doctorId = param.doctorId,
                     slotDateTime = null,
                     date = date
@@ -93,7 +91,7 @@ class DoctorCardViewModel(
                 listenForAppointmentCreation()
                 coordinatorRouter.sendEvent(
                     DoctorCardNavigationEvents.CreateAppointment(
-                        requestCode = RequestCodes.CREATE_APPOINTMENT_REQUEST_COOE,
+                        requestCode = RequestCodes.CREATE_APPOINTMENT_REQUEST_CODE,
                         doctorId = param.doctorId,
                         slotDateTime = slot.startDate,
                         date = slot.startDate.date
@@ -123,7 +121,7 @@ class DoctorCardViewModel(
     fun onDateSelected(date: LocalDate) = intent {
         coordinatorRouter.sendEvent(
             DoctorCardNavigationEvents.CreateAppointment(
-                requestCode = RequestCodes.CREATE_APPOINTMENT_REQUEST_COOE,
+                requestCode = RequestCodes.CREATE_APPOINTMENT_REQUEST_CODE,
                 doctorId = param.doctorId,
                 slotDateTime = null,
                 date = date
@@ -132,10 +130,16 @@ class DoctorCardViewModel(
     }
 
     private fun listenForAppointmentCreation() {
-        rootCoordinatorRouter.setResultListener(RequestCodes.CREATE_APPOINTMENT_REQUEST_COOE) {result->
-            if(result !is CreateAppointmentResultModel) return@setResultListener
-            val createAppointmentResultModel = result as CreateAppointmentResultModel
-            Timber.d("$createAppointmentResultModel")
+        Timber.d("BBBB")
+        rootCoordinatorRouter.setResultListener(RequestCodes.CREATE_APPOINTMENT_REQUEST_CODE) { result ->
+            if (result !is CreateAppointmentResultModel) return@setResultListener
+            loadDoctorSchedule(param.doctorId)
+            coordinatorRouter.sendEvent(
+                DoctorCardNavigationEvents.OpenSuccessAppointmentCreation(
+                    requestCode = RequestCodes.SUCCESS_APPOINTMENT_REQUEST_CODE,
+                    appointmentId = result.appointmentId
+                )
+            )
         }
     }
 

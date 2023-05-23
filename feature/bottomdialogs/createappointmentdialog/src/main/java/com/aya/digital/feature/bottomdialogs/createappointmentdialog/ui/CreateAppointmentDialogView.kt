@@ -32,6 +32,7 @@ import kotlinx.parcelize.RawValue
 import org.kodein.di.DI
 import org.kodein.di.factory
 import org.kodein.di.on
+import timber.log.Timber
 
 class CreateAppointmentDialogView :
     DiBottomSheetDialogFragment<ViewCreateAppointmentDialogBinding, CreateAppointmentDialogViewModel, CreateAppointmentDialogState, BaseSideEffect, CreateAppointmentDialogUiModel, CreateAppointmentDialogStateTransformer>() {
@@ -72,6 +73,7 @@ class CreateAppointmentDialogView :
 
     override fun prepareUi(savedInstanceState: Bundle?) {
         super.prepareUi(savedInstanceState)
+        Timber.d("AAAA")
         binding.btnClose bindClick { viewModel.close() }
         binding.btnBack.bindClick { viewModel.close() }
         binding.btnBook.bindClick { viewModel.onBookClicked() }

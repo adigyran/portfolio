@@ -5,5 +5,6 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class InsuranceResponse(
     val id: Int,
-    val name:String
+    val name:String?,
+    val organizationName:String?
 )

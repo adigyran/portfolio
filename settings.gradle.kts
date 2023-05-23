@@ -34,6 +34,7 @@ include(":core:baseresources")
 include(":core:designsystem")
 include(":core:datasource")
 include(":core:datastore")
+include(":core:database")
 include(":core:dibase")
 //mappers
 include(":core:mappers:appointment")
@@ -82,6 +83,7 @@ include(":core:mvi")
 include(":core:util")
 include(":core:testing")
 //domain
+include(":core:domain:base")
 include(":core:domain:appointment")
 include(":core:domain:doctors")
 include(":core:domain:profile")
@@ -121,6 +123,8 @@ include(":core:ui:delegates:features:profile:clinicinfo")
 include(":core:ui:delegates:features:profile:insurance")
 //appointments
 include(":core:ui:delegates:features:appointments:patientappointment")
+//appointmentcard
+include(":core:ui:delegates:features:appointmentcard:appointmentdetails")
 //doctors
 include(":core:ui:delegates:features:doctors:doctoritem")
 //doctorcard
@@ -145,6 +149,8 @@ include(":feature:bottomnavhost")
 include(":feature:bottomdialogs:bottomdialog")
 include(":feature:bottomdialogs:codedialog")
 include(":feature:bottomdialogs:createappointmentdialog")
+include(":feature:bottomdialogs:dateappointmentsdialog")
+include(":feature:bottomdialogs:successappointmentdialog")
 //auth
 include(":feature:auth:chooser")
 include(":feature:auth:signup")
@@ -166,6 +172,8 @@ include(":feature:profile:security:changepassword")
 include(":feature:profile:security:changeemailphone")
 //doctors
 include(":feature:doctors:doctorcard")
+//appointments
+include(":feature:appointments:appointmentcard")
 //videocall
 include(":feature:videocall:videocallscreen")
 

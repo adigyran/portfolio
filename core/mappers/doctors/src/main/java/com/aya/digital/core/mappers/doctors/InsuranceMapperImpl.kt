@@ -11,7 +11,9 @@ internal class InsuranceMapperImpl : InsuranceMapper() {
     override fun mapFrom(type: InsuranceResponse): Insurance =
         Insurance(
             id = type.id,
-            name = type.name
+            name = if(type.name.isNullOrBlank()) {
+                type.organizationName?:""
+            } else type.name?:""
         )
 
 }

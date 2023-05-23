@@ -16,7 +16,7 @@ class DictionariesRepositoryImpl(
     private val insuranceMapper: InsuranceCompanyMapper
 ) : DictionariesRepository {
 
-    override fun getInsuranceCompanies(searchTerm: String) =
+    override fun getInsuranceCompanies(searchTerm: String?) =
         dictionariesDataSource.getInsuranceCompanies(searchTerm)
             .retryOnError()
             .retrofitResponseToResult(CommonUtils::mapServerErrors)
@@ -34,7 +34,8 @@ class DictionariesRepositoryImpl(
             .retryOnError()
             .retrofitResponseToResult(CommonUtils::mapServerErrors)
             .mapResult({ result ->
-                insuranceMapper.mapFrom(result.first()).asResult()
+                val insurances = insuranceMapper.mapFromList(result.data)
+                insurances.first().asResult()
             }, { it })
 
     override fun getInsuranceCompaniesByIds(ids: List<Int>): Observable<RequestResult<Set<InsuranceCompanyModel>>> =
@@ -42,6 +43,7 @@ class DictionariesRepositoryImpl(
             .retryOnError()
             .retrofitResponseToResult(CommonUtils::mapServerErrors)
             .mapResult({ result ->
-                insuranceMapper.mapFromList(result).toSet().asResult()
+                val insurances = insuranceMapper.mapFromList(result.data)
+                insurances.toSet().asResult()
             }, { it })
 }

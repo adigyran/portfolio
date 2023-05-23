@@ -3,7 +3,7 @@ package com.aya.digital.core.feature.tabviews.doctorsearch.viewmodel
 
 import com.aya.digital.core.data.base.dataprocessing.dataloading.enums.OperationState
 import com.aya.digital.core.domain.doctors.base.GetDoctorsUseCase
-import com.aya.digital.core.domain.doctors.base.model.DoctorModel
+import com.aya.digital.core.domain.base.models.doctors.DoctorModel
 import com.aya.digital.core.feature.tabviews.doctorsearch.navigation.DoctorSearchNavigationEvents
 import com.aya.digital.core.mvi.BaseViewModel
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
@@ -77,8 +77,8 @@ class DoctorSearchViewModel(
             }
     }
 
-    private fun addDoctors(oldDoctors: List<DoctorModel>?, newDoctors: List<DoctorModel>) =
-        mutableListOf<DoctorModel>()
+    private fun addDoctors(oldDoctors: List<com.aya.digital.core.domain.base.models.doctors.DoctorModel>?, newDoctors: List<com.aya.digital.core.domain.base.models.doctors.DoctorModel>) =
+        mutableListOf<com.aya.digital.core.domain.base.models.doctors.DoctorModel>()
             .apply {
                 oldDoctors?.run { addAll(this) }
                 newDoctors.run { addAll(this) }

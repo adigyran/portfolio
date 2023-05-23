@@ -1,68 +1,55 @@
 package com.aya.digital.core.util.datetime
 
 import android.content.Context
-import com.aya.digital.core.ext.strings
-import com.aya.digital.core.util.R
 import kotlinx.datetime.*
 import java.time.format.DateTimeFormatter
-import java.util.*
 
-internal class DateTimeUtilsImpl(private val context: Context) : DateTimeUtils {
-    private val dateFormatterYmd = object : ThreadLocal<DateTimeFormatter>() {
-        override fun initialValue(): DateTimeFormatter =
-            DateTimeFormatter
-                .ofPattern(context.strings[R.string.ymd_format]).defaultLocale()
-    }
-
-    private val dateFormatterBirthday = object : ThreadLocal<DateTimeFormatter>() {
-        override fun initialValue(): DateTimeFormatter =
-            DateTimeFormatter
-                .ofPattern(context.strings[R.string.birthday_format])
-                .defaultLocale()
-    }
-
-    private val dateFormatterTimeSlot = object : ThreadLocal<DateTimeFormatter>() {
-        override fun initialValue(): DateTimeFormatter =
-            DateTimeFormatter
-                .ofPattern(context.strings[R.string.time_slot_format])
-                .defaultLocale()
-    }
-
-    private val dateFormatterTimeSlotTitle = object : ThreadLocal<DateTimeFormatter>() {
-        override fun initialValue(): DateTimeFormatter =
-            DateTimeFormatter
-                .ofPattern(context.strings[R.string.time_slot_title_format])
-                .defaultLocale()
-    }
-    private val dateFormatterAppointmentDateTime = object : ThreadLocal<DateTimeFormatter>() {
-        override fun initialValue(): DateTimeFormatter =
-            DateTimeFormatter
-                .ofPattern(context.strings[R.string.appointment_datatime_format])
-                .defaultLocale()
-    }
-
+internal class DateTimeUtilsImpl(
+    private val context: Context,
+    private val formatters: DateTimeFormatters
+) : DateTimeUtils {
 
     override fun parseIsoDate(date: String): LocalDate = LocalDate.parse(date)
     override fun formatIsoDate(date: LocalDate): String =
         date.toString()
 
     override fun parseYmdDate(date: String): LocalDate =
-        java.time.LocalDate.parse(date,dateFormatterYmd.get()).toKotlinLocalDate()
+        date.parыe(formatters.dateFormatterYmd)
 
     override fun formatYmdDate(date: LocalDate): String =
-        date.toJavaLocalDate().format(dateFormatterYmd.get())
+        date.format(formatters.dateFormatterYmd)
 
-    override fun formatBirthDate(date: LocalDate): String  =
-        date.toJavaLocalDate().format(dateFormatterBirthday.get())
+    override fun formatBirthDate(date: LocalDate): String =
+        date.format(formatters.dateFormatterBirthday)
 
     override fun formatSlotTime(time: LocalTime): String =
-        time.toJavaLocalTime().format(dateFormatterTimeSlot.get())
+        time.format(formatters.dateFormatterTimeSlot)
 
     override fun formatSlotTitleDate(date: LocalDateTime): String =
-        date.toJavaLocalDateTime().format(dateFormatterTimeSlotTitle.get())
+        date.format(formatters.dateFormatterTimeSlotTitle)
 
-    override fun formatAppointmentDateTime(dateTime: LocalDateTime): String  =
-        dateTime.toJavaLocalDateTime().format(dateFormatterAppointmentDateTime.get())
+    override fun formatAppointmentDateTime(dateTime: LocalDateTime): Pair<String, String> {
+        val appointmentDate = dateTime.format(formatters.dateFormatterAppointmentDate)
+        val appointmentTime = dateTime.format(formatters.dateFormatterAppointmentTime)
+        return Pair(appointmentDate, appointmentTime)
+    }
 
-    private fun DateTimeFormatter.defaultLocale() = this.withLocale(Locale.US)
+    /*    override fun formatAppointmentDateTime(dateTime: LocalDateTime): String  =
+            dateTime.toJavaLocalDateTime().format(formatters.dateFormatterAppointmentDateTime.get())*/
+
+    override fun formatAppointmentCardDateTime(dateTime: LocalDateTime): String =
+        dateTime.format(formatters.dateFormatterAppointmentCardDateTime)
+
+    private fun LocalDateTime.format(formatter: ThreadLocal<DateTimeFormatter>) =
+        this.toJavaLocalDateTime().format(formatter.get())
+
+    private fun LocalTime.format(formatter: ThreadLocal<DateTimeFormatter>) =
+        this.toJavaLocalTime().format(formatter.get())
+
+    private fun LocalDate.format(formatter: ThreadLocal<DateTimeFormatter>) =
+        this.toJavaLocalDate().format(formatter.get())
+
+    private fun String.parыe(formatter: ThreadLocal<DateTimeFormatter>) =
+        java.time.LocalDate.parse(this, formatter.get()).toKotlinLocalDate()
+
 }

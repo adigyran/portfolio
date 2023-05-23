@@ -3,6 +3,7 @@ package com.aya.digital.core.datasource
 import com.aya.digital.core.network.model.response.base.PagedCursorResponse
 import com.aya.digital.core.network.model.response.doctors.DoctorDataResponse
 import com.aya.digital.core.network.model.response.doctors.SpecialityResponse
+import com.aya.digital.core.network.model.response.patient.PatientDataResponse
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Single
 
@@ -39,4 +40,8 @@ interface PractitionersDataSource {
     fun fetchSpeciality(
         id: Int,
     ): Single<SpecialityResponse>
+
+    fun getPatient(
+        id:Int
+    ):Single<PatientDataResponse>
 }

@@ -13,6 +13,7 @@ dependencies {
     implementation(project(":core:network:model"))
     implementation(project(":core:network:main"))
     implementation(project(":core:datasource"))
+    implementation(project(":core:database"))
     implementation(project(":core:datastore"))
     implementation(project(":core:data:base"))
     implementation(project(":core:data:doctors"))

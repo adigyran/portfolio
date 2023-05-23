@@ -7,5 +7,12 @@ import org.kodein.di.instance
 import org.kodein.di.singleton
 
 fun doctorsRepositoryDiModule() = DI.Module("doctorsRepositoryDiModule") {
-    bind<DoctorRepository>() with singleton { DoctorRepositoryImpl(instance(),instance()) }
+    bind<DoctorRepository>() with singleton {
+        DoctorRepositoryImpl(
+            instance(),
+            instance(),
+            instance(),
+            instance()
+        )
+    }
 }

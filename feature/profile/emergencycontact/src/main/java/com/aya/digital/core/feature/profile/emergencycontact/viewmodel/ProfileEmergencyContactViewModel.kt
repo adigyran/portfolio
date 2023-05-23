@@ -74,8 +74,10 @@ class ProfileEmergencyContactViewModel(
         postSideEffect(ProfileEmergencyContactSideEffects.Error(errorSideEffect))
     }
 
-    override fun onBack() {
-        coordinatorRouter.sendEvent(CoordinatorEvent.Back)
+    override fun onBack() = intent {
+        if(state.editMode) reduce { state.copy(editMode = false) }
+        else coordinatorRouter.sendEvent(CoordinatorEvent.Back)
+
     }
 }
 

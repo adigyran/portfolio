@@ -1,4 +1,4 @@
-package com.aya.digital.core.data.mappers.appointment
+package com.aya.digital.core.data.appointment.mappers
 
 import com.aya.digital.core.data.appointment.Practitioner
 import com.aya.digital.core.data.base.mappers.EntityMapper

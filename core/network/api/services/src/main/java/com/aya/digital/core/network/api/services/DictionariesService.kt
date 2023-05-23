@@ -10,11 +10,11 @@ import retrofit2.http.*
 
 interface DictionariesService {
 
-    @GET("api/insurances")
-    fun getInsurances(@Query("search") searchTerm: String): Flowable<PagedCursorResponse<InsuranceCompanyResponse>>
-    @GET("api/insurances/select")
-    fun getInsuranceById(@Query("ids") id: Int): Single<List<InsuranceCompanyResponse>>
-    @GET("api/insurances/select")
-    fun getInsurancesByIds(@Query("ids") ids: List<Int>): Observable<List<InsuranceCompanyResponse>>
+    @GET("search-app/insurances")
+    fun getInsurances(@Query("search") searchTerm: String?): Flowable<PagedCursorResponse<InsuranceCompanyResponse>>
+    @GET("search-app/insurances")
+    fun getInsuranceById(@Query("ids") id: Int): Single<PagedCursorResponse<InsuranceCompanyResponse>>
+    @GET("search-app/insurances")
+    fun getInsurancesByIds(@Query("ids") ids: List<Int>): Observable<PagedCursorResponse<InsuranceCompanyResponse>>
 
 }

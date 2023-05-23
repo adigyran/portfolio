@@ -10,6 +10,6 @@ internal class InsuranceCompanyMapperImpl : InsuranceCompanyMapper() {
     override fun mapFrom(type: InsuranceCompanyResponse): InsuranceCompanyModel =
         InsuranceCompanyModel(
             id = type.id,
-            name = type.nameOrg?:""
+            name = type.name?:""
         )
 }

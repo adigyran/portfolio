@@ -21,4 +21,7 @@ fun doctorMappersDiModule() = DI.Module("doctorMappersDiModule") {
     bind<SpecialityMapper>() with singleton { SpecialityMapperImpl() }
     bind<DoctorDataMapper>() with singleton { DoctorDataMapperImpl(instance(),instance(),instance(),instance()) }
 
+    bind<PatientDataMapper>() with singleton { PatientDataMapperImpl(instance(),instance()) }
+
+
 }

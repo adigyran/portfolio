@@ -11,5 +11,5 @@ class PagedCursorResponse<T> (
     val data: List<T>,
     val scrollTime: String,
     val scrollToken: String?,
-    val sizeResult: Int
+    val sizeResult: Int?
 )

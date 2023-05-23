@@ -1,7 +1,7 @@
 package com.aya.digital.core.feature.tabviews.doctorsearch.ui.model
 
 import android.content.Context
-import com.aya.digital.core.domain.doctors.base.model.DoctorModel
+import com.aya.digital.core.domain.base.models.doctors.DoctorModel
 import com.aya.digital.core.feature.tabviews.doctorsearch.viewmodel.DoctorSearchState
 import com.aya.digital.core.mvi.BaseStateTransformer
 import com.aya.digital.core.ui.adapters.base.DiffItem
@@ -27,7 +27,7 @@ class DoctorSearchStateTransformer(context: Context) :
             }
         )
 
-    private fun DoctorModel.composeName() = "Dr. %1s, %2s".format(lastName,clinics.firstOrNull()?.clinicName)
-    private fun DoctorModel.getSpeciality() = "%s".format(specialities.firstOrNull()?.name)
+    private fun com.aya.digital.core.domain.base.models.doctors.DoctorModel.composeName() = "Dr. %s, %s".format(lastName,clinics.firstOrNull()?.clinicName)
+    private fun com.aya.digital.core.domain.base.models.doctors.DoctorModel.getSpeciality() = "%s".format(specialities.firstOrNull()?.name)
 
 }

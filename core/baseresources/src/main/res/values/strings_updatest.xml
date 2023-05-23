@@ -52,5 +52,15 @@
         version 28 patient, doctor 2\n
         fixed api\n
         version 29 patient, doctor 3\n
+        added appointment card with detail info\n
+        version 30 patient\n
+        added appointment card with patient info for doctor\n
+        version 31 patient, doctor 4\n
+        added appointments for specific date screen\n
+        added create appointment success screen\n
+        appoinments list is currently pretty slow, bc it load each doctor for each appointment, future cache will fix that\n
+        version 32 patient\n
+        added doctor caching\n
+        version 33 patient\n
     </string>
 </resources>

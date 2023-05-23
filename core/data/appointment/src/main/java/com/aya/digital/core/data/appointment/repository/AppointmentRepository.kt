@@ -14,5 +14,10 @@ interface AppointmentRepository {
         end: LocalDateTime
     ): Flowable<RequestResult<List<Appointment>>>
 
+    fun getAppointmentById(
+        appointmentId:Int
+    ): Single<RequestResult<Appointment>>
+
+    fun cancelAppointment(appointmentId: Int):Single<RequestResult<Boolean>>
     fun createAppointment(slotId: Int, comment: String): Single<RequestResult<Appointment>>
 }

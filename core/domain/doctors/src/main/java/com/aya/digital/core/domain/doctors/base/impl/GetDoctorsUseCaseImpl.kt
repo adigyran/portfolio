@@ -7,8 +7,8 @@ import com.aya.digital.core.data.base.dataprocessing.toModelError
 import com.aya.digital.core.data.doctors.DoctorData
 import com.aya.digital.core.data.doctors.repository.DoctorRepository
 import com.aya.digital.core.domain.doctors.base.GetDoctorsUseCase
-import com.aya.digital.core.domain.doctors.base.model.DoctorPaginationModel
-import com.aya.digital.core.domain.doctors.base.model.mapToDoctorModel
+import com.aya.digital.core.domain.base.models.doctors.DoctorPaginationModel
+import com.aya.digital.core.domain.base.models.doctors.mapToDoctorModel
 import com.aya.digital.core.ext.mapResult
 import io.reactivex.rxjava3.core.Flowable
 

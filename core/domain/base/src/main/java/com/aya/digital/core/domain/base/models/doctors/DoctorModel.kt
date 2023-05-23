@@ -1,4 +1,4 @@
-package com.aya.digital.core.domain.doctors.base.model
+package com.aya.digital.core.domain.base.models.doctors
 
 import android.os.Parcelable
 import com.aya.digital.core.data.doctors.DoctorData
@@ -13,7 +13,7 @@ data class DoctorModel(
     val avatarPhotoLink: String?,
     val bio: String,
     val clinics:List<ClinicModel>,
-    val location:LocationModel,
+    val location: LocationModel,
     val postCode:String,
     val city:String,
     val address:String,
@@ -42,24 +42,24 @@ data class DoctorModel(
 
 }
 
-internal fun DoctorData.mapToDoctorModel() = DoctorModel(
+fun DoctorData.mapToDoctorModel() = DoctorModel(
     id = id,
     firstName = firstName,
     lastName = lastName,
     middleName = middleName,
     avatarPhotoLink = avatarPhotoLink,
     bio = bio,
-    clinics = clinics.map { DoctorModel.ClinicModel(it.name) },
+    clinics = clinics.map { com.aya.digital.core.domain.base.models.doctors.DoctorModel.ClinicModel(it.name) },
     location = location?.let {
-        DoctorModel.LocationModel(
+        com.aya.digital.core.domain.base.models.doctors.DoctorModel.LocationModel(
             it.latitude ?: 0.0,
             it.longitude ?: 0.0
         )
-    } ?: DoctorModel.LocationModel(0.0, 0.0),
+    } ?: com.aya.digital.core.domain.base.models.doctors.DoctorModel.LocationModel(0.0, 0.0),
     postCode = postalCode,
     city = city,
     address = address,
-    specialities = this.specialities.map { DoctorModel.SpecialityModel(it.specialtyName) },
-    insurances = this.insurances.map { DoctorModel.InsuranceModel(it.name) }
+    specialities = this.specialities.map { com.aya.digital.core.domain.base.models.doctors.DoctorModel.SpecialityModel(it.specialtyName) },
+    insurances = this.insurances.map { com.aya.digital.core.domain.base.models.doctors.DoctorModel.InsuranceModel(it.name) }
 )
 

@@ -4,5 +4,10 @@ package com.aya.digital.core.navigation
  * TODO
  *
  */
-interface AppFlavour {
+open class AppFlavour(val flavour:Flavor)
+
+sealed class Flavor
+{
+    object Patient:Flavor()
+    object Doctor:Flavor()
 }

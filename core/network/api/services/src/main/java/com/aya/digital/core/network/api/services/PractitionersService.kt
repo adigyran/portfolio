@@ -3,6 +3,7 @@ package com.aya.digital.core.network.api.services
 import com.aya.digital.core.network.model.response.base.PagedCursorResponse
 import com.aya.digital.core.network.model.response.doctors.DoctorDataResponse
 import com.aya.digital.core.network.model.response.doctors.SpecialityResponse
+import com.aya.digital.core.network.model.response.patient.PatientDataResponse
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Single
 import retrofit2.http.GET
@@ -34,4 +35,7 @@ interface PractitionersService {
     fun fetchSpeciality(
         @Path("id") id: Int,
     ): Single<SpecialityResponse>
+
+    @GET("api/patients/{id}")
+    fun getPatient(@Path("id") id:Int):Single<PatientDataResponse>
 }

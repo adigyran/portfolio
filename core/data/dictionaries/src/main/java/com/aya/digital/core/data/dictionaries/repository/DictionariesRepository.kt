@@ -9,7 +9,7 @@ import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 
 interface DictionariesRepository {
-    fun getInsuranceCompanies(searchTerm:String): Flowable<RequestResult<PaginationCursorModel<InsuranceCompanyModel>>>
+    fun getInsuranceCompanies(searchTerm:String?): Flowable<RequestResult<PaginationCursorModel<InsuranceCompanyModel>>>
 
     fun getInsuranceCompanyById(id:Int):Single<RequestResult<InsuranceCompanyModel>>
 

@@ -230,6 +230,11 @@ fun <T, V : Any> Single<RequestResult<T>>.mapResult(
 ): Single<V> =
     this.map { it.processResult(successHandler, errorHandler) }
 
+fun <T, V : Any> Flowable<RequestResult<T>>.flatMapResult(
+    successHandler: (T) -> Flowable<V>,
+    errorHandler: (RequestResult.Error) -> Flowable<V>,
+): Flowable<V> =
+    this.flatMap { it.processResult(successHandler, errorHandler) }
 fun <T, V : Any> Observable<RequestResult<T>>.flatMapResult(
     successHandler: (T) -> Observable<V>,
     errorHandler: (RequestResult.Error) -> Observable<V>,

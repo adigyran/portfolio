@@ -8,9 +8,9 @@ import io.reactivex.rxjava3.core.Single
 
 interface DictionariesDataSource {
 
-    fun getInsuranceCompanies(searchTerm:String) : Flowable<PagedCursorResponse<InsuranceCompanyResponse>>
+    fun getInsuranceCompanies(searchTerm:String?) : Flowable<PagedCursorResponse<InsuranceCompanyResponse>>
 
-    fun getInsuranceCompanyById(id:Int) : Single<List<InsuranceCompanyResponse>>
+    fun getInsuranceCompanyById(id:Int) : Single<PagedCursorResponse<InsuranceCompanyResponse>>
 
-    fun getInsuranceCompaniesByIds(ids:List<Int>) : Observable<List<InsuranceCompanyResponse>>
+    fun getInsuranceCompaniesByIds(ids:List<Int>) : Observable<PagedCursorResponse<InsuranceCompanyResponse>>
 }

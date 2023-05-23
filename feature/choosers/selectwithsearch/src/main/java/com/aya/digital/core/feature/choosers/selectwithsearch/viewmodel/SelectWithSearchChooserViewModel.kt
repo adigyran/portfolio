@@ -26,9 +26,9 @@ class SelectWithSearchChooserViewModel(
     )
     {
         if (it.items.isEmpty()) {
-            loadItems("")
+            loadItems(null)
         }
-        if (param.selectedItems != null && param.selectedItems.isNotEmpty()) {
+        if (!param.selectedItems.isNullOrEmpty()) {
             preselectItems(param.selectedItems)
         }
     }
@@ -38,7 +38,7 @@ class SelectWithSearchChooserViewModel(
         reduce { state.copy(selectedItems = selectedItems) }
     }
 
-    private fun loadItems(searchTerm: String) = intent(registerIdling = false) {
+    private fun loadItems(searchTerm: String?) = intent(registerIdling = false) {
         getMultiSelectItemsUseCase(searchTerm, param.requestCode).asFlow().collect { result ->
             result.processResult({ items ->
                 val selectedItems = items.map { SelectionItem(it.id, it.text) }

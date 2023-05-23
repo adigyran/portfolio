@@ -11,6 +11,8 @@ data class AppointmentResponse(
     val startDate: String,
     val comment:String,
     val participant:ParticipantResponse?,
+    val practitioner:PractitionerResponse?,
+    val status:String?,
     val type:String?
 )
 
@@ -31,10 +33,6 @@ data class PatientResponse(
 
 @JsonClass(generateAdapter = true)
 data class PractitionerResponse(
-    val id: Int,
-    val firstName: String?,
-    val lastName: String?,
-    val photo: String?,
-    val speciality: String?
+    val id: Int
 )
 

@@ -1,31 +1,30 @@
 package com.aya.digital.core.feature.tabviews.appointments.viewmodel
 
 
-import com.aya.digital.core.domain.appointment.base.GetAppointmentsUseCase
+import com.aya.digital.core.data.base.result.models.appointment.CreateAppointmentResultModel
+import com.aya.digital.core.data.base.result.models.appointment.SelectAppointmentResultModel
+import com.aya.digital.core.domain.appointment.base.GetAppointmentsWithParticipantsUseCase
+import com.aya.digital.core.domain.appointment.base.model.AppointmentWithParticipantModel
+import com.aya.digital.core.domain.base.models.appointment.AppointmentType
 import com.aya.digital.core.feature.tabviews.appointments.navigation.AppointmentsNavigationEvents
 import com.aya.digital.core.mvi.BaseViewModel
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
-import kotlinx.coroutines.flow.collect
+import com.aya.digital.core.util.requestcodes.RequestCodes
 import kotlinx.coroutines.reactive.asFlow
-import kotlinx.datetime.Clock
-import kotlinx.datetime.DateTimeUnit
-import kotlinx.datetime.Instant
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.isDistantPast
-import kotlinx.datetime.minus
-import kotlinx.datetime.toInstant
-import kotlinx.datetime.toLocalDateTime
+import kotlinx.datetime.LocalDate
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
+import timber.log.Timber
 
 class AppointmentsViewModel(
     private val coordinatorRouter: CoordinatorRouter,
-    private val getAppointmentsUseCase: GetAppointmentsUseCase
+    private val rootCoordinatorRouter: CoordinatorRouter,
+    private val getAppointmentsUseCase: GetAppointmentsWithParticipantsUseCase,
 ) :
     BaseViewModel<AppointmentsState, AppointmentsSideEffects>() {
     override fun onBack() {
-        TODO("Not yet implemented")
+
     }
 
     override val container = container<AppointmentsState, AppointmentsSideEffects>(
@@ -38,28 +37,61 @@ class AppointmentsViewModel(
     private fun loadAppointments() = intent(registerIdling = false) {
         getAppointmentsUseCase().asFlow()
             .collect { resultModel ->
-                resultModel.processResult({
+                resultModel.processResult({ appointments ->
                     reduce {
-                        state.copy(appointments = it)
+                        state.copy(appointments = appointments.map { it.toPatientAppointments() })
                     }
                 }, { processError(it) })
             }
     }
 
+    private fun AppointmentWithParticipantModel.toPatientAppointments() =
+        AppointmentData(
+            id = appointmentModel.id,
+            startDate = appointmentModel.startDate,
+            isTelemed = appointmentModel.type == AppointmentType.Online,
+            status = appointmentModel.status,
+            doctor = doctorModel?.run {
+                AppointmentDoctor(
+                    id = id,
+                    doctorFirstName = firstName,
+                    doctorLastName = lastName,
+                    doctorMiddleName = middleName,
+                    doctorSpecialities = specialities,
+                    doctorClinics = clinics,
+                    doctorAvatarImageLink = avatarPhotoLink
+                )
+            }
+        )
+
+    fun onDateSelected(date: LocalDate) = intent {
+        listenForAppointmentSelect()
+        coordinatorRouter.sendEvent(
+            AppointmentsNavigationEvents.OpenAppointmentsForSpecificDate(
+                requestCode = RequestCodes.APPOINTMENTS_FOR_DATE_REQUEST_CODE,
+                date = date
+            )
+        )
+    }
+
+    private fun listenForAppointmentSelect() {
+        rootCoordinatorRouter.setResultListener(RequestCodes.APPOINTMENTS_FOR_DATE_REQUEST_CODE) { result->
+            if(result !is SelectAppointmentResultModel) return@setResultListener
+            coordinatorRouter.sendEvent(AppointmentsNavigationEvents.OpenAppointment(result.appointmentId))
+        }
+    }
+
     fun onRefreshAppointments() = intent {
         loadAppointments()
     }
+
     fun onAppointmentClicked(appointmentId: Int) = intent {
         val appointmentModel = state.appointments?.firstOrNull { it.id == appointmentId }
-        appointmentModel?.let {appointment->
-            if(!appointmentModel.type.contains("online",true)) return@let
-            val currentTimeInstant = Clock.System.now()
-            val appointmentTimeInstant = appointment.startDate.toInstant(TimeZone.currentSystemDefault())
-            val appointmentTimeStartInstant = appointmentTimeInstant.minus(15, DateTimeUnit.MINUTE)
-            if(currentTimeInstant<appointmentTimeStartInstant) return@let
-            coordinatorRouter.sendEvent(AppointmentsNavigationEvents.OpenVideoCall(appointmentId))
+        appointmentModel?.let { appointment ->
+            coordinatorRouter.sendEvent(AppointmentsNavigationEvents.OpenAppointment(appointmentId))
         }
     }
+
 
 }
 

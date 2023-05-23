@@ -28,6 +28,8 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
             with(pluginManager) {
                 applyVersionCatalogPlugins(libs,aliases)
                 apply("kotlin-parcelize")
+                apply("kotlin-kapt")
+
             }
 
             tasks.named("dokkaHtmlPartial", DokkaTaskPartial::class.java) {

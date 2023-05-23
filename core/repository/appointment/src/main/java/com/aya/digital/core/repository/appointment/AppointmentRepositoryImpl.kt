@@ -43,6 +43,17 @@ internal class AppointmentRepositoryImpl(
             .retrofitResponseToResult(CommonUtils::mapServerErrors)
             .mapResult({ result -> appointmentMapper.mapFromList(result).asResult() }, { it })
 
+    override fun getAppointmentById(appointmentId: Int): Single<RequestResult<Appointment>> =
+        appointmentDataSource.getAppointmentById(appointmentId)
+            .retryOnError()
+            .retrofitResponseToResult(CommonUtils::mapServerErrors)
+            .mapResult({ result -> appointmentMapper.mapFrom(result).asResult() }, { it })
+
+    override fun cancelAppointment(appointmentId: Int): Single<RequestResult<Boolean>> =
+        appointmentDataSource.cancelAppointment(appointmentId)
+            .retryOnError()
+            .retrofitResponseToResult(CommonUtils::mapServerErrors)
+
     override fun createAppointment(
         slotId: Int,
         comment: String

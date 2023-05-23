@@ -78,7 +78,6 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
                     add("implementation", libs.findLibrary("timber").get())
                     add("implementation", libs.findLibrary("decoro").get())
                     add("debugImplementation", libs.findLibrary("leak.canary").get())
-
                 }
             }
         }

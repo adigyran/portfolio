@@ -81,6 +81,10 @@ moshi = "1.14.0"
 kotlinxSerializationJson = "1.4.1"
 kotlinxSerializationProtobuf = "1.4.1"
 
+#storage
+#room
+room = "2.5.1"
+
 #protobuf
 protobuf = "3.21.12"
 protobufPlugin = "0.9.0"
@@ -104,7 +108,7 @@ firebase = "31.2.0"
 firebaseDistribution = "3.2.0"
 
 #DI
-kodein = "7.17.0"
+kodein = "7.20.1"
 
 #eventbus
 eventbus = "3.3.1"
@@ -257,6 +261,12 @@ moshi-adapters = { group = "com.squareup.moshi", name = "moshi-adapters", versio
 #networking-kotlinx-serialisation
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 kotlinx-serialization-protobuf = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-protobuf", version.ref = "kotlinxSerializationProtobuf" }
+
+#storage
+#room
+room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+room-kapt = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+room-rxjava3 = { group = "androidx.room", name = "room-rxjava3", version.ref = "room" }
 
 #protobuf
 protobuf-kotlin-lite = { group = "com.google.protobuf", name = "protobuf-kotlin-lite", version.ref = "protobuf" }

@@ -5,6 +5,7 @@ import com.aya.digital.core.network.main.di.modules.createApiService
 import com.aya.digital.core.network.model.response.base.PagedCursorResponse
 import com.aya.digital.core.network.model.response.doctors.DoctorDataResponse
 import com.aya.digital.core.network.model.response.doctors.SpecialityResponse
+import com.aya.digital.core.network.model.response.patient.PatientDataResponse
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Single
 import org.kodein.di.DI
@@ -44,4 +45,6 @@ class RetrofitPractitionersNetwork(private val network: PractitionersService) :
 
     override fun fetchSpeciality(id: Int): Single<SpecialityResponse> =
         network.fetchSpeciality(id)
+
+    override fun getPatient(id: Int): Single<PatientDataResponse> = network.getPatient(id)
 }
