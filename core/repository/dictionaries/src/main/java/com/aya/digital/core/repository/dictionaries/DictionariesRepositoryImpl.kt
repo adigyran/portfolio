@@ -51,7 +51,16 @@ class DictionariesRepositoryImpl(
                 insurances.toSet().asResult()
             }, { it })
 
-    override fun getSpecialities(searchTerm: String?): Flowable<RequestResult<PaginationCursorModel<SpecialityModel>>> {
-        TODO("Not yet implemented")
-    }
+    override fun getSpecialities(searchTerm: String?): Flowable<RequestResult<PaginationCursorModel<SpecialityModel>>> =
+        dictionariesDataSource.getSpecialisations(searchTerm)
+            .retryOnError()
+            .retrofitResponseToResult(CommonUtils::mapServerErrors)
+            .mapResult({ result ->
+                val specialisations = specialityMapper.mapFromList(result.data)
+                PaginationCursorModel(
+                    specialisations,
+                    result.scrollToken,
+                    result.sizeResult
+                ).asResult()
+            }, { it })
 }

@@ -49,6 +49,9 @@ class DoctorSearchView :
             viewModel.onRefreshDoctors()
             binding.swipeRefresh.isRefreshing = false
         }
+        binding.toolbar.insurance bindClick {viewModel.onInsurance()}
+        binding.toolbar.speciality bindClick {viewModel.onSpecialisation()}
+        binding.toolbar.location bindClick {viewModel.onLocation()}
         if (savedInstanceState == null) {
             recyclers.add(binding.recycler)
             with(binding.recycler) {

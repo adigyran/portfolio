@@ -1,6 +1,7 @@
 package com.aya.digital.core.datasource
 
 import com.aya.digital.core.network.model.response.base.PagedCursorResponse
+import com.aya.digital.core.network.model.response.doctors.SpecialityResponse
 import com.aya.digital.core.network.model.response.profile.InsuranceCompanyResponse
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Observable
@@ -13,4 +14,7 @@ interface DictionariesDataSource {
     fun getInsuranceCompanyById(id:Int) : Single<PagedCursorResponse<InsuranceCompanyResponse>>
 
     fun getInsuranceCompaniesByIds(ids:List<Int>) : Observable<PagedCursorResponse<InsuranceCompanyResponse>>
+
+    fun getSpecialisations(searchTerm:String?) : Flowable<PagedCursorResponse<SpecialityResponse>>
+
 }
