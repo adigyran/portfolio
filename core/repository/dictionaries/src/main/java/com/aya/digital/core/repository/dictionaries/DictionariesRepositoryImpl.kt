@@ -2,18 +2,22 @@ package com.aya.digital.core.repository.dictionaries
 
 import com.aya.digital.core.data.base.dataprocessing.PaginationCursorModel
 import com.aya.digital.core.data.dictionaries.InsuranceCompanyModel
+import com.aya.digital.core.data.dictionaries.SpecialityModel
 import com.aya.digital.core.data.dictionaries.mappers.InsuranceCompanyMapper
+import com.aya.digital.core.data.dictionaries.mappers.SpecialityMapper
 import com.aya.digital.core.data.dictionaries.repository.DictionariesRepository
 import com.aya.digital.core.datasource.DictionariesDataSource
 import com.aya.digital.core.ext.*
 import com.aya.digital.core.networkbase.CommonUtils
 import com.aya.digital.core.networkbase.server.RequestResult
+import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 
 class DictionariesRepositoryImpl(
     private val dictionariesDataSource: DictionariesDataSource,
-    private val insuranceMapper: InsuranceCompanyMapper
+    private val insuranceMapper: InsuranceCompanyMapper,
+    private val specialityMapper: SpecialityMapper
 ) : DictionariesRepository {
 
     override fun getInsuranceCompanies(searchTerm: String?) =
@@ -46,4 +50,8 @@ class DictionariesRepositoryImpl(
                 val insurances = insuranceMapper.mapFromList(result.data)
                 insurances.toSet().asResult()
             }, { it })
+
+    override fun getSpecialities(searchTerm: String?): Flowable<RequestResult<PaginationCursorModel<SpecialityModel>>> {
+        TODO("Not yet implemented")
+    }
 }

@@ -6,6 +6,8 @@ import com.aya.digital.core.domain.dictionaries.base.impl.GetMultiSelectItemsUse
 import com.aya.digital.core.domain.dictionaries.insurancecompany.GetInsuranceCompanyItemByIdUseCase
 import com.aya.digital.core.domain.dictionaries.insurancecompany.impl.GetInsuranceCompanyItemByIdUseCaseImpl
 import com.aya.digital.core.domain.dictionaries.insurancecompany.impl.GetInsuranceCompanyItemsUseCaseImpl
+import com.aya.digital.core.domain.dictionaries.speciality.GetSpecialityItemsUseCase
+import com.aya.digital.core.domain.dictionaries.speciality.impl.GetSpecialityItemsUseCaseImpl
 import org.kodein.di.DI
 import org.kodein.di.bind
 import org.kodein.di.instance
@@ -15,7 +17,9 @@ fun dictionariesDomainDiModule() = DI.Module("dictionariesDomainDiModule") {
     bind<GetInsuranceCompanyItemsUseCase>() with singleton { GetInsuranceCompanyItemsUseCaseImpl(instance()) }
     bind<GetInsuranceCompanyItemByIdUseCase>() with singleton { GetInsuranceCompanyItemByIdUseCaseImpl(instance()) }
 
-    bind<GetMultiSelectItemsUseCase>() with singleton { GetMultiSelectItemsUseCaseImpl(instance()) }
+    bind<GetSpecialityItemsUseCase>() with singleton { GetSpecialityItemsUseCaseImpl(instance()) }
+
+    bind<GetMultiSelectItemsUseCase>() with singleton { GetMultiSelectItemsUseCaseImpl(instance(),instance()) }
 
 
 }
