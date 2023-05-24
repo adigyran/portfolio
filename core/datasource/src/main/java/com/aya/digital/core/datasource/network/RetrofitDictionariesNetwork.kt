@@ -15,7 +15,6 @@ import org.kodein.di.instance
 import org.kodein.di.singleton
 
 
-
 fun dictionariesNetworkModule() = DI.Module("dictionariesNetworkModule") {
     bind<DictionariesDataSource>() with singleton {
         val apiService =
@@ -26,8 +25,15 @@ fun dictionariesNetworkModule() = DI.Module("dictionariesNetworkModule") {
 
 class RetrofitDictionariesNetwork(private val network: DictionariesService) :
     DictionariesDataSource {
-    override fun getInsuranceCompanies(searchTerm: String?): Flowable<PagedCursorResponse<InsuranceCompanyResponse>>  = network.getInsurances(searchTerm)
-    override fun getInsuranceCompanyById(id: Int): Single<PagedCursorResponse<InsuranceCompanyResponse>> = network.getInsuranceById(id)
-    override fun getInsuranceCompaniesByIds(ids: List<Int>): Observable<PagedCursorResponse<InsuranceCompanyResponse>> = network.getInsurancesByIds(ids)
-    override fun getSpecialisations(searchTerm: String?): Flowable<PagedCursorResponse<SpecialityResponse>>  = network.getSpecialities(searchTerm)
+    override fun getInsuranceCompanies(searchTerm: String?): Flowable<PagedCursorResponse<InsuranceCompanyResponse>> =
+        network.getInsurances(searchTerm)
+
+    override fun getInsuranceCompanyById(id: Int): Single<PagedCursorResponse<InsuranceCompanyResponse>> =
+        network.getInsuranceById(id)
+
+    override fun getInsuranceCompaniesByIds(ids: List<Int>): Observable<PagedCursorResponse<InsuranceCompanyResponse>> =
+        network.getInsurancesByIds(ids)
+
+    override fun getSpecialisations(searchTerm: String?): Flowable<PagedCursorResponse<SpecialityResponse>> =
+        network.getSpecialities(searchTerm)
 }

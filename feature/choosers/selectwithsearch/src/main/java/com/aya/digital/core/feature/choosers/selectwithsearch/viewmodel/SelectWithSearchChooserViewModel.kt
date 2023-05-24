@@ -21,21 +21,27 @@ class SelectWithSearchChooserViewModel(
     private val param: SelectWithSearchView.Param
 ) :
     BaseViewModel<SelectWithSearchChooserState, SelectWithSearchChooserSideEffects>() {
-    override val container = container<SelectWithSearchChooserState, SelectWithSearchChooserSideEffects>(
-        initialState = SelectWithSearchChooserState(),
-    )
-    {
-        if (it.items.isEmpty()) {
-            loadItems(null)
+    override val container =
+        container<SelectWithSearchChooserState, SelectWithSearchChooserSideEffects>(
+            initialState = SelectWithSearchChooserState(),
+        )
+        {
+            if (it.items.isEmpty()) {
+                loadItems(null)
+            }
+            if (!param.selectedItems.isNullOrEmpty()) {
+                preselectItems(param.selectedItems)
+            }
         }
-        if (!param.selectedItems.isNullOrEmpty()) {
-            preselectItems(param.selectedItems)
-        }
-    }
 
     private fun preselectItems(selectedItems: Set<Int>) = intent {
 
         reduce { state.copy(selectedItems = selectedItems) }
+    }
+
+    fun onSearchTextChanged(text: String) = intent {
+        reduce { state.copy(searchTerm = text) }
+        loadItems(state.searchTerm)
     }
 
     private fun loadItems(searchTerm: String?) = intent(registerIdling = false) {
@@ -45,20 +51,20 @@ class SelectWithSearchChooserViewModel(
                 reduce {
                     state.copy(items = selectedItems)
                 }
-            }, {processError(it)})
+            }, { processError(it) })
 
         }
     }
 
     fun selectItem(itemId: Int) = intent {
-        val selectedItems = when(param.isMultiChoose)
-        {
+        val selectedItems = when (param.isMultiChoose) {
             true -> {
                 val selectedItemsTemp = state.selectedItems.toMutableSet()
                 if (selectedItemsTemp.contains(itemId)) selectedItemsTemp.remove(itemId)
                 else selectedItemsTemp.add(itemId)
                 selectedItemsTemp.toSet()
             }
+
             false -> {
                 val selectedItemsTemp = state.selectedItems.toMutableSet()
                 selectedItemsTemp.clear()
@@ -71,8 +77,12 @@ class SelectWithSearchChooserViewModel(
     }
 
     fun applyFilters() = intent {
-        coordinatorRouter.sendEvent(SelectWithSearchNavigationEvents.FinishWithResult(param.requestCode,
-            MultiSelectResultModel(state.selectedItems)))
+        coordinatorRouter.sendEvent(
+            SelectWithSearchNavigationEvents.FinishWithResult(
+                param.requestCode,
+                MultiSelectResultModel(state.selectedItems)
+            )
+        )
     }
 
     override fun postErrorSideEffect(errorSideEffect: ErrorSideEffect) = intent {

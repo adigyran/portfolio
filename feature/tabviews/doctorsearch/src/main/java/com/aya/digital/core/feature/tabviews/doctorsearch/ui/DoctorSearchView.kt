@@ -91,12 +91,17 @@ class DoctorSearchView :
         }
 
     override fun render(state: DoctorSearchState) {
-        stateTransformer(state).data?.let {
-            adapter.items = it
-            if (binding.recycler.adapter == null) {
-                binding.recycler.swapAdapter(adapter, true)
+        stateTransformer(state).run {
+            data?.let {  adapter.items = it
+                if (binding.recycler.adapter == null) {
+                    binding.recycler.swapAdapter(adapter, true)
+                } }
+            specialityFilterText?.let {
             }
         }
+        /*stateTransformer(state).data?.let {
+
+        }*/
     }
 
     override fun provideViewModel(): DoctorSearchViewModel = viewModelFactory(Unit)

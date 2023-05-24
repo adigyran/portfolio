@@ -2,6 +2,8 @@ package com.aya.digital.core.feature.choosers.multiselect.ui
 
 import android.os.Bundle
 import android.os.Parcelable
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -50,6 +52,20 @@ class SelectWithSearchView :
         }
     }
 
+    private val textWatcher = object : TextWatcher {
+        var firstCall = true
+        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            if (firstCall) {
+                firstCall = false
+                return
+            }
+        }
+
+        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) = Unit
+
+        override fun afterTextChanged(s: Editable) = viewModel.onSearchTextChanged(s.toString())
+    }
+
     override fun prepareCreatedUi(savedInstanceState: Bundle?) {
         super.prepareCreatedUi(savedInstanceState)
         recyclers.add(binding.recycler)
@@ -88,10 +104,19 @@ class SelectWithSearchView :
         }
 
     override fun render(state: SelectWithSearchChooserState) {
-        stateTransformer(state).data?.let {
-            adapter.items = it
-            if (binding.recycler.adapter == null) {
-                binding.recycler.swapAdapter(adapter, true)
+        stateTransformer(state).run {
+            data?.let {
+                adapter.items = it
+                if (binding.recycler.adapter == null) {
+                    binding.recycler.swapAdapter(adapter, true)
+                }
+            }
+            searchText.run {
+                binding.toolbar.edField.removeTextChangedListener(textWatcher)
+                if (binding.toolbar.edField.text.toString() != searchText) {
+                    binding.toolbar.edField.setText(searchText)
+                }
+                binding.toolbar.edField.addTextChangedListener(textWatcher)
             }
         }
     }
