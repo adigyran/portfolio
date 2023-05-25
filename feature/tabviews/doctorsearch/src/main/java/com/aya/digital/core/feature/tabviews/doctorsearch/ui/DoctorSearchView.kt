@@ -97,6 +97,13 @@ class DoctorSearchView :
                     binding.recycler.swapAdapter(adapter, true)
                 } }
             specialityFilterText?.let {
+                binding.toolbar.speciality.binding.fieldText.text = it
+            }
+            locationFilterText?.let {
+                binding.toolbar.location.binding.fieldText.text = it
+            }
+            insuranceFilterText?.let {
+                binding.toolbar.insurance.binding.fieldText.text = it
             }
         }
         /*stateTransformer(state).data?.let {

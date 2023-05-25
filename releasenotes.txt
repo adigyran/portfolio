@@ -63,4 +63,5 @@ Added Firebase Distribution\n
         appointments split by status\n
         fixed insurances\n
         version 34 patient\n
+        version 35 patient\n
 
