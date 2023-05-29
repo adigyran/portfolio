@@ -24,5 +24,8 @@
     <string name="filter_field_speciality">Speciality</string>
     <string name="filter_field_location">Location</string>
     <string name="filter_field_insurance">Choose insurance</string>
+    <string name="appointment_status_scheduled_title">Scheduled appointments</string>
+    <string name="appointment_status_cancelled_title">Canceled appointments</string>
+    <string name="appointment_status_done_title">Done appointments</string>
 
 </resources>

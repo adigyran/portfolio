@@ -29,35 +29,6 @@ class AppointmentsStateTransformer(
                             addAll(appointments.map { it.getAppointmentUiModel() ?: return@run })
                             add(headersFooters.second)
                         }
-                        /*state.appointments
-                            .groupBy { it.status }
-                            .forEach { entry ->
-                                addAll(
-                                    entry.value
-                                        .map { appointment ->
-                                            val doctorModel = appointment.doctor ?: return@run
-                                            PatientAppointmentUIModel(
-                                                id = appointment.id,
-                                                startDateTime = dateTimeUtils.formatAppointmentDateTime(
-                                                    appointment.startDate
-                                                ),
-                                                duration = "",
-                                                doctorName = "Dr. %s, %s".format(
-                                                    doctorModel.doctorLastName,
-                                                    doctorModel.getClinic()
-                                                ),
-                                                doctorSpeciality = "%s".format(doctorModel.getSpeciality()),
-                                                participantAvatarLink = doctorModel.doctorAvatarImageLink,
-                                                isTelemed = appointment.isTelemed,
-                                                status = when (appointment.status) {
-                                                    AppointmentModel.AppointmentStatus.SCHEDULED -> PatientAppointmentUIModel.AppointmentStatus.SCHEDULED
-                                                    AppointmentModel.AppointmentStatus.CANCELLED -> PatientAppointmentUIModel.AppointmentStatus.CANCELLED
-                                                    AppointmentModel.AppointmentStatus.DONE -> PatientAppointmentUIModel.AppointmentStatus.DONE
-                                                }
-                                            )
-                                        }
-                                )
-                            }*/
                     }
                 }
             }

@@ -33,6 +33,7 @@ class PatientAppointmentStatusHeaderDelegate() :
         override fun bind(item: PatientAppointmentsStatusHeaderUIModel) {
             super.bind(item)
             status = item.status
+            binding.headerTitle.setText(item.status.nameId)
         }
 
         override fun getDelegateStatus(): AppointmentUiStatus = item.status
