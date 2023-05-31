@@ -170,15 +170,15 @@ class DoctorSearchViewModel(
             if (result !is MultiSelectResultModel) return@setResultListener
             val selectedFilters = when (requestCode) {
                 RequestCodes.LOCATIONS_LIST_REQUEST_CODE -> {
-                    result.selectedItems.map { SelectedFilterModel.Location(it, "") }
+                    result.selectedItems.map { SelectedFilterModel.Location(it.id, it.text) }
                 }
 
                 RequestCodes.INSURANCE_LIST_REQUEST_CODE -> {
-                    result.selectedItems.map { SelectedFilterModel.Insurance(it, "") }
+                    result.selectedItems.map { SelectedFilterModel.Insurance(it.id,it.text) }
                 }
 
                 RequestCodes.SPECIALITIES_LIST_REQUEST_CODE -> {
-                    result.selectedItems.map { SelectedFilterModel.Speciality(it, "") }
+                    result.selectedItems.map { SelectedFilterModel.Speciality(it.id,it.text) }
                 }
 
                 else -> {
@@ -191,7 +191,7 @@ class DoctorSearchViewModel(
 
     private inline fun <reified T : SelectedFilterModel> setFilters(filterItems: List<T>) = intent {
         val filters = state.selectedFilters.toMutableSet().apply {
-            removeAll { it is T }
+            removeAll { it::class == T::class }
             addAll(filterItems)
         }
         reduce { state.copy(selectedFilters = filters.toSet()) }

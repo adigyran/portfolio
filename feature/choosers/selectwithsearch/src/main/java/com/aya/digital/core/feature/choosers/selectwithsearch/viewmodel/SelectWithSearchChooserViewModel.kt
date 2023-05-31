@@ -1,6 +1,7 @@
 package com.aya.digital.core.feature.choosers.multiselect.viewmodel
 
 import com.aya.digital.core.data.base.result.models.dictionaries.MultiSelectResultModel
+import com.aya.digital.core.data.base.result.models.dictionaries.SelectedItem
 import com.aya.digital.core.domain.dictionaries.base.GetMultiSelectItemsUseCase
 import com.aya.digital.core.feature.choosers.multiselect.model.SelectionItem
 import com.aya.digital.core.feature.choosers.multiselect.navigation.SelectWithSearchNavigationEvents
@@ -36,7 +37,7 @@ class SelectWithSearchChooserViewModel(
 
     private fun preselectItems(selectedItems: Set<Int>) = intent {
 
-        reduce { state.copy(selectedItems = selectedItems) }
+        reduce { state.copy(selectedItems = selectedItems.map { SelectionItem(it,"") }.toSet()) }
     }
 
     fun onSearchTextChanged(text: String) = intent {
@@ -60,15 +61,13 @@ class SelectWithSearchChooserViewModel(
         val selectedItems = when (param.isMultiChoose) {
             true -> {
                 val selectedItemsTemp = state.selectedItems.toMutableSet()
-                if (selectedItemsTemp.contains(itemId)) selectedItemsTemp.remove(itemId)
-                else selectedItemsTemp.add(itemId)
+                if(!selectedItemsTemp.removeIf { it.id == itemId }) selectedItemsTemp.add(state.items.first { it.id == itemId })
                 selectedItemsTemp.toSet()
             }
-
             false -> {
                 val selectedItemsTemp = state.selectedItems.toMutableSet()
                 selectedItemsTemp.clear()
-                selectedItemsTemp.add(itemId)
+                selectedItemsTemp.add(state.items.first { it.id == itemId })
                 selectedItemsTemp.toSet()
             }
         }
@@ -80,7 +79,7 @@ class SelectWithSearchChooserViewModel(
         coordinatorRouter.sendEvent(
             SelectWithSearchNavigationEvents.FinishWithResult(
                 param.requestCode,
-                MultiSelectResultModel(state.selectedItems)
+                MultiSelectResultModel(state.selectedItems.map { SelectedItem(it.id,it.text) }.toSet())
             )
         )
     }

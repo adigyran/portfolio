@@ -7,6 +7,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class SelectWithSearchChooserState(
     val searchTerm: String? = null,
-    val selectedItems: Set<Int> = setOf<Int>(),
+    val selectedItems: Set<SelectionItem> = setOf(),
     val items: List<SelectionItem> = listOf()
 ) : BaseState
+

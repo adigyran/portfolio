@@ -12,14 +12,13 @@ import com.aya.digital.core.ext.argument
 import com.aya.digital.core.ext.bindClick
 import com.aya.digital.core.ext.createFragment
 import com.aya.digital.core.feature.choosers.multiselect.di.selectWithSearchDiModule
-import com.aya.digital.core.feature.choosers.multiselect.ui.model.SelectWithSearchStateTransformer
-import com.aya.digital.core.feature.choosers.multiselect.ui.model.SelectWithSearchChooserUiModel
+import com.aya.digital.core.feature.choosers.selectwithsearch.ui.model.SelectWithSearchStateTransformer
+import com.aya.digital.core.feature.choosers.selectwithsearch.ui.model.SelectWithSearchChooserUiModel
 import com.aya.digital.core.feature.choosers.multiselect.viewmodel.SelectWithSearchChooserState
 import com.aya.digital.core.feature.choosers.multiselect.viewmodel.SelectWithSearchChooserViewModel
 import com.aya.digital.core.feature.choosers.selectwithsearch.databinding.ViewSelectWithSearchBinding
 import com.aya.digital.core.feature.choosers.selectwithsearch.ui.SelectWithSearchDecoration
 import com.aya.digital.core.feature.choosers.selectwithsearch.viewmodel.SelectWithSearchChooserSideEffects
-import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.ui.adapters.base.BaseDelegateAdapter
 import com.aya.digital.core.ui.base.screens.DiFragment
 import com.aya.digital.core.ui.delegates.features.choosers.selectwithsearch.ui.SelectWithSearchItemDelegate
@@ -120,6 +119,7 @@ class SelectWithSearchView :
                 }
                 binding.toolbar.edField.addTextChangedListener(textWatcher)
             }
+            title.run { binding.toolbar.title.text = title }
         }
     }
 

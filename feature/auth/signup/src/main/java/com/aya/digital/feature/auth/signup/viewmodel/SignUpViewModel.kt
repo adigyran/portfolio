@@ -192,7 +192,7 @@ class SignUpViewModel(
 
     private fun listenForInsuranceEvent() {
         rootCoordinatorRouter.setResultListener(RequestCodes.INSURANCE_LIST_REQUEST_CODE) {
-            if (it is MultiSelectResultModel) onInsurancesSelected(it.selectedItems)
+            if (it is MultiSelectResultModel) onInsurancesSelected(it.selectedItems.map { it.id }.toSet())
         }
     }
 

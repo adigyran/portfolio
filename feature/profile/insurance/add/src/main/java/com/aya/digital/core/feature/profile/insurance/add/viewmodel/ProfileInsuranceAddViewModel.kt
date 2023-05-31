@@ -149,9 +149,9 @@ class ProfileInsuranceAddViewModel(
 
 
     private fun listenForInsuranceCompany() = intent {
-        rootCoordinatorRouter.setResultListener(RequestCodes.INSURANCE_LIST_REQUEST_CODE) {
-            if (it is MultiSelectResultModel && it.selectedItems.isNotEmpty()) {
-                setInsuranceCompany(it.selectedItems.first())
+        rootCoordinatorRouter.setResultListener(RequestCodes.INSURANCE_LIST_REQUEST_CODE) { result ->
+            if (result is MultiSelectResultModel && result.selectedItems.isNotEmpty()) {
+                setInsuranceCompany(result.selectedItems.map { it.id }.first())
 
             }
         }

@@ -2,7 +2,7 @@ package com.aya.digital.core.feature.choosers.multiselect.di
 
 import com.aya.digital.core.dibase.scopes.CustomFragmentScope
 import com.aya.digital.core.feature.choosers.multiselect.ui.SelectWithSearchView
-import com.aya.digital.core.feature.choosers.multiselect.ui.model.SelectWithSearchStateTransformer
+import com.aya.digital.core.feature.choosers.selectwithsearch.ui.model.SelectWithSearchStateTransformer
 import com.aya.digital.core.feature.choosers.multiselect.viewmodel.SelectWithSearchChooserViewModel
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
 import org.kodein.di.*
@@ -12,7 +12,7 @@ fun selectWithSearchDiModule(
     param: SelectWithSearchView.Param
 ) = DI.Module("selectWithSearchDiModule") {
 
-    bind<SelectWithSearchStateTransformer>() with singleton { SelectWithSearchStateTransformer(instance()) }
+    bind<SelectWithSearchStateTransformer>() with singleton { SelectWithSearchStateTransformer(param.requestCode,instance()) }
 
     bind {
         scoped(CustomFragmentScope).singleton {

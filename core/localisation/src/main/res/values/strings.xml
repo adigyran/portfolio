@@ -28,4 +28,9 @@
     <string name="appointment_status_cancelled_title">Canceled appointments</string>
     <string name="appointment_status_done_title">Done appointments</string>
 
+    <!-- multiselect titles -->
+    <string name="multiselect_empty_title">Error Title</string>
+    <string name="multiselect_location_title">Location</string>
+    <string name="multiselect_speciality_title">Specialities</string>
+    <string name="multiselect_insurances_title">Insurances</string>
 </resources>
