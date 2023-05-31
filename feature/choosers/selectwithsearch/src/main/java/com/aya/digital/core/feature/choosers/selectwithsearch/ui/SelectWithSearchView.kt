@@ -46,7 +46,7 @@ class SelectWithSearchView :
         BaseDelegateAdapter.create {
             delegate {
                 SelectWithSearchItemDelegate(
-                   viewModel::selectItem
+                    viewModel::selectItem
                 )
             }
         }
@@ -71,6 +71,7 @@ class SelectWithSearchView :
         recyclers.add(binding.recycler)
 
         binding.applyBtn bindClick { viewModel.applyFilters() }
+        binding.toolbar.backButton bindClick { viewModel.onBack() }
 
         with(binding.recycler) {
             itemAnimator = null
@@ -98,9 +99,10 @@ class SelectWithSearchView :
     ): ViewSelectWithSearchBinding = ViewSelectWithSearchBinding.inflate(inflater, container, false)
 
     override fun sideEffect(sideEffect: SelectWithSearchChooserSideEffects) =
-        when(sideEffect)
-        {
-            is SelectWithSearchChooserSideEffects.Error -> {processErrorSideEffect(sideEffect.error)}
+        when (sideEffect) {
+            is SelectWithSearchChooserSideEffects.Error -> {
+                processErrorSideEffect(sideEffect.error)
+            }
         }
 
     override fun render(state: SelectWithSearchChooserState) {
