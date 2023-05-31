@@ -9,26 +9,30 @@ import io.reactivex.rxjava3.core.Single
 
 interface PractitionersDataSource {
 
-    fun fetchPractitioners(scrollId:String?): Flowable<PagedCursorResponse<DoctorDataResponse>>
+    fun fetchPractitioners(
+        scrollId: String?, specialityCodes: List<Int>?,
+        cities: List<String>?,
+        insurances: List<Int>?
+    ): Flowable<PagedCursorResponse<DoctorDataResponse>>
 
     fun fetchPractitionerById(
         id: Int,
     ): Single<DoctorDataResponse>
 
-   /* fun searchPractitioners(
-        search: String,
-        page: Int = 0,
-        limit: Int = 10
-    ): Flowable<PractitionersResponse>
+    /* fun searchPractitioners(
+         search: String,
+         page: Int = 0,
+         limit: Int = 10
+     ): Flowable<PractitionersResponse>
 
 
-    fun searchPractitionersWithCode(
-        code: String,
-        search: String,
-        page: Int = 0,
-        limit: Int = 10
-    ): Flowable<PractitionersResponse>
-*/
+     fun searchPractitionersWithCode(
+         code: String,
+         search: String,
+         page: Int = 0,
+         limit: Int = 10
+     ): Flowable<PractitionersResponse>
+ */
     fun fetchSpecialities(
         page: Int,
         limit: Int,
@@ -42,6 +46,6 @@ interface PractitionersDataSource {
     ): Single<SpecialityResponse>
 
     fun getPatient(
-        id:Int
-    ):Single<PatientDataResponse>
+        id: Int
+    ): Single<PatientDataResponse>
 }

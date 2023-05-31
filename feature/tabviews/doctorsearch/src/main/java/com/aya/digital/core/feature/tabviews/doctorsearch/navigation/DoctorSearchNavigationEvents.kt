@@ -15,7 +15,7 @@ sealed class DoctorSearchNavigationEvents : CoordinatorEvent() {
         val selectedSpecialisationsIds: List<Int>?
     ) : DoctorSearchNavigationEvents()
 
-    data class SelectLocation(val requestCode: String, val selectedLocation: Int) :
+    data class SelectLocation(val requestCode: String, val selectedLocation: Int?) :
         DoctorSearchNavigationEvents()
 
 

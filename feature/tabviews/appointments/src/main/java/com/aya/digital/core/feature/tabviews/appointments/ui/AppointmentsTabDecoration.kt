@@ -28,8 +28,8 @@ internal class AppointmentsTabDecoration(private val context: Context) :
     private var right = 0F
     private var bottom = 0F
     private val paint = Paint()
-    private val scheduledColor = context.getColor(R.color.bg_blue)
-    private val doneColor = context.getColor(R.color.bg_light_grey)
+    private val scheduledColor = context.getColor(R.color.bg_scheduled_appointments)
+    private val doneColor = context.getColor(R.color.bg_green)
     private val cancelledColor = context.getColor(R.color.bg_light_grey)
 
     override fun getItemOffsets(

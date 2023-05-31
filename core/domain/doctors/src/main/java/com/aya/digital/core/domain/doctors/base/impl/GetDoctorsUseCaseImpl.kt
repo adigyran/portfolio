@@ -15,8 +15,13 @@ import io.reactivex.rxjava3.core.Flowable
 internal class GetDoctorsUseCaseImpl(private val doctorRepository: DoctorRepository) :
     GetDoctorsUseCase {
     var paginationPageModel: PaginationCursorModel<DoctorData>? = null
-    override fun invoke(cursor: String?): Flowable<RequestResultModel<DoctorPaginationModel>> =
-        doctorRepository.fetchDoctors(cursor)
+    override fun invoke(
+        cursor: String?,
+        cities: List<String>?,
+        specialities: List<Int>?,
+        insurances: List<Int>?
+    ): Flowable<RequestResultModel<DoctorPaginationModel>> =
+        doctorRepository.fetchDoctors(cursor,specialities,cities,insurances)
             .mapResult({ paginationModel ->
                 paginationPageModel = paginationModel
                 DoctorPaginationModel(

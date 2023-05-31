@@ -11,7 +11,6 @@ import kotlinx.parcelize.Parcelize
 data class DoctorSearchState(val cursor: String? = null,
                              val doctors: List<DoctorModel>? = null,
                              val dataOperation:DataLoadingOperationWithPagination,
-                             val selectedFilters:List<SelectedFilterModel>? = null,
-
+                             val selectedFilters:Set<SelectedFilterModel> = setOf(),
                              ) :
     BaseState

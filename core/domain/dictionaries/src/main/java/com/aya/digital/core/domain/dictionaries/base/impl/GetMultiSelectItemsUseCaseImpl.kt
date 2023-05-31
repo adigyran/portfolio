@@ -24,7 +24,7 @@ internal class GetMultiSelectItemsUseCaseImpl(
             { it })
 
         RequestCodes.SPECIALITIES_LIST_REQUEST_CODE -> getSpecialityItemsUseCase(searchTerm).mapResult(
-            { items -> items.map { MultiSelectItem(it.id, it.name) }.asResultModel() },
+            { items -> items.map { MultiSelectItem(it.code.toInt(), it.name) }.asResultModel() },
             { it })
 
         else -> {

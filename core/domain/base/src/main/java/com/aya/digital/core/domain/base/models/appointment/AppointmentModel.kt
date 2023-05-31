@@ -21,8 +21,8 @@ data class AppointmentModel(
 ) : Parcelable {
     enum class AppointmentStatus {
         SCHEDULED,
-        CANCELLED,
-        DONE
+        DONE,
+        CANCELLED
     }
 }
 

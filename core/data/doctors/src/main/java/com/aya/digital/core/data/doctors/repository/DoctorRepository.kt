@@ -10,7 +10,12 @@ import io.reactivex.rxjava3.core.Single
 interface DoctorRepository {
     fun fetchDoctorById(id: Int): Single<RequestResult<DoctorData>>
 
-    fun fetchDoctors(scrollId:String?) : Flowable<RequestResult<PaginationCursorModel<DoctorData>>>
+    fun fetchDoctors(
+        scrollId: String?,
+        specialityCodes: List<Int>?,
+        cities: List<String>?,
+        insurances: List<Int>?
+    ): Flowable<RequestResult<PaginationCursorModel<DoctorData>>>
 
-    fun getPatient(patientId:Int):Single<RequestResult<PatientData>>
+    fun getPatient(patientId: Int): Single<RequestResult<PatientData>>
 }

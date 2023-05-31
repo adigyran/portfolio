@@ -6,6 +6,7 @@ import com.aya.digital.core.data.base.result.models.dictionaries.MultiSelectResu
 import com.aya.digital.core.domain.doctors.base.GetDoctorsUseCase
 import com.aya.digital.core.domain.base.models.doctors.DoctorModel
 import com.aya.digital.core.feature.tabviews.doctorsearch.navigation.DoctorSearchNavigationEvents
+import com.aya.digital.core.feature.tabviews.doctorsearch.viewmodel.model.SelectedFilterModel
 import com.aya.digital.core.mvi.BaseViewModel
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
 import com.aya.digital.core.util.requestcodes.RequestCodes
@@ -32,6 +33,17 @@ class DoctorSearchViewModel(
         loadDoctors()
     }
 
+
+    private fun getDoctors(state: DoctorSearchState) = getDoctorsUseCase(
+        cursor = state.cursor,
+        cities = state.selectedFilters.filterIsInstance<SelectedFilterModel.Location>()
+            .map { it.name },
+        specialities = state.selectedFilters.filterIsInstance<SelectedFilterModel.Speciality>()
+            .map { it.id },
+        insurances = state.selectedFilters.filterIsInstance<SelectedFilterModel.Insurance>()
+            .map { it.id },
+    ).asFlow()
+
     private fun loadDoctors() = intent(registerIdling = false) {
         if (state.dataOperation.isLoading || state.dataOperation.isNextPageLoading) return@intent
         reduce {
@@ -41,7 +53,7 @@ class DoctorSearchViewModel(
                 dataOperation = DataLoadingOperation.LoadingData(OperationState.PROGRESS)
             )
         }
-        getDoctorsUseCase(state.cursor).asFlow()
+        getDoctors(state)
             .collect { resultModel ->
                 resultModel.processResult({ doctorsPagination ->
                     reduce {
@@ -55,6 +67,7 @@ class DoctorSearchViewModel(
             }
     }
 
+
     fun onDoctorClicked(doctorId: Int) = intent {
         coordinatorRouter.sendEvent(DoctorSearchNavigationEvents.OpenDoctorCard(doctorId = doctorId))
     }
@@ -65,7 +78,7 @@ class DoctorSearchViewModel(
         reduce {
             state.copy(dataOperation = DataLoadingOperation.NextPageLoading(OperationState.PROGRESS))
         }
-        getDoctorsUseCase(state.cursor).asFlow()
+        getDoctors(state)
             .collect { resultModel ->
                 resultModel.processResult({ doctorsPagination ->
                     reduce {
@@ -88,78 +101,108 @@ class DoctorSearchViewModel(
             }
 
     fun onInsurance() = intent {
-        selectInsuranceCompanies()
+        selectFilters(state.selectedFilters.filterIsInstance<SelectedFilterModel.Insurance>())
     }
+
     fun onSpecialisation() = intent {
-        selectSpecialisations()
+        selectFilters(state.selectedFilters.filterIsInstance<SelectedFilterModel.Speciality>())
     }
+
     fun onLocation() = intent {
-        selectLocation()
-    }
-    private fun selectInsuranceCompanies() = intent {
-        listenForInsuranceCompanies()
-        coordinatorRouter.sendEvent(
-            DoctorSearchNavigationEvents.SelectInsuranceCompanies(
-                RequestCodes.INSURANCE_LIST_REQUEST_CODE,
-                listOf()
-            )
-        )
+        selectFilters(state.selectedFilters.filterIsInstance<SelectedFilterModel.Location>())
     }
 
-    private fun selectSpecialisations() = intent {
-        listenForSpecialisations()
-        coordinatorRouter.sendEvent(
-            DoctorSearchNavigationEvents.SelectSpecialisations(
-                RequestCodes.SPECIALITIES_LIST_REQUEST_CODE,
-                listOf()
-            )
-        )
-    }
+    private inline fun <reified T : SelectedFilterModel> selectFilters(filters: List<T>) {
+        when (T::class) {
+            SelectedFilterModel.Location::class -> {
+                openSelectionScreen(RequestCodes.LOCATIONS_LIST_REQUEST_CODE, filters)
+            }
 
-    private fun selectLocation() = intent {
-        listenForLocation()
-        coordinatorRouter.sendEvent(
-            DoctorSearchNavigationEvents.SelectLocation(
-                RequestCodes.LOCATIONS_LIST_REQUEST_CODE,
-                0
-            )
-        )
-    }
+            SelectedFilterModel.Speciality::class -> {
+                openSelectionScreen(RequestCodes.SPECIALITIES_LIST_REQUEST_CODE, filters)
+            }
 
-    private fun listenForInsuranceCompanies() = intent {
-        rootCoordinatorRouter.setResultListener(RequestCodes.INSURANCE_LIST_REQUEST_CODE) {
-            if (it is MultiSelectResultModel && it.selectedItems.isNotEmpty()) {
-              //  setInsuranceCompany(it.selectedItems.first())
-
+            SelectedFilterModel.Insurance::class -> {
+                openSelectionScreen(RequestCodes.INSURANCE_LIST_REQUEST_CODE, filters)
             }
         }
     }
 
-    private fun listenForSpecialisations() = intent {
-        rootCoordinatorRouter.setResultListener(RequestCodes.SPECIALITIES_LIST_REQUEST_CODE) {
-            if (it is MultiSelectResultModel && it.selectedItems.isNotEmpty()) {
-                //  setInsuranceCompany(it.selectedItems.first())
-
+    private inline fun <reified T : SelectedFilterModel> openSelectionScreen(
+        requestCode: String,
+        filters: List<T>
+    ) {
+        listenForSelectionResult(requestCode)
+        val filtersIds = filters.map { it.id }
+        val event = when (requestCode) {
+            RequestCodes.INSURANCE_LIST_REQUEST_CODE -> {
+                DoctorSearchNavigationEvents.SelectInsuranceCompanies(
+                    requestCode,
+                    filtersIds
+                )
             }
+
+            RequestCodes.SPECIALITIES_LIST_REQUEST_CODE -> {
+                DoctorSearchNavigationEvents.SelectSpecialisations(
+                    requestCode,
+                    filtersIds
+                )
+            }
+
+            RequestCodes.LOCATIONS_LIST_REQUEST_CODE -> {
+                DoctorSearchNavigationEvents.SelectLocation(
+                    requestCode,
+                    filtersIds.firstOrNull()
+                )
+            }
+
+            else -> {
+                DoctorSearchNavigationEvents.OpenDoctorCard(1121)
+            }
+        }
+        coordinatorRouter.sendEvent(event)
+    }
+
+    private fun listenForSelectionResult(
+        requestCode: String
+    ) = intent {
+        rootCoordinatorRouter.setResultListener(requestCode) { result ->
+            if (result !is MultiSelectResultModel) return@setResultListener
+            val selectedFilters = when (requestCode) {
+                RequestCodes.LOCATIONS_LIST_REQUEST_CODE -> {
+                    result.selectedItems.map { SelectedFilterModel.Location(it, "") }
+                }
+
+                RequestCodes.INSURANCE_LIST_REQUEST_CODE -> {
+                    result.selectedItems.map { SelectedFilterModel.Insurance(it, "") }
+                }
+
+                RequestCodes.SPECIALITIES_LIST_REQUEST_CODE -> {
+                    result.selectedItems.map { SelectedFilterModel.Speciality(it, "") }
+                }
+
+                else -> {
+                    listOf<SelectedFilterModel>()
+                }
+            }
+            setFilters(selectedFilters)
         }
     }
 
-    private fun listenForLocation() = intent {
-        rootCoordinatorRouter.setResultListener(RequestCodes.LOCATIONS_LIST_REQUEST_CODE) {
-            if (it is MultiSelectResultModel && it.selectedItems.isNotEmpty()) {
-                //  setInsuranceCompany(it.selectedItems.first())
-
-            }
+    private inline fun <reified T : SelectedFilterModel> setFilters(filterItems: List<T>) = intent {
+        val filters = state.selectedFilters.toMutableSet().apply {
+            removeAll { it is T }
+            addAll(filterItems)
         }
+        reduce { state.copy(selectedFilters = filters.toSet()) }
     }
 
     fun onRefreshDoctors() = intent {
-
         loadDoctors()
     }
 
     fun findDoctorClicked() = intent {
-        coordinatorRouter.sendEvent(DoctorSearchNavigationEvents.OpenDoctorCard(doctorId = 1284))
+        loadDoctors()
     }
 
 }

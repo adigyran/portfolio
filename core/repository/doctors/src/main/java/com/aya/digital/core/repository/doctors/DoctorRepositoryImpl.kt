@@ -70,7 +70,7 @@ internal class DoctorRepositoryImpl(
             doctorsDao.insertOrIgnoreInsurances(doctorData.doctorInsuranceShells()),
             doctorsDao.insertOrIgnoreSpecialisations(doctorData.doctorSpecialityShells()),
             doctorsDao.insertOrIgnoreLocation(doctorData.doctorLocationShells()),
-        ) { _, _, _, _,_ -> true }
+        ) { _, _, _, _, _ -> true }
         val zipCrossRefs = Single.zip(
             doctorsDao.insertOrIgnoreDoctorClinicCrossRefEntities(doctorData.doctorClinicCrossReferences())
                 .andThen(Single.just(true)),
@@ -83,8 +83,13 @@ internal class DoctorRepositoryImpl(
     }
 
 
-    override fun fetchDoctors(scrollId: String?): Flowable<RequestResult<PaginationCursorModel<DoctorData>>> =
-        practitionersDataSource.fetchPractitioners(scrollId)
+    override fun fetchDoctors(
+        scrollId: String?,
+        specialityCodes: List<Int>?,
+        cities: List<String>?,
+        insurances: List<Int>?
+    ): Flowable<RequestResult<PaginationCursorModel<DoctorData>>> =
+        practitionersDataSource.fetchPractitioners(scrollId,specialityCodes, cities, insurances)
             .retryOnError()
             .retrofitResponseToResult(CommonUtils::mapServerErrors)
             .mapResult({ result ->
