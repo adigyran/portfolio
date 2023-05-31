@@ -56,78 +56,28 @@ internal class AppointmentsTabDecoration(private val context: Context) :
         paint.strokeWidth = 2F
         val lm = parent.layoutManager ?: return
         parent.children
-            .filter { view ->
+           /* .filter { view ->
                 val viewHolder = parent.findContainingViewHolder(view)
                 viewHolder is PatientAppointmentStatusHeaderDelegate.ViewHolder || viewHolder is PatientAppointmentStatusFooterDelegate.ViewHolder
             }
             .groupBy { view: View ->
                 val viewHolder = parent.findContainingViewHolder(view)
                 (viewHolder as StatusHolder).getDelegateStatus()
-            }
-            .forEach { entry ->
-                currentStatus = entry.key
+            }*/
+            .forEach { view ->
+                val viewHolder = parent.findContainingViewHolder(view)
+                currentStatus = (viewHolder as StatusHolder).getDelegateStatus()
                 paint.color = when (currentStatus) {
                     AppointmentUiStatus.SCHEDULED -> scheduledColor
                     AppointmentUiStatus.CANCELLED -> cancelledColor
                     AppointmentUiStatus.DONE -> doneColor
                 }
-                val firstView = entry.value.first()
-                val lastView = entry.value.last()
-                decoratedLeft = lm.getDecoratedLeft(firstView) + firstView.translationX
-                decoratedRight = lm.getDecoratedRight(firstView) + firstView.translationX
-                decoratedTop = lm.getDecoratedTop(firstView) + firstView.translationY
-                decoratedBottom = lm.getDecoratedBottom(lastView) + lastView.translationY
-                c.drawRect(decoratedLeft, decoratedTop, decoratedRight, decoratedBottom, paint)
-            }
-          /*  .forEach { view ->
-                val viewHolder = parent.findContainingViewHolder(view)
                 decoratedLeft = lm.getDecoratedLeft(view) + view.translationX
                 decoratedRight = lm.getDecoratedRight(view) + view.translationX
-                if (viewHolder is PatientAppointmentStatusHeaderDelegate.ViewHolder) {
-                    currentStatus = viewHolder.status
-                    decoratedTop = lm.getDecoratedTop(view) + view.translationY
-
-                } else if (viewHolder is PatientAppointmentStatusFooterDelegate.ViewHolder) {
-                    decoratedBottom = lm.getDecoratedBottom(view) + view.translationY
-                }
-                paint.color = when (currentStatus) {
-                    AppointmentUiStatus.SCHEDULED -> scheduledColor
-                    AppointmentUiStatus.CANCELLED -> cancelledColor
-                    AppointmentUiStatus.DONE -> doneColor
-                }
-
+                decoratedTop = lm.getDecoratedTop(view) + view.translationY
+                decoratedBottom = lm.getDecoratedBottom(view) + view.translationY
                 c.drawRect(decoratedLeft, decoratedTop, decoratedRight, decoratedBottom, paint)
-            }*/
-
-
-        /*  .map { parent.findContainingViewHolder(it) }
-          .filter { viewHolder -> viewHolder is PatientAppointmentStatusHeaderDelegate.ViewHolder || viewHolder is PatientAppointmentStatusFooterDelegate.ViewHolder }
-          .forEach {
-              viewHolder -> viewHolder?.itemView
-          }*/
-        /* lm?.let {
-            for (i in 0..childCount) {
-                val view = parent.getChildAt(i)
-                view?.let {
-                    val viewHolder = view.let { parent.findContainingViewHolder(it) }
-                    if (viewHolder is StatusHolder) {
-                        currentStatus = viewHolder.getDelegateStatus()
-                    }
-                    decoratedLeft = lm.getDecoratedLeft(view) + view.translationX
-                    decoratedTop = lm.getDecoratedTop(view) + view.translationY
-                    decoratedRight = lm.getDecoratedRight(view) + view.translationX
-                    decoratedBottom = lm.getDecoratedBottom(view) + view.translationY
-                    paint.color =  when(currentStatus)
-                    {
-                        AppointmentUiStatus.SCHEDULED -> scheduledColor
-                        AppointmentUiStatus.CANCELLED -> cancelledColor
-                        AppointmentUiStatus.DONE -> doneColor
-                    }
-                    paint.style = Paint.Style.FILL
-                    paint.strokeWidth = 2F
-                    c.drawRect(decoratedLeft, decoratedTop, decoratedRight, decoratedBottom, paint)
-                }
             }
-        }*/
+
     }
 }

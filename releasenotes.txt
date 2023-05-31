@@ -64,4 +64,10 @@ Added Firebase Distribution\n
         fixed insurances\n
         version 34 patient\n
         version 35 patient\n
+        appointments split by status with colors\n
+        doctor filters without location rn\n
+        fixed some ui bugs\n
+        multiselect screen with search\n
+        version 36 patient\n
+
 

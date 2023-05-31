@@ -16,9 +16,18 @@ data class AppointmentData(
     val id:Int,
     val startDate: @RawValue LocalDateTime,
     val status:AppointmentModel.AppointmentStatus = AppointmentModel.AppointmentStatus.SCHEDULED,
+    val expandedStatuses:Set<ExpandedStatus> = setOf(),
     val isTelemed:Boolean = false,
     val doctor:AppointmentDoctor? = null
 ):Parcelable
+
+@Parcelize
+sealed class ExpandedStatus():Parcelable
+{
+    object Scheduled : ExpandedStatus()
+    object Done : ExpandedStatus()
+    object Cancelled:ExpandedStatus()
+}
 
 @Parcelize
 data class AppointmentDoctor(
