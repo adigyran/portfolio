@@ -17,14 +17,14 @@ data class BriefProfileModel(
 
 }
 
-fun CurrentProfile.mapToBriefProfile() = BriefProfileModel(
-    this.id,
-    this.email ?: "",
-    this.firstName ?: "",
-    this.lastName ?: "",
-    this.middleName ?: "",
-    this.avatar?.fullUrl,
-    this.dateOfBirth
+fun CurrentProfile.mapToBriefProfile(avatar: CurrentProfile.Avatar?) = BriefProfileModel(
+    id = this.id,
+    email = this.email ?: "",
+    firstName = this.firstName ?: "",
+    lastName = this.lastName ?: "",
+    middleName = this.middleName ?: "",
+    avatar = avatar?.fullUrl,
+    birthday = this.dateOfBirth
 )
 
 

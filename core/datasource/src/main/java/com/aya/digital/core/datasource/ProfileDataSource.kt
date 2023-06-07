@@ -4,6 +4,7 @@ import com.aya.digital.core.network.model.request.EmergencyContactBody
 import com.aya.digital.core.network.model.request.InsurancePolicyBody
 import com.aya.digital.core.network.model.request.ProfileBody
 import com.aya.digital.core.network.model.response.EmergencyContactResponse
+import com.aya.digital.core.network.model.response.profile.AvatarResponse
 import com.aya.digital.core.network.model.response.profile.CurrentProfileResponse
 import com.aya.digital.core.network.model.response.profile.ImageUploadResponse
 import com.aya.digital.core.network.model.response.profile.InsurancePolicyResponse
@@ -16,6 +17,7 @@ interface ProfileDataSource {
 
     fun currentProfile(): Single<CurrentProfileResponse>
 
+    fun currentAvatar():Single<AvatarResponse>
     fun updateProfile(
         body: ProfileBody
     ): Single<CurrentProfileResponse>

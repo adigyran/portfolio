@@ -16,6 +16,8 @@ interface ProfileRepository {
 
     fun currentProfileId(): Single<RequestResult<Int>>
 
+    fun currentProfileAvatar(): Single<RequestResult<CurrentProfile.Avatar?>>
+
     fun currentProfile(): Single<RequestResult<CurrentProfile>>
 
     fun updateProfile(body: ProfileBody): Single<RequestResult<CurrentProfile>>

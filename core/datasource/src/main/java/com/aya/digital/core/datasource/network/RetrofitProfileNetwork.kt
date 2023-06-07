@@ -7,6 +7,7 @@ import com.aya.digital.core.network.api.services.ProfileService
 import com.aya.digital.core.network.main.di.modules.createApiService
 import com.aya.digital.core.network.model.request.*
 import com.aya.digital.core.network.model.response.EmergencyContactResponse
+import com.aya.digital.core.network.model.response.profile.AvatarResponse
 import com.aya.digital.core.network.model.response.profile.CurrentProfileResponse
 import com.aya.digital.core.network.model.response.profile.ImageUploadResponse
 import com.aya.digital.core.network.model.response.profile.InsurancePolicyResponse
@@ -48,6 +49,8 @@ class RetrofitProfileNetwork(private val network: ProfileService) :
 
     override fun currentProfile(): Single<CurrentProfileResponse> =
         network.currentProfile()
+
+    override fun currentAvatar(): Single<AvatarResponse> = network.getCurrentProfileAvatar()
 
     override fun updateProfile(body: ProfileBody): Single<CurrentProfileResponse> =
         network.updateProfile(body)

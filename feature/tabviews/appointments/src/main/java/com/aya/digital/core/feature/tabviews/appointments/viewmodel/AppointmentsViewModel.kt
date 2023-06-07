@@ -1,7 +1,5 @@
 package com.aya.digital.core.feature.tabviews.appointments.viewmodel
 
-
-import com.aya.digital.core.data.base.result.models.appointment.CreateAppointmentResultModel
 import com.aya.digital.core.data.base.result.models.appointment.SelectAppointmentResultModel
 import com.aya.digital.core.domain.appointment.base.GetAppointmentsWithParticipantsUseCase
 import com.aya.digital.core.domain.appointment.base.model.AppointmentWithParticipantModel

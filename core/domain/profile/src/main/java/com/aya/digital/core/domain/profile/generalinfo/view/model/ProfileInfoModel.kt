@@ -26,13 +26,13 @@ data class ProfileInfoModel(
 ):Parcelable
 
 
-fun CurrentProfile.mapToProfileInfo() = ProfileInfoModel(
+fun CurrentProfile.mapToProfileInfo(avatar: CurrentProfile.Avatar?) = ProfileInfoModel(
     id = this.id,
     email = this.email,
     firstName = this.firstName,
     lastName = this.lastName,
     middleName = this.middleName,
-    avatar = this.avatar?.fullUrl,
+    avatar = avatar?.fullUrl,
     dateOfBirth = this.dateOfBirth,
     sex = this.sex?.let { ProfileSex.getSexByTag(it) },
     height = this.height,

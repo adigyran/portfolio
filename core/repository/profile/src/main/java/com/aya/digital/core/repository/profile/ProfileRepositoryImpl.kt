@@ -8,6 +8,7 @@ import com.aya.digital.core.data.profile.CurrentProfile
 import com.aya.digital.core.data.profile.EmergencyContact
 import com.aya.digital.core.data.profile.ImageUploadResult
 import com.aya.digital.core.data.profile.InsurancePolicyModel
+import com.aya.digital.core.data.profile.mappers.AvatarMapper
 import com.aya.digital.core.data.profile.mappers.CurrentProfileMapper
 import com.aya.digital.core.data.profile.mappers.EmergencyContactMapper
 import com.aya.digital.core.data.profile.mappers.ImageUploadResultMapper
@@ -47,6 +48,7 @@ internal class ProfileRepositoryImpl(
     private val currentProfileMapper: CurrentProfileMapper,
     private val insuranceMapper: InsurancePolicyMapper,
     private val emergencyContactMapper: EmergencyContactMapper,
+    private val avatarMapper: AvatarMapper,
     private val dictionariesDataSource: DictionariesDataSource,
     private val insuranceCompanyMapper: InsuranceCompanyMapper,
     private val invalidTokenEventManager: InvalidTokenEventManager,
@@ -56,6 +58,16 @@ internal class ProfileRepositoryImpl(
     override fun currentProfileId(): Single<RequestResult<Int>> {
         TODO("Not yet implemented")
     }
+
+    override fun currentProfileAvatar(): Single<RequestResult<CurrentProfile.Avatar?>> =
+      profileDataSource.currentAvatar()
+          .retryOnError()
+          .retrofitResponseToResult(CommonUtils::mapServerErrors)
+          .mapResult({
+              avatarMapper.mapFrom(it).asResult()
+          }, { it })
+
+
 
     override fun currentProfile(): Single<RequestResult<CurrentProfile>> =
         profileDataSource.currentProfile()

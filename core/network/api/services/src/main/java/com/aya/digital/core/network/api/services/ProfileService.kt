@@ -14,6 +14,8 @@ interface ProfileService {
     @GET("api/profile")
     fun currentProfile(): Single<CurrentProfileResponse>
 
+    @GET("api/profile/avatar")
+    fun getCurrentProfileAvatar():Single<AvatarResponse>
     @PATCH("api/profile")
     fun updateProfile(
         @Body body: ProfileBody
