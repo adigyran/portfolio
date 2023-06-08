@@ -5,4 +5,4 @@ import com.aya.digital.core.mvi.BaseState
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-object BottomNavHostState : BaseState
+data class BottomNavHostState(val avatarUrl:String? = null) : BaseState

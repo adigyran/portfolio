@@ -1,5 +1,8 @@
 package com.aya.digital.core.feature.bottomnavhost.ui
 
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.os.Parcelable
 import android.view.LayoutInflater
@@ -9,12 +12,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.aya.digital.core.ext.argument
 import com.aya.digital.core.ext.createFragment
+import com.aya.digital.core.ext.dpToPx
 import com.aya.digital.core.feature.bottomnavhost.di.BottomNavHostNavigatorParam
 import com.aya.digital.core.feature.bottomnavhost.di.bottomNavHostModule
 import com.aya.digital.core.feature.bottomnavhost.navigation.BottomNavHostCoordinator
 import com.aya.digital.core.feature.bottomnavhost.navigation.BottomNavHostNavigationEvents
 import com.aya.digital.core.feature.bottomnavhost.navigation.BottomNavHostNavigator
 import com.aya.digital.core.feature.bottomnavhost.ui.model.BottomNavHostStateTransformer
+import com.aya.digital.core.feature.bottomnavhost.ui.model.BottomNavHostUiModel
 import com.aya.digital.core.feature.bottomnavhost.viewmodel.BottomNavHostState
 import com.aya.digital.core.feature.bottomnavhost.viewmodel.BottomNavHostViewModel
 import com.aya.digital.core.mvi.BaseSideEffect
@@ -32,6 +37,10 @@ import com.aya.digital.core.navigation.utils.ParentRouterProvider
 import com.aya.digital.core.ui.base.screens.DiFragment
 import com.aya.digital.feature.bottomnavhost.R
 import com.aya.digital.feature.bottomnavhost.databinding.ViewBottomNavHostBinding
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
 import com.github.terrakok.cicerone.Cicerone
 import com.github.terrakok.cicerone.Router
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -42,7 +51,8 @@ import org.kodein.di.factory
 import org.kodein.di.instance
 import org.kodein.di.on
 
-class BottomNavHostView : DiFragment<ViewBottomNavHostBinding, BottomNavHostViewModel, BottomNavHostState, BaseSideEffect, StubUiModel, BottomNavHostStateTransformer>(),
+class BottomNavHostView :
+    DiFragment<ViewBottomNavHostBinding, BottomNavHostViewModel, BottomNavHostState, BaseSideEffect, BottomNavHostUiModel, BottomNavHostStateTransformer>(),
     ParentRouterProvider,
     BackButtonListener,
     ChildKodeinProvider {
@@ -54,13 +64,15 @@ class BottomNavHostView : DiFragment<ViewBottomNavHostBinding, BottomNavHostView
         context = this
     ).factory()
 
-    private val coordinatorHolder: CoordinatorHolder by kodein.on(context = this as Fragment).instance()
+    private val coordinatorHolder: CoordinatorHolder by kodein.on(context = this as Fragment)
+        .instance()
     private val coordinator: Coordinator by kodein.on(context = this as Fragment).instance()
     private val localCicerone: Cicerone<Router> by kodein.on(context = this as Fragment).instance()
 
     private val itemListener: BottomNavigationItemListener by kodein.on(context = this).instance()
     private val menuProvider: BottomNavigationMenuProvider by kodein.on(context = this).instance()
-    private val defaultBottomNavScreenManager: DefaultBottomNavScreenManager by kodein.on(context = this).instance()
+    private val defaultBottomNavScreenManager: DefaultBottomNavScreenManager by kodein.on(context = this)
+        .instance()
 
 
     private lateinit var navigator: BottomNavHostNavigator
@@ -85,7 +97,11 @@ class BottomNavHostView : DiFragment<ViewBottomNavHostBinding, BottomNavHostView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (savedInstanceState == null) {
-            localCicerone.router.replaceScreen(defaultBottomNavScreenManager.processDefaultBottomNavScreen(param.startScreen))
+            localCicerone.router.replaceScreen(
+                defaultBottomNavScreenManager.processDefaultBottomNavScreen(
+                    param.startScreen
+                )
+            )
         }
         coordinatorHolder.setCoordinator(coordinator)
         coordinatorHolder.setRouter(localCicerone.router)
@@ -100,8 +116,14 @@ class BottomNavHostView : DiFragment<ViewBottomNavHostBinding, BottomNavHostView
 
         navigator =
             navigatorFactory(
-                BottomNavHostNavigatorParam(requireActivity(),this, binding.navView,binding.mainFragmentContainer.id,navListener) {
-                   tryTyGetParentRouter().sendEvent(BottomNavHostNavigationEvents.Finish)
+                BottomNavHostNavigatorParam(
+                    requireActivity(),
+                    this,
+                    binding.navView,
+                    binding.mainFragmentContainer.id,
+                    navListener
+                ) {
+                    tryTyGetParentRouter().sendEvent(BottomNavHostNavigationEvents.Finish)
                 }
             )
         return view
@@ -116,7 +138,7 @@ class BottomNavHostView : DiFragment<ViewBottomNavHostBinding, BottomNavHostView
         binding.navView.menu.clear()
         binding.navView.itemIconTintList = null
         binding.navView.inflateMenu(menuProvider.getMenu())
-        var badge = binding.navView.getOrCreateBadge(menuProvider.getFakeBadgeId())
+        val badge = binding.navView.getOrCreateBadge(menuProvider.getFakeBadgeId())
         badge.isVisible = true
         with(binding.navView)
         {
@@ -125,7 +147,8 @@ class BottomNavHostView : DiFragment<ViewBottomNavHostBinding, BottomNavHostView
     }
 
     override fun provideViewModel(): BottomNavHostViewModel = viewModelFactory(Unit)
-    override fun provideStateTransformer(): BottomNavHostStateTransformer = stateTransformerFactory(Unit)
+    override fun provideStateTransformer(): BottomNavHostStateTransformer =
+        stateTransformerFactory(Unit)
 
     override fun onResume() {
         super.onResume()
@@ -155,7 +178,7 @@ class BottomNavHostView : DiFragment<ViewBottomNavHostBinding, BottomNavHostView
         return (fragment as? BackButtonListener)?.onBackPressed() == true
     }
 
-    override fun provideDiModule(): DI.Module =  bottomNavHostModule(tryTyGetParentRouter())
+    override fun provideDiModule(): DI.Module = bottomNavHostModule(tryTyGetParentRouter())
 
     override fun provideViewBinding(
         inflater: LayoutInflater,
@@ -164,12 +187,36 @@ class BottomNavHostView : DiFragment<ViewBottomNavHostBinding, BottomNavHostView
 
     override fun sideEffect(sideEffect: BaseSideEffect) = Unit
 
-    override fun render(state: BottomNavHostState) = Unit
+    override fun render(state: BottomNavHostState) {
+        stateTransformer(state).run {
+            avatarUrl?.let {
+                val profileItem = binding.navView.menu.findItem(menuProvider.getProfileId())
+                Glide
+                    .with(requireContext())
+                    .asBitmap()
+                    .load(avatarUrl)
+                    .transform(
+                        CircleCrop()
+                    )
+                    .dontAnimate()
+                    .into(object : CustomTarget<Bitmap>(24.dpToPx(), 24.dpToPx()) {
+                        override fun onResourceReady(
+                            resource: Bitmap,
+                            transition: Transition<in Bitmap>?
+                        ) {
+                            profileItem?.icon = BitmapDrawable(resources, resource)
+                        }
+                        override fun onLoadCleared(placeholder: Drawable?) {}
+                    })
+            }
+        }
+    }
 
     @Parcelize
     class Param(val startScreen: StartScreen) : Parcelable
 
     companion object {
-        fun getNewInstance(startScreen: StartScreen): BottomNavHostView  = createFragment(Param(startScreen))
+        fun getNewInstance(startScreen: StartScreen): BottomNavHostView =
+            createFragment(Param(startScreen))
     }
 }

@@ -7,8 +7,11 @@ import com.aya.digital.core.mvi.BaseStateTransformer
 import com.aya.digital.core.mvi.BaseUiModel
 import com.aya.digital.core.mvi.StubUiModel
 
-class BottomNavHostStateTransformer(context : Context): BaseStateTransformer<BottomNavHostState,StubUiModel>() {
-    override fun invoke(state: BottomNavHostState): StubUiModel = StubUiModel
+class BottomNavHostStateTransformer(context : Context): BaseStateTransformer<BottomNavHostState,BottomNavHostUiModel>() {
+    override fun invoke(state: BottomNavHostState): BottomNavHostUiModel =
+        BottomNavHostUiModel(
+            avatarUrl = state.avatarUrl
+        )
 
 
 }

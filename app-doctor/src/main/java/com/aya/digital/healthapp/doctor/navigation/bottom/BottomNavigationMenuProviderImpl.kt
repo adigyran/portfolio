@@ -6,4 +6,6 @@ import com.aya.digital.healthapp.doctor.R
 class BottomNavigationMenuProviderImpl : BottomNavigationMenuProvider {
     override fun getMenu(): Int = R.menu.main_bottom_navigation
     override fun getFakeBadgeId(): Int = R.id.navigation_sppointments
+    override fun getProfileId(): Int = R.id.navigation_profile
+
 }

@@ -43,7 +43,7 @@ fun bottomNavHostModule(
 
     bind {
         scoped(CustomFragmentScope).singleton {
-            BottomNavHostViewModel(parentCoordinatorEvent)
+            BottomNavHostViewModel(parentCoordinatorEvent,instance())
         }
     }
 }

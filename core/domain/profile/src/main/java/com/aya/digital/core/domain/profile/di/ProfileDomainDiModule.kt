@@ -9,8 +9,10 @@ import com.aya.digital.core.domain.profile.generalinfo.edit.SaveProfileInfoUseCa
 import com.aya.digital.core.domain.profile.generalinfo.edit.impl.SaveProfileInfoUseCaseImpl
 import com.aya.digital.core.domain.profile.generalinfo.edit.SetAvatarUseCase
 import com.aya.digital.core.domain.profile.generalinfo.edit.impl.SetAvatarUseCaseImpl
+import com.aya.digital.core.domain.profile.generalinfo.view.GetProfileAvatarUseCase
 import com.aya.digital.core.domain.profile.generalinfo.view.GetProfileBriefUseCase
 import com.aya.digital.core.domain.profile.generalinfo.view.GetProfileInfoUseCase
+import com.aya.digital.core.domain.profile.generalinfo.view.impl.GetProfileAvatarUseCaseImpl
 import com.aya.digital.core.domain.profile.generalinfo.view.impl.GetProfileInfoUseCaseImpl
 import com.aya.digital.core.domain.profile.generalinfo.view.impl.GetProfileUseCaseImpl
 import com.aya.digital.core.domain.profile.insurance.*
@@ -46,6 +48,8 @@ fun profileDomainDiModule() = DI.Module("profileDomainDiModule") {
     bind<SaveProfileInfoUseCase>() with singleton { SaveProfileInfoUseCaseImpl(instance(),instance()) }
     //set avatar
     bind<SetAvatarUseCase>() with singleton { SetAvatarUseCaseImpl(instance()) }
+    //get avatar
+    bind<GetProfileAvatarUseCase>() with singleton { GetProfileAvatarUseCaseImpl(instance()) }
 
     //emergencyContact
     bind<GetEmergencyContactUseCase>() with singleton { GetEmergencyContactUseCaseImpl(instance()) }
