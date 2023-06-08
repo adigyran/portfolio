@@ -3,10 +3,12 @@ package com.aya.digital.core.feature.tabviews.appointments.viewmodel
 import com.aya.digital.core.data.base.result.models.appointment.SelectAppointmentResultModel
 import com.aya.digital.core.domain.appointment.base.GetAppointmentsWithParticipantsUseCase
 import com.aya.digital.core.domain.appointment.base.model.AppointmentWithParticipantModel
+import com.aya.digital.core.domain.base.models.appointment.AppointmentModel
 import com.aya.digital.core.domain.base.models.appointment.AppointmentType
 import com.aya.digital.core.feature.tabviews.appointments.navigation.AppointmentsNavigationEvents
 import com.aya.digital.core.mvi.BaseViewModel
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
+import com.aya.digital.core.ui.delegates.appointments.patientappointment.model.AppointmentUiStatus
 import com.aya.digital.core.util.requestcodes.RequestCodes
 import kotlinx.coroutines.reactive.asFlow
 import kotlinx.datetime.LocalDate
@@ -90,6 +92,27 @@ class AppointmentsViewModel(
         }
     }
 
+    fun onHideClicked(status: AppointmentUiStatus) = intent {
+        val convertedStatus = status.toAppointmentStatus()
+        if(state.expandedStatuses.contains(convertedStatus))
+        {
+            val newExpanded = state.expandedStatuses.toMutableSet().apply { remove(convertedStatus)}
+            reduce { state.copy(expandedStatuses = newExpanded.toSet()) }
+        }
+        else
+        {
+            val newExpanded = state.expandedStatuses.toMutableSet().apply {add(convertedStatus)}
+            reduce { state.copy(expandedStatuses = newExpanded.toSet()) }
+        }
+    }
+
+    private fun AppointmentUiStatus.toAppointmentStatus() =
+        when(this)
+        {
+            AppointmentUiStatus.SCHEDULED -> AppointmentModel.AppointmentStatus.SCHEDULED
+            AppointmentUiStatus.CANCELLED -> AppointmentModel.AppointmentStatus.CANCELLED
+            AppointmentUiStatus.DONE -> AppointmentModel.AppointmentStatus.DONE
+        }
 
 }
 

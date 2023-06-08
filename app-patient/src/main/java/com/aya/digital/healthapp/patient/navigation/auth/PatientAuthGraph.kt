@@ -94,6 +94,8 @@ class PatientAuthGraph : FragmentContainerGraph {
                 navigationRouter.exit()
             }
 
+            is CoordinatorEvent.Back -> navigationRouter.exit()
+
             else -> parentCoordinatorRouter.sendEvent(event)
         }
 

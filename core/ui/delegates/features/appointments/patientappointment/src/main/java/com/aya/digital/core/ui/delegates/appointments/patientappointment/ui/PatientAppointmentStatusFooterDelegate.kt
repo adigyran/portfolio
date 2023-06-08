@@ -2,6 +2,7 @@ package com.aya.digital.core.ui.delegates.appointments.patientappointment.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import com.aya.digital.core.ext.bindClick
 import com.aya.digital.core.ui.adapters.base.BaseDelegate
 import com.aya.digital.core.ui.adapters.base.BaseViewHolder
 import com.aya.digital.core.ui.adapters.base.DiffItem
@@ -9,7 +10,7 @@ import com.aya.digital.core.ui.delegates.appointments.patientappointment.model.A
 import com.aya.digital.core.ui.delegates.appointments.patientappointment.model.PatientAppointmentsStatusFooterUIModel
 import com.aya.digital.core.ui.delegates.features.appointments.patientappointment.databinding.ItemPatientAppointmentStatusFooterBinding
 
-class PatientAppointmentStatusFooterDelegate() :
+class PatientAppointmentStatusFooterDelegate(private val onHideClick: (status: AppointmentUiStatus) -> Unit) :
     BaseDelegate<PatientAppointmentsStatusFooterUIModel>() {
     override fun isForViewType(
         item: DiffItem,
@@ -34,6 +35,7 @@ class PatientAppointmentStatusFooterDelegate() :
         lateinit var status: AppointmentUiStatus
 
         init {
+            binding.btnHide bindClick {onHideClick(item.status)}
         }
 
         override fun bind(item: PatientAppointmentsStatusFooterUIModel) {

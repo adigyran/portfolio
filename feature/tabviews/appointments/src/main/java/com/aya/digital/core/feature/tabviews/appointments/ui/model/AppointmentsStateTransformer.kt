@@ -26,7 +26,7 @@ class AppointmentsStateTransformer(
                             val headersFooters = getHeadersAndFooters(status)
                             val appointments = state.appointments.filter { it.status == status }
                             add(headersFooters.first)
-                            addAll(appointments.map { it.getAppointmentUiModel() ?: return@run })
+                            appendStatuses(appointments, state.expandedStatuses.contains(status))
                             add(headersFooters.second)
                         }
                     }
@@ -34,8 +34,21 @@ class AppointmentsStateTransformer(
             }
         )
 
-    private fun AppointmentData.getAppointmentUiModel(): PatientAppointmentUIModel? {
-        val doctorModel = this.doctor ?: return null
+    private fun MutableList<DiffItem>.appendStatuses(
+        appointments: List<AppointmentData>,
+        isExpanded: Boolean
+    ) {
+        if(isExpanded) {
+            addAll(appointments.toAppointmentUiModels()?:return)
+        } else
+        {
+            addAll(appointments.take(1).toAppointmentUiModels()?:return)
+        }
+    }
+
+    private fun List<AppointmentData>.toAppointmentUiModels() = this.map { it.getAppointmentUiModel() }?:null
+    private fun AppointmentData.getAppointmentUiModel(): PatientAppointmentUIModel {
+        val doctorModel = this.doctor
         return PatientAppointmentUIModel(
             id = this.id,
             startDateTime = dateTimeUtils.formatAppointmentDateTime(
@@ -43,11 +56,11 @@ class AppointmentsStateTransformer(
             ),
             duration = "",
             doctorName = "Dr. %s, %s".format(
-                doctorModel.doctorLastName,
-                doctorModel.getClinic()
+                doctorModel?.doctorLastName,
+                doctorModel?.getClinic()
             ),
-            doctorSpeciality = "%s".format(doctorModel.getSpeciality()),
-            participantAvatarLink = doctorModel.doctorAvatarImageLink,
+            doctorSpeciality = "%s".format(doctorModel?.getSpeciality()),
+            participantAvatarLink = doctorModel?.doctorAvatarImageLink,
             isTelemed = this.isTelemed,
             status = this.status.mapToUiStatus()
         )

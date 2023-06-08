@@ -57,6 +57,7 @@ internal class RestorePasswordView :
         if (savedInstanceState == null) {
             recyclers.add(binding.recycler)
             binding.saveBtn bindClick { viewModel.saveButtonClicked() }
+            binding.toolbarLogo.backButton bindClick {viewModel.onBack()}
             with(binding.recycler) {
                 itemAnimator = null
                 setHasFixedSize(true)

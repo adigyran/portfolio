@@ -44,7 +44,7 @@ class AppointmentsView :
         BaseDelegateAdapter.create {
             delegate { PatientAppointmentDelegate(viewModel::onAppointmentClicked) }
             delegate { PatientAppointmentStatusHeaderDelegate() }
-            delegate { PatientAppointmentStatusFooterDelegate() }
+            delegate { PatientAppointmentStatusFooterDelegate(viewModel::onHideClicked) }
 
 
         }

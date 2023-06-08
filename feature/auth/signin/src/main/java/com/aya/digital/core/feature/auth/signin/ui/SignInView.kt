@@ -73,6 +73,7 @@ class SignInView :
             prepareDescription()
             recyclers.add(binding.recycler)
             binding.signInBtn bindClick { viewModel.onSignInClicked() }
+            binding.toolbarLogo.backButton bindClick {viewModel.onBack()}
             with(binding.recycler) {
                 itemAnimator = null
                 setHasFixedSize(true)
