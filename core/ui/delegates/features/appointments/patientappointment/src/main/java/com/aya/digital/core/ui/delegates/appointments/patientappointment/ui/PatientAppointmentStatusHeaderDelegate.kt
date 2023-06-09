@@ -2,6 +2,7 @@ package com.aya.digital.core.ui.delegates.appointments.patientappointment.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import com.aya.digital.core.ext.toggleVisibility
 import com.aya.digital.core.ui.adapters.base.BaseDelegate
 import com.aya.digital.core.ui.adapters.base.BaseViewHolder
 import com.aya.digital.core.ui.adapters.base.DiffItem
@@ -33,6 +34,7 @@ class PatientAppointmentStatusHeaderDelegate() :
         override fun bind(item: PatientAppointmentsStatusHeaderUIModel) {
             super.bind(item)
             status = item.status
+            binding.emptyAppointments.toggleVisibility(item.isEmpty)
             binding.headerTitle.setText(item.status.nameId)
         }
 

@@ -10,13 +10,22 @@
     android:paddingBottom="12dp">
 
     <TextView
+        android:id="@+id/headerTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hide"
-        android:id="@+id/headerTitle"
-        android:textAppearance="@style/TextAppearance.App.H3"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Scheduled Appointments"
+        android:textAppearance="@style/TextAppearance.App.H4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/emptyAppointments"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0 appointments"
+        android:layout_marginTop="8dp"
+        android:textAppearance="@style/TextAppearance.App.Body.DescriptionMiniText"
+        android:textColor="@color/text_grey"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/headerTitle" />
 </androidx.constraintlayout.widget.ConstraintLayout>

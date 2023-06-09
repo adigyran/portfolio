@@ -1,11 +1,18 @@
 package com.aya.digital.core.ui.delegates.appointments.patientappointment.ui
 
+import android.text.Spanned
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.aya.digital.core.ext.bindClick
+import com.aya.digital.core.ext.colors
+import com.aya.digital.core.ext.strings
+import com.aya.digital.core.localisation.R
 import com.aya.digital.core.ui.adapters.base.BaseDelegate
 import com.aya.digital.core.ui.adapters.base.BaseViewHolder
 import com.aya.digital.core.ui.adapters.base.DiffItem
+import com.aya.digital.core.ui.base.ext.SpannableObject
+import com.aya.digital.core.ui.base.ext.createSpannableText
+import com.aya.digital.core.ui.base.utils.LinkTouchMovementMethod
 import com.aya.digital.core.ui.delegates.appointments.patientappointment.model.AppointmentUiStatus
 import com.aya.digital.core.ui.delegates.appointments.patientappointment.model.PatientAppointmentsStatusFooterUIModel
 import com.aya.digital.core.ui.delegates.features.appointments.patientappointment.databinding.ItemPatientAppointmentStatusFooterBinding
@@ -34,13 +41,27 @@ class PatientAppointmentStatusFooterDelegate(private val onHideClick: (status: A
         BaseViewHolder<PatientAppointmentsStatusFooterUIModel>(binding.root), StatusHolder {
         lateinit var status: AppointmentUiStatus
 
+
         init {
-            binding.btnHide bindClick {onHideClick(item.status)}
+            binding.btnHide.movementMethod = LinkTouchMovementMethod()
         }
 
+        val descriptionText = with(binding.btnHide.context)
+        {
+            strings[R.string.auth_chooser_description_formatted].createSpannableText(
+                colors[com.aya.digital.core.designsystem.R.color.button_text_blue],
+                colors[com.aya.digital.core.designsystem.R.color.button_bg_dark_blue],
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE,
+                binding.btnHide.context,
+                com.aya.digital.core.designsystem.R.style.TextAppearance_App_Body_DescriptionMiniText,
+                com.aya.digital.core.designsystem.R.style.TextAppearance_App_ButtonText_Default,
+                listOf(SpannableObject(strings[R.string.terms_of_service_button]) { onHideClick(item.status) },)
+            )
+        }
         override fun bind(item: PatientAppointmentsStatusFooterUIModel) {
             super.bind(item)
             status = item.status
+            binding.btnHide.text = descriptionText
         }
 
         override fun getDelegateStatus(): AppointmentUiStatus = item.status

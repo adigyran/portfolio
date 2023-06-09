@@ -17,6 +17,7 @@ import com.aya.digital.core.ui.adapters.base.BaseDelegateAdapter
 import com.aya.digital.core.ui.base.screens.DiFragment
 import com.aya.digital.core.ui.base.utils.DateValidatorSelectableDays
 import com.aya.digital.core.ui.delegates.appointments.patientappointment.ui.PatientAppointmentDelegate
+import com.aya.digital.core.ui.delegates.appointments.patientappointment.ui.PatientAppointmentMoreDelegate
 import com.aya.digital.core.ui.delegates.appointments.patientappointment.ui.PatientAppointmentStatusFooterDelegate
 import com.aya.digital.core.ui.delegates.appointments.patientappointment.ui.PatientAppointmentStatusHeaderDelegate
 import com.google.android.material.datepicker.CalendarConstraints
@@ -45,8 +46,7 @@ class AppointmentsView :
             delegate { PatientAppointmentDelegate(viewModel::onAppointmentClicked) }
             delegate { PatientAppointmentStatusHeaderDelegate() }
             delegate { PatientAppointmentStatusFooterDelegate(viewModel::onHideClicked) }
-
-
+            delegate { PatientAppointmentMoreDelegate() }
         }
     }
 

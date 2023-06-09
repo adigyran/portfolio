@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.aya.digital.core.designsystem.R
 import com.aya.digital.core.ext.dpToPx
 import com.aya.digital.core.ui.delegates.appointments.patientappointment.model.AppointmentUiStatus
+import com.aya.digital.core.ui.delegates.appointments.patientappointment.ui.PatientAppointmentMoreDelegate
 import com.aya.digital.core.ui.delegates.appointments.patientappointment.ui.PatientAppointmentStatusFooterDelegate
 import com.aya.digital.core.ui.delegates.appointments.patientappointment.ui.PatientAppointmentStatusHeaderDelegate
 import com.aya.digital.core.ui.delegates.appointments.patientappointment.ui.StatusHolder
@@ -39,9 +40,12 @@ internal class AppointmentsTabDecoration(private val context: Context) :
         state: RecyclerView.State
     ) {
         val viewHolder = parent.findContainingViewHolder(view)
-        var horizontalDp = 12
-        val horizontal = horizontalDp.dpToPx()
-        val top = (18).dpToPx()
+        val horizontal = (12).dpToPx()
+        val top = when(viewHolder)
+        {
+            is PatientAppointmentMoreDelegate.ViewHolder -> 0
+            else -> (18).dpToPx()
+        }
         outRect.top = top
         outRect.left = horizontal
         outRect.right = horizontal

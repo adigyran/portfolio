@@ -27,6 +27,9 @@
     <string name="appointment_status_scheduled_title">Scheduled appointments</string>
     <string name="appointment_status_cancelled_title">Canceled appointments</string>
     <string name="appointment_status_done_title">Done appointments</string>
+    <string name="hide">Hide</string>
+    <string name="show">Show More</string>
+
 
     <!-- multiselect titles -->
     <string name="multiselect_empty_title">Error Title</string>

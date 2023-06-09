@@ -3,7 +3,8 @@ package com.aya.digital.core.ui.delegates.appointments.patientappointment.model
 import com.aya.digital.core.ui.adapters.base.DiffItem
 
 data class PatientAppointmentsStatusFooterUIModel(
-    val status: AppointmentUiStatus
+    val status: AppointmentUiStatus,
+    val expanded:Boolean
 ) : DiffItem {
 
     override fun areItemsTheSame(newItem: DiffItem): Boolean =
@@ -13,4 +14,5 @@ data class PatientAppointmentsStatusFooterUIModel(
     override fun areContentsTheSame(newItem: DiffItem): Boolean =
         newItem is PatientAppointmentsStatusFooterUIModel
                 && newItem.status == this.status
+                && newItem.expanded == this.expanded
 }

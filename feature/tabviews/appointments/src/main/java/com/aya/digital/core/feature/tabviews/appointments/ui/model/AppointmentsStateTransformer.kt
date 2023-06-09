@@ -8,6 +8,7 @@ import com.aya.digital.core.feature.tabviews.appointments.viewmodel.Appointments
 import com.aya.digital.core.mvi.BaseStateTransformer
 import com.aya.digital.core.ui.adapters.base.DiffItem
 import com.aya.digital.core.ui.delegates.appointments.patientappointment.model.AppointmentUiStatus
+import com.aya.digital.core.ui.delegates.appointments.patientappointment.model.PatientAppointmentMoreUIModel
 import com.aya.digital.core.ui.delegates.appointments.patientappointment.model.PatientAppointmentUIModel
 import com.aya.digital.core.ui.delegates.appointments.patientappointment.model.PatientAppointmentsStatusFooterUIModel
 import com.aya.digital.core.ui.delegates.appointments.patientappointment.model.PatientAppointmentsStatusHeaderUIModel
@@ -23,10 +24,16 @@ class AppointmentsStateTransformer(
                 return@run mutableListOf<DiffItem>().apply {
                     state.appointments?.run {
                         AppointmentModel.AppointmentStatus.values().forEach { status ->
-                            val headersFooters = getHeadersAndFooters(status)
                             val appointments = state.appointments.filter { it.status == status }
+                            if(appointments.isEmpty())
+                            {
+                                add(PatientAppointmentsStatusHeaderUIModel(status = status.mapToUiStatus(), isEmpty = true))
+                                return@forEach
+                            }
+                            val isExpanded = state.expandedStatuses.contains(status)
+                            val headersFooters = getHeadersAndFooters(status,isExpanded)
                             add(headersFooters.first)
-                            appendStatuses(appointments, state.expandedStatuses.contains(status))
+                            appendStatuses(appointments, state.expandedStatuses.contains(status),status)
                             add(headersFooters.second)
                         }
                     }
@@ -36,17 +43,19 @@ class AppointmentsStateTransformer(
 
     private fun MutableList<DiffItem>.appendStatuses(
         appointments: List<AppointmentData>,
-        isExpanded: Boolean
+        isExpanded: Boolean,
+        status: AppointmentModel.AppointmentStatus
     ) {
         if(isExpanded) {
-            addAll(appointments.toAppointmentUiModels()?:return)
+            addAll(appointments.toAppointmentUiModels())
         } else
         {
-            addAll(appointments.take(1).toAppointmentUiModels()?:return)
+            addAll(appointments.take(1).toAppointmentUiModels())
+            if (appointments.size>1) add(PatientAppointmentMoreUIModel(status.mapToUiStatus()))
         }
     }
 
-    private fun List<AppointmentData>.toAppointmentUiModels() = this.map { it.getAppointmentUiModel() }?:null
+    private fun List<AppointmentData>.toAppointmentUiModels() = this.map { it.getAppointmentUiModel() }
     private fun AppointmentData.getAppointmentUiModel(): PatientAppointmentUIModel {
         val doctorModel = this.doctor
         return PatientAppointmentUIModel(
@@ -66,10 +75,13 @@ class AppointmentsStateTransformer(
         )
     }
 
-    private fun getHeadersAndFooters(status: AppointmentModel.AppointmentStatus) = status.run {
+    private fun getHeadersAndFooters(
+        status: AppointmentModel.AppointmentStatus,
+        isExpanded: Boolean
+    ) = status.run {
         Pair(
             PatientAppointmentsStatusHeaderUIModel(status = status.mapToUiStatus()),
-            PatientAppointmentsStatusFooterUIModel(status = status.mapToUiStatus()),
+            PatientAppointmentsStatusFooterUIModel(status = status.mapToUiStatus(),isExpanded),
         )
     }
 
