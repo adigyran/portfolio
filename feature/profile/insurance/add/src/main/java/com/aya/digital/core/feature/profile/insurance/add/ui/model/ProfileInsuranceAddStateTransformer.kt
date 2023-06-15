@@ -35,6 +35,7 @@ class ProfileInsuranceAddStateTransformer(private val context: Context) :
                     )
                 }
             },
+            fullScreenPolicyUrl = state.photoLink,
             saveAddButtonText = kotlin.run { if (state.id != null) "Save" else "Add" }
         )
 

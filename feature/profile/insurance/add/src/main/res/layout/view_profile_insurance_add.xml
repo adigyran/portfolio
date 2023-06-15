@@ -43,4 +43,28 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:id="@+id/descrLabl" />
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/fullScreenPolicyBg"
+        />
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ivFullScreenPolicy"
+        app:layout_constraintTop_toTopOf="@id/fullScreenPolicyBg"
+        app:layout_constraintBottom_toBottomOf="@id/fullScreenPolicyBg"
+        app:layout_constraintStart_toStartOf="@id/fullScreenPolicyBg"
+        app:layout_constraintEnd_toEndOf="@id/fullScreenPolicyBg"
+        />
+    <androidx.constraintlayout.widget.Group
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/fullScreenPolicy"
+        app:constraint_referenced_ids="fullScreenPolicyBg,ivFullScreenPolicy"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

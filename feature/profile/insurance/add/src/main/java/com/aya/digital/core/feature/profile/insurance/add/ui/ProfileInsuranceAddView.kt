@@ -1,20 +1,18 @@
 package com.aya.digital.core.feature.profile.insurance.add.ui
 
-import android.app.Activity
-import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.os.Parcelable
-import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.aya.digital.core.ext.argument
 import com.aya.digital.core.ext.bindClick
 import com.aya.digital.core.ext.createFragment
+import com.aya.digital.core.ext.dpToPx
+import com.aya.digital.core.ext.gone
+import com.aya.digital.core.ext.visible
 import com.aya.digital.core.feature.profile.insurance.add.databinding.ViewProfileInsuranceAddBinding
 import com.aya.digital.core.feature.profile.insurance.add.di.profileInsuranceAddDiModule
 import com.aya.digital.core.feature.profile.insurance.add.ui.contract.ProfileInsuranceAddImageSelectContract
@@ -23,7 +21,6 @@ import com.aya.digital.core.feature.profile.insurance.add.ui.model.ProfileInsura
 import com.aya.digital.core.feature.profile.insurance.add.viewmodel.ProfileInsuranceAddSideEffects
 import com.aya.digital.core.feature.profile.insurance.add.viewmodel.ProfileInsuranceAddState
 import com.aya.digital.core.feature.profile.insurance.add.viewmodel.ProfileInsuranceAddViewModel
-import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.ui.adapters.base.BaseDelegateAdapter
 import com.aya.digital.core.ui.base.screens.DiFragment
 import com.aya.digital.core.ui.delegates.components.fields.name.model.ui.NameFieldDelegate
@@ -31,6 +28,9 @@ import com.aya.digital.core.ui.delegates.components.fields.name.model.ui.NameFie
 import com.aya.digital.core.ui.delegates.components.fields.selection.ui.SelectionFieldDelegate
 import com.aya.digital.core.ui.delegates.components.fields.selection.ui.SelectionFieldDelegateListeners
 import com.aya.digital.core.ui.delegates.profile.emergencycontactinfo.ui.InsurancePolicyPhotoDelegate
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.parcelize.Parcelize
 import org.kodein.di.DI
@@ -57,6 +57,7 @@ class ProfileInsuranceAddView :
             delegate {
                 InsurancePolicyPhotoDelegate(
                     viewModel::photoClicked,
+                    viewModel::uploadPhotoClicked,
                     viewModel::photoMoreClicked
                 )
             }
@@ -66,6 +67,8 @@ class ProfileInsuranceAddView :
     override fun prepareCreatedUi(savedInstanceState: Bundle?) {
         super.prepareCreatedUi(savedInstanceState)
         recyclers.add(binding.recycler)
+        binding.fullScreenPolicy.gone()
+        binding.fullScreenPolicyBg bindClick { viewModel.onFullScreenPhotoClicked() }
         binding.toolbar.backButton bindClick {viewModel.onBack()}
         binding.toolbar.title.text = "Insurance"
         binding.saveAddButton bindClick {viewModel.onSaveAddClicked()}
@@ -107,6 +110,14 @@ class ProfileInsuranceAddView :
             ProfileInsuranceAddSideEffects.SelectImage -> {
                 singlePhotoPickerLauncher.launch(null)
             }
+
+            ProfileInsuranceAddSideEffects.ShowFullScreenPolicy -> {
+                binding.fullScreenPolicy.visible()
+            }
+
+            ProfileInsuranceAddSideEffects.HideFullScreenPolicy -> {
+                binding.fullScreenPolicy.gone()
+            }
         }
 
 
@@ -132,6 +143,17 @@ class ProfileInsuranceAddView :
                 }
             }
             it.saveAddButtonText.run { binding.saveAddButton.text = this }
+            it.fullScreenPolicyUrl?.let {photo->
+                Glide
+                    .with(binding.ivFullScreenPolicy)
+                    .load(photo)
+                    .transform(
+                        CenterCrop(),
+                        RoundedCorners(8.dpToPx())
+                    )
+                    .dontAnimate()
+                    .into(binding.ivFullScreenPolicy)
+            }
         }
     }
 

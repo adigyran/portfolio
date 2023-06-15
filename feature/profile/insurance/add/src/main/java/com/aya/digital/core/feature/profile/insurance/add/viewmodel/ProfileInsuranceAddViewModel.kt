@@ -96,7 +96,15 @@ class ProfileInsuranceAddViewModel(
         )
     }
 
+    fun onFullScreenPhotoClicked() = intent {
+        postSideEffect(ProfileInsuranceAddSideEffects.HideFullScreenPolicy)
+
+    }
     fun photoClicked() = intent {
+        postSideEffect(ProfileInsuranceAddSideEffects.ShowFullScreenPolicy)
+    }
+
+    fun uploadPhotoClicked() = intent {
         postSideEffect(ProfileInsuranceAddSideEffects.SelectImage)
     }
 

@@ -7,4 +7,7 @@ sealed class ProfileInsuranceAddSideEffects:BaseSideEffect {
     data class Error(val error:BaseViewModel.ErrorSideEffect) : ProfileInsuranceAddSideEffects()
     object ShowInsuranceActionsDialog : ProfileInsuranceAddSideEffects()
     object SelectImage:ProfileInsuranceAddSideEffects()
+    object ShowFullScreenPolicy:ProfileInsuranceAddSideEffects()
+
+    object HideFullScreenPolicy:ProfileInsuranceAddSideEffects()
 }
