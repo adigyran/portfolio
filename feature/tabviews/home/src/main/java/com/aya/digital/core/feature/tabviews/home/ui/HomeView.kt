@@ -3,6 +3,7 @@ package com.aya.digital.core.feature.tabviews.home.ui
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import com.aya.digital.core.ext.bindClick
 import com.aya.digital.core.feature.tabviews.home.di.homeDiModule
 import com.aya.digital.core.feature.tabviews.home.ui.model.HomeStateTransformer
 import com.aya.digital.core.feature.tabviews.home.ui.model.HomeUiModel
@@ -37,6 +38,8 @@ class HomeView :
 
     override fun prepareCreatedUi(savedInstanceState: Bundle?) {
         super.prepareCreatedUi(savedInstanceState)
+        binding.findDoctorBtn bindClick {viewModel.openDoctors()}
+        binding.appointmentsBtn bindClick {viewModel.openAppointments()}
 
     }
 

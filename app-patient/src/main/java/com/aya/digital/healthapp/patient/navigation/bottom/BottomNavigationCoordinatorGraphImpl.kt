@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.fragment.app.FragmentManager
 import com.aya.digital.core.feature.bottomnavhost.navigation.BottomNavHostNavigationEvents
 import com.aya.digital.core.feature.bottomnavhost.navigation.BottomNavHostScreen
+import com.aya.digital.core.feature.tabviews.home.navigation.HomeNavigationEvents
 import com.aya.digital.core.navigation.bottomnavigation.StartScreen
 import com.aya.digital.core.navigation.coordinator.CoordinatorEvent
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
@@ -54,6 +55,14 @@ class BottomNavigationCoordinatorGraphImpl(context: Context) : BottomCoordinator
             DoctorSearchTabNavigationEvents.Finish -> navigationRouter.exit()
             AppointmentsTabNavigationEvents.Finish -> navigationRouter.exit()
             ProfileTabNavigationEvents.Finish -> navigationRouter.exit()
+            HomeNavigationEvents.FindDoctor -> {
+                navigationRouter.replaceScreen(DoctorSearchTabScreen)
+            }
+            HomeNavigationEvents.ShowAppointments ->
+            {
+                navigationRouter.replaceScreen(AppointmentsTabScreen)
+
+            }
             else -> parentCoordinatorRouter.sendEvent(event)
         }
     }

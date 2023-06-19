@@ -48,14 +48,14 @@ class PatientAppointmentStatusFooterDelegate(private val onHideClick: (status: A
 
         val descriptionText = with(binding.btnHide.context)
         {
-            strings[R.string.auth_chooser_description_formatted].createSpannableText(
+            strings[R.string.hide_button].createSpannableText(
                 colors[com.aya.digital.core.designsystem.R.color.button_text_blue],
                 colors[com.aya.digital.core.designsystem.R.color.button_bg_dark_blue],
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE,
                 binding.btnHide.context,
                 com.aya.digital.core.designsystem.R.style.TextAppearance_App_Body_DescriptionMiniText,
                 com.aya.digital.core.designsystem.R.style.TextAppearance_App_ButtonText_Default,
-                listOf(SpannableObject(strings[R.string.terms_of_service_button]) { onHideClick(item.status) },)
+                listOf(SpannableObject(strings[R.string.hide]) { onHideClick(item.status) },)
             )
         }
         override fun bind(item: PatientAppointmentsStatusFooterUIModel) {
