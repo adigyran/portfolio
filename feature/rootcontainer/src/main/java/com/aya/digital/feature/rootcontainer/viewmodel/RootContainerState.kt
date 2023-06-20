@@ -5,4 +5,4 @@ import com.aya.digital.core.mvi.BaseState
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-object RootContainerState : BaseState
+data class RootContainerState(val inProgress:Boolean = false) : BaseState

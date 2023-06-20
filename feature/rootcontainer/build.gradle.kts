@@ -23,6 +23,7 @@ android {
 
 dependencies {
     implementation(project(":core:domain:auth"))
+    implementation(project(":core:domain:root"))
     implementation(project(mapOf("path" to ":feature:auth:restorepassword")))
 
 }

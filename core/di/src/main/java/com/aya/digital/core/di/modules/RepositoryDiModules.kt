@@ -8,6 +8,7 @@ import com.aya.digital.core.repository.auth.dictionariesRepositoryDiModule
 import com.aya.digital.core.repository.doctors.doctorsRepositoryDiModule
 import com.aya.digital.core.repository.doctors.scheduleRepositoryDiModule
 import com.aya.digital.core.repository.profile.profileRepositoryDiModule
+import com.aya.digital.core.repository.progress.progressRepositoryDiModule
 
 fun repositoryDiModules() = listOf(
     authRepositoryDiModule(),
@@ -15,5 +16,6 @@ fun repositoryDiModules() = listOf(
     dictionariesRepositoryDiModule(),
     doctorsRepositoryDiModule(),
     appointmentRepositoryDiModule(),
-    scheduleRepositoryDiModule()
+    scheduleRepositoryDiModule(),
+    progressRepositoryDiModule()
 )

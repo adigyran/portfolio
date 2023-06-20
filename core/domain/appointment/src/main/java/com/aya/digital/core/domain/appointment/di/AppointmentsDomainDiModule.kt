@@ -24,7 +24,7 @@ import org.kodein.di.instance
 import org.kodein.di.singleton
 
 fun appointmentsDomainDiModule() = DI.Module("appointmentsDomainDiModule") {
-    bind<GetAppointmentsUseCase>() with singleton { GetAppointmentsUseCaseImpl(instance()) }
+    bind<GetAppointmentsUseCase>() with singleton { GetAppointmentsUseCaseImpl(instance(),instance()) }
     bind<GetAppointmentByIdUseCase>() with singleton { GetAppointmentByIdUseCaseImpl(instance()) }
     bind<CreateAppointmentUseCase>() with singleton { CreateAppointmentUseCaseImpl(instance()) }
     bind<GetTeleHealthRoomTokenUseCase>() with singleton {

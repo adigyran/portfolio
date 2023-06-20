@@ -5,6 +5,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import androidx.fragment.app.FragmentManager
 import com.aya.digital.core.baseresources.databinding.ViewFragmentContainerBinding
+import com.aya.digital.core.ext.gone
+import com.aya.digital.core.ext.toggleVisibility
 import com.aya.digital.feature.rootcontainer.di.RootNavigatorParam
 import com.aya.digital.feature.rootcontainer.di.rootContainerDiModule
 import com.aya.digital.feature.rootcontainer.navigation.RootNavigator
@@ -18,13 +20,15 @@ import com.aya.digital.core.navigation.graph.DefaultRootScreenManager
 import com.aya.digital.core.navigation.utils.BackButtonListener
 import com.aya.digital.core.ui.base.screens.DiActivity
 import com.aya.digital.core.util.requestcodes.RequestCodes
+import com.aya.digital.feature.rootcontainer.ui.model.RootContainerStateTransformer
+import com.aya.digital.feature.rootcontainer.ui.model.RootContainerUiModel
 import com.github.terrakok.cicerone.Navigator
 import org.kodein.di.factory
 import org.kodein.di.instance
 import org.kodein.di.on
 
 class RootView :
-    DiActivity<ViewFragmentContainerBinding, RootContainerViewModel, RootContainerState, BaseSideEffect>() {
+    DiActivity<ViewFragmentContainerBinding, RootContainerViewModel, RootContainerState, BaseSideEffect,RootContainerUiModel, RootContainerStateTransformer>() {
 
     private val appFlavour: AppFlavour by kodein.on(context = this).instance()
 
@@ -43,6 +47,10 @@ class RootView :
         context = this
     ).factory()
 
+    private val stateTransformerFactory: ((Unit) -> RootContainerStateTransformer) by kodein.on(
+        context = this
+    ).factory()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if(savedInstanceState == null)
@@ -50,6 +58,7 @@ class RootView :
             openDefaultScreen()
             viewModel.listenForToken()
         }
+        binding.progress.gone()
     }
 
     private fun openDefaultScreen() {
@@ -59,7 +68,11 @@ class RootView :
 
     override fun sideEffect(sideEffect: BaseSideEffect) = Unit
 
-    override fun render(state: RootContainerState) = Unit
+    override fun render(state: RootContainerState) {
+        stateTransformer(state).run {
+            inProgress.run { binding.progress.toggleVisibility(inProgress) }
+        }
+    }
 
     override fun provideDiModule() = rootContainerDiModule()
 
@@ -67,6 +80,9 @@ class RootView :
         ViewFragmentContainerBinding.inflate(inflater)
 
     override fun provideViewModel(): RootContainerViewModel = viewModelFactory(Unit)
+
+    override fun provideStateTransformer(): RootContainerStateTransformer =
+        stateTransformerFactory(Unit)
 
     override fun provideNavigator(): Navigator = navigatorFactory(
         RootNavigatorParam(

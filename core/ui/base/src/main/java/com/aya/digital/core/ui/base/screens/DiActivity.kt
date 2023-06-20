@@ -12,6 +12,8 @@ import com.aya.digital.core.dibase.KodeinInjectionManager
 import com.aya.digital.core.ext.strings
 import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.mvi.BaseState
+import com.aya.digital.core.mvi.BaseStateTransformer
+import com.aya.digital.core.mvi.BaseUiModel
 import com.aya.digital.core.mvi.BaseViewModel
 import com.aya.digital.core.navigation.coordinator.Coordinator
 import com.aya.digital.core.navigation.coordinator.CoordinatorHolder
@@ -26,11 +28,13 @@ import com.github.terrakok.cicerone.Router
 import org.kodein.di.*
 import org.orbitmvi.orbit.viewmodel.observe
 
-abstract class DiActivity<Binding : ViewBinding,ViewModel : BaseViewModel<State, SideEffect>, State : BaseState, SideEffect : BaseSideEffect> :
+abstract class DiActivity<Binding : ViewBinding,ViewModel : BaseViewModel<State, SideEffect>, State : BaseState, SideEffect : BaseSideEffect, UiModel : BaseUiModel, StateTransformer : BaseStateTransformer<State, UiModel>> :
     CoreActivity<Binding>(), ChildKodeinProvider, ParentRouterProvider {
     protected val kodein = LateInitDI()
 
     protected lateinit var viewModel: ViewModel
+    protected lateinit var stateTransformer: StateTransformer
+
     protected val localCicerone: Cicerone<Router> by kodein.on(context = this as Activity)
         .instance()
     protected val coordinatorHolder: CoordinatorHolder by kodein.on(context = this as Activity)
@@ -48,6 +52,7 @@ abstract class DiActivity<Binding : ViewBinding,ViewModel : BaseViewModel<State,
         navigator = provideNavigator()
         coordinator = provideCoordinator()
         viewModel = provideViewModel()
+        stateTransformer = provideStateTransformer()
 
         coordinatorHolder.setCoordinator(coordinator)
         coordinatorHolder.setRouter(localCicerone.router)
@@ -66,7 +71,6 @@ abstract class DiActivity<Binding : ViewBinding,ViewModel : BaseViewModel<State,
 
        })
     }
-
 
     override fun onPause() {
         localCicerone.getNavigatorHolder().removeNavigator()
@@ -119,9 +123,6 @@ abstract class DiActivity<Binding : ViewBinding,ViewModel : BaseViewModel<State,
     }
 
 
-  /*  override fun onBackPressed() {
-
-    }*/
     private fun getVisibleFragment(): Fragment? {
         val fragments = supportFragmentManager.fragments
         for (fragment in fragments) {
@@ -132,6 +133,8 @@ abstract class DiActivity<Binding : ViewBinding,ViewModel : BaseViewModel<State,
 
     final override fun getChildKodein(): DI = kodein
     final override fun getParentRouter(): CoordinatorRouter = coordinatorHolder
+
+    abstract fun provideStateTransformer(): StateTransformer
 
     abstract fun provideViewModel(): ViewModel
 

@@ -7,6 +7,7 @@ import com.aya.digital.feature.rootcontainer.navigation.RootCoordinator
 import com.aya.digital.feature.rootcontainer.navigation.RootNavigator
 import com.aya.digital.feature.rootcontainer.viewmodel.RootContainerViewModel
 import com.aya.digital.core.navigation.coordinator.Coordinator
+import com.aya.digital.feature.rootcontainer.ui.model.RootContainerStateTransformer
 import com.github.terrakok.cicerone.Cicerone
 import com.github.terrakok.cicerone.Router
 import org.kodein.di.DI
@@ -21,6 +22,10 @@ import org.kodein.di.singleton
 
 fun rootContainerDiModule() = DI.Module("rootContainerDiModule") {
 
+    bind<RootContainerStateTransformer>() with singleton {
+        RootContainerStateTransformer(
+            instance())
+    }
     bind<Coordinator> {
         scoped(
             AndroidLifecycleScope.multiItem
@@ -40,7 +45,7 @@ fun rootContainerDiModule() = DI.Module("rootContainerDiModule") {
 
     bind {
         scoped(CustomActivityScope).singleton {
-            RootContainerViewModel(instance(),instance(),instance())
+            RootContainerViewModel(instance(),instance(),instance(),instance())
         }
     }
 

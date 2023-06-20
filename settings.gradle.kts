@@ -52,6 +52,7 @@ include(":core:repository:appointment")
 include(":core:repository:doctors")
 include(":core:repository:dictionaries")
 include(":core:repository:schedule")
+include(":core:repository:progress")
 
 //data
 include(":core:data:base")
@@ -61,6 +62,7 @@ include(":core:data:schedule")
 include(":core:data:doctors")
 include(":core:data:preferences")
 include(":core:data:dictionaries")
+include(":core:data:progress")
 
 //
 include(":core:ext")
@@ -90,6 +92,7 @@ include(":core:domain:profile")
 include(":core:domain:auth")
 include(":core:domain:dictionaries")
 include(":core:domain:schedule")
+include(":core:domain:root")
 //ui delegates
 //components
 //fields

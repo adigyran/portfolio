@@ -2,7 +2,6 @@ package com.aya.digital.core.model
 
 import android.content.Context
 import android.os.Parcelable
-import com.aya.digital.core.localisation.strings as LocalisationStrings
 import kotlinx.parcelize.Parcelize
 import com.aya.digital.core.localisation.R as LocalisationR
 
@@ -24,4 +23,4 @@ sealed class ProfileSex(val tag: String, val nameId: Int) : Parcelable {
     }
 }
 
-fun ProfileSex.getSexName(context: Context) = context.LocalisationStrings[this.nameId]
+fun ProfileSex.getSexName(context: Context) = context.getString(this.nameId)

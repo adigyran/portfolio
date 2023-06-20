@@ -9,7 +9,6 @@ import android.widget.Toast
 import androidx.viewbinding.ViewBinding
 import com.aya.digital.core.dibase.KodeinInjectionManager
 import com.aya.digital.core.ext.strings
-import com.aya.digital.core.localisation.strings
 import com.aya.digital.core.mvi.*
 import com.aya.digital.core.ui.core.CoreBottomSheetDialogFragment
 import com.jakewharton.rxrelay3.PublishRelay

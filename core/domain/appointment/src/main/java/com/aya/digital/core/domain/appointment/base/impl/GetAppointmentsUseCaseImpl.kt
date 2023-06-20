@@ -4,6 +4,7 @@ import com.aya.digital.core.data.appointment.repository.AppointmentRepository
 import com.aya.digital.core.data.base.dataprocessing.RequestResultModel
 import com.aya.digital.core.data.base.dataprocessing.asResultModel
 import com.aya.digital.core.data.base.dataprocessing.toModelError
+import com.aya.digital.core.data.progress.repository.ProgressRepository
 import com.aya.digital.core.domain.appointment.base.GetAppointmentsUseCase
 import com.aya.digital.core.domain.base.models.appointment.AppointmentModel
 import com.aya.digital.core.domain.base.models.appointment.toAppointmentModel
@@ -15,7 +16,7 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.plus
 import kotlinx.datetime.toLocalDateTime
 
-internal class GetAppointmentsUseCaseImpl(private val appointmentRepository: AppointmentRepository) :
+internal class GetAppointmentsUseCaseImpl(private val appointmentRepository: AppointmentRepository, private val progressRepository: ProgressRepository) :
     GetAppointmentsUseCase {
     override fun invoke(): Flowable<RequestResultModel<List<AppointmentModel>>> {
         val currentInstant = Clock.System.now()
@@ -26,6 +27,9 @@ internal class GetAppointmentsUseCaseImpl(private val appointmentRepository: App
         return appointmentRepository.getAppointments(startDateTime, endDateTime/**/)
             .mapResult({ it.map { item -> item.toAppointmentModel() }.asResultModel() },
                 { it.toModelError() })
+            .doOnSubscribe{progressRepository.setProgress(true)}
+            .doOnComplete{progressRepository.setProgress(false)}
+
     }
 
 
