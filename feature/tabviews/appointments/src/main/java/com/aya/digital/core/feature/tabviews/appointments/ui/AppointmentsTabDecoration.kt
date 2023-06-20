@@ -60,14 +60,6 @@ internal class AppointmentsTabDecoration(private val context: Context) :
         paint.strokeWidth = 2F
         val lm = parent.layoutManager ?: return
         parent.children
-           /* .filter { view ->
-                val viewHolder = parent.findContainingViewHolder(view)
-                viewHolder is PatientAppointmentStatusHeaderDelegate.ViewHolder || viewHolder is PatientAppointmentStatusFooterDelegate.ViewHolder
-            }
-            .groupBy { view: View ->
-                val viewHolder = parent.findContainingViewHolder(view)
-                (viewHolder as StatusHolder).getDelegateStatus()
-            }*/
             .forEach { view ->
                 val viewHolder = parent.findContainingViewHolder(view)
                 currentStatus = (viewHolder as StatusHolder).getDelegateStatus()

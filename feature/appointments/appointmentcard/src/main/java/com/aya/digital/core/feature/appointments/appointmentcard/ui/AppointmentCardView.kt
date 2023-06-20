@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.aya.digital.core.localisation.R as LocR
 import com.aya.digital.core.ext.*
 import com.aya.digital.core.feature.appointments.appointmentcard.databinding.ViewAppointmentCardBinding
 import com.aya.digital.core.feature.appointments.appointmentcard.di.appointmentCardDiModule
@@ -153,12 +154,12 @@ internal class AppointmentCardView :
 
     private fun showCancelAppointmentDialog() {
         MaterialAlertDialogBuilder(requireContext())
-            .setTitle("Cancel?")
-            .setMessage("Are you sure you want to cancel the appointment?")
-            .setNegativeButton("Back") { dialog, which ->
+            .setTitle(strings[LocR.string.cancel_dialog_title])
+            .setMessage(strings[LocR.string.appointment_card_cancel_appointment_dialog_message])
+            .setNegativeButton(strings[LocR.string.cancel_dialog_negative]) { dialog, which ->
                 dialog.dismiss()
             }
-            .setPositiveButton("Yes, cancel") { dialog, which ->
+            .setPositiveButton(strings[LocR.string.cancel_dialog_positive]) { dialog, which ->
                 viewModel.onCancelAppointment()
                 dialog.dismiss()
             }

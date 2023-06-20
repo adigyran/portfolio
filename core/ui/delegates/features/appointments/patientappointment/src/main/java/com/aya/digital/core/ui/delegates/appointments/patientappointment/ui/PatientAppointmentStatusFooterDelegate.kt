@@ -46,21 +46,22 @@ class PatientAppointmentStatusFooterDelegate(private val onHideClick: (status: A
             binding.btnHide.movementMethod = LinkTouchMovementMethod()
         }
 
-        val descriptionText = with(binding.btnHide.context)
-        {
-            strings[R.string.hide_button].createSpannableText(
-                colors[com.aya.digital.core.designsystem.R.color.button_text_blue],
-                colors[com.aya.digital.core.designsystem.R.color.button_bg_dark_blue],
-                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE,
-                binding.btnHide.context,
-                com.aya.digital.core.designsystem.R.style.TextAppearance_App_Body_DescriptionMiniText,
-                com.aya.digital.core.designsystem.R.style.TextAppearance_App_ButtonText_Default,
-                listOf(SpannableObject(strings[R.string.hide]) { onHideClick(item.status) },)
-            )
-        }
+
         override fun bind(item: PatientAppointmentsStatusFooterUIModel) {
             super.bind(item)
             status = item.status
+            val descriptionText = with(binding.btnHide.context)
+            {
+                strings[R.string.hide_button].createSpannableText(
+                    colors[com.aya.digital.core.designsystem.R.color.button_text_blue],
+                    colors[com.aya.digital.core.designsystem.R.color.button_bg_dark_blue],
+                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE,
+                    binding.btnHide.context,
+                    com.aya.digital.core.designsystem.R.style.TextAppearance_App_Body_DescriptionMiniText,
+                    com.aya.digital.core.designsystem.R.style.TextAppearance_App_ButtonText_Default,
+                    listOf(SpannableObject(if(item.expanded) strings[R.string.hide] else strings[R.string.show]) { onHideClick(item.status) },)
+                )
+            }
             binding.btnHide.text = descriptionText
         }
 

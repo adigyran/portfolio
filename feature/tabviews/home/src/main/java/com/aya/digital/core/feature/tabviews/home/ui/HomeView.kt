@@ -40,7 +40,7 @@ class HomeView :
         super.prepareCreatedUi(savedInstanceState)
         binding.findDoctorBtn bindClick {viewModel.openDoctors()}
         binding.appointmentsBtn bindClick {viewModel.openAppointments()}
-
+        binding.covidBtn bindClick {viewModel.openAppointments()}
     }
 
 

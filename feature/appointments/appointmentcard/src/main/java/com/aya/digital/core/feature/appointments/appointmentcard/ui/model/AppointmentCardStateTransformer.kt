@@ -1,9 +1,12 @@
 package com.aya.digital.core.feature.appointments.appointmentcard.ui.model
 
 import android.content.Context
+import com.aya.digital.core.ext.strings
+import com.aya.digital.core.feature.appointments.appointmentcard.R
 import com.aya.digital.core.feature.appointments.appointmentcard.viewmodel.AppointmentCardState
 import com.aya.digital.core.feature.appointments.appointmentcard.viewmodel.DoctorData
 import com.aya.digital.core.feature.appointments.appointmentcard.viewmodel.PatientData
+import com.aya.digital.core.localisation.R as LocR
 import com.aya.digital.core.mvi.BaseStateTransformer
 import com.aya.digital.core.navigation.AppFlavour
 import com.aya.digital.core.navigation.Flavor
@@ -54,7 +57,7 @@ internal class AppointmentCardStateTransformer(
             if (appFlavour.flavour == Flavor.Patient) {
                 state.doctorData?.let { doctorData ->
                     doctorData.doctorAddress?.let { address ->
-                        add(DoctorDetailsTitleUIModel("Location"))
+                        add(DoctorDetailsTitleUIModel(context.strings[LocR.string.appointment_card_location]))
                         add(DoctorDetailsLocationUIModel(address = address))
                     }
                 }
@@ -63,7 +66,7 @@ internal class AppointmentCardStateTransformer(
                 Flavor.Doctor -> {
                     state.patientData?.let { patientData ->
                         patientData.patientInsurances?.let { insuranceModels ->
-                            add(DoctorDetailsTitleUIModel("Insurances"))
+                            add(DoctorDetailsTitleUIModel(context.strings[LocR.string.appointment_card_insurances]))
                             addAll(insuranceModels.map { DoctorDetailsInsuranceUIModel(it.name) })
                         }
                     }
@@ -72,7 +75,7 @@ internal class AppointmentCardStateTransformer(
                 Flavor.Patient -> {
                     state.doctorData?.let { patientData ->
                         patientData.doctorInsurances?.let { insuranceModels ->
-                            add(DoctorDetailsTitleUIModel("Insurances"))
+                            add(DoctorDetailsTitleUIModel(context.strings[LocR.string.appointment_card_insurances]))
                             addAll(insuranceModels.map { DoctorDetailsInsuranceUIModel(it.name) })
                         }
                     }
@@ -84,8 +87,8 @@ internal class AppointmentCardStateTransformer(
 
     private fun getCommentTitle(): String =
         when (appFlavour.flavour) {
-            is Flavor.Patient -> "My comment"
-            is Flavor.Doctor -> "Patient comment"
+            is Flavor.Patient -> context.strings[LocR.string.appointment_card_my_comment]
+            is Flavor.Doctor -> context.strings[LocR.string.appointment_card_patient_comment]
             else -> "unknown"
         }
 
@@ -99,7 +102,7 @@ internal class AppointmentCardStateTransformer(
     private fun getPatientLines(patientData: PatientData?): Pair<String, String>? =
         patientData?.run {
             val firstLine =
-                "%s %s".format(patientData.patientFirstName, patientData.patientLastName)
+                context.strings[LocR.string.appointment_card_patient_lines].format(patientData.patientFirstName, patientData.patientLastName)
             val secondLine = patientData?.patientBirthDate?.getAge() ?: ""
             Pair(firstLine, secondLine)
         }
@@ -107,14 +110,14 @@ internal class AppointmentCardStateTransformer(
     private fun getDoctorLines(doctorData: DoctorData?): Pair<String, String>? =
         doctorData?.run {
             val specialityName = doctorData.doctorSpecialities?.firstOrNull()?.name
-            val firstLine = "%s".format(specialityName)
+            val firstLine = context.strings[LocR.string.appointment_card_doctor_lines_first_line].format(specialityName)
             val lastName = doctorData.doctorLastName
             val clinicName = doctorData.doctorClinics?.firstOrNull()?.clinicName
-            val secondLine = "Dr. %s, %s".format(lastName, clinicName)
+            val secondLine = context.strings[LocR.string.appointment_card_doctor_lines_second_line].format(lastName, clinicName)
             Pair(firstLine, secondLine)
         }
 
     private fun LocalDate.getAge() =
-        "Age ${ChronoUnit.YEARS.between(this.toJavaLocalDate(), java.time.LocalDate.now())}"
+        context.strings[LocR.string.age].format(ChronoUnit.YEARS.between(this.toJavaLocalDate(), java.time.LocalDate.now()).toString())
 
 }

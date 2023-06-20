@@ -31,10 +31,24 @@ class AppointmentsStateTransformer(
                                 return@forEach
                             }
                             val isExpanded = state.expandedStatuses.contains(status)
-                            val headersFooters = getHeadersAndFooters(status,isExpanded)
-                            add(headersFooters.first)
-                            appendStatuses(appointments, state.expandedStatuses.contains(status),status)
-                            add(headersFooters.second)
+                            val headersFooters = getHeadersAndFooters(status, isExpanded)
+                            if(appointments.size>1) {
+                                add(headersFooters.first)
+                                appendStatuses(
+                                    appointments,
+                                    state.expandedStatuses.contains(status),
+                                    status
+                                )
+                                add(headersFooters.second)
+                            } else
+                            {
+                                add(headersFooters.first)
+                                appendStatuses(
+                                    appointments,
+                                    state.expandedStatuses.contains(status),
+                                    status
+                                )
+                            }
                         }
                     }
                 }
