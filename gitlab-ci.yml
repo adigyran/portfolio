@@ -1,0 +1,23 @@
+image: docker:latest
+
+services:
+  - docker:dind
+
+variables:
+  DOCKER_DRIVER: overlay2
+  DOCKER_HOST: tcp://docker:2375/
+
+stages:
+  - build_and_deploy
+
+build_and_deploy:
+  stage: build_and_deploy
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker-compose build
+    - docker-compose up -d
+    - docker exec android-container fastlane deploy
+  environment:
+    name: production
+  only:
+    - master

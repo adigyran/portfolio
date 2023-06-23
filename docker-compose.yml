@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+  android-builder:
+    build: .
+    container_name: android-container
+    environment:
+      - CI_REGISTRY_USER
+      - CI_REGISTRY_PASSWORD
+      - CI_REGISTRY
+    volumes:
+      - .:/app
+      - android-sdk-data:/usr/local/android-sdk
+      - fastlane-data:/root/.fastlane
+
+volumes:
+  android-sdk-data:
+  fastlane-data:

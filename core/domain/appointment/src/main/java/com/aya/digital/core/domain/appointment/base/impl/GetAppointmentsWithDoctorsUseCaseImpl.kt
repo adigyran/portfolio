@@ -72,48 +72,6 @@ internal class GetAppointmentsWithDoctorsUseCaseImpl(
             }, { Flowable.just(it) })
 
             .mapResult({ it.asResultModel() }, { it.toModelError() })
-        /* .flatMapResult({ appointments ->
-             val collectedAppointmentsWithDoctors = mutableListOf<AppointmentWithParticipantModel>()
-             Flowable.fromIterable(appointments)
-                 .flatMap { appointment ->
-                     appointment.participant?.id?.let { doctorId ->
-                         doctorRepository.fetchDoctorById(doctorId)
-                             .mapResult({ doctorData ->
-                                 AppointmentWithParticipantModel(
-                                     appointmentModel = appointment.toAppointmentModel(),
-                                     doctorModel = doctorData.mapToDoctorModel()
-                                 ).asResult()
-                             }, { it })
-                             .toFlowable()
-                     }
-                         ?: Flowable.just(AppointmentWithParticipantModel(appointmentModel = appointment.toAppointmentModel()).asResult())
-                 }
-                 .mapResult({
-                            collectedAppointmentsWithDoctors.add(it)
-                 },{})
-             return@flatMapResult Flowable.just(collectedAppointmentsWithDoctors)
-         },
-             {
-                 Flowable.just(it)
-             })
-
-         .mapResult({},{})*/
-
-        /*  .collectInto(
-              mutableListOf<RequestResult<AppointmentWithParticipantModel>>(),
-              BiConsumer { t1, t2 -> t1.add(t2) })
-          .map { results ->
-              val appointments = mutableListOf<AppointmentWithParticipantModel>()
-              results.forEach { result ->
-                  result.processResult({ appointment ->
-                      appointments.add(appointment)
-                  }, {
-
-                  })
-              }
-              return@map appointments.asResult()
-          }
-          .toFlowable()*/
 
     }
 }
