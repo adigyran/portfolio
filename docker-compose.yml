@@ -2,7 +2,11 @@ version: "3.8"
 
 services:
   android-builder:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile_test
+      args:
+        DOCKER_BUILDKIT: 1
     container_name: android-container
     environment:
       - CI_REGISTRY_USER

@@ -1,0 +1,45 @@
+FROM ubuntu:latest
+
+RUN apt-get --quiet update --yes && apt-get --quiet install --yes wget tar unzip lib32stdc++6-x32-cross libbz2-1.0 git
+COPY Gemfile ./Gemfile
+RUN apt-get install -y ruby-full
+RUN gem install bundler
+RUN bundle install
+RUN bundle update
+RUN apt-get install -y openjdk-17-jdk
+
+
+
+ENV ANDROID_TOOLS="9477386_latest"
+ENV ANDROID_API_LEVEL="33"
+ENV ANDROID_BUILD_TOOLS="33.0.0"
+ENV GRADLE_VERSION="8.0"
+
+# Download commandlinetools
+RUN wget --quiet --output-document=android-sdk.zip "https://dl.google.com/android/repository/commandlinetools-linux-${ANDROID_TOOLS}.zip" \
+      && mkdir -p /root/.android \
+      && touch /root/.android/repositories.cfg \
+      && mkdir -p /Android/cmdline-tools \
+      && unzip -d /Android/cmdline-tools android-sdk.zip >/dev/null \
+      && mv /Android/cmdline-tools/cmdline-tools/ /Android/cmdline-tools/latest/ \
+      && rm -rf android-sdk.zip
+
+RUN yes | /Android/cmdline-tools/latest/bin/sdkmanager --install "platforms;android-${ANDROID_API_LEVEL}"
+RUN yes | /Android/cmdline-tools/latest/bin/sdkmanager --install "platform-tools"
+RUN yes | /Android/cmdline-tools/latest/bin/sdkmanager --install "build-tools;${ANDROID_BUILD_TOOLS}"
+RUN yes | /Android/cmdline-tools/latest/bin/sdkmanager --licenses
+
+ENV ANDROID_HOME=/Android/
+ENV PATH="$PATH:/Android/cmdline-tools/latest/bin"
+ENV PATH="$PATH:/Android/platform-tools"
+
+# Download Gradle
+RUN mkdir /opt/gradle \
+      && wget -q "https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip" \
+      && unzip -d /opt/gradle "gradle-${GRADLE_VERSION}-bin.zip" \
+      && rm -rf "gradle-${GRADLE_VERSION}-bin.zip"
+
+
+
+ENV PATH="$PATH:/opt/gradle/gradle-${GRADLE_VERSION}/bin"
+
