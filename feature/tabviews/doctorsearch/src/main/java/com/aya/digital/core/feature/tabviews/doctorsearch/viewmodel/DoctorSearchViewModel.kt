@@ -14,6 +14,7 @@ import kotlinx.coroutines.reactive.asFlow
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
+import timber.log.Timber
 import com.aya.digital.core.data.base.dataprocessing.dataloading.DataLoadingOperationWithPagination as DataLoadingOperation
 
 class DoctorSearchViewModel(
@@ -168,30 +169,57 @@ class DoctorSearchViewModel(
     ) = intent {
         rootCoordinatorRouter.setResultListener(requestCode) { result ->
             if (result !is MultiSelectResultModel) return@setResultListener
-            val selectedFilters = when (requestCode) {
+            when (requestCode) {
                 RequestCodes.LOCATIONS_LIST_REQUEST_CODE -> {
-                    result.selectedItems.map { SelectedFilterModel.Location(it.id, it.text) }
+                    val locations =
+                        if (result.selectedItems.isEmpty()) listOf() else result.selectedItems.map {
+                            SelectedFilterModel.Location(
+                                it.id,
+                                it.text
+                            )
+                        }
+                    setFilters(locations)
                 }
 
                 RequestCodes.INSURANCE_LIST_REQUEST_CODE -> {
-                    result.selectedItems.map { SelectedFilterModel.Insurance(it.id,it.text) }
+                    val insurances =
+                        if (result.selectedItems.isEmpty()) listOf<SelectedFilterModel.Insurance>()
+                        else result.selectedItems.map {
+                            SelectedFilterModel.Insurance(
+                                it.id,
+                                it.text
+                            )
+                        }
+                    setFilters(insurances)
                 }
 
                 RequestCodes.SPECIALITIES_LIST_REQUEST_CODE -> {
-                    result.selectedItems.map { SelectedFilterModel.Speciality(it.id,it.text) }
+                    val specialities =
+                        if (result.selectedItems.isEmpty()) listOf<SelectedFilterModel.Speciality>()
+                        else result.selectedItems.map {
+                            SelectedFilterModel.Speciality(
+                                it.id,
+                                it.text
+                            )
+                        }
+                    setFilters(specialities)
                 }
 
                 else -> {
                     listOf<SelectedFilterModel>()
                 }
             }
-            setFilters(selectedFilters)
         }
     }
 
     private inline fun <reified T : SelectedFilterModel> setFilters(filterItems: List<T>) = intent {
+        Timber.d("${T::class}")
         val filters = state.selectedFilters.toMutableSet().apply {
-            removeAll { it::class == T::class }
+
+            removeAll {
+                Timber.d("${it::class} ${T::class}")
+                it::class == T::class
+            }
             addAll(filterItems)
         }
         reduce { state.copy(selectedFilters = filters.toSet()) }
