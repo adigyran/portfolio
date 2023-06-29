@@ -8,6 +8,7 @@ import com.aya.digital.core.data.dictionaries.mappers.SpecialityMapper
 import com.aya.digital.core.data.dictionaries.repository.DictionariesRepository
 import com.aya.digital.core.datasource.DictionariesDataSource
 import com.aya.digital.core.ext.*
+import com.aya.digital.core.network.model.response.doctors.CityResponse
 import com.aya.digital.core.networkbase.CommonUtils
 import com.aya.digital.core.networkbase.server.RequestResult
 import io.reactivex.rxjava3.core.Flowable
@@ -63,4 +64,13 @@ class DictionariesRepositoryImpl(
                     result.sizeResult
                 ).asResult()
             }, { it })
+
+    override fun getCities(searchTerm: String?): Flowable<RequestResult<CityResponse>> =
+        dictionariesDataSource.getCities(searchTerm)
+            .retryOnError()
+            .retrofitResponseToResult(CommonUtils::mapServerErrors)
+            .mapResult(
+                { it.asResult() },
+                { it }
+            )
 }
