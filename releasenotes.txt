@@ -73,5 +73,12 @@ Added Firebase Distribution\n
         collapsible appointments\n
         doctor search\n
         version 37 patient\n
+        ci/cd innerworkings
+        progress bar for app
+        home screen now clickable
+        moved hardcoded strings
+        profile avatar in bottom navigation
+        version 39 patient\n
+
 
 

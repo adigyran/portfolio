@@ -1,11 +1,10 @@
 FROM ubuntu:22.04
 
-RUN apt-get --quiet update --yes && apt-get --quiet install --yes wget tar unzip lib32stdc++6-x32-cross libbz2-1.0 git git curl autoconf bison build-essential \
+RUN apt-get --quiet update --yes && apt-get --quiet install --yes wget tar unzip lib32stdc++6-x32-cross libbz2-1.0 git curl autoconf bison build-essential \
                                                                                                                             libssl-dev libyaml-dev libreadline6-dev zlib1g-dev \
                                                                                                                            libncurses5-dev libffi-dev libgdbm6 libgdbm-dev libdb-dev \
 RUN curl -fsSL https://github.com/rbenv/rbenv-installer/raw/HEAD/bin/rbenv-installer | bash
 RUN echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
-RUN echo 'eval "$(rbenv init -)"' >> ~/.bashrc
 RUN echo 'eval "$(rbenv init -)"' >> ~/.bashrc
 SHELL ["/bin/bash", "-c", "source ~/.bashrc"]
 RUN rbenv install 3.2.0
@@ -51,4 +50,6 @@ RUN mkdir /opt/gradle \
 
 
 ENV PATH="$PATH:/opt/gradle/gradle-${GRADLE_VERSION}/bin"
+
+RUN fastline debug
 

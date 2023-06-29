@@ -75,5 +75,11 @@
         collapsible appointments\n
         doctor search\n
         version 37 patient\n
+        ci/cd innerworkings\n
+        progress bar for app\n
+        home screen now clickable\n
+        moved hardcoded strings\n
+        profile avatar in bottom navigation\n
+        version 39 patient\n
     </string>
 </resources>
