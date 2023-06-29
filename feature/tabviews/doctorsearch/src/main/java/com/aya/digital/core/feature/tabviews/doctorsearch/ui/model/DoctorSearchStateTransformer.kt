@@ -29,6 +29,7 @@ class DoctorSearchStateTransformer(private val context: Context) :
                 }
             },
             specialityFilterText = kotlin.run {
+                if(state.selectedFilters.filterIsInstance<SelectedFilterModel.Speciality>().isEmpty()) return@run "Speciality"
                 var prefix = ""
                 return@run state.selectedFilters.filterIsInstance<SelectedFilterModel.Speciality>()
                     .fold(StringBuilder()) { acc, speciality ->
@@ -41,6 +42,7 @@ class DoctorSearchStateTransformer(private val context: Context) :
                     }.toString()
             },
             locationFilterText = kotlin.run {
+                if(state.selectedFilters.filterIsInstance<SelectedFilterModel.Location>().isEmpty()) return@run "Location"
                 var prefix = ""
                 return@run state.selectedFilters.filterIsInstance<SelectedFilterModel.Location>()
                     .fold(StringBuilder()) { acc, location ->
@@ -52,6 +54,7 @@ class DoctorSearchStateTransformer(private val context: Context) :
                     }.toString()
             },
             insuranceFilterText = kotlin.run {
+                if(state.selectedFilters.filterIsInstance<SelectedFilterModel.Insurance>().isEmpty()) return@run "Insurance"
                 var prefix = ""
                 return@run state.selectedFilters.filterIsInstance<SelectedFilterModel.Insurance>()
                     .fold(StringBuilder()) { acc, insurance ->
