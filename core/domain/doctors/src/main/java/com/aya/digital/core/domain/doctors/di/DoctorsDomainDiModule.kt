@@ -9,7 +9,7 @@ import org.kodein.di.instance
 import org.kodein.di.singleton
 
 fun doctorsDomainDiModule() = DI.Module("doctorsDomainDiModule") {
-    bind<GetDoctorByIdUseCase>() with singleton { GetDoctorByIdUseCaseImpl(instance()) }
-    bind<GetDoctorsUseCaseImpl>() with singleton { GetDoctorsUseCaseImpl(instance()) }
+    bind<GetDoctorByIdUseCase>() with singleton { GetDoctorByIdUseCaseImpl(instance(),instance()) }
+    bind<GetDoctorsUseCaseImpl>() with singleton { GetDoctorsUseCaseImpl(instance(),instance()) }
 
 }

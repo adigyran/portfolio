@@ -16,12 +16,16 @@ import io.reactivex.rxjava3.subjects.PublishSubject
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
+import timber.log.Timber
 
 internal class ProgressRepositoryImpl(private val progressSubject: PublishSubject<Boolean> = PublishSubject.create()) :
     ProgressRepository {
 
 
-    override fun setProgress(inProgress: Boolean) = progressSubject.onNext(inProgress)
+    override fun setProgress(inProgress: Boolean) {
+        Timber.d("set progress")
+        progressSubject.onNext(inProgress)
+    }
 
 
     override fun listenForProgress(): Observable<Boolean> = progressSubject

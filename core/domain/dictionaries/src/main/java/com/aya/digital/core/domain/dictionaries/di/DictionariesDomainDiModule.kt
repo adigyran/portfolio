@@ -14,10 +14,10 @@ import org.kodein.di.instance
 import org.kodein.di.singleton
 
 fun dictionariesDomainDiModule() = DI.Module("dictionariesDomainDiModule") {
-    bind<GetInsuranceCompanyItemsUseCase>() with singleton { GetInsuranceCompanyItemsUseCaseImpl(instance()) }
-    bind<GetInsuranceCompanyItemByIdUseCase>() with singleton { GetInsuranceCompanyItemByIdUseCaseImpl(instance()) }
+    bind<GetInsuranceCompanyItemsUseCase>() with singleton { GetInsuranceCompanyItemsUseCaseImpl(instance(),instance()) }
+    bind<GetInsuranceCompanyItemByIdUseCase>() with singleton { GetInsuranceCompanyItemByIdUseCaseImpl(instance(),instance()) }
 
-    bind<GetSpecialityItemsUseCase>() with singleton { GetSpecialityItemsUseCaseImpl(instance()) }
+    bind<GetSpecialityItemsUseCase>() with singleton { GetSpecialityItemsUseCaseImpl(instance(),instance()) }
 
     bind<GetMultiSelectItemsUseCase>() with singleton { GetMultiSelectItemsUseCaseImpl(instance(),instance()) }
 

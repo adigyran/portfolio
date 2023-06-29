@@ -51,7 +51,7 @@ class RootContainerViewModel(
         }
     }
 
-    private fun listenForProgress() = intent {
+    private fun listenForProgress() = intent(registerIdling = false) {
         listenForProgressUseCase().asFlow()
             .collect { progress ->
                 Timber.d("progress $progress")

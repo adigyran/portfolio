@@ -6,10 +6,12 @@ import com.aya.digital.core.data.base.dataprocessing.RequestResultModel
 import com.aya.digital.core.data.base.dataprocessing.asResultModel
 import com.aya.digital.core.data.base.dataprocessing.toModelError
 import com.aya.digital.core.data.doctors.repository.DoctorRepository
+import com.aya.digital.core.data.progress.repository.ProgressRepository
 import com.aya.digital.core.domain.appointment.base.GetAppointmentsWithParticipantsUseCase
 import com.aya.digital.core.domain.appointment.base.model.AppointmentWithParticipantModel
 import com.aya.digital.core.domain.base.models.appointment.toAppointmentModel
 import com.aya.digital.core.domain.base.models.doctors.mapToDoctorModel
+import com.aya.digital.core.domain.base.models.progress.trackProgress
 import com.aya.digital.core.ext.asResult
 import com.aya.digital.core.ext.flatMapResult
 import com.aya.digital.core.ext.mapResult
@@ -27,7 +29,8 @@ import timber.log.Timber
 
 internal class GetAppointmentsWithDoctorsUseCaseImpl(
     private val appointmentRepository: AppointmentRepository,
-    private val doctorRepository: DoctorRepository
+    private val doctorRepository: DoctorRepository,
+    private val progressRepository: ProgressRepository
 ) : GetAppointmentsWithParticipantsUseCase {
     @SuppressLint("CheckResult")
     override fun invoke(date: LocalDate?): Flowable<RequestResultModel<List<AppointmentWithParticipantModel>>> {
@@ -70,8 +73,9 @@ internal class GetAppointmentsWithDoctorsUseCaseImpl(
                     .map { it.asResult() }
                     .toFlowable()
             }, { Flowable.just(it) })
-
+            .trackProgress(progressRepository)
             .mapResult({ it.asResultModel() }, { it.toModelError() })
+
 
     }
 }

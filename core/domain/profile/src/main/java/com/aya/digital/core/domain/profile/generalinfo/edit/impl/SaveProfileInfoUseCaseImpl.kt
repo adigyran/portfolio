@@ -4,6 +4,8 @@ import com.aya.digital.core.data.base.dataprocessing.RequestResultModel
 import com.aya.digital.core.data.base.dataprocessing.asResultModel
 import com.aya.digital.core.data.base.dataprocessing.toModelError
 import com.aya.digital.core.data.profile.repository.ProfileRepository
+import com.aya.digital.core.data.progress.repository.ProgressRepository
+import com.aya.digital.core.domain.base.models.progress.trackProgress
 import com.aya.digital.core.domain.profile.generalinfo.edit.SaveProfileInfoUseCase
 import com.aya.digital.core.domain.profile.generalinfo.edit.model.ProfileEditModel
 import com.aya.digital.core.domain.profile.generalinfo.view.model.ProfileInfoModel
@@ -14,10 +16,13 @@ import com.aya.digital.core.network.model.request.ProfileBody
 import com.aya.digital.core.util.datetime.DateTimeUtils
 import io.reactivex.rxjava3.core.Single
 
-internal class SaveProfileInfoUseCaseImpl(private val profileRepository: ProfileRepository,private val dateTimeUtils: DateTimeUtils) :
+internal class SaveProfileInfoUseCaseImpl(private val profileRepository: ProfileRepository,private val dateTimeUtils: DateTimeUtils,
+                                          private val progressRepository: ProgressRepository
+) :
     SaveProfileInfoUseCase {
     override fun invoke(editModel: ProfileEditModel): Single<RequestResultModel<Boolean>> =
         profileRepository.updateProfile(editModel.toProfileBody())
+            .trackProgress(progressRepository)
             .mapResult({true.asResultModel()},{it.toModelError()})
     private fun ProfileEditModel.toProfileBody() = ProfileBody(
         firstName = this.firstName,

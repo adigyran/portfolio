@@ -9,7 +9,9 @@ android {
 dependencies {
     implementation(project(":core:dibase"))
     implementation(project(":core:ext"))
+    implementation(project(":core:domain:base"))
     implementation(project(":core:data:base"))
+    implementation(project(":core:data:progress"))
     implementation(project(":core:data:profile"))
     implementation(project(":core:data:dictionaries"))
     implementation(project(":core:network:model"))

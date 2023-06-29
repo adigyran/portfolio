@@ -12,9 +12,9 @@ import org.kodein.di.instance
 import org.kodein.di.singleton
 
 fun scheduleDomainDiModule() = DI.Module("scheduleDomainDiModule") {
-    bind<GetLatestScheduleByDoctorIdUseCase>() with singleton { GetLatestScheduleByDoctorIdUseCaseImpl(instance()) }
-    bind<GetLatestScheduleByDoctorIdByDateUseCase>() with singleton { GetLatestScheduleByDoctorIdByDateUseCaseImpl(instance()) }
-    bind<GetSelectableScheduleByDoctorIdUseCase>() with singleton { GetSelectableScheduleByDoctorIdUseCaseImpl(instance()) }
+    bind<GetLatestScheduleByDoctorIdUseCase>() with singleton { GetLatestScheduleByDoctorIdUseCaseImpl(instance(),instance()) }
+    bind<GetLatestScheduleByDoctorIdByDateUseCase>() with singleton { GetLatestScheduleByDoctorIdByDateUseCaseImpl(instance(),instance()) }
+    bind<GetSelectableScheduleByDoctorIdUseCase>() with singleton { GetSelectableScheduleByDoctorIdUseCaseImpl(instance(),instance()) }
 
 
 }

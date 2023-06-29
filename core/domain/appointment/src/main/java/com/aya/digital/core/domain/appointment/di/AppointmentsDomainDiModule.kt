@@ -24,11 +24,27 @@ import org.kodein.di.instance
 import org.kodein.di.singleton
 
 fun appointmentsDomainDiModule() = DI.Module("appointmentsDomainDiModule") {
-    bind<GetAppointmentsUseCase>() with singleton { GetAppointmentsUseCaseImpl(instance(),instance()) }
-    bind<GetAppointmentByIdUseCase>() with singleton { GetAppointmentByIdUseCaseImpl(instance()) }
-    bind<CreateAppointmentUseCase>() with singleton { CreateAppointmentUseCaseImpl(instance()) }
+    bind<GetAppointmentsUseCase>() with singleton {
+        GetAppointmentsUseCaseImpl(
+            instance(),
+            instance()
+        )
+    }
+    bind<GetAppointmentByIdUseCase>() with singleton {
+        GetAppointmentByIdUseCaseImpl(
+            instance(),
+            instance()
+        )
+    }
+    bind<CreateAppointmentUseCase>() with singleton {
+        CreateAppointmentUseCaseImpl(
+            instance(),
+            instance()
+        )
+    }
     bind<GetTeleHealthRoomTokenUseCase>() with singleton {
         GetTeleHealthRoomTokenUseCaseImpl(
+            instance(),
             instance()
         )
     }
@@ -38,11 +54,18 @@ fun appointmentsDomainDiModule() = DI.Module("appointmentsDomainDiModule") {
         when (flavour.flavour) {
             is Flavor.Patient -> GetAppointmentByIdWithDoctorUseCaseImpl(
                 instance(),
+                instance(),
                 instance()
             )
 
-            is Flavor.Doctor -> GetAppointmentByIdWithPatientUseCaseImpl(instance(),instance())
+            is Flavor.Doctor -> GetAppointmentByIdWithPatientUseCaseImpl(
+                instance(),
+                instance(),
+                instance()
+            )
+
             else -> GetAppointmentByIdWithDoctorUseCaseImpl(
+                instance(),
                 instance(),
                 instance()
             )
@@ -54,17 +77,24 @@ fun appointmentsDomainDiModule() = DI.Module("appointmentsDomainDiModule") {
         when (flavour.flavour) {
             is Flavor.Patient -> GetAppointmentsWithDoctorsUseCaseImpl(
                 instance(),
+                instance(),
                 instance()
             )
 
-            is Flavor.Doctor -> GetAppointmentsWithPatientsUseCaseImpl(instance(),instance())
+            is Flavor.Doctor -> GetAppointmentsWithPatientsUseCaseImpl(instance(), instance())
             else -> GetAppointmentsWithDoctorsUseCaseImpl(
+                instance(),
                 instance(),
                 instance()
             )
         }
     }
 
-    bind<CancelAppointmentByIdUseCase>() with singleton { CancelAppointmentByIdUseCaseImpl(instance()) }
+    bind<CancelAppointmentByIdUseCase>() with singleton {
+        CancelAppointmentByIdUseCaseImpl(
+            instance(),
+            instance()
+        )
+    }
 
 }

@@ -11,6 +11,7 @@ dependencies {
     implementation(project(":core:ext"))
     implementation(project(":core:util"))
     implementation(project(":core:domain:base"))
+    implementation(project(":core:data:progress"))
     implementation(project(":core:data:base"))
     implementation(project(":core:data:doctors"))
     implementation(project(":core:network:model"))

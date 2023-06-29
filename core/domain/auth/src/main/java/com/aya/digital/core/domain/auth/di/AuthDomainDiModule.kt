@@ -23,7 +23,13 @@ import org.kodein.di.singleton
 fun authDomainDiModule() = DI.Module("authDomainDiModule") {
     bind<SignInUseCase>() with singleton { SignInUseCaseImpl(instance()) }
     bind<SignInOAuthUseCase>() with singleton { SignInOAuthUseCaseImpl(instance()) }
-    bind<PerformTokenRequestOAuthUseCase>() with singleton { PerformTokenRequestOAuthUseCaseImpl(instance(),instance()) }
+    bind<PerformTokenRequestOAuthUseCase>() with singleton {
+        PerformTokenRequestOAuthUseCaseImpl(
+            instance(),
+            instance(),
+            instance()
+        )
+    }
     bind<SignUpUseCase>() with singleton { SignUpUseCaseImpl(instance()) }
     bind<SignUpGetCodeUseCase>() with singleton { SignUpGetCodeUseCaseImpl(instance()) }
 
@@ -39,16 +45,19 @@ fun authDomainDiModule() = DI.Module("authDomainDiModule") {
     bind<MakeNewPasswordUseCase>() with singleton { MakeNewPasswordUseCaseImpl() }
     bind<RestorePasswordSendCodeGetUserKeyUseCase>() with singleton {
         RestorePasswordSendCodeUseCaseImpl(
+            instance(),
             instance()
         )
     }
     bind<RestorePasswordGetCodeUseCase>() with singleton {
         RestorePasswordGetCodeUseCaseImpl(
+            instance(),
             instance()
         )
     }
     bind<RestorePasswordChangePasswordUseCase>() with singleton {
         RestorePasswordChangePasswordUseCaseImpl(
+            instance(),
             instance()
         )
     }

@@ -3,10 +3,13 @@ package com.aya.digital.feature.rootcontainer.ui
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.ViewGroup
+import android.widget.RelativeLayout
 import androidx.fragment.app.FragmentManager
 import com.aya.digital.core.baseresources.databinding.ViewFragmentContainerBinding
 import com.aya.digital.core.ext.gone
 import com.aya.digital.core.ext.toggleVisibility
+import com.aya.digital.core.ext.visible
 import com.aya.digital.feature.rootcontainer.di.RootNavigatorParam
 import com.aya.digital.feature.rootcontainer.di.rootContainerDiModule
 import com.aya.digital.feature.rootcontainer.navigation.RootNavigator
@@ -20,6 +23,7 @@ import com.aya.digital.core.navigation.graph.DefaultRootScreenManager
 import com.aya.digital.core.navigation.utils.BackButtonListener
 import com.aya.digital.core.ui.base.screens.DiActivity
 import com.aya.digital.core.util.requestcodes.RequestCodes
+import com.aya.digital.feature.rootcontainer.databinding.RootViewTopLayoutBinding
 import com.aya.digital.feature.rootcontainer.ui.model.RootContainerStateTransformer
 import com.aya.digital.feature.rootcontainer.ui.model.RootContainerUiModel
 import com.github.terrakok.cicerone.Navigator
@@ -28,12 +32,14 @@ import org.kodein.di.instance
 import org.kodein.di.on
 
 class RootView :
-    DiActivity<ViewFragmentContainerBinding, RootContainerViewModel, RootContainerState, BaseSideEffect,RootContainerUiModel, RootContainerStateTransformer>() {
+    DiActivity<ViewFragmentContainerBinding, RootContainerViewModel, RootContainerState, BaseSideEffect, RootContainerUiModel, RootContainerStateTransformer>() {
 
     private val appFlavour: AppFlavour by kodein.on(context = this).instance()
 
-    private val defaultRootScreenManager: DefaultRootScreenManager by kodein.on(context = this).instance("root_navigation")
+    private val defaultRootScreenManager: DefaultRootScreenManager by kodein.on(context = this)
+        .instance("root_navigation")
 
+    private lateinit var topLayoutBinding: RootViewTopLayoutBinding
 
     private val viewModelFactory: ((Unit) -> RootContainerViewModel) by kodein.on(
         context = this
@@ -53,12 +59,19 @@ class RootView :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if(savedInstanceState == null)
-        {
+        if (savedInstanceState == null) {
             openDefaultScreen()
             viewModel.listenForToken()
         }
-        binding.progress.gone()
+        topLayoutBinding = RootViewTopLayoutBinding.inflate(layoutInflater)
+        binding.root.addView(
+            topLayoutBinding.root,
+            ViewGroup.LayoutParams(
+                RelativeLayout.LayoutParams.MATCH_PARENT,
+                RelativeLayout.LayoutParams.MATCH_PARENT
+            )
+        )
+        topLayoutBinding.progress.gone()
     }
 
     private fun openDefaultScreen() {
@@ -70,7 +83,7 @@ class RootView :
 
     override fun render(state: RootContainerState) {
         stateTransformer(state).run {
-            inProgress.run { binding.progress.toggleVisibility(inProgress) }
+            inProgress.run { topLayoutBinding.progress.toggleVisibility(inProgress) }
         }
     }
 

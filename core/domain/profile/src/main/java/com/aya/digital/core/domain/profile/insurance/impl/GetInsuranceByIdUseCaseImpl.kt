@@ -5,6 +5,8 @@ import com.aya.digital.core.data.base.dataprocessing.asResultModel
 import com.aya.digital.core.data.base.dataprocessing.toModelError
 import com.aya.digital.core.data.dictionaries.repository.DictionariesRepository
 import com.aya.digital.core.data.profile.repository.ProfileRepository
+import com.aya.digital.core.data.progress.repository.ProgressRepository
+import com.aya.digital.core.domain.base.models.progress.trackProgress
 import com.aya.digital.core.domain.profile.insurance.GetInsuranceByIdUseCase
 import com.aya.digital.core.domain.profile.insurance.model.InsurancePolicyItemModel
 import com.aya.digital.core.ext.mapResult
@@ -12,10 +14,12 @@ import io.reactivex.rxjava3.core.Single
 
 internal class GetInsuranceByIdUseCaseImpl(
     private val profileRepository: ProfileRepository,
-    private val dictionariesRepository: DictionariesRepository
+    private val dictionariesRepository: DictionariesRepository,
+    private val progressRepository: ProgressRepository
 ) : GetInsuranceByIdUseCase {
     override fun invoke(id: Int): Single<RequestResultModel<InsurancePolicyItemModel>> =
         profileRepository.getInsuranceById(id)
+            .trackProgress(progressRepository)
             .mapResult({insurancePolicyModel ->
                 InsurancePolicyItemModel(
                     insurancePolicyModel.id,
