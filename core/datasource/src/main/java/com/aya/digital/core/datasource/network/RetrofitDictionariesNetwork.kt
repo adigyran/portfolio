@@ -4,6 +4,7 @@ import com.aya.digital.core.datasource.DictionariesDataSource
 import com.aya.digital.core.network.api.services.DictionariesService
 import com.aya.digital.core.network.main.di.modules.createApiService
 import com.aya.digital.core.network.model.response.base.PagedCursorResponse
+import com.aya.digital.core.network.model.response.doctors.CityResponse
 import com.aya.digital.core.network.model.response.doctors.SpecialityResponse
 import com.aya.digital.core.network.model.response.profile.InsuranceCompanyResponse
 import io.reactivex.rxjava3.core.Flowable
@@ -36,4 +37,7 @@ class RetrofitDictionariesNetwork(private val network: DictionariesService) :
 
     override fun getSpecialisations(searchTerm: String?): Flowable<PagedCursorResponse<SpecialityResponse>> =
         network.getSpecialities(searchTerm)
+
+    override fun getCities(searchTerm: String?): Flowable<CityResponse> =
+        network.getCities(searchTerm)
 }

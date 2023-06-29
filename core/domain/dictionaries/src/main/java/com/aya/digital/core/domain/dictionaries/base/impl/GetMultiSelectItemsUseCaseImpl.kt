@@ -6,13 +6,15 @@ import com.aya.digital.core.data.base.dataprocessing.mapResult
 import com.aya.digital.core.domain.dictionaries.insurancecompany.GetInsuranceCompanyItemsUseCase
 import com.aya.digital.core.domain.dictionaries.base.GetMultiSelectItemsUseCase
 import com.aya.digital.core.domain.dictionaries.base.model.MultiSelectItem
+import com.aya.digital.core.domain.dictionaries.cities.GetCityItemsUseCase
 import com.aya.digital.core.domain.dictionaries.speciality.GetSpecialityItemsUseCase
 import com.aya.digital.core.util.requestcodes.RequestCodes
 import io.reactivex.rxjava3.core.Flowable
 
 internal class GetMultiSelectItemsUseCaseImpl(
     private val getInsuranceCompanyItemsUseCase: GetInsuranceCompanyItemsUseCase,
-    private val getSpecialityItemsUseCase: GetSpecialityItemsUseCase
+    private val getSpecialityItemsUseCase: GetSpecialityItemsUseCase,
+    private val getCityItemsUseCase: GetCityItemsUseCase,
 ) :
     GetMultiSelectItemsUseCase {
     override fun invoke(
@@ -25,6 +27,10 @@ internal class GetMultiSelectItemsUseCaseImpl(
 
         RequestCodes.SPECIALITIES_LIST_REQUEST_CODE -> getSpecialityItemsUseCase(searchTerm).mapResult(
             { items -> items.map { MultiSelectItem(it.code.toInt(), it.name) }.asResultModel() },
+            { it })
+
+        RequestCodes.LOCATIONS_LIST_REQUEST_CODE -> getCityItemsUseCase(searchTerm).mapResult(
+            { items -> items.map { MultiSelectItem(it.id, it.name) }.asResultModel() },
             { it })
 
         else -> {
