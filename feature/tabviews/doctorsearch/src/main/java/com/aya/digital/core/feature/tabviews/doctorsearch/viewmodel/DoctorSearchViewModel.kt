@@ -5,6 +5,8 @@ import com.aya.digital.core.data.base.dataprocessing.dataloading.enums.Operation
 import com.aya.digital.core.data.base.result.models.dictionaries.MultiSelectResultModel
 import com.aya.digital.core.domain.doctors.base.GetDoctorsUseCase
 import com.aya.digital.core.domain.base.models.doctors.DoctorModel
+import com.aya.digital.core.domain.doctors.favourites.AddDoctorToFavoritesUseCase
+import com.aya.digital.core.domain.doctors.favourites.RemoveDoctorFromFavoritesUseCase
 import com.aya.digital.core.feature.tabviews.doctorsearch.navigation.DoctorSearchNavigationEvents
 import com.aya.digital.core.feature.tabviews.doctorsearch.viewmodel.model.SelectedFilterModel
 import com.aya.digital.core.mvi.BaseViewModel
@@ -20,7 +22,9 @@ import com.aya.digital.core.data.base.dataprocessing.dataloading.DataLoadingOper
 class DoctorSearchViewModel(
     private val coordinatorRouter: CoordinatorRouter,
     private val rootCoordinatorRouter: CoordinatorRouter,
-    private val getDoctorsUseCase: GetDoctorsUseCase
+    private val getDoctorsUseCase: GetDoctorsUseCase,
+    private val addDoctorToFavoritesUseCase: AddDoctorToFavoritesUseCase,
+    private val removeDoctorFromFavoritesUseCase: RemoveDoctorFromFavoritesUseCase
 ) :
     BaseViewModel<DoctorSearchState, DoctorSearchSideEffects>() {
     override fun onBack() {
@@ -33,6 +37,7 @@ class DoctorSearchViewModel(
     {
         loadDoctors()
     }
+
 
 
     private fun getDoctors(state: DoctorSearchState) = getDoctorsUseCase(
@@ -233,5 +238,10 @@ class DoctorSearchViewModel(
         loadDoctors()
     }
 
+    fun onDoctorFavouriteClicked(doctorId: Int) = intent {  }
+
+    private fun toggleDoctorFavourite(doctorId: Int) = intent {
+
+    }
 }
 

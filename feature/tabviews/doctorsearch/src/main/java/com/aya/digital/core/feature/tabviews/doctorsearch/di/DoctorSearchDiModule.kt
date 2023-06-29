@@ -14,7 +14,7 @@ fun doctorSearchDiModule(
 
     bind {
         scoped(CustomFragmentScope).singleton {
-            DoctorSearchViewModel(parentCoordinatorEvent,instance("parent_coordinator_bottomnav"),instance())
+            DoctorSearchViewModel(parentCoordinatorEvent,instance("parent_coordinator_bottomnav"),instance(),instance(),instance())
         }
     }
 }

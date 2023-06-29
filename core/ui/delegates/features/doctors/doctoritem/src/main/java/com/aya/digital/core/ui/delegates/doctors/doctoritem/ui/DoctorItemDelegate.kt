@@ -23,7 +23,7 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 
-class DoctorItemDelegate(val onDoctorClicked: (doctorId:Int) -> Unit) :
+class DoctorItemDelegate(val onDoctorClicked: (doctorId:Int) -> Unit, val onFavoriteClicked:(doctorId:Int) -> Unit) :
     BaseDelegate<DoctorItemUIModel>() {
     override fun isForViewType(
         item: DiffItem,
@@ -44,6 +44,7 @@ class DoctorItemDelegate(val onDoctorClicked: (doctorId:Int) -> Unit) :
 
         init {
             binding.root bindClick {onDoctorClicked(item.id)}
+            binding.ivFavorite bindClick {onFavoriteClicked(item.id)}
         }
         override fun bind(item: DoctorItemUIModel) {
             super.bind(item)

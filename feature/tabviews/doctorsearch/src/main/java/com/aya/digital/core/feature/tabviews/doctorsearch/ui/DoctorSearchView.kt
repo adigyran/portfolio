@@ -37,7 +37,7 @@ class DoctorSearchView :
     private val adapter by lazy(LazyThreadSafetyMode.NONE) {
         BaseDelegateAdapter.create {
             delegate {
-                DoctorItemDelegate(viewModel::onDoctorClicked)
+                DoctorItemDelegate(viewModel::onDoctorClicked,viewModel::onDoctorFavouriteClicked)
             }
         }
     }

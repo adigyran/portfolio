@@ -2,6 +2,9 @@ package com.aya.digital.core.feature.doctors.doctorcard.viewmodel
 
 import com.aya.digital.core.data.base.result.models.appointment.CreateAppointmentResultModel
 import com.aya.digital.core.domain.doctors.base.GetDoctorByIdUseCase
+import com.aya.digital.core.domain.doctors.favourites.AddDoctorToFavoritesUseCase
+import com.aya.digital.core.domain.doctors.favourites.CheckDoctorIsInFavoritesUseCase
+import com.aya.digital.core.domain.doctors.favourites.RemoveDoctorFromFavoritesUseCase
 import com.aya.digital.core.domain.schedule.base.GetLatestScheduleByDoctorIdUseCase
 import com.aya.digital.core.domain.schedule.base.model.ScheduleSlotModel
 import com.aya.digital.core.domain.schedule.selectable.GetSelectableScheduleByDoctorIdUseCase
@@ -27,7 +30,10 @@ class DoctorCardViewModel(
     private val param: DoctorCardView.Param,
     private val getDoctorByIdUseCase: GetDoctorByIdUseCase,
     private val getLatestScheduleByDoctorIdUseCase: GetLatestScheduleByDoctorIdUseCase,
-    private val getSelectableScheduleByDoctorIdUseCase: GetSelectableScheduleByDoctorIdUseCase
+    private val getSelectableScheduleByDoctorIdUseCase: GetSelectableScheduleByDoctorIdUseCase,
+    private val checkDoctorIsInFavoritesUseCase: CheckDoctorIsInFavoritesUseCase,
+    private val addDoctorToFavoritesUseCase: AddDoctorToFavoritesUseCase,
+    private val removeDoctorFromFavoritesUseCase: RemoveDoctorFromFavoritesUseCase
 ) :
     BaseViewModel<DoctorCardState, DoctorCardSideEffects>() {
     override val container = container<DoctorCardState, DoctorCardSideEffects>(
