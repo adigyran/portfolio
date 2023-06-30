@@ -272,21 +272,12 @@ class DoctorSearchViewModel(
     }
 
     private fun loadFavoriteDoctors() = intent(registerIdling = false) {
-        if (state.dataOperation.isLoading) return@intent
-        reduce {
-            state.copy(
-                cursor = null,
-                doctors = null,
-                dataOperation = DataLoadingOperation.LoadingData(OperationState.PROGRESS)
-            )
-        }
         getFavoriteDoctors().asFlow()
             .collect { resultModel ->
                 resultModel.processResult({ doctors ->
                     reduce {
                         state.copy(
                             favoriteDoctors = doctors,
-                            dataOperation = DataLoadingOperation.Idle
                         )
                     }
                 }, { processError(it) })

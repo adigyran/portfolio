@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.aya.digital.core.designsystem.R
 import com.aya.digital.core.ext.bindClick
+import com.aya.digital.core.ext.booleans
 import com.aya.digital.core.ext.colors
 import com.aya.digital.core.ext.dpToPx
 import com.aya.digital.core.ext.gone
@@ -60,6 +61,12 @@ class DoctorItemDelegate(val onDoctorClicked: (doctorId:Int) -> Unit, val onFavo
                     .dontAnimate()
                     .into(binding.ivAvatar)
             }
+            val favoriteIcn = if(item.isFavorite) com.aya.digital.core.baseresources.R.drawable.ic_favorite_red_filled else com.aya.digital.core.baseresources.R.drawable.ic_favorite_filled
+            Glide
+                .with(binding.ivFavorite)
+                .load(favoriteIcn)
+                .dontAnimate()
+                .into(binding.ivFavorite)
         }
 
     }

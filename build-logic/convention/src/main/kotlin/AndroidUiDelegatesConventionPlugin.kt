@@ -57,6 +57,7 @@ class AndroidUiDelegatesConventionPlugin : Plugin<Project> {
                 add("implementation", project(":core:ui:adapters"))
                 add("implementation", project(":core:localisation"))
                 add("implementation", project(":core:designsystem"))
+                add("implementation", project(":core:baseresources"))
                 add("implementation", libs.findLibrary("material.design").get())
                 add("implementation", libs.findLibrary("adapter.delegates").get())
                 add("implementation", libs.findLibrary("adapter.delegates.view.binding").get())

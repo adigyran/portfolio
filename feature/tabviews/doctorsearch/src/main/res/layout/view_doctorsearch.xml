@@ -17,7 +17,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         style="@style/Widget.App.Button.FilledButton.Rounded.Gray"
-        android:text="AllDoctors"
+        android:text="All Doctors"
         android:id="@+id/allDoctorsBtn"
         />
     <Button

@@ -124,5 +124,5 @@ internal class DoctorRepositoryImpl(
         practitionersDataSource.getFavoritePractitioners()
             .retryOnError()
             .retrofitResponseToResult(CommonUtils::mapServerErrors)
-            .mapResult({it.asResult()},{it})
+            .mapResult({it.map {  result -> result.id }.asResult()},{it})
 }

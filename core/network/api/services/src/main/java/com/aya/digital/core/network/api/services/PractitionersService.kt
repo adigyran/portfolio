@@ -55,6 +55,6 @@ interface PractitionersService {
     fun removePractitionerFromFavorites(@Path("id") id: Int): Single<Boolean>
 
     @GET("api/profile/favorites")
-    fun getFavoritePractitioners(): Flowable<List<Int>>
+    fun getFavoritePractitioners(): Flowable<List<DoctorDataResponse>>
 
 }
