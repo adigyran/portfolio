@@ -6,13 +6,16 @@ import com.aya.digital.core.data.base.result.models.dictionaries.MultiSelectResu
 import com.aya.digital.core.domain.doctors.base.GetDoctorsUseCase
 import com.aya.digital.core.domain.base.models.doctors.DoctorModel
 import com.aya.digital.core.domain.doctors.favourites.AddDoctorToFavoritesUseCase
+import com.aya.digital.core.domain.doctors.favourites.GetFavoriteDoctorsUseCase
 import com.aya.digital.core.domain.doctors.favourites.RemoveDoctorFromFavoritesUseCase
+import com.aya.digital.core.feature.tabviews.doctorsearch.DoctorSearchMode
 import com.aya.digital.core.feature.tabviews.doctorsearch.navigation.DoctorSearchNavigationEvents
 import com.aya.digital.core.feature.tabviews.doctorsearch.viewmodel.model.SelectedFilterModel
 import com.aya.digital.core.mvi.BaseViewModel
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
 import com.aya.digital.core.util.requestcodes.RequestCodes
 import kotlinx.coroutines.reactive.asFlow
+import kotlinx.coroutines.rx3.await
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
@@ -23,6 +26,7 @@ class DoctorSearchViewModel(
     private val coordinatorRouter: CoordinatorRouter,
     private val rootCoordinatorRouter: CoordinatorRouter,
     private val getDoctorsUseCase: GetDoctorsUseCase,
+    private val getFavoriteDoctors: GetFavoriteDoctorsUseCase,
     private val addDoctorToFavoritesUseCase: AddDoctorToFavoritesUseCase,
     private val removeDoctorFromFavoritesUseCase: RemoveDoctorFromFavoritesUseCase
 ) :
@@ -35,9 +39,9 @@ class DoctorSearchViewModel(
         initialState = DoctorSearchState(dataOperation = DataLoadingOperation.Idle),
     )
     {
+        loadFavoriteDoctors()
         loadDoctors()
     }
-
 
 
     private fun getDoctors(state: DoctorSearchState) = getDoctorsUseCase(
@@ -49,6 +53,7 @@ class DoctorSearchViewModel(
         insurances = state.selectedFilters.filterIsInstance<SelectedFilterModel.Insurance>()
             .map { it.id },
     ).asFlow()
+
 
     private fun loadDoctors() = intent(registerIdling = false) {
         if (state.dataOperation.isLoading || state.dataOperation.isNextPageLoading) return@intent
@@ -230,6 +235,18 @@ class DoctorSearchViewModel(
         reduce { state.copy(selectedFilters = filters.toSet()) }
     }
 
+    fun onAllDoctorsClicked() = intent {
+        if (state.doctorSearchMode != DoctorSearchMode.ShowingAllDoctors) reduce {
+            state.copy(doctorSearchMode = DoctorSearchMode.ShowingAllDoctors)
+        }
+    }
+
+    fun onFavoriteDoctorsClicked() = intent {
+        if (state.doctorSearchMode != DoctorSearchMode.ShowingFavoriteDoctors) reduce {
+            state.copy(doctorSearchMode = DoctorSearchMode.ShowingFavoriteDoctors)
+        }
+    }
+
     fun onRefreshDoctors() = intent {
         loadDoctors()
     }
@@ -238,10 +255,42 @@ class DoctorSearchViewModel(
         loadDoctors()
     }
 
-    fun onDoctorFavouriteClicked(doctorId: Int) = intent {  }
+    fun onDoctorFavouriteClicked(doctorId: Int) = intent {
+        toggleDoctorFavourite(doctorId)
+    }
 
     private fun toggleDoctorFavourite(doctorId: Int) = intent {
+        if (state.favoriteDoctors?.firstOrNull { it == doctorId } != null) {
+            removeDoctorFromFavoritesUseCase(doctorId).await()
+                .processResult({
+                    loadFavoriteDoctors()
+                }, { processError(it) })
+        } else {
+            addDoctorToFavoritesUseCase(doctorId).await()
+                .processResult({ loadFavoriteDoctors() }, { processError(it) })
+        }
+    }
 
+    private fun loadFavoriteDoctors() = intent(registerIdling = false) {
+        if (state.dataOperation.isLoading) return@intent
+        reduce {
+            state.copy(
+                cursor = null,
+                doctors = null,
+                dataOperation = DataLoadingOperation.LoadingData(OperationState.PROGRESS)
+            )
+        }
+        getFavoriteDoctors().asFlow()
+            .collect { resultModel ->
+                resultModel.processResult({ doctors ->
+                    reduce {
+                        state.copy(
+                            favoriteDoctors = doctors,
+                            dataOperation = DataLoadingOperation.Idle
+                        )
+                    }
+                }, { processError(it) })
+            }
     }
 }
 

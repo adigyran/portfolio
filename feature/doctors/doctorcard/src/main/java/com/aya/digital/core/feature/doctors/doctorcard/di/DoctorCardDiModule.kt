@@ -27,6 +27,9 @@ fun doctorCardDiModule(
                 param,
                 instance(),
                 instance(),
+                instance(),
+                instance(),
+                instance(),
                 instance()
             )
         }

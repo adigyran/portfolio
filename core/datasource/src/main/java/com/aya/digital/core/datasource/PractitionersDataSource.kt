@@ -19,20 +19,6 @@ interface PractitionersDataSource {
         id: Int,
     ): Single<DoctorDataResponse>
 
-    /* fun searchPractitioners(
-         search: String,
-         page: Int = 0,
-         limit: Int = 10
-     ): Flowable<PractitionersResponse>
-
-
-     fun searchPractitionersWithCode(
-         code: String,
-         search: String,
-         page: Int = 0,
-         limit: Int = 10
-     ): Flowable<PractitionersResponse>
- */
     fun fetchSpecialities(
         page: Int,
         limit: Int,
@@ -48,4 +34,8 @@ interface PractitionersDataSource {
     fun getPatient(
         id: Int
     ): Single<PatientDataResponse>
+
+    fun addPractitionerToFavorites(id:Int):Single<Boolean>
+    fun removePractitionerFromFavorites(id:Int):Single<Boolean>
+    fun getFavoritePractitioners():Flowable<List<Int>>
 }

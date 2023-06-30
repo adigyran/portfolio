@@ -81,5 +81,8 @@
         moved hardcoded strings\n
         profile avatar in bottom navigation\n
         version 39 patient\n
+        fixed doctors filter\n
+        added progress bar for all network requests\n
+        version 40 patient\n
     </string>
 </resources>

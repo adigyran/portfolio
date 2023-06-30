@@ -79,6 +79,9 @@ Added Firebase Distribution\n
         moved hardcoded strings
         profile avatar in bottom navigation
         version 39 patient\n
+        fixed doctors filter
+        added progress bar for all network requests
+        version 40 patient\n
 
 
 

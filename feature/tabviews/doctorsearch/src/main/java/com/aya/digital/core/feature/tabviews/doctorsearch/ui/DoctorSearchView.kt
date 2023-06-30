@@ -7,6 +7,10 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.aya.digital.core.ext.bindClick
+import com.aya.digital.core.ext.select
+import com.aya.digital.core.ext.toggleSelection
+import com.aya.digital.core.ext.unselect
+import com.aya.digital.core.feature.tabviews.doctorsearch.DoctorSearchMode
 import com.aya.digital.core.feature.tabviews.doctorsearch.databinding.ViewDoctorsearchBinding
 import com.aya.digital.core.feature.tabviews.doctorsearch.di.doctorSearchDiModule
 import com.aya.digital.core.feature.tabviews.doctorsearch.ui.model.DoctorSearchStateTransformer
@@ -52,6 +56,8 @@ class DoctorSearchView :
         binding.toolbar.insurance bindClick {viewModel.onInsurance()}
         binding.toolbar.speciality bindClick {viewModel.onSpecialisation()}
         binding.toolbar.location bindClick {viewModel.onLocation()}
+        binding.allDoctorsBtn bindClick { viewModel.onAllDoctorsClicked() }
+        binding.favoriteButton bindClick { viewModel.onFavoriteDoctorsClicked() }
         if (savedInstanceState == null) {
             recyclers.add(binding.recycler)
             with(binding.recycler) {
@@ -104,6 +110,10 @@ class DoctorSearchView :
             }
             insuranceFilterText?.let {
                 binding.toolbar.insurance.binding.fieldText.text = it
+            }
+            doctorSearchMode.let { doctorSearchMode ->
+                binding.favoriteButton.toggleSelection(doctorSearchMode == DoctorSearchMode.ShowingFavoriteDoctors)
+                binding.allDoctorsBtn.toggleSelection(doctorSearchMode== DoctorSearchMode.ShowingAllDoctors)
             }
         }
         /*stateTransformer(state).data?.let {

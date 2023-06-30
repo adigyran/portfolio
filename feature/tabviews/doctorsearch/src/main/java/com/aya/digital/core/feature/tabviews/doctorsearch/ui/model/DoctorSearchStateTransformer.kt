@@ -2,6 +2,7 @@ package com.aya.digital.core.feature.tabviews.doctorsearch.ui.model
 
 import android.content.Context
 import com.aya.digital.core.domain.base.models.doctors.DoctorModel
+import com.aya.digital.core.feature.tabviews.doctorsearch.DoctorSearchMode
 import com.aya.digital.core.feature.tabviews.doctorsearch.viewmodel.DoctorSearchState
 import com.aya.digital.core.feature.tabviews.doctorsearch.viewmodel.model.SelectedFilterModel
 import com.aya.digital.core.mvi.BaseStateTransformer
@@ -14,22 +15,47 @@ class DoctorSearchStateTransformer(private val context: Context) :
 
     override fun invoke(state: DoctorSearchState): DoctorSearchUiModel =
         DoctorSearchUiModel(
+            doctorSearchMode = state.doctorSearchMode,
             data = kotlin.run {
                 return@run mutableListOf<DiffItem>().apply {
-                    state.doctors?.run {
-                        addAll(map { doctor ->
-                            DoctorItemUIModel(
-                                id = doctor.id,
-                                name = doctor.composeName(),
-                                speciality = doctor.getSpeciality(),
-                                photo = doctor.avatarPhotoLink
-                            )
-                        })
+                    when (state.doctorSearchMode) {
+                        DoctorSearchMode.ShowingAllDoctors -> {
+                            state.doctors?.run {
+                                addAll(
+                                    map { doctor ->
+                                        DoctorItemUIModel(
+                                            id = doctor.id,
+                                            name = doctor.composeName(),
+                                            speciality = doctor.getSpeciality(),
+                                            photo = doctor.avatarPhotoLink,
+                                            isFavorite = checkIsFavorite(doctor.id, state)
+                                        )
+                                    })
+                            }
+                        }
+
+                        DoctorSearchMode.ShowingFavoriteDoctors -> {
+                            state.doctors?.run {
+                                addAll(
+                                    filter { doctorModel -> checkIsFavorite(doctorModel.id, state) }
+                                        .map { doctor ->
+                                            DoctorItemUIModel(
+                                                id = doctor.id,
+                                                name = doctor.composeName(),
+                                                speciality = doctor.getSpeciality(),
+                                                photo = doctor.avatarPhotoLink,
+                                                isFavorite = true
+                                            )
+                                        })
+                            }
+                        }
                     }
                 }
             },
             specialityFilterText = kotlin.run {
-                if(state.selectedFilters.filterIsInstance<SelectedFilterModel.Speciality>().isEmpty()) return@run "Speciality"
+                if (state.selectedFilters.filterIsInstance<SelectedFilterModel.Speciality>()
+                        .isEmpty()
+                ) return@run "Speciality"
                 var prefix = ""
                 return@run state.selectedFilters.filterIsInstance<SelectedFilterModel.Speciality>()
                     .fold(StringBuilder()) { acc, speciality ->
@@ -42,7 +68,9 @@ class DoctorSearchStateTransformer(private val context: Context) :
                     }.toString()
             },
             locationFilterText = kotlin.run {
-                if(state.selectedFilters.filterIsInstance<SelectedFilterModel.Location>().isEmpty()) return@run "Location"
+                if (state.selectedFilters.filterIsInstance<SelectedFilterModel.Location>()
+                        .isEmpty()
+                ) return@run "Location"
                 var prefix = ""
                 return@run state.selectedFilters.filterIsInstance<SelectedFilterModel.Location>()
                     .fold(StringBuilder()) { acc, location ->
@@ -54,7 +82,9 @@ class DoctorSearchStateTransformer(private val context: Context) :
                     }.toString()
             },
             insuranceFilterText = kotlin.run {
-                if(state.selectedFilters.filterIsInstance<SelectedFilterModel.Insurance>().isEmpty()) return@run "Insurance"
+                if (state.selectedFilters.filterIsInstance<SelectedFilterModel.Insurance>()
+                        .isEmpty()
+                ) return@run "Insurance"
                 var prefix = ""
                 return@run state.selectedFilters.filterIsInstance<SelectedFilterModel.Insurance>()
                     .fold(StringBuilder()) { acc, insurance ->
@@ -66,6 +96,10 @@ class DoctorSearchStateTransformer(private val context: Context) :
                     }.toString()
             },
         )
+
+    private fun checkIsFavorite(id: Int, state: DoctorSearchState): Boolean =
+        state.favoriteDoctors?.filter { id == it } != null
+
     private fun DoctorModel.composeName() =
         "Dr. %s, %s".format(lastName, clinics.firstOrNull()?.clinicName)
 

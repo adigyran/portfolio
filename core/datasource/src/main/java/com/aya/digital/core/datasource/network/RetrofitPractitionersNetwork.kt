@@ -1,7 +1,9 @@
 package com.aya.digital.core.datasource.network
 
+import com.aya.digital.core.datasource.PractitionersDataSource
 import com.aya.digital.core.network.api.services.PractitionersService
 import com.aya.digital.core.network.main.di.modules.createApiService
+import com.aya.digital.core.network.model.request.PractitionerFavoriteBody
 import com.aya.digital.core.network.model.response.base.PagedCursorResponse
 import com.aya.digital.core.network.model.response.doctors.DoctorDataResponse
 import com.aya.digital.core.network.model.response.doctors.SpecialityResponse
@@ -25,7 +27,7 @@ fun practitionersNetworkModule() = DI.Module("practitionersNetworkModule") {
 }
 
 class RetrofitPractitionersNetwork(private val network: PractitionersService) :
-    com.aya.digital.core.datasource.PractitionersDataSource {
+    PractitionersDataSource {
 
     override fun fetchPractitioners(
         scrollId: String?, specialityCodes: List<Int>?,
@@ -50,4 +52,10 @@ class RetrofitPractitionersNetwork(private val network: PractitionersService) :
         network.fetchSpeciality(id)
 
     override fun getPatient(id: Int): Single<PatientDataResponse> = network.getPatient(id)
+    override fun addPractitionerToFavorites(id: Int): Single<Boolean> = network.addPractitionerToFavorites(
+        PractitionerFavoriteBody(id)
+    )
+    override fun removePractitionerFromFavorites(id: Int): Single<Boolean> = network.removePractitionerFromFavorites(id)
+
+    override fun getFavoritePractitioners(): Flowable<List<Int>> = network.getFavoritePractitioners()
 }

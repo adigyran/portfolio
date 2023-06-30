@@ -107,4 +107,22 @@ internal class DoctorRepositoryImpl(
             .mapResult({ result ->
                 patientDataMapper.mapFrom(result).asResult()
             }, { it })
+
+    override fun addDoctorToFavorites(doctorId: Int): Single<RequestResult<Boolean>> =
+        practitionersDataSource.addPractitionerToFavorites(doctorId)
+            .retryOnError()
+            .retrofitResponseToResult(CommonUtils::mapServerErrors)
+            .mapResult({it.asResult()},{it})
+
+    override fun removeDoctorFromFavorites(doctorId: Int): Single<RequestResult<Boolean>> =
+        practitionersDataSource.removePractitionerFromFavorites(doctorId)
+            .retryOnError()
+            .retrofitResponseToResult(CommonUtils::mapServerErrors)
+            .mapResult({it.asResult()},{it})
+
+    override fun getFavoriteDoctors(): Flowable<RequestResult<List<Int>>> =
+        practitionersDataSource.getFavoritePractitioners()
+            .retryOnError()
+            .retrofitResponseToResult(CommonUtils::mapServerErrors)
+            .mapResult({it.asResult()},{it})
 }

@@ -71,7 +71,7 @@ class DoctorCardView :
 
     override fun prepareUi(savedInstanceState: Bundle?) {
         super.prepareUi(savedInstanceState)
-        binding.toolbar.backButton bindClick {viewModel.onBack()}
+        binding.toolbar.backButton bindClick { viewModel.onBack() }
         binding.bookBtn bindClick { viewModel.onBookClicked() }
         binding.detailsBtn bindClick { viewModel.onDetailsClicked() }
         binding.btnSelectDate bindClick { viewModel.onChooseDateClicked() }
@@ -143,6 +143,7 @@ class DoctorCardView :
                         binding.bookBtn.unselect()
                         binding.detailsBtn.select()
                     }
+
                     DoctorCardMode.ShowingSlots -> {
                         binding.bookBtn.select()
                         binding.detailsBtn.unselect()

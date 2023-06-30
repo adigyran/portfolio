@@ -18,4 +18,10 @@ interface DoctorRepository {
     ): Flowable<RequestResult<PaginationCursorModel<DoctorData>>>
 
     fun getPatient(patientId: Int): Single<RequestResult<PatientData>>
+
+    fun addDoctorToFavorites(doctorId:Int):Single<RequestResult<Boolean>>
+
+    fun removeDoctorFromFavorites(doctorId: Int):Single<RequestResult<Boolean>>
+
+    fun getFavoriteDoctors():Flowable<RequestResult<List<Int>>>
 }
