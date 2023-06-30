@@ -24,6 +24,7 @@ class DoctorCardStateTransformer(
     override fun invoke(state: DoctorCardState): DoctorCardUiModel =
         DoctorCardUiModel(
             doctorCardMode = state.doctorCardMode,
+            isFavorite = state.isFavorite,
             doctorName = "Dr. %s".format(state.doctorLastName.getField()),
             doctorSpeciality = state.doctorSpecialities?.let { specialityModels ->
                 specialityModels.firstOrNull()?.name ?: getNotSpecifiedText()

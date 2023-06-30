@@ -24,4 +24,6 @@ interface DoctorRepository {
     fun removeDoctorFromFavorites(doctorId: Int):Single<RequestResult<Boolean>>
 
     fun getFavoriteDoctors():Flowable<RequestResult<List<Int>>>
+
+    fun checkDoctorIsFavorite(doctorId: Int):Single<RequestResult<Boolean>>
 }

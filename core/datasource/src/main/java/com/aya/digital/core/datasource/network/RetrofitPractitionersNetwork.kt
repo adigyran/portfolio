@@ -52,10 +52,17 @@ class RetrofitPractitionersNetwork(private val network: PractitionersService) :
         network.fetchSpeciality(id)
 
     override fun getPatient(id: Int): Single<PatientDataResponse> = network.getPatient(id)
-    override fun addPractitionerToFavorites(id: Int): Single<Boolean> = network.addPractitionerToFavorites(
-        PractitionerFavoriteBody(id)
-    )
-    override fun removePractitionerFromFavorites(id: Int): Single<Boolean> = network.removePractitionerFromFavorites(id)
+    override fun addPractitionerToFavorites(id: Int): Single<Boolean> =
+        network.addPractitionerToFavorites(
+            PractitionerFavoriteBody(id)
+        )
 
-    override fun getFavoritePractitioners(): Flowable<List<DoctorDataResponse>> = network.getFavoritePractitioners()
+    override fun removePractitionerFromFavorites(id: Int): Single<Boolean> =
+        network.removePractitionerFromFavorites(id)
+
+    override fun getFavoritePractitioners(): Flowable<List<DoctorDataResponse>> =
+        network.getFavoritePractitioners()
+
+    override fun checkPractitionerInFavorite(id: Int): Single<Boolean> =
+        network.checkPractitionerInFavorites(id)
 }

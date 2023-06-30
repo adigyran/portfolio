@@ -42,6 +42,7 @@ class DoctorCardViewModel(
     {
         loadDoctorSchedule(param.doctorId)
         loadDoctor(param.doctorId)
+        checkIsFavorite()
     }
 
     private fun loadDoctor(doctorId: Int) = intent {
@@ -166,6 +167,33 @@ class DoctorCardViewModel(
         }
     }
 
+    fun onFavoriteClicked() = intent {
+        toggleFavorite()
+    }
+
+    private fun toggleFavorite() = intent {
+        if(state.isFavorite)
+        {
+            removeDoctorFromFavoritesUseCase(param.doctorId).await()
+                .processResult({checkIsFavorite()},{processError(it)})
+        }
+        else
+        {
+            addDoctorToFavoritesUseCase(param.doctorId).await()
+                .processResult({checkIsFavorite()},{processError(it)})
+        }
+    }
+
+    private fun checkIsFavorite() = intent {
+        checkDoctorIsInFavoritesUseCase(param.doctorId).await()
+            .processResult({ result ->
+                reduce {
+                    state.copy(
+                        isFavorite = result
+                    )
+                }
+            }, { processError(it) })
+    }
 
     override fun postErrorSideEffect(errorSideEffect: ErrorSideEffect) = intent {
         postSideEffect(DoctorCardSideEffects.Error(errorSideEffect))

@@ -12,5 +12,6 @@ data class DoctorCardUiModel(
     val doctorClinic: String? = null,
     val doctorAddress: String? = null,
     val data: List<DiffItem>? = null,
-    val bioReadMore: Boolean = false
+    val bioReadMore: Boolean = false,
+    val isFavorite:Boolean = false
 ) : BaseUiModel

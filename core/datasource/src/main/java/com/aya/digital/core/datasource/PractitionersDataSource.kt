@@ -38,4 +38,5 @@ interface PractitionersDataSource {
     fun addPractitionerToFavorites(id:Int):Single<Boolean>
     fun removePractitionerFromFavorites(id:Int):Single<Boolean>
     fun getFavoritePractitioners():Flowable<List<DoctorDataResponse>>
+    fun checkPractitionerInFavorite(id: Int):Single<Boolean>
 }

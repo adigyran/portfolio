@@ -75,6 +75,7 @@ class DoctorCardView :
         binding.bookBtn bindClick { viewModel.onBookClicked() }
         binding.detailsBtn bindClick { viewModel.onDetailsClicked() }
         binding.btnSelectDate bindClick { viewModel.onChooseDateClicked() }
+        binding.toolbar.favoriteButton bindClick { viewModel.onFavoriteClicked() }
         with(binding.recycler) {
             itemAnimator = null
             setHasFixedSize(true)
@@ -149,6 +150,16 @@ class DoctorCardView :
                         binding.detailsBtn.unselect()
                     }
                 }
+            }
+            isFavorite.let {
+                isFavorite
+                val favoriteIcn =
+                    if (isFavorite) com.aya.digital.core.baseresources.R.drawable.ic_favorite_white_active else com.aya.digital.core.baseresources.R.drawable.ic_favorite_white
+                Glide
+                    .with(binding.toolbar.favoriteButton)
+                    .load(favoriteIcn)
+                    .dontAnimate()
+                    .into(binding.toolbar.favoriteButton)
             }
         }
     }

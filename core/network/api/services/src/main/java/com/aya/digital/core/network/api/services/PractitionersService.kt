@@ -56,5 +56,6 @@ interface PractitionersService {
 
     @GET("api/profile/favorites")
     fun getFavoritePractitioners(): Flowable<List<DoctorDataResponse>>
-
+    @GET("api/profile/favorites/{id}")
+    fun checkPractitionerInFavorites(@Path("id") id: Int): Single<Boolean>
 }

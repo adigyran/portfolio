@@ -44,12 +44,6 @@ internal class DoctorRepositoryImpl(
                     .map { it.asExternalModel().asResult() }
                 else return@flatMap loadDoctorFromNetworkAndSave(id)
             }
-    /* practitionersDataSource.fetchPractitionerById(id)
-         .retryOnError()
-         .retrofitResponseToResult(CommonUtils::mapServerErrors)
-         .mapResult({ result ->
-             doctorDataMapper.mapFrom(result).asResult()
-         }, { it })*/
 
     private fun loadDoctorFromNetworkAndSave(id: Int) =
         practitionersDataSource.fetchPractitionerById(id)
@@ -89,7 +83,7 @@ internal class DoctorRepositoryImpl(
         cities: List<String>?,
         insurances: List<Int>?
     ): Flowable<RequestResult<PaginationCursorModel<DoctorData>>> =
-        practitionersDataSource.fetchPractitioners(scrollId,specialityCodes, cities, insurances)
+        practitionersDataSource.fetchPractitioners(scrollId, specialityCodes, cities, insurances)
             .retryOnError()
             .retrofitResponseToResult(CommonUtils::mapServerErrors)
             .mapResult({ result ->
@@ -112,17 +106,23 @@ internal class DoctorRepositoryImpl(
         practitionersDataSource.addPractitionerToFavorites(doctorId)
             .retryOnError()
             .retrofitResponseToResult(CommonUtils::mapServerErrors)
-            .mapResult({it.asResult()},{it})
+            .mapResult({ it.asResult() }, { it })
 
     override fun removeDoctorFromFavorites(doctorId: Int): Single<RequestResult<Boolean>> =
         practitionersDataSource.removePractitionerFromFavorites(doctorId)
             .retryOnError()
             .retrofitResponseToResult(CommonUtils::mapServerErrors)
-            .mapResult({it.asResult()},{it})
+            .mapResult({ it.asResult() }, { it })
 
     override fun getFavoriteDoctors(): Flowable<RequestResult<List<Int>>> =
         practitionersDataSource.getFavoritePractitioners()
             .retryOnError()
             .retrofitResponseToResult(CommonUtils::mapServerErrors)
-            .mapResult({it.map {  result -> result.id }.asResult()},{it})
+            .mapResult({ it.map { result -> result.id }.asResult() }, { it })
+
+    override fun checkDoctorIsFavorite(doctorId: Int): Single<RequestResult<Boolean>> =
+        practitionersDataSource.checkPractitionerInFavorite(doctorId)
+            .retryOnError()
+            .retrofitResponseToResult(CommonUtils::mapServerErrors)
+            .mapResult({ it.asResult() }, { it })
 }
