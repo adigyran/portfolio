@@ -12,5 +12,4 @@ dependencies {
     implementation(project(":core:domain:base"))
     implementation(project(":core:ui:delegates:features:doctors:doctoritem"))
     implementation(project(":feature:doctors:doctorsfiltersview"))
-
 }

@@ -15,8 +15,7 @@ import com.aya.digital.core.util.retainedinstancemanager.IHasRetainedInstance
 import com.aya.digital.core.util.retainedinstancemanager.IdProvider
 import org.kodein.di.DI
 
-abstract class CoreViewGroup<Binding : ViewBinding> @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : ConstraintLayout(context, attrs, defStyleAttr), ContextAware,
-    IHasRetainedInstance<DI>, IdProvider {
+abstract class CoreViewGroup<Binding : ViewBinding> @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : ConstraintLayout(context, attrs, defStyleAttr), ContextAware{
     protected open val statusBarId: Int? = null
     protected var originalInputMode: Int? = null
     protected open val inputMode: Int? = null
@@ -35,82 +34,12 @@ abstract class CoreViewGroup<Binding : ViewBinding> @JvmOverloads constructor(co
 
 
     init {
+        initDi()
         _binding = this.provideViewBinding(LayoutInflater.from(context))
         val view = binding.root
         this.prepareUi(null)
         this.prepareCreatedUi(null)
     }
-
-  /*  override fun onCreate(savedInstanceState: Bundle?) {
-        val args = arguments
-
-        when {
-            args == null -> {
-                val bundle = Bundle()
-                bundle.putString(
-                    CONTAINER_UUID, UUID.randomUUID().toString()
-                )
-                arguments = bundle
-            }
-            args.getString(CONTAINER_UUID) == null -> args.putString(
-                CONTAINER_UUID, UUID.randomUUID().toString()
-            )
-        }
-
-        initDi()
-
-        super.onCreate(savedInstanceState)
-    }
-
-    override fun onDestroyView() {
-        recyclers.forEach { it.adapter = null }
-        recyclers.clear()
-
-        pagers.forEach { it.adapter = null }
-        pagers.clear()
-
-        if (originalInputMode != null && inputMode != null) activity?.window?.setSoftInputMode(
-            originalInputMode!!
-        )
-
-        *//*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (originalIsLightStatusBar != null && isLightStatusBar != null) toggleStatusBar(
-                originalIsLightStatusBar!!
-            )
-        }*//*
-
-        super.onDestroyView()
-
-        _binding = null
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        prepareCreatedUi(savedInstanceState)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?,
-    ): View? {
-        *//*originalInputMode = activity?.window?.attributes?.softInputMode
-        inputMode?.let { activity?.window?.setSoftInputMode(it) }
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            originalIsLightStatusBar = isLightStatusBar()
-            isLightStatusBar?.let {
-                toggleStatusBar(it)
-            }
-        }*//*
-
-        _binding = provideViewBinding(inflater, container)
-        val view = binding.root
-
-        prepareUi(savedInstanceState)
-
-        return view
-    }*/
-
-
 
     open fun initDi() = Unit
 

@@ -25,7 +25,6 @@ abstract class CoreActivity<Binding : ViewBinding> : AppCompatActivity(),
     protected lateinit var binding: Binding
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        Log.d(CoreActivity::class.java.name, "onCreate: ${this.javaClass.name}")
         this.intent.putExtra(
             CONTAINER_UUID, savedInstanceState?.getString(
                 CONTAINER_UUID

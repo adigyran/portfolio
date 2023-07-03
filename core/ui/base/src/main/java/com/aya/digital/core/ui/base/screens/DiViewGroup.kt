@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.util.AttributeSet
 import androidx.viewbinding.ViewBinding
+import com.aya.digital.core.dibase.KodeinInjectionManager
 import com.aya.digital.core.mvi.*
 import com.aya.digital.core.ui.core.CoreViewGroup
 import org.kodein.di.DI
@@ -29,7 +30,6 @@ abstract class DiViewGroup<Binding : ViewBinding, ViewModel : BaseViewModel<Stat
     }
 
 
-
     override fun prepareUi(savedInstanceState: Bundle?) {
         super.prepareUi(savedInstanceState)
 
@@ -37,7 +37,7 @@ abstract class DiViewGroup<Binding : ViewBinding, ViewModel : BaseViewModel<Stat
 
     override fun prepareCreatedUi(savedInstanceState: Bundle?) {
         super.prepareCreatedUi(savedInstanceState)
-       // viewModel.observe(viewLifecycleOwner, state = ::render, sideEffect = ::sideEffect)
+        // viewModel.observe(viewLifecycleOwner, state = ::render, sideEffect = ::sideEffect)
     }
 
     protected fun onBack() {
@@ -60,10 +60,17 @@ abstract class DiViewGroup<Binding : ViewBinding, ViewModel : BaseViewModel<Stat
 
     final override fun initDi() {
         parentKodein.baseDI = getClosestParentKodein()
-        kodein.baseDI = getClosestParentKodein()
+        kodein.baseDI = createRetainedInstance()
     }
 
-    final override fun createRetainedInstance(): DI = LazyDI {
+    /*final override fun createRetainedInstance(): DI = LazyDI {
+        DI {
+            extend(parentKodein)
+            import(provideDiModule(), allowOverride = true)
+        }
+    }*/
+
+    private fun createRetainedInstance(): DI = LazyDI {
         DI {
             extend(parentKodein)
             import(provideDiModule(), allowOverride = true)

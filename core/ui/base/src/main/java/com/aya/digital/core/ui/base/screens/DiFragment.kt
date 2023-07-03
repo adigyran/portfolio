@@ -9,6 +9,7 @@ import androidx.viewbinding.ViewBinding
 import com.aya.digital.core.dibase.KodeinInjectionManager
 import com.aya.digital.core.ext.strings
 import com.aya.digital.core.mvi.*
+import com.aya.digital.core.navigation.utils.ChildKodeinProvider
 import com.aya.digital.core.ui.core.CoreFragment
 import com.jakewharton.rxrelay3.PublishRelay
 import org.kodein.di.DI
@@ -18,7 +19,7 @@ import org.orbitmvi.orbit.viewmodel.observe
 import java.util.concurrent.TimeUnit
 
 abstract class DiFragment<Binding : ViewBinding, ViewModel : BaseViewModel<State, SideEffect>, State : BaseState, SideEffect : BaseSideEffect, UiModel : BaseUiModel, StateTransformer : BaseStateTransformer<State, UiModel>> :
-    CoreFragment<Binding>() {
+    CoreFragment<Binding>(), ChildKodeinProvider {
     protected val kodein = LateInitDI()
     protected val parentKodein = LateInitDI()
 
@@ -90,6 +91,8 @@ abstract class DiFragment<Binding : ViewBinding, ViewModel : BaseViewModel<State
     abstract fun provideStateTransformer(): StateTransformer
 
     abstract fun provideDiModule(): DI.Module
+
+    override fun getChildKodein(): DI = kodein
 
     private class DelayedTextChangeWatcher(
         private val beforeTextChanged: () -> Unit,

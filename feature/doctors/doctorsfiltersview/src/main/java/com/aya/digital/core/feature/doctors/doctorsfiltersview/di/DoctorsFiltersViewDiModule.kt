@@ -1,10 +1,8 @@
 package com.aya.digital.core.feature.doctors.doctorsfiltersview.di
 
 import com.aya.digital.core.dibase.scopes.CustomFragmentScope
-import com.aya.digital.core.feature.doctors.doctorsfiltersview.ui.DoctorsFiltersView
 import com.aya.digital.core.feature.doctors.doctorsfiltersview.ui.model.DoctorsFiltersViewStateTransformer
-import com.aya.digital.core.feature.doctors.doctorsfiltersview.viewmodel.DoctorCardViewModel
-import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
+import com.aya.digital.core.feature.doctors.doctorsfiltersview.viewmodel.DoctorsFiltersViewViewModel
 import org.kodein.di.*
 
 fun doctorsFiltersViewDiModule(
@@ -19,7 +17,7 @@ fun doctorsFiltersViewDiModule(
 
     bind {
         scoped(CustomFragmentScope).singleton {
-            DoctorCardViewModel(
+            DoctorsFiltersViewViewModel(
                 instance("parent_coordinator_bottomnav")
             )
         }
