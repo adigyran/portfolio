@@ -20,6 +20,7 @@ dependencies {
     implementation(libs.rxkotlin)
     implementation(libs.androidx.appcompat)
     implementation(libs.material.design)
+    implementation(libs.constraint.layout)
     implementation(libs.androidx.recyclerview)
     implementation(libs.cicerone)
     implementation(libs.kodein)
