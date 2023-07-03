@@ -24,8 +24,8 @@ internal class GetInsuranceCompanyItemsUseCaseImpl(
 
     var paginationPageModel: PaginationCursorModel<InsuranceCompanyModel>? = null
 
-    override fun invoke(searchTerm: String?): Flowable<RequestResultModel<InsuranceCompanyItemPaginationModel>> =
-        dictionariesRepository.getInsuranceCompanies(searchTerm)
+    override fun invoke(searchTerm: String?,cursor:String?): Flowable<RequestResultModel<InsuranceCompanyItemPaginationModel>> =
+        dictionariesRepository.getInsuranceCompanies(searchTerm,cursor)
             .trackProgress(progressRepository)
             .mapResult({ paginationModel ->
                 paginationPageModel = paginationModel

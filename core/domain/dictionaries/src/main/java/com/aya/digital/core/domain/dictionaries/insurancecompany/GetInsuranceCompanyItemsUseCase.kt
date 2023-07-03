@@ -7,5 +7,5 @@ import com.aya.digital.core.domain.dictionaries.insurancecompany.model.Insurance
 import io.reactivex.rxjava3.core.Flowable
 
 interface GetInsuranceCompanyItemsUseCase {
-    operator fun invoke(searchTerm:String?): Flowable<RequestResultModel<InsuranceCompanyItemPaginationModel>>
+    operator fun invoke(searchTerm:String?, cursor: String?): Flowable<RequestResultModel<InsuranceCompanyItemPaginationModel>>
 }

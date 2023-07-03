@@ -137,7 +137,6 @@ class DoctorCardViewModel(
     }
 
     private fun listenForAppointmentCreation() {
-        Timber.d("BBBB")
         rootCoordinatorRouter.setResultListener(RequestCodes.CREATE_APPOINTMENT_REQUEST_CODE) { result ->
             if (result !is CreateAppointmentResultModel) return@setResultListener
             loadDoctorSchedule(param.doctorId)

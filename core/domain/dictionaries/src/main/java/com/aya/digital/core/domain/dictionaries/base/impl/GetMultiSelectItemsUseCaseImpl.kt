@@ -24,17 +24,26 @@ internal class GetMultiSelectItemsUseCaseImpl(
         cursor: String?,
         type: String
     ): Flowable<RequestResultModel<MultiSelectItemPaginationModel>> = when (type) {
-        RequestCodes.INSURANCE_LIST_REQUEST_CODE -> getInsuranceCompanyItemsUseCase(searchTerm).mapResult(
+        RequestCodes.INSURANCE_LIST_REQUEST_CODE -> getInsuranceCompanyItemsUseCase(
+            searchTerm,
+            cursor
+        ).mapResult(
             { paginationModel ->
                 paginationModel.mapToMultiselectItem().asResultModel()
             },
             { it })
 
-        RequestCodes.SPECIALITIES_LIST_REQUEST_CODE -> getSpecialityItemsUseCase(searchTerm).mapResult(
+        RequestCodes.SPECIALITIES_LIST_REQUEST_CODE -> getSpecialityItemsUseCase(
+            searchTerm,
+            cursor
+        ).mapResult(
             { paginationModel -> paginationModel.mapToMultiselectItem().asResultModel() },
             { it })
 
-        RequestCodes.LOCATIONS_LIST_REQUEST_CODE -> getCityItemsUseCase(searchTerm).mapResult(
+        RequestCodes.LOCATIONS_LIST_REQUEST_CODE -> getCityItemsUseCase(
+            searchTerm,
+            cursor
+        ).mapResult(
             { paginationModel -> paginationModel.mapToMultiselectItem().asResultModel() },
             { it })
 

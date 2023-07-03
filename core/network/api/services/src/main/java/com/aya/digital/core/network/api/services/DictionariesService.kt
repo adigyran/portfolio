@@ -13,16 +13,30 @@ import retrofit2.http.*
 interface DictionariesService {
 
     @GET("search-app/insurances")
-    fun getInsurances(@Query("search") searchTerm: String?): Flowable<PagedCursorResponse<InsuranceCompanyResponse>>
+    fun getInsurances(
+        @Query("search") searchTerm: String?,
+        @Query("scrollId") cursor: String?,
+        @Query("sizeCollection") size: Int = 25
+    ): Flowable<PagedCursorResponse<InsuranceCompanyResponse>>
+
     @GET("search-app/insurances")
     fun getInsuranceById(@Query("ids") id: Int): Single<PagedCursorResponse<InsuranceCompanyResponse>>
+
     @GET("search-app/insurances")
     fun getInsurancesByIds(@Query("ids") ids: List<Int>): Observable<PagedCursorResponse<InsuranceCompanyResponse>>
 
     @GET("search-app/specialities")
-    fun getSpecialities(@Query("search") searchTerm: String?): Flowable<PagedCursorResponse<SpecialityResponse>>
+    fun getSpecialities(
+        @Query("search") searchTerm: String?,
+        @Query("scrollId") cursor: String?,
+        @Query("sizeCollection") size: Int = 25
+    ): Flowable<PagedCursorResponse<SpecialityResponse>>
 
     @GET("search-app/api/cities")
-    fun getCities(@Query("search") searchTerm: String?): Flowable<PagedCursorResponse<CityResponse.CityContent>>
+    fun getCities(
+        @Query("search") searchTerm: String?,
+        @Query("scrollId") cursor: String?,
+        @Query("sizeCollection") size: Int = 25
+    ): Flowable<PagedCursorResponse<CityResponse.CityContent>>
 
 }

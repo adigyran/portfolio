@@ -24,14 +24,14 @@ internal class GetSpecialityItemsUseCaseImpl(
     GetSpecialityItemsUseCase {
     var paginationPageModel: PaginationCursorModel<SpecialityModel>? = null
 
-    override fun invoke(searchTerm: String?): Flowable<RequestResultModel<SpecialityItemPaginationModel>> =
-        dictionariesRepository.getSpecialities(searchTerm)
+    override fun invoke(searchTerm: String?,cursor:String?): Flowable<RequestResultModel<SpecialityItemPaginationModel>> =
+        dictionariesRepository.getSpecialities(searchTerm,cursor)
             .trackProgress(progressRepository)
             .mapResult({ paginationModel ->
                 paginationPageModel = paginationModel
                 SpecialityItemPaginationModel(
                     cursor = paginationModel.scrollToken,
-                    items = paginationModel.data.map {SpecialityItem(it.id, it.name ?: "",it.code?:"") }
+                    items = paginationModel.data.map { SpecialityItem(it.id, it.name ?: "",it.code?:"") }
                 ).asResultModel()
             }, { it.toModelError() })
 }

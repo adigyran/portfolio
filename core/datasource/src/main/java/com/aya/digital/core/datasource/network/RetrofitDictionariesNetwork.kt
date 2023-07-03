@@ -26,8 +26,11 @@ fun dictionariesNetworkModule() = DI.Module("dictionariesNetworkModule") {
 
 class RetrofitDictionariesNetwork(private val network: DictionariesService) :
     DictionariesDataSource {
-    override fun getInsuranceCompanies(searchTerm: String?): Flowable<PagedCursorResponse<InsuranceCompanyResponse>> =
-        network.getInsurances(searchTerm)
+    override fun getInsuranceCompanies(
+        searchTerm: String?,
+        cursor: String?
+    ): Flowable<PagedCursorResponse<InsuranceCompanyResponse>> =
+        network.getInsurances(searchTerm, cursor)
 
     override fun getInsuranceCompanyById(id: Int): Single<PagedCursorResponse<InsuranceCompanyResponse>> =
         network.getInsuranceById(id)
@@ -35,9 +38,15 @@ class RetrofitDictionariesNetwork(private val network: DictionariesService) :
     override fun getInsuranceCompaniesByIds(ids: List<Int>): Observable<PagedCursorResponse<InsuranceCompanyResponse>> =
         network.getInsurancesByIds(ids)
 
-    override fun getSpecialisations(searchTerm: String?): Flowable<PagedCursorResponse<SpecialityResponse>> =
-        network.getSpecialities(searchTerm)
+    override fun getSpecialisations(
+        searchTerm: String?,
+        cursor: String?
+    ): Flowable<PagedCursorResponse<SpecialityResponse>> =
+        network.getSpecialities(searchTerm, cursor)
 
-    override fun getCities(searchTerm: String?): Flowable<PagedCursorResponse<CityResponse.CityContent>> =
-        network.getCities(searchTerm)
+    override fun getCities(
+        searchTerm: String?,
+        cursor: String?
+    ): Flowable<PagedCursorResponse<CityResponse.CityContent>> =
+        network.getCities(searchTerm, cursor)
 }

@@ -9,5 +9,8 @@ import com.aya.digital.core.domain.dictionaries.speciality.model.SpecialityItemP
 import io.reactivex.rxjava3.core.Flowable
 
 interface GetSpecialityItemsUseCase {
-    operator fun invoke(searchTerm:String?): Flowable<RequestResultModel<SpecialityItemPaginationModel>>
+    operator fun invoke(
+        searchTerm: String?,
+        cursor: String?
+    ): Flowable<RequestResultModel<SpecialityItemPaginationModel>>
 }

@@ -75,7 +75,7 @@ class SelectWithSearchView :
 
         with(binding.recycler) {
             itemAnimator = null
-            setHasFixedSize(false)
+            setHasFixedSize(true)
             isNestedScrollingEnabled = false
 
             val lm = LinearLayoutManager(

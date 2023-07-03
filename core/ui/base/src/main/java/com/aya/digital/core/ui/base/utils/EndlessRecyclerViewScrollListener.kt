@@ -1,68 +1,67 @@
-package com.aya.digital.core.ui.base.utils;
+package com.aya.digital.core.ui.base.utils
 
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 
-public abstract class EndlessRecyclerViewScrollListener extends RecyclerView.OnScrollListener {
-    private final RecyclerView.LayoutManager mLayoutManager;
+abstract class EndlessRecyclerViewScrollListener : RecyclerView.OnScrollListener {
+    private val mLayoutManager: RecyclerView.LayoutManager
+
     // The minimum amount of items to have below your current scroll position
     // before loading more.
-    private int visibleThreshold = 25;
+    private var visibleThreshold = 25
 
-    public EndlessRecyclerViewScrollListener(LinearLayoutManager layoutManager) {
-        this.mLayoutManager = layoutManager;
+    constructor(layoutManager: LinearLayoutManager) {
+        mLayoutManager = layoutManager
     }
 
-    public EndlessRecyclerViewScrollListener(GridLayoutManager layoutManager) {
-        this.mLayoutManager = layoutManager;
-        visibleThreshold = visibleThreshold * layoutManager.getSpanCount();
+    constructor(layoutManager: GridLayoutManager) {
+        mLayoutManager = layoutManager
+        visibleThreshold = visibleThreshold * layoutManager.spanCount
     }
 
-    public EndlessRecyclerViewScrollListener(StaggeredGridLayoutManager layoutManager) {
-        this.mLayoutManager = layoutManager;
-        visibleThreshold = visibleThreshold * layoutManager.getSpanCount();
+    constructor(layoutManager: StaggeredGridLayoutManager) {
+        mLayoutManager = layoutManager
+        visibleThreshold = visibleThreshold * layoutManager.spanCount
     }
 
-    private int getLastVisibleItem(int[] lastVisibleItemPositions) {
-        int maxSize = 0;
-        for (int i = 0; i < lastVisibleItemPositions.length; i++) {
+    private fun getLastVisibleItem(lastVisibleItemPositions: IntArray): Int {
+        var maxSize = 0
+        for (i in lastVisibleItemPositions.indices) {
             if (i == 0) {
-                maxSize = lastVisibleItemPositions[i];
+                maxSize = lastVisibleItemPositions[i]
             } else if (lastVisibleItemPositions[i] > maxSize) {
-                maxSize = lastVisibleItemPositions[i];
+                maxSize = lastVisibleItemPositions[i]
             }
         }
-        return maxSize;
+        return maxSize
     }
 
     // This happens many times a second during a scroll, so be wary of the code you place here.
     // We are given a few useful parameters to help us work out if we need to load some more data,
     // but first we check if we are waiting for the previous load to finish.
-    @Override
-    public void onScrolled(RecyclerView view, int dx, int dy) {
-        int lastVisibleItemPosition = 0;
-        int totalItemCount = mLayoutManager.getItemCount();
-
-        if (mLayoutManager instanceof StaggeredGridLayoutManager) {
-            int[] lastVisibleItemPositions = ((StaggeredGridLayoutManager) mLayoutManager).findLastVisibleItemPositions(null);
+    override fun onScrolled(view: RecyclerView, dx: Int, dy: Int) {
+        var lastVisibleItemPosition = 0
+        val totalItemCount = mLayoutManager.itemCount
+        if (mLayoutManager is StaggeredGridLayoutManager) {
+            val lastVisibleItemPositions = mLayoutManager.findLastVisibleItemPositions(null)
             // get maximum element within the list
-            lastVisibleItemPosition = getLastVisibleItem(lastVisibleItemPositions);
-        } else if (mLayoutManager instanceof GridLayoutManager) {
-            lastVisibleItemPosition = ((GridLayoutManager) mLayoutManager).findLastVisibleItemPosition();
-        } else if (mLayoutManager instanceof LinearLayoutManager) {
-            lastVisibleItemPosition = ((LinearLayoutManager) mLayoutManager).findLastVisibleItemPosition();
+            lastVisibleItemPosition = getLastVisibleItem(lastVisibleItemPositions)
+        } else if (mLayoutManager is GridLayoutManager) {
+            lastVisibleItemPosition = mLayoutManager.findLastVisibleItemPosition()
+        } else if (mLayoutManager is LinearLayoutManager) {
+            lastVisibleItemPosition = mLayoutManager.findLastVisibleItemPosition()
         }
 
         // If it isn’t currently loading, we check to see if we have breached
         // the visibleThreshold and need to reload more data.
         // If we do need to reload some more data, we execute onLoadMore to fetch the data.
         // threshold should reflect how many total columns there are too
-        if ((lastVisibleItemPosition + visibleThreshold) > totalItemCount && dy > 0) {
-            onLoadMore();
+        if (lastVisibleItemPosition + visibleThreshold > totalItemCount && dy > 0) {
+            onLoadMore()
         }
     }
 
-    public abstract void onLoadMore();
+    abstract fun onLoadMore()
 }

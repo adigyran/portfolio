@@ -6,5 +6,8 @@ import com.aya.digital.core.domain.dictionaries.cities.model.CityItemPaginationM
 import io.reactivex.rxjava3.core.Flowable
 
 fun interface GetCityItemsUseCase {
-    operator fun invoke(searchTerm: String?): Flowable<RequestResultModel<CityItemPaginationModel>>
+    operator fun invoke(
+        searchTerm: String?,
+        cursor: String?
+    ): Flowable<RequestResultModel<CityItemPaginationModel>>
 }

@@ -26,14 +26,17 @@ class GetCityItemsUseCaseImpl(
 
     var paginationPageModel: PaginationCursorModel<CityModel>? = null
 
-    override fun invoke(searchTerm: String?): Flowable<RequestResultModel<CityItemPaginationModel>> =
-        dictionariesRepository.getCities(searchTerm)
+    override fun invoke(
+        searchTerm: String?,
+        cursor: String?
+    ): Flowable<RequestResultModel<CityItemPaginationModel>> =
+        dictionariesRepository.getCities(searchTerm,cursor)
             .trackProgress(progressRepository)
             .mapResult({ paginationModel ->
                 paginationPageModel = paginationModel
                 CityItemPaginationModel(
                     cursor = paginationModel.scrollToken,
-                    items = paginationModel.data.map {CityItem(it.id, it.name ?: "") }
+                    items = paginationModel.data.map { CityItem(it.id, it.name ?: "") }
                 ).asResultModel()
             }, { it.toModelError() })
 
