@@ -4,6 +4,6 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/bg_white">
+    android:background="#11ff22">
 
 </androidx.constraintlayout.widget.ConstraintLayout>
