@@ -175,6 +175,7 @@ include(":feature:profile:security:changepassword")
 include(":feature:profile:security:changeemailphone")
 //doctors
 include(":feature:doctors:doctorcard")
+include(":feature:doctors:doctorsfiltersview")
 //appointments
 include(":feature:appointments:appointmentcard")
 //videocall

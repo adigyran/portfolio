@@ -2,24 +2,15 @@ package com.aya.digital.core.ui.base.screens
 
 import android.content.Context
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.AttributeSet
-import android.widget.EditText
-import android.widget.Toast
 import androidx.viewbinding.ViewBinding
-import com.aya.digital.core.dibase.KodeinInjectionManager
-import com.aya.digital.core.ext.strings
 import com.aya.digital.core.mvi.*
 import com.aya.digital.core.ui.core.CoreViewGroup
-import com.jakewharton.rxrelay3.PublishRelay
 import org.kodein.di.DI
 import org.kodein.di.LateInitDI
 import org.kodein.di.LazyDI
-import org.orbitmvi.orbit.viewmodel.observe
-import java.util.concurrent.TimeUnit
 
-abstract class DiViewViewGroup<Binding : ViewBinding, ViewModel : BaseViewModel<State, SideEffect>, State : BaseState, SideEffect : BaseSideEffect, UiModel : BaseUiModel, StateTransformer : BaseStateTransformer<State, UiModel>> @JvmOverloads constructor(
+abstract class DiViewGroup<Binding : ViewBinding, ViewModel : BaseViewModel<State, SideEffect>, State : BaseState, SideEffect : BaseSideEffect, UiModel : BaseUiModel, StateTransformer : BaseStateTransformer<State, UiModel>> @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
