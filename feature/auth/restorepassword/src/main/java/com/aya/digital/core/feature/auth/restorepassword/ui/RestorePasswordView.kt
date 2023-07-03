@@ -16,6 +16,7 @@ import com.aya.digital.core.feature.auth.restorepassword.viewmodel.RestorePasswo
 import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.ui.adapters.base.BaseDelegateAdapter
 import com.aya.digital.core.ext.createFragment
+import com.aya.digital.core.ext.toggleAvailability
 import com.aya.digital.core.feature.auth.restorepassword.navigation.RestorePasswordOperationStateParam
 import com.aya.digital.core.feature.auth.restorepassword.viewmodel.RestorePasswordSideEffects
 import com.aya.digital.core.feature.auth.signin.restorepassword.databinding.ViewRestorePasswordBinding
@@ -105,6 +106,9 @@ internal class RestorePasswordView :
                 }
             }
             buttonText.let { binding.saveBtn.text = it }
+            buttonEnabled.let { enabled ->
+                binding.saveBtn.toggleAvailability(enabled)
+            }
         }
     }
 
