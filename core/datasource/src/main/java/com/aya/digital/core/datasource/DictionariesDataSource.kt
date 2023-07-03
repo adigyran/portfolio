@@ -18,6 +18,6 @@ interface DictionariesDataSource {
 
     fun getSpecialisations(searchTerm:String?) : Flowable<PagedCursorResponse<SpecialityResponse>>
 
-    fun getCities(searchTerm: String?): Flowable<CityResponse>
+    fun getCities(searchTerm: String?): Flowable<PagedCursorResponse<CityResponse.CityContent>>
 
 }

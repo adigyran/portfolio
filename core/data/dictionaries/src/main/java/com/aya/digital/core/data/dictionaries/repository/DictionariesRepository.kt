@@ -1,6 +1,7 @@
 package com.aya.digital.core.data.dictionaries.repository
 
 import com.aya.digital.core.data.base.dataprocessing.PaginationCursorModel
+import com.aya.digital.core.data.dictionaries.CityModel
 import com.aya.digital.core.data.dictionaries.InsuranceCompanyModel
 import com.aya.digital.core.data.dictionaries.SpecialityModel
 import com.aya.digital.core.network.model.response.doctors.CityResponse
@@ -17,6 +18,6 @@ interface DictionariesRepository {
     //specialities
     fun getSpecialities(searchTerm: String?):Flowable<RequestResult<PaginationCursorModel<SpecialityModel>>>
 
-    fun getCities(searchTerm: String?): Flowable<RequestResult<CityResponse>>
+    fun getCities(searchTerm: String?): Flowable<RequestResult<PaginationCursorModel<CityModel>>>
 
 }

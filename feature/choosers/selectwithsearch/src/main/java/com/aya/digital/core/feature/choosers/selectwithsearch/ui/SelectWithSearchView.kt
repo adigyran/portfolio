@@ -21,6 +21,7 @@ import com.aya.digital.core.feature.choosers.selectwithsearch.ui.SelectWithSearc
 import com.aya.digital.core.feature.choosers.selectwithsearch.viewmodel.SelectWithSearchChooserSideEffects
 import com.aya.digital.core.ui.adapters.base.BaseDelegateAdapter
 import com.aya.digital.core.ui.base.screens.DiFragment
+import com.aya.digital.core.ui.base.utils.EndlessRecyclerViewScrollListener
 import com.aya.digital.core.ui.delegates.features.choosers.selectwithsearch.ui.SelectWithSearchItemDelegate
 import kotlinx.parcelize.Parcelize
 import org.kodein.di.DI
@@ -85,7 +86,12 @@ class SelectWithSearchView :
 
             layoutManager = lm
             addItemDecoration(SelectWithSearchDecoration())
-
+            val scrollListener = object : EndlessRecyclerViewScrollListener(lm) {
+                override fun onLoadMore() {
+                    viewModel.loadNextPage()
+                }
+            }
+            addOnScrollListener(scrollListener)
         }
     }
 

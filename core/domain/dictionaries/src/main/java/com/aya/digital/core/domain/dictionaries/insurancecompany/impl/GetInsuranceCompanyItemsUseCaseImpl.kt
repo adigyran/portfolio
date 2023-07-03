@@ -12,6 +12,7 @@ import com.aya.digital.core.domain.base.models.progress.trackProgress
 import com.aya.digital.core.domain.dictionaries.insurancecompany.GetInsuranceCompanyItemsUseCase
 import com.aya.digital.core.domain.dictionaries.base.model.MultiSelectItem
 import com.aya.digital.core.domain.dictionaries.insurancecompany.model.InsuranceCompanyItem
+import com.aya.digital.core.domain.dictionaries.insurancecompany.model.InsuranceCompanyItemPaginationModel
 import com.aya.digital.core.ext.mapResult
 import io.reactivex.rxjava3.core.Flowable
 
@@ -23,7 +24,7 @@ internal class GetInsuranceCompanyItemsUseCaseImpl(
 
     var paginationPageModel: PaginationCursorModel<InsuranceCompanyModel>? = null
 
-    override fun invoke(searchTerm: String?): Flowable<RequestResultModel<List<InsuranceCompanyItem>>> =
+    override fun invoke(searchTerm: String?): Flowable<RequestResultModel<InsuranceCompanyItemPaginationModel>> =
         dictionariesRepository.getInsuranceCompanies(searchTerm)
             .trackProgress(progressRepository)
             .mapResult({ result ->

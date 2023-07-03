@@ -22,7 +22,7 @@ interface DictionariesService {
     @GET("search-app/specialities")
     fun getSpecialities(@Query("search") searchTerm: String?): Flowable<PagedCursorResponse<SpecialityResponse>>
 
-    @GET("api/cities")
-    fun getCities(@Query("search") searchTerm: String?): Flowable<CityResponse>
+    @GET("search-app/api/cities")
+    fun getCities(@Query("search") searchTerm: String?): Flowable<PagedCursorResponse<CityResponse.CityContent>>
 
 }

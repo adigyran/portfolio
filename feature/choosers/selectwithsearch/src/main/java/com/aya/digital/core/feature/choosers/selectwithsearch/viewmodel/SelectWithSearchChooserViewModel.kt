@@ -1,5 +1,7 @@
 package com.aya.digital.core.feature.choosers.multiselect.viewmodel
 
+import com.aya.digital.core.data.base.dataprocessing.dataloading.DataLoadingOperationWithPagination
+import com.aya.digital.core.data.base.dataprocessing.dataloading.enums.OperationState
 import com.aya.digital.core.data.base.result.models.dictionaries.MultiSelectResultModel
 import com.aya.digital.core.data.base.result.models.dictionaries.SelectedItem
 import com.aya.digital.core.domain.dictionaries.base.GetMultiSelectItemsUseCase
@@ -24,7 +26,7 @@ class SelectWithSearchChooserViewModel(
     BaseViewModel<SelectWithSearchChooserState, SelectWithSearchChooserSideEffects>() {
     override val container =
         container<SelectWithSearchChooserState, SelectWithSearchChooserSideEffects>(
-            initialState = SelectWithSearchChooserState(),
+            initialState = SelectWithSearchChooserState(dataOperation = DataLoadingOperationWithPagination.Idle),
         )
         {
             if (it.items.isEmpty()) {
@@ -37,7 +39,7 @@ class SelectWithSearchChooserViewModel(
 
     private fun preselectItems(selectedItems: Set<Int>) = intent {
 
-        reduce { state.copy(selectedItems = selectedItems.map { SelectionItem(it,"") }.toSet()) }
+        reduce { state.copy(selectedItems = selectedItems.map { SelectionItem(it, "") }.toSet()) }
     }
 
     fun onSearchTextChanged(text: String) = intent {
@@ -45,25 +47,75 @@ class SelectWithSearchChooserViewModel(
         loadItems(state.searchTerm)
     }
 
+
+    private fun getItems(state: SelectWithSearchChooserState) = getMultiSelectItemsUseCase(
+        searchTerm = state.searchTerm,
+        cursor = state.cursor,
+        type = param.requestCode
+    ).asFlow()
+
     private fun loadItems(searchTerm: String?) = intent(registerIdling = false) {
-        getMultiSelectItemsUseCase(searchTerm, param.requestCode).asFlow().collect { result ->
-            result.processResult({ items ->
-                val selectedItems = items.map { SelectionItem(it.id, it.text) }
+        if (state.dataOperation.isLoading || state.dataOperation.isNextPageLoading) return@intent
+        reduce {
+            state.copy(
+                cursor = null,
+                items = listOf(),
+                searchTerm = searchTerm,
+                dataOperation = DataLoadingOperationWithPagination.LoadingData(OperationState.PROGRESS)
+            )
+        }
+        getItems(state)
+            .collect { resultModel ->
+                resultModel.processResult({ itemsPagination ->
+                val items = itemsPagination.items.map { SelectionItem(it.id, it.text) }
                 reduce {
-                    state.copy(items = selectedItems)
+                    state.copy(
+                        items = items,
+                        dataOperation = DataLoadingOperationWithPagination.Idle,
+                        cursor = itemsPagination.cursor,
+                    )
                 }
             }, { processError(it) })
 
         }
     }
+    fun loadNextPage() = intent {
+        if (state.dataOperation.isLoading || state.dataOperation.isNextPageLoading) return@intent
+        if (state.cursor.isNullOrBlank()) return@intent
+        reduce {
+            state.copy(dataOperation = DataLoadingOperationWithPagination.NextPageLoading(OperationState.PROGRESS))
+        }
+        getItems(state)
+            .collect { resultModel ->
+                resultModel.processResult({ itemsPagination ->
+                    reduce {
+                        val items = addItems(state.items, itemsPagination.items)
+                        state.copy(
+                            items = items,
+                            cursor = itemsPagination.cursor,
+                            dataOperation = (DataLoadingOperationWithPagination.Idle)
+                        )
+                    }
+                }, { processError(it) })
+            }
+    }
+
+    private fun addItems(oldItems: List<SelectionItem>?, newItems: List<SelectionItem>) =
+        mutableListOf<SelectionItem>()
+            .apply {
+                oldItems?.run { addAll(this) }
+                newItems.run { addAll(this) }
+            }
+
 
     fun selectItem(itemId: Int) = intent {
         val selectedItems = when (param.isMultiChoose) {
             true -> {
                 val selectedItemsTemp = state.selectedItems.toMutableSet()
-                if(!selectedItemsTemp.removeIf { it.id == itemId }) selectedItemsTemp.add(state.items.first { it.id == itemId })
+                if (!selectedItemsTemp.removeIf { it.id == itemId }) selectedItemsTemp.add(state.items.first { it.id == itemId })
                 selectedItemsTemp.toSet()
             }
+
             false -> {
                 val selectedItemsTemp = state.selectedItems.toMutableSet()
                 selectedItemsTemp.clear()
@@ -79,7 +131,8 @@ class SelectWithSearchChooserViewModel(
         coordinatorRouter.sendEvent(
             SelectWithSearchNavigationEvents.FinishWithResult(
                 param.requestCode,
-                MultiSelectResultModel(state.selectedItems.map { SelectedItem(it.id,it.text) }.toSet())
+                MultiSelectResultModel(state.selectedItems.map { SelectedItem(it.id, it.text) }
+                    .toSet())
             )
         )
     }

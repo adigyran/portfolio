@@ -10,8 +10,7 @@ data class CityResponse(
     data class CityContent(
         val id: Int,
         val name: String,
-        val code: String,
-        val state: State
+        val code: String
     )
 
     @JsonClass(generateAdapter = true)

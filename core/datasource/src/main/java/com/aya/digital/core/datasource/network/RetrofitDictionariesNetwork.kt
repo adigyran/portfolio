@@ -38,6 +38,6 @@ class RetrofitDictionariesNetwork(private val network: DictionariesService) :
     override fun getSpecialisations(searchTerm: String?): Flowable<PagedCursorResponse<SpecialityResponse>> =
         network.getSpecialities(searchTerm)
 
-    override fun getCities(searchTerm: String?): Flowable<CityResponse> =
+    override fun getCities(searchTerm: String?): Flowable<PagedCursorResponse<CityResponse.CityContent>> =
         network.getCities(searchTerm)
 }

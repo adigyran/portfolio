@@ -6,6 +6,7 @@ import com.aya.digital.core.data.base.dataprocessing.mapResult
 import com.aya.digital.core.domain.dictionaries.insurancecompany.GetInsuranceCompanyItemsUseCase
 import com.aya.digital.core.domain.dictionaries.base.GetMultiSelectItemsUseCase
 import com.aya.digital.core.domain.dictionaries.base.model.MultiSelectItem
+import com.aya.digital.core.domain.dictionaries.base.model.MultiSelectItemPaginationModel
 import com.aya.digital.core.domain.dictionaries.cities.GetCityItemsUseCase
 import com.aya.digital.core.domain.dictionaries.speciality.GetSpecialityItemsUseCase
 import com.aya.digital.core.util.requestcodes.RequestCodes
@@ -19,8 +20,9 @@ internal class GetMultiSelectItemsUseCaseImpl(
     GetMultiSelectItemsUseCase {
     override fun invoke(
         searchTerm: String?,
+        cursor:String?,
         type: String
-    ): Flowable<RequestResultModel<List<MultiSelectItem>>> = when (type) {
+    ): Flowable<RequestResultModel<MultiSelectItemPaginationModel>> = when (type) {
         RequestCodes.INSURANCE_LIST_REQUEST_CODE -> getInsuranceCompanyItemsUseCase(searchTerm).mapResult(
             { items -> items.map { MultiSelectItem(it.id, it.text) }.asResultModel() },
             { it })
@@ -37,4 +39,6 @@ internal class GetMultiSelectItemsUseCaseImpl(
             Flowable.empty()
         }
     }
+
+
 }

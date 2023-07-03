@@ -1,6 +1,7 @@
 package com.aya.digital.core.feature.tabviews.doctorsearch.viewmodel
 
 
+import com.aya.digital.core.data.base.dataprocessing.dataloading.DataLoadingOperationWithPagination
 import com.aya.digital.core.data.base.dataprocessing.dataloading.enums.OperationState
 import com.aya.digital.core.data.base.result.models.dictionaries.MultiSelectResultModel
 import com.aya.digital.core.domain.doctors.base.GetDoctorsUseCase
@@ -32,11 +33,10 @@ class DoctorSearchViewModel(
 ) :
     BaseViewModel<DoctorSearchState, DoctorSearchSideEffects>() {
     override fun onBack() {
-        TODO("Not yet implemented")
     }
 
     override val container = container<DoctorSearchState, DoctorSearchSideEffects>(
-        initialState = DoctorSearchState(dataOperation = DataLoadingOperation.Idle),
+        initialState = DoctorSearchState(dataOperation = DataLoadingOperationWithPagination.Idle),
     )
     {
         loadFavoriteDoctors()
@@ -61,7 +61,7 @@ class DoctorSearchViewModel(
             state.copy(
                 cursor = null,
                 doctors = null,
-                dataOperation = DataLoadingOperation.LoadingData(OperationState.PROGRESS)
+                dataOperation = DataLoadingOperationWithPagination.LoadingData(OperationState.PROGRESS)
             )
         }
         getDoctors(state)
@@ -71,7 +71,7 @@ class DoctorSearchViewModel(
                         state.copy(
                             doctors = doctorsPagination.doctors,
                             cursor = doctorsPagination.cursor,
-                            dataOperation = DataLoadingOperation.Idle
+                            dataOperation = DataLoadingOperationWithPagination.Idle
                         )
                     }
                 }, { processError(it) })
@@ -87,7 +87,7 @@ class DoctorSearchViewModel(
         if (state.dataOperation.isLoading || state.dataOperation.isNextPageLoading) return@intent
         if (state.cursor.isNullOrBlank()) return@intent
         reduce {
-            state.copy(dataOperation = DataLoadingOperation.NextPageLoading(OperationState.PROGRESS))
+            state.copy(dataOperation = DataLoadingOperationWithPagination.NextPageLoading(OperationState.PROGRESS))
         }
         getDoctors(state)
             .collect { resultModel ->
@@ -97,7 +97,7 @@ class DoctorSearchViewModel(
                         state.copy(
                             doctors = resultDoctors,
                             cursor = doctorsPagination.cursor,
-                            dataOperation = (DataLoadingOperation.Idle)
+                            dataOperation = (DataLoadingOperationWithPagination.Idle)
                         )
                     }
                 }, { processError(it) })

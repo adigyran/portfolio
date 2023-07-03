@@ -1,8 +1,10 @@
 package com.aya.digital.core.repository.dictionaries
 
 import com.aya.digital.core.data.base.dataprocessing.PaginationCursorModel
+import com.aya.digital.core.data.dictionaries.CityModel
 import com.aya.digital.core.data.dictionaries.InsuranceCompanyModel
 import com.aya.digital.core.data.dictionaries.SpecialityModel
+import com.aya.digital.core.data.dictionaries.mappers.CityMapper
 import com.aya.digital.core.data.dictionaries.mappers.InsuranceCompanyMapper
 import com.aya.digital.core.data.dictionaries.mappers.SpecialityMapper
 import com.aya.digital.core.data.dictionaries.repository.DictionariesRepository
@@ -18,7 +20,8 @@ import io.reactivex.rxjava3.core.Single
 class DictionariesRepositoryImpl(
     private val dictionariesDataSource: DictionariesDataSource,
     private val insuranceMapper: InsuranceCompanyMapper,
-    private val specialityMapper: SpecialityMapper
+    private val specialityMapper: SpecialityMapper,
+    private val cityMapper: CityMapper
 ) : DictionariesRepository {
 
     override fun getInsuranceCompanies(searchTerm: String?) =
@@ -65,12 +68,19 @@ class DictionariesRepositoryImpl(
                 ).asResult()
             }, { it })
 
-    override fun getCities(searchTerm: String?): Flowable<RequestResult<CityResponse>> =
+    override fun getCities(searchTerm: String?): Flowable<RequestResult<PaginationCursorModel<CityModel>>> =
         dictionariesDataSource.getCities(searchTerm)
             .retryOnError()
             .retrofitResponseToResult(CommonUtils::mapServerErrors)
             .mapResult(
-                { it.asResult() },
+                { result ->
+                    val cities = cityMapper.mapFromList(result.data)
+                    PaginationCursorModel(
+                        cities,
+                        result.scrollToken,
+                        result.sizeResult
+                    ).asResult()
+                },
                 { it }
             )
 }

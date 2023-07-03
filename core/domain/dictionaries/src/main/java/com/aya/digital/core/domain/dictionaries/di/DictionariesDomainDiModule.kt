@@ -21,7 +21,7 @@ fun dictionariesDomainDiModule() = DI.Module("dictionariesDomainDiModule") {
 
     bind<GetSpecialityItemsUseCase>() with singleton { GetSpecialityItemsUseCaseImpl(instance(),instance()) }
 
-    bind<GetCityItemsUseCase>() with singleton { GetCityItemsUseCaseImpl(instance()) }
+    bind<GetCityItemsUseCase>() with singleton { GetCityItemsUseCaseImpl(instance(),instance()) }
 
     bind<GetMultiSelectItemsUseCase>() with singleton { GetMultiSelectItemsUseCaseImpl(instance(), instance(), instance()) }
 
