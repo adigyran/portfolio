@@ -5,6 +5,7 @@ import com.aya.digital.core.data.base.dataprocessing.asResultModel
 import com.aya.digital.core.data.base.dataprocessing.mapResult
 import com.aya.digital.core.domain.dictionaries.insurancecompany.GetInsuranceCompanyItemsUseCase
 import com.aya.digital.core.domain.dictionaries.base.GetMultiSelectItemsUseCase
+import com.aya.digital.core.domain.dictionaries.base.model.ItemPaginationModelWithCursor
 import com.aya.digital.core.domain.dictionaries.base.model.MultiSelectItem
 import com.aya.digital.core.domain.dictionaries.base.model.MultiSelectItemPaginationModel
 import com.aya.digital.core.domain.dictionaries.cities.GetCityItemsUseCase
@@ -20,19 +21,21 @@ internal class GetMultiSelectItemsUseCaseImpl(
     GetMultiSelectItemsUseCase {
     override fun invoke(
         searchTerm: String?,
-        cursor:String?,
+        cursor: String?,
         type: String
     ): Flowable<RequestResultModel<MultiSelectItemPaginationModel>> = when (type) {
         RequestCodes.INSURANCE_LIST_REQUEST_CODE -> getInsuranceCompanyItemsUseCase(searchTerm).mapResult(
-            { items -> items.map { MultiSelectItem(it.id, it.text) }.asResultModel() },
+            { paginationModel ->
+                paginationModel.mapToMultiselectItem().asResultModel()
+            },
             { it })
 
         RequestCodes.SPECIALITIES_LIST_REQUEST_CODE -> getSpecialityItemsUseCase(searchTerm).mapResult(
-            { items -> items.map { MultiSelectItem(it.code.toInt(), it.name) }.asResultModel() },
+            { paginationModel -> paginationModel.mapToMultiselectItem().asResultModel() },
             { it })
 
         RequestCodes.LOCATIONS_LIST_REQUEST_CODE -> getCityItemsUseCase(searchTerm).mapResult(
-            { items -> items.map { MultiSelectItem(it.id, it.name) }.asResultModel() },
+            { paginationModel -> paginationModel.mapToMultiselectItem().asResultModel() },
             { it })
 
         else -> {
@@ -40,5 +43,9 @@ internal class GetMultiSelectItemsUseCaseImpl(
         }
     }
 
+    private fun ItemPaginationModelWithCursor.mapToMultiselectItem() =
+        MultiSelectItemPaginationModel(
+            cursor = this.getCursor(),
+            items = this.getItems().map { MultiSelectItem(id = it.id, text = it.name) })
 
 }

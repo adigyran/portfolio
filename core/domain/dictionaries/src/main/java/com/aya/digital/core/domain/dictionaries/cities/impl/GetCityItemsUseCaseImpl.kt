@@ -29,11 +29,12 @@ class GetCityItemsUseCaseImpl(
     override fun invoke(searchTerm: String?): Flowable<RequestResultModel<CityItemPaginationModel>> =
         dictionariesRepository.getCities(searchTerm)
             .trackProgress(progressRepository)
-            .mapResult({ result ->
-                paginationPageModel = result
-                result.data.map {
-                    CityItem(it.id, it.name ?: "")
-                }.asResultModel()
+            .mapResult({ paginationModel ->
+                paginationPageModel = paginationModel
+                CityItemPaginationModel(
+                    cursor = paginationModel.scrollToken,
+                    items = paginationModel.data.map {CityItem(it.id, it.name ?: "") }
+                ).asResultModel()
             }, { it.toModelError() })
 
 }

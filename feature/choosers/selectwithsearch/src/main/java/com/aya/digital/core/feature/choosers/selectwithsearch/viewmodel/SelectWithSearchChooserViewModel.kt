@@ -67,29 +67,36 @@ class SelectWithSearchChooserViewModel(
         getItems(state)
             .collect { resultModel ->
                 resultModel.processResult({ itemsPagination ->
-                val items = itemsPagination.items.map { SelectionItem(it.id, it.text) }
-                reduce {
-                    state.copy(
-                        items = items,
-                        dataOperation = DataLoadingOperationWithPagination.Idle,
-                        cursor = itemsPagination.cursor,
-                    )
-                }
-            }, { processError(it) })
+                    val items = itemsPagination.items.map { SelectionItem(it.id, it.text) }
+                    reduce {
+                        state.copy(
+                            items = items,
+                            dataOperation = DataLoadingOperationWithPagination.Idle,
+                            cursor = itemsPagination.cursor,
+                        )
+                    }
+                }, { processError(it) })
 
-        }
+            }
     }
+
     fun loadNextPage() = intent {
         if (state.dataOperation.isLoading || state.dataOperation.isNextPageLoading) return@intent
         if (state.cursor.isNullOrBlank()) return@intent
         reduce {
-            state.copy(dataOperation = DataLoadingOperationWithPagination.NextPageLoading(OperationState.PROGRESS))
+            state.copy(
+                dataOperation = DataLoadingOperationWithPagination.NextPageLoading(
+                    OperationState.PROGRESS
+                )
+            )
         }
         getItems(state)
             .collect { resultModel ->
                 resultModel.processResult({ itemsPagination ->
                     reduce {
-                        val items = addItems(state.items, itemsPagination.items)
+                        val items = addItems(
+                            state.items,
+                            itemsPagination.items.map { SelectionItem(it.id, it.text) })
                         state.copy(
                             items = items,
                             cursor = itemsPagination.cursor,

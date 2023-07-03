@@ -60,7 +60,7 @@ class ProfileInsuranceAddViewModel(
         if (state.organisationId == null) return@intent
         getInsuranceCompanyByIdUseCase(state.organisationId!!).await()
             .processResult({
-                reduce { state.copy(organisationName = it.text) }
+                reduce { state.copy(organisationName = it.name) }
             }, { processError(it) })
     }
 

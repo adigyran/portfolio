@@ -10,6 +10,7 @@ import com.aya.digital.core.data.dictionaries.repository.DictionariesRepository
 import com.aya.digital.core.data.progress.repository.ProgressRepository
 import com.aya.digital.core.domain.base.models.progress.trackProgress
 import com.aya.digital.core.domain.dictionaries.insurancecompany.model.InsuranceCompanyItem
+import com.aya.digital.core.domain.dictionaries.insurancecompany.model.InsuranceCompanyItemPaginationModel
 import com.aya.digital.core.domain.dictionaries.speciality.GetSpecialityItemsUseCase
 import com.aya.digital.core.domain.dictionaries.speciality.model.SpecialityItem
 import com.aya.digital.core.domain.dictionaries.speciality.model.SpecialityItemPaginationModel
@@ -26,10 +27,11 @@ internal class GetSpecialityItemsUseCaseImpl(
     override fun invoke(searchTerm: String?): Flowable<RequestResultModel<SpecialityItemPaginationModel>> =
         dictionariesRepository.getSpecialities(searchTerm)
             .trackProgress(progressRepository)
-            .mapResult({ result ->
-                paginationPageModel = result
-                result.data.map {
-                    SpecialityItem(id = it.id, name = it.name ?: "", code = it.code ?: "")
-                }.asResultModel()
+            .mapResult({ paginationModel ->
+                paginationPageModel = paginationModel
+                SpecialityItemPaginationModel(
+                    cursor = paginationModel.scrollToken,
+                    items = paginationModel.data.map {SpecialityItem(it.id, it.name ?: "",it.code?:"") }
+                ).asResultModel()
             }, { it.toModelError() })
 }

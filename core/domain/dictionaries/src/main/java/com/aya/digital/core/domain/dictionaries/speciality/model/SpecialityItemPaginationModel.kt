@@ -1,5 +1,12 @@
 package com.aya.digital.core.domain.dictionaries.speciality.model
 
+import com.aya.digital.core.domain.dictionaries.base.model.ItemPaginationModel
+import com.aya.digital.core.domain.dictionaries.base.model.ItemPaginationModelWithCursor
+
 data class SpecialityItemPaginationModel(
-    val cursor:String?, val items:List<SpecialityItem>
-)
+    private val cursor:String?,private val items:List<SpecialityItem>
+): ItemPaginationModelWithCursor {
+    override fun getCursor(): String? = cursor
+
+    override fun getItems(): List<ItemPaginationModel> = items
+}

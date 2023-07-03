@@ -27,11 +27,12 @@ internal class GetInsuranceCompanyItemsUseCaseImpl(
     override fun invoke(searchTerm: String?): Flowable<RequestResultModel<InsuranceCompanyItemPaginationModel>> =
         dictionariesRepository.getInsuranceCompanies(searchTerm)
             .trackProgress(progressRepository)
-            .mapResult({ result ->
-                paginationPageModel = result
-                result.data.map {
-                    InsuranceCompanyItem(it.id, it.name ?: "")
-                }.asResultModel()
+            .mapResult({ paginationModel ->
+                paginationPageModel = paginationModel
+                InsuranceCompanyItemPaginationModel(
+                    cursor = paginationModel.scrollToken,
+                    items = paginationModel.data.map {InsuranceCompanyItem(it.id, it.name ?: "") }
+                ).asResultModel()
             }, { it.toModelError() })
 
 
