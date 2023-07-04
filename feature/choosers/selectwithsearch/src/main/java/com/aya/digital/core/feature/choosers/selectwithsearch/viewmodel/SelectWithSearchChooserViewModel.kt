@@ -126,7 +126,8 @@ class SelectWithSearchChooserViewModel(
             false -> {
                 val selectedItemsTemp = state.selectedItems.toMutableSet()
                 selectedItemsTemp.clear()
-                selectedItemsTemp.add(state.items.first { it.id == itemId })
+                if (state.selectedItems.firstOrNull { it.id == itemId } == null) selectedItemsTemp.add(
+                    state.items.first { it.id == itemId })
                 selectedItemsTemp.toSet()
             }
         }
