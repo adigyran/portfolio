@@ -17,7 +17,7 @@ class SignInStateTransformer(private val context : Context): BaseStateTransforme
             data = kotlin.run {
                return@run mutableListOf<DiffItem>().apply {
                     add(HeadlineLabelUIModel("Sign In"))
-                    add(EmailPhoneFieldUIModel("Email or Phone", state.email, state.emailError))
+                    add(EmailPhoneFieldUIModel( tag = FieldsTags.EMAIL_PHONE_FIELD_TAG,"Email or Phone", state.email, state.emailError))
                     add(
                         PasswordFieldUIModel(
                             tag = FieldsTags.PASSWORD_FIELD_TAG,

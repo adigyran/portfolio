@@ -1,6 +1,7 @@
 package com.aya.digital.core.feature.profile.security.changeemailphone.ui.model
 
 import android.content.Context
+import com.aya.digital.core.feature.profile.security.changeemailphone.FieldsTags
 import com.aya.digital.core.feature.profile.security.changeemailphone.viewmodel.ProfileSecurityChangeEmailPhoneState
 import com.aya.digital.core.mvi.BaseStateTransformer
 import com.aya.digital.core.ui.adapters.base.DiffItem
@@ -19,7 +20,14 @@ internal class ProfileSecurityChangeEmailPhoneStateTransformer(context: Context)
                             "You can use your email to log in"
                         )
                     )
-                    add(EmailPhoneFieldUIModel("Email", state.email, state.emailError))
+                    add(
+                        EmailPhoneFieldUIModel(
+                            FieldsTags.EMAIL_PHONE_FIELD_TAG,
+                            "Email",
+                            state.email,
+                            state.emailError
+                        )
+                    )
                 }
             }
         )

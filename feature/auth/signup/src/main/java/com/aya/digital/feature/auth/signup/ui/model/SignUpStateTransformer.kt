@@ -33,7 +33,7 @@ class SignUpStateTransformer(context: Context) :
                         state.lastNameError
                     )
                 )
-                add(EmailPhoneFieldUIModel("Email or Phone", state.email, state.emailError))
+                add(EmailPhoneFieldUIModel( tag =  FieldsTags.EMAIL_PHONE_FIELD_TAG,"Email or Phone", state.email, state.emailError))
                 add(
                     SelectionFieldUIModel(
                         FieldsTags.INSURANCE_COMPANY_SELECT_FIELD_TAG,

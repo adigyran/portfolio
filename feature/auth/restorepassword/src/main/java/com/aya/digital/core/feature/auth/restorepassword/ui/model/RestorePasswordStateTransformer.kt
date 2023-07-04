@@ -41,7 +41,7 @@ internal class RestorePasswordStateTransformer(private val context: Context) :
         {
             RestorePasswordOperationState.RestoringEmailInput -> {
                 listOf<DiffItem>(
-                    EmailPhoneFieldUIModel(label = "Email",state.email,state.emailError)
+                    EmailPhoneFieldUIModel(tag = FieldsTags.EMAIL_PHONE_FIELD_TAG,label = "Email",state.email,state.emailError)
                 )
             }
             else -> {

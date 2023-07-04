@@ -20,6 +20,7 @@ import com.aya.digital.core.ui.delegates.components.fields.emailphone.databindin
 import com.aya.digital.core.ui.delegates.components.fields.emailphone.model.EmailPhoneFieldUIModel
 
 import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
+import ru.tinkoff.decoro.watchers.MaskFormatWatcher
 
 class EmailPhoneFieldDelegate(private val delegateListeners: EmailPhoneDelegateListeners) :
     BaseDelegate<EmailPhoneFieldUIModel>() {
@@ -38,6 +39,7 @@ class EmailPhoneFieldDelegate(private val delegateListeners: EmailPhoneDelegateL
 
     inner class ViewHolder(private val binding: ItemEmailphoneFieldBinding) :
         BaseViewHolder<EmailPhoneFieldUIModel>(binding.root) {
+        private lateinit var maskFormatWatcher: MaskFormatWatcher
 
         private var fieldSet = false
 
@@ -52,7 +54,8 @@ class EmailPhoneFieldDelegate(private val delegateListeners: EmailPhoneDelegateL
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) = Unit
 
-            override fun afterTextChanged(s: Editable) = delegateListeners.inputFieldChangeListener(s.toString())
+            override fun afterTextChanged(s: Editable) =
+                delegateListeners.inputFieldChangeListener(item.tag, s.toString())
         }
 
 
@@ -72,4 +75,4 @@ class EmailPhoneFieldDelegate(private val delegateListeners: EmailPhoneDelegateL
 
 }
 
-class EmailPhoneDelegateListeners(val inputFieldChangeListener: ((String) -> Unit))
+class EmailPhoneDelegateListeners(val inputFieldChangeListener: ((tag: Int, text: String) -> Unit))
