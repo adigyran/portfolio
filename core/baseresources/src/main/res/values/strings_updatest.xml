@@ -84,5 +84,9 @@
         fixed doctors filter\n
         added progress bar for all network requests\n
         version 40 patient\n
+        added pagination to filters\n
+        doctors can now be added to favorites\n
+        single mode filter has been fixed\n
+        version 41 patient\n
     </string>
 </resources>
