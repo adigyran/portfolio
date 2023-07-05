@@ -82,6 +82,10 @@ Added Firebase Distribution\n
         fixed doctors filter
         added progress bar for all network requests
         version 40 patient\n
+        added pagination to filters
+        doctors can now be added to favorites
+        single mode filter has been fixed
+        version 41 patient\n
 
 
 
