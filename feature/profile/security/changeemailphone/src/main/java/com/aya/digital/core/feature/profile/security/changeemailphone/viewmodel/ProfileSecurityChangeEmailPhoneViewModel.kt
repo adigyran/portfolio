@@ -77,7 +77,7 @@ internal class ProfileSecurityChangeEmailPhoneViewModel(
 
     fun saveClicked() = intent { requestCode() }
 
-    fun emailChanged(email: String) = intent {
+    fun emailChanged(tag: Int, email: String) = intent {
         if (state.email != email) reduce { state.copy(email = email) }
     }
 
