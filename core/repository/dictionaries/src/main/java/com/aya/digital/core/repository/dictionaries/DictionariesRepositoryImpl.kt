@@ -24,8 +24,12 @@ class DictionariesRepositoryImpl(
     private val cityMapper: CityMapper
 ) : DictionariesRepository {
 
-    override fun getInsuranceCompanies(searchTerm: String?, cursor: String?) =
-        dictionariesDataSource.getInsuranceCompanies(searchTerm, cursor)
+    override fun getInsuranceCompanies(
+        searchTerm: String?,
+        selectedIds: List<Int>,
+        cursor: String?
+    ) =
+        dictionariesDataSource.getInsuranceCompanies(searchTerm, selectedIds, cursor)
             .retryOnError()
             .retrofitResponseToResult(CommonUtils::mapServerErrors)
             .mapResult({ result ->
@@ -57,9 +61,10 @@ class DictionariesRepositoryImpl(
 
     override fun getSpecialities(
         searchTerm: String?,
+        selectedIds: List<Int>,
         cursor: String?
     ): Flowable<RequestResult<PaginationCursorModel<SpecialityModel>>> =
-        dictionariesDataSource.getSpecialisations(searchTerm, cursor)
+        dictionariesDataSource.getSpecialisations(searchTerm, selectedIds, cursor)
             .retryOnError()
             .retrofitResponseToResult(CommonUtils::mapServerErrors)
             .mapResult({ result ->
@@ -73,9 +78,10 @@ class DictionariesRepositoryImpl(
 
     override fun getCities(
         searchTerm: String?,
+        selectedIds: List<Int>,
         cursor: String?
     ): Flowable<RequestResult<PaginationCursorModel<CityModel>>> =
-        dictionariesDataSource.getCities(searchTerm, cursor)
+        dictionariesDataSource.getCities(searchTerm, selectedIds, cursor)
             .retryOnError()
             .retrofitResponseToResult(CommonUtils::mapServerErrors)
             .mapResult(

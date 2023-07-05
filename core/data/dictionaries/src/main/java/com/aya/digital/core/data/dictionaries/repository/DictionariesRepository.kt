@@ -12,12 +12,12 @@ import io.reactivex.rxjava3.core.Single
 
 interface DictionariesRepository {
     //insurance companies
-    fun getInsuranceCompanies(searchTerm:String?,cursor:String?): Flowable<RequestResult<PaginationCursorModel<InsuranceCompanyModel>>>
+    fun getInsuranceCompanies(searchTerm:String?,selectedIds:List<Int>, cursor:String?): Flowable<RequestResult<PaginationCursorModel<InsuranceCompanyModel>>>
     fun getInsuranceCompanyById(id:Int):Single<RequestResult<InsuranceCompanyModel>>
     fun getInsuranceCompaniesByIds(ids:List<Int>) : Observable<RequestResult<Set<InsuranceCompanyModel>>>
     //specialities
-    fun getSpecialities(searchTerm: String?,cursor:String?):Flowable<RequestResult<PaginationCursorModel<SpecialityModel>>>
+    fun getSpecialities(searchTerm: String?,selectedIds:List<Int>,cursor:String?):Flowable<RequestResult<PaginationCursorModel<SpecialityModel>>>
 
-    fun getCities(searchTerm: String?,cursor:String?): Flowable<RequestResult<PaginationCursorModel<CityModel>>>
+    fun getCities(searchTerm: String?,selectedIds:List<Int>, cursor:String?): Flowable<RequestResult<PaginationCursorModel<CityModel>>>
 
 }

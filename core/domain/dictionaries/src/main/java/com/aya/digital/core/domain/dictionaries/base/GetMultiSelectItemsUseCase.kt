@@ -6,6 +6,6 @@ import com.aya.digital.core.domain.dictionaries.base.model.MultiSelectItemPagina
 import io.reactivex.rxjava3.core.Flowable
 
 interface GetMultiSelectItemsUseCase {
-    operator fun invoke(searchTerm:String?,cursor:String?, type: String): Flowable<RequestResultModel<MultiSelectItemPaginationModel>>
+    operator fun invoke(searchTerm:String?,selectedItems:Set<Int>,cursor:String?, type: String): Flowable<RequestResultModel<MultiSelectItemPaginationModel>>
 }
 

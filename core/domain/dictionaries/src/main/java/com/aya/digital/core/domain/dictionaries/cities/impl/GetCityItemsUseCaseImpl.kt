@@ -28,9 +28,10 @@ class GetCityItemsUseCaseImpl(
 
     override fun invoke(
         searchTerm: String?,
+        selectedItems:Set<Int>,
         cursor: String?
     ): Flowable<RequestResultModel<CityItemPaginationModel>> =
-        dictionariesRepository.getCities(searchTerm,cursor)
+        dictionariesRepository.getCities(searchTerm,selectedItems.toList(),cursor)
             .trackProgress(progressRepository)
             .mapResult({ paginationModel ->
                 paginationPageModel = paginationModel

@@ -28,9 +28,10 @@ class RetrofitDictionariesNetwork(private val network: DictionariesService) :
     DictionariesDataSource {
     override fun getInsuranceCompanies(
         searchTerm: String?,
+        selectedIds:List<Int>,
         cursor: String?
     ): Flowable<PagedCursorResponse<InsuranceCompanyResponse>> =
-        network.getInsurances(searchTerm, cursor)
+        network.getInsurances(searchTerm, cursor,selectedIds)
 
     override fun getInsuranceCompanyById(id: Int): Single<PagedCursorResponse<InsuranceCompanyResponse>> =
         network.getInsuranceById(id)
@@ -40,13 +41,15 @@ class RetrofitDictionariesNetwork(private val network: DictionariesService) :
 
     override fun getSpecialisations(
         searchTerm: String?,
+        selectedIds:List<Int>,
         cursor: String?
     ): Flowable<PagedCursorResponse<SpecialityResponse>> =
-        network.getSpecialities(searchTerm, cursor)
+        network.getSpecialities(searchTerm, cursor,selectedIds)
 
     override fun getCities(
         searchTerm: String?,
+        selectedIds:List<Int>,
         cursor: String?
     ): Flowable<PagedCursorResponse<CityResponse.CityContent>> =
-        network.getCities(searchTerm, cursor)
+        network.getCities(searchTerm, cursor,selectedIds)
 }

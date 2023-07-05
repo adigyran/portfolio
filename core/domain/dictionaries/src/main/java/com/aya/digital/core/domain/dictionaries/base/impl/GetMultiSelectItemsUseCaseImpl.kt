@@ -21,11 +21,13 @@ internal class GetMultiSelectItemsUseCaseImpl(
     GetMultiSelectItemsUseCase {
     override fun invoke(
         searchTerm: String?,
+        selectedItems:Set<Int>,
         cursor: String?,
         type: String
     ): Flowable<RequestResultModel<MultiSelectItemPaginationModel>> = when (type) {
         RequestCodes.INSURANCE_LIST_REQUEST_CODE -> getInsuranceCompanyItemsUseCase(
             searchTerm,
+            selectedItems,
             cursor
         ).mapResult(
             { paginationModel ->
@@ -35,6 +37,7 @@ internal class GetMultiSelectItemsUseCaseImpl(
 
         RequestCodes.SPECIALITIES_LIST_REQUEST_CODE -> getSpecialityItemsUseCase(
             searchTerm,
+            selectedItems,
             cursor
         ).mapResult(
             { paginationModel -> paginationModel.mapToMultiselectItem().asResultModel() },
@@ -42,6 +45,7 @@ internal class GetMultiSelectItemsUseCaseImpl(
 
         RequestCodes.LOCATIONS_LIST_REQUEST_CODE -> getCityItemsUseCase(
             searchTerm,
+            selectedItems,
             cursor
         ).mapResult(
             { paginationModel -> paginationModel.mapToMultiselectItem().asResultModel() },

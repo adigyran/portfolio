@@ -11,6 +11,7 @@ import io.reactivex.rxjava3.core.Flowable
 interface GetSpecialityItemsUseCase {
     operator fun invoke(
         searchTerm: String?,
+        selectedItems:Set<Int>,
         cursor: String?
     ): Flowable<RequestResultModel<SpecialityItemPaginationModel>>
 }

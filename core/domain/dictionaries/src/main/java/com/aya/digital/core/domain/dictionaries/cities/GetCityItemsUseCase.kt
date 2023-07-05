@@ -8,6 +8,7 @@ import io.reactivex.rxjava3.core.Flowable
 fun interface GetCityItemsUseCase {
     operator fun invoke(
         searchTerm: String?,
+        selectedItems:Set<Int>,
         cursor: String?
     ): Flowable<RequestResultModel<CityItemPaginationModel>>
 }

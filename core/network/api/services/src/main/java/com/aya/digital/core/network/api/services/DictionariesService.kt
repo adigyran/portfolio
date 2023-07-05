@@ -16,6 +16,7 @@ interface DictionariesService {
     fun getInsurances(
         @Query("search") searchTerm: String?,
         @Query("scrollId") cursor: String?,
+        @Query("selectItemsIds") selectedItems: List<Int>?,
         @Query("sizeCollection") size: Int = 25
     ): Flowable<PagedCursorResponse<InsuranceCompanyResponse>>
 
@@ -29,6 +30,7 @@ interface DictionariesService {
     fun getSpecialities(
         @Query("search") searchTerm: String?,
         @Query("scrollId") cursor: String?,
+        @Query("selectItemsIds") selectedItems: List<Int>?,
         @Query("sizeCollection") size: Int = 25
     ): Flowable<PagedCursorResponse<SpecialityResponse>>
 
@@ -36,6 +38,7 @@ interface DictionariesService {
     fun getCities(
         @Query("search") searchTerm: String?,
         @Query("scrollId") cursor: String?,
+        @Query("selectItemsIds") selectedItems: List<Int>?,
         @Query("sizeCollection") size: Int = 25
     ): Flowable<PagedCursorResponse<CityResponse.CityContent>>
 

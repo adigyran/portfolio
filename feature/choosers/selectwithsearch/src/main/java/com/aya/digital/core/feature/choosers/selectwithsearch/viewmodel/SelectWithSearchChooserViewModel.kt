@@ -29,11 +29,11 @@ class SelectWithSearchChooserViewModel(
             initialState = SelectWithSearchChooserState(dataOperation = DataLoadingOperationWithPagination.Idle),
         )
         {
-            if (it.items.isEmpty()) {
-                loadItems(null)
-            }
             if (!param.selectedItems.isNullOrEmpty()) {
                 preselectItems(param.selectedItems)
+            }
+            if (it.items.isEmpty()) {
+                loadItems(null)
             }
         }
 
@@ -49,6 +49,7 @@ class SelectWithSearchChooserViewModel(
 
 
     private fun getItems(state: SelectWithSearchChooserState) = getMultiSelectItemsUseCase(
+        selectedItems = state.selectedItems.map { it.id }.toSet(),
         searchTerm = state.searchTerm,
         cursor = state.cursor,
         type = param.requestCode
@@ -136,10 +137,11 @@ class SelectWithSearchChooserViewModel(
     }
 
     fun applyFilters() = intent {
+        val selectedItems = state.items.filter { m -> state.selectedItems.any { it.id==m.id } }
         coordinatorRouter.sendEvent(
             SelectWithSearchNavigationEvents.FinishWithResult(
                 param.requestCode,
-                MultiSelectResultModel(state.selectedItems.map { SelectedItem(it.id, it.text) }
+                MultiSelectResultModel(selectedItems.map { SelectedItem(it.id, it.text) }
                     .toSet())
             )
         )
