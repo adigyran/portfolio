@@ -33,7 +33,7 @@ internal class ProfileSecurityChangePhoneViewModel(
 
     private fun changeEmail() = intent {
         state.code?.let { code ->
-            val await = changeEmailUseCase(code = code, newEmail = state.email).await()
+            val await = changeEmailUseCase(code = code, newEmail = state.phone).await()
             await.processResult({}, { processError(it) })
         }
     }
@@ -50,7 +50,7 @@ internal class ProfileSecurityChangePhoneViewModel(
         coordinatorRouter.sendEvent(
             ProfileSecurityChangePhoneNavigationEvents.EnterCode(
                 RequestCodes.CODE_INPUT_REQUEST_CODE,
-                state.email
+                state.phone
             )
         )
     }
@@ -74,7 +74,7 @@ internal class ProfileSecurityChangePhoneViewModel(
     fun saveClicked() = intent { requestCode() }
 
     fun emailChanged(tag: Int, email: String) = intent {
-        if (state.email != email) reduce { state.copy(email = email) }
+        if (state.phone != email) reduce { state.copy(phone = email) }
     }
 
     override fun postErrorSideEffect(errorSideEffect: ErrorSideEffect) = intent {

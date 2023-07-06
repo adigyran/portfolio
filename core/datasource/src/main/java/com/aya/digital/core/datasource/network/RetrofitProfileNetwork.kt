@@ -11,6 +11,7 @@ import com.aya.digital.core.network.model.response.profile.AvatarResponse
 import com.aya.digital.core.network.model.response.profile.CurrentProfileResponse
 import com.aya.digital.core.network.model.response.profile.ImageUploadResponse
 import com.aya.digital.core.network.model.response.profile.InsurancePolicyResponse
+import com.aya.digital.core.network.model.response.profile.PhoneResponse
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import okhttp3.RequestBody
@@ -55,7 +56,7 @@ class RetrofitProfileNetwork(private val network: ProfileService) :
     override fun updateProfile(body: ProfileBody): Single<CurrentProfileResponse> =
         network.updateProfile(body)
 
-    override fun uploadAvatar(file: RequestBody): Single<Unit>  = network.uploadAvatar(file)
+    override fun uploadAvatar(file: RequestBody): Single<Unit> = network.uploadAvatar(file)
 
     override fun getEmergencyContact(): Single<EmergencyContactResponse> =
         network.getEmergencyContact()
@@ -63,16 +64,34 @@ class RetrofitProfileNetwork(private val network: ProfileService) :
     override fun updateEmergencyContact(body: EmergencyContactBody): Single<Unit> =
         network.updateEmergencyContact(body)
 
-    override fun uploadAttachmentImage(mime: String, file: RequestBody): Single<ImageUploadResponse> = network.uploadImage(file)
-    override fun addInsurance(insurancePolicyBody: InsurancePolicyBody): Single<Unit>  = network.addInsurance(insurancePolicyBody)
+    override fun uploadAttachmentImage(
+        mime: String,
+        file: RequestBody
+    ): Single<ImageUploadResponse> = network.uploadImage(file)
 
-    override fun saveInsurance(insuranceId: Int, insurancePolicyBody: InsurancePolicyBody): Single<Unit> = network.saveInsurance(insuranceId, insurancePolicyBody)
+    override fun getPhoneNumber(): Single<PhoneResponse> = network.getPhoneNumber()
 
-    override fun getInsurances(): Observable<List<InsurancePolicyResponse>> = network.getInsurances()
+    override fun updatePhoneNumber(body: UpdatePhoneBody): Single<Unit> = network.updatePhoneNumber(body)
 
-    override fun getInsuranceById(insuranceId: Int): Single<InsurancePolicyResponse> = network.getInsuranceById(insuranceId)
-    override fun deleteInsurance(insuranceId: Int): Single<Unit> = network.deleteInsurance(insuranceId)
-    override fun getAttachmentById(attachmentId: Int): Single<Unit> = network.getAttachmentById(attachmentId)
+    override fun addInsurance(insurancePolicyBody: InsurancePolicyBody): Single<Unit> =
+        network.addInsurance(insurancePolicyBody)
+
+    override fun saveInsurance(
+        insuranceId: Int,
+        insurancePolicyBody: InsurancePolicyBody
+    ): Single<Unit> = network.saveInsurance(insuranceId, insurancePolicyBody)
+
+    override fun getInsurances(): Observable<List<InsurancePolicyResponse>> =
+        network.getInsurances()
+
+    override fun getInsuranceById(insuranceId: Int): Single<InsurancePolicyResponse> =
+        network.getInsuranceById(insuranceId)
+
+    override fun deleteInsurance(insuranceId: Int): Single<Unit> =
+        network.deleteInsurance(insuranceId)
+
+    override fun getAttachmentById(attachmentId: Int): Single<Unit> =
+        network.getAttachmentById(attachmentId)
 }
 
 class RetrofitProfilePractitionerNetwork(private val network: ProfileService) :

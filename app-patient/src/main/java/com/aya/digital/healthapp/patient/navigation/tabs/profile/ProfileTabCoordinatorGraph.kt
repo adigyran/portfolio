@@ -13,6 +13,7 @@ import com.aya.digital.core.feature.profile.security.changeemail.navigation.Prof
 import com.aya.digital.core.feature.profile.security.changeemail.navigation.ProfileSecurityChangeEmailScreen
 import com.aya.digital.core.feature.profile.security.changepassword.navigation.ProfileSecurityChangePasswordNavigationEvents
 import com.aya.digital.core.feature.profile.security.changepassword.navigation.ProfileSecurityChangePasswordScreen
+import com.aya.digital.core.feature.profile.security.changephone.navigation.ProfileSecurityChangePhoneScreen
 import com.aya.digital.core.feature.profile.security.securitysummary.navigation.ProfileSecuritySummaryNavigationEvents
 import com.aya.digital.core.feature.profile.security.securitysummary.navigation.ProfileSecuritySummaryScreen
 import com.aya.digital.core.feature.tabviews.profile.navigation.ProfileNavigationEvents
@@ -60,6 +61,10 @@ class ProfileTabCoordinatorGraph : FragmentContainerGraph {
 
             is ProfileSecuritySummaryNavigationEvents.ChangeEmail -> {
                 mainRouter.navigateTo(ProfileSecurityChangeEmailScreen(event.requestCode))
+            }
+
+            is ProfileSecuritySummaryNavigationEvents.ChangePhone -> {
+                mainRouter.navigateTo(ProfileSecurityChangePhoneScreen(event.requestCode))
             }
 
             is ProfileSecuritySummaryNavigationEvents.ChangePassword -> {

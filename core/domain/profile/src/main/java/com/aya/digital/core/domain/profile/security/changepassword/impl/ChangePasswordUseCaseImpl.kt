@@ -6,6 +6,8 @@ import com.aya.digital.core.data.base.dataprocessing.toModelError
 import com.aya.digital.core.data.profile.repository.AuthRepository
 import com.aya.digital.core.data.profile.repository.AuthTokenRepository
 import com.aya.digital.core.data.profile.repository.ProfileRepository
+import com.aya.digital.core.data.progress.repository.ProgressRepository
+import com.aya.digital.core.domain.base.models.progress.trackProgress
 import com.aya.digital.core.domain.profile.security.changepassword.ChangePasswordUseCase
 import com.aya.digital.core.domain.profile.security.changepassword.model.ChangePasswordModel
 import com.aya.digital.core.ext.asResult
@@ -17,7 +19,8 @@ import io.reactivex.rxjava3.core.Single
 
 internal class ChangePasswordUseCaseImpl(
     private val authRepository: AuthRepository,
-    private val authTokenRepository: AuthTokenRepository
+    private val authTokenRepository: AuthTokenRepository,
+    private val progressRepository: ProgressRepository
 ) : ChangePasswordUseCase {
     override fun invoke(
         changePasswordModel: ChangePasswordModel
@@ -28,6 +31,7 @@ internal class ChangePasswordUseCaseImpl(
             changePasswordModel.newPasswordRepeat
         )
     )
+        .trackProgress(progressRepository)
         .flatMapResult({ passwordChanged ->
             if (passwordChanged) updateToken() else Single.just(false.asResult())
         }, { Single.just(it) })

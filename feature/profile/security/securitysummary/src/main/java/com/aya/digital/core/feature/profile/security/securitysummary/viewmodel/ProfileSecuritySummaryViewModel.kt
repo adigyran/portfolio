@@ -37,7 +37,7 @@ internal class ProfileSecuritySummaryViewModel(
     private fun getSecuritySummary() = intent {
         val await = getSecuritySummaryUseCase().await()
         await.processResult({
-            reduce { state.copy(email = it.email, password = it.password) }
+            reduce { state.copy(email = it.email, phone = it.phone, password = it.password) }
         }, { processError(it) })
     }
 
@@ -50,6 +50,10 @@ internal class ProfileSecuritySummaryViewModel(
             when (tag) {
                 FieldsTags.EMAIL_FIELD_TAG -> ProfileSecuritySummaryNavigationEvents.ChangeEmail(
                     RequestCodes.CHANGE_EMAIL_REQUEST_CODE
+                )
+
+                FieldsTags.PHONE_FIELD_TAG -> ProfileSecuritySummaryNavigationEvents.ChangePhone(
+                    RequestCodes.CHANGE_PHONE_REQUEST_CODE
                 )
 
                 FieldsTags.PASSWORD_FIELD_TAG -> ProfileSecuritySummaryNavigationEvents.ChangePassword(

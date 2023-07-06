@@ -31,7 +31,8 @@ interface ProfileRepository {
 
     fun uploadAvatar(uri: Uri): Single<RequestResult<Boolean>>
 
-    fun updatePhoneNumber(number: String): Single<RequestResult<Unit>>
+    fun getPhoneNumber():Single<RequestResult<String>>
+    fun updatePhoneNumber(number: String): Single<RequestResult<Boolean>>
 
     fun addInsurance(insurancePolicyBody: InsurancePolicyBody): Single<RequestResult<Boolean>>
 

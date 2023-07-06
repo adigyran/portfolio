@@ -22,6 +22,13 @@ internal class ProfileSecuritySummaryStateTransformer(context: Context) :
                     )
                     add(
                         SecuritySummaryUIModel(
+                            FieldsTags.PHONE_FIELD_TAG,
+                            "Phone",
+                            state.phone.getField()
+                        )
+                    )
+                    add(
+                        SecuritySummaryUIModel(
                             FieldsTags.PASSWORD_FIELD_TAG,
                             "Password",
                             state.password.getPasswordField()

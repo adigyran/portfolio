@@ -1,4 +1,5 @@
 package com.aya.digital.core.domain.profile.di
+
 import com.aya.digital.core.domain.profile.attachment.GetAttachmentByIdUseCase
 import com.aya.digital.core.domain.profile.attachment.impl.GetAttachmentByIdUseCaseImpl
 import com.aya.digital.core.domain.profile.emergencycontact.GetEmergencyContactUseCase
@@ -42,27 +43,80 @@ import org.kodein.di.singleton
 fun profileDomainDiModule() = DI.Module("profileDomainDiModule") {
     //profile
     //get profile general info
-    bind<GetProfileBriefUseCase>() with singleton { GetProfileUseCaseImpl(instance(),instance()) }
-    bind<GetProfileInfoUseCase>() with singleton { GetProfileInfoUseCaseImpl(instance(),instance()) }
+    bind<GetProfileBriefUseCase>() with singleton { GetProfileUseCaseImpl(instance(), instance()) }
+    bind<GetProfileInfoUseCase>() with singleton {
+        GetProfileInfoUseCaseImpl(
+            instance(),
+            instance()
+        )
+    }
     //save profile
-    bind<SaveProfileInfoUseCase>() with singleton { SaveProfileInfoUseCaseImpl(instance(),instance(),instance()) }
+    bind<SaveProfileInfoUseCase>() with singleton {
+        SaveProfileInfoUseCaseImpl(
+            instance(),
+            instance(),
+            instance()
+        )
+    }
     //set avatar
-    bind<SetAvatarUseCase>() with singleton { SetAvatarUseCaseImpl(instance(),instance()) }
+    bind<SetAvatarUseCase>() with singleton { SetAvatarUseCaseImpl(instance(), instance()) }
     //get avatar
-    bind<GetProfileAvatarUseCase>() with singleton { GetProfileAvatarUseCaseImpl(instance(),instance()) }
+    bind<GetProfileAvatarUseCase>() with singleton {
+        GetProfileAvatarUseCaseImpl(
+            instance(),
+            instance()
+        )
+    }
 
     //emergencyContact
-    bind<GetEmergencyContactUseCase>() with singleton { GetEmergencyContactUseCaseImpl(instance(),instance()) }
-    bind<SaveEmergencyContactUseCase>() with singleton { SaveEmergencyContactUseCaseImpl(instance(),instance()) }
+    bind<GetEmergencyContactUseCase>() with singleton {
+        GetEmergencyContactUseCaseImpl(
+            instance(),
+            instance()
+        )
+    }
+    bind<SaveEmergencyContactUseCase>() with singleton {
+        SaveEmergencyContactUseCaseImpl(
+            instance(),
+            instance()
+        )
+    }
 
     //insurance
-    bind<GetInsurancesUseCase>() with singleton { GetInsurancesUseCaseImpl(instance(),instance(),instance()) }
-    bind<GetInsuranceByIdUseCase>() with singleton { GetInsuranceByIdUseCaseImpl(instance(),instance(),instance()) }
-    bind<AddInsuranceUseCase>() with singleton { AddInsuranceUseCaseImpl(instance(),instance()) }
-    bind<SaveInsuranceUseCase>() with singleton { SaveInsuranceUseCaseImpl(instance(),instance()) }
-    bind<DeleteInsuranceUseCase>() with singleton { DeleteInsuranceUseCaseImpl(instance(),instance()) }
-    bind<UploadInsuranceAttachmentUseCase>() with singleton { UploadInsuranceAttachmentUseCaseImpl(instance(),instance()) }
-    bind<GetInsuranceAttachmentByIdUseCase>() with singleton { GetInsuranceAttachmentByIdUseCaseImpl(instance(),instance()) }
+    bind<GetInsurancesUseCase>() with singleton {
+        GetInsurancesUseCaseImpl(
+            instance(),
+            instance(),
+            instance()
+        )
+    }
+    bind<GetInsuranceByIdUseCase>() with singleton {
+        GetInsuranceByIdUseCaseImpl(
+            instance(),
+            instance(),
+            instance()
+        )
+    }
+    bind<AddInsuranceUseCase>() with singleton { AddInsuranceUseCaseImpl(instance(), instance()) }
+    bind<SaveInsuranceUseCase>() with singleton { SaveInsuranceUseCaseImpl(instance(), instance()) }
+    bind<DeleteInsuranceUseCase>() with singleton {
+        DeleteInsuranceUseCaseImpl(
+            instance(),
+            instance()
+        )
+    }
+    bind<UploadInsuranceAttachmentUseCase>() with singleton {
+        UploadInsuranceAttachmentUseCaseImpl(
+            instance(),
+            instance()
+        )
+    }
+    bind<GetInsuranceAttachmentByIdUseCase>() with singleton {
+        GetInsuranceAttachmentByIdUseCaseImpl(
+            instance(),
+            instance()
+        )
+    }
 
 
     //notifications
@@ -71,16 +125,38 @@ fun profileDomainDiModule() = DI.Module("profileDomainDiModule") {
 
     //security
     //summary
-    bind<GetSecuritySummaryUseCase>() with singleton { GetSecuritySummaryUseCaseImpl(instance()) }
+    bind<GetSecuritySummaryUseCase>() with singleton {
+        GetSecuritySummaryUseCaseImpl(
+            instance(),
+            instance()
+        )
+    }
     //change email
     bind<ChangeEmailUseCase>() with singleton { ChangeEmailUseCaseImpl(instance()) }
-    bind<ChangeEmailGetCodeUseCase>() with singleton { ChangeEmailGetCodeUseCaseImpl(instance(),instance()) }
+    bind<ChangeEmailGetCodeUseCase>() with singleton {
+        ChangeEmailGetCodeUseCaseImpl(
+            instance(),
+            instance(),
+            instance()
+        )
+    }
     //change password
-    bind<ChangePasswordUseCase>() with singleton { ChangePasswordUseCaseImpl(instance(),instance()) }
+    bind<ChangePasswordUseCase>() with singleton {
+        ChangePasswordUseCaseImpl(
+            instance(),
+            instance(),
+            instance()
+        )
+    }
     //logout
     bind<LogoutUseCase>() with singleton { LogoutUseCaseImpl(instance()) }
 
-    bind<GetAttachmentByIdUseCase>() with singleton { GetAttachmentByIdUseCaseImpl(instance(),instance()) }
+    bind<GetAttachmentByIdUseCase>() with singleton {
+        GetAttachmentByIdUseCaseImpl(
+            instance(),
+            instance()
+        )
+    }
 
 
 }

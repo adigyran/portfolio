@@ -29,6 +29,7 @@ import com.aya.digital.core.network.model.request.EmergencyContactBody
 import com.aya.digital.core.network.model.request.InsurancePolicyBody
 import com.aya.digital.core.network.model.request.LogoutBody
 import com.aya.digital.core.network.model.request.ProfileBody
+import com.aya.digital.core.network.model.request.UpdatePhoneBody
 import com.aya.digital.core.network.model.response.profile.ImageUploadResponse
 import com.aya.digital.core.networkbase.CommonUtils
 import com.aya.digital.core.networkbase.server.RequestResult
@@ -151,6 +152,22 @@ internal class ProfileRepositoryImpl(
                 } ?: Single.just(false.asResult())
             }
 
+    override fun getPhoneNumber(): Single<RequestResult<String>> =
+        profileDataSource.getPhoneNumber()
+            .retryOnError()
+            .retrofitResponseToResult(CommonUtils::mapServerErrors)
+            .mapResult({
+                it.phone.asResult()
+            }, { it })
+
+    override fun updatePhoneNumber(number: String): Single<RequestResult<Boolean>> =
+        profileDataSource.updatePhoneNumber(UpdatePhoneBody(number))
+            .retryOnError()
+            .retrofitResponseToResult(CommonUtils::mapServerErrors)
+            .mapResult({
+                true.asResult()
+            }, { it })
+
     private fun uploadAvatarBody(body: RequestBody): Single<RequestResult<Boolean>> =
         profileDataSource.uploadAvatar(body)
             .retryOnError()
@@ -230,8 +247,6 @@ internal class ProfileRepositoryImpl(
         TODO("Not yet implemented")
     }
 
-    override fun updatePhoneNumber(number: String): Single<RequestResult<Unit>> {
-        TODO("Not yet implemented")
-    }
+
 
 }

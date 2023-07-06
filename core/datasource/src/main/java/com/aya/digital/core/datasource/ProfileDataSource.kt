@@ -3,11 +3,13 @@ package com.aya.digital.core.datasource
 import com.aya.digital.core.network.model.request.EmergencyContactBody
 import com.aya.digital.core.network.model.request.InsurancePolicyBody
 import com.aya.digital.core.network.model.request.ProfileBody
+import com.aya.digital.core.network.model.request.UpdatePhoneBody
 import com.aya.digital.core.network.model.response.EmergencyContactResponse
 import com.aya.digital.core.network.model.response.profile.AvatarResponse
 import com.aya.digital.core.network.model.response.profile.CurrentProfileResponse
 import com.aya.digital.core.network.model.response.profile.ImageUploadResponse
 import com.aya.digital.core.network.model.response.profile.InsurancePolicyResponse
+import com.aya.digital.core.network.model.response.profile.PhoneResponse
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import okhttp3.RequestBody
@@ -36,6 +38,9 @@ interface ProfileDataSource {
         file: RequestBody
     ): Single<ImageUploadResponse>
 
+    fun getPhoneNumber():Single<PhoneResponse>
+
+    fun updatePhoneNumber(body:UpdatePhoneBody):Single<Unit>
     fun addInsurance(insurancePolicyBody: InsurancePolicyBody):Single<Unit>
 
     fun saveInsurance(insuranceId:Int, insurancePolicyBody: InsurancePolicyBody) : Single<Unit>

@@ -26,6 +26,12 @@ interface ProfileService {
     @POST("api/attachment")
     fun uploadImage(@Body image: RequestBody) : Single<ImageUploadResponse>
 
+    @GET("api/profile/phone")
+    fun getPhoneNumber(): Single<PhoneResponse>
+
+    @PATCH("api/profile/phone")
+    fun updatePhoneNumber(@Body body:UpdatePhoneBody):Single<Unit>
+
     @POST("api/profile/insurances")
     fun addInsurance(@Body insurancePolicyBody: InsurancePolicyBody):Single<Unit>
 
