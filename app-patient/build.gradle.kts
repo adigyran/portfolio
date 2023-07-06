@@ -103,7 +103,7 @@ dependencies {
     implementation(project(":feature:profile:insurance:add"))
     implementation(project(":feature:profile:insurance:list"))
     implementation(project(":feature:profile:security:securitysummary"))
-    implementation(project(":feature:profile:security:changeemailphone"))
+    implementation(project(":feature:profile:security:changeemail"))
     implementation(project(":feature:profile:security:changepassword"))
     implementation(project(":feature:profile:emergencycontact"))
     implementation(project(":feature:profile:notifications"))

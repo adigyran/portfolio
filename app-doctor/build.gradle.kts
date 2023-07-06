@@ -64,7 +64,7 @@ dependencies {
     implementation(project(":feature:choosers:selectwithsearch"))
     implementation(project(":feature:videocall:videocallscreen"))
     implementation(project(":feature:profile:security:securitysummary"))
-    implementation(project(":feature:profile:security:changeemailphone"))
+    implementation(project(":feature:profile:security:changeemail"))
     implementation(project(":feature:profile:security:changepassword"))
     implementation(project(":feature:appointments:appointmentcard"))
     implementation(project(":core:appbase"))

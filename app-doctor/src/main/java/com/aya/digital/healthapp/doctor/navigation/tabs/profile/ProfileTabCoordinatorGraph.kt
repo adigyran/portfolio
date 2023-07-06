@@ -1,7 +1,7 @@
 package com.aya.digital.healthapp.doctor.navigation.tabs.profile
 
-import com.aya.digital.core.feature.profile.security.changeemailphone.navigation.ProfileSecurityChangeEmailPhoneNavigationEvents
-import com.aya.digital.core.feature.profile.security.changeemailphone.navigation.ProfileSecurityChangeEmailPhoneScreen
+import com.aya.digital.core.feature.profile.security.changeemail.navigation.ProfileSecurityChangeEmailNavigationEvents
+import com.aya.digital.core.feature.profile.security.changeemail.navigation.ProfileSecurityChangeEmailScreen
 import com.aya.digital.core.feature.profile.security.changepassword.navigation.ProfileSecurityChangePasswordNavigationEvents
 import com.aya.digital.core.feature.profile.security.changepassword.navigation.ProfileSecurityChangePasswordScreen
 import com.aya.digital.core.feature.profile.security.securitysummary.navigation.ProfileSecuritySummaryNavigationEvents
@@ -38,7 +38,7 @@ class ProfileTabCoordinatorGraph : FragmentContainerGraph {
             }
 
             is ProfileSecuritySummaryNavigationEvents.ChangeEmail -> {
-                mainRouter.navigateTo(ProfileSecurityChangeEmailPhoneScreen(event.requestCode))
+                mainRouter.navigateTo(ProfileSecurityChangeEmailScreen(event.requestCode))
             }
 
             is ProfileSecuritySummaryNavigationEvents.ChangePassword -> {
@@ -50,7 +50,7 @@ class ProfileTabCoordinatorGraph : FragmentContainerGraph {
                 mainRouter.exit()
             }
 
-            is ProfileSecurityChangeEmailPhoneNavigationEvents.FinishWithResult -> {
+            is ProfileSecurityChangeEmailNavigationEvents.FinishWithResult -> {
                 mainRouter.sendResult(event.requestCode,event.result)
                 mainRouter.exit()
             }

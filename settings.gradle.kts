@@ -172,7 +172,9 @@ include(":feature:profile:insurance:list")
 include(":feature:profile:clinicinfo")
 include(":feature:profile:security:securitysummary")
 include(":feature:profile:security:changepassword")
-include(":feature:profile:security:changeemailphone")
+include(":feature:profile:security:changeemail")
+include(":feature:profile:security:changephone")
+
 //doctors
 include(":feature:doctors:doctorcard")
 include(":feature:doctors:doctorsfiltersview")
