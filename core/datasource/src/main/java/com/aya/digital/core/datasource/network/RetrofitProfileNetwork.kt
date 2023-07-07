@@ -11,6 +11,7 @@ import com.aya.digital.core.network.model.response.profile.AvatarResponse
 import com.aya.digital.core.network.model.response.profile.CurrentProfileResponse
 import com.aya.digital.core.network.model.response.profile.ImageUploadResponse
 import com.aya.digital.core.network.model.response.profile.InsurancePolicyResponse
+import com.aya.digital.core.network.model.response.profile.NotificationSettingsResponse
 import com.aya.digital.core.network.model.response.profile.PhoneResponse
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
@@ -71,7 +72,8 @@ class RetrofitProfileNetwork(private val network: ProfileService) :
 
     override fun getPhoneNumber(): Single<PhoneResponse> = network.getPhoneNumber()
 
-    override fun updatePhoneNumber(body: UpdatePhoneBody): Single<Unit> = network.updatePhoneNumber(body)
+    override fun updatePhoneNumber(body: UpdatePhoneBody): Single<Unit> =
+        network.updatePhoneNumber(body)
 
     override fun addInsurance(insurancePolicyBody: InsurancePolicyBody): Single<Unit> =
         network.addInsurance(insurancePolicyBody)
@@ -92,6 +94,12 @@ class RetrofitProfileNetwork(private val network: ProfileService) :
 
     override fun getAttachmentById(attachmentId: Int): Single<Unit> =
         network.getAttachmentById(attachmentId)
+
+    override fun getNotificationsSettings(): Single<NotificationSettingsResponse> =
+        network.getNotificationsSettings()
+
+    override fun updateNotificationsSettings(body: NotificationSettingsBody): Single<NotificationSettingsResponse> =
+        network.updateNotificationsSettings(body)
 }
 
 class RetrofitProfilePractitionerNetwork(private val network: ProfileService) :

@@ -22,7 +22,7 @@ class ProfileStateTransformer(context: Context) :
                     add(ProfileMainUIModel(FieldsTags.EMERGENCY_CONTACT_BUTTON_TAG,R.drawable.ic_profile_emergency,"Emergency Contact"))
                     add(ProfileMainUIModel(FieldsTags.SECURITY_BUTTON_TAG,R.drawable.ic_profile_security,"Security"))
                     add(ProfileMainUIModel(FieldsTags.INSURANCE_BUTTON_TAG,R.drawable.ic_profile_insurance,"Insurance"))
-                    //add(ProfileMainUIModel(FieldsTags.NOTIFICATION_BUTTON_TAG,R.drawable.ic_profile_notification,"Notification"))
+                    add(ProfileMainUIModel(FieldsTags.NOTIFICATION_BUTTON_TAG,R.drawable.ic_profile_notification,"Notification"))
                 }
             },
             avatar = state.avatar,

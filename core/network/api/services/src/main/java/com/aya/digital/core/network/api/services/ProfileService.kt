@@ -66,4 +66,8 @@ interface ProfileService {
     @GET("api/attachment/{id}")
     fun getAttachmentById(@Path("id") attachmentId: Int): Single<Unit>
 
+    @GET("api/settings/notifications")
+    fun getNotificationsSettings():Single<NotificationSettingsResponse>
+    @PATCH("api/settings/notifications")
+    fun updateNotificationsSettings(@Body body:NotificationSettingsBody):Single<NotificationSettingsResponse>
 }

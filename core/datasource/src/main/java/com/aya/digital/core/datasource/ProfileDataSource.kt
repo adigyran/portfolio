@@ -2,6 +2,7 @@ package com.aya.digital.core.datasource
 
 import com.aya.digital.core.network.model.request.EmergencyContactBody
 import com.aya.digital.core.network.model.request.InsurancePolicyBody
+import com.aya.digital.core.network.model.request.NotificationSettingsBody
 import com.aya.digital.core.network.model.request.ProfileBody
 import com.aya.digital.core.network.model.request.UpdatePhoneBody
 import com.aya.digital.core.network.model.response.EmergencyContactResponse
@@ -9,6 +10,7 @@ import com.aya.digital.core.network.model.response.profile.AvatarResponse
 import com.aya.digital.core.network.model.response.profile.CurrentProfileResponse
 import com.aya.digital.core.network.model.response.profile.ImageUploadResponse
 import com.aya.digital.core.network.model.response.profile.InsurancePolicyResponse
+import com.aya.digital.core.network.model.response.profile.NotificationSettingsResponse
 import com.aya.digital.core.network.model.response.profile.PhoneResponse
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
@@ -52,5 +54,9 @@ interface ProfileDataSource {
     fun deleteInsurance(insuranceId: Int):Single<Unit>
 
     fun getAttachmentById(attachmentId:Int):Single<Unit>
+
+    fun getNotificationsSettings():Single<NotificationSettingsResponse>
+
+    fun updateNotificationsSettings(body:NotificationSettingsBody):Single<NotificationSettingsResponse>
 
 }

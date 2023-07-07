@@ -1,7 +1,8 @@
 package com.aya.digital.core.feature.profile.notifications.viewmodel
 
-import com.aya.digital.core.domain.profile.notifications.GetEmailNotificationsStatusUseCase
-import com.aya.digital.core.domain.profile.notifications.SetEmailNotificationsStatusUseCase
+import com.aya.digital.core.domain.profile.notifications.GetNotificationsStatusUseCase
+import com.aya.digital.core.domain.profile.notifications.SetNotificationsStatusUseCase
+import com.aya.digital.core.domain.profile.notifications.model.NotificationsStatusModel
 import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.mvi.BaseViewModel
 import com.aya.digital.core.navigation.coordinator.CoordinatorEvent
@@ -14,8 +15,8 @@ import timber.log.Timber
 
 class ProfileNotificationsViewModel(
     private val coordinatorRouter: CoordinatorRouter,
-    private val getEmailNotificationsStatusUseCase: GetEmailNotificationsStatusUseCase,
-    private val setEmailNotificationsStatusUseCase: SetEmailNotificationsStatusUseCase
+    private val getEmailNotificationsStatusUseCase: GetNotificationsStatusUseCase,
+    private val setEmailNotificationsStatusUseCase: SetNotificationsStatusUseCase
 ) :
     BaseViewModel<ProfileNotificationsState, BaseSideEffect>() {
     override val container = container<ProfileNotificationsState, BaseSideEffect>(
@@ -30,18 +31,31 @@ class ProfileNotificationsViewModel(
         val await = getEmailNotificationsStatusUseCase().await()
         await.processResult({
             reduce {
-                state.copy(emailNotification = it)
+                state.copy(
+                    emailNotification = it.emailNotifications,
+                    smsNotification = it.smsNotifications
+                )
             }
         }, { Timber.d(it.toString()) })
     }
 
     fun onEmailNotificationSwitched(value: Boolean) = intent {
         reduce { state.copy(emailNotification = value) }
-        setEmailNotificationsStatus()
+        setNotificationsStatus()
     }
 
-    private fun setEmailNotificationsStatus() = intent {
-        val await = setEmailNotificationsStatusUseCase(state.emailNotification).await()
+    fun onSmsNotificationSwitched(value: Boolean) = intent {
+        reduce { state.copy(smsNotification = value) }
+        setNotificationsStatus()
+    }
+
+    private fun setNotificationsStatus() = intent {
+        val await = setEmailNotificationsStatusUseCase(
+            NotificationsStatusModel(
+                state.emailNotification,
+                state.smsNotification
+            )
+        ).await()
         await.processResult({}, { Timber.d(it.toString()) })
     }
 

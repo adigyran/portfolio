@@ -11,6 +11,9 @@ class ProfileNotificationsStateTransformer(context: Context) :
         ProfileNotificationsUiModel(
             emailNotificationsState = kotlin.run {
                 return@run state.emailNotification
+            },
+            phoneNotificationsState = kotlin.run {
+                return@run state.smsNotification
             }
         )
 

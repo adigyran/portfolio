@@ -8,10 +8,12 @@ import com.aya.digital.core.data.profile.CurrentProfile
 import com.aya.digital.core.data.profile.EmergencyContact
 import com.aya.digital.core.data.profile.ImageUploadResult
 import com.aya.digital.core.data.profile.InsurancePolicyModel
+import com.aya.digital.core.data.profile.NotificationsStatus
 import com.aya.digital.core.data.profile.mappers.AvatarMapper
 import com.aya.digital.core.data.profile.mappers.CurrentProfileMapper
 import com.aya.digital.core.data.profile.mappers.EmergencyContactMapper
 import com.aya.digital.core.data.profile.mappers.ImageUploadResultMapper
+import com.aya.digital.core.data.profile.mappers.NotificationsStatusMapper
 import com.aya.digital.core.data.profile.repository.ProfileRepository
 import com.aya.digital.core.datasource.AuthDataSource
 import com.aya.digital.core.datasource.DictionariesDataSource
@@ -28,6 +30,7 @@ import com.aya.digital.core.navigation.events.invalidToken.InvalidTokenEventMana
 import com.aya.digital.core.network.model.request.EmergencyContactBody
 import com.aya.digital.core.network.model.request.InsurancePolicyBody
 import com.aya.digital.core.network.model.request.LogoutBody
+import com.aya.digital.core.network.model.request.NotificationSettingsBody
 import com.aya.digital.core.network.model.request.ProfileBody
 import com.aya.digital.core.network.model.request.UpdatePhoneBody
 import com.aya.digital.core.network.model.response.profile.ImageUploadResponse
@@ -53,7 +56,8 @@ internal class ProfileRepositoryImpl(
     private val dictionariesDataSource: DictionariesDataSource,
     private val insuranceCompanyMapper: InsuranceCompanyMapper,
     private val invalidTokenEventManager: InvalidTokenEventManager,
-    private val imageUploadResultMapper: ImageUploadResultMapper
+    private val imageUploadResultMapper: ImageUploadResultMapper,
+    private val notificationsStatusMapper: NotificationsStatusMapper
 ) :
     ProfileRepository {
     override fun currentProfileId(): Single<RequestResult<Int>> {
@@ -61,13 +65,12 @@ internal class ProfileRepositoryImpl(
     }
 
     override fun currentProfileAvatar(): Single<RequestResult<CurrentProfile.Avatar?>> =
-      profileDataSource.currentAvatar()
-          .retryOnError()
-          .retrofitResponseToResult(CommonUtils::mapServerErrors)
-          .mapResult({
-              avatarMapper.mapFrom(it).asResult()
-          }, { it })
-
+        profileDataSource.currentAvatar()
+            .retryOnError()
+            .retrofitResponseToResult(CommonUtils::mapServerErrors)
+            .mapResult({
+                avatarMapper.mapFrom(it).asResult()
+            }, { it })
 
 
     override fun currentProfile(): Single<RequestResult<CurrentProfile>> =
@@ -230,6 +233,28 @@ internal class ProfileRepositoryImpl(
                 true.asResult()
             }, { it })
 
+    override fun getNotificationsStatus(): Single<RequestResult<NotificationsStatus>> =
+        profileDataSource.getNotificationsSettings()
+            .retryOnError()
+            .retrofitResponseToResult(CommonUtils::mapServerErrors)
+            .mapResult({
+                notificationsStatusMapper.mapFrom(it).asResult()
+            }, { it })
+
+    override fun updateNotificationStatus(status: NotificationsStatus): Single<RequestResult<NotificationsStatus>> =
+        profileDataSource.updateNotificationsSettings(
+            NotificationSettingsBody(
+                status.email,
+                status.phone
+            )
+        )
+            .retryOnError()
+            .retrofitResponseToResult(CommonUtils::mapServerErrors)
+            .mapResult({
+                notificationsStatusMapper.mapFrom(it).asResult()
+            }, { it })
+
+
     override fun logout(): Single<RequestResult<Boolean>> =
         appDataStore.refreshTokenData
             .first("")
@@ -239,14 +264,14 @@ internal class ProfileRepositoryImpl(
                     .retrofitResponseToResult(CommonUtils::mapServerErrors)
                     .flatMapResult({
                         appDataStore.clearAuthData()
-                            .doFinally{invalidTokenEventManager.onInvalidToken()}
+                            .doFinally { invalidTokenEventManager.onInvalidToken() }
                             .map { true.asResult() }
                     }, { Single.just(it) })
             }
+
     override fun clear() {
         TODO("Not yet implemented")
     }
-
 
 
 }

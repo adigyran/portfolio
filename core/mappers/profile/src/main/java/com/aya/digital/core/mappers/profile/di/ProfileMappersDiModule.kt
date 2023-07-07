@@ -24,7 +24,7 @@ fun profileMappersDiModule() = DI.Module("profileMappersDiModule") {
     bind<ImageUploadResultMapper>() with singleton { ImageUploadResultMapperImpl() }
 
 
-
     bind<CurrentProfileMapper>() with singleton { CurrentProfileMapperImpl(instance(),instance()) }
+    bind<NotificationsStatusMapper>() with singleton { NotificationsStatusMapperImpl() }
 
 }

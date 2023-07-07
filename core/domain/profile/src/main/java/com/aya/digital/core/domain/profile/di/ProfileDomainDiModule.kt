@@ -21,10 +21,10 @@ import com.aya.digital.core.domain.profile.insurance.impl.*
 import com.aya.digital.core.domain.profile.insurance.impl.AddInsuranceUseCaseImpl
 import com.aya.digital.core.domain.profile.insurance.impl.DeleteInsuranceUseCaseImpl
 import com.aya.digital.core.domain.profile.insurance.impl.GetInsurancesUseCaseImpl
-import com.aya.digital.core.domain.profile.notifications.GetEmailNotificationsStatusUseCase
-import com.aya.digital.core.domain.profile.notifications.impl.GetEmailNotificationsStatusUseCaseImpl
-import com.aya.digital.core.domain.profile.notifications.SetEmailNotificationsStatusUseCase
-import com.aya.digital.core.domain.profile.notifications.impl.SetEmailNotificationsStatusUseCaseImpl
+import com.aya.digital.core.domain.profile.notifications.GetNotificationsStatusUseCase
+import com.aya.digital.core.domain.profile.notifications.impl.GetNotificationsStatusUseCaseImpl
+import com.aya.digital.core.domain.profile.notifications.SetNotificationsStatusUseCase
+import com.aya.digital.core.domain.profile.notifications.impl.SetNotificationsStatusUseCaseImpl
 import com.aya.digital.core.domain.profile.security.changeemail.ChangeEmailGetCodeUseCase
 import com.aya.digital.core.domain.profile.security.changeemail.ChangeEmailUseCase
 import com.aya.digital.core.domain.profile.security.changeemail.impl.ChangeEmailGetCodeUseCaseImpl
@@ -120,8 +120,18 @@ fun profileDomainDiModule() = DI.Module("profileDomainDiModule") {
 
 
     //notifications
-    bind<GetEmailNotificationsStatusUseCase>() with singleton { GetEmailNotificationsStatusUseCaseImpl() }
-    bind<SetEmailNotificationsStatusUseCase>() with singleton { SetEmailNotificationsStatusUseCaseImpl() }
+    bind<GetNotificationsStatusUseCase>() with singleton {
+        GetNotificationsStatusUseCaseImpl(
+            instance(),
+            instance()
+        )
+    }
+    bind<SetNotificationsStatusUseCase>() with singleton {
+        SetNotificationsStatusUseCaseImpl(
+            instance(),
+            instance()
+        )
+    }
 
     //security
     //summary

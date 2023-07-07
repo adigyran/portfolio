@@ -5,6 +5,7 @@ import com.aya.digital.core.data.profile.CurrentProfile
 import com.aya.digital.core.data.profile.EmergencyContact
 import com.aya.digital.core.data.profile.ImageUploadResult
 import com.aya.digital.core.data.profile.InsurancePolicyModel
+import com.aya.digital.core.data.profile.NotificationsStatus
 import com.aya.digital.core.network.model.request.EmergencyContactBody
 import com.aya.digital.core.network.model.request.InsurancePolicyBody
 import com.aya.digital.core.network.model.request.ProfileBody
@@ -48,6 +49,10 @@ interface ProfileRepository {
     fun deleteInsurance(insuranceId: Int): Single<RequestResult<Boolean>>
 
     fun getAttachmentById(attachmentId: Int): Single<RequestResult<Boolean>>
+
+    fun getNotificationsStatus():Single<RequestResult<NotificationsStatus>>
+
+    fun updateNotificationStatus(status: NotificationsStatus):Single<RequestResult<NotificationsStatus>>
 
     fun logout():Single<RequestResult<Boolean>>
 

@@ -28,7 +28,11 @@ class ProfileNotificationsView :
 
     override fun prepareUi(savedInstanceState: Bundle?) {
         super.prepareUi(savedInstanceState)
-        binding.smsNotificationSw.setOnCheckedChangeListener { compoundButton, b ->
+        binding.smsNotificationSw.setOnCheckedChangeListener { _, b ->
+            viewModel.onSmsNotificationSwitched(b)
+        }
+
+        binding.emailNotificationSw.setOnCheckedChangeListener { _, b ->
             viewModel.onEmailNotificationSwitched(b)
         }
     }
@@ -45,8 +49,12 @@ class ProfileNotificationsView :
 
     override fun render(state: ProfileNotificationsState) {
         stateTransformer(state).run {
-            if (binding.smsNotificationSw.isChecked != this.emailNotificationsState) {
-                binding.smsNotificationSw.isChecked = this.emailNotificationsState
+            if (binding.smsNotificationSw.isChecked != this.phoneNotificationsState) {
+                binding.smsNotificationSw.isChecked = this.phoneNotificationsState
+            }
+
+            if (binding.emailNotificationSw.isChecked != this.emailNotificationsState) {
+                binding.emailNotificationSw.isChecked = this.emailNotificationsState
             }
         }
     }
