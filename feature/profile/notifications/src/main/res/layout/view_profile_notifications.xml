@@ -4,15 +4,19 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar_title_blue" />
     <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:gravity="start"
-        android:textAppearance="@style/TextAppearance.App.H1"
+        android:textAppearance="@style/TextAppearance.App.H3"
         android:id="@+id/topTextTv"
         android:text="Notifications" />
 
@@ -22,8 +26,11 @@
         app:layout_constraintTop_toBottomOf="@id/topTextTv"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="4dp"
         android:gravity="start"
-        android:textAppearance="@style/TextAppearance.App.Body.DescriptionText"
+        android:textAppearance="@style/TextAppearance.App.Body.DescriptionMiniText"
         android:id="@+id/bottomTextTv"
         android:text="Enable a convenient way to receive notifications so that we are always in touch with you" />
 
@@ -31,6 +38,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:id="@+id/emailNotificationSw"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="16dp"
         android:text="Email notification"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -41,6 +51,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:id="@+id/smsNotificationSw"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:text="SMS notification"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

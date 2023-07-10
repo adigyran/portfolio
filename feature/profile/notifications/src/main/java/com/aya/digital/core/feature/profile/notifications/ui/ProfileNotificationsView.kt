@@ -3,6 +3,7 @@ package com.aya.digital.core.feature.profile.notifications.ui
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import com.aya.digital.core.ext.bindClick
 import com.aya.digital.core.feature.profile.security.notifications.databinding.ViewProfileNotificationsBinding
 import com.aya.digital.core.feature.profile.notifications.di.profileNotificationsDiModule
 import com.aya.digital.core.feature.profile.notifications.ui.model.ProfileNotificationsStateTransformer
@@ -28,6 +29,8 @@ class ProfileNotificationsView :
 
     override fun prepareUi(savedInstanceState: Bundle?) {
         super.prepareUi(savedInstanceState)
+        binding.toolbar.backButton bindClick {viewModel.onBack()}
+        binding.toolbar.title.text = "Notifications"
         binding.smsNotificationSw.setOnCheckedChangeListener { _, b ->
             viewModel.onSmsNotificationSwitched(b)
         }
