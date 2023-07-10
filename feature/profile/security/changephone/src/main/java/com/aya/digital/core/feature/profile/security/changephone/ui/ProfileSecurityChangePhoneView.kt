@@ -43,7 +43,7 @@ internal class ProfileSecurityChangePhoneView :
     private val adapter by lazy(LazyThreadSafetyMode.NONE) {
         BaseDelegateAdapter.create {
             delegate { HeadlineTwoLineLabelDelegate() }
-            delegate { EmailPhoneFieldDelegate(EmailPhoneDelegateListeners(inputFieldChangeListener = viewModel::emailChanged)) }
+            delegate { EmailPhoneFieldDelegate(EmailPhoneDelegateListeners(inputFieldChangeListener = viewModel::phoneChanged)) }
         }
     }
 

@@ -1,8 +1,10 @@
 package com.aya.digital.core.feature.profile.security.changephone.viewmodel
 
 import com.aya.digital.core.data.base.result.models.code.CodeResultModel
-import com.aya.digital.core.domain.profile.security.changeemail.ChangeEmailGetCodeUseCase
-import com.aya.digital.core.domain.profile.security.changeemail.ChangeEmailUseCase
+import com.aya.digital.core.domain.profile.security.changephone.ChangePhoneConfirmCodeUseCase
+import com.aya.digital.core.domain.profile.security.changephone.ChangePhoneGetCodeUseCase
+import com.aya.digital.core.domain.profile.security.changephone.ChangePhoneUseCase
+import com.aya.digital.core.domain.profile.security.changephone.GetPhoneVerifiedStatusUseCase
 import com.aya.digital.core.feature.profile.security.changephone.navigation.ProfileSecurityChangePhoneNavigationEvents
 import com.aya.digital.core.feature.profile.security.changephone.ui.ProfileSecurityChangePhoneView
 import com.aya.digital.core.mvi.BaseViewModel
@@ -19,9 +21,12 @@ internal class ProfileSecurityChangePhoneViewModel(
     private val param: ProfileSecurityChangePhoneView.Param,
     private val rootCoordinatorRouter: CoordinatorRouter,
     private val coordinatorRouter: CoordinatorRouter,
-    private val changeEmailUseCase: ChangeEmailUseCase,
-    private val changeEmailGetCodeUseCase: ChangeEmailGetCodeUseCase
-) :
+    private val changePhoneUseCase: ChangePhoneUseCase,
+    private val changePhoneGetCodeUseCase: ChangePhoneGetCodeUseCase,
+    private val changePhoneConfirmCodeUseCase: ChangePhoneConfirmCodeUseCase,
+    private val getPhoneVerifiedStatusUseCase: GetPhoneVerifiedStatusUseCase
+
+    ) :
     BaseViewModel<ProfileSecurityChangePhoneState, ProfileSecurityChangePhoneSideEffects>() {
     override val container =
         container<ProfileSecurityChangePhoneState, ProfileSecurityChangePhoneSideEffects>(
@@ -31,17 +36,32 @@ internal class ProfileSecurityChangePhoneViewModel(
 
         }
 
-    private fun changeEmail() = intent {
+    private fun validatePhone() = intent {
         state.code?.let { code ->
-            val await = changeEmailUseCase(code = code, newEmail = state.phone).await()
+            val await = changePhoneConfirmCodeUseCase(code = code).await()
             await.processResult({}, { processError(it) })
         }
     }
 
+    private fun savePhone() = intent {
+        val await = changePhoneGetCodeUseCase().await()
+        await.processResult({
+            checkIsValidated()
+        }, { processError(it) })
+    }
+
+
     private fun requestCode() = intent {
-        val await = changeEmailGetCodeUseCase().await()
+        val await = changePhoneGetCodeUseCase().await()
         await.processResult({
             requestCodeScreen()
+        }, { processError(it) })
+    }
+
+    private fun checkIsValidated() = intent {
+        val await = getPhoneVerifiedStatusUseCase().await()
+        await.processResult({result->
+            if(!result) requestCode()
         }, { processError(it) })
     }
 
@@ -67,14 +87,15 @@ internal class ProfileSecurityChangePhoneViewModel(
         reduce {
             state.copy(code = code)
         }
-        if (code.length == 6) changeEmail()
+        if (code.length == 6) validatePhone()
 
     }
 
-    fun saveClicked() = intent { requestCode() }
+    fun saveClicked() = intent {
+        savePhone() }
 
-    fun emailChanged(tag: Int, email: String) = intent {
-        if (state.phone != email) reduce { state.copy(phone = email) }
+    fun phoneChanged(tag: Int, phone: String) = intent {
+        if (state.phone != phone) reduce { state.copy(phone = phone) }
     }
 
     override fun postErrorSideEffect(errorSideEffect: ErrorSideEffect) = intent {
