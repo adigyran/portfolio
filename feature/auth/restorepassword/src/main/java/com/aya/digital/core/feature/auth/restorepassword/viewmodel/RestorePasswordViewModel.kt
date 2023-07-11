@@ -46,7 +46,7 @@ internal class RestorePasswordViewModel(
     }
 
     fun emailFieldChanging(tag: Int, text: String) = intent {
-        reduce { state.copy(email = text) }
+        reduce { state.copy(email = text, emailError = null) }
     }
 
     fun passwordFieldsChanging(tag: Int, text: String) = intent {

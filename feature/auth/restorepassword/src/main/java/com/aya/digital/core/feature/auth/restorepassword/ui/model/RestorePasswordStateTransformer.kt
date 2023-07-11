@@ -20,7 +20,8 @@ internal class RestorePasswordStateTransformer(private val context: Context) :
                     addAll(state.operationState.getFields(state))
                 }
             },
-            buttonText = state.operationState.getButtonText()
+            buttonText = state.operationState.getButtonText(),
+            buttonEnabled = state.emailError==null
         )
 
     private fun RestorePasswordOperationState.getButtonText() =
