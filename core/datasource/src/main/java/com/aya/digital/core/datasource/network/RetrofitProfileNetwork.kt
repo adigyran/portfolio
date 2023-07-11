@@ -72,8 +72,14 @@ class RetrofitProfileNetwork(private val network: ProfileService) :
 
     override fun getPhoneNumber(): Single<PhoneResponse> = network.getPhoneNumber()
 
-    override fun updatePhoneNumber(body: UpdatePhoneBody): Single<Unit> =
+    override fun updatePhoneNumber(body: UpdatePhoneBody): Single<PhoneResponse> =
         network.updatePhoneNumber(body)
+
+    override fun getPhoneVerificationCode(): Single<Unit> = network.getPhoneVerifyCode()
+
+    override fun getPhoneVerifiedStatus(): Single<Boolean> = network.getPhoneVerifiedStatus()
+
+    override fun sendPhoneVerifyCode(code: String): Single<Unit> = network.sendPhoneVerifyCode(code)
 
     override fun addInsurance(insurancePolicyBody: InsurancePolicyBody): Single<Unit> =
         network.addInsurance(insurancePolicyBody)

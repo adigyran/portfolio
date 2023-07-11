@@ -5,7 +5,7 @@ import com.aya.digital.core.navigation.coordinator.CoordinatorEvent
 
 sealed class ProfileSecurityChangePhoneNavigationEvents : CoordinatorEvent() {
 
-    data class EnterCode(val requestCode:String, val email:String) : ProfileSecurityChangePhoneNavigationEvents()
+    data class EnterCode(val requestCode:String, val phone:String) : ProfileSecurityChangePhoneNavigationEvents()
 
     data class FinishWithResult(val requestCode: String, val result: ProfileEmailChangeResult) :
         ProfileSecurityChangePhoneNavigationEvents()

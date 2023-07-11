@@ -25,6 +25,8 @@ internal fun profileSecurityChangePhoneDiModule(
                 instance("parent_coordinator_bottomnav"),
                 parentCoordinatorEvent,
                 instance(),
+                instance(),
+                instance(),
                 instance()
             )
         }

@@ -44,7 +44,7 @@ internal class ProfileSecurityChangePhoneViewModel(
     }
 
     private fun savePhone() = intent {
-        val await = changePhoneGetCodeUseCase().await()
+        val await = changePhoneUseCase(newPhone = state.phone).await()
         await.processResult({
             checkIsValidated()
         }, { processError(it) })

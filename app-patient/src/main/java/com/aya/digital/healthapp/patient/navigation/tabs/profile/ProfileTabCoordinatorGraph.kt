@@ -13,6 +13,7 @@ import com.aya.digital.core.feature.profile.security.changeemail.navigation.Prof
 import com.aya.digital.core.feature.profile.security.changeemail.navigation.ProfileSecurityChangeEmailScreen
 import com.aya.digital.core.feature.profile.security.changepassword.navigation.ProfileSecurityChangePasswordNavigationEvents
 import com.aya.digital.core.feature.profile.security.changepassword.navigation.ProfileSecurityChangePasswordScreen
+import com.aya.digital.core.feature.profile.security.changephone.navigation.ProfileSecurityChangePhoneNavigationEvents
 import com.aya.digital.core.feature.profile.security.changephone.navigation.ProfileSecurityChangePhoneScreen
 import com.aya.digital.core.feature.profile.security.securitysummary.navigation.ProfileSecuritySummaryNavigationEvents
 import com.aya.digital.core.feature.profile.security.securitysummary.navigation.ProfileSecuritySummaryScreen
@@ -81,6 +82,11 @@ class ProfileTabCoordinatorGraph : FragmentContainerGraph {
                 mainRouter.exit()
             }
 
+            is ProfileSecurityChangePhoneNavigationEvents.FinishWithResult -> {
+                mainRouter.sendResult(event.requestCode,event.result)
+                mainRouter.exit()
+            }
+
             is ProfileInsuranceListNavigationEvents.AddInsurance -> {
                 mainRouter.navigateTo(
                     ProfileInsuranceAddScreen(
@@ -107,6 +113,10 @@ class ProfileTabCoordinatorGraph : FragmentContainerGraph {
             is ProfileSecurityChangeEmailNavigationEvents.EnterCode ->
             {
                 parentCoordinatorRouter.sendEvent(RootContainerNavigationEvents.EnterCode(event.requestCode,event.email))
+            }
+            is ProfileSecurityChangePhoneNavigationEvents.EnterCode ->
+            {
+                parentCoordinatorRouter.sendEvent(RootContainerNavigationEvents.EnterCode(event.requestCode,event.phone))
             }
 
             is ProfileInsuranceAddNavigationEvents.FinishWithResult -> {

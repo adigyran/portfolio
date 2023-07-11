@@ -31,6 +31,14 @@ import com.aya.digital.core.domain.profile.security.changeemail.impl.ChangeEmail
 import com.aya.digital.core.domain.profile.security.changeemail.impl.ChangeEmailUseCaseImpl
 import com.aya.digital.core.domain.profile.security.changepassword.ChangePasswordUseCase
 import com.aya.digital.core.domain.profile.security.changepassword.impl.ChangePasswordUseCaseImpl
+import com.aya.digital.core.domain.profile.security.changephone.ChangePhoneConfirmCodeUseCase
+import com.aya.digital.core.domain.profile.security.changephone.ChangePhoneGetCodeUseCase
+import com.aya.digital.core.domain.profile.security.changephone.ChangePhoneUseCase
+import com.aya.digital.core.domain.profile.security.changephone.GetPhoneVerifiedStatusUseCase
+import com.aya.digital.core.domain.profile.security.changephone.impl.ChangePhoneConfirmCodeUseCaseImpl
+import com.aya.digital.core.domain.profile.security.changephone.impl.ChangePhoneGetCodeUseCaseImpl
+import com.aya.digital.core.domain.profile.security.changephone.impl.ChangePhoneUseCaseImpl
+import com.aya.digital.core.domain.profile.security.changephone.impl.GetPhoneVerifiedStatusUseCaseImpl
 import com.aya.digital.core.domain.profile.security.logout.LogoutUseCase
 import com.aya.digital.core.domain.profile.security.logout.impl.LogoutUseCaseImpl
 import com.aya.digital.core.domain.profile.security.summary.GetSecuritySummaryUseCase
@@ -68,6 +76,35 @@ fun profileDomainDiModule() = DI.Module("profileDomainDiModule") {
         )
     }
 
+    //phone
+    bind<ChangePhoneGetCodeUseCase>() with singleton {
+        ChangePhoneGetCodeUseCaseImpl(
+            instance(),
+            instance()
+        )
+    }
+
+    bind<ChangePhoneConfirmCodeUseCase>() with singleton {
+        ChangePhoneConfirmCodeUseCaseImpl(
+            instance(),
+            instance()
+        )
+    }
+
+    bind<GetPhoneVerifiedStatusUseCase>() with singleton {
+        GetPhoneVerifiedStatusUseCaseImpl(
+            instance(),
+            instance()
+        )
+    }
+
+    bind<ChangePhoneUseCase>() with singleton {
+        ChangePhoneUseCaseImpl(
+            instance(),
+            instance()
+        )
+    }
+
     //emergencyContact
     bind<GetEmergencyContactUseCase>() with singleton {
         GetEmergencyContactUseCaseImpl(
@@ -75,6 +112,7 @@ fun profileDomainDiModule() = DI.Module("profileDomainDiModule") {
             instance()
         )
     }
+
     bind<SaveEmergencyContactUseCase>() with singleton {
         SaveEmergencyContactUseCaseImpl(
             instance(),

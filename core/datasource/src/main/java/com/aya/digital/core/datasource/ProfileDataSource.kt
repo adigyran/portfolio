@@ -42,7 +42,13 @@ interface ProfileDataSource {
 
     fun getPhoneNumber():Single<PhoneResponse>
 
-    fun updatePhoneNumber(body:UpdatePhoneBody):Single<Unit>
+    fun updatePhoneNumber(body:UpdatePhoneBody):Single<PhoneResponse>
+
+    fun getPhoneVerificationCode():Single<Unit>
+
+    fun getPhoneVerifiedStatus():Single<Boolean>
+
+    fun sendPhoneVerifyCode(code:String):Single<Unit>
     fun addInsurance(insurancePolicyBody: InsurancePolicyBody):Single<Unit>
 
     fun saveInsurance(insuranceId:Int, insurancePolicyBody: InsurancePolicyBody) : Single<Unit>

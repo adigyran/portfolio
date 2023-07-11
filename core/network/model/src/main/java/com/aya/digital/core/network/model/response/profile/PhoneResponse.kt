@@ -4,5 +4,6 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class PhoneResponse(
-    val phone: String
+    val phone: String,
+    val verified:Boolean
 )

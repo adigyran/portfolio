@@ -34,7 +34,9 @@ interface ProfileRepository {
 
     fun getPhoneNumber():Single<RequestResult<String>>
     fun updatePhoneNumber(number: String): Single<RequestResult<Boolean>>
-
+    fun checkIfPhoneVerified():Single<RequestResult<Boolean>>
+    fun getPhoneVerificationCode():Single<RequestResult<Boolean>>
+    fun sendPhoneVerificationCode(code:String):Single<RequestResult<Boolean>>
     fun addInsurance(insurancePolicyBody: InsurancePolicyBody): Single<RequestResult<Boolean>>
 
     fun saveInsurance(

@@ -15,12 +15,10 @@ import com.aya.digital.core.data.profile.mappers.EmergencyContactMapper
 import com.aya.digital.core.data.profile.mappers.ImageUploadResultMapper
 import com.aya.digital.core.data.profile.mappers.NotificationsStatusMapper
 import com.aya.digital.core.data.profile.repository.ProfileRepository
-import com.aya.digital.core.datasource.AuthDataSource
 import com.aya.digital.core.datasource.DictionariesDataSource
 import com.aya.digital.core.datasource.ProfileDataSource
 import com.aya.digital.core.datasource.TokenDataSource
 import com.aya.digital.core.datastore.HealthAppAuthDataSource
-import com.aya.digital.core.datastore.HealthAppDataSource
 import com.aya.digital.core.ext.asResult
 import com.aya.digital.core.ext.flatMapResult
 import com.aya.digital.core.ext.mapResult
@@ -165,6 +163,30 @@ internal class ProfileRepositoryImpl(
 
     override fun updatePhoneNumber(number: String): Single<RequestResult<Boolean>> =
         profileDataSource.updatePhoneNumber(UpdatePhoneBody(number))
+            .retryOnError()
+            .retrofitResponseToResult(CommonUtils::mapServerErrors)
+            .mapResult({
+                it.verified.asResult()
+            }, { it })
+
+    override fun checkIfPhoneVerified(): Single<RequestResult<Boolean>> =
+        profileDataSource.getPhoneVerifiedStatus()
+            .retryOnError()
+            .retrofitResponseToResult(CommonUtils::mapServerErrors)
+            .mapResult({
+                it.asResult()
+            }, { it })
+
+    override fun getPhoneVerificationCode(): Single<RequestResult<Boolean>> =
+        profileDataSource.getPhoneVerificationCode()
+            .retryOnError()
+            .retrofitResponseToResult(CommonUtils::mapServerErrors)
+            .mapResult({
+                true.asResult()
+            }, { it })
+
+    override fun sendPhoneVerificationCode(code: String): Single<RequestResult<Boolean>> =
+        profileDataSource.sendPhoneVerifyCode(code)
             .retryOnError()
             .retrofitResponseToResult(CommonUtils::mapServerErrors)
             .mapResult({

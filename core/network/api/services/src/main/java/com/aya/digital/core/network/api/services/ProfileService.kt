@@ -30,7 +30,16 @@ interface ProfileService {
     fun getPhoneNumber(): Single<PhoneResponse>
 
     @PATCH("api/profile/phone")
-    fun updatePhoneNumber(@Body body:UpdatePhoneBody):Single<Unit>
+    fun updatePhoneNumber(@Body body:UpdatePhoneBody):Single<PhoneResponse>
+
+    @POST("api/profile/phone-send-verify-code-sms")
+    fun getPhoneVerifyCode():Single<Unit>
+
+    @GET("api/profile/phone-status")
+    fun getPhoneVerifiedStatus():Single<Boolean>
+
+    @GET("api/profile/phone-verify")
+    fun sendPhoneVerifyCode(@Query("code") code:String):Single<Unit>
 
     @POST("api/profile/insurances")
     fun addInsurance(@Body insurancePolicyBody: InsurancePolicyBody):Single<Unit>
