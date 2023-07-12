@@ -41,7 +41,7 @@ class DoctorSearchView :
     private val adapter by lazy(LazyThreadSafetyMode.NONE) {
         BaseDelegateAdapter.create {
             delegate {
-                DoctorItemDelegate(viewModel::onDoctorClicked,viewModel::onDoctorFavouriteClicked)
+                DoctorItemDelegate(viewModel::onDoctorClicked, viewModel::onDoctorFavouriteClicked)
             }
         }
     }
@@ -53,33 +53,31 @@ class DoctorSearchView :
             viewModel.onRefreshDoctors()
             binding.swipeRefresh.isRefreshing = false
         }
-        binding.toolbar.insurance bindClick {viewModel.onInsurance()}
-        binding.toolbar.speciality bindClick {viewModel.onSpecialisation()}
-        binding.toolbar.location bindClick {viewModel.onLocation()}
+        binding.toolbar.insurance bindClick { viewModel.onInsurance() }
+        binding.toolbar.speciality bindClick { viewModel.onSpecialisation() }
+        binding.toolbar.location bindClick { viewModel.onLocation() }
         binding.allDoctorsBtn bindClick { viewModel.onAllDoctorsClicked() }
         binding.favoriteButton bindClick { viewModel.onFavoriteDoctorsClicked() }
-        if (savedInstanceState == null) {
-            recyclers.add(binding.recycler)
-            with(binding.recycler) {
-                itemAnimator = null
-                setHasFixedSize(true)
-                setItemViewCacheSize(30)
-                isNestedScrollingEnabled = false
+        recyclers.add(binding.recycler)
+        with(binding.recycler) {
+            itemAnimator = null
+            setHasFixedSize(true)
+            setItemViewCacheSize(30)
+            isNestedScrollingEnabled = false
 
-                val lm = LinearLayoutManager(
-                    context,
-                    RecyclerView.VERTICAL,
-                    false
-                )
-                layoutManager = lm
-                addItemDecoration(DoctorSearchTabDecoration())
-                val scrollListener = object : EndlessRecyclerViewScrollListener(lm) {
-                    override fun onLoadMore() {
-                        viewModel.loadNextPage()
-                    }
+            val lm = LinearLayoutManager(
+                context,
+                RecyclerView.VERTICAL,
+                false
+            )
+            layoutManager = lm
+            addItemDecoration(DoctorSearchTabDecoration())
+            val scrollListener = object : EndlessRecyclerViewScrollListener(lm) {
+                override fun onLoadMore() {
+                    viewModel.loadNextPage()
                 }
-                addOnScrollListener(scrollListener)
             }
+            addOnScrollListener(scrollListener)
         }
     }
 
@@ -98,10 +96,12 @@ class DoctorSearchView :
 
     override fun render(state: DoctorSearchState) {
         stateTransformer(state).run {
-            data?.let {  adapter.items = it
+            data?.let {
+                adapter.items = it
                 if (binding.recycler.adapter == null) {
                     binding.recycler.swapAdapter(adapter, true)
-                } }
+                }
+            }
             specialityFilterText?.let {
                 binding.toolbar.speciality.binding.fieldText.text = it
             }
@@ -113,7 +113,7 @@ class DoctorSearchView :
             }
             doctorSearchMode.let { doctorSearchMode ->
                 binding.favoriteButton.toggleSelection(doctorSearchMode == DoctorSearchMode.ShowingFavoriteDoctors)
-                binding.allDoctorsBtn.toggleSelection(doctorSearchMode== DoctorSearchMode.ShowingAllDoctors)
+                binding.allDoctorsBtn.toggleSelection(doctorSearchMode == DoctorSearchMode.ShowingAllDoctors)
             }
         }
         /*stateTransformer(state).data?.let {

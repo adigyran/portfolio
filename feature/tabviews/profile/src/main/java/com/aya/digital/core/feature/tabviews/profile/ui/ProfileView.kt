@@ -44,23 +44,22 @@ class ProfileView :
     override fun prepareUi(savedInstanceState: Bundle?) {
         super.prepareUi(savedInstanceState)
         binding.toolbar.title.text = "Profile"
-        if (savedInstanceState == null) {
-            recyclers.add(binding.recycler)
-            with(binding.recycler) {
-                itemAnimator = null
-                setHasFixedSize(true)
-                setItemViewCacheSize(30)
-                isNestedScrollingEnabled = false
+        recyclers.add(binding.recycler)
+        with(binding.recycler) {
+            itemAnimator = null
+            setHasFixedSize(true)
+            setItemViewCacheSize(30)
+            isNestedScrollingEnabled = false
 
-                val lm = LinearLayoutManager(
-                    context,
-                    RecyclerView.VERTICAL,
-                    false
-                )
-                layoutManager = lm
-                addItemDecoration(ProfileTabDecoration())
-            }
+            val lm = LinearLayoutManager(
+                context,
+                RecyclerView.VERTICAL,
+                false
+            )
+            layoutManager = lm
+            addItemDecoration(ProfileTabDecoration())
         }
+
     }
 
     override fun prepareCreatedUi(savedInstanceState: Bundle?) {
@@ -75,8 +74,7 @@ class ProfileView :
     ): ViewProfileBinding = ViewProfileBinding.inflate(inflater, container, false)
 
     override fun sideEffect(sideEffect: ProfileSideEffects) =
-        when(sideEffect)
-        {
+        when (sideEffect) {
             is ProfileSideEffects.Error -> processErrorSideEffect(sideEffect.error)
         }
 
@@ -104,7 +102,7 @@ class ProfileView :
                 .with(binding.toolbar.avatar)
                 .load(it)
                 .transform(
-                   CircleCrop()
+                    CircleCrop()
                 )
                 .dontAnimate()
                 .into(binding.toolbar.avatar)

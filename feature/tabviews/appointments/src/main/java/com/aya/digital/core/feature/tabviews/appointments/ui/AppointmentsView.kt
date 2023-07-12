@@ -57,32 +57,30 @@ class AppointmentsView :
             binding.swipeRefresh.isRefreshing = false
         }
         binding.toolbar.title.text = "Appointments"
-        binding.toolbar.calendarButton bindClick {showDatePicker()}
-        if (savedInstanceState == null) {
-            recyclers.add(binding.recycler)
-            with(binding.recycler) {
-                itemAnimator = null
-                setHasFixedSize(true)
-                setItemViewCacheSize(30)
-                isNestedScrollingEnabled = false
+        binding.toolbar.calendarButton bindClick { showDatePicker() }
+        recyclers.add(binding.recycler)
+        with(binding.recycler) {
+            itemAnimator = null
+            setHasFixedSize(true)
+            setItemViewCacheSize(30)
+            isNestedScrollingEnabled = false
 
-                val lm = LinearLayoutManager(
-                    context,
-                    RecyclerView.VERTICAL,
-                    false
-                )
-                layoutManager = lm
-                addItemDecoration(AppointmentsTabDecoration(context))
-            }
+            val lm = LinearLayoutManager(
+                context,
+                RecyclerView.VERTICAL,
+                false
+            )
+            layoutManager = lm
+            addItemDecoration(AppointmentsTabDecoration(context))
         }
     }
 
 
     private fun showDatePicker() {
-       /* val constraintsBuilderSelectable = CalendarConstraints.Builder()
-            .setValidator(DateValidatorSelectableDays(selectableDates))*/
+        /* val constraintsBuilderSelectable = CalendarConstraints.Builder()
+             .setValidator(DateValidatorSelectableDays(selectableDates))*/
         val materialDatePicker = MaterialDatePicker.Builder.datePicker()
-           // .setCalendarConstraints(constraintsBuilderSelectable.build())
+            // .setCalendarConstraints(constraintsBuilderSelectable.build())
             .build()
         materialDatePicker
             .addOnPositiveButtonClickListener {

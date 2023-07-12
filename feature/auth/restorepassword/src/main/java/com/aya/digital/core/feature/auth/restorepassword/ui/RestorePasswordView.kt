@@ -55,25 +55,23 @@ internal class RestorePasswordView :
 
     override fun prepareUi(savedInstanceState: Bundle?) {
         super.prepareUi(savedInstanceState)
-        if (savedInstanceState == null) {
-            recyclers.add(binding.recycler)
-            binding.saveBtn bindClick { viewModel.saveButtonClicked() }
-            binding.toolbarLogo.backButton bindClick {viewModel.onBack()}
-            with(binding.recycler) {
-                itemAnimator = null
-                setHasFixedSize(true)
-                setItemViewCacheSize(30)
-                isNestedScrollingEnabled = false
+        recyclers.add(binding.recycler)
+        binding.saveBtn bindClick { viewModel.saveButtonClicked() }
+        binding.toolbarLogo.backButton bindClick { viewModel.onBack() }
+        with(binding.recycler) {
+            itemAnimator = null
+            setHasFixedSize(true)
+            setItemViewCacheSize(30)
+            isNestedScrollingEnabled = false
 
-                val lm = LinearLayoutManager(
-                    context,
-                    RecyclerView.VERTICAL,
-                    false
-                )
+            val lm = LinearLayoutManager(
+                context,
+                RecyclerView.VERTICAL,
+                false
+            )
 
-                layoutManager = lm
-                addItemDecoration(RestorePasswordDecoration())
-            }
+            layoutManager = lm
+            addItemDecoration(RestorePasswordDecoration())
         }
     }
 
