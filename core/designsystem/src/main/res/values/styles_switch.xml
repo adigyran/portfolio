@@ -5,5 +5,7 @@
     </style>
 
     <style name="ThemeOverlay.App.Switch" parent="">
+        <item name="colorPrimary">@color/stroke_blue</item>
+        <item name="colorSurfaceVariant">@color/stroke_light_grey</item>
     </style>
 </resources>
