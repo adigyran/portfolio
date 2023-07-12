@@ -2,6 +2,7 @@
 <resources>
     <style name="Widget.App.Switch" parent="Widget.Material3.CompoundButton.MaterialSwitch">
         <item name="materialThemeOverlay">@style/ThemeOverlay.App.Switch</item>
+        <item name="android:textAppearance">@style/TextAppearance.App.H4</item>
     </style>
 
     <style name="ThemeOverlay.App.Switch" parent="">
