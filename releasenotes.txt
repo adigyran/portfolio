@@ -86,6 +86,9 @@ Added Firebase Distribution\n
         doctors can now be added to favorites
         single mode filter has been fixed
         version 41 patient\n
+        phone verification
+        notification settings
+        version 42 patient\n
 
 
 
