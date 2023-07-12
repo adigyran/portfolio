@@ -20,7 +20,7 @@ interface PractitionersService {
     @GET("search-app/practitioners")
     fun fetchPractitioners(
         @Query("scrollId") scrollId: String?,
-        @Query("specCodes") specialisations: List<Int>?,
+        @Query("idsSpec") specialisations: List<Int>?,
         @Query("insIds") insurances: List<Int>?,
         @Query("city") city: String?
     ): Flowable<PagedCursorResponse<DoctorDataResponse>>

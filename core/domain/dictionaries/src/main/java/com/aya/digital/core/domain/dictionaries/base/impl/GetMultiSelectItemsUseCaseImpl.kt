@@ -21,7 +21,7 @@ internal class GetMultiSelectItemsUseCaseImpl(
     GetMultiSelectItemsUseCase {
     override fun invoke(
         searchTerm: String?,
-        selectedItems:Set<Int>,
+        selectedItems: Set<Int>,
         cursor: String?,
         type: String
     ): Flowable<RequestResultModel<MultiSelectItemPaginationModel>> = when (type) {
