@@ -91,6 +91,9 @@ Added Firebase Distribution\n
         version 42 patient\n
         notification switches - fixed appearance
         version 43 patient\n
+        fixed screen rotation
+        fixed filters
+        version 44 patient\n
 
 
 
