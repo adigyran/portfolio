@@ -89,6 +89,9 @@ Added Firebase Distribution\n
         phone verification
         notification settings
         version 42 patient\n
+        notification switches - fixed appearance
+        version 43 patient\n
+
 
 
 
