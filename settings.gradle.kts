@@ -138,11 +138,11 @@ include(":core:ui:delegates:features:doctorcard:doctordetails")
 include(":feature:tabs:home")
 include(":feature:tabs:appointments")
 include(":feature:tabs:profile")
-include(":feature:tabs:doctorsearch")
+include(":feature:tabs:doctorsearchcontainer")
 //tabviews
 include(":feature:tabviews:home")
 include(":feature:tabviews:profile")
-include(":feature:tabviews:doctorsearch")
+include(":feature:tabviews:doctorsearchcontainer")
 include(":feature:tabviews:appointments")
 
 //containers
@@ -177,7 +177,10 @@ include(":feature:profile:security:changephone")
 
 //doctors
 include(":feature:doctors:doctorcard")
+//search
 include(":feature:doctors:doctorsfiltersview")
+include(":feature:doctors:doctorssearch:doctorsearchlist")
+include(":feature:doctors:doctorssearch:doctorsearchmap")
 //appointments
 include(":feature:appointments:appointmentcard")
 //videocall
