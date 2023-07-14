@@ -9,8 +9,6 @@ fun doctorSearchContainerDiModule(
     parentCoordinatorEvent: CoordinatorRouter
 ) = DI.Module("doctorSearchContainerDiModule") {
 
-    bind<DoctorSearchContainerStateTransformer>() with singleton { DoctorSearchContainerStateTransformer(instance()) }
-
     bind {
         scoped(CustomFragmentScope).singleton {
             DoctorSearchContainerViewModel(

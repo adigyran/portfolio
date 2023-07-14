@@ -8,7 +8,6 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class DoctorSearchContainerState(
-    val doctorSearchMode: DoctorSearchMode = DoctorSearchMode.ShowingAllDoctors,
     val cursor: String? = null,
     val doctors: List<DoctorModel>? = null,
     val favoriteDoctors: List<Int>? = null,
