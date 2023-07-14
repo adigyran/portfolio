@@ -1,7 +1,6 @@
 package com.aya.digital.core.feature.tabviews.doctorsearchcontainer.di
 
 import com.aya.digital.core.dibase.scopes.CustomFragmentScope
-import com.aya.digital.core.feature.tabviews.doctorsearchcontainer.ui.model.DoctorSearchContainerStateTransformer
 import com.aya.digital.core.feature.tabviews.doctorsearchcontainer.viewmodel.DoctorSearchContainerViewModel
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
 import org.kodein.di.*

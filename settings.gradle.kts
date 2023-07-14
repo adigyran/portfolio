@@ -138,7 +138,7 @@ include(":core:ui:delegates:features:doctorcard:doctordetails")
 include(":feature:tabs:home")
 include(":feature:tabs:appointments")
 include(":feature:tabs:profile")
-include(":feature:tabs:doctorsearchcontainer")
+include(":feature:tabs:doctorsearch")
 //tabviews
 include(":feature:tabviews:home")
 include(":feature:tabviews:profile")

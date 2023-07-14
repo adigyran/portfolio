@@ -1,4 +1,4 @@
-package com.aya.digital.core.feature.tabviews.doctorsearchcontainer.viewmodel
+package com.aya.digital.core.feature.doctors.doctorssearch.doctorsearchmap.viewmodel
 
 
 import com.aya.digital.core.data.base.dataprocessing.dataloading.DataLoadingOperationWithPagination
@@ -9,11 +9,9 @@ import com.aya.digital.core.domain.base.models.doctors.DoctorModel
 import com.aya.digital.core.domain.doctors.favourites.AddDoctorToFavoritesUseCase
 import com.aya.digital.core.domain.doctors.favourites.GetFavoriteDoctorsUseCase
 import com.aya.digital.core.domain.doctors.favourites.RemoveDoctorFromFavoritesUseCase
-import com.aya.digital.core.feature.tabviews.doctorsearchcontainer.navigation.DoctorSearchContainerNavigationEvents
-import com.aya.digital.core.feature.tabviews.doctorsearchcontainer.viewmodel.model.SelectedFilterModel
-import com.aya.digital.core.mvi.BaseSideEffect
+import com.aya.digital.core.feature.doctors.doctorssearch.doctorsearchmap.navigation.DoctorSearchMapNavigationEvents
+import com.aya.digital.core.feature.doctors.doctorssearch.doctorsearchmap.viewmodel.model.SelectedFilterModel
 import com.aya.digital.core.mvi.BaseViewModel
-import com.aya.digital.core.navigation.coordinator.CoordinatorEvent
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
 import com.aya.digital.core.util.requestcodes.RequestCodes
 import kotlinx.coroutines.reactive.asFlow
@@ -23,7 +21,7 @@ import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 import timber.log.Timber
 
-class DoctorSearchContainerViewModel(
+class DoctorSearchMapViewModel(
     private val coordinatorRouter: CoordinatorRouter,
     private val rootCoordinatorRouter: CoordinatorRouter,
     private val getDoctorsUseCase: GetDoctorsUseCase,
@@ -31,23 +29,20 @@ class DoctorSearchContainerViewModel(
     private val addDoctorToFavoritesUseCase: AddDoctorToFavoritesUseCase,
     private val removeDoctorFromFavoritesUseCase: RemoveDoctorFromFavoritesUseCase
 ) :
-    BaseViewModel<DoctorSearchContainerState, BaseSideEffect>() {
+    BaseViewModel<DoctorSearchMapState, DoctorSearchMapSideEffects>() {
+    override fun onBack() {
+    }
 
-    override val container = container<DoctorSearchContainerState, BaseSideEffect>(
-        initialState = DoctorSearchContainerState(dataOperation = DataLoadingOperationWithPagination.Idle),
+    override val container = container<DoctorSearchMapState, DoctorSearchMapSideEffects>(
+        initialState = DoctorSearchMapState(dataOperation = DataLoadingOperationWithPagination.Idle),
     )
     {
         loadFavoriteDoctors()
         loadDoctors()
     }
-    override fun onBack() {
-        coordinatorRouter.sendEvent(CoordinatorEvent.Back)
-    }
 
 
-
-
-    private fun getDoctors(state: DoctorSearchContainerState) = getDoctorsUseCase(
+    private fun getDoctors(state: DoctorSearchMapState) = getDoctorsUseCase(
         cursor = state.cursor,
         cities = state.selectedFilters.filterIsInstance<SelectedFilterModel.Location>()
             .map { it.name },
@@ -83,7 +78,7 @@ class DoctorSearchContainerViewModel(
 
 
     fun onDoctorClicked(doctorId: Int) = intent {
-        coordinatorRouter.sendEvent(DoctorSearchContainerNavigationEvents.OpenDoctorCard(doctorId = doctorId))
+        coordinatorRouter.sendEvent(DoctorSearchMapNavigationEvents.OpenDoctorCard(doctorId = doctorId))
     }
 
     fun loadNextPage() = intent {
@@ -150,28 +145,28 @@ class DoctorSearchContainerViewModel(
         val filtersIds = filters.map { it.id }
         val event = when (requestCode) {
             RequestCodes.INSURANCE_LIST_REQUEST_CODE -> {
-                DoctorSearchContainerNavigationEvents.SelectInsuranceCompanies(
+                DoctorSearchMapNavigationEvents.SelectInsuranceCompanies(
                     requestCode,
                     filtersIds
                 )
             }
 
             RequestCodes.SPECIALITIES_LIST_REQUEST_CODE -> {
-                DoctorSearchContainerNavigationEvents.SelectSpecialisations(
+                DoctorSearchMapNavigationEvents.SelectSpecialisations(
                     requestCode,
                     filtersIds
                 )
             }
 
             RequestCodes.LOCATIONS_LIST_REQUEST_CODE -> {
-                DoctorSearchContainerNavigationEvents.SelectLocation(
+                DoctorSearchMapNavigationEvents.SelectLocation(
                     requestCode,
                     filtersIds.firstOrNull()
                 )
             }
 
             else -> {
-                DoctorSearchContainerNavigationEvents.OpenDoctorCard(1121)
+                DoctorSearchMapNavigationEvents.OpenDoctorCard(1121)
             }
         }
         coordinatorRouter.sendEvent(event)

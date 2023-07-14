@@ -91,7 +91,7 @@ dependencies {
     implementation(project(":feature:bottomdialogs:successappointmentdialog"))
     implementation(project(":feature:bottomnavhost"))
     implementation(project(":feature:tabs:appointments"))
-    implementation(project(":feature:tabs:doctorsearchcontainer"))
+    implementation(project(":feature:tabs:doctorsearch"))
     implementation(project(":feature:tabs:home"))
     implementation(project(":feature:tabviews:home"))
     implementation(project(":feature:tabviews:doctorsearchcontainer"))

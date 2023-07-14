@@ -6,55 +6,14 @@
     android:layout_height="match_parent"
     android:background="@color/bg_light_grey">
 
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/toolbar_home_blue" />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        style="@style/Widget.App.Button.FilledButton.Rounded.Gray"
-        android:text="All Doctors"
-        android:id="@+id/allDoctorsBtn"
-        />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintStart_toEndOf="@id/allDoctorsBtn"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
-        style="@style/Widget.App.Button.FilledButton.Rounded.Gray"
-        android:text="Favorites"
-        android:id="@+id/favoriteButton"
-        />
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipeRefresh"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+    <FrameLayout
+        android:id="@+id/fragmentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/allDoctorsBtn">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="16dp"
-            android:clipToPadding="true"
-            android:nestedScrollingEnabled="false"
-            android:paddingBottom="18dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:itemCount="5"
-            tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:orientation="vertical" />
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        app:layout_constraintEnd_toEndOf="parent"
+        android:clickable="true" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
