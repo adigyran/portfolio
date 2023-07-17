@@ -1,6 +1,8 @@
 package com.aya.digital.healthapp.patient.navigation.tabs.doctorsearch
 
 import com.aya.digital.core.feature.doctors.doctorcard.navigation.DoctorCardScreen
+import com.aya.digital.core.feature.doctors.doctorssearch.doctorsearchmap.navigation.DoctorSearchMapScreen
+import com.aya.digital.core.feature.doctors.doctorssearch.doctorssearchlist.navigation.DoctorSearchListScreen
 import com.aya.digital.core.feature.tabviews.doctorsearchcontainer.navigation.DoctorSearchContainerNavigationEvents
 import com.aya.digital.core.feature.tabviews.doctorsearchcontainer.navigation.DoctorSearchContainerScreen
 import com.aya.digital.core.navigation.coordinator.CoordinatorEvent
@@ -17,7 +19,15 @@ class DoctorSearchTabCoordinatorGraph : FragmentContainerGraph {
     ) {
         when (event) {
             DoctorSearchContainerNavigationEvents.OpenDefaultScreen -> {
-                navigationRouter.newRootScreen(DoctorSearchContainerScreen)
+                navigationRouter.replaceScreen(DoctorSearchListScreen)
+            }
+
+            DoctorSearchContainerNavigationEvents.OpenMap -> {
+                navigationRouter.replaceScreen(DoctorSearchMapScreen)
+            }
+
+            DoctorSearchContainerNavigationEvents.OpenList -> {
+                navigationRouter.replaceScreen(DoctorSearchListScreen)
             }
             is DoctorSearchContainerNavigationEvents.OpenDoctorCard -> {
                 navigationRouter.navigateTo(DoctorCardScreen(event.doctorId))

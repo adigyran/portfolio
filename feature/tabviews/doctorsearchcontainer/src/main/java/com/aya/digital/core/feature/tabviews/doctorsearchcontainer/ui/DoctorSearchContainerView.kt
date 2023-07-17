@@ -3,7 +3,8 @@ package com.aya.digital.core.feature.tabviews.doctorsearchcontainer.ui
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.aya.digital.core.baseresources.R
+import com.aya.digital.core.ext.bindClick
+import com.aya.digital.core.feature.tabviews.doctorsearchcontainer.R
 import com.aya.digital.core.feature.tabviews.doctorsearchcontainer.databinding.ViewDoctorsearchContainerBinding
 import com.aya.digital.core.feature.tabviews.doctorsearchcontainer.di.doctorSearchContainerDiModule
 import com.aya.digital.core.feature.tabviews.doctorsearchcontainer.navigation.DoctorSearchContainerNavigationEvents
@@ -44,12 +45,17 @@ class DoctorSearchContainerView :
     }
 
 
+    override fun prepareCreatedUi(savedInstanceState: Bundle?) {
+        super.prepareCreatedUi(savedInstanceState)
+        binding.btnToggleMapList bindClick {viewModel.toggleMode()}
+    }
+
     override fun provideNavigator(): Navigator =
         navigatorFactory(
             CustomNavigatorParam(
                 requireActivity(),
                 childFragmentManager,
-                R.id.fragmentContainer
+                R.id.fragmentContainerDoctorSearch
             ) {
 
             })

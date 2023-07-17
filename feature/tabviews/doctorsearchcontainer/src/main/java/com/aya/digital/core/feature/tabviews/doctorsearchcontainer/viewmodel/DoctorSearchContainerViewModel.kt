@@ -9,6 +9,7 @@ import com.aya.digital.core.domain.base.models.doctors.DoctorModel
 import com.aya.digital.core.domain.doctors.favourites.AddDoctorToFavoritesUseCase
 import com.aya.digital.core.domain.doctors.favourites.GetFavoriteDoctorsUseCase
 import com.aya.digital.core.domain.doctors.favourites.RemoveDoctorFromFavoritesUseCase
+import com.aya.digital.core.feature.tabviews.doctorsearchcontainer.CurrentMode
 import com.aya.digital.core.feature.tabviews.doctorsearchcontainer.navigation.DoctorSearchContainerNavigationEvents
 import com.aya.digital.core.feature.tabviews.doctorsearchcontainer.viewmodel.model.SelectedFilterModel
 import com.aya.digital.core.mvi.BaseSideEffect
@@ -40,12 +41,26 @@ class DoctorSearchContainerViewModel(
         loadFavoriteDoctors()
         loadDoctors()
     }
+
     override fun onBack() {
         coordinatorRouter.sendEvent(CoordinatorEvent.Back)
     }
 
 
+    fun toggleMode() = intent {
+        val currentMode = when (state.currentMode) {
+            CurrentMode.List -> {
+                coordinatorRouter.sendEvent(DoctorSearchContainerNavigationEvents.OpenMap)
+                CurrentMode.Map
+            }
 
+            CurrentMode.Map -> {
+                coordinatorRouter.sendEvent(DoctorSearchContainerNavigationEvents.OpenList)
+                CurrentMode.List
+            }
+        }
+        reduce { state.copy(currentMode = currentMode) }
+    }
 
     private fun getDoctors(state: DoctorSearchContainerState) = getDoctorsUseCase(
         cursor = state.cursor,
@@ -90,7 +105,11 @@ class DoctorSearchContainerViewModel(
         if (state.dataOperation.isLoading || state.dataOperation.isNextPageLoading) return@intent
         if (state.cursor.isNullOrBlank()) return@intent
         reduce {
-            state.copy(dataOperation = DataLoadingOperationWithPagination.NextPageLoading(OperationState.PROGRESS))
+            state.copy(
+                dataOperation = DataLoadingOperationWithPagination.NextPageLoading(
+                    OperationState.PROGRESS
+                )
+            )
         }
         getDoctors(state)
             .collect { resultModel ->

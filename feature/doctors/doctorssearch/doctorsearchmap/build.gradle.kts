@@ -11,4 +11,8 @@ dependencies {
     implementation(project(":core:domain:doctors"))
     implementation(project(":core:domain:base"))
     implementation(project(":core:ui:delegates:features:doctors:doctoritem"))
+    implementation(libs.gms.maps)
+    implementation(libs.gms.maps.utils)
+    implementation(libs.ktx.maps)
+    implementation(libs.ktx.maps.utils)
 }

@@ -4,6 +4,11 @@ import com.aya.digital.core.navigation.coordinator.CoordinatorEvent
 
 sealed class DoctorSearchContainerNavigationEvents : CoordinatorEvent() {
     object OpenDefaultScreen : DoctorSearchContainerNavigationEvents()
+
+    object OpenMap : DoctorSearchContainerNavigationEvents()
+
+    object OpenList : DoctorSearchContainerNavigationEvents()
+
     data class OpenDoctorCard(val doctorId: Int) : DoctorSearchContainerNavigationEvents()
     data class SelectInsuranceCompanies(
         val requestCode: String,

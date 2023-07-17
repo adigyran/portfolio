@@ -19,6 +19,9 @@
         android:roundIcon="@mipmap/ic_launcher_aya_doc"
         android:supportsRtl="true"
         android:theme="@style/Theme.HealthAppAya">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="${MAPS_API_KEY}" />
         <activity
             android:name="com.aya.digital.feature.rootcontainer.ui.RootView"
             android:theme="@style/Theme.HealthAppAya"
@@ -29,5 +32,6 @@
             </intent-filter>
         </activity>
     </application>
+
 
 </manifest>

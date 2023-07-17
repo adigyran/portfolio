@@ -3,10 +3,6 @@ package com.aya.digital.core.feature.doctors.doctorssearch.doctorsearchmap.ui
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.aya.digital.core.ext.bindClick
-import com.aya.digital.core.ext.toggleSelection
 import com.aya.digital.core.feature.doctors.doctorssearch.doctorsearchmap.databinding.ViewDoctorsearchMapBinding
 import com.aya.digital.core.feature.doctors.doctorssearch.doctorsearchmap.di.doctorSearchMapDiModule
 import com.aya.digital.core.feature.doctors.doctorssearch.doctorsearchmap.ui.model.DoctorSearchMapStateTransformer
@@ -16,8 +12,9 @@ import com.aya.digital.core.feature.doctors.doctorssearch.doctorsearchmap.viewmo
 import com.aya.digital.core.feature.doctors.doctorssearch.doctorsearchmap.viewmodel.DoctorSearchMapViewModel
 import com.aya.digital.core.ui.adapters.base.BaseDelegateAdapter
 import com.aya.digital.core.ui.base.screens.DiFragment
-import com.aya.digital.core.ui.base.utils.EndlessRecyclerViewScrollListener
 import com.aya.digital.core.ui.delegates.doctors.doctoritem.ui.DoctorItemDelegate
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
 import org.kodein.di.DI
 import org.kodein.di.factory
 import org.kodein.di.on
@@ -34,6 +31,8 @@ class DoctorSearchMapView :
         context = this
     ).factory()
 
+    private var map: GoogleMap? = null
+
     private val adapter by lazy(LazyThreadSafetyMode.NONE) {
         BaseDelegateAdapter.create {
             delegate {
@@ -42,37 +41,17 @@ class DoctorSearchMapView :
         }
     }
 
+    override fun prepareUi(savedInstanceState: Bundle?) {
+        super.prepareUi(savedInstanceState)
+        binding.mapView.onCreate(savedInstanceState)
+        binding.mapView.getMapAsync {
+            if (map != null) return@getMapAsync
+            map = it
+        }
+    }
+
     override fun prepareCreatedUi(savedInstanceState: Bundle?) {
         super.prepareCreatedUi(savedInstanceState)
-        binding.toolbar.btnFindDoctor bindClick { viewModel.findDoctorClicked() }
-        binding.swipeRefresh.setOnRefreshListener {
-            viewModel.onRefreshDoctors()
-            binding.swipeRefresh.isRefreshing = false
-        }
-        binding.toolbar.insurance bindClick { viewModel.onInsurance() }
-        binding.toolbar.speciality bindClick { viewModel.onSpecialisation() }
-        binding.toolbar.location bindClick { viewModel.onLocation() }
-        recyclers.add(binding.recycler)
-        with(binding.recycler) {
-            itemAnimator = null
-            setHasFixedSize(true)
-            setItemViewCacheSize(30)
-            isNestedScrollingEnabled = false
-
-            val lm = LinearLayoutManager(
-                context,
-                RecyclerView.VERTICAL,
-                false
-            )
-            layoutManager = lm
-            addItemDecoration(DoctorSearchMapTabDecoration())
-            val scrollListener = object : EndlessRecyclerViewScrollListener(lm) {
-                override fun onLoadMore() {
-                    viewModel.loadNextPage()
-                }
-            }
-            addOnScrollListener(scrollListener)
-        }
     }
 
 
@@ -91,24 +70,33 @@ class DoctorSearchMapView :
     override fun render(state: DoctorSearchMapState) {
         stateTransformer(state).run {
             data?.let {
-                adapter.items = it
-                if (binding.recycler.adapter == null) {
-                    binding.recycler.swapAdapter(adapter, true)
-                }
-            }
-            specialityFilterText?.let {
-                binding.toolbar.speciality.binding.fieldText.text = it
-            }
-            locationFilterText?.let {
-                binding.toolbar.location.binding.fieldText.text = it
-            }
-            insuranceFilterText?.let {
-                binding.toolbar.insurance.binding.fieldText.text = it
+
             }
         }
         /*stateTransformer(state).data?.let {
 
         }*/
+    }
+
+    override fun onResume() {
+        binding.mapView.onResume()
+        super.onResume()
+    }
+
+
+    override fun onPause() {
+        super.onPause()
+        binding.mapView.onPause()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding.mapView.onDestroy()
+    }
+
+    override fun onLowMemory() {
+        super.onLowMemory()
+        binding.mapView.onLowMemory()
     }
 
     override fun provideViewModel(): DoctorSearchMapViewModel = viewModelFactory(Unit)
