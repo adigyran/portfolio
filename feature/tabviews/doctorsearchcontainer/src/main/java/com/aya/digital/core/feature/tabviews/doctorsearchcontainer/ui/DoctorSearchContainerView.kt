@@ -45,7 +45,12 @@ class DoctorSearchContainerView :
         binding.btnToggleMapList bindClick { viewModel.toggleMode() }
         binding.viewPager.isUserInputEnabled = false
         binding.viewPager.adapter =
-            DoctorSearchContainerPageAdapter(childFragmentManager, lifecycle, requireActivity(),doctorSearchScreenTabsScreens)
+            DoctorSearchContainerPageAdapter(
+                childFragmentManager,
+                lifecycle,
+                requireActivity(),
+                doctorSearchScreenTabsScreens
+            )
     }
 
     override fun prepareCreatedUi(savedInstanceState: Bundle?) {
@@ -72,7 +77,11 @@ class DoctorSearchContainerView :
     override fun provideStateTransformer(): DoctorSearchContainerStateTransformer =
         stateTransformerFactory(Unit)
 
-    override fun render(state: DoctorSearchContainerState) = Unit
+    override fun render(state: DoctorSearchContainerState) {
+        state.currentMode.run {
+            binding.viewPager.setCurrentItem(this.page, false)
+        }
+    }
 
     override fun provideViewModel(): DoctorSearchContainerViewModel = viewModelFactory(Unit)
 
@@ -84,7 +93,8 @@ class DoctorSearchContainerView :
     ) :
         FragmentStateAdapter(fm, lifecycle) {
         override fun getItemCount(): Int = 2
-        override fun createFragment(position: Int): Fragment = doctorSearchScreenTabsScreens.getFragment(position,fm)
+        override fun createFragment(position: Int): Fragment =
+            doctorSearchScreenTabsScreens.getFragment(position, fm)
 
 
     }

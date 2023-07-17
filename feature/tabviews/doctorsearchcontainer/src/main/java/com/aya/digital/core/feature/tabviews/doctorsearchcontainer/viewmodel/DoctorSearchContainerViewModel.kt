@@ -50,12 +50,10 @@ class DoctorSearchContainerViewModel(
     fun toggleMode() = intent {
         val currentMode = when (state.currentMode) {
             CurrentMode.List -> {
-                coordinatorRouter.sendEvent(DoctorSearchContainerNavigationEvents.OpenMap)
                 CurrentMode.Map
             }
 
             CurrentMode.Map -> {
-                coordinatorRouter.sendEvent(DoctorSearchContainerNavigationEvents.OpenList)
                 CurrentMode.List
             }
         }
