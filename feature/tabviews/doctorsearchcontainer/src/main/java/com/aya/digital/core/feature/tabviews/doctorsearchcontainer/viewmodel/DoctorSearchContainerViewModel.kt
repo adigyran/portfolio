@@ -32,9 +32,9 @@ class DoctorSearchContainerViewModel(
     private val addDoctorToFavoritesUseCase: AddDoctorToFavoritesUseCase,
     private val removeDoctorFromFavoritesUseCase: RemoveDoctorFromFavoritesUseCase
 ) :
-    BaseViewModel<DoctorSearchContainerState, BaseSideEffect>() {
+    BaseViewModel<DoctorSearchContainerState, DoctorSearchContainerSideEffects>() {
 
-    override val container = container<DoctorSearchContainerState, BaseSideEffect>(
+    override val container = container<DoctorSearchContainerState, DoctorSearchContainerSideEffects>(
         initialState = DoctorSearchContainerState(dataOperation = DataLoadingOperationWithPagination.Idle),
     )
     {

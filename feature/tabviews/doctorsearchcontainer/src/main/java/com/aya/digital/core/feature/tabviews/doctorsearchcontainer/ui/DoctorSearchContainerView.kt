@@ -1,79 +1,94 @@
 package com.aya.digital.core.feature.tabviews.doctorsearchcontainer.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.Lifecycle
+import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.aya.digital.core.ext.bindClick
-import com.aya.digital.core.feature.tabviews.doctorsearchcontainer.R
+import com.aya.digital.core.feature.tabviews.doctorsearchcontainer.DoctorSearchScreenTabsScreens
 import com.aya.digital.core.feature.tabviews.doctorsearchcontainer.databinding.ViewDoctorsearchContainerBinding
 import com.aya.digital.core.feature.tabviews.doctorsearchcontainer.di.doctorSearchContainerDiModule
-import com.aya.digital.core.feature.tabviews.doctorsearchcontainer.navigation.DoctorSearchContainerNavigationEvents
+import com.aya.digital.core.feature.tabviews.doctorsearchcontainer.ui.model.DoctorSearchContainerStateTransformer
+import com.aya.digital.core.feature.tabviews.doctorsearchcontainer.ui.model.DoctorSearchContainerUiModel
+import com.aya.digital.core.feature.tabviews.doctorsearchcontainer.viewmodel.DoctorSearchContainerSideEffects
 import com.aya.digital.core.feature.tabviews.doctorsearchcontainer.viewmodel.DoctorSearchContainerState
 import com.aya.digital.core.feature.tabviews.doctorsearchcontainer.viewmodel.DoctorSearchContainerViewModel
-import com.aya.digital.core.mvi.BaseSideEffect
-import com.aya.digital.core.navigation.CustomNavigator
-import com.aya.digital.core.navigation.di.CustomNavigatorParam
-import com.aya.digital.core.ui.base.screens.DiContainerFragment
-import com.github.terrakok.cicerone.Navigator
+import com.aya.digital.core.ui.base.screens.DiFragment
 import org.kodein.di.DI
 import org.kodein.di.factory
+import org.kodein.di.instance
 import org.kodein.di.on
 
 
 class DoctorSearchContainerView :
-    DiContainerFragment<ViewDoctorsearchContainerBinding, DoctorSearchContainerViewModel, DoctorSearchContainerState, BaseSideEffect>() {
+    DiFragment<ViewDoctorsearchContainerBinding, DoctorSearchContainerViewModel, DoctorSearchContainerState, DoctorSearchContainerSideEffects, DoctorSearchContainerUiModel, DoctorSearchContainerStateTransformer>() {
 
 
-    private val navigatorFactory: ((param: CustomNavigatorParam) -> CustomNavigator) by kodein.on(
-        context = this
-    ).factory()
     private val viewModelFactory: ((Unit) -> DoctorSearchContainerViewModel) by kodein.on(
         context = this
     ).factory()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        viewModel = provideViewModel()
-        openDefaultScreen()
+    private val stateTransformerFactory: ((Unit) -> DoctorSearchContainerStateTransformer) by kodein.on(
+        context = this
+    ).factory()
 
+    private val doctorSearchScreenTabsScreens: DoctorSearchScreenTabsScreens by kodein.on(context = this)
+        .instance()
+
+
+    override fun prepareUi(savedInstanceState: Bundle?) {
+        super.prepareUi(savedInstanceState)
+        binding.btnToggleMapList bindClick { viewModel.toggleMode() }
+        binding.viewPager.isUserInputEnabled = false
+        binding.viewPager.adapter =
+            DoctorSearchContainerPageAdapter(childFragmentManager, lifecycle, requireActivity(),doctorSearchScreenTabsScreens)
     }
-
-    override fun sideEffect(sideEffect: BaseSideEffect) = Unit
-
-    private fun openDefaultScreen() {
-        coordinatorHolder.sendEvent(DoctorSearchContainerNavigationEvents.OpenDefaultScreen)
-    }
-
 
     override fun prepareCreatedUi(savedInstanceState: Bundle?) {
         super.prepareCreatedUi(savedInstanceState)
-        binding.btnToggleMapList bindClick {viewModel.toggleMode()}
+
     }
 
-    override fun provideNavigator(): Navigator =
-        navigatorFactory(
-            CustomNavigatorParam(
-                requireActivity(),
-                childFragmentManager,
-                R.id.fragmentContainerDoctorSearch
-            ) {
 
-            })
+    override fun sideEffect(sideEffect: DoctorSearchContainerSideEffects) =
+        when (sideEffect) {
+            is DoctorSearchContainerSideEffects.Error -> processErrorSideEffect(sideEffect.error)
+        }
 
-
-
-
-    override fun provideDiModule(): DI.Module = doctorSearchContainerDiModule(tryTyGetParentRouter())
+    override fun provideDiModule(): DI.Module =
+        doctorSearchContainerDiModule(tryTyGetParentRouter())
 
     override fun provideViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ): ViewDoctorsearchContainerBinding = ViewDoctorsearchContainerBinding.inflate(inflater, container, false)
+    ): ViewDoctorsearchContainerBinding =
+        ViewDoctorsearchContainerBinding.inflate(inflater, container, false)
 
+
+    override fun provideStateTransformer(): DoctorSearchContainerStateTransformer =
+        stateTransformerFactory(Unit)
 
     override fun render(state: DoctorSearchContainerState) = Unit
 
     override fun provideViewModel(): DoctorSearchContainerViewModel = viewModelFactory(Unit)
+
+    private class DoctorSearchContainerPageAdapter(
+        private val fm: FragmentManager,
+        private val lifecycle: Lifecycle,
+        private val context: Context,
+        val doctorSearchScreenTabsScreens: DoctorSearchScreenTabsScreens
+    ) :
+        FragmentStateAdapter(fm, lifecycle) {
+        override fun getItemCount(): Int = 2
+        override fun createFragment(position: Int): Fragment = doctorSearchScreenTabsScreens.getFragment(position,fm)
+
+
+    }
+
     companion object {
 
         fun getNewInstance(): DoctorSearchContainerView {
