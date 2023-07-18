@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.aya.digital.core.data.profile"
+    namespace = "com.aya.digital.core.data.schedule"
 }
 
 dependencies {

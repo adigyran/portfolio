@@ -9,11 +9,6 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class DoctorSearchContainerState(
-    val cursor: String? = null,
-    val currentMode: CurrentMode = CurrentMode.List,
-    val doctors: List<DoctorModel>? = null,
-    val favoriteDoctors: List<Int>? = null,
-    val dataOperation: DataLoadingOperationWithPagination,
-    val selectedFilters: Set<SelectedFilterModel> = setOf(),
+    val currentMode: CurrentMode = CurrentMode.List
 ) :
     BaseState

@@ -1,4 +1,4 @@
-package com.aya.digital.core.datasource
+package com.aya.digital.core.datasource.di
 
 import com.aya.digital.core.datasource.network.*
 

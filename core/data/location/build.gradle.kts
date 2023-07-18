@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.aya.digital.core.data.doctors"
+    namespace = "com.aya.digital.core.data.location"
 }
 
 dependencies {

@@ -1,4 +1,4 @@
-package com.aya.digital.core.domain.doctors
+package com.aya.digital.core.domain.doctors.di
 
 import com.aya.digital.core.domain.doctors.base.GetDoctorByIdUseCase
 import com.aya.digital.core.domain.doctors.base.impl.GetDoctorsUseCaseImpl

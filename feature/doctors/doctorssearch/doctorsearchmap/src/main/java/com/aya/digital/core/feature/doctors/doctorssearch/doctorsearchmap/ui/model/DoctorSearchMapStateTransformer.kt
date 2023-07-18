@@ -9,27 +9,26 @@ import com.aya.digital.core.ui.adapters.base.DiffItem
 import com.aya.digital.core.ui.delegates.doctors.doctoritem.model.DoctorItemUIModel
 import java.lang.StringBuilder
 
-class DoctorSearchMapStateTransformer(private val context: Context) :
+internal class DoctorSearchMapStateTransformer(private val context: Context) :
     BaseStateTransformer<DoctorSearchMapState, DoctorSearchMapUiModel>() {
 
     override fun invoke(state: DoctorSearchMapState): DoctorSearchMapUiModel =
         DoctorSearchMapUiModel(
             data = kotlin.run {
-                return@run mutableListOf<DiffItem>().apply {
+                return@run mutableListOf<DoctorMarkerModel>().apply {
 
-                            state.doctors?.run {
-                                addAll(
-                                    map { doctor ->
-                                        DoctorItemUIModel(
-                                            id = doctor.id,
-                                            name = doctor.composeName(),
-                                            speciality = doctor.getSpeciality(),
-                                            photo = doctor.avatarPhotoLink,
-                                            isFavorite = checkIsFavorite(doctor.id, state)
-                                        )
-                                    })
-                            }
-                        }
+                    state.doctors?.run {
+                        addAll(
+                            map { doctor ->
+                                DoctorMarkerModel(
+                                    lat = doctor.location.lat,
+                                    lon = doctor.location.long,
+                                    name = doctor.composeName(),
+                                    doctorModel = doctor
+                                )
+                            })
+                    }
+                }
 
             },
             specialityFilterText = kotlin.run {
@@ -77,7 +76,8 @@ class DoctorSearchMapStateTransformer(private val context: Context) :
             },
         )
 
-    private fun checkIsFavorite(id: Int, state: DoctorSearchMapState): Boolean = state.favoriteDoctors?.contains(id)?:false
+    private fun checkIsFavorite(id: Int, state: DoctorSearchMapState): Boolean =
+        state.favoriteDoctors?.contains(id) ?: false
 
     private fun DoctorModel.composeName() =
         "Dr. %s, %s".format(lastName, clinics.firstOrNull()?.clinicName)
