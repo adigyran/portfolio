@@ -2,11 +2,14 @@ package com.aya.digital.core.feature.doctors.doctorssearch.doctorsearchmap.ui.re
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.widget.ImageView
 import android.widget.TextView
 import com.aya.digital.core.ext.drawables
 import com.aya.digital.core.feature.doctors.doctorssearch.doctorsearchmap.databinding.ItemDoctorsMarkerBinding
 import com.aya.digital.core.feature.doctors.doctorssearch.doctorsearchmap.databinding.ItemDoctorsMarkerClusterBinding
 import com.aya.digital.core.feature.doctors.doctorssearch.doctorsearchmap.ui.model.DoctorMarkerModel
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.BitmapDescriptor
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
@@ -30,12 +33,14 @@ internal class DoctorMapMarkerRenderer(
     private val mIconGenerator = IconGenerator(context)
     private val mClusterIconGenerator = IconGenerator(context)
     private var mClusterCountTv: TextView? = null
+    private var doctorAvatarIv:ImageView? = null
 
     init {
         val clusterBinding = ItemDoctorsMarkerClusterBinding.inflate(layoutInflater)
         mClusterCountTv = clusterBinding.tvClusterSize
         mClusterIconGenerator.setContentView(clusterBinding.root)
         val doctorBinding = ItemDoctorsMarkerBinding.inflate(layoutInflater)
+        doctorAvatarIv = doctorBinding.doctorAvatarIv
         mIconGenerator.setContentView(doctorBinding.root)
         mIconGenerator.setBackground(context.drawables[android.R.color.transparent])
         mClusterIconGenerator.setBackground(context.drawables[android.R.color.transparent])
@@ -56,6 +61,7 @@ internal class DoctorMapMarkerRenderer(
         item: DoctorMarkerModel,
         markerOptions: MarkerOptions
     ) {
+        showDoctorImage(item.doctorModel.avatarPhotoLink)
         markerOptions.icon(getItemIcon(item))
     }
 
@@ -63,6 +69,7 @@ internal class DoctorMapMarkerRenderer(
         item: DoctorMarkerModel,
         marker: Marker
     ) {
+        showDoctorImage(item.doctorModel.avatarPhotoLink)
         marker.setIcon(getItemIcon(item))
     }
 
@@ -90,4 +97,19 @@ internal class DoctorMapMarkerRenderer(
     override fun shouldRenderAsCluster(cluster: Cluster<DoctorMarkerModel>): Boolean {
         return cluster.size > 1
     }
+
+    private fun showDoctorImage(photo:String?)
+    {
+        if(doctorAvatarIv==null || photo==null) return
+        Glide
+            .with(doctorAvatarIv!!)
+            .load(photo)
+            .transform(
+                CircleCrop()
+            )
+            .dontAnimate()
+            .into(doctorAvatarIv!!)
+    }
+
+
 }
