@@ -86,7 +86,7 @@ class DoctorSearchMapViewModel(
     }
 
     fun onDoctorClicked(doctorId: Int) = intent {
-        //   coordinatorRouter.sendEvent(DoctorSearchMapNavigationEvents.OpenDoctorCard(doctorId = doctorId))
+        coordinatorRouter.sendEvent(DoctorSearchMapNavigationEvents.OpenDoctorCard(doctorId = doctorId))
     }
 
     fun loadNextPage() = intent {
