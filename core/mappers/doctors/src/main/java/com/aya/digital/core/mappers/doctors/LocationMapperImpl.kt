@@ -6,5 +6,5 @@ import com.aya.digital.core.network.model.response.doctors.LocationResponse
 
 internal class LocationMapperImpl : LocationMapper() {
     override fun mapFrom(type: LocationResponse): Location =
-        Location(latitude = type.latitude, longitude = type.longitude)
+        Location(latitude = type.lat, longitude = type.long)
 }

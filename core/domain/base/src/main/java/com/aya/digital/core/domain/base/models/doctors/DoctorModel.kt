@@ -49,17 +49,17 @@ fun DoctorData.mapToDoctorModel() = DoctorModel(
     middleName = middleName,
     avatarPhotoLink = avatarPhotoLink,
     bio = bio,
-    clinics = clinics.map { com.aya.digital.core.domain.base.models.doctors.DoctorModel.ClinicModel(it.name) },
+    clinics = clinics.map { DoctorModel.ClinicModel(it.name) },
     location = location?.let {
-        com.aya.digital.core.domain.base.models.doctors.DoctorModel.LocationModel(
-            it.latitude ?: 0.0,
-            it.longitude ?: 0.0
+        DoctorModel.LocationModel(
+            it.longitude ?: 0.0,
+            it.latitude ?: 0.0
         )
-    } ?: com.aya.digital.core.domain.base.models.doctors.DoctorModel.LocationModel(0.0, 0.0),
+    } ?: DoctorModel.LocationModel(0.0, 0.0),
     postCode = postalCode,
     city = city,
     address = address,
-    specialities = this.specialities.map { com.aya.digital.core.domain.base.models.doctors.DoctorModel.SpecialityModel(it.specialtyName) },
+    specialities = this.specialities.map { DoctorModel.SpecialityModel(it.specialtyName) },
     insurances = this.insurances.map { com.aya.digital.core.domain.base.models.doctors.DoctorModel.InsuranceModel(it.name) }
 )
 

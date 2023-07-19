@@ -1,7 +1,9 @@
 package com.aya.digital.healthapp.patient.navigation.tabs.doctorsearch
 
 import com.aya.digital.core.feature.doctors.doctorcard.navigation.DoctorCardScreen
+import com.aya.digital.core.feature.doctors.doctorssearch.doctorsearchmap.navigation.DoctorSearchMapNavigationEvents
 import com.aya.digital.core.feature.doctors.doctorssearch.doctorsearchmap.navigation.DoctorSearchMapScreen
+import com.aya.digital.core.feature.doctors.doctorssearch.doctorssearchlist.navigation.DoctorSearchListNavigationEvents
 import com.aya.digital.core.feature.doctors.doctorssearch.doctorssearchlist.navigation.DoctorSearchListScreen
 import com.aya.digital.core.feature.tabviews.doctorsearchcontainer.navigation.DoctorSearchContainerNavigationEvents
 import com.aya.digital.core.feature.tabviews.doctorsearchcontainer.navigation.DoctorSearchContainerScreen
@@ -29,14 +31,18 @@ class DoctorSearchTabCoordinatorGraph : FragmentContainerGraph {
             DoctorSearchContainerNavigationEvents.OpenList -> {
                 navigationRouter.replaceScreen(DoctorSearchListScreen)
             }
-            is DoctorSearchContainerNavigationEvents.OpenDoctorCard -> {
+            is DoctorSearchMapNavigationEvents.OpenDoctorCard -> {
+                navigationRouter.navigateTo(DoctorCardScreen(event.doctorId))
+            }
+
+            is DoctorSearchListNavigationEvents.OpenDoctorCard -> {
                 navigationRouter.navigateTo(DoctorCardScreen(event.doctorId))
             }
             CoordinatorEvent.Back ->
             {
                 navigationRouter.exit()
             }
-            is DoctorSearchContainerNavigationEvents.SelectInsuranceCompanies ->
+            is DoctorSearchListNavigationEvents.SelectInsuranceCompanies ->
             {
                 parentCoordinatorRouter.sendEvent(RootContainerNavigationEvents.SelectMultipleItems(event.requestCode,
                     mutableSetOf<Int>().apply {
@@ -45,7 +51,7 @@ class DoctorSearchTabCoordinatorGraph : FragmentContainerGraph {
                         }
                     }))
             }
-            is DoctorSearchContainerNavigationEvents.SelectSpecialisations ->
+            is DoctorSearchListNavigationEvents.SelectSpecialisations ->
             {
                 parentCoordinatorRouter.sendEvent(RootContainerNavigationEvents.SelectMultipleItems(event.requestCode,
                     mutableSetOf<Int>().apply {
@@ -54,7 +60,7 @@ class DoctorSearchTabCoordinatorGraph : FragmentContainerGraph {
                         }
                     }))
             }
-            is DoctorSearchContainerNavigationEvents.SelectLocation ->
+            is DoctorSearchListNavigationEvents.SelectLocation ->
             {
                 parentCoordinatorRouter.sendEvent(RootContainerNavigationEvents.SelectSingleItem(event.requestCode,event.selectedLocation))
             }

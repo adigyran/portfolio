@@ -2,5 +2,5 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="32dp"
     android:layout_height="32dp"
-    android:background="@color/bg_blue"
+    android:background="@drawable/ic_marker_pin"
     xmlns:tools="http://schemas.android.com/tools"/>

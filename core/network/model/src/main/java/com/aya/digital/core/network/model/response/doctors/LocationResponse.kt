@@ -4,6 +4,6 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class LocationResponse(
-    val latitude: Double? = null,
-    val longitude: Double? = null
+    val lat: Double? = null,
+    val long: Double? = null
 )
