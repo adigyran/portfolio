@@ -63,7 +63,7 @@ internal class DoctorSearchMapView :
         with(binding.recycler) {
             itemAnimator = null
             setHasFixedSize(true)
-            setItemViewCacheSize(1)
+            setItemViewCacheSize(3)
             isNestedScrollingEnabled = false
 
             val lm = LinearLayoutManager(
