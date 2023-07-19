@@ -94,6 +94,7 @@ internal class DoctorSearchMapView :
         map?.setOnMarkerClickListener(clusterManager)
         map?.setOnInfoWindowClickListener(clusterManager)
         clusterManager?.setOnClusterClickListener { cluster ->
+            Timber.d("$cluster")
             val doctorMarkerModels = cluster?.items
             if (doctorMarkerModels.isNullOrEmpty()) return@setOnClusterClickListener true
             if (calculateClusterDensityIsSingleAddress(doctorMarkerModels.toList())) {
@@ -110,6 +111,7 @@ internal class DoctorSearchMapView :
             return@setOnClusterClickListener true
         }
         clusterManager?.setOnClusterItemClickListener {
+            Timber.d("$it")
             viewModel.onDoctorMarkerClicked(it.doctorId)
             true
         }
@@ -142,12 +144,12 @@ internal class DoctorSearchMapView :
             }
             markers?.let { list ->
                 if (list.isEmpty()) return@run
-                map?.animateCamera(
+              /*  map?.animateCamera(
                     CameraUpdateFactory.newLatLngZoom(
                         list.first().position,
                         map?.cameraPosition!!.zoom + ZOOM_FACTOR
                     )
-                )
+                )*/
                 Timber.d("RENDER $clusterManager ${list.toString()}")
                 clusterManager?.clearItems()
                 clusterManager?.addItems(list)
