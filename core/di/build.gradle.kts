@@ -26,7 +26,6 @@ dependencies {
     implementation(project(":core:repository:appointment"))
     implementation(project(":core:repository:schedule"))
     implementation(project(":core:repository:progress"))
-    implementation(project(":core:repository:location"))
     implementation(project(":core:repository:profile"))
     implementation(project(":core:domain:auth"))
     implementation(project(":core:domain:profile"))

@@ -53,8 +53,6 @@ include(":core:repository:doctors")
 include(":core:repository:dictionaries")
 include(":core:repository:schedule")
 include(":core:repository:progress")
-include(":core:repository:location")
-
 
 //data
 include(":core:data:base")
@@ -65,8 +63,6 @@ include(":core:data:doctors")
 include(":core:data:preferences")
 include(":core:data:dictionaries")
 include(":core:data:progress")
-include(":core:data:location")
-
 //
 include(":core:ext")
 include(":core:model")

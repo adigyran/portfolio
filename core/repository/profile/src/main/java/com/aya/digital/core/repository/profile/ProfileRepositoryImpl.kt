@@ -51,8 +51,6 @@ internal class ProfileRepositoryImpl(
     private val insuranceMapper: InsurancePolicyMapper,
     private val emergencyContactMapper: EmergencyContactMapper,
     private val avatarMapper: AvatarMapper,
-    private val dictionariesDataSource: DictionariesDataSource,
-    private val insuranceCompanyMapper: InsuranceCompanyMapper,
     private val invalidTokenEventManager: InvalidTokenEventManager,
     private val imageUploadResultMapper: ImageUploadResultMapper,
     private val notificationsStatusMapper: NotificationsStatusMapper

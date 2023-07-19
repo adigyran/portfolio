@@ -1,4 +1,4 @@
-package com.aya.digital.core.domain.profile.di
+package com.aya.digital.core.domain.root.di
 
 import com.aya.digital.core.domain.root.progress.ListenForProgressUseCase
 import com.aya.digital.core.domain.root.progress.impl.ListenForProgressUseCaseImpl

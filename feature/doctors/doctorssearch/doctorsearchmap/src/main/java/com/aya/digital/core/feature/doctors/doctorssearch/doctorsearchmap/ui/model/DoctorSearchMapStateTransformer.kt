@@ -6,7 +6,6 @@ import com.aya.digital.core.feature.doctors.doctorssearch.doctorsearchmap.viewmo
 import com.aya.digital.core.feature.doctors.doctorssearch.doctorsearchmap.viewmodel.model.SelectedFilterModel
 import com.aya.digital.core.mvi.BaseStateTransformer
 import com.aya.digital.core.ui.adapters.base.DiffItem
-import com.aya.digital.core.ui.delegates.doctors.doctoritem.model.DoctorItemUIModel
 import java.lang.StringBuilder
 
 internal class DoctorSearchMapStateTransformer(private val context: Context) :

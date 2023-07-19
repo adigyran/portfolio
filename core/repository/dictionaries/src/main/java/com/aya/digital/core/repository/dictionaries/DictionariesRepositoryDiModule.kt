@@ -1,4 +1,4 @@
-package com.aya.digital.core.repository.auth
+package com.aya.digital.core.repository.dictionaries
 
 import com.aya.digital.core.data.dictionaries.repository.DictionariesRepository
 import com.aya.digital.core.repository.dictionaries.DictionariesRepositoryImpl

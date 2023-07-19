@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="32dp"
     android:layout_height="32dp"
+    android:background="@color/bg_blue"
     xmlns:tools="http://schemas.android.com/tools">
     <TextView
         android:id="@+id/tvClusterSize"
@@ -9,6 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="8dp"
+        android:textColor="@color/text_white"
         android:textAppearance="@style/TextAppearance.App.Body.LabelMiniText"
         tools:text="99+" />
 </RelativeLayout>

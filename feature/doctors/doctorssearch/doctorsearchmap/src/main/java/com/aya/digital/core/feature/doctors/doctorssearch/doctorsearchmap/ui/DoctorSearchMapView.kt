@@ -14,7 +14,6 @@ import com.aya.digital.core.feature.doctors.doctorssearch.doctorsearchmap.viewmo
 import com.aya.digital.core.feature.doctors.doctorssearch.doctorsearchmap.viewmodel.DoctorSearchMapViewModel
 import com.aya.digital.core.ui.adapters.base.BaseDelegateAdapter
 import com.aya.digital.core.ui.base.screens.DiFragment
-import com.aya.digital.core.ui.delegates.doctors.doctoritem.ui.DoctorItemDelegate
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.maps.android.clustering.ClusterManager
@@ -37,13 +36,6 @@ internal class DoctorSearchMapView :
     private var clusterManager: ClusterManager<DoctorMarkerModel>? = null
     private var map: GoogleMap? = null
 
-    private val adapter by lazy(LazyThreadSafetyMode.NONE) {
-        BaseDelegateAdapter.create {
-            delegate {
-                DoctorItemDelegate(viewModel::onDoctorClicked, viewModel::onDoctorFavouriteClicked)
-            }
-        }
-    }
 
     override fun prepareUi(savedInstanceState: Bundle?) {
         super.prepareUi(savedInstanceState)
