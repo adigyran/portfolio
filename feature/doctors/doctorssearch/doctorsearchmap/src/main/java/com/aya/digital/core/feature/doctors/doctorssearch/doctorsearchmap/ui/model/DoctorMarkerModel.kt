@@ -7,7 +7,8 @@ import com.google.maps.android.clustering.ClusterItem
 internal data class DoctorMarkerModel(
     private val lat: Double,
     private val lon: Double,
-    val doctorModel: DoctorModel,
+    val doctorId:Int,
+    val doctorAvatar:String?,
     private val name: String
 ) : ClusterItem {
     override fun getPosition(): LatLng = LatLng(lat, lon)

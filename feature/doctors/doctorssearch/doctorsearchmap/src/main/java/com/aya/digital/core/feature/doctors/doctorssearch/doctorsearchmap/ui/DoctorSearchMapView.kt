@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.aya.digital.core.feature.doctors.doctorssearch.doctorsearchmap.databinding.ViewDoctorsearchMapBinding
 import com.aya.digital.core.feature.doctors.doctorssearch.doctorsearchmap.di.doctorSearchMapDiModule
 import com.aya.digital.core.feature.doctors.doctorssearch.doctorsearchmap.ui.model.DoctorMarkerModel
@@ -13,9 +15,13 @@ import com.aya.digital.core.feature.doctors.doctorssearch.doctorsearchmap.ui.ren
 import com.aya.digital.core.feature.doctors.doctorssearch.doctorsearchmap.viewmodel.DoctorSearchMapSideEffects
 import com.aya.digital.core.feature.doctors.doctorssearch.doctorsearchmap.viewmodel.DoctorSearchMapState
 import com.aya.digital.core.feature.doctors.doctorssearch.doctorsearchmap.viewmodel.DoctorSearchMapViewModel
+import com.aya.digital.core.ui.adapters.base.BaseDelegateAdapter
 import com.aya.digital.core.ui.base.screens.DiFragment
+import com.aya.digital.core.ui.base.utils.EndlessRecyclerViewScrollListener
+import com.aya.digital.core.ui.delegates.doctors.doctoritem.ui.DoctorItemDelegate
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
+import com.google.maps.android.SphericalUtil
 import com.google.maps.android.clustering.ClusterManager
 import org.kodein.di.DI
 import org.kodein.di.factory
@@ -37,6 +43,13 @@ internal class DoctorSearchMapView :
     private var clusterManager: ClusterManager<DoctorMarkerModel>? = null
     private var map: GoogleMap? = null
 
+    private val adapter by lazy(LazyThreadSafetyMode.NONE) {
+        BaseDelegateAdapter.create {
+            delegate {
+                DoctorItemDelegate(viewModel::onDoctorClicked, viewModel::onDoctorFavouriteClicked)
+            }
+        }
+    }
 
     override fun prepareUi(savedInstanceState: Bundle?) {
         super.prepareUi(savedInstanceState)
@@ -45,16 +58,35 @@ internal class DoctorSearchMapView :
             if (map != null) return@getMapAsync
             map = it
             configureMap()
+            configureCluster()
+        }
+        with(binding.recycler) {
+            itemAnimator = null
+            setHasFixedSize(true)
+            setItemViewCacheSize(30)
+            isNestedScrollingEnabled = false
+
+            val lm = LinearLayoutManager(
+                context,
+                RecyclerView.VERTICAL,
+                false
+            )
+            layoutManager = lm
         }
     }
 
-    @SuppressLint("PotentialBehaviorOverride")
     private fun configureMap() {
         with(map?.uiSettings)
         {
             this?.isZoomControlsEnabled = true
             this?.isMyLocationButtonEnabled = true
         }
+
+
+    }
+
+    @SuppressLint("PotentialBehaviorOverride")
+    private fun configureCluster() {
         clusterManager = ClusterManager(requireActivity(), map)
         clusterManager?.renderer =
             DoctorMapMarkerRenderer(requireActivity(), layoutInflater, map!!, clusterManager!!)
@@ -62,15 +94,25 @@ internal class DoctorSearchMapView :
         map?.setOnMarkerClickListener(clusterManager)
         map?.setOnInfoWindowClickListener(clusterManager)
         clusterManager?.setOnClusterClickListener { cluster ->
-            map?.animateCamera(
-                CameraUpdateFactory.newLatLngZoom(
-                    cluster.position,
-                    map?.cameraPosition!!.zoom + ZOOM_FACTOR
+            val doctorMarkerModels = cluster?.items
+            if (doctorMarkerModels.isNullOrEmpty()) return@setOnClusterClickListener true
+            if (calculateClusterDensityIsSingleAddress(doctorMarkerModels.toList())) {
+                val doctorIds = doctorMarkerModels.map { it.doctorId }
+                viewModel.onDoctorsClusterClicked(doctorIds)
+            } else {
+                map?.animateCamera(
+                    CameraUpdateFactory.newLatLngZoom(
+                        cluster.position,
+                        map?.cameraPosition!!.zoom + ZOOM_FACTOR
+                    )
                 )
-            )
+            }
             return@setOnClusterClickListener true
         }
-
+        clusterManager?.setOnClusterItemClickListener {
+            viewModel.onDoctorMarkerClicked(it.doctorId)
+            true
+        }
     }
 
     override fun prepareCreatedUi(savedInstanceState: Bundle?) {
@@ -92,7 +134,13 @@ internal class DoctorSearchMapView :
 
     override fun render(state: DoctorSearchMapState) {
         stateTransformer(state).run {
-            data?.let { list ->
+            data?.let {
+                adapter.items = it
+                if (binding.recycler.adapter == null) {
+                    binding.recycler.swapAdapter(adapter, true)
+                }
+            }
+            markers?.let { list ->
                 if (list.isEmpty()) return@run
                 map?.animateCamera(
                     CameraUpdateFactory.newLatLngZoom(
@@ -141,6 +189,16 @@ internal class DoctorSearchMapView :
     override fun provideStateTransformer(): DoctorSearchMapStateTransformer =
         stateTransformerFactory(Unit)
 
+    private fun calculateClusterDensityIsSingleAddress(doctorMarkerModels: List<DoctorMarkerModel>): Boolean {
+        var maxDistance = 0.0
+        val firstPoint = doctorMarkerModels.first().position
+        for (i in 1 until doctorMarkerModels.size) {
+            val point = doctorMarkerModels[i].position
+            val distance = SphericalUtil.computeDistanceBetween(firstPoint, point)
+            if (distance > maxDistance) maxDistance = distance
+        }
+        return maxDistance < CLUSTER_MAX_DISTANCE
+    }
     companion object {
         private const val ZOOM_FACTOR = 4.5f
         private const val DEFAULT_ZOOM = 10f

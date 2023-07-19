@@ -77,15 +77,27 @@ class DoctorSearchMapViewModel(
     }
 
 
+    fun onDoctorsClusterClicked(doctorIds: List<Int>) = intent {
+        reduce { state.copy(selectedDoctor = null) }
+    }
+
+    fun onDoctorMarkerClicked(doctorId: Int) = intent {
+        reduce { state.copy(selectedDoctor = state.doctors?.firstOrNull { it.id == doctorId }) }
+    }
+
     fun onDoctorClicked(doctorId: Int) = intent {
-        coordinatorRouter.sendEvent(DoctorSearchMapNavigationEvents.OpenDoctorCard(doctorId = doctorId))
+        //   coordinatorRouter.sendEvent(DoctorSearchMapNavigationEvents.OpenDoctorCard(doctorId = doctorId))
     }
 
     fun loadNextPage() = intent {
         if (state.dataOperation.isLoading || state.dataOperation.isNextPageLoading) return@intent
         if (state.cursor.isNullOrBlank()) return@intent
         reduce {
-            state.copy(dataOperation = DataLoadingOperationWithPagination.NextPageLoading(OperationState.PROGRESS))
+            state.copy(
+                dataOperation = DataLoadingOperationWithPagination.NextPageLoading(
+                    OperationState.PROGRESS
+                )
+            )
         }
         getDoctors(state)
             .collect { resultModel ->
@@ -269,5 +281,7 @@ class DoctorSearchMapViewModel(
                 }, { processError(it) })
             }
     }
+
+
 }
 

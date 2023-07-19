@@ -19,6 +19,7 @@ import com.google.maps.android.clustering.Cluster
 import com.google.maps.android.clustering.ClusterManager
 import com.google.maps.android.clustering.view.DefaultClusterRenderer
 import com.google.maps.android.ui.IconGenerator
+import timber.log.Timber
 
 internal class DoctorMapMarkerRenderer(
     val context: Context,
@@ -61,7 +62,7 @@ internal class DoctorMapMarkerRenderer(
         item: DoctorMarkerModel,
         markerOptions: MarkerOptions
     ) {
-        showDoctorImage(item.doctorModel.avatarPhotoLink)
+        showDoctorImage(item.doctorAvatar)
         markerOptions.icon(getItemIcon(item))
     }
 
@@ -69,7 +70,7 @@ internal class DoctorMapMarkerRenderer(
         item: DoctorMarkerModel,
         marker: Marker
     ) {
-        showDoctorImage(item.doctorModel.avatarPhotoLink)
+        showDoctorImage(item.doctorAvatar)
         marker.setIcon(getItemIcon(item))
     }
 
@@ -100,6 +101,7 @@ internal class DoctorMapMarkerRenderer(
 
     private fun showDoctorImage(photo:String?)
     {
+        Timber.d("$photo $doctorAvatarIv")
         if(doctorAvatarIv==null || photo==null) return
         Glide
             .with(doctorAvatarIv!!)

@@ -6,6 +6,7 @@ import com.aya.digital.core.feature.doctors.doctorssearch.doctorsearchmap.viewmo
 import com.aya.digital.core.feature.doctors.doctorssearch.doctorsearchmap.viewmodel.model.SelectedFilterModel
 import com.aya.digital.core.mvi.BaseStateTransformer
 import com.aya.digital.core.ui.adapters.base.DiffItem
+import com.aya.digital.core.ui.delegates.doctors.doctoritem.model.DoctorItemUIModel
 import java.lang.StringBuilder
 
 internal class DoctorSearchMapStateTransformer(private val context: Context) :
@@ -14,6 +15,21 @@ internal class DoctorSearchMapStateTransformer(private val context: Context) :
     override fun invoke(state: DoctorSearchMapState): DoctorSearchMapUiModel =
         DoctorSearchMapUiModel(
             data = kotlin.run {
+                return@run mutableListOf<DiffItem>().apply {
+                    state.selectedDoctor?.run {
+                        add(
+                            DoctorItemUIModel(
+                                id = id,
+                                name = composeName(),
+                                speciality = getSpeciality(),
+                                photo = avatarPhotoLink,
+                                isFavorite = checkIsFavorite(id, state)
+                            )
+                        )
+                    }
+                }
+            },
+            markers = kotlin.run {
                 return@run mutableListOf<DoctorMarkerModel>().apply {
 
                     state.doctors?.run {
@@ -23,7 +39,8 @@ internal class DoctorSearchMapStateTransformer(private val context: Context) :
                                     lat = doctor.location.lat,
                                     lon = doctor.location.long,
                                     name = doctor.composeName(),
-                                    doctorModel = doctor
+                                    doctorId = doctor.id,
+                                    doctorAvatar = doctor.avatarPhotoLink
                                 )
                             })
                     }
@@ -72,7 +89,7 @@ internal class DoctorSearchMapStateTransformer(private val context: Context) :
                             insurance.name
                         )
                     }.toString()
-            },
+            }
         )
 
     private fun checkIsFavorite(id: Int, state: DoctorSearchMapState): Boolean =
