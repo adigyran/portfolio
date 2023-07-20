@@ -6,6 +6,7 @@ import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.aya.digital.core.domain.base.models.doctors.DoctorModel
 import com.aya.digital.core.ext.argument
@@ -54,7 +55,9 @@ class DoctorsClusterListDialogView :
 
     private val adapter by lazy(LazyThreadSafetyMode.NONE) {
         BaseDelegateAdapter.create {
-            DoctorItemDelegate(viewModel::onDoctorClicked, viewModel::onDoctorFavouriteClicked)
+            delegate {
+                DoctorItemDelegate(viewModel::onDoctorClicked, viewModel::onDoctorFavouriteClicked)
+            }
         }
     }
 
@@ -75,14 +78,11 @@ class DoctorsClusterListDialogView :
         bottomSheetBehavior.skipCollapsed = true
         with(binding.recycler) {
             itemAnimator = null
-            lm = GridLayoutManager(
+            val lm = LinearLayoutManager(
                 context,
-                4,
                 RecyclerView.VERTICAL,
                 false
             )
-
-
             layoutManager = lm
             addItemDecoration(DoctorsClusterListDialogDecoration())
         }
@@ -103,6 +103,9 @@ class DoctorsClusterListDialogView :
                 if (binding.recycler.adapter == null) {
                     binding.recycler.swapAdapter(adapter, true)
                 }
+            }
+            title.run {
+                binding.titleTv.text = this
             }
         }
     }

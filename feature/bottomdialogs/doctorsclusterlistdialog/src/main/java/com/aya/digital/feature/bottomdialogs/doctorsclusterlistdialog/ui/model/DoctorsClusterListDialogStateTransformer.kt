@@ -35,7 +35,8 @@ class DoctorsClusterListDialogStateTransformer(
                     }
                 }
 
-            }
+            },
+            title = "Specialists: %d".format(state.doctors?.size)?:""
         )
     private fun checkIsFavorite(id: Int,state: DoctorsClusterListDialogState): Boolean = state.favoriteDoctors?.contains(id)?:false
 

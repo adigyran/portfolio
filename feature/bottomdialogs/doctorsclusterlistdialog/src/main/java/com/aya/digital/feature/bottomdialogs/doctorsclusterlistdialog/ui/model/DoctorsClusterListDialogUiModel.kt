@@ -4,5 +4,6 @@ import com.aya.digital.core.mvi.BaseUiModel
 import com.aya.digital.core.ui.adapters.base.DiffItem
 
 data class DoctorsClusterListDialogUiModel(
-    val data: List<DiffItem>? = null
+    val data: List<DiffItem>? = null,
+    val title:String
 ) : BaseUiModel
