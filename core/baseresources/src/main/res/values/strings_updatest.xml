@@ -96,5 +96,9 @@
         fixed screen rotation
         fixed filters
         version 44 patient\n
+        added doctors map with clustering\n
+        currently it has some navigation problems\n
+        you can toggle between list and map\n
+        version 45 patient\n
     </string>
 </resources>
