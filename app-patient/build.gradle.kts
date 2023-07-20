@@ -89,6 +89,7 @@ dependencies {
     implementation(project(":feature:bottomdialogs:createappointmentdialog"))
     implementation(project(":feature:bottomdialogs:dateappointmentsdialog"))
     implementation(project(":feature:bottomdialogs:successappointmentdialog"))
+    implementation(project(":feature:bottomdialogs:doctorsclusterlistdialog"))
     implementation(project(":feature:bottomnavhost"))
     implementation(project(":feature:tabs:appointments"))
     implementation(project(":feature:tabs:doctorsearch"))

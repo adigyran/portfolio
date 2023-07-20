@@ -153,6 +153,8 @@ include(":feature:bottomdialogs:codedialog")
 include(":feature:bottomdialogs:createappointmentdialog")
 include(":feature:bottomdialogs:dateappointmentsdialog")
 include(":feature:bottomdialogs:successappointmentdialog")
+include(":feature:bottomdialogs:doctorsclusterlistdialog")
+
 //auth
 include(":feature:auth:chooser")
 include(":feature:auth:signup")

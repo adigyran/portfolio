@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.aya.digital.core.ext.toggleVisibility
 import com.aya.digital.core.feature.doctors.doctorssearch.doctorsearchmap.databinding.ViewDoctorsearchMapBinding
 import com.aya.digital.core.feature.doctors.doctorssearch.doctorsearchmap.di.doctorSearchMapDiModule
 import com.aya.digital.core.feature.doctors.doctorssearch.doctorsearchmap.ui.model.DoctorMarkerModel
@@ -69,7 +70,7 @@ internal class DoctorSearchMapView :
             val lm = LinearLayoutManager(
                 context,
                 RecyclerView.VERTICAL,
-                false
+                true
             )
             layoutManager = lm
         }
@@ -136,8 +137,9 @@ internal class DoctorSearchMapView :
 
     override fun render(state: DoctorSearchMapState) {
         stateTransformer(state).run {
-            data?.let {
-                adapter.items = it
+            data?.let {list->
+                binding.recycler.toggleVisibility(list.isNotEmpty())
+                adapter.items = list
                 if (binding.recycler.adapter == null) {
                     binding.recycler.swapAdapter(adapter, true)
                 }

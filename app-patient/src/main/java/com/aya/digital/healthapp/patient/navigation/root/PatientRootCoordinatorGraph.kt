@@ -9,6 +9,7 @@ import com.aya.digital.core.feature.bottomnavhost.navigation.BottomNavHostScreen
 import com.aya.digital.core.feature.choosers.multiselect.navigation.SelectWithSearchNavigationEvents
 import com.aya.digital.core.feature.choosers.multiselect.navigation.SelectWithSearchScreen
 import com.aya.digital.core.feature.doctors.doctorcard.navigation.DoctorCardNavigationEvents
+import com.aya.digital.core.feature.doctors.doctorssearch.doctorsearchmap.navigation.DoctorSearchMapNavigationEvents
 import com.aya.digital.core.feature.tabviews.appointments.navigation.AppointmentsNavigationEvents
 import com.aya.digital.core.navigation.bottomnavigation.StartScreen
 import com.aya.digital.core.navigation.coordinator.CoordinatorEvent
@@ -22,6 +23,7 @@ import com.aya.digital.feature.bottomdialogs.successappointmentdialog.navigation
 import com.aya.digital.feature.bottomdialogs.successappointmentdialog.navigation.SuccessAppointmentDialogScreen
 import com.aya.digital.feature.bottomdialogs.dateappointmentsdialog.navigation.DateAppointmentsDialogNavigationEvents
 import com.aya.digital.feature.bottomdialogs.dateappointmentsdialog.navigation.DateAppointmentsDialogScreen
+import com.aya.digital.feature.bottomdialogs.doctorsclusterlistdialog.navigation.DoctorsClusterListDialogScreen
 import com.aya.digital.feature.rootcontainer.navigation.RootContainerNavigationEvents
 import com.github.terrakok.cicerone.Router
 import java.lang.ref.WeakReference
@@ -161,6 +163,16 @@ class PatientRootCoordinatorGraph(context: Context) : RootCoordinatorGraph {
                     )
                 )
 
+            }
+
+            is DoctorSearchMapNavigationEvents.OpenDoctorsCluster -> {
+                navigationRouter.navigateTo(
+                    DoctorsClusterListDialogScreen(
+                        "CLUSTER_LIST",
+                        "TTT",
+                        event.doctors
+                    )
+                )
             }
 
             is CoordinatorEvent.Back -> {

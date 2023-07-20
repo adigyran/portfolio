@@ -9,6 +9,7 @@ import com.aya.digital.core.domain.base.models.doctors.DoctorModel
 import com.aya.digital.core.domain.doctors.favourites.AddDoctorToFavoritesUseCase
 import com.aya.digital.core.domain.doctors.favourites.GetFavoriteDoctorsUseCase
 import com.aya.digital.core.domain.doctors.favourites.RemoveDoctorFromFavoritesUseCase
+import com.aya.digital.core.ext.intersect
 import com.aya.digital.core.feature.doctors.doctorssearch.doctorsearchmap.navigation.DoctorSearchMapNavigationEvents
 import com.aya.digital.core.feature.doctors.doctorssearch.doctorsearchmap.viewmodel.model.SelectedFilterModel
 import com.aya.digital.core.mvi.BaseViewModel
@@ -79,6 +80,10 @@ class DoctorSearchMapViewModel(
 
     fun onDoctorsClusterClicked(doctorIds: List<Int>) = intent {
         reduce { state.copy(selectedDoctor = null) }
+        val selectedDoctors =
+            state.doctors?.intersect(doctorIds) { doctorModel, i -> doctorModel.id == i }
+        if(selectedDoctors.isNullOrEmpty()) return@intent
+        coordinatorRouter.sendEvent(DoctorSearchMapNavigationEvents.OpenDoctorsCluster(selectedDoctors))
     }
 
     fun onDoctorMarkerClicked(doctorId: Int) = intent {
