@@ -17,6 +17,8 @@ import com.aya.digital.core.feature.tabviews.doctorsearchcontainer.ui.model.Doct
 import com.aya.digital.core.feature.tabviews.doctorsearchcontainer.viewmodel.DoctorSearchContainerSideEffects
 import com.aya.digital.core.feature.tabviews.doctorsearchcontainer.viewmodel.DoctorSearchContainerState
 import com.aya.digital.core.feature.tabviews.doctorsearchcontainer.viewmodel.DoctorSearchContainerViewModel
+import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
+import com.aya.digital.core.navigation.utils.ParentRouterProvider
 import com.aya.digital.core.ui.base.screens.DiFragment
 import org.kodein.di.DI
 import org.kodein.di.factory
@@ -25,7 +27,8 @@ import org.kodein.di.on
 
 
 class DoctorSearchContainerView :
-    DiFragment<ViewDoctorsearchContainerBinding, DoctorSearchContainerViewModel, DoctorSearchContainerState, DoctorSearchContainerSideEffects, DoctorSearchContainerUiModel, DoctorSearchContainerStateTransformer>() {
+    DiFragment<ViewDoctorsearchContainerBinding, DoctorSearchContainerViewModel, DoctorSearchContainerState, DoctorSearchContainerSideEffects, DoctorSearchContainerUiModel, DoctorSearchContainerStateTransformer>(),
+    ParentRouterProvider {
 
 
     private val viewModelFactory: ((Unit) -> DoctorSearchContainerViewModel) by kodein.on(
@@ -48,7 +51,7 @@ class DoctorSearchContainerView :
             DoctorSearchContainerPageAdapter(
                 childFragmentManager,
                 lifecycle,
-                requireActivity(),
+                requireContext(),
                 doctorSearchScreenTabsScreens
             )
     }
@@ -109,5 +112,7 @@ class DoctorSearchContainerView :
             }
         }
     }
+
+    override fun getParentRouter(): CoordinatorRouter = tryTyGetParentRouter()
 
 }

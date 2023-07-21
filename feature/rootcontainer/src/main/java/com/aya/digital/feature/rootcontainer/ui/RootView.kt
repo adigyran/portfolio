@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.RelativeLayout
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.FragmentManager
 import com.aya.digital.core.baseresources.databinding.ViewFragmentContainerBinding
 import com.aya.digital.core.ext.gone
@@ -104,11 +105,9 @@ class RootView :
         )
     )
 
-    /*onBackPressedDispatcher.addCallback(this *//* lifecycle owner *//*) {
-        // Back is pressed... Finishing the activity
-        finish()
-    }
-    override fun onBackPressed() {
+
+
+   /* override fun onBackPressed() {
         val fragment = supportFragmentManager.findFragmentById(com.aya.digital.core.baseresources.R.id.fragmentContainer)
         if ((fragment as? BackButtonListener)?.onBackPressed() == true) {
             return

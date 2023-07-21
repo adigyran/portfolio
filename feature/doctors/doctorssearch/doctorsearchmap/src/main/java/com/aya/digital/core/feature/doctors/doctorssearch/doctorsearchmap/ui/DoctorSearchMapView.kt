@@ -186,7 +186,7 @@ internal class DoctorSearchMapView :
 
     override fun onDestroyView() {
         super.onDestroyView()
-        binding.mapView.onDestroy()
+       // binding.mapView.onDestroy()
     }
 
     override fun provideViewModel(): DoctorSearchMapViewModel = viewModelFactory(Unit)
