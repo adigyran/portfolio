@@ -1,12 +1,16 @@
 package com.aya.digital.core.ext
 
+import android.Manifest
 import android.app.Activity
 import android.content.Context
 import android.os.Build
 import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
+import com.aya.digital.core.networkbase.server.IServerError
 
 fun Fragment.setStatusBarColor(colorId: Int) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -52,3 +56,12 @@ fun Activity.closeKeyboard() {
         imm.hideSoftInputFromWindow(it.windowToken, 0)
     }
 }
+
+/*
+fun Fragment.requestMultiplePermissions() =
+    this.registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {permissions->
+        var permissionsGranted = false
+        permissions.entries.forEach {
+            permissionsGranted = it.value
+        }
+    }*/
