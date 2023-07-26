@@ -1,9 +1,15 @@
 package com.aya.digital.core.feature.doctors.doctorssearch.doctorsearchmap.ui
 
+import android.Manifest
 import android.annotation.SuppressLint
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.aya.digital.core.ext.toggleVisibility
@@ -18,7 +24,6 @@ import com.aya.digital.core.feature.doctors.doctorssearch.doctorsearchmap.viewmo
 import com.aya.digital.core.feature.doctors.doctorssearch.doctorsearchmap.viewmodel.DoctorSearchMapViewModel
 import com.aya.digital.core.ui.adapters.base.BaseDelegateAdapter
 import com.aya.digital.core.ui.base.screens.DiFragment
-import com.aya.digital.core.ui.base.utils.EndlessRecyclerViewScrollListener
 import com.aya.digital.core.ui.delegates.doctors.doctoritem.ui.DoctorItemDelegate
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -52,8 +57,72 @@ internal class DoctorSearchMapView :
         }
     }
 
+    private val locationPermissions = arrayOf(
+        Manifest.permission.ACCESS_COARSE_LOCATION,
+        Manifest.permission.ACCESS_FINE_LOCATION
+    )
+
+    private val requestLocationPermissionsResult = registerForActivityResult(
+        ActivityResultContracts.RequestMultiplePermissions()
+    ) { permissions ->
+        when {
+            permissions.getOrDefault(Manifest.permission.ACCESS_FINE_LOCATION, false) -> {
+            }
+
+            permissions.getOrDefault(Manifest.permission.ACCESS_COARSE_LOCATION, false) -> {
+            }
+
+            else -> {
+                Toast.makeText(
+                    requireContext(),
+                    "Please allow Location in App Settings to get doctors for your location",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        }
+    }
+
+    private fun requestLocationPermissions() {
+        var displayRational = false
+        for (permission in locationPermissions) {
+            displayRational =
+                displayRational or ActivityCompat.shouldShowRequestPermissionRationale(
+                    requireActivity(),
+                    permission
+                )
+        }
+        if (displayRational) {
+            Toast.makeText(
+                requireContext(),
+                "Please allow Location in App Settings to get doctors for your location",
+                Toast.LENGTH_LONG
+            ).show()
+        } else {
+
+            requestLocationPermissionsResult.launch(
+                locationPermissions
+            )
+        }
+    }
+
+    private fun checkPermissionForLocation(): Boolean {
+        return checkPermissions(
+          locationPermissions
+        )
+    }
+
+    private fun checkPermissions(permissions: Array<String>): Boolean {
+        var shouldCheck = true
+        for (permission in permissions) {
+            shouldCheck = shouldCheck and (PackageManager.PERMISSION_GRANTED ==
+                    ContextCompat.checkSelfPermission(requireActivity(), permission))
+        }
+        return shouldCheck
+    }
+
     override fun prepareUi(savedInstanceState: Bundle?) {
         super.prepareUi(savedInstanceState)
+        getGeolocation()
         binding.mapView.onCreate(savedInstanceState)
         binding.mapView.getMapAsync {
             if (map != null) return@getMapAsync
@@ -73,6 +142,14 @@ internal class DoctorSearchMapView :
                 true
             )
             layoutManager = lm
+        }
+    }
+
+    private fun getGeolocation() {
+        if (!checkPermissionForLocation()) {
+           requestLocationPermissions()
+        } else {
+
         }
     }
 
@@ -137,7 +214,7 @@ internal class DoctorSearchMapView :
 
     override fun render(state: DoctorSearchMapState) {
         stateTransformer(state).run {
-            data?.let {list->
+            data?.let { list ->
                 binding.recycler.toggleVisibility(list.isNotEmpty())
                 adapter.items = list
                 if (binding.recycler.adapter == null) {
@@ -146,12 +223,12 @@ internal class DoctorSearchMapView :
             }
             markers?.let { list ->
                 if (list.isEmpty()) return@run
-              /*  map?.animateCamera(
-                    CameraUpdateFactory.newLatLngZoom(
-                        list.first().position,
-                        map?.cameraPosition!!.zoom + ZOOM_FACTOR
-                    )
-                )*/
+                /*  map?.animateCamera(
+                      CameraUpdateFactory.newLatLngZoom(
+                          list.first().position,
+                          map?.cameraPosition!!.zoom + ZOOM_FACTOR
+                      )
+                  )*/
                 Timber.d("RENDER $clusterManager ${list.toString()}")
                 clusterManager?.clearItems()
                 clusterManager?.addItems(list)
@@ -186,7 +263,7 @@ internal class DoctorSearchMapView :
 
     override fun onDestroyView() {
         super.onDestroyView()
-       // binding.mapView.onDestroy()
+        // binding.mapView.onDestroy()
     }
 
     override fun provideViewModel(): DoctorSearchMapViewModel = viewModelFactory(Unit)
@@ -203,6 +280,7 @@ internal class DoctorSearchMapView :
         }
         return maxDistance < CLUSTER_MAX_DISTANCE
     }
+
     companion object {
         private const val ZOOM_FACTOR = 4.5f
         private const val DEFAULT_ZOOM = 10f
