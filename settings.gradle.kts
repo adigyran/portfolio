@@ -95,6 +95,8 @@ include(":core:domain:auth")
 include(":core:domain:dictionaries")
 include(":core:domain:schedule")
 include(":core:domain:root")
+include(":core:domain:location")
+
 //ui delegates
 //components
 //fields
