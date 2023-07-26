@@ -78,12 +78,21 @@ internal class DoctorRepositoryImpl(
 
 
     override fun fetchDoctors(
+        lat: Double?,
+        long: Double?,
         scrollId: String?,
         specialityCodes: List<Int>?,
         cities: List<String>?,
         insurances: List<Int>?
     ): Flowable<RequestResult<PaginationCursorModel<DoctorData>>> =
-        practitionersDataSource.fetchPractitioners(scrollId, specialityCodes, cities, insurances)
+        practitionersDataSource.fetchPractitioners(
+            lat = lat,
+            long = long,
+            scrollId = scrollId,
+            specialityCodes = specialityCodes,
+            cities = cities,
+            insurances = insurances
+        )
             .retryOnError()
             .retrofitResponseToResult(CommonUtils::mapServerErrors)
             .mapResult({ result ->

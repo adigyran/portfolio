@@ -7,10 +7,7 @@ import io.reactivex.rxjava3.core.Flowable
 interface GetDoctorsByCoordinatesUseCase {
     operator fun invoke(
         lat:Double,
-        lon:Double,
-        cities: List<String>?,
-        specialities: List<Int>?,
-        insurances: List<Int>?
+        lon:Double
     ): Flowable<RequestResultModel<DoctorPaginationModel>>
 
 }

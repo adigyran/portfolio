@@ -11,10 +11,12 @@ interface DoctorRepository {
     fun fetchDoctorById(id: Int): Single<RequestResult<DoctorData>>
 
     fun fetchDoctors(
-        scrollId: String?,
-        specialityCodes: List<Int>?,
-        cities: List<String>?,
-        insurances: List<Int>?
+        lat:Double?= null,
+        long:Double? = null,
+        scrollId: String?= null,
+        specialityCodes: List<Int>?= null,
+        cities: List<String>?= null,
+        insurances: List<Int>? = null
     ): Flowable<RequestResult<PaginationCursorModel<DoctorData>>>
 
     fun getPatient(patientId: Int): Single<RequestResult<PatientData>>

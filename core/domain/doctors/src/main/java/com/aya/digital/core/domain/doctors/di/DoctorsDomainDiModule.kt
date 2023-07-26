@@ -1,8 +1,11 @@
 package com.aya.digital.core.domain.doctors.di
 
 import com.aya.digital.core.domain.doctors.base.GetDoctorByIdUseCase
+import com.aya.digital.core.domain.doctors.base.GetDoctorsByCoordinatesUseCase
+import com.aya.digital.core.domain.doctors.base.GetDoctorsUseCase
 import com.aya.digital.core.domain.doctors.base.impl.GetDoctorsUseCaseImpl
 import com.aya.digital.core.domain.doctors.base.impl.GetDoctorByIdUseCaseImpl
+import com.aya.digital.core.domain.doctors.base.impl.GetDoctorsByCoordinatesUseCaseImpl
 import com.aya.digital.core.domain.doctors.favourites.AddDoctorToFavoritesUseCase
 import com.aya.digital.core.domain.doctors.favourites.CheckDoctorIsInFavoritesUseCase
 import com.aya.digital.core.domain.doctors.favourites.GetFavoriteDoctorsUseCase
@@ -18,7 +21,9 @@ import org.kodein.di.singleton
 
 fun doctorsDomainDiModule() = DI.Module("doctorsDomainDiModule") {
     bind<GetDoctorByIdUseCase>() with singleton { GetDoctorByIdUseCaseImpl(instance(),instance()) }
-    bind<GetDoctorsUseCaseImpl>() with singleton { GetDoctorsUseCaseImpl(instance(),instance()) }
+    bind<GetDoctorsUseCase>() with singleton { GetDoctorsUseCaseImpl(instance(),instance()) }
+    bind<GetDoctorsByCoordinatesUseCase>() with singleton { GetDoctorsByCoordinatesUseCaseImpl(instance(),instance()) }
+
 
     //favorites
     bind<AddDoctorToFavoritesUseCase>() with singleton { AddDoctorToFavoritesUseCaseImpl(instance(),instance()) }

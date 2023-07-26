@@ -30,11 +30,21 @@ class RetrofitPractitionersNetwork(private val network: PractitionersService) :
     PractitionersDataSource {
 
     override fun fetchPractitioners(
+        lat: Double?,
+        long: Double?,
         scrollId: String?, specialityCodes: List<Int>?,
         cities: List<String>?,
         insurances: List<Int>?
     ): Flowable<PagedCursorResponse<DoctorDataResponse>> =
-        network.fetchPractitioners(scrollId, specialityCodes, insurances, cities?.firstOrNull())
+        network.fetchPractitioners(
+            lat,
+            long,
+            scrollId,
+            specialityCodes,
+            insurances,
+            cities?.firstOrNull()
+        )
+
 
     override fun fetchPractitionerById(id: Int): Single<DoctorDataResponse> =
         network.fetchPractitionerById(id)

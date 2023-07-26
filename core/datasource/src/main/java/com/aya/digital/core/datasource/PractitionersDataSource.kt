@@ -10,7 +10,10 @@ import io.reactivex.rxjava3.core.Single
 interface PractitionersDataSource {
 
     fun fetchPractitioners(
-        scrollId: String?, specialityCodes: List<Int>?,
+        lat: Double?,
+        long: Double?,
+        scrollId: String?,
+        specialityCodes: List<Int>?,
         cities: List<String>?,
         insurances: List<Int>?
     ): Flowable<PagedCursorResponse<DoctorDataResponse>>

@@ -19,6 +19,8 @@ interface PractitionersService {
     //limit=10&sortDirection=ASC
     @GET("search-app/practitioners")
     fun fetchPractitioners(
+        @Query("lat") lat: Double?,
+        @Query("long") long: Double?,
         @Query("scrollId") scrollId: String?,
         @Query("idsSpec") specialisations: List<Int>?,
         @Query("insIds") insurances: List<Int>?,
