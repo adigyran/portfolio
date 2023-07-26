@@ -6,9 +6,11 @@ import com.aya.digital.core.data.base.dataprocessing.dataloading.enums.Operation
 import com.aya.digital.core.data.base.result.models.dictionaries.MultiSelectResultModel
 import com.aya.digital.core.domain.doctors.base.GetDoctorsUseCase
 import com.aya.digital.core.domain.base.models.doctors.DoctorModel
+import com.aya.digital.core.domain.doctors.base.GetDoctorsByCoordinatesUseCase
 import com.aya.digital.core.domain.doctors.favourites.AddDoctorToFavoritesUseCase
 import com.aya.digital.core.domain.doctors.favourites.GetFavoriteDoctorsUseCase
 import com.aya.digital.core.domain.doctors.favourites.RemoveDoctorFromFavoritesUseCase
+import com.aya.digital.core.domain.location.GetLocationUseCase
 import com.aya.digital.core.ext.intersect
 import com.aya.digital.core.feature.doctors.doctorssearch.doctorsearchmap.navigation.DoctorSearchMapNavigationEvents
 import com.aya.digital.core.feature.doctors.doctorssearch.doctorsearchmap.viewmodel.model.SelectedFilterModel
@@ -16,6 +18,7 @@ import com.aya.digital.core.mvi.BaseViewModel
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
 import com.aya.digital.core.util.requestcodes.RequestCodes
 import kotlinx.coroutines.reactive.asFlow
+import kotlinx.coroutines.rx3.asFlow
 import kotlinx.coroutines.rx3.await
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.reduce
@@ -28,7 +31,9 @@ class DoctorSearchMapViewModel(
     private val getDoctorsUseCase: GetDoctorsUseCase,
     private val getFavoriteDoctors: GetFavoriteDoctorsUseCase,
     private val addDoctorToFavoritesUseCase: AddDoctorToFavoritesUseCase,
-    private val removeDoctorFromFavoritesUseCase: RemoveDoctorFromFavoritesUseCase
+    private val removeDoctorFromFavoritesUseCase: RemoveDoctorFromFavoritesUseCase,
+    private val getDoctorsByCoordinatesUseCase: GetDoctorsByCoordinatesUseCase,
+    private val getLocationUseCase: GetLocationUseCase
 ) :
     BaseViewModel<DoctorSearchMapState, DoctorSearchMapSideEffects>() {
     override fun onBack() {
@@ -42,6 +47,13 @@ class DoctorSearchMapViewModel(
         loadDoctors()
     }
 
+
+
+    fun getLocation() = intent {
+        getLocationUseCase().asFlow().collect{result ->
+            Timber.d("$result")
+        }
+    }
 
     private fun getDoctors(state: DoctorSearchMapState) = getDoctorsUseCase(
         cursor = state.cursor,

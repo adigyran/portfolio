@@ -67,9 +67,11 @@ internal class DoctorSearchMapView :
     ) { permissions ->
         when {
             permissions.getOrDefault(Manifest.permission.ACCESS_FINE_LOCATION, false) -> {
+                viewModel.getLocation()
             }
 
             permissions.getOrDefault(Manifest.permission.ACCESS_COARSE_LOCATION, false) -> {
+                viewModel.getLocation()
             }
 
             else -> {
@@ -149,7 +151,7 @@ internal class DoctorSearchMapView :
         if (!checkPermissionForLocation()) {
            requestLocationPermissions()
         } else {
-
+            viewModel.getLocation()
         }
     }
 

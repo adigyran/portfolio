@@ -20,6 +20,8 @@ fun doctorSearchMapDiModule(
                 instance(),
                 instance(),
                 instance(),
+                instance(),
+                instance(),
                 instance()
             )
         }
