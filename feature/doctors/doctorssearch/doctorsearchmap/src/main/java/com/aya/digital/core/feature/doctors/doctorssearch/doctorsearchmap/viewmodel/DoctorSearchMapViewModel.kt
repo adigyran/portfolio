@@ -11,6 +11,7 @@ import com.aya.digital.core.domain.doctors.favourites.AddDoctorToFavoritesUseCas
 import com.aya.digital.core.domain.doctors.favourites.GetFavoriteDoctorsUseCase
 import com.aya.digital.core.domain.doctors.favourites.RemoveDoctorFromFavoritesUseCase
 import com.aya.digital.core.domain.location.GetLocationUseCase
+import com.aya.digital.core.domain.location.model.ResultModel
 import com.aya.digital.core.ext.intersect
 import com.aya.digital.core.feature.doctors.doctorssearch.doctorsearchmap.navigation.DoctorSearchMapNavigationEvents
 import com.aya.digital.core.feature.doctors.doctorssearch.doctorsearchmap.viewmodel.model.SelectedFilterModel
@@ -52,6 +53,17 @@ class DoctorSearchMapViewModel(
     fun getLocation() = intent {
         getLocationUseCase().asFlow().collect{result ->
             Timber.d("$result")
+            when(result)
+            {
+                ResultModel.ShouldGoToSettings -> {
+
+                }
+                is ResultModel.ShouldShowRationaleDialog -> {
+
+                }
+                is ResultModel.Success -> {
+                }
+            }
         }
     }
 

@@ -3,6 +3,7 @@ package com.aya.digital.core.feature.doctors.doctorssearch.doctorsearchmap.ui
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
+import android.location.Location
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -27,6 +28,7 @@ import com.aya.digital.core.ui.base.screens.DiFragment
 import com.aya.digital.core.ui.delegates.doctors.doctoritem.ui.DoctorItemDelegate
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.SphericalUtil
 import com.google.maps.android.clustering.ClusterManager
 import org.kodein.di.DI
@@ -62,16 +64,21 @@ internal class DoctorSearchMapView :
         Manifest.permission.ACCESS_FINE_LOCATION
     )
 
+    @SuppressLint("MissingPermission")
     private val requestLocationPermissionsResult = registerForActivityResult(
         ActivityResultContracts.RequestMultiplePermissions()
     ) { permissions ->
         when {
             permissions.getOrDefault(Manifest.permission.ACCESS_FINE_LOCATION, false) -> {
                 viewModel.getLocation()
+                map?.isMyLocationEnabled = true
+
             }
 
             permissions.getOrDefault(Manifest.permission.ACCESS_COARSE_LOCATION, false) -> {
                 viewModel.getLocation()
+                map?.isMyLocationEnabled = true
+
             }
 
             else -> {
@@ -109,7 +116,7 @@ internal class DoctorSearchMapView :
 
     private fun checkPermissionForLocation(): Boolean {
         return checkPermissions(
-          locationPermissions
+            locationPermissions
         )
     }
 
@@ -147,19 +154,24 @@ internal class DoctorSearchMapView :
         }
     }
 
+    @SuppressLint("MissingPermission")
     private fun getGeolocation() {
         if (!checkPermissionForLocation()) {
-           requestLocationPermissions()
+            requestLocationPermissions()
         } else {
+            map?.isMyLocationEnabled = true
             viewModel.getLocation()
         }
     }
 
     private fun configureMap() {
+
         with(map?.uiSettings)
         {
             this?.isZoomControlsEnabled = true
             this?.isMyLocationButtonEnabled = true
+            this?.isMapToolbarEnabled = true
+            this?.isCompassEnabled = true
         }
 
 
@@ -212,7 +224,19 @@ internal class DoctorSearchMapView :
     override fun sideEffect(sideEffect: DoctorSearchMapSideEffects) =
         when (sideEffect) {
             is DoctorSearchMapSideEffects.Error -> processErrorSideEffect(sideEffect.error)
+            is DoctorSearchMapSideEffects.OnLocationChanged -> {
+                moveMap(sideEffect.location)
+            }
         }
+
+    private fun moveMap(location: Location) {
+        map?.animateCamera(
+            CameraUpdateFactory.newLatLngZoom(
+                LatLng(location.latitude, location.longitude),
+                map?.cameraPosition!!.zoom + ZOOM_FACTOR
+            )
+        )
+    }
 
     override fun render(state: DoctorSearchMapState) {
         stateTransformer(state).run {
