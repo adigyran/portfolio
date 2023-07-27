@@ -6,7 +6,7 @@ android {
     namespace = "com.aya.digital.feature.bottomdialogs.codedialog"
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.7"
+        kotlinCompilerExtensionVersion = "1.5.1"
     }
     buildFeatures {
         compose = true

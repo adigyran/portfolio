@@ -23,7 +23,3 @@ fun profileRepositoryDiModule() = DI.Module("profileRepositoryDiModule") {
         )
     }
 }
-
-fun test(){
-
-}

@@ -2,10 +2,11 @@
 #base
 androidGradlePlugin = "8.0.0"
 androidDesugarJdkLibs = "1.2.2"
-kotlinAndroid = "1.8.21"
+kotlinAndroid = "1.9.0"
 googleServices = "4.3.15"
 crashlitycsGradle = "2.9.2"
-kotlin = "1.8.0"
+kotlin = "1.9.0"
+ksp = "1.9.0-1.0.12"
 #base-androidx
 androidxActivity = "1.7.1"
 androidxAnnotation = "1.6.0"
@@ -77,7 +78,7 @@ cicerone = "6.6"
 #networking
 okhttp = "4.10.0"
 retrofit = "2.9.0"
-moshi = "1.14.0"
+moshi = "1.15.0"
 kotlinxSerializationJson = "1.5.1"
 kotlinxSerializationProtobuf = "1.5.1"
 
@@ -90,7 +91,7 @@ protobuf = "3.21.12"
 protobufPlugin = "0.9.0"
 
 #coroutines
-kotlinxCoroutines = "1.6.4"
+kotlinxCoroutines = "1.7.3"
 
 #rx
 rxJava = "3.1.5"
@@ -101,14 +102,14 @@ rxAndroid = "3.0.2"
 rxRelay = "3.0.1"
 
 #mvi
-orbit = "4.5.0"
+orbit = "5.0.0"
 
 #firebase
 firebase = "31.2.0"
 firebaseDistribution = "3.2.0"
 
 #DI
-kodein = "7.20.1"
+kodein = "7.20.2"
 
 #eventbus
 eventbus = "3.3.1"
@@ -315,6 +316,7 @@ android-application = { id = "com.android.application", version.ref = "androidGr
 android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlinAndroid" }
 secrets = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "gradleSecrets" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }

@@ -25,3 +25,5 @@ fun doctorMappersDiModule() = DI.Module("doctorMappersDiModule") {
 
 
 }
+
+fun chee(){}

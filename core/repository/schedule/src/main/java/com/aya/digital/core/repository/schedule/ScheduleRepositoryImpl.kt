@@ -1,4 +1,4 @@
-package com.aya.digital.core.repository.doctors
+package com.aya.digital.core.repository.schedule
 
 import com.aya.digital.core.data.schedule.Schedule
 import com.aya.digital.core.data.schedule.ScheduleSlot
