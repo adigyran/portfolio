@@ -98,6 +98,8 @@ Added Firebase Distribution\n
         currently it has some navigation problems
         you can toggle between list and map
         version 45 patient\n
-
+        doctors favorite on map
+        geolocation
+        version 46 patient\n
 
 
