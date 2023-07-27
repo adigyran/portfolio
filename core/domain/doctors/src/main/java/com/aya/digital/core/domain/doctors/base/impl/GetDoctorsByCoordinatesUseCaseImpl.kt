@@ -17,8 +17,8 @@ internal class GetDoctorsByCoordinatesUseCaseImpl(
     private val progressRepository: ProgressRepository
 ) : GetDoctorsByCoordinatesUseCase {
     override fun invoke(
-        lat: Double,
-        lon: Double
+        lat: Double?,
+        lon: Double?
     ): Flowable<RequestResultModel<DoctorPaginationModel>> =
         doctorRepository.fetchDoctors(lat = lat, long = lon)
             .trackProgress(progressRepository)

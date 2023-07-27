@@ -11,6 +11,7 @@ import com.aya.digital.core.domain.doctors.favourites.AddDoctorToFavoritesUseCas
 import com.aya.digital.core.domain.doctors.favourites.GetFavoriteDoctorsUseCase
 import com.aya.digital.core.domain.doctors.favourites.RemoveDoctorFromFavoritesUseCase
 import com.aya.digital.core.domain.location.GetLocationUseCase
+import com.aya.digital.core.domain.location.model.LocationResultModel
 import com.aya.digital.core.domain.location.model.ResultModel
 import com.aya.digital.core.ext.intersect
 import com.aya.digital.core.feature.doctors.doctorssearch.doctorsearchmap.navigation.DoctorSearchMapNavigationEvents
@@ -22,6 +23,7 @@ import kotlinx.coroutines.reactive.asFlow
 import kotlinx.coroutines.rx3.asFlow
 import kotlinx.coroutines.rx3.await
 import org.orbitmvi.orbit.syntax.simple.intent
+import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 import timber.log.Timber
@@ -49,32 +51,51 @@ class DoctorSearchMapViewModel(
     }
 
 
-
-    fun getLocation() = intent {
-        getLocationUseCase().asFlow().collect{result ->
+    fun getLocation() = intent(registerIdling = false) {
+        getLocationUseCase().asFlow().collect { result ->
             Timber.d("$result")
-            when(result)
-            {
+            when (result) {
                 ResultModel.ShouldGoToSettings -> {
 
                 }
+
                 is ResultModel.ShouldShowRationaleDialog -> {
 
                 }
+
                 is ResultModel.Success -> {
+                    processLocationResult(result.result)
                 }
             }
         }
     }
 
-    private fun getDoctors(state: DoctorSearchMapState) = getDoctorsUseCase(
-        cursor = state.cursor,
-        cities = state.selectedFilters.filterIsInstance<SelectedFilterModel.Location>()
-            .map { it.name },
-        specialities = state.selectedFilters.filterIsInstance<SelectedFilterModel.Speciality>()
-            .map { it.id },
-        insurances = state.selectedFilters.filterIsInstance<SelectedFilterModel.Insurance>()
-            .map { it.id },
+    private fun processLocationResult(result: LocationResultModel) = intent {
+        when (result) {
+            LocationResultModel.CheckLocationSettingsExceptionNotResolved -> {
+
+            }
+
+            LocationResultModel.CoordinatesNotAvailable -> {
+
+            }
+
+            LocationResultModel.LastLocationExceptionNotResolved -> {
+
+            }
+
+            is LocationResultModel.Success -> {
+                reduce { state.copy(location = result.location) }
+                postSideEffect(DoctorSearchMapSideEffects.OnLocationChanged(result.location))
+            }
+
+            is LocationResultModel.UnresolvableException -> {}
+        }
+    }
+
+    private fun getDoctors(state: DoctorSearchMapState) = getDoctorsByCoordinatesUseCase(
+        lat = state.location?.latitude,
+        lon = state.location?.longitude
     ).asFlow()
 
 
@@ -106,8 +127,12 @@ class DoctorSearchMapViewModel(
         reduce { state.copy(selectedDoctor = null) }
         val selectedDoctors =
             state.doctors?.intersect(doctorIds) { doctorModel, i -> doctorModel.id == i }
-        if(selectedDoctors.isNullOrEmpty()) return@intent
-        coordinatorRouter.sendEvent(DoctorSearchMapNavigationEvents.OpenDoctorsCluster(selectedDoctors))
+        if (selectedDoctors.isNullOrEmpty()) return@intent
+        coordinatorRouter.sendEvent(
+            DoctorSearchMapNavigationEvents.OpenDoctorsCluster(
+                selectedDoctors
+            )
+        )
     }
 
     fun onDoctorMarkerClicked(doctorId: Int) = intent {
@@ -118,37 +143,7 @@ class DoctorSearchMapViewModel(
         coordinatorRouter.sendEvent(DoctorSearchMapNavigationEvents.OpenDoctorCard(doctorId = doctorId))
     }
 
-    fun loadNextPage() = intent {
-        if (state.dataOperation.isLoading || state.dataOperation.isNextPageLoading) return@intent
-        if (state.cursor.isNullOrBlank()) return@intent
-        reduce {
-            state.copy(
-                dataOperation = DataLoadingOperationWithPagination.NextPageLoading(
-                    OperationState.PROGRESS
-                )
-            )
-        }
-        getDoctors(state)
-            .collect { resultModel ->
-                resultModel.processResult({ doctorsPagination ->
-                    reduce {
-                        val resultDoctors = addDoctors(state.doctors, doctorsPagination.doctors)
-                        state.copy(
-                            doctors = resultDoctors,
-                            cursor = doctorsPagination.cursor,
-                            dataOperation = (DataLoadingOperationWithPagination.Idle)
-                        )
-                    }
-                }, { processError(it) })
-            }
-    }
 
-    private fun addDoctors(oldDoctors: List<DoctorModel>?, newDoctors: List<DoctorModel>) =
-        mutableListOf<DoctorModel>()
-            .apply {
-                oldDoctors?.run { addAll(this) }
-                newDoctors.run { addAll(this) }
-            }
 
     fun onInsurance() = intent {
         selectFilters(state.selectedFilters.filterIsInstance<SelectedFilterModel.Insurance>())
