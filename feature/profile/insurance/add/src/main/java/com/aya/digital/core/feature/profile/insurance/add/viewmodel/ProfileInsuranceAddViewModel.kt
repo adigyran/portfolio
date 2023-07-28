@@ -143,7 +143,7 @@ class ProfileInsuranceAddViewModel(
     private fun saveInsurance() = intent {
         if (state.id == null || state.organisationName == null || state.number == null) return@intent
         val insuranceSaveModel =
-            InsuranceSaveModel(state.id!!, state.organisationId!!, state.number!!)
+            InsuranceSaveModel(state.id!!,state.photo, state.organisationId!!, state.number!!)
         val await = saveInsuranceUseCase(insuranceSaveModel).await()
         await.processResult({
             coordinatorRouter.sendEvent(

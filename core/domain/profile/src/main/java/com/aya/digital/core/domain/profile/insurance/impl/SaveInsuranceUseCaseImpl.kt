@@ -16,7 +16,7 @@ internal class SaveInsuranceUseCaseImpl(private val profileRepository: ProfileRe
                                         private val progressRepository: ProgressRepository
 ) : SaveInsuranceUseCase {
     override fun invoke(saveModel: InsuranceSaveModel): Single<RequestResultModel<Boolean>> =
-        profileRepository.saveInsurance(saveModel.id, InsurancePolicyBody(saveModel.number,saveModel.name))
+        profileRepository.saveInsurance(saveModel.id, InsurancePolicyBody(saveModel.number,saveModel.name,saveModel.photo))
             .trackProgress(progressRepository)
             .mapResult({it.asResultModel()},{it.toModelError()})
 }
