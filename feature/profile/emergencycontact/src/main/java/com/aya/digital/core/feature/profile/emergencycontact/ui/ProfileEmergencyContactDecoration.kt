@@ -6,7 +6,7 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.aya.digital.core.ext.dpToPx
 import com.aya.digital.core.ui.delegates.components.fields.name.model.ui.NameFieldDelegate
-import com.aya.digital.core.ui.delegates.profile.info.ui.EmergencyContactInfoDelegate
+import com.aya.digital.core.ui.delegates.profile.emergencycontactinfo.ui.EmergencyContactInfoDelegate
 
 internal class ProfileEmergencyContactDecoration : RecyclerView.ItemDecoration() {
 

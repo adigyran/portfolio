@@ -8,7 +8,7 @@
 
     <include
         android:id="@+id/toolbar"
-        layout="@layout/toolbar_home_blue" />
+        layout="@layout/toolbar_doctors_blue" />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

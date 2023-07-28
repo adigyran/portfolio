@@ -41,6 +41,49 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbarLogo" />
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/filterFields"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/bg_white_rounded"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title">
+
+        <com.aya.digital.core.designsystem.views.custom.ToolbarFilterFieldView
+            android:id="@+id/speciality"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:filterLabel="@string/filter_field_speciality"
+            app:filterIcon ="@drawable/ic_search_speciality"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.aya.digital.core.designsystem.views.custom.ToolbarFilterFieldView
+            android:id="@+id/location"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:filterLabel="@string/filter_field_location"
+            app:filterIcon ="@drawable/ic_search_location"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/speciality" />
+
+        <com.aya.digital.core.designsystem.views.custom.ToolbarFilterFieldView
+            android:id="@+id/insurance"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:filterLabel="@string/filter_field_insurance"
+            app:filterIcon ="@drawable/ic_search_insurance"
+            app:layout_constraintTop_toBottomOf="@id/location"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <Button
         android:id="@+id/btnFindDoctor"
         style="@style/Widget.App.Button.FilledButton.DarkBlue"
@@ -51,7 +94,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/title" />
+        app:layout_constraintTop_toBottomOf="@id/filterFields" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

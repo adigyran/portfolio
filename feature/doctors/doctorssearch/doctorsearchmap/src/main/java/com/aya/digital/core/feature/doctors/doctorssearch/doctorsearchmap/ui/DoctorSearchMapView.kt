@@ -28,6 +28,7 @@ import com.aya.digital.core.ui.base.screens.DiFragment
 import com.aya.digital.core.ui.delegates.doctors.doctoritem.ui.DoctorItemDelegate
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.SphericalUtil
 import com.google.maps.android.clustering.ClusterManager
@@ -58,6 +59,8 @@ internal class DoctorSearchMapView :
             }
         }
     }
+
+    private var mMap: MapView? = null
 
     private val locationPermissions = arrayOf(
         Manifest.permission.ACCESS_COARSE_LOCATION,
@@ -132,8 +135,9 @@ internal class DoctorSearchMapView :
     override fun prepareUi(savedInstanceState: Bundle?) {
         super.prepareUi(savedInstanceState)
         getGeolocation()
-        binding.mapView.onCreate(savedInstanceState)
-        binding.mapView.getMapAsync {
+        mMap = binding.mapView
+        mMap?.onCreate(savedInstanceState)
+        mMap?.getMapAsync {
             if (map != null) return@getMapAsync
             map = it
             configureMap()
@@ -267,29 +271,24 @@ internal class DoctorSearchMapView :
     }
 
     override fun onResume() {
-        binding.mapView.onResume()
         super.onResume()
+        mMap?.onResume()
     }
 
 
     override fun onPause() {
         super.onPause()
-        binding.mapView.onPause()
+        mMap?.onPause()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        binding.mapView.onDestroy()
+        mMap?.onDestroy()
     }
 
     override fun onLowMemory() {
         super.onLowMemory()
-        binding.mapView.onLowMemory()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        // binding.mapView.onDestroy()
+        mMap?.onLowMemory()
     }
 
     override fun provideViewModel(): DoctorSearchMapViewModel = viewModelFactory(Unit)

@@ -1,17 +1,13 @@
-package com.aya.digital.core.ui.delegates.profile.info.ui
+package com.aya.digital.core.ui.delegates.profile.emergencycontactinfo.ui
 
 
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.aya.digital.core.ui.adapters.base.BaseDelegate
 import com.aya.digital.core.ui.adapters.base.BaseViewHolder
 import com.aya.digital.core.ui.adapters.base.DiffItem
 import com.aya.digital.core.ui.delegates.features.profile.emergencycontact.databinding.ItemEmergencyContactInfoBinding
-import com.aya.digital.core.ui.delegates.profile.info.model.EmergencyContactInfoUIModel
-import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
-
+import com.aya.digital.core.ui.delegates.profile.emergencycontactinfo.model.EmergencyContactInfoUIModel
 
 
 class EmergencyContactInfoDelegate() :

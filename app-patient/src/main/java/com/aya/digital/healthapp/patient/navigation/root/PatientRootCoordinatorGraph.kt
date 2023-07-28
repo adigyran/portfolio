@@ -5,6 +5,8 @@ import androidx.fragment.app.FragmentManager
 import com.aya.digital.core.feature.auth.restorepassword.navigation.RestorePasswordNavigationEvents
 import com.aya.digital.core.feature.auth.restorepassword.navigation.RestorePasswordOperationStateParam
 import com.aya.digital.core.feature.auth.restorepassword.navigation.RestorePasswordScreen
+import com.aya.digital.core.feature.bottomnavhost.navigation.BottomNavHostCoordinator
+import com.aya.digital.core.feature.bottomnavhost.navigation.BottomNavHostNavigationEvents
 import com.aya.digital.core.feature.bottomnavhost.navigation.BottomNavHostScreen
 import com.aya.digital.core.feature.choosers.multiselect.navigation.SelectWithSearchNavigationEvents
 import com.aya.digital.core.feature.choosers.multiselect.navigation.SelectWithSearchScreen
@@ -174,6 +176,8 @@ class PatientRootCoordinatorGraph(context: Context) : RootCoordinatorGraph {
                     )
                 )
             }
+
+            is BottomNavHostNavigationEvents.Finish -> navigationRouter.exit()
 
             is CoordinatorEvent.Back -> {
                 navigationRouter.exit()

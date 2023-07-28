@@ -51,7 +51,7 @@ internal class ProfileSecurityChangePhoneView :
         super.prepareCreatedUi(savedInstanceState)
         binding.toolbar.backButton bindClick {viewModel.onBack()}
         binding.saveBtn bindClick {viewModel.saveClicked()}
-        binding.toolbar.title.text = "Change password"
+        binding.toolbar.title.text = "Change phone"
         recyclers.add(binding.recycler)
         with(binding.recycler) {
             itemAnimator = null

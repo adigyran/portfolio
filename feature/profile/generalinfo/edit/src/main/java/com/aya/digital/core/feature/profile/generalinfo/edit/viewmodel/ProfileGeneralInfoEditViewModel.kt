@@ -1,12 +1,14 @@
 package com.aya.digital.core.feature.profile.generalinfo.edit.viewmodel
 
 import android.net.Uri
+import com.aya.digital.core.data.base.result.models.profile.ProfileSaveResult
 import com.aya.digital.core.domain.profile.generalinfo.edit.SaveProfileInfoUseCase
 import com.aya.digital.core.domain.profile.generalinfo.edit.SetAvatarUseCase
 import com.aya.digital.core.domain.profile.generalinfo.edit.model.ProfileEditModel
 import com.aya.digital.core.domain.profile.generalinfo.view.GetProfileInfoUseCase
 import com.aya.digital.core.domain.profile.generalinfo.view.model.ProfileInfoModel
 import com.aya.digital.core.feature.profile.generalinfo.edit.FieldsTags
+import com.aya.digital.core.feature.profile.generalinfo.edit.navigation.ProfileGeneralInfoEditNavigationEvents
 import com.aya.digital.core.feature.profile.generalinfo.edit.ui.ProfileGeneralInfoEditView
 import com.aya.digital.core.model.ProfileSex
 import com.aya.digital.core.mvi.BaseViewModel
@@ -104,7 +106,9 @@ class ProfileGeneralInfoEditViewModel(
     fun onSaveProfileClicked() = intent {
         val profileEditModel = getProfileEditModel(state)
                 val await = saveProfileInfoUseCase(profileEditModel).await()
-                await.processResult({if(it) onBack()}, { processError(it) })
+                await.processResult({if(it) coordinatorRouter.sendEvent(ProfileGeneralInfoEditNavigationEvents.FinishWithResult(param.requestCode,
+                    ProfileSaveResult(true)
+                ))}, { processError(it) })
     }
 
     fun birthDaySelected(date: LocalDate) = intent {

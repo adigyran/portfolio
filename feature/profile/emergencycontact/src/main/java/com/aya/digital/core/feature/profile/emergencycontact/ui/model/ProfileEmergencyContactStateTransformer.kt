@@ -6,7 +6,7 @@ import com.aya.digital.core.feature.profile.emergencycontact.viewmodel.ProfileEm
 import com.aya.digital.core.mvi.BaseStateTransformer
 import com.aya.digital.core.ui.adapters.base.DiffItem
 import com.aya.digital.core.ui.delegates.components.fields.name.model.NameFieldUIModel
-import com.aya.digital.core.ui.delegates.profile.info.model.EmergencyContactInfoUIModel
+import com.aya.digital.core.ui.delegates.profile.emergencycontactinfo.model.EmergencyContactInfoUIModel
 
 
 class ProfileEmergencyContactStateTransformer(context: Context) :

@@ -432,7 +432,7 @@ class VideoCallScreenView :
         Timber.d("$permissions")
         var permissionsGranted = false
         permissions.entries.forEach {
-            permissionsGranted = it.value
+            permissionsGranted = PackageManager.PERMISSION_GRANTED == ContextCompat.checkSelfPermission(requireActivity(), it.key) && it.value
         }
         if (permissionsGranted) {
             Timber.d("permission granted")
