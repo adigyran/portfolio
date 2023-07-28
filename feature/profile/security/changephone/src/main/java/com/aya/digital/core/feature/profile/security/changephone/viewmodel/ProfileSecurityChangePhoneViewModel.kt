@@ -39,7 +39,9 @@ internal class ProfileSecurityChangePhoneViewModel(
     private fun validatePhone() = intent {
         state.code?.let { code ->
             val await = changePhoneConfirmCodeUseCase(code = code).await()
-            await.processResult({}, { processError(it) })
+            await.processResult({result ->
+
+            }, { processError(it) })
         }
     }
 

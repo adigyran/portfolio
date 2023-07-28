@@ -38,8 +38,8 @@ interface ProfileService {
     @GET("api/profile/phone-status")
     fun getPhoneVerifiedStatus():Single<Boolean>
 
-    @GET("api/profile/phone-verify")
-    fun sendPhoneVerifyCode(@Query("code") code:String):Single<Unit>
+    @POST("api/profile/phone-verify")
+    fun sendPhoneVerifyCode(@Query("code") code:String):Single<Boolean>
 
     @POST("api/profile/insurances")
     fun addInsurance(@Body insurancePolicyBody: InsurancePolicyBody):Single<Unit>

@@ -48,7 +48,7 @@ interface ProfileDataSource {
 
     fun getPhoneVerifiedStatus():Single<Boolean>
 
-    fun sendPhoneVerifyCode(code:String):Single<Unit>
+    fun sendPhoneVerifyCode(code:String):Single<Boolean>
     fun addInsurance(insurancePolicyBody: InsurancePolicyBody):Single<Unit>
 
     fun saveInsurance(insuranceId:Int, insurancePolicyBody: InsurancePolicyBody) : Single<Unit>

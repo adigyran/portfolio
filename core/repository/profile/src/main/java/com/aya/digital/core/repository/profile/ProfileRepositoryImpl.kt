@@ -188,7 +188,7 @@ internal class ProfileRepositoryImpl(
             .retryOnError()
             .retrofitResponseToResult(CommonUtils::mapServerErrors)
             .mapResult({
-                true.asResult()
+                it.asResult()
             }, { it })
 
     private fun uploadAvatarBody(body: RequestBody): Single<RequestResult<Boolean>> =

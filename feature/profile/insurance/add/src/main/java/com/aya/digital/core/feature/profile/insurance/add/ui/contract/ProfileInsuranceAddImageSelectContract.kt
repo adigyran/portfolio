@@ -14,7 +14,11 @@ class ProfileInsuranceAddImageSelectContract : ActivityResultContract<Void?, Uri
 
     override fun createIntent(context: Context, input: Void?): Intent {
 
-        return Intent(MediaStore.ACTION_PICK_IMAGES).apply { type = MIME_TYPE_IMAGE }
+        return Intent(if (PhotoPickerAvailabilityChecker.isPhotoPickerAvailable()) {
+            Intent(MediaStore.ACTION_PICK_IMAGES)
+        } else {
+            Intent(Intent.ACTION_OPEN_DOCUMENT)
+        }).apply { type = MIME_TYPE_IMAGE }
     }
 
     override fun parseResult(resultCode: Int, intent: Intent?): Uri? {
