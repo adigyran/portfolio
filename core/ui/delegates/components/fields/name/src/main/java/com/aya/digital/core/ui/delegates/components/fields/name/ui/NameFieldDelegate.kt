@@ -1,23 +1,14 @@
-package com.aya.digital.core.ui.delegates.components.fields.name.model.ui
+package com.aya.digital.core.ui.delegates.components.fields.name.ui
 
 import android.text.Editable
-import android.text.Spanned
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.widget.doAfterTextChanged
-import androidx.core.widget.doOnTextChanged
-import com.aya.digital.core.ext.colors
-import com.aya.digital.core.ext.strings
-import com.aya.digital.core.localisation.R
 import com.aya.digital.core.ui.adapters.base.BaseDelegate
 import com.aya.digital.core.ui.adapters.base.BaseViewHolder
 import com.aya.digital.core.ui.adapters.base.DiffItem
-import com.aya.digital.core.ui.base.ext.createSpannableText
-import com.aya.digital.core.ui.base.utils.LinkTouchMovementMethod
 import com.aya.digital.core.ui.delegates.components.fields.name.databinding.ItemNameFieldBinding
 import com.aya.digital.core.ui.delegates.components.fields.name.model.NameFieldUIModel
-import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
 
 
 class NameFieldDelegate(private val delegateListeners: NameFieldDelegateListeners) :

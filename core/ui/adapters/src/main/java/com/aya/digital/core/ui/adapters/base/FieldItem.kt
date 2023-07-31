@@ -5,6 +5,6 @@ abstract class FieldItem(val label: String, val text: String?, val error:String?
         newItem is FieldItem && this.label == newItem.label
 
     override fun areContentsTheSame(newItem: DiffItem): Boolean =
-        newItem is FieldItem && this.label == newItem.label && this.text == newItem.text
+        newItem is FieldItem && this.text == newItem.text
                 && this.error == newItem.error
 }

@@ -1,18 +1,15 @@
 package com.aya.digital.core.feature.profile.generalinfo.edit.ui
 
-import android.net.Uri
 import android.os.Bundle
 import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.aya.digital.core.domain.profile.generalinfo.edit.model.ProfileEditModel
 import com.aya.digital.core.domain.profile.generalinfo.view.model.ProfileInfoModel
 import com.aya.digital.core.ext.argument
 import com.aya.digital.core.ext.bindClick
 import com.aya.digital.core.ext.createFragment
-import com.aya.digital.core.ext.dpToPx
 import com.aya.digital.core.feature.profile.generalinfo.edit.databinding.ViewProfileGeneralinfoEditBinding
 import com.aya.digital.core.feature.profile.generalinfo.edit.di.profileGeneralInfoEditDiModule
 import com.aya.digital.core.feature.profile.generalinfo.edit.ui.model.ProfileGeneralInfoEditStateTransformer
@@ -26,13 +23,11 @@ import com.aya.digital.core.ui.delegates.components.fields.dropdown.ui.DropDownF
 import com.aya.digital.core.ui.delegates.components.fields.dropdown.ui.DropDownFieldDelegateListeners
 import com.aya.digital.core.ui.delegates.components.fields.selection.ui.SelectionFieldDelegateListeners
 import com.aya.digital.core.ui.delegates.components.fields.name.model.ui.*
+import com.aya.digital.core.ui.delegates.components.fields.name.ui.NameFieldDelegate
+import com.aya.digital.core.ui.delegates.components.fields.name.ui.NameFieldDelegateListeners
 import com.aya.digital.core.ui.delegates.components.fields.selection.ui.SelectionFieldDelegate
 import com.aya.digital.core.ui.delegates.components.fields.validated.ui.ValidatedFieldDelegate
 import com.aya.digital.core.ui.delegates.components.fields.validated.ui.ValidatedFieldDelegateListeners
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
-import com.bumptech.glide.load.resource.bitmap.CircleCrop
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.google.android.material.datepicker.MaterialDatePicker
 import kotlinx.parcelize.Parcelize
 import org.kodein.di.DI

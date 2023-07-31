@@ -17,8 +17,8 @@ import com.aya.digital.feature.bottomdialogs.createappointmentdialog.viewmodel.C
 import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.ui.adapters.base.BaseDelegateAdapter
 import com.aya.digital.core.ui.base.screens.DiBottomSheetDialogFragment
-import com.aya.digital.core.ui.delegates.components.fields.name.model.ui.NameFieldDelegate
-import com.aya.digital.core.ui.delegates.components.fields.name.model.ui.NameFieldDelegateListeners
+import com.aya.digital.core.ui.delegates.components.fields.name.ui.NameFieldDelegate
+import com.aya.digital.core.ui.delegates.components.fields.name.ui.NameFieldDelegateListeners
 import com.aya.digital.core.ui.delegates.doctorcard.doctorslot.ui.DoctorDateTitleDelegate
 import com.aya.digital.core.ui.delegates.doctorcard.doctorslot.ui.DoctorSlotDelegate
 import com.aya.digital.feature.bottomdialogs.createappointmentdialog.databinding.ViewCreateAppointmentDialogBinding
@@ -57,7 +57,7 @@ class CreateAppointmentDialogView :
     private val adapter by lazy(LazyThreadSafetyMode.NONE) {
         BaseDelegateAdapter.create {
             delegate { DoctorSlotDelegate(viewModel::onSlotClicked) }
-            delegate { NameFieldDelegate(NameFieldDelegateListeners(viewModel::onNameFieldChanged))}
+            delegate { NameFieldDelegate(NameFieldDelegateListeners(viewModel::onNameFieldChanged)) }
             delegate { DoctorDateTitleDelegate() }
         }
     }

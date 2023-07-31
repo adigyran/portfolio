@@ -23,8 +23,8 @@ import com.aya.digital.core.feature.profile.insurance.add.viewmodel.ProfileInsur
 import com.aya.digital.core.feature.profile.insurance.add.viewmodel.ProfileInsuranceAddViewModel
 import com.aya.digital.core.ui.adapters.base.BaseDelegateAdapter
 import com.aya.digital.core.ui.base.screens.DiFragment
-import com.aya.digital.core.ui.delegates.components.fields.name.model.ui.NameFieldDelegate
-import com.aya.digital.core.ui.delegates.components.fields.name.model.ui.NameFieldDelegateListeners
+import com.aya.digital.core.ui.delegates.components.fields.name.ui.NameFieldDelegate
+import com.aya.digital.core.ui.delegates.components.fields.name.ui.NameFieldDelegateListeners
 import com.aya.digital.core.ui.delegates.components.fields.selection.ui.SelectionFieldDelegate
 import com.aya.digital.core.ui.delegates.components.fields.selection.ui.SelectionFieldDelegateListeners
 import com.aya.digital.core.ui.delegates.profile.emergencycontactinfo.ui.InsurancePolicyPhotoDelegate

@@ -5,8 +5,9 @@ import com.aya.digital.core.ui.adapters.base.DiffItem
 data class EmergencyContactInfoUIModel(val label: String, val value: String) : DiffItem {
 
     override fun areItemsTheSame(newItem: DiffItem): Boolean =
-        newItem is EmergencyContactInfoUIModel
+        newItem is EmergencyContactInfoUIModel && newItem.label == this.label
 
     override fun areContentsTheSame(newItem: DiffItem): Boolean =
         newItem is EmergencyContactInfoUIModel && newItem.value == this.value
+
 }

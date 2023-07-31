@@ -17,8 +17,8 @@ import com.aya.digital.core.ui.base.screens.DiFragment
 import com.aya.digital.core.ui.base.utils.LinkTouchMovementMethod
 import com.aya.digital.core.ui.delegates.components.fields.emailphone.ui.EmailPhoneDelegateListeners
 import com.aya.digital.core.ui.delegates.components.fields.emailphone.ui.EmailPhoneFieldDelegate
-import com.aya.digital.core.ui.delegates.components.fields.name.model.ui.NameFieldDelegate
-import com.aya.digital.core.ui.delegates.components.fields.name.model.ui.NameFieldDelegateListeners
+import com.aya.digital.core.ui.delegates.components.fields.name.ui.NameFieldDelegate
+import com.aya.digital.core.ui.delegates.components.fields.name.ui.NameFieldDelegateListeners
 import com.aya.digital.core.ui.delegates.components.fields.password.ui.PasswordFieldDelegate
 import com.aya.digital.core.ui.delegates.components.fields.password.ui.PasswordFieldDelegateListeners
 import com.aya.digital.core.ui.delegates.components.fields.selection.ui.SelectionFieldDelegate
