@@ -431,9 +431,12 @@ class VideoCallScreenView :
     ) { permissions ->
         Timber.d("$permissions")
         var permissionsGranted = false
-        permissions.entries.forEach {
-            permissionsGranted = PackageManager.PERMISSION_GRANTED == ContextCompat.checkSelfPermission(requireActivity(), it.key) && it.value
+        for (permission in permissions)
+        {
+            permissionsGranted = permission.value
+            if (!permissionsGranted) break
         }
+
         if (permissionsGranted) {
             Timber.d("permission granted")
             audioSwitch.start { audioDevices, audioDevice -> updateAudioDeviceIcon(audioDevice) }

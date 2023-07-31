@@ -101,7 +101,18 @@ internal class AppointmentCardView :
         when (sideEffect) {
             is AppointmentCardSideEffects.Error -> processErrorSideEffect(sideEffect.error)
             is AppointmentCardSideEffects.ShowCustomDateDialog -> showDatePicker(sideEffect.selectableDates)
+            AppointmentCardSideEffects.ShowTelemedicineNotReadyDialog -> showTelemedicineNotReadyDialog()
         }
+
+    private fun showTelemedicineNotReadyDialog() {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle("Error")
+            .setMessage("Telemedicine call available only before 15 mins of appointment time. Please wait")
+            .setPositiveButton("OK") { dialog, which ->
+                dialog.dismiss()
+            }
+            .show()
+    }
 
     override fun render(state: AppointmentCardState) {
         stateTransformer(state).run {

@@ -7,4 +7,6 @@ import kotlinx.datetime.LocalDate
 sealed class AppointmentCardSideEffects:BaseSideEffect {
     data class Error(val error:BaseViewModel.ErrorSideEffect) : AppointmentCardSideEffects()
     data class ShowCustomDateDialog(val selectableDates:List<LocalDate>) : AppointmentCardSideEffects()
+
+    object ShowTelemedicineNotReadyDialog:AppointmentCardSideEffects()
 }

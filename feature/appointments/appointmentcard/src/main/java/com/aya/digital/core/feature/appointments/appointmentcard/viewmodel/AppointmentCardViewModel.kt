@@ -126,8 +126,11 @@ internal class AppointmentCardViewModel(
             val currentTimeInstant = Clock.System.now()
             val appointmentTimeInstant = startDate.toInstant(TimeZone.currentSystemDefault())
             val appointmentTimeStartInstant = appointmentTimeInstant.minus(15, DateTimeUnit.MINUTE)
-            if (currentTimeInstant < appointmentTimeStartInstant) return@intent
-            coordinatorRouter.sendEvent(AppointmentCardNavigationEvents.OpenVideoCall(param.appointmentId))
+            if (currentTimeInstant < appointmentTimeStartInstant) {
+                postSideEffect(AppointmentCardSideEffects.ShowTelemedicineNotReadyDialog)
+            } else {
+                coordinatorRouter.sendEvent(AppointmentCardNavigationEvents.OpenVideoCall(param.appointmentId))
+            }
         }
     }
 
