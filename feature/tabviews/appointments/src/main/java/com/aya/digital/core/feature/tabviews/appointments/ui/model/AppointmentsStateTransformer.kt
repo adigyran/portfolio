@@ -9,6 +9,7 @@ import com.aya.digital.core.mvi.BaseStateTransformer
 import com.aya.digital.core.ui.adapters.base.DiffItem
 import com.aya.digital.core.ui.delegates.appointments.patientappointment.model.AppointmentUiStatus
 import com.aya.digital.core.ui.delegates.appointments.patientappointment.model.PatientAppointmentMoreUIModel
+import com.aya.digital.core.ui.delegates.appointments.patientappointment.model.PatientAppointmentSpacerUIModel
 import com.aya.digital.core.ui.delegates.appointments.patientappointment.model.PatientAppointmentUIModel
 import com.aya.digital.core.ui.delegates.appointments.patientappointment.model.PatientAppointmentsStatusFooterUIModel
 import com.aya.digital.core.ui.delegates.appointments.patientappointment.model.PatientAppointmentsStatusHeaderUIModel
@@ -65,7 +66,7 @@ class AppointmentsStateTransformer(
         } else
         {
             addAll(appointments.take(1).toAppointmentUiModels())
-            if (appointments.size>1) add(PatientAppointmentMoreUIModel(status.mapToUiStatus()))
+            if (appointments.size>1) add(PatientAppointmentMoreUIModel(status.mapToUiStatus())) else add(PatientAppointmentSpacerUIModel(status.mapToUiStatus()))
         }
     }
 
