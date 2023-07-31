@@ -1,6 +1,8 @@
 package com.aya.digital.core.feature.profile.security.changephone.viewmodel
 
 import com.aya.digital.core.data.base.result.models.code.CodeResultModel
+import com.aya.digital.core.data.base.result.models.profile.ProfileEmailChangeResult
+import com.aya.digital.core.data.base.result.models.profile.ProfilePhoneChangeResult
 import com.aya.digital.core.domain.profile.security.changephone.ChangePhoneConfirmCodeUseCase
 import com.aya.digital.core.domain.profile.security.changephone.ChangePhoneGetCodeUseCase
 import com.aya.digital.core.domain.profile.security.changephone.ChangePhoneUseCase
@@ -40,7 +42,9 @@ internal class ProfileSecurityChangePhoneViewModel(
         state.code?.let { code ->
             val await = changePhoneConfirmCodeUseCase(code = code).await()
             await.processResult({result ->
-
+                coordinatorRouter.sendEvent(ProfileSecurityChangePhoneNavigationEvents.FinishWithResult(param.requestCode,
+                    ProfilePhoneChangeResult(true)
+                ))
             }, { processError(it) })
         }
     }
