@@ -35,7 +35,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/titleTv" />
-    <androidx.compose.ui.platform.ComposeView
+
+    <com.mukeshsolanki.OtpView
         android:id="@+id/otp_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -43,6 +44,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="24dp"
+        android:inputType="number"
+        android:itemBackground="@drawable/bg_otp_item"
+        android:textAllCaps="true"
+        android:textColor="@color/text_black"
+        app:OtpHideLineWhenFilled="true"
+        android:focusableInTouchMode="true"
+        app:OtpItemCount="6"
+        app:OtpItemSpacing="12dp"
+        app:OtpState_filled="true"
+        app:OtpViewType="line"
         />
     <TextView
         android:id="@+id/bottomDescriptionTv"

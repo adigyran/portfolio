@@ -23,8 +23,6 @@ import com.aya.digital.core.ui.base.screens.DiBottomSheetDialogFragment
 import com.aya.digital.feature.bottomdialogs.codedialog.databinding.ViewCodeBottomDialogBinding
 import com.aya.digital.feature.bottomdialogs.codedialog.ui.model.CodeDialogStateTransformer
 import com.aya.digital.feature.bottomdialogs.codedialog.ui.model.CodeDialogUiModel
-import com.mukesh.OTP_VIEW_TYPE_BORDER
-import com.mukesh.OtpView
 import kotlinx.parcelize.Parcelize
 import org.kodein.di.DI
 import org.kodein.di.factory
@@ -66,7 +64,7 @@ class CodeDialogView :
     override fun prepareUi(savedInstanceState: Bundle?) {
         super.prepareUi(savedInstanceState)
        // binding.otpView.setOtpCompletionListener(viewModel::codeChanged)
-        binding.otpView.apply {
+       /* binding.otpView.apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
                 var otpValue by remember { mutableStateOf("") }
@@ -86,7 +84,10 @@ class CodeDialogView :
                     )
                 }
             }
-        }
+        }*/
+        binding.otpView.setOtpCompletionListener {
+            binding.sendBtn.requestFocus()
+            viewModel.codeChanged(it) }
         binding.btnClose bindClick {viewModel.close()}
         binding.sendBtn bindClick {viewModel.sendCode()}
     }

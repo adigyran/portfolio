@@ -20,8 +20,8 @@ class CodeDialogStateTransformer(context : Context): BaseStateTransformer<CodeDi
 
     private fun CodeDialogInputState.getDescription() = when(this)
     {
-        is CodeDialogInputState.ConfirmEmail -> "To confirm the email, enter the code we sent to: %s".format(this.email)
-        is CodeDialogInputState.ConfirmPhone ->"To confirm the phone, enter the code we sent to: %s".format(this.phone.getMaskedText(CommonMasks.getUsPhoneValidator()))
+        is CodeDialogInputState.ConfirmEmail -> "To confirm the email, enter the code we sent to: %s and press enter".format(this.email)
+        is CodeDialogInputState.ConfirmPhone ->"To confirm the phone, enter the code we sent to: %s and press enter".format(this.phone.getMaskedText(CommonMasks.getUsPhoneValidator()))
     }
     private fun CodeDialogInputState.getBottomDescription() = when(this)
     {
