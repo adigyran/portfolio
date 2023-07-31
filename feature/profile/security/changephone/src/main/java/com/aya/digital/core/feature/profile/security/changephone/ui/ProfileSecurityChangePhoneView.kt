@@ -103,13 +103,14 @@ internal class ProfileSecurityChangePhoneView :
 
     @Parcelize
     class Param(
-        val requestCode: String
+        val requestCode: String,
+        val phone:String
     ) : Parcelable
 
     companion object {
-        fun getNewInstance(requestCode: String): ProfileSecurityChangePhoneView =
+        fun getNewInstance(requestCode: String,phone: String): ProfileSecurityChangePhoneView =
             createFragment(
-                Param(requestCode)
+                Param(requestCode,phone)
             )
     }
 

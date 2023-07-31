@@ -13,7 +13,7 @@ sealed class RootContainerNavigationEvents : CoordinatorEvent() {
     data class SelectSingleItem(val requestCode:String, val selectedItem:Int?) : RootContainerNavigationEvents()
 
 
-    data class EnterCode(val requestCode:String, val email:String) : RootContainerNavigationEvents()
+    data class EnterCode(val requestCode:String, val value:String) : RootContainerNavigationEvents()
     data class RestorePassword(val requestCode:String) : RootContainerNavigationEvents()
     data class ChangeTempPassword(val requestCode:String) : RootContainerNavigationEvents()
 

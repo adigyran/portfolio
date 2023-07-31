@@ -116,11 +116,11 @@ class CodeDialogView :
     @Parcelize
     class Param(
         val requestCode: String,
-        val email: String
+        val value: String
     ) : Parcelable
 
     companion object {
-        fun getNewInstance(requestCode: String, email: String): CodeDialogView =
-            createFragment(Param(requestCode, email))
+        fun getNewInstance(requestCode: String, value: String): CodeDialogView =
+            createFragment(Param(requestCode, value))
     }
 }

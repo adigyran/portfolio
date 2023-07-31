@@ -1,25 +1,16 @@
 package com.aya.digital.core.ui.delegates.components.fields.emailphone.ui
 
 import android.text.Editable
-import android.text.Spanned
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.widget.doAfterTextChanged
-import androidx.core.widget.doOnTextChanged
-import com.aya.digital.core.ext.bindClick
-import com.aya.digital.core.ext.colors
-import com.aya.digital.core.ext.strings
-import com.aya.digital.core.localisation.R
 import com.aya.digital.core.ui.adapters.base.BaseDelegate
 import com.aya.digital.core.ui.adapters.base.BaseViewHolder
 import com.aya.digital.core.ui.adapters.base.DiffItem
-import com.aya.digital.core.ui.base.ext.createSpannableText
-import com.aya.digital.core.ui.base.utils.LinkTouchMovementMethod
 import com.aya.digital.core.ui.delegates.components.fields.emailphone.databinding.ItemEmailphoneFieldBinding
+import com.aya.digital.core.ui.delegates.components.fields.emailphone.model.EmailPhoneFieldMode
 import com.aya.digital.core.ui.delegates.components.fields.emailphone.model.EmailPhoneFieldUIModel
 
-import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
 import ru.tinkoff.decoro.watchers.MaskFormatWatcher
 
 class EmailPhoneFieldDelegate(private val delegateListeners: EmailPhoneDelegateListeners) :
@@ -39,7 +30,7 @@ class EmailPhoneFieldDelegate(private val delegateListeners: EmailPhoneDelegateL
 
     inner class ViewHolder(private val binding: ItemEmailphoneFieldBinding) :
         BaseViewHolder<EmailPhoneFieldUIModel>(binding.root) {
-        private lateinit var maskFormatWatcher: MaskFormatWatcher
+        private var maskFormatWatcher: MaskFormatWatcher? = null
 
         private var fieldSet = false
 
@@ -55,21 +46,50 @@ class EmailPhoneFieldDelegate(private val delegateListeners: EmailPhoneDelegateL
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) = Unit
 
             override fun afterTextChanged(s: Editable) =
-                delegateListeners.inputFieldChangeListener(item.tag, s.toString())
+                delegateListeners.inputFieldChangeListener(item.tag, getFieldValue(s))
+        }
+
+
+        private fun getFieldValue(s: Editable) = when(item.mode)
+        {
+            EmailPhoneFieldMode.EMAIL_MODE -> s.toString()
+            EmailPhoneFieldMode.PHONE_MODE -> maskFormatWatcher?.mask?.toUnformattedString()?:""
+        }
+        private fun formattedValue(): String? {
+            if(item.mode == EmailPhoneFieldMode.EMAIL_MODE) return item.text
+            val mask = item.mask
+            mask?.clear()
+            mask?.insertFront(item.text)
+            return mask.toString()
         }
 
 
         override fun bind(item: EmailPhoneFieldUIModel) {
             super.bind(item)
             if (!fieldSet) {
+                item.mask?.let {
+                    maskFormatWatcher = MaskFormatWatcher(item.mask)
+                }
                 binding.tilField.hint = item.label
                 fieldSet = true
             }
+            maskFormatWatcher?.removeFromTextView()
             binding.edField.removeTextChangedListener(textWatcher)
-            if (binding.edField.text.toString() != item.text) {
-                binding.edField.setText(item.text)
+            val formattedValue = formattedValue()
+            if (binding.edField.text.toString() != formattedValue) {
+                binding.edField.setText(formattedValue)
             }
+            maskFormatWatcher?.installOn(binding.edField)
+            maskFormatWatcher?.refreshMask(formattedValue)
             binding.edField.addTextChangedListener(textWatcher)
+        }
+
+        override fun onViewAttachedToWindow() {
+            maskFormatWatcher?.installOn(binding.edField)
+        }
+
+        override fun onViewRecycled() {
+            maskFormatWatcher?.removeFromTextView()
         }
     }
 

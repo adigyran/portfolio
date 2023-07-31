@@ -174,7 +174,7 @@ class SignUpViewModel(
         listenForCodeEvent()
         coordinatorRouter.sendEvent(
             SignUpNavigationEvents.EnterCode(
-                RequestCodes.CODE_INPUT_REQUEST_CODE,
+                RequestCodes.CODE_INPUT_REQUEST_CODE_EMAIL,
                 state.email
             )
         )
@@ -197,7 +197,7 @@ class SignUpViewModel(
     }
 
     private fun listenForCodeEvent() {
-        rootCoordinatorRouter.setResultListener(RequestCodes.CODE_INPUT_REQUEST_CODE) {
+        rootCoordinatorRouter.setResultListener(RequestCodes.CODE_INPUT_REQUEST_CODE_EMAIL) {
             if (it is CodeResultModel) {
                 codeEntered(it.code)
             }

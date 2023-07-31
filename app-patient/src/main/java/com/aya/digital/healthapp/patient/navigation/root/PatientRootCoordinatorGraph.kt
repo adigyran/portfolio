@@ -5,7 +5,6 @@ import androidx.fragment.app.FragmentManager
 import com.aya.digital.core.feature.auth.restorepassword.navigation.RestorePasswordNavigationEvents
 import com.aya.digital.core.feature.auth.restorepassword.navigation.RestorePasswordOperationStateParam
 import com.aya.digital.core.feature.auth.restorepassword.navigation.RestorePasswordScreen
-import com.aya.digital.core.feature.bottomnavhost.navigation.BottomNavHostCoordinator
 import com.aya.digital.core.feature.bottomnavhost.navigation.BottomNavHostNavigationEvents
 import com.aya.digital.core.feature.bottomnavhost.navigation.BottomNavHostScreen
 import com.aya.digital.core.feature.choosers.multiselect.navigation.SelectWithSearchNavigationEvents
@@ -21,7 +20,6 @@ import com.aya.digital.feature.bottomdialogs.codedialog.navigation.CodeDialogNav
 import com.aya.digital.feature.bottomdialogs.codedialog.navigation.CodeDialogScreen
 import com.aya.digital.feature.bottomdialogs.createappointmentdialog.navigation.CreateAppointmentDialogNavigationEvents
 import com.aya.digital.feature.bottomdialogs.createappointmentdialog.navigation.CreateAppointmentDialogScreen
-import com.aya.digital.feature.bottomdialogs.successappointmentdialog.navigation.SuccessAppointmentDialogNavigationEvents
 import com.aya.digital.feature.bottomdialogs.successappointmentdialog.navigation.SuccessAppointmentDialogScreen
 import com.aya.digital.feature.bottomdialogs.dateappointmentsdialog.navigation.DateAppointmentsDialogNavigationEvents
 import com.aya.digital.feature.bottomdialogs.dateappointmentsdialog.navigation.DateAppointmentsDialogScreen
@@ -59,7 +57,7 @@ class PatientRootCoordinatorGraph(context: Context) : RootCoordinatorGraph {
 
             is RootContainerNavigationEvents.EnterCode -> {
                 navigationRouter.navigateTo(
-                    CodeDialogScreen("ENTER_CODE", event.requestCode, event.email)
+                    CodeDialogScreen("ENTER_CODE", event.requestCode, event.value)
                 )
             }
 

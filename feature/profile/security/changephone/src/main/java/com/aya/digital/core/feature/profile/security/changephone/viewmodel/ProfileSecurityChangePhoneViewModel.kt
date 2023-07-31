@@ -30,7 +30,7 @@ internal class ProfileSecurityChangePhoneViewModel(
     BaseViewModel<ProfileSecurityChangePhoneState, ProfileSecurityChangePhoneSideEffects>() {
     override val container =
         container<ProfileSecurityChangePhoneState, ProfileSecurityChangePhoneSideEffects>(
-            initialState = ProfileSecurityChangePhoneState(),
+            initialState = ProfileSecurityChangePhoneState(phone = param.phone),
         )
         {
 
@@ -71,14 +71,14 @@ internal class ProfileSecurityChangePhoneViewModel(
         listenForCodeEvent()
         coordinatorRouter.sendEvent(
             ProfileSecurityChangePhoneNavigationEvents.EnterCode(
-                RequestCodes.CODE_INPUT_REQUEST_CODE,
+                RequestCodes.CODE_INPUT_REQUEST_CODE_PHONE,
                 state.phone
             )
         )
     }
 
     private fun listenForCodeEvent() {
-        rootCoordinatorRouter.setResultListener(RequestCodes.CODE_INPUT_REQUEST_CODE) {
+        rootCoordinatorRouter.setResultListener(RequestCodes.CODE_INPUT_REQUEST_CODE_PHONE) {
             if (it is CodeResultModel) {
                 codeEntered(it.code)
             }

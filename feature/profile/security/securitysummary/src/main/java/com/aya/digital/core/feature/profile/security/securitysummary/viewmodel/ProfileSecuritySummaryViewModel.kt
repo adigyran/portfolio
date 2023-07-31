@@ -53,7 +53,8 @@ internal class ProfileSecuritySummaryViewModel(
                 )
 
                 FieldsTags.PHONE_FIELD_TAG -> ProfileSecuritySummaryNavigationEvents.ChangePhone(
-                    RequestCodes.CHANGE_PHONE_REQUEST_CODE
+                    RequestCodes.CHANGE_PHONE_REQUEST_CODE,
+                    state.phone?:""
                 )
 
                 FieldsTags.PASSWORD_FIELD_TAG -> ProfileSecuritySummaryNavigationEvents.ChangePassword(

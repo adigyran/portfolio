@@ -5,7 +5,9 @@ import com.aya.digital.core.feature.profile.security.securitysummary.FieldsTags
 import com.aya.digital.core.feature.profile.security.securitysummary.viewmodel.ProfileSecuritySummaryState
 import com.aya.digital.core.mvi.BaseStateTransformer
 import com.aya.digital.core.ui.adapters.base.DiffItem
+import com.aya.digital.core.ui.base.masks.CommonMasks
 import com.aya.digital.core.ui.delegates.profile.securitysummary.model.SecuritySummaryUIModel
+import ru.tinkoff.decoro.MaskImpl
 
 internal class ProfileSecuritySummaryStateTransformer(context: Context) :
     BaseStateTransformer<ProfileSecuritySummaryState, ProfileSecuritySummaryUiModel>() {
@@ -24,7 +26,7 @@ internal class ProfileSecuritySummaryStateTransformer(context: Context) :
                         SecuritySummaryUIModel(
                             FieldsTags.PHONE_FIELD_TAG,
                             "Phone",
-                            state.phone.getField()
+                            state.phone.getMaskedText(CommonMasks.getUsPhoneValidator()).getField()
                         )
                     )
                     add(
@@ -49,4 +51,8 @@ internal class ProfileSecuritySummaryStateTransformer(context: Context) :
     private fun String?.getPasswordField() =
         this?.replace(Regex(".*"),"*") ?: "Not added"
 
+    private fun String?.getMaskedText(mask: MaskImpl) = this?.let {
+        mask.insertFront(it)
+        mask.toString()
+    }
 }

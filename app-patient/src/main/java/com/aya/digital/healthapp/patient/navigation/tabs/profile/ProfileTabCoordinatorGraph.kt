@@ -65,7 +65,7 @@ class ProfileTabCoordinatorGraph : FragmentContainerGraph {
             }
 
             is ProfileSecuritySummaryNavigationEvents.ChangePhone -> {
-                mainRouter.navigateTo(ProfileSecurityChangePhoneScreen(event.requestCode))
+                mainRouter.navigateTo(ProfileSecurityChangePhoneScreen(event.requestCode,event.phone))
             }
 
             is ProfileSecuritySummaryNavigationEvents.ChangePassword -> {
