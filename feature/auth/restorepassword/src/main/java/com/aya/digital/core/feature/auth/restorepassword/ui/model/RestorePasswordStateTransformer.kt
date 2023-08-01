@@ -6,6 +6,7 @@ import com.aya.digital.core.feature.auth.restorepassword.viewmodel.RestorePasswo
 import com.aya.digital.core.feature.auth.restorepassword.viewmodel.model.RestorePasswordOperationState
 import com.aya.digital.core.mvi.BaseStateTransformer
 import com.aya.digital.core.ui.adapters.base.DiffItem
+import com.aya.digital.core.ui.delegates.components.fields.emailphone.model.EmailPhoneFieldMode
 import com.aya.digital.core.ui.delegates.components.fields.emailphone.model.EmailPhoneFieldUIModel
 import com.aya.digital.core.ui.delegates.components.fields.password.model.PasswordFieldUIModel
 import com.aya.digital.core.ui.delegates.components.labels.headline.model.HeadlineLabelUIModel
@@ -42,7 +43,7 @@ internal class RestorePasswordStateTransformer(private val context: Context) :
         {
             RestorePasswordOperationState.RestoringEmailInput -> {
                 listOf<DiffItem>(
-                    EmailPhoneFieldUIModel(tag = FieldsTags.EMAIL_PHONE_FIELD_TAG,label = "Email",state.email,state.emailError)
+                    EmailPhoneFieldUIModel(tag = FieldsTags.EMAIL_PHONE_FIELD_TAG,label = "Email",state.email,state.emailError, mode = EmailPhoneFieldMode.EMAIL_MODE)
                 )
             }
             else -> {

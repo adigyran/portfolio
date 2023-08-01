@@ -7,6 +7,7 @@ import com.aya.digital.core.domain.base.models.appointment.AppointmentModel
 import com.aya.digital.core.domain.base.models.appointment.AppointmentType
 import com.aya.digital.core.feature.tabviews.appointments.navigation.AppointmentsNavigationEvents
 import com.aya.digital.core.mvi.BaseViewModel
+import com.aya.digital.core.navigation.coordinator.CoordinatorEvent
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
 import com.aya.digital.core.ui.delegates.appointments.patientappointment.model.AppointmentUiStatus
 import com.aya.digital.core.util.requestcodes.RequestCodes
@@ -24,7 +25,7 @@ class AppointmentsViewModel(
 ) :
     BaseViewModel<AppointmentsState, AppointmentsSideEffects>() {
     override fun onBack() {
-
+        coordinatorRouter.sendEvent(CoordinatorEvent.Back)
     }
 
     override val container = container<AppointmentsState, AppointmentsSideEffects>(

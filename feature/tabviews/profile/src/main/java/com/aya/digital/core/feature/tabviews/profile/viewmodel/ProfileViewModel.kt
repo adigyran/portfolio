@@ -6,6 +6,7 @@ import com.aya.digital.core.feature.tabviews.profile.FieldsTags
 import com.aya.digital.core.feature.tabviews.profile.navigation.ProfileNavigationEvents
 import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.mvi.BaseViewModel
+import com.aya.digital.core.navigation.coordinator.CoordinatorEvent
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
 import kotlinx.coroutines.rx3.await
 import org.orbitmvi.orbit.syntax.simple.intent
@@ -19,7 +20,7 @@ class ProfileViewModel(
 ) :
     BaseViewModel<ProfileState, ProfileSideEffects>() {
     override fun onBack() {
-        TODO("Not yet implemented")
+        coordinatorRouter.sendEvent(CoordinatorEvent.Back)
     }
 
     override val container = container<ProfileState, ProfileSideEffects>(

@@ -6,6 +6,7 @@ import com.aya.digital.core.feature.tabviews.home.viewmodel.HomeSideEffects
 import com.aya.digital.core.feature.tabviews.home.viewmodel.HomeState
 import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.mvi.BaseViewModel
+import com.aya.digital.core.navigation.coordinator.CoordinatorEvent
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.viewmodel.container
@@ -15,7 +16,7 @@ class HomeViewModel(
 ) :
     BaseViewModel<HomeState, HomeSideEffects>() {
     override fun onBack() {
-        TODO("Not yet implemented")
+        coordinatorRouter.sendEvent(CoordinatorEvent.Back)
     }
 
     override val container = container<HomeState, HomeSideEffects>(
