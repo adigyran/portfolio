@@ -8,6 +8,7 @@ import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.mvi.BaseViewModel
 import com.aya.digital.core.navigation.coordinator.CoordinatorEvent
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
+import com.aya.digital.core.util.requestcodes.RequestCodes
 import kotlinx.coroutines.rx3.await
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.reduce
@@ -51,18 +52,27 @@ class ProfileViewModel(
         }
     }
 
+    private fun listenForProfileEdit() {
+        coordinatorRouter.setResultListener(RequestCodes.EDIT_PROFILE_REQUEST_CODE) {
+            loadProfile()
+        }
+    }
 
     fun onProfileButtonClicked(buttonTag: Int) = intent {
         Timber.d(buttonTag.toString())
-        coordinatorRouter.sendEvent(when(buttonTag)
-        {
-            FieldsTags.GENERAL_INFO_BUTTON_TAG -> ProfileNavigationEvents.OpenProfileGeneralInfo
-            FieldsTags.EMERGENCY_CONTACT_BUTTON_TAG -> ProfileNavigationEvents.OpenProfileEmergencyContact
-            FieldsTags.SECURITY_BUTTON_TAG -> ProfileNavigationEvents.OpenProfileSecurity
-            FieldsTags.INSURANCE_BUTTON_TAG -> ProfileNavigationEvents.OpenProfileInsurance
-            FieldsTags.NOTIFICATION_BUTTON_TAG -> ProfileNavigationEvents.OpenProfileNotification
-            else -> ProfileNavigationEvents.OpenProfileGeneralInfo
-        })
+        coordinatorRouter.sendEvent(
+            when (buttonTag) {
+                FieldsTags.GENERAL_INFO_BUTTON_TAG -> {
+                    listenForProfileEdit()
+                    ProfileNavigationEvents.OpenProfileGeneralInfo
+                }
+                FieldsTags.EMERGENCY_CONTACT_BUTTON_TAG -> ProfileNavigationEvents.OpenProfileEmergencyContact
+                FieldsTags.SECURITY_BUTTON_TAG -> ProfileNavigationEvents.OpenProfileSecurity
+                FieldsTags.INSURANCE_BUTTON_TAG -> ProfileNavigationEvents.OpenProfileInsurance
+                FieldsTags.NOTIFICATION_BUTTON_TAG -> ProfileNavigationEvents.OpenProfileNotification
+                else -> ProfileNavigationEvents.OpenProfileGeneralInfo
+            }
+        )
 
     }
 
