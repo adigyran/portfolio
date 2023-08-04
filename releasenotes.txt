@@ -101,5 +101,13 @@ Added Firebase Distribution\n
         doctors favorite on map
         geolocation
         version 46 patient\n
-
+        fixed phone confirmation
+        fixed image upload on previous android versions
+        fixed insurances
+        added appointments spacer when it's only one in category,
+        Telemedicine button now shows message about 15 min before appointment time
+        code input dialog changed
+        phone now have input mask.
+        fixed profile update
+        version 50 patient\n
 

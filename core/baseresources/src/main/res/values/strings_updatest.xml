@@ -103,5 +103,14 @@
         doctors favorite on map\n
         geolocation\n
         version 46 patient\n\n
+        fixed phone confirmation\n
+        fixed image upload on previous android versions\n
+        fixed insurances\n
+        added appointments spacer when it's only one in category,\n
+        Telemedicine button now shows message about 15 min before appointment time\n
+        code input dialog changed\n
+        phone now have input mask.\n
+        fixed profile update\n
+        version 50 patient\n
     </string>
 </resources>
