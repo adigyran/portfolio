@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="main_latest_updates">Added Firebase Distribution\n
+    <string name="main_latest_updates">
+      Added Firebase Distribution\n
         Testing distribution notifications\nAdded Auth and Sign in Screens with insurance selector\n
         Added bottom navigation, proper auth endpoints, code dialog\n
         added check for auth to show main screen, added main and profile screens\n
@@ -10,7 +11,7 @@
         profile security with ability to change email and password\n
         profile emergency contact, profile notification settings\n
         profile insurances\n
-        added screen to restore/change temp password\n
+        added screen to restore\/change temp password\n
         added proper signup profile validation\n
         insurances working now\n
         emergency contact\n
@@ -22,7 +23,8 @@
         added appointments list\n
         doctor search test\n
         doctor card test\n
-        video calls\nchanged app icon\n
+        video calls\n
+		changed app icon\n
         fixed videocalls\n
         fully working doctor card (without share and favorite for now)\n
         fully working doctor slots\n
@@ -93,8 +95,8 @@
         version 42 patient\n
         notification switches - fixed appearance\n
         version 43 patient\n
-        fixed screen rotation
-        fixed filters
+        fixed screen rotation\n
+        fixed filters\n
         version 44 patient\n
         added doctors map with clustering\n
         currently it has some navigation problems\n
@@ -102,15 +104,8 @@
         version 45 patient\n
         doctors favorite on map\n
         geolocation\n
-        version 46 patient\n\n
+        version 46 patient\n
         fixed phone confirmation\n
-        fixed image upload on previous android versions\n
-        fixed insurances\n
-        added appointments spacer when it's only one in category,\n
-        Telemedicine button now shows message about 15 min before appointment time\n
-        code input dialog changed\n
-        phone now have input mask.\n
-        fixed profile update\n
         version 50 patient\n
     </string>
 </resources>
