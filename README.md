@@ -68,10 +68,3 @@ KEYSTORE_KEY_PASSWORD=
 # Shared Preferences
 Shared preferences are used to store tokens and several flags on whether a user has seen disclaimer and onboarding screens.
 
-# Beware
-* On the “Old” backend there are very tricky calls on updating profile/practitioner/patient data. There can be multiple calls, mostly PUT not PATCH calls.
-* Onboarding screens should be tested against small screen devices. Layouts needs to be adapted.
-* Doctors are requested ALL at once to be able to show something on the MAP and use filtering as separate functionality is not provided on “Old” backend.
-* A calendar library used in the project reuses the RecyclerView/ViewHolder functionality and sometimes scrolls on month do not update the item state. (Might be a good idea to use another library, or idk)
-* Schedules are loading for like 1 minute as of the time of writing this documentation.
-* Async image loading does not necessarily follow constraints that you set on ImageView and alike.
