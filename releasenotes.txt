@@ -110,4 +110,7 @@ Added Firebase Distribution\n
         phone now have input mask.
         fixed profile update
         version 50 patient\n
+        video call, keep screen on experiment
+        version 51 patient
+
 
