@@ -112,5 +112,7 @@ Added Firebase Distribution\n
         version 50 patient\n
         video call, keep screen on experiment
         version 51 patient
+        profile update on back
+        version 52 patient
 
 
