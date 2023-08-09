@@ -2,11 +2,15 @@ package com.aya.digital.core.feature.profile.generalinfo.view.ui
 
 import android.net.Uri
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.aya.digital.core.domain.profile.generalinfo.view.model.ProfileInfoModel
+import com.aya.digital.core.ext.argument
 import com.aya.digital.core.ext.bindClick
+import com.aya.digital.core.ext.createFragment
 import com.aya.digital.core.feature.profile.generalinfo.view.databinding.ViewProfileGeneralinfoViewBinding
 import com.aya.digital.core.feature.profile.generalinfo.view.di.profileGeneralInfoViewDiModule
 import com.aya.digital.core.feature.profile.generalinfo.view.ui.contract.ProfileGeneralInfoEditAvatarImageSelectContract
@@ -21,6 +25,7 @@ import com.aya.digital.core.ui.base.screens.DiFragment
 import com.aya.digital.core.ui.delegates.profile.info.ui.ProfileInfoDelegate
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
+import kotlinx.parcelize.Parcelize
 import org.kodein.di.DI
 import org.kodein.di.factory
 import org.kodein.di.on
@@ -28,6 +33,7 @@ import org.kodein.di.on
 class ProfileGeneralInfoViewView :
     DiFragment<ViewProfileGeneralinfoViewBinding, ProfileGeneralInfoViewViewModel, ProfileGeneralInfoViewState, ProfileGeneralInfoSideEffects, ProfileGeneralInfoViewUiModel, ProfileGeneralInfoViewStateTransformer>() {
 
+    private var param: Param by argument("param")
     private val viewModelFactory: ((Unit) -> ProfileGeneralInfoViewViewModel) by kodein.on(
         context = this
     ).factory()
@@ -75,7 +81,7 @@ class ProfileGeneralInfoViewView :
 
 
     override fun provideDiModule(): DI.Module =
-        profileGeneralInfoViewDiModule(tryTyGetParentRouter())
+        profileGeneralInfoViewDiModule(param,tryTyGetParentRouter())
 
     override fun provideViewBinding(
         inflater: LayoutInflater,
@@ -116,5 +122,18 @@ class ProfileGeneralInfoViewView :
     override fun provideViewModel(): ProfileGeneralInfoViewViewModel = viewModelFactory(Unit)
     override fun provideStateTransformer(): ProfileGeneralInfoViewStateTransformer =
         stateTransformerFactory(Unit)
+
+    @Parcelize
+    class Param(
+        val requestCode: String
+    ) : Parcelable
+
+    companion object {
+        fun getNewInstance(
+            requestCode: String
+        ): ProfileGeneralInfoViewView = createFragment(
+            Param(requestCode)
+        )
+    }
 
 }

@@ -3,7 +3,7 @@ package com.aya.digital.core.feature.tabviews.profile.navigation
 import com.aya.digital.core.navigation.coordinator.CoordinatorEvent
 
 sealed class ProfileNavigationEvents : CoordinatorEvent() {
-    object OpenProfileGeneralInfo : ProfileNavigationEvents()
+    data class OpenProfileGeneralInfo(val requestCode:String) : ProfileNavigationEvents()
     object OpenProfileEmergencyContact : ProfileNavigationEvents()
     object OpenProfileSecurity : ProfileNavigationEvents()
     object OpenProfileInsurance : ProfileNavigationEvents()

@@ -53,7 +53,7 @@ class ProfileViewModel(
     }
 
     private fun listenForProfileEdit() {
-        coordinatorRouter.setResultListener(RequestCodes.EDIT_PROFILE_REQUEST_CODE) {
+        coordinatorRouter.setResultListener(RequestCodes.VIEW_PROFILE_REQUEST_CODE) {
             loadProfile()
         }
     }
@@ -64,13 +64,13 @@ class ProfileViewModel(
             when (buttonTag) {
                 FieldsTags.GENERAL_INFO_BUTTON_TAG -> {
                     listenForProfileEdit()
-                    ProfileNavigationEvents.OpenProfileGeneralInfo
+                    ProfileNavigationEvents.OpenProfileGeneralInfo(RequestCodes.VIEW_PROFILE_REQUEST_CODE)
                 }
                 FieldsTags.EMERGENCY_CONTACT_BUTTON_TAG -> ProfileNavigationEvents.OpenProfileEmergencyContact
                 FieldsTags.SECURITY_BUTTON_TAG -> ProfileNavigationEvents.OpenProfileSecurity
                 FieldsTags.INSURANCE_BUTTON_TAG -> ProfileNavigationEvents.OpenProfileInsurance
                 FieldsTags.NOTIFICATION_BUTTON_TAG -> ProfileNavigationEvents.OpenProfileNotification
-                else -> ProfileNavigationEvents.OpenProfileGeneralInfo
+                else -> ProfileNavigationEvents.OpenProfileGeneralInfo(RequestCodes.EDIT_PROFILE_REQUEST_CODE)
             }
         )
 
