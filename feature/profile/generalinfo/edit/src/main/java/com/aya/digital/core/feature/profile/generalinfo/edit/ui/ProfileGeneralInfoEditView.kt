@@ -19,6 +19,8 @@ import com.aya.digital.core.feature.profile.generalinfo.edit.viewmodel.ProfileGe
 import com.aya.digital.core.feature.profile.generalinfo.edit.viewmodel.ProfileGeneralInfoEditViewModel
 import com.aya.digital.core.ui.adapters.base.BaseDelegateAdapter
 import com.aya.digital.core.ui.base.screens.DiFragment
+import com.aya.digital.core.ui.base.utils.DateValidatorBirthday
+import com.aya.digital.core.ui.base.utils.DateValidatorSelectableDays
 import com.aya.digital.core.ui.delegates.components.fields.dropdown.ui.DropDownFieldDelegate
 import com.aya.digital.core.ui.delegates.components.fields.dropdown.ui.DropDownFieldDelegateListeners
 import com.aya.digital.core.ui.delegates.components.fields.selection.ui.SelectionFieldDelegateListeners
@@ -28,7 +30,11 @@ import com.aya.digital.core.ui.delegates.components.fields.name.ui.NameFieldDele
 import com.aya.digital.core.ui.delegates.components.fields.selection.ui.SelectionFieldDelegate
 import com.aya.digital.core.ui.delegates.components.fields.validated.ui.ValidatedFieldDelegate
 import com.aya.digital.core.ui.delegates.components.fields.validated.ui.ValidatedFieldDelegateListeners
+import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toKotlinLocalDate
+import kotlinx.datetime.toKotlinLocalDateTime
 import kotlinx.parcelize.Parcelize
 import org.kodein.di.DI
 import org.kodein.di.factory
@@ -37,6 +43,7 @@ import java.time.Instant
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.ZoneId
+import java.time.ZoneOffset
 
 class ProfileGeneralInfoEditView :
     DiFragment<ViewProfileGeneralinfoEditBinding, ProfileGeneralInfoEditViewModel, ProfileGeneralInfoEditState, ProfileGeneralInfoEditSideEffect, ProfileGeneralInfoEditUiModel, ProfileGeneralInfoEditStateTransformer>() {
@@ -102,7 +109,12 @@ class ProfileGeneralInfoEditView :
         }
 
     private fun showBirthdayDatePicker(selectedDate: LocalDate?) {
+        val openDate = selectedDate?:LocalDate.now()
+        val constraintsBuilderSelectable = CalendarConstraints.Builder()
+            .setOpenAt(openDate.atStartOfDay().toInstant(ZoneOffset.UTC).toEpochMilli())
+            .setValidator(DateValidatorBirthday())
         val materialDatePicker = MaterialDatePicker.Builder.datePicker()
+            .setCalendarConstraints(constraintsBuilderSelectable.build())
             .build()
         materialDatePicker
             .addOnPositiveButtonClickListener {

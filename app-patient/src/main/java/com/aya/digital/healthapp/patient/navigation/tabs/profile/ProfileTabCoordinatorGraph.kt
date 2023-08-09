@@ -38,8 +38,8 @@ class ProfileTabCoordinatorGraph : FragmentContainerGraph {
             ProfileTabNavigationEvents.OpenDefaultScreen -> {
                 mainRouter.newRootScreen(ProfileScreen)
             }
-            ProfileNavigationEvents.OpenProfileGeneralInfo -> {
-                mainRouter.navigateTo(ProfileGeneralInfoViewScreen)
+            is ProfileNavigationEvents.OpenProfileGeneralInfo -> {
+                mainRouter.navigateTo(ProfileGeneralInfoViewScreen(event.requestCode))
             }
             ProfileNavigationEvents.OpenProfileEmergencyContact -> {
                 mainRouter.navigateTo(ProfileEmergencyContactScreen)
@@ -62,6 +62,11 @@ class ProfileTabCoordinatorGraph : FragmentContainerGraph {
             }
             is ProfileGeneralInfoEditNavigationEvents.FinishWithResult -> {
                 mainRouter.sendResult(event.requestCode,event.result)
+                mainRouter.exit()
+            }
+
+            is ProfileGeneralInfoViewNavigationEvents.FinishWithResult -> {
+                mainRouter.sendResult(event.requestCode,Unit)
                 mainRouter.exit()
             }
 

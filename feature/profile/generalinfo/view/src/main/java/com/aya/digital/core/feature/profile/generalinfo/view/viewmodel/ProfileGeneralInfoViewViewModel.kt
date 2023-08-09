@@ -4,6 +4,7 @@ import android.net.Uri
 import com.aya.digital.core.domain.profile.generalinfo.edit.SetAvatarUseCase
 import com.aya.digital.core.domain.profile.generalinfo.view.GetProfileInfoUseCase
 import com.aya.digital.core.feature.profile.generalinfo.view.navigation.ProfileGeneralInfoViewNavigationEvents
+import com.aya.digital.core.feature.profile.generalinfo.view.ui.ProfileGeneralInfoViewView
 import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.mvi.BaseViewModel
 import com.aya.digital.core.navigation.coordinator.CoordinatorEvent
@@ -17,6 +18,7 @@ import org.orbitmvi.orbit.viewmodel.container
 import timber.log.Timber
 
 class ProfileGeneralInfoViewViewModel(
+    private val param: ProfileGeneralInfoViewView.Param,
     private val coordinatorRouter: CoordinatorRouter,
     private val profileInfoUseCase: GetProfileInfoUseCase,
     private val setAvatarUseCase: SetAvatarUseCase
@@ -85,7 +87,7 @@ class ProfileGeneralInfoViewViewModel(
     }
 
     override fun onBack() {
-        coordinatorRouter.sendEvent(CoordinatorEvent.Back)
+        coordinatorRouter.sendEvent(ProfileGeneralInfoViewNavigationEvents.FinishWithResult(param.requestCode))
     }
 }
 
