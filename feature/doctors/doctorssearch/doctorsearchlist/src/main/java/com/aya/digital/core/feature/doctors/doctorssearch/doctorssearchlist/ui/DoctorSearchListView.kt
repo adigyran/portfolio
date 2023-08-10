@@ -53,14 +53,14 @@ class DoctorSearchListView :
         binding.toolbar.insurance bindClick { viewModel.onInsurance() }
         binding.toolbar.speciality bindClick { viewModel.onSpecialisation() }
         binding.toolbar.location bindClick { viewModel.onLocation() }
-        binding.allDoctorsBtn bindClick { viewModel.onAllDoctorsClicked() }
-        binding.favoriteButton bindClick { viewModel.onFavoriteDoctorsClicked() }
+        binding.toolbar.allDoctorsBtn bindClick { viewModel.onAllDoctorsClicked() }
+        binding.toolbar.favoriteButton bindClick { viewModel.onFavoriteDoctorsClicked() }
         recyclers.add(binding.recycler)
         with(binding.recycler) {
             itemAnimator = null
             setHasFixedSize(true)
             setItemViewCacheSize(30)
-            isNestedScrollingEnabled = false
+            //isNestedScrollingEnabled = false
 
             val lm = LinearLayoutManager(
                 context,
@@ -109,8 +109,8 @@ class DoctorSearchListView :
                 binding.toolbar.insurance.binding.fieldText.text = it
             }
             doctorSearchMode.let { doctorSearchMode ->
-                binding.favoriteButton.toggleSelection(doctorSearchMode == DoctorSearchListMode.ShowingFavoriteDoctors)
-                binding.allDoctorsBtn.toggleSelection(doctorSearchMode == DoctorSearchListMode.ShowingAllDoctors)
+                binding.toolbar.favoriteButton.toggleSelection(doctorSearchMode == DoctorSearchListMode.ShowingFavoriteDoctors)
+                binding.toolbar.allDoctorsBtn.toggleSelection(doctorSearchMode == DoctorSearchListMode.ShowingAllDoctors)
             }
         }
         /*stateTransformer(state).data?.let {
