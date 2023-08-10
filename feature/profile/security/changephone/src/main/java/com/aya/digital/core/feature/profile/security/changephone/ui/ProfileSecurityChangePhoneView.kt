@@ -21,6 +21,8 @@ import com.aya.digital.core.ui.base.screens.DiFragment
 import com.aya.digital.core.ui.delegates.components.fields.emailphone.ui.EmailDelegateListeners
 import com.aya.digital.core.ui.delegates.components.fields.emailphone.ui.PhoneDelegateListeners
 import com.aya.digital.core.ui.delegates.components.fields.emailphone.ui.PhoneFieldDelegate
+import com.aya.digital.core.ui.delegates.components.fields.validated.ui.ValidatedFieldDelegate
+import com.aya.digital.core.ui.delegates.components.fields.validated.ui.ValidatedFieldDelegateListeners
 import com.aya.digital.core.ui.delegates.components.labels.headline.ui.HeadlineTwoLineLabelDelegate
 import kotlinx.parcelize.Parcelize
 import org.kodein.di.DI
@@ -44,7 +46,7 @@ internal class ProfileSecurityChangePhoneView :
     private val adapter by lazy(LazyThreadSafetyMode.NONE) {
         BaseDelegateAdapter.create {
             delegate { HeadlineTwoLineLabelDelegate() }
-            delegate { PhoneFieldDelegate(PhoneDelegateListeners(inputFieldChangeListener = viewModel::phoneChanged)) }
+            delegate { ValidatedFieldDelegate(ValidatedFieldDelegateListeners(viewModel::phoneChanged)) }
         }
     }
 

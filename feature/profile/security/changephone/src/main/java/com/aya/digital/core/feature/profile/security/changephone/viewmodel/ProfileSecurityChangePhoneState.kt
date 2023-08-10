@@ -6,6 +6,6 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 internal data class ProfileSecurityChangePhoneState(
     val code: String? = null,
-    val phone: String = "",
+    val phone: String? = null,
     val phoneError: String? = null
 ) : BaseState

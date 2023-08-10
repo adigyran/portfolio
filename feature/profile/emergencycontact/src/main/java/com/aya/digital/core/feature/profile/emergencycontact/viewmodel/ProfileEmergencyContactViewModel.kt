@@ -8,6 +8,9 @@ import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.mvi.BaseViewModel
 import com.aya.digital.core.navigation.coordinator.CoordinatorEvent
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.rx3.await
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.postSideEffect
@@ -21,12 +24,13 @@ class ProfileEmergencyContactViewModel(
     private val saveEmergencyContactUseCase: SaveEmergencyContactUseCase
 ) :
     BaseViewModel<ProfileEmergencyContactState, ProfileEmergencyContactSideEffects>() {
-    override val container = container<ProfileEmergencyContactState, ProfileEmergencyContactSideEffects>(
-        initialState = ProfileEmergencyContactState(),
-    )
-    {
+    override val container =
+        container<ProfileEmergencyContactState, ProfileEmergencyContactSideEffects>(
+            initialState = ProfileEmergencyContactState(),
+        )
+        {
 
-    }
+        }
 
     init {
         getEmergencyContact()
@@ -34,17 +38,15 @@ class ProfileEmergencyContactViewModel(
 
 
     fun onNameFieldChanged(tag: Int, text: String) = intent {
-        when(tag)
-        {
-          FieldsTags.NAME_FIELD -> reduce { state.copy(contactName = text) }
+        when (tag) {
+            FieldsTags.NAME_FIELD -> reduce { state.copy(contactNameEditable = text) }
         }
     }
 
-    fun onPhoneFieldChanged(tag: Int,text: String) = intent {
-        when(tag)
-        {
+    fun onPhoneFieldChanged(tag: Int, text: String) = intent {
+        when (tag) {
             FieldsTags.PHONE_FIELD -> reduce {
-                state.copy(contactPhone = text)
+                state.copy(contactPhoneEditable = text)
             }
         }
     }
@@ -75,7 +77,26 @@ class ProfileEmergencyContactViewModel(
     }
 
     private fun toggleEdit() = intent {
-        reduce { state.copy(editMode = true) }
+        reduce {
+            state.copy(
+                editMode = true,
+                contactNameEditable = null,
+                contactPhoneEditable = null
+            )
+        }
+
+        runBlocking { // this: CoroutineScope
+            launch { // launch a new coroutine and continue
+                delay(10L) // non-blocking delay for 1 second (default time unit is ms)
+                reduce {
+                    state.copy(
+                        contactNameEditable = state.contactName,
+                        contactPhoneEditable = state.contactPhone
+                    )
+                }
+            }
+        }
+
     }
 
     override fun postErrorSideEffect(errorSideEffect: ErrorSideEffect) = intent {
@@ -83,7 +104,7 @@ class ProfileEmergencyContactViewModel(
     }
 
     override fun onBack() = intent {
-        if(state.editMode) reduce { state.copy(editMode = false) }
+        if (state.editMode) reduce { state.copy(editMode = false) }
         else coordinatorRouter.sendEvent(CoordinatorEvent.Back)
 
     }

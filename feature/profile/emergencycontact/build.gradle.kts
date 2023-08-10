@@ -11,5 +11,6 @@ dependencies {
     implementation(project(":core:ui:delegates:features:profile:emergencycontactinfo"))
     implementation(project(":core:ui:delegates:components:fields:name"))
     implementation(project(":core:ui:delegates:components:fields:emailphone"))
+    implementation(project(":core:ui:delegates:components:fields:validated"))
 
 }

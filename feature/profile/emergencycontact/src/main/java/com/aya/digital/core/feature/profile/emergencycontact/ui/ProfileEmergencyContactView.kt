@@ -20,6 +20,8 @@ import com.aya.digital.core.ui.delegates.components.fields.emailphone.ui.PhoneDe
 import com.aya.digital.core.ui.delegates.components.fields.emailphone.ui.PhoneFieldDelegate
 import com.aya.digital.core.ui.delegates.components.fields.name.ui.NameFieldDelegate
 import com.aya.digital.core.ui.delegates.components.fields.name.ui.NameFieldDelegateListeners
+import com.aya.digital.core.ui.delegates.components.fields.validated.ui.ValidatedFieldDelegate
+import com.aya.digital.core.ui.delegates.components.fields.validated.ui.ValidatedFieldDelegateListeners
 import com.aya.digital.core.ui.delegates.profile.emergencycontactinfo.ui.EmergencyContactInfoDelegate
 import org.kodein.di.DI
 import org.kodein.di.factory
@@ -39,7 +41,7 @@ class ProfileEmergencyContactView :
     private val adapter by lazy(LazyThreadSafetyMode.NONE) {
         BaseDelegateAdapter.create {
             delegate { NameFieldDelegate(NameFieldDelegateListeners(viewModel::onNameFieldChanged)) }
-            delegate { PhoneFieldDelegate(PhoneDelegateListeners(viewModel::onPhoneFieldChanged)) }
+            delegate { ValidatedFieldDelegate(ValidatedFieldDelegateListeners(viewModel::onPhoneFieldChanged)) }
 
             delegate { EmergencyContactInfoDelegate() }
         }

@@ -13,6 +13,9 @@ import com.aya.digital.core.mvi.BaseViewModel
 import com.aya.digital.core.navigation.coordinator.CoordinatorEvent
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
 import com.aya.digital.core.util.requestcodes.RequestCodes
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.rx3.await
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.postSideEffect
@@ -35,8 +38,28 @@ internal class ProfileSecurityChangePhoneViewModel(
             initialState = ProfileSecurityChangePhoneState(phone = param.phone),
         )
         {
-
+            setPhone()
         }
+
+    private fun setPhone() = intent{
+        reduce {
+            state.copy(
+               phone = null
+            )
+        }
+
+        runBlocking { // this: CoroutineScope
+            launch { // launch a new coroutine and continue
+                delay(10L) // non-blocking delay for 1 second (default time unit is ms)
+                reduce {
+                    state.copy(
+                        phone = param.phone
+                    )
+                }
+            }
+        }
+    }
+
 
     private fun validatePhone() = intent {
         state.code?.let { code ->
@@ -50,7 +73,8 @@ internal class ProfileSecurityChangePhoneViewModel(
     }
 
     private fun savePhone() = intent {
-        val await = changePhoneUseCase(newPhone = state.phone).await()
+        if(state.phone.isNullOrBlank()) return@intent
+        val await = changePhoneUseCase(newPhone = state.phone!!).await()
         await.processResult({
             checkIsValidated()
         }, { processError(it) })
@@ -72,11 +96,12 @@ internal class ProfileSecurityChangePhoneViewModel(
     }
 
     private fun requestCodeScreen() = intent {
+        if(state.phone.isNullOrBlank()) return@intent
         listenForCodeEvent()
         coordinatorRouter.sendEvent(
             ProfileSecurityChangePhoneNavigationEvents.EnterCode(
                 RequestCodes.CODE_INPUT_REQUEST_CODE_PHONE,
-                state.phone
+                state.phone!!
             )
         )
     }
@@ -101,7 +126,7 @@ internal class ProfileSecurityChangePhoneViewModel(
         savePhone() }
 
     fun phoneChanged(tag: Int, phone: String) = intent {
-        if (state.phone != phone) reduce { state.copy(phone = phone) }
+        reduce { state.copy(phone = phone) }
     }
 
     override fun postErrorSideEffect(errorSideEffect: ErrorSideEffect) = intent {
