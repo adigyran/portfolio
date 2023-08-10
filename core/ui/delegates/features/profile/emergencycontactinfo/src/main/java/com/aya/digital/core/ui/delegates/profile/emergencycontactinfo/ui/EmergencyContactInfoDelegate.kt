@@ -32,10 +32,10 @@ class EmergencyContactInfoDelegate() :
 
         override fun bind(item: EmergencyContactInfoUIModel) {
             super.bind(item)
-            if(!initialised) {
+            //if(!initialised) {
                 binding.title.text = item.label
                 initialised = true
-            }
+            //}
             binding.value.text = item.value
         }
     }
