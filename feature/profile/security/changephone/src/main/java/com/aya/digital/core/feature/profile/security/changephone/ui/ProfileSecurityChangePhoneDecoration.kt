@@ -5,7 +5,7 @@ import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.aya.digital.core.ext.dpToPx
-import com.aya.digital.core.ui.delegates.components.fields.emailphone.ui.EmailPhoneFieldDelegate
+import com.aya.digital.core.ui.delegates.components.fields.emailphone.ui.PhoneFieldDelegate
 import com.aya.digital.core.ui.delegates.components.labels.headline.ui.HeadlineTwoLineLabelDelegate
 
 internal class ProfileSecurityChangePhoneDecoration : RecyclerView.ItemDecoration() {
@@ -21,7 +21,7 @@ internal class ProfileSecurityChangePhoneDecoration : RecyclerView.ItemDecoratio
         val top = when(viewHolder)
         {
             is HeadlineTwoLineLabelDelegate.ViewHolder -> (24).dpToPx()
-            is EmailPhoneFieldDelegate.ViewHolder -> (24).dpToPx()
+            is PhoneFieldDelegate.ViewHolder -> (24).dpToPx()
             else -> 0
         }
         outRect.top = top

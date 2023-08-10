@@ -12,6 +12,7 @@ import com.aya.digital.core.ui.adapters.base.DiffItem
 import com.aya.digital.core.ui.delegates.components.fields.validated.model.ValidatedFieldUIModel
 import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
 import ru.tinkoff.decoro.watchers.MaskFormatWatcher
+import timber.log.Timber
 
 class ValidatedFieldDelegate(private val delegateListeners: ValidatedFieldDelegateListeners) :
     BaseDelegate<ValidatedFieldUIModel>() {

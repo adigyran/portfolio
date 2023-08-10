@@ -15,8 +15,9 @@ import com.aya.digital.core.ext.colors
 import com.aya.digital.core.ui.base.ext.createSpannableText
 import com.aya.digital.core.ui.base.screens.DiFragment
 import com.aya.digital.core.ui.base.utils.LinkTouchMovementMethod
-import com.aya.digital.core.ui.delegates.components.fields.emailphone.ui.EmailPhoneDelegateListeners
-import com.aya.digital.core.ui.delegates.components.fields.emailphone.ui.EmailPhoneFieldDelegate
+import com.aya.digital.core.ui.delegates.components.fields.emailphone.ui.EmailDelegateListeners
+import com.aya.digital.core.ui.delegates.components.fields.emailphone.ui.EmailFieldDelegate
+import com.aya.digital.core.ui.delegates.components.fields.emailphone.ui.PhoneFieldDelegate
 import com.aya.digital.core.ui.delegates.components.fields.name.ui.NameFieldDelegate
 import com.aya.digital.core.ui.delegates.components.fields.name.ui.NameFieldDelegateListeners
 import com.aya.digital.core.ui.delegates.components.fields.password.ui.PasswordFieldDelegate
@@ -55,7 +56,7 @@ class SignUpView :
     private val adapter by lazy(LazyThreadSafetyMode.NONE) {
         BaseDelegateAdapter.create {
             delegate { HeadlineLabelDelegate(HeadlineLabelDelegateListeners()) }
-            delegate { EmailPhoneFieldDelegate(EmailPhoneDelegateListeners(viewModel::emailChanged)) }
+            delegate { EmailFieldDelegate(EmailDelegateListeners(viewModel::emailChanged)) }
             delegate { PasswordFieldDelegate(PasswordFieldDelegateListeners(viewModel::passwordChanged)) }
             delegate { NameFieldDelegate(NameFieldDelegateListeners(viewModel::nameChanged)) }
             delegate { SelectionFieldDelegate(SelectionFieldDelegateListeners(viewModel::insuranceCompanyFieldSelected)) }

@@ -17,7 +17,6 @@ import com.aya.digital.core.feature.auth.signin.ui.model.SignInStateTransformer
 import com.aya.digital.core.feature.auth.signin.ui.model.SignInUiModel
 import com.aya.digital.core.feature.auth.signin.viewmodel.SignInState
 import com.aya.digital.core.feature.auth.signin.viewmodel.SignInViewModel
-import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.ui.adapters.base.BaseDelegateAdapter
 import com.aya.digital.core.ui.base.ext.SpannableObject
 import com.aya.digital.core.ext.colors
@@ -25,8 +24,9 @@ import com.aya.digital.core.feature.auth.signin.viewmodel.SignInSideEffects
 import com.aya.digital.core.ui.base.ext.createSpannableText
 import com.aya.digital.core.ui.base.screens.DiFragment
 import com.aya.digital.core.ui.base.utils.LinkTouchMovementMethod
-import com.aya.digital.core.ui.delegates.components.fields.emailphone.ui.EmailPhoneDelegateListeners
-import com.aya.digital.core.ui.delegates.components.fields.emailphone.ui.EmailPhoneFieldDelegate
+import com.aya.digital.core.ui.delegates.components.fields.emailphone.ui.EmailDelegateListeners
+import com.aya.digital.core.ui.delegates.components.fields.emailphone.ui.EmailFieldDelegate
+import com.aya.digital.core.ui.delegates.components.fields.emailphone.ui.PhoneFieldDelegate
 import com.aya.digital.core.ui.delegates.components.fields.password.ui.PasswordFieldDelegate
 import com.aya.digital.core.ui.delegates.components.fields.password.ui.PasswordFieldDelegateListeners
 import com.aya.digital.core.ui.delegates.components.labels.headline.ui.*
@@ -51,7 +51,7 @@ class SignInView :
         BaseDelegateAdapter.create {
             delegate { HeadlineLabelDelegate(HeadlineLabelDelegateListeners()) }
             delegate { SpannableHelperLabelDelegate(SpannableHelperLabelDelegateListeners{viewModel.restorePassword()}) }
-            delegate { EmailPhoneFieldDelegate(EmailPhoneDelegateListeners(viewModel::emailChanged)) }
+            delegate { EmailFieldDelegate(EmailDelegateListeners(viewModel::emailChanged)) }
             delegate { PasswordFieldDelegate(PasswordFieldDelegateListeners(viewModel::passwordChanged)) }
 
         }

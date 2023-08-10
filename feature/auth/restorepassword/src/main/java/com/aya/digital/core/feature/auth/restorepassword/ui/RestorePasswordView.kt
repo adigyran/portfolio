@@ -13,7 +13,6 @@ import com.aya.digital.core.feature.auth.restorepassword.ui.model.RestorePasswor
 import com.aya.digital.core.feature.auth.restorepassword.ui.model.RestorePasswordUiModel
 import com.aya.digital.core.feature.auth.restorepassword.viewmodel.RestorePasswordState
 import com.aya.digital.core.feature.auth.restorepassword.viewmodel.RestorePasswordViewModel
-import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.ui.adapters.base.BaseDelegateAdapter
 import com.aya.digital.core.ext.createFragment
 import com.aya.digital.core.ext.toggleAvailability
@@ -21,8 +20,9 @@ import com.aya.digital.core.feature.auth.restorepassword.navigation.RestorePassw
 import com.aya.digital.core.feature.auth.restorepassword.viewmodel.RestorePasswordSideEffects
 import com.aya.digital.core.feature.auth.signin.restorepassword.databinding.ViewRestorePasswordBinding
 import com.aya.digital.core.ui.base.screens.DiFragment
-import com.aya.digital.core.ui.delegates.components.fields.emailphone.ui.EmailPhoneDelegateListeners
-import com.aya.digital.core.ui.delegates.components.fields.emailphone.ui.EmailPhoneFieldDelegate
+import com.aya.digital.core.ui.delegates.components.fields.emailphone.ui.EmailDelegateListeners
+import com.aya.digital.core.ui.delegates.components.fields.emailphone.ui.EmailFieldDelegate
+import com.aya.digital.core.ui.delegates.components.fields.emailphone.ui.PhoneFieldDelegate
 import com.aya.digital.core.ui.delegates.components.fields.password.ui.PasswordFieldDelegate
 import com.aya.digital.core.ui.delegates.components.fields.password.ui.PasswordFieldDelegateListeners
 import com.aya.digital.core.ui.delegates.components.labels.headline.ui.HeadlineLabelDelegate
@@ -48,7 +48,7 @@ internal class RestorePasswordView :
     private val adapter by lazy(LazyThreadSafetyMode.NONE) {
         BaseDelegateAdapter.create {
             delegate { HeadlineLabelDelegate(HeadlineLabelDelegateListeners()) }
-            delegate { EmailPhoneFieldDelegate(EmailPhoneDelegateListeners(viewModel::emailFieldChanging)) }
+            delegate { EmailFieldDelegate(EmailDelegateListeners(viewModel::emailFieldChanging)) }
             delegate { PasswordFieldDelegate(PasswordFieldDelegateListeners(viewModel::passwordFieldsChanging)) }
         }
     }

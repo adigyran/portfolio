@@ -54,8 +54,8 @@ object CommonMasks {
 
     fun getUsPhoneValidator(): MaskImpl {
         val slots = arrayListOf<Slot>(
-            PredefinedSlots.hardcodedSlot('+'),
-            PredefinedSlots.hardcodedSlot('1'),
+            PredefinedSlots.hardcodedSlot('+').withTags(Slot.TAG_DECORATION),
+            PredefinedSlots.hardcodedSlot('1').withTags(Slot.TAG_DECORATION),
             PredefinedSlots.hardcodedSlot(' ').withTags(Slot.TAG_DECORATION),
             PredefinedSlots.hardcodedSlot('(').withTags(Slot.TAG_DECORATION),
             Slot(null, SlotValidators.DigitValidator()),

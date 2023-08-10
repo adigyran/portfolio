@@ -6,8 +6,7 @@ import com.aya.digital.core.feature.profile.emergencycontact.viewmodel.ProfileEm
 import com.aya.digital.core.mvi.BaseStateTransformer
 import com.aya.digital.core.ui.adapters.base.DiffItem
 import com.aya.digital.core.ui.base.masks.CommonMasks
-import com.aya.digital.core.ui.delegates.components.fields.emailphone.model.EmailPhoneFieldMode
-import com.aya.digital.core.ui.delegates.components.fields.emailphone.model.EmailPhoneFieldUIModel
+import com.aya.digital.core.ui.delegates.components.fields.emailphone.model.PhoneFieldUIModel
 import com.aya.digital.core.ui.delegates.components.fields.name.model.NameFieldUIModel
 import com.aya.digital.core.ui.delegates.profile.emergencycontactinfo.model.EmergencyContactInfoUIModel
 import ru.tinkoff.decoro.MaskImpl
@@ -29,12 +28,12 @@ class ProfileEmergencyContactStateTransformer(context: Context) :
                             )
                         )
                         add(
-                            EmailPhoneFieldUIModel(
+                            PhoneFieldUIModel(
                                 tag = FieldsTags.PHONE_FIELD,
                                 label = "Contact Phone",
-                                state.contactPhone.getMaskedText(CommonMasks.getUsPhoneValidator()).getField(),
+                                state.contactPhone.getField(),
                                 state.contactPhoneError,
-                                mode = EmailPhoneFieldMode.PHONE_MODE
+                                CommonMasks.getUsPhoneValidator()
                             )
                         )
 
@@ -50,7 +49,7 @@ class ProfileEmergencyContactStateTransformer(context: Context) :
                         add(
                             EmergencyContactInfoUIModel(
                                 "Contact Phone",
-                                state.contactPhone.getField()
+                                state.contactPhone.getMaskedText(CommonMasks.getUsPhoneValidator()).getField()
                             )
                         )
                     }

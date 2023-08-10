@@ -5,8 +5,8 @@ import com.aya.digital.core.feature.profile.security.changephone.FieldsTags
 import com.aya.digital.core.feature.profile.security.changephone.viewmodel.ProfileSecurityChangePhoneState
 import com.aya.digital.core.mvi.BaseStateTransformer
 import com.aya.digital.core.ui.adapters.base.DiffItem
-import com.aya.digital.core.ui.delegates.components.fields.emailphone.model.EmailPhoneFieldMode
-import com.aya.digital.core.ui.delegates.components.fields.emailphone.model.EmailPhoneFieldUIModel
+import com.aya.digital.core.ui.base.masks.CommonMasks
+import com.aya.digital.core.ui.delegates.components.fields.emailphone.model.PhoneFieldUIModel
 import com.aya.digital.core.ui.delegates.components.labels.headline.model.HeadlineTwoLineLabelUIModel
 
 internal class ProfileSecurityChangePhoneStateTransformer(context: Context) :
@@ -22,12 +22,12 @@ internal class ProfileSecurityChangePhoneStateTransformer(context: Context) :
                         )
                     )
                     add(
-                        EmailPhoneFieldUIModel(
+                        PhoneFieldUIModel(
                             FieldsTags.EMAIL_PHONE_FIELD_TAG,
                             "Phone",
                             state.phone,
                             state.phoneError,
-                            EmailPhoneFieldMode.PHONE_MODE
+                            CommonMasks.getUsPhoneValidator()
                         )
                     )
                 }

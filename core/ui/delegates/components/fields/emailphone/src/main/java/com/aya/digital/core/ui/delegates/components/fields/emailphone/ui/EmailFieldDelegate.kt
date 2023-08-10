@@ -1,4 +1,4 @@
-package com.aya.digital.core.ui.delegates.components.fields.validatednumber.ui
+package com.aya.digital.core.ui.delegates.components.fields.emailphone.ui
 
 import android.text.Editable
 import android.text.TextWatcher
@@ -7,27 +7,26 @@ import android.view.ViewGroup
 import com.aya.digital.core.ui.adapters.base.BaseDelegate
 import com.aya.digital.core.ui.adapters.base.BaseViewHolder
 import com.aya.digital.core.ui.adapters.base.DiffItem
-import com.aya.digital.core.ui.delegates.components.fields.name.model.ValidatedNumberFieldUIModel
-import com.aya.digital.core.ui.delegates.components.fields.validatednumber.databinding.ItemValidatedNumberFieldBinding
+import com.aya.digital.core.ui.delegates.components.fields.emailphone.databinding.ItemEmailphoneFieldBinding
+import com.aya.digital.core.ui.delegates.components.fields.emailphone.model.EmailFieldUIModel
 
-
-class ValidatedNumberFieldDelegate(private val delegateListeners: ValidatedNumberFieldDelegateListeners) :
-    BaseDelegate<ValidatedNumberFieldUIModel>() {
+class EmailFieldDelegate(private val delegateListeners: EmailDelegateListeners) :
+    BaseDelegate<EmailFieldUIModel>() {
     override fun isForViewType(
         item: DiffItem,
         items: MutableList<DiffItem>,
         position: Int
-    ): Boolean = item is ValidatedNumberFieldUIModel
+    ): Boolean = item is EmailFieldUIModel
 
-    override fun onCreateViewHolder(parent: ViewGroup): BaseViewHolder<ValidatedNumberFieldUIModel> {
+    override fun onCreateViewHolder(parent: ViewGroup): BaseViewHolder<EmailFieldUIModel> {
         val binding =
-            ItemValidatedNumberFieldBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemEmailphoneFieldBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
         return ViewHolder(binding)
     }
 
-    inner class ViewHolder(private val binding: ItemValidatedNumberFieldBinding) :
-        BaseViewHolder<ValidatedNumberFieldUIModel>(binding.root) {
+    inner class ViewHolder(private val binding: ItemEmailphoneFieldBinding) :
+        BaseViewHolder<EmailFieldUIModel>(binding.root) {
 
         private var fieldSet = false
 
@@ -42,15 +41,17 @@ class ValidatedNumberFieldDelegate(private val delegateListeners: ValidatedNumbe
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) = Unit
 
-            override fun afterTextChanged(s: Editable) = delegateListeners.inputFieldChangeListener(item.tag,s.toString())
+            override fun afterTextChanged(s: Editable) =
+                delegateListeners.inputFieldChangeListener(item.tag, s.toString())
         }
 
-        override fun bind(item: ValidatedNumberFieldUIModel) {
-            super.bind(item)
 
+
+
+        override fun bind(item: EmailFieldUIModel) {
+            super.bind(item)
             if (!fieldSet) {
                 binding.tilField.hint = item.label
-                binding.tilField.suffixText = item.suffix
                 fieldSet = true
             }
             binding.edField.removeTextChangedListener(textWatcher)
@@ -60,7 +61,9 @@ class ValidatedNumberFieldDelegate(private val delegateListeners: ValidatedNumbe
             binding.edField.addTextChangedListener(textWatcher)
         }
 
+
     }
+
 }
 
-class ValidatedNumberFieldDelegateListeners(val inputFieldChangeListener: ((tag: Int, text: String) -> Unit))
+class EmailDelegateListeners(val inputFieldChangeListener: ((tag: Int, text: String) -> Unit))

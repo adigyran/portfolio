@@ -15,15 +15,15 @@ import com.aya.digital.core.feature.profile.emergencycontact.viewmodel.ProfileEm
 import com.aya.digital.core.feature.profile.emergencycontact.viewmodel.ProfileEmergencyContactViewModel
 import com.aya.digital.core.ui.adapters.base.BaseDelegateAdapter
 import com.aya.digital.core.ui.base.screens.DiFragment
-import com.aya.digital.core.ui.delegates.components.fields.emailphone.ui.EmailPhoneDelegateListeners
-import com.aya.digital.core.ui.delegates.components.fields.emailphone.ui.EmailPhoneFieldDelegate
+import com.aya.digital.core.ui.delegates.components.fields.emailphone.ui.EmailDelegateListeners
+import com.aya.digital.core.ui.delegates.components.fields.emailphone.ui.PhoneDelegateListeners
+import com.aya.digital.core.ui.delegates.components.fields.emailphone.ui.PhoneFieldDelegate
 import com.aya.digital.core.ui.delegates.components.fields.name.ui.NameFieldDelegate
 import com.aya.digital.core.ui.delegates.components.fields.name.ui.NameFieldDelegateListeners
 import com.aya.digital.core.ui.delegates.profile.emergencycontactinfo.ui.EmergencyContactInfoDelegate
 import org.kodein.di.DI
 import org.kodein.di.factory
 import org.kodein.di.on
-import timber.log.Timber
 
 class ProfileEmergencyContactView :
     DiFragment<ViewProfileEmergencyContactBinding, ProfileEmergencyContactViewModel, ProfileEmergencyContactState, ProfileEmergencyContactSideEffects, ProfileEmergencyContactUiModel, ProfileEmergencyContactStateTransformer>() {
@@ -39,7 +39,7 @@ class ProfileEmergencyContactView :
     private val adapter by lazy(LazyThreadSafetyMode.NONE) {
         BaseDelegateAdapter.create {
             delegate { NameFieldDelegate(NameFieldDelegateListeners(viewModel::onNameFieldChanged)) }
-            delegate { EmailPhoneFieldDelegate(EmailPhoneDelegateListeners(viewModel::onPhoneFieldChanged)) }
+            delegate { PhoneFieldDelegate(PhoneDelegateListeners(viewModel::onPhoneFieldChanged)) }
 
             delegate { EmergencyContactInfoDelegate() }
         }
