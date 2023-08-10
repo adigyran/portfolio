@@ -114,5 +114,10 @@ Added Firebase Distribution\n
         version 51 patient
         profile update on back
         version 52 patient
+        profile avatar image and insurance image size limit dialog
+        added phone mask to emergency contact
+        phone mask is fixed, now properly editable in emergency contact and change phone (this is temp fix)
+        emergency contact fields jumping fix
+        version 53 patient
 
 
