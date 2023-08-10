@@ -1,4 +1,4 @@
-package com.aya.digital.core.feature.profile.insurance.add.ui.contract
+package com.aya.digital.core.navigation.contracts.imagepicker
 
 import android.os.Build
 import android.os.ext.SdkExtensions

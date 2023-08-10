@@ -1,8 +1,10 @@
 package com.aya.digital.core.feature.profile.insurance.add.ui
 
+import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
 import android.os.Parcelable
+import android.provider.OpenableColumns
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,7 +17,7 @@ import com.aya.digital.core.ext.gone
 import com.aya.digital.core.ext.visible
 import com.aya.digital.core.feature.profile.insurance.add.databinding.ViewProfileInsuranceAddBinding
 import com.aya.digital.core.feature.profile.insurance.add.di.profileInsuranceAddDiModule
-import com.aya.digital.core.feature.profile.insurance.add.ui.contract.ProfileInsuranceAddImageSelectContract
+import com.aya.digital.core.navigation.contracts.imagepicker.ImageSelectContract
 import com.aya.digital.core.feature.profile.insurance.add.ui.model.ProfileInsuranceAddStateTransformer
 import com.aya.digital.core.feature.profile.insurance.add.ui.model.ProfileInsuranceAddUiModel
 import com.aya.digital.core.feature.profile.insurance.add.viewmodel.ProfileInsuranceAddSideEffects
@@ -36,6 +38,9 @@ import kotlinx.parcelize.Parcelize
 import org.kodein.di.DI
 import org.kodein.di.factory
 import org.kodein.di.on
+import timber.log.Timber
+
+const val MAX_IMAGE_SIZE_KB = 2900
 
 class ProfileInsuranceAddView :
     DiFragment<ViewProfileInsuranceAddBinding, ProfileInsuranceAddViewModel, ProfileInsuranceAddState, ProfileInsuranceAddSideEffects, ProfileInsuranceAddUiModel, ProfileInsuranceAddStateTransformer>() {
@@ -89,8 +94,31 @@ class ProfileInsuranceAddView :
         }
     }
 
-    private val singlePhotoPickerLauncher = registerForActivityResult(ProfileInsuranceAddImageSelectContract()) { imageUri: Uri? ->
-        imageUri?.let(viewModel::imageSelected)
+    private val singlePhotoPickerLauncher = registerForActivityResult(
+        ImageSelectContract()
+    ) { imageUri: Uri? ->
+        imageUri?.let {
+            requireActivity().contentResolver.query(imageUri,null,null,null)?.use { cursor: Cursor ->
+                val sizeIndex = cursor.getColumnIndex(OpenableColumns.SIZE)
+                cursor.moveToFirst()
+                val size = cursor.getLong(sizeIndex)
+                if(size<MAX_IMAGE_SIZE_KB*1024) {
+                    viewModel.imageSelected(it)
+                } else showSizeLimitDialog()
+            }
+        }
+
+    }
+
+    private fun showSizeLimitDialog() {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle("Error")
+            .setMessage("Image too big, choose other image")
+            .setPositiveButton("Ok") { dialog, which ->
+                dialog.dismiss()
+            }
+            .show()
+
     }
 
     override fun provideDiModule(): DI.Module =

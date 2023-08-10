@@ -1,4 +1,4 @@
-package com.aya.digital.core.feature.profile.generalinfo.view.ui.contract
+package com.aya.digital.core.navigation.contracts.imagepicker
 
 import android.app.Activity
 import android.content.Context
@@ -9,8 +9,7 @@ import androidx.activity.result.contract.ActivityResultContract
 
 private const val MIME_TYPE_IMAGE = "image/*"
 
-
-class ProfileGeneralInfoEditAvatarImageSelectContract : ActivityResultContract<Void?, Uri?>() {
+class ImageSelectContract : ActivityResultContract<Void?, Uri?>() {
 
 
     override fun createIntent(context: Context, input: Void?): Intent {
@@ -19,7 +18,9 @@ class ProfileGeneralInfoEditAvatarImageSelectContract : ActivityResultContract<V
             Intent(MediaStore.ACTION_PICK_IMAGES)
         } else {
             Intent(Intent.ACTION_OPEN_DOCUMENT)
-        }).apply { type = MIME_TYPE_IMAGE }
+        }).apply { type = MIME_TYPE_IMAGE
+
+        }
     }
 
     override fun parseResult(resultCode: Int, intent: Intent?): Uri? {
