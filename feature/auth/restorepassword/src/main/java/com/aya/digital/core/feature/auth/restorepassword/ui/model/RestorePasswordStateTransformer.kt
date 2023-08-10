@@ -22,7 +22,7 @@ internal class RestorePasswordStateTransformer(private val context: Context) :
                 }
             },
             buttonText = state.operationState.getButtonText(),
-            buttonEnabled = state.emailError==null
+            buttonEnabled = state.emailError == null
         )
 
     private fun RestorePasswordOperationState.getButtonText() =
@@ -38,18 +38,35 @@ internal class RestorePasswordStateTransformer(private val context: Context) :
             RestorePasswordOperationState.RestoringChangePassword -> "Change password"
             RestorePasswordOperationState.RestoringEmailInput -> "Restore password"
         }
+
     private fun RestorePasswordOperationState.getFields(state: RestorePasswordState) =
-        when(this)
-        {
+        when (this) {
             RestorePasswordOperationState.RestoringEmailInput -> {
                 listOf<DiffItem>(
-                    EmailPhoneFieldUIModel(tag = FieldsTags.EMAIL_PHONE_FIELD_TAG,label = "Email",state.email,state.emailError, mode = EmailPhoneFieldMode.EMAIL_MODE)
+                    EmailPhoneFieldUIModel(
+                        tag = FieldsTags.EMAIL_PHONE_FIELD_TAG,
+                        label = "Email",
+                        state.email,
+                        state.emailError,
+                        mode = EmailPhoneFieldMode.EMAIL_MODE
+                    )
                 )
             }
+
             else -> {
                 listOf<DiffItem>(
-                    PasswordFieldUIModel(tag = FieldsTags.NEW_PASSWORD_FIELD_TAG,label = "New password",state.passwordNew,state.passwordNewError),
-                    PasswordFieldUIModel(tag = FieldsTags.NEW_PASSWORD_REPEAT_FIELD_TAG,label = "Duplicate new password",state.passwordNewRepeat,state.passwordNewError)
+                    PasswordFieldUIModel(
+                        tag = FieldsTags.NEW_PASSWORD_FIELD_TAG,
+                        label = "New password",
+                        state.passwordNew,
+                        state.passwordNewError
+                    ),
+                    PasswordFieldUIModel(
+                        tag = FieldsTags.NEW_PASSWORD_REPEAT_FIELD_TAG,
+                        label = "Duplicate new password",
+                        state.passwordNewRepeat,
+                        state.passwordNewError
+                    )
                 )
             }
         }

@@ -5,6 +5,7 @@ import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.aya.digital.core.ext.dpToPx
+import com.aya.digital.core.ui.delegates.components.fields.emailphone.ui.EmailPhoneFieldDelegate
 import com.aya.digital.core.ui.delegates.components.fields.name.ui.NameFieldDelegate
 import com.aya.digital.core.ui.delegates.profile.emergencycontactinfo.ui.EmergencyContactInfoDelegate
 
@@ -22,6 +23,7 @@ internal class ProfileEmergencyContactDecoration : RecyclerView.ItemDecoration()
         {
             is EmergencyContactInfoDelegate.ViewHolder -> (24).dpToPx()
             is NameFieldDelegate.ViewHolder -> (20).dpToPx()
+            is EmailPhoneFieldDelegate.ViewHolder -> (20).dpToPx()
             else -> 0
         }
         outRect.top = top

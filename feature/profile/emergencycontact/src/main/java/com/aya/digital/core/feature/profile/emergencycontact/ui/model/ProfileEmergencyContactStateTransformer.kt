@@ -5,8 +5,12 @@ import com.aya.digital.core.feature.profile.emergencycontact.FieldsTags
 import com.aya.digital.core.feature.profile.emergencycontact.viewmodel.ProfileEmergencyContactState
 import com.aya.digital.core.mvi.BaseStateTransformer
 import com.aya.digital.core.ui.adapters.base.DiffItem
+import com.aya.digital.core.ui.base.masks.CommonMasks
+import com.aya.digital.core.ui.delegates.components.fields.emailphone.model.EmailPhoneFieldMode
+import com.aya.digital.core.ui.delegates.components.fields.emailphone.model.EmailPhoneFieldUIModel
 import com.aya.digital.core.ui.delegates.components.fields.name.model.NameFieldUIModel
 import com.aya.digital.core.ui.delegates.profile.emergencycontactinfo.model.EmergencyContactInfoUIModel
+import ru.tinkoff.decoro.MaskImpl
 
 
 class ProfileEmergencyContactStateTransformer(context: Context) :
@@ -25,11 +29,12 @@ class ProfileEmergencyContactStateTransformer(context: Context) :
                             )
                         )
                         add(
-                            NameFieldUIModel(
-                                FieldsTags.PHONE_FIELD,
-                                "Contact Phone",
-                                state.contactPhone,
-                                state.contactPhoneError
+                            EmailPhoneFieldUIModel(
+                                tag = FieldsTags.PHONE_FIELD,
+                                label = "Contact Phone",
+                                state.contactPhone.getMaskedText(CommonMasks.getUsPhoneValidator()).getField(),
+                                state.contactPhoneError,
+                                mode = EmailPhoneFieldMode.PHONE_MODE
                             )
                         )
 
@@ -58,5 +63,10 @@ class ProfileEmergencyContactStateTransformer(context: Context) :
 
     private fun getNotSpecifiedText() = "Not specified"
     private fun String?.getField() = this ?: getNotSpecifiedText()
+
+    private fun String?.getMaskedText(mask: MaskImpl) = this?.let {
+        mask.insertFront(it)
+        mask.toString()
+    }
 
 }

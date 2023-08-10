@@ -37,7 +37,13 @@ class ProfileEmergencyContactViewModel(
         when(tag)
         {
           FieldsTags.NAME_FIELD -> reduce { state.copy(contactName = text) }
-          FieldsTags.PHONE_FIELD -> reduce { state.copy(contactPhone = text) }
+        }
+    }
+
+    fun onPhoneFieldChanged(tag: Int,text: String) = intent {
+        when(tag)
+        {
+            FieldsTags.PHONE_FIELD -> reduce { state.copy(contactPhone = text) }
         }
     }
 
