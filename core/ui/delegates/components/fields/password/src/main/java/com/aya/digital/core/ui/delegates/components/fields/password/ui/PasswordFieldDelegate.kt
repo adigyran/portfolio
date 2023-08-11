@@ -68,7 +68,7 @@ class PasswordFieldDelegate(private val delegateListeners: PasswordFieldDelegate
             if (binding.edField.text.toString() != item.text) {
                 binding.edField.setText(item.text)
             }
-            binding.tilField.error = item.error
+           // binding.tilField.error = item.error
             binding.edField.addTextChangedListener(textWatcher)
         }
     }
