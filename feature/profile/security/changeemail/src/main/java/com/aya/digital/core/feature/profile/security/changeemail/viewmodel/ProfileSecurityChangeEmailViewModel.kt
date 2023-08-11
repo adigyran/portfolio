@@ -5,9 +5,14 @@ import com.aya.digital.core.domain.profile.security.changeemail.ChangeEmailGetCo
 import com.aya.digital.core.domain.profile.security.changeemail.ChangeEmailUseCase
 import com.aya.digital.core.feature.profile.security.changeemail.navigation.ProfileSecurityChangeEmailNavigationEvents
 import com.aya.digital.core.feature.profile.security.changeemail.ui.ProfileSecurityChangeEmailView
+import com.aya.digital.core.localisation.R
 import com.aya.digital.core.mvi.BaseViewModel
 import com.aya.digital.core.navigation.coordinator.CoordinatorEvent
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
+import com.aya.digital.core.ui.base.validation.MailValidator
+import com.aya.digital.core.ui.base.validation.NotEmptyValidator
+import com.aya.digital.core.ui.base.validation.ValidationResult.Ok.processResultMessage
+import com.aya.digital.core.ui.base.validation.validateField
 import com.aya.digital.core.util.requestcodes.RequestCodes
 import kotlinx.coroutines.rx3.await
 import org.orbitmvi.orbit.syntax.simple.intent
@@ -30,6 +35,8 @@ internal class ProfileSecurityChangeEmailViewModel(
         {
 
         }
+    private val emailValidator = MailValidator(R.string.no_role_defined_error)
+    private val notEmptyValidator = NotEmptyValidator(R.string.no_role_defined_error)
 
     private fun changeEmail() = intent {
         state.code?.let { code ->
@@ -71,7 +78,13 @@ internal class ProfileSecurityChangeEmailViewModel(
 
     }
 
-    fun saveClicked() = intent { requestCode() }
+    fun saveClicked() = intent {
+        validateAllFields {
+            if (!it) return@validateAllFields
+            requestCode()
+        }
+
+    }
 
     fun emailChanged(tag: Int, email: String) = intent {
         if (state.email != email) reduce { state.copy(email = email) }
@@ -80,6 +93,16 @@ internal class ProfileSecurityChangeEmailViewModel(
     override fun postErrorSideEffect(errorSideEffect: ErrorSideEffect) = intent {
         postSideEffect(ProfileSecurityChangeEmailSideEffects.Error(errorSideEffect))
     }
+
+    private fun String.validateEmail() =
+        this.validateField(false, notEmptyValidator, emailValidator)
+
+    private fun validateAllFields(callback: (Boolean) -> Unit) =
+        intent {
+            val emailValidation = state.email.validateEmail()
+            reduce { state.copy(emailError = emailValidation.processResultMessage()) }
+            callback(emailValidation.isOk())
+        }
 
     override fun onBack() {
         coordinatorRouter.sendEvent(CoordinatorEvent.Back)

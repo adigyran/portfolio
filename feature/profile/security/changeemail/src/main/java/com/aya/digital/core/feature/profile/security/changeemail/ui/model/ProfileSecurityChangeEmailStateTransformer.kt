@@ -32,16 +32,11 @@ internal class ProfileSecurityChangeEmailStateTransformer(private val context: C
                             tag = FieldsTags.EMAIL_PHONE_FIELD_TAG,
                             label = "Email",
                             text = state.email,
-                            error = state.email.validateEmail().processResult({null},{context.strings[it.errorMsgId]})
+                            error = state.emailError?.let { context.strings[it] }
                         )
                     )
                 }
             },
-            buttonEnabled = state.email.validateEmail()==ValidationResult.Ok
+            buttonEnabled = true
         )
-    private val emailValidator = MailValidator(R.string.no_role_defined_error)
-    private val notEmptyValidator = NotEmptyValidator(R.string.no_role_defined_error)
-
-    private fun String.validateEmail() = this.validateField(false,notEmptyValidator,emailValidator)
-
 }

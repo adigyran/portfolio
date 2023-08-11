@@ -25,7 +25,7 @@ class ProfileTabCoordinatorGraph : FragmentContainerGraph {
             ProfileTabNavigationEvents.OpenDefaultScreen -> {
                 mainRouter.newRootScreen(ProfileScreen)
             }
-            ProfileNavigationEvents.OpenProfileGeneralInfo -> {
+            is ProfileNavigationEvents.OpenProfileGeneralInfo -> {
             }
             ProfileNavigationEvents.OpenProfileEmergencyContact -> {
             }

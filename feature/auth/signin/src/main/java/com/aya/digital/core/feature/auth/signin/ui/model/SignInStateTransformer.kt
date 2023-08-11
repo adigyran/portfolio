@@ -20,9 +20,9 @@ class SignInStateTransformer(private val context: Context) :
                     add(
                         EmailFieldUIModel(
                             tag = FieldsTags.EMAIL_PHONE_FIELD_TAG,
-                            "Email or Phone",
-                            state.email,
-                            state.emailError
+                            label = "Email or Phone",
+                            text = state.email,
+                            error = state.emailError
                         )
                     )
                     add(

@@ -13,10 +13,10 @@ class EmailFieldUIModel(
     error
 ) {
     override fun areItemsTheSame(newItem: DiffItem): Boolean =
-        super.areItemsTheSame(newItem) && newItem is PhoneFieldUIModel
+        super.areItemsTheSame(newItem) && newItem is EmailFieldUIModel
 
     override fun areContentsTheSame(newItem: DiffItem): Boolean =
-        super.areContentsTheSame(newItem) && newItem is PhoneFieldUIModel
+        super.areContentsTheSame(newItem) && newItem is EmailFieldUIModel
                 && this.tag == newItem.tag
 
 

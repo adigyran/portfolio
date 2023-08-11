@@ -5,7 +5,6 @@ import com.aya.digital.core.ext.strings
 import com.aya.digital.core.feature.auth.restorepassword.FieldsTags
 import com.aya.digital.core.feature.auth.restorepassword.viewmodel.RestorePasswordState
 import com.aya.digital.core.feature.auth.restorepassword.viewmodel.model.RestorePasswordOperationState
-import com.aya.digital.core.localisation.R as LocR
 import com.aya.digital.core.mvi.BaseStateTransformer
 import com.aya.digital.core.ui.adapters.base.DiffItem
 import com.aya.digital.core.ui.base.validation.MailValidator
@@ -78,9 +77,4 @@ internal class RestorePasswordStateTransformer(private val context: Context) :
                 )
             }
         }
-
-
-
-
-
 }

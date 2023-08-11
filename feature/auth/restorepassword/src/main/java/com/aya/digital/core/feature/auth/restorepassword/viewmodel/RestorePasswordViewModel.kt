@@ -217,13 +217,6 @@ internal class RestorePasswordViewModel(
                     callback(newPasswordValidation.isOk() && newPasswordRepeatValidation.isOk())
                 }
             }
-            /*  when(this)
-              {
-                  RestorePasswordOperationState.RestoringEmailInput -> {
-                      state.email.validateEmail()== ValidationResult.Ok
-                  }
-                  else -> {state.passwordNew.validatePassword()== ValidationResult.Ok && Pair(state.passwordNew,state.passwordNewRepeat).validateRepeatPassword()== ValidationResult.Ok}
-              }*/
         }
 
 
