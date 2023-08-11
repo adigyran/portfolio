@@ -47,6 +47,6 @@ fun Appointment.toAppointmentModel() =
                     "online",
                     ignoreCase = true
                 )
-            ) AppointmentType.Online else AppointmentType.Offline
+            ) AppointmentType.Online(telemedPreTime) else AppointmentType.Offline
         } ?: AppointmentType.Offline
     )

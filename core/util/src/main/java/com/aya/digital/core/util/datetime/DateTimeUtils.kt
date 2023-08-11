@@ -3,6 +3,7 @@ package com.aya.digital.core.util.datetime
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.LocalTime
+import kotlin.time.Duration
 
 
 interface DateTimeUtils {
@@ -15,5 +16,6 @@ interface DateTimeUtils {
     fun formatSlotTitleDate(date:LocalDateTime):String
     fun formatAppointmentDateTime(dateTime: LocalDateTime):Pair<String,String>
     fun formatAppointmentCardDateTime(dateTime: LocalDateTime):String
+    fun formatDurationMins(duration: Duration):String
 
 }

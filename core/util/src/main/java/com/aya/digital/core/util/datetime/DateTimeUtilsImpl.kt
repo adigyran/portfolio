@@ -3,6 +3,7 @@ package com.aya.digital.core.util.datetime
 import android.content.Context
 import kotlinx.datetime.*
 import java.time.format.DateTimeFormatter
+import kotlin.time.Duration
 
 internal class DateTimeUtilsImpl(
     private val context: Context,
@@ -39,6 +40,10 @@ internal class DateTimeUtilsImpl(
 
     override fun formatAppointmentCardDateTime(dateTime: LocalDateTime): String =
         dateTime.format(formatters.dateFormatterAppointmentCardDateTime)
+
+    override fun formatDurationMins(duration: Duration): String {
+        TODO("Not yet implemented")
+    }
 
     private fun LocalDateTime.format(formatter: ThreadLocal<DateTimeFormatter>) =
         this.toJavaLocalDateTime().format(formatter.get())

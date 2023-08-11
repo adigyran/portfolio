@@ -50,7 +50,7 @@ class AppointmentsViewModel(
         AppointmentData(
             id = appointmentModel.id,
             startDate = appointmentModel.startDate,
-            isTelemed = appointmentModel.type == AppointmentType.Online,
+            isTelemed = appointmentModel.type is AppointmentType.Online,
             status = appointmentModel.status,
             doctor = doctorModel?.run {
                 AppointmentDoctor(

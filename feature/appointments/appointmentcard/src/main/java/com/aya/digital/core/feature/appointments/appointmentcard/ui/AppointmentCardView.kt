@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.aya.digital.core.localisation.R as LocR
@@ -37,6 +36,8 @@ import kotlinx.parcelize.Parcelize
 import org.kodein.di.DI
 import org.kodein.di.factory
 import org.kodein.di.on
+import kotlin.time.Duration
+import kotlin.time.toJavaDuration
 
 
 internal class AppointmentCardView :
@@ -101,13 +102,15 @@ internal class AppointmentCardView :
         when (sideEffect) {
             is AppointmentCardSideEffects.Error -> processErrorSideEffect(sideEffect.error)
             is AppointmentCardSideEffects.ShowCustomDateDialog -> showDatePicker(sideEffect.selectableDates)
-            AppointmentCardSideEffects.ShowTelemedicineNotReadyDialog -> showTelemedicineNotReadyDialog()
+            is AppointmentCardSideEffects.ShowTelemedicineNotReadyDialog -> showTelemedicineNotReadyDialog(sideEffect.duration)
         }
 
-    private fun showTelemedicineNotReadyDialog() {
+    private fun showTelemedicineNotReadyDialog(duration: Duration) {
+
+        val durationText = "%d mins".format(duration.inWholeMinutes)
         MaterialAlertDialogBuilder(requireContext())
             .setTitle("Error")
-            .setMessage("Telemedicine call available only before 15 mins of appointment time. Please wait")
+            .setMessage("Telemedicine call available only before $durationText of appointment time. Please wait")
             .setPositiveButton("OK") { dialog, which ->
                 dialog.dismiss()
             }
