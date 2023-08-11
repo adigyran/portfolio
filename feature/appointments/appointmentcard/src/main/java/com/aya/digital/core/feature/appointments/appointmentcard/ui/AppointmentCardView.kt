@@ -107,10 +107,10 @@ internal class AppointmentCardView :
 
     private fun showTelemedicineNotReadyDialog(duration: Duration) {
 
-        val durationText = "%d mins".format(duration.inWholeMinutes)
+        val durationText = "%d h %02d m".format(duration.inWholeHours,duration.inWholeMinutes)
         MaterialAlertDialogBuilder(requireContext())
             .setTitle("Error")
-            .setMessage("Telemedicine call available only before $durationText of appointment time. Please wait")
+            .setMessage("Telemedicine call available only before\n$durationText of appointment time. Please wait")
             .setPositiveButton("OK") { dialog, which ->
                 dialog.dismiss()
             }
