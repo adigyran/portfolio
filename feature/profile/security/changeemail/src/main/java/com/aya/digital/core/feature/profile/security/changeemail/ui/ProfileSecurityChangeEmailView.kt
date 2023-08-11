@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.aya.digital.core.ext.argument
 import com.aya.digital.core.ext.bindClick
 import com.aya.digital.core.ext.createFragment
+import com.aya.digital.core.ext.toggleAvailability
 import com.aya.digital.core.feature.profile.security.changeemail.databinding.ViewProfileSecurityChangeEmailBinding
 import com.aya.digital.core.feature.profile.security.changeemail.di.profileSecurityChangeEmailDiModule
 import com.aya.digital.core.feature.profile.security.changeemail.ui.model.ProfileSecurityChangeEmailStateTransformer
@@ -88,10 +89,16 @@ internal class ProfileSecurityChangeEmailView :
         }
 
     override fun render(state: ProfileSecurityChangeEmailState) {
-        stateTransformer(state).data?.let {
-            adapter.items = it
-            if (binding.recycler.adapter == null) {
-                binding.recycler.swapAdapter(adapter, true)
+        stateTransformer(state).run {
+
+            data?.let {
+                adapter.items = it
+                if (binding.recycler.adapter == null) {
+                    binding.recycler.swapAdapter(adapter, true)
+                }
+            }
+            buttonEnabled.run {
+                binding.saveBtn.toggleAvailability(this)
             }
         }
     }

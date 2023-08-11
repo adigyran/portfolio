@@ -1,15 +1,21 @@
 package com.aya.digital.core.feature.profile.security.changeemail.ui.model
 
 import android.content.Context
+import com.aya.digital.core.ext.strings
 import com.aya.digital.core.feature.profile.security.changeemail.FieldsTags
 import com.aya.digital.core.feature.profile.security.changeemail.viewmodel.ProfileSecurityChangeEmailState
+import com.aya.digital.core.localisation.R
 import com.aya.digital.core.mvi.BaseStateTransformer
 import com.aya.digital.core.ui.adapters.base.DiffItem
+import com.aya.digital.core.ui.base.validation.MailValidator
+import com.aya.digital.core.ui.base.validation.NotEmptyValidator
+import com.aya.digital.core.ui.base.validation.ValidationResult
+import com.aya.digital.core.ui.base.validation.validateField
 import com.aya.digital.core.ui.delegates.components.fields.emailphone.model.EmailFieldUIModel
 import com.aya.digital.core.ui.delegates.components.fields.emailphone.model.PhoneFieldUIModel
 import com.aya.digital.core.ui.delegates.components.labels.headline.model.HeadlineTwoLineLabelUIModel
 
-internal class ProfileSecurityChangeEmailStateTransformer(context: Context) :
+internal class ProfileSecurityChangeEmailStateTransformer(private val context: Context) :
     BaseStateTransformer<ProfileSecurityChangeEmailState, ProfileSecurityChangeEmailUiModel>() {
     override fun invoke(state: ProfileSecurityChangeEmailState): ProfileSecurityChangeEmailUiModel =
         ProfileSecurityChangeEmailUiModel(
@@ -23,15 +29,19 @@ internal class ProfileSecurityChangeEmailStateTransformer(context: Context) :
                     )
                     add(
                         EmailFieldUIModel(
-                            FieldsTags.EMAIL_PHONE_FIELD_TAG,
-                            "Email",
-                            state.email,
-                            state.emailError
+                            tag = FieldsTags.EMAIL_PHONE_FIELD_TAG,
+                            label = "Email",
+                            text = state.email,
+                            error = state.email.validateEmail().processResult({null},{context.strings[it.errorMsgId]})
                         )
                     )
                 }
-            }
+            },
+            buttonEnabled = state.email.validateEmail()==ValidationResult.Ok
         )
+    private val emailValidator = MailValidator(R.string.no_role_defined_error)
+    private val notEmptyValidator = NotEmptyValidator(R.string.no_role_defined_error)
 
+    private fun String.validateEmail() = this.validateField(false,notEmptyValidator,emailValidator)
 
 }

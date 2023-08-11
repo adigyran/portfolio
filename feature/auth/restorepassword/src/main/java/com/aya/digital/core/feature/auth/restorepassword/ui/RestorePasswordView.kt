@@ -19,7 +19,12 @@ import com.aya.digital.core.ext.toggleAvailability
 import com.aya.digital.core.feature.auth.restorepassword.navigation.RestorePasswordOperationStateParam
 import com.aya.digital.core.feature.auth.restorepassword.viewmodel.RestorePasswordSideEffects
 import com.aya.digital.core.feature.auth.signin.restorepassword.databinding.ViewRestorePasswordBinding
+import com.aya.digital.core.localisation.R
 import com.aya.digital.core.ui.base.screens.DiFragment
+import com.aya.digital.core.ui.base.validation.MailValidator
+import com.aya.digital.core.ui.base.validation.NotEmptyValidator
+import com.aya.digital.core.ui.base.validation.PasswordRepeatValidator
+import com.aya.digital.core.ui.base.validation.PasswordValidator
 import com.aya.digital.core.ui.delegates.components.fields.emailphone.ui.EmailDelegateListeners
 import com.aya.digital.core.ui.delegates.components.fields.emailphone.ui.EmailFieldDelegate
 import com.aya.digital.core.ui.delegates.components.fields.emailphone.ui.PhoneFieldDelegate
@@ -44,6 +49,7 @@ internal class RestorePasswordView :
     private val stateTransformerFactory: ((Unit) -> RestorePasswordStateTransformer) by kodein.on(
         context = this
     ).factory()
+
 
     private val adapter by lazy(LazyThreadSafetyMode.NONE) {
         BaseDelegateAdapter.create {

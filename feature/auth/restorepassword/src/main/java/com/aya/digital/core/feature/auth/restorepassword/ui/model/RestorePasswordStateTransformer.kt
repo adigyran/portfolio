@@ -30,13 +30,10 @@ internal class RestorePasswordStateTransformer(private val context: Context) :
                 }
             },
             buttonText = state.operationState.getButtonText(),
-            buttonEnabled = state.operationState.validateAllFields(state)
+            buttonEnabled = true
         )
 
-    private val emailValidator = MailValidator(LocR.string.no_role_defined_error)
-    private val notEmptyValidator = NotEmptyValidator(LocR.string.no_role_defined_error)
-    private val passwordValidator = PasswordValidator(LocR.string.no_role_defined_error)
-    private val passwordRepeatValidator = PasswordRepeatValidator(LocR.string.no_role_defined_error)
+
     private fun RestorePasswordOperationState.getButtonText() =
         when (this) {
             RestorePasswordOperationState.ChangeTempPassword -> "Save"
@@ -59,7 +56,7 @@ internal class RestorePasswordStateTransformer(private val context: Context) :
                         tag = FieldsTags.EMAIL_PHONE_FIELD_TAG,
                         label = "Email",
                         text = state.email,
-                        error = state.email.validateEmail().processResult({null},{context.strings[it.errorMsgId]})
+                        error = state.emailError?.let { context.strings[it] }
                     )
                 )
             }
@@ -70,29 +67,20 @@ internal class RestorePasswordStateTransformer(private val context: Context) :
                         tag = FieldsTags.NEW_PASSWORD_FIELD_TAG,
                         label = "New password",
                         text = state.passwordNew,
-                        error = state.passwordNew.validatePassword().processResult({null},{context.strings[it.errorMsgId]})
+                        error = state.passwordNewError?.let { context.strings[it] }
                     ),
                     PasswordFieldUIModel(
                         tag = FieldsTags.NEW_PASSWORD_REPEAT_FIELD_TAG,
                         label = "Duplicate new password",
                         text = state.passwordNewRepeat,
-                        error = Pair(state.passwordNewRepeat,state.passwordNew).validateRepeatPassword().processResult({null},{context.strings[it.errorMsgId]})
+                        error =  state.passwordNewErrorRepeat?.let { context.strings[it] }
                     )
                 )
             }
         }
 
-    private fun RestorePasswordOperationState.validateAllFields(state: RestorePasswordState) =
-        when(this)
-        {
-            RestorePasswordOperationState.RestoringEmailInput -> {
-                state.email.validateEmail()==ValidationResult.Ok
-            }
-            else -> {state.passwordNew.validatePassword()==ValidationResult.Ok && Pair(state.passwordNew,state.passwordNewRepeat).validateRepeatPassword()==ValidationResult.Ok}
-        }
 
-    private fun String.validateEmail() = this.validateField(false,notEmptyValidator,emailValidator)
-    private fun String.validatePassword() = this.validateField(false, notEmptyValidator,passwordValidator)
-    private fun Pair<String,String>.validateRepeatPassword() = this.validateField(false,passwordRepeatValidator)
+
+
 
 }

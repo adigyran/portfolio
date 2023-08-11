@@ -18,4 +18,9 @@ sealed class ValidationResult {
 
     fun isError(): Boolean =
         this is Error
+
+    fun ValidationResult.processResultMessage() =
+        this.processResult({ null }, { it.errorMsgId })
+
+
 }

@@ -10,9 +10,9 @@ internal data class RestorePasswordState(
     val code:String? = null,
     val userKey:String? = null,
     val email: String = "",
-    val emailError: String? = null,
+    val emailError: Int? = null,
     val passwordNew: String = "",
-    val passwordNewError: String? = null,
+    val passwordNewError: Int? = null,
     val passwordNewRepeat: String = "",
-    val passwordNewErrorRepeat: String? = null
+    val passwordNewErrorRepeat: Int? = null
 ) : BaseState

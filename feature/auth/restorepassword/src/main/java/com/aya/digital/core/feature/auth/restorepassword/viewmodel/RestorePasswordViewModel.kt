@@ -14,10 +14,18 @@ import com.aya.digital.core.feature.auth.restorepassword.navigation.RestorePassw
 import com.aya.digital.core.feature.auth.restorepassword.navigation.RestorePasswordOperationStateParam
 import com.aya.digital.core.feature.auth.restorepassword.ui.RestorePasswordView
 import com.aya.digital.core.feature.auth.restorepassword.viewmodel.model.RestorePasswordOperationState
+import com.aya.digital.core.localisation.R
 import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.mvi.BaseViewModel
 import com.aya.digital.core.navigation.coordinator.CoordinatorEvent
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
+import com.aya.digital.core.ui.base.validation.MailValidator
+import com.aya.digital.core.ui.base.validation.NotEmptyValidator
+import com.aya.digital.core.ui.base.validation.PasswordRepeatValidator
+import com.aya.digital.core.ui.base.validation.PasswordValidator
+import com.aya.digital.core.ui.base.validation.ValidationResult
+import com.aya.digital.core.ui.base.validation.ValidationResult.Ok.processResultMessage
+import com.aya.digital.core.ui.base.validation.validateField
 import com.aya.digital.core.util.requestcodes.RequestCodes
 import kotlinx.coroutines.rx3.await
 import org.orbitmvi.orbit.syntax.simple.intent
@@ -44,7 +52,10 @@ internal class RestorePasswordViewModel(
     {
 
     }
-
+    private val emailValidator = MailValidator(R.string.no_role_defined_error)
+    private val notEmptyValidator = NotEmptyValidator(R.string.no_role_defined_error)
+    private val passwordValidator = PasswordValidator(R.string.no_role_defined_error)
+    private val passwordRepeatValidator = PasswordRepeatValidator(R.string.no_role_defined_error)
     fun emailFieldChanging(tag: Int, text: String) = intent {
         reduce { state.copy(email = text, emailError = null) }
     }
@@ -54,6 +65,7 @@ internal class RestorePasswordViewModel(
             FieldsTags.NEW_PASSWORD_FIELD_TAG -> {
                 reduce { state.copy(passwordNew = text) }
             }
+
             FieldsTags.NEW_PASSWORD_REPEAT_FIELD_TAG -> {
                 reduce { state.copy(passwordNewRepeat = text) }
             }
@@ -67,11 +79,15 @@ internal class RestorePasswordViewModel(
         }
 
     fun saveButtonClicked() = intent {
-        when (state.operationState) {
-            RestorePasswordOperationState.ChangeTempPassword -> savePassword()
-            RestorePasswordOperationState.RestoringChangePassword -> savePassword()
-            RestorePasswordOperationState.RestoringEmailInput -> requestCode()
+        validateAllFields {
+            if (!it) return@validateAllFields
+            when (state.operationState) {
+                RestorePasswordOperationState.ChangeTempPassword -> savePassword()
+                RestorePasswordOperationState.RestoringChangePassword -> savePassword()
+                RestorePasswordOperationState.RestoringEmailInput -> requestCode()
+            }
         }
+
     }
 
     private fun codeEntered(code: String) = intent {
@@ -90,6 +106,7 @@ internal class RestorePasswordViewModel(
                 RestoreCodeResult.Error -> {
                     reenterCode()
                 }
+
                 is RestoreCodeResult.Success -> {
                     reduce {
                         state.copy(
@@ -100,7 +117,9 @@ internal class RestorePasswordViewModel(
                 }
             }
         }, {
-            if(it == RequestResultModel.Error.HttpCode400(listOf())) reenterCode() else processError(it)
+            if (it == RequestResultModel.Error.HttpCode400(listOf())) reenterCode() else processError(
+                it
+            )
         })
     }
 
@@ -142,7 +161,7 @@ internal class RestorePasswordViewModel(
             .await()
             .processResult({
                 requestCodeScreen()
-            }, {  processError(it) })
+            }, { processError(it) })
     }
 
     private fun requestCodeScreen() = intent {
@@ -166,6 +185,49 @@ internal class RestorePasswordViewModel(
     private fun postErrorSideEffect() = intent {
 
     }
+
+    private fun String.validateEmail() =
+        this.validateField(false, notEmptyValidator, emailValidator)
+
+    private fun String.validatePassword() =
+        this.validateField(false, notEmptyValidator, passwordValidator)
+
+    private fun Pair<String, String>.validateRepeatPassword() =
+        this.validateField(false, passwordRepeatValidator)
+
+    private fun validateAllFields(callback: (Boolean) -> Unit) =
+        intent {
+            when (state.operationState) {
+                RestorePasswordOperationState.RestoringEmailInput -> {
+                    val emailValidation = state.email.validateEmail()
+                    reduce { state.copy(emailError = emailValidation.processResultMessage()) }
+                    callback(emailValidation.isOk())
+                }
+
+                else -> {
+                    val newPasswordValidation = state.passwordNew.validatePassword()
+                    val newPasswordRepeatValidation =
+                        Pair(state.passwordNew, state.passwordNewRepeat).validateRepeatPassword()
+                    reduce {
+                        state.copy(
+                            passwordNewError = newPasswordValidation.processResultMessage(),
+                            passwordNewErrorRepeat = newPasswordRepeatValidation.processResultMessage()
+                        )
+                    }
+                    callback(newPasswordValidation.isOk() && newPasswordRepeatValidation.isOk())
+                }
+            }
+            /*  when(this)
+              {
+                  RestorePasswordOperationState.RestoringEmailInput -> {
+                      state.email.validateEmail()== ValidationResult.Ok
+                  }
+                  else -> {state.passwordNew.validatePassword()== ValidationResult.Ok && Pair(state.passwordNew,state.passwordNewRepeat).validateRepeatPassword()== ValidationResult.Ok}
+              }*/
+        }
+
+
+
     override fun onBack() {
         coordinatorRouter.sendEvent(CoordinatorEvent.Back)
     }
