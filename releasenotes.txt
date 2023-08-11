@@ -119,5 +119,7 @@ Added Firebase Distribution\n
         phone mask is fixed, now properly editable in emergency contact and change phone (this is temp fix)
         emergency contact fields jumping fix
         version 53 patient
+        doctors scroll fixes
+        version 54 patient
 
 
