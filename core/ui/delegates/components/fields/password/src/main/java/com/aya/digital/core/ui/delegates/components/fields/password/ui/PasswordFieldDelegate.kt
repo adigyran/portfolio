@@ -47,6 +47,8 @@ class PasswordFieldDelegate(private val delegateListeners: PasswordFieldDelegate
                     firstCall = false
                     return
                 }
+                if (!binding.tilField.error.isNullOrBlank()) binding.tilField.error =
+                    null
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) = Unit
@@ -54,6 +56,7 @@ class PasswordFieldDelegate(private val delegateListeners: PasswordFieldDelegate
             override fun afterTextChanged(s: Editable) =
                 delegateListeners.inputFieldChangeListener(item.tag, s.toString())
         }
+
 
         override fun bind(item: PasswordFieldUIModel) {
             super.bind(item)
@@ -65,6 +68,7 @@ class PasswordFieldDelegate(private val delegateListeners: PasswordFieldDelegate
             if (binding.edField.text.toString() != item.text) {
                 binding.edField.setText(item.text)
             }
+            binding.tilField.error = item.error
             binding.edField.addTextChangedListener(textWatcher)
         }
     }
