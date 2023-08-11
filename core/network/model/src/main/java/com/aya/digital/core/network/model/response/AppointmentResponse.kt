@@ -13,7 +13,8 @@ data class AppointmentResponse(
     val participant:ParticipantResponse?,
     val practitioner:PractitionerResponse?,
     val status:String?,
-    val type:String?
+    val type:String?,
+    val telemedPreTime:Long?
 )
 
 @JsonClass(generateAdapter = true)

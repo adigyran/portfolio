@@ -26,7 +26,6 @@ internal class AppointmentMapperImpl : AppointmentMapper() {
             practitioner = type.practitioner?.let { Practitioner(it.id) },
             status = Status.values().find { it.statusName == type.status } ?: Status.CANCELLED,
             type = type.type,
-            //TODO map properly
-            telemedPreTime = 28L
+            telemedPreTime = type.telemedPreTime
         )
 }
