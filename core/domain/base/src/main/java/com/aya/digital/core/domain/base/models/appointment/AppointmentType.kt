@@ -6,5 +6,5 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 sealed class AppointmentType : Parcelable {
     object Offline : AppointmentType()
-    object Online : AppointmentType()
+    data class Online(val preMins:Long?=null) : AppointmentType()
 }

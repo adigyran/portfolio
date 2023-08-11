@@ -14,6 +14,7 @@ internal data class AppointmentCardState(
     val appointmentDate: @RawValue LocalDateTime? = null,
     val appointmentComment: String? = null,
     val isTelemed: Boolean? = null,
+    val telemedPreTimeMins:Long? = null,
     val participantAvatar:String? = null,
     val doctorData: DoctorData? = null,
     val patientData:PatientData? = null,

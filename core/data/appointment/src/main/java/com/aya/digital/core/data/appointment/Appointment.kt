@@ -12,7 +12,8 @@ data class Appointment(
     val participant: Participant?,
     val practitioner: Practitioner?,
     val status: Status,
-    val type: String?
+    val type: String?,
+    val telemedPreTime:Long?
 )
 
 enum class Status(val statusName:String) {

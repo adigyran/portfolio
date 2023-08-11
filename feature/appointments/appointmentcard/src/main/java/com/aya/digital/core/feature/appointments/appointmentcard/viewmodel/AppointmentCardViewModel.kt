@@ -22,6 +22,7 @@ import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
+const val TELEMED_FALLBACK_PRE_TIME_MINS = 15L
 internal class AppointmentCardViewModel(
     private val coordinatorRouter: CoordinatorRouter,
     private val rootCoordinatorRouter: CoordinatorRouter,
@@ -36,6 +37,8 @@ internal class AppointmentCardViewModel(
     {
         loadAppointment()
     }
+
+
 
     private fun loadAppointment() = intent {
         getAppointmentByIdWithParticipantUseCase(param.appointmentId)
@@ -83,7 +86,8 @@ internal class AppointmentCardViewModel(
             state.copy(
                 appointmentDate = appointmentModel.startDate,
                 appointmentComment = appointmentModel.comment,
-                isTelemed = appointmentModel.type == AppointmentType.Online,
+                isTelemed = appointmentModel.type is AppointmentType.Online,
+                telemedPreTimeMins = (appointmentModel.type as AppointmentType.Online).preMins
             )
         }
     }
@@ -122,12 +126,14 @@ internal class AppointmentCardViewModel(
     }
 
     private fun openVideoCall() = intent {
+        val preTimeMinutes = state.telemedPreTimeMins?:TELEMED_FALLBACK_PRE_TIME_MINS
         state.appointmentDate?.let { startDate ->
             val currentTimeInstant = Clock.System.now()
             val appointmentTimeInstant = startDate.toInstant(TimeZone.currentSystemDefault())
-            val appointmentTimeStartInstant = appointmentTimeInstant.minus(15, DateTimeUnit.MINUTE)
+            val appointmentTimeStartInstant = appointmentTimeInstant.minus(preTimeMinutes, DateTimeUnit.MINUTE)
+            val duration = appointmentTimeInstant - appointmentTimeStartInstant
             if (currentTimeInstant < appointmentTimeStartInstant) {
-                postSideEffect(AppointmentCardSideEffects.ShowTelemedicineNotReadyDialog)
+                postSideEffect(AppointmentCardSideEffects.ShowTelemedicineNotReadyDialog(duration))
             } else {
                 coordinatorRouter.sendEvent(AppointmentCardNavigationEvents.OpenVideoCall(param.appointmentId))
             }
