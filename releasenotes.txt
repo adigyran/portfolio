@@ -121,5 +121,8 @@ Added Firebase Distribution\n
         version 53 patient
         doctors scroll fixes
         version 54 patient
+        email field fixed
+        validation added to email and password reset
+        version 55 patient
 
 
