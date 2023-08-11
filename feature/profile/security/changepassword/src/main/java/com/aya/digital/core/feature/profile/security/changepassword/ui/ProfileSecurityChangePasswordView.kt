@@ -16,7 +16,6 @@ import com.aya.digital.core.feature.profile.security.changepassword.ui.model.Pro
 import com.aya.digital.core.feature.profile.security.changepassword.viewmodel.ProfileSecurityChangePasswordSideEffects
 import com.aya.digital.core.feature.profile.security.changepassword.viewmodel.ProfileSecurityChangePasswordState
 import com.aya.digital.core.feature.profile.security.changepassword.viewmodel.ProfileSecurityChangePasswordViewModel
-import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.ui.adapters.base.BaseDelegateAdapter
 import com.aya.digital.core.ui.base.screens.DiFragment
 import com.aya.digital.core.ui.delegates.components.fields.password.ui.PasswordFieldDelegate
@@ -50,7 +49,7 @@ internal class ProfileSecurityChangePasswordView :
     override fun prepareCreatedUi(savedInstanceState: Bundle?) {
         super.prepareCreatedUi(savedInstanceState)
         binding.toolbar.backButton bindClick {viewModel.onBack()}
-        binding.saveBtn bindClick {viewModel.changePassword()}
+        binding.saveBtn bindClick {viewModel.onChangePassword()}
         binding.toolbar.title.text = "Change password"
         recyclers.add(binding.recycler)
         with(binding.recycler) {

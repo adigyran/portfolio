@@ -6,9 +6,9 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 internal data class ProfileSecurityChangePasswordState(
     val currentPassword: String = "",
-    val currentPasswordError: String? = null,
+    val currentPasswordError: Int? = null,
     val newPassword: String = "",
-    val newPasswordError: String? = null,
+    val newPasswordError: Int? = null,
     val newRepeatPassword: String = "",
-    val newRepeatPasswordError: String? = null
+    val newRepeatPasswordError: Int? = null
 ) : BaseState

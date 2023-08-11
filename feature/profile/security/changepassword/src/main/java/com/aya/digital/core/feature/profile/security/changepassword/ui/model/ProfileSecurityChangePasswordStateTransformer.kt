@@ -1,6 +1,7 @@
 package com.aya.digital.core.feature.profile.security.changepassword.ui.model
 
 import android.content.Context
+import com.aya.digital.core.ext.strings
 import com.aya.digital.core.feature.profile.security.changepassword.FieldsTags
 import com.aya.digital.core.feature.profile.security.changepassword.viewmodel.ProfileSecurityChangePasswordState
 import com.aya.digital.core.mvi.BaseStateTransformer
@@ -22,26 +23,26 @@ internal class ProfileSecurityChangePasswordStateTransformer(private val context
                     )
                     add(
                         PasswordFieldUIModel(
-                            FieldsTags.CURRENT_PASSWORD_FIELD_TAG,
-                            "Current password",
-                            state.currentPassword,
-                            state.currentPasswordError
+                            tag = FieldsTags.CURRENT_PASSWORD_FIELD_TAG,
+                            label = "Current password",
+                            text = state.currentPassword,
+                            error = state.currentPasswordError?.let { context.strings[it] }
                         )
                     )
                     add(
                         PasswordFieldUIModel(
-                            FieldsTags.NEW_PASSWORD_FIELD_TAG,
-                            "New password",
-                            state.newPassword,
-                            state.newPasswordError
+                            tag = FieldsTags.NEW_PASSWORD_FIELD_TAG,
+                            label = "New password",
+                            text = state.newPassword,
+                            error = state.newPasswordError?.let { context.strings[it] }
                         )
                     )
                     add(
                         PasswordFieldUIModel(
-                            FieldsTags.NEW_REPEAT_PASSWORD_FIELD_TAG,
-                            "Duplicate password",
-                            state.newRepeatPassword,
-                            state.newRepeatPasswordError
+                            tag = FieldsTags.NEW_REPEAT_PASSWORD_FIELD_TAG,
+                            label = "Duplicate password",
+                            text = state.newRepeatPassword,
+                            error = state.newRepeatPasswordError?.let { context.strings[it] }
                         )
                     )
                 }
