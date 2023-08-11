@@ -61,9 +61,10 @@ class ProfileEmergencyContactViewModel(
     }
 
     private fun saveEmergencyContact() = intent {
-        if (state.contactName.isNullOrBlank() || state.contactPhone.isNullOrBlank()) return@intent
-        val await = saveEmergencyContactUseCase(state.contactName!!, state.contactPhone!!).await()
+        if (state.contactNameEditable.isNullOrBlank() || state.contactPhoneEditable.isNullOrBlank()) return@intent
+        val await = saveEmergencyContactUseCase(state.contactNameEditable!!, state.contactPhoneEditable!!).await()
         await.processResult({
+            getEmergencyContact()
             reduce { state.copy(editMode = false) }
         }, { processError(it) })
     }

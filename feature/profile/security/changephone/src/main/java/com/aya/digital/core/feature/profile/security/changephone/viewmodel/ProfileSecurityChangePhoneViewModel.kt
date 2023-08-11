@@ -35,7 +35,7 @@ internal class ProfileSecurityChangePhoneViewModel(
     BaseViewModel<ProfileSecurityChangePhoneState, ProfileSecurityChangePhoneSideEffects>() {
     override val container =
         container<ProfileSecurityChangePhoneState, ProfileSecurityChangePhoneSideEffects>(
-            initialState = ProfileSecurityChangePhoneState(phone = param.phone),
+            initialState = ProfileSecurityChangePhoneState(),
         )
         {
             setPhone()
