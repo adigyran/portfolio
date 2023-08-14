@@ -124,5 +124,8 @@ Added Firebase Distribution\n
         email field fixed
         validation added to email and password reset
         version 55 patient
+        code input size fix
+        telehealth wait time from server
+        version 56 patient
 
 
