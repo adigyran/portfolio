@@ -38,7 +38,7 @@
 
     <com.mukeshsolanki.OtpView
         android:id="@+id/otp_view"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/descriptionTv"
         app:layout_constraintStart_toStartOf="parent"
@@ -51,7 +51,8 @@
         app:OtpHideLineWhenFilled="true"
         android:focusableInTouchMode="true"
         app:OtpItemCount="6"
-        app:OtpItemSpacing="12dp"
+        app:OtpItemWidth="40dp"
+        app:OtpItemSpacing="6dp"
         app:OtpState_filled="true"
         app:OtpViewType="line"
         />
