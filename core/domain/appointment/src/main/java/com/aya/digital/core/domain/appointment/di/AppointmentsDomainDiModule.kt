@@ -15,7 +15,9 @@ import com.aya.digital.core.domain.appointment.base.impl.GetAppointmentsWithPati
 import com.aya.digital.core.domain.appointment.create.CreateAppointmentUseCase
 import com.aya.digital.core.domain.appointment.create.impl.CreateAppointmentUseCaseImpl
 import com.aya.digital.core.domain.appointment.telehealth.GetTeleHealthRoomTokenUseCase
+import com.aya.digital.core.domain.appointment.telehealth.GetTeleHealthTimeWindowUseCase
 import com.aya.digital.core.domain.appointment.telehealth.impl.GetTeleHealthRoomTokenUseCaseImpl
+import com.aya.digital.core.domain.appointment.telehealth.impl.GetTeleHealthTimeWindowUseCaseImpl
 import com.aya.digital.core.navigation.AppFlavour
 import com.aya.digital.core.navigation.Flavor
 import org.kodein.di.DI
@@ -47,6 +49,10 @@ fun appointmentsDomainDiModule() = DI.Module("appointmentsDomainDiModule") {
             instance(),
             instance()
         )
+    }
+
+    bind<GetTeleHealthTimeWindowUseCase>() with singleton {
+        GetTeleHealthTimeWindowUseCaseImpl(instance(),instance())
     }
 
     bind<GetAppointmentByIdWithParticipantUseCase>() with singleton {

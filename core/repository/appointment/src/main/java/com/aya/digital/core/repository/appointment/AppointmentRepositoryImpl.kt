@@ -1,7 +1,9 @@
 package com.aya.digital.core.repository.appointment
 
 import com.aya.digital.core.data.appointment.Appointment
+import com.aya.digital.core.data.appointment.TelehealthWaitTimeModel
 import com.aya.digital.core.data.appointment.mappers.AppointmentMapper
+import com.aya.digital.core.data.appointment.mappers.TelehealthWaitTimeMapper
 import com.aya.digital.core.data.appointment.repository.AppointmentRepository
 import com.aya.digital.core.datasource.AppointmentDataSource
 import com.aya.digital.core.datasource.TeleHealthDataSource
@@ -21,13 +23,20 @@ import kotlinx.datetime.toInstant
 internal class AppointmentRepositoryImpl(
     private val appointmentDataSource: AppointmentDataSource,
     private val teleHealthDataSource: TeleHealthDataSource,
-    private val appointmentMapper: AppointmentMapper
+    private val appointmentMapper: AppointmentMapper,
+    private val telehealthWaitTimeMapper: TelehealthWaitTimeMapper
 ) : AppointmentRepository {
     override fun getRoomTokenById(roomId: Int): Single<RequestResult<String>> =
         teleHealthDataSource.getRoomToken(GetTelehealthRoomTokenBody("$roomId"))
             .retryOnError()
             .retrofitResponseToResult(CommonUtils::mapServerErrors)
             .mapResult({ result -> result.token.asResult() }, { it })
+
+    override fun getTimeWindow(): Single<RequestResult<TelehealthWaitTimeModel>> = teleHealthDataSource
+        .getTimeWindow()
+        .retryOnError()
+        .retrofitResponseToResult(CommonUtils::mapServerErrors)
+        .mapResult({ result -> telehealthWaitTimeMapper.mapFrom(result).asResult() }, { it })
 
     override fun getAppointments(
         start: LocalDateTime,

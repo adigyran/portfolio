@@ -1,6 +1,7 @@
 package com.aya.digital.core.data.appointment.repository
 
 import com.aya.digital.core.data.appointment.Appointment
+import com.aya.digital.core.data.appointment.TelehealthWaitTimeModel
 import com.aya.digital.core.networkbase.server.RequestResult
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Single
@@ -8,6 +9,8 @@ import kotlinx.datetime.LocalDateTime
 
 interface AppointmentRepository {
     fun getRoomTokenById(roomId: Int): Single<RequestResult<String>>
+
+    fun getTimeWindow():Single<RequestResult<TelehealthWaitTimeModel>>
 
     fun getAppointments(
         start: LocalDateTime,

@@ -9,6 +9,7 @@ import com.aya.digital.core.network.main.di.modules.createApiService
 import com.aya.digital.core.network.model.request.GetTelehealthRoomTokenBody
 import com.aya.digital.core.network.model.response.AppointmentResponse
 import com.aya.digital.core.network.model.response.telehealth.TelehealthRoomTokenResponse
+import com.aya.digital.core.network.model.response.telehealth.TelehealthWaitTimeResponse
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Single
 
@@ -28,5 +29,6 @@ fun telehealthNetworkModule() = DI.Module("telehealthNetworkModule") {
 class RetrofitTeleHealthNetwork(private val networkApi: TeleHealthService) :
     TeleHealthDataSource {
     override fun getRoomToken(getTelehealthRoomTokenBody: GetTelehealthRoomTokenBody): Single<TelehealthRoomTokenResponse> = networkApi.getRoomToken(getTelehealthRoomTokenBody)
+    override fun getTimeWindow(): Single<TelehealthWaitTimeResponse> = networkApi.getTimeWindow()
 
 }

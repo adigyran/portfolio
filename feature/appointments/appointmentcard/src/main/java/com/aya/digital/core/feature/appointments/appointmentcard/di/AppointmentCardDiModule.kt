@@ -27,6 +27,7 @@ internal fun appointmentCardDiModule(
                 instance("parent_coordinator_bottomnav"),
                 param,
                 instance(),
+                instance(),
                 instance()
             )
         }

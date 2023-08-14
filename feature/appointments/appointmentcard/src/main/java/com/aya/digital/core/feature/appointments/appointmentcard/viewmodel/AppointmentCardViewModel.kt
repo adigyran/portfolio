@@ -2,6 +2,7 @@ package com.aya.digital.core.feature.appointments.appointmentcard.viewmodel
 
 import com.aya.digital.core.domain.appointment.base.CancelAppointmentByIdUseCase
 import com.aya.digital.core.domain.appointment.base.GetAppointmentByIdWithParticipantUseCase
+import com.aya.digital.core.domain.appointment.telehealth.GetTeleHealthTimeWindowUseCase
 import com.aya.digital.core.domain.base.models.appointment.AppointmentModel
 import com.aya.digital.core.domain.base.models.appointment.AppointmentType
 import com.aya.digital.core.domain.base.models.doctors.DoctorModel
@@ -28,6 +29,7 @@ internal class AppointmentCardViewModel(
     private val rootCoordinatorRouter: CoordinatorRouter,
     private val param: AppointmentCardView.Param,
     private val getAppointmentByIdWithParticipantUseCase: GetAppointmentByIdWithParticipantUseCase,
+    private val getTeleHealthTimeWindowUseCase: GetTeleHealthTimeWindowUseCase,
     private val cancelAppointmentByIdUseCase: CancelAppointmentByIdUseCase,
 ) :
     BaseViewModel<AppointmentCardState, AppointmentCardSideEffects>() {
@@ -35,9 +37,15 @@ internal class AppointmentCardViewModel(
         initialState = AppointmentCardState(),
     )
     {
+        loadTimeWindow()
         loadAppointment()
     }
 
+    private fun loadTimeWindow() =  intent {
+        getTeleHealthTimeWindowUseCase()
+            .await()
+            .processResult({},{processError(it)})
+    }
 
 
     private fun loadAppointment() = intent {
