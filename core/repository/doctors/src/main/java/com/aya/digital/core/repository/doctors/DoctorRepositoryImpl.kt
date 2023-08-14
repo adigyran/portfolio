@@ -31,6 +31,7 @@ import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.functions.BiFunction
 import io.reactivex.rxjava3.functions.Function4
 
+const val ENABLE_DOCTORS_CACHING = false
 internal class DoctorRepositoryImpl(
     private val practitionersDataSource: PractitionersDataSource,
     private val doctorDataMapper: DoctorDataMapper,
@@ -40,7 +41,8 @@ internal class DoctorRepositoryImpl(
     override fun fetchDoctorById(id: Int): Single<RequestResult<DoctorData>> =
         doctorsDao.isDoctorExist(id)
             .flatMap { doctorExist ->
-                if (doctorExist) return@flatMap doctorsDao.getDoctor(id)
+                //TODO temp disable caching
+                if (doctorExist && ENABLE_DOCTORS_CACHING) return@flatMap doctorsDao.getDoctor(id)
                     .map { it.asExternalModel().asResult() }
                 else return@flatMap loadDoctorFromNetworkAndSave(id)
             }
