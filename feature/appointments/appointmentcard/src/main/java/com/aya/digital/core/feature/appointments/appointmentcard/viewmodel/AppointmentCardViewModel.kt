@@ -24,6 +24,7 @@ import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
 const val TELEMED_FALLBACK_PRE_TIME_MINS = 15L
+
 internal class AppointmentCardViewModel(
     private val coordinatorRouter: CoordinatorRouter,
     private val rootCoordinatorRouter: CoordinatorRouter,
@@ -41,10 +42,12 @@ internal class AppointmentCardViewModel(
         loadAppointment()
     }
 
-    private fun loadTimeWindow() =  intent {
+    private fun loadTimeWindow() = intent {
         getTeleHealthTimeWindowUseCase()
             .await()
-            .processResult({},{processError(it)})
+            .processResult({
+               reduce {  state.copy(telemedPreTimeDuration = it)}
+            }, { processError(it) })
     }
 
 
@@ -94,8 +97,7 @@ internal class AppointmentCardViewModel(
             state.copy(
                 appointmentDate = appointmentModel.startDate,
                 appointmentComment = appointmentModel.comment,
-                isTelemed = appointmentModel.type is AppointmentType.Online,
-                telemedPreTimeMins = (appointmentModel.type as AppointmentType.Online).preMins
+                isTelemed = appointmentModel.type is AppointmentType.Online
             )
         }
     }
@@ -134,11 +136,18 @@ internal class AppointmentCardViewModel(
     }
 
     private fun openVideoCall() = intent {
-        val preTimeMinutes = state.telemedPreTimeMins?:TELEMED_FALLBACK_PRE_TIME_MINS
+        val pretimeDuration = state.telemedPreTimeDuration
+        if (pretimeDuration != null && pretimeDuration.inWholeMinutes == 0L) {
+            coordinatorRouter.sendEvent(AppointmentCardNavigationEvents.OpenVideoCall(param.appointmentId))
+            return@intent
+        }
+        val preTimeMinutes =
+            state.telemedPreTimeDuration?.inWholeMinutes ?: TELEMED_FALLBACK_PRE_TIME_MINS
         state.appointmentDate?.let { startDate ->
             val currentTimeInstant = Clock.System.now()
             val appointmentTimeInstant = startDate.toInstant(TimeZone.currentSystemDefault())
-            val appointmentTimeStartInstant = appointmentTimeInstant.minus(preTimeMinutes, DateTimeUnit.MINUTE)
+            val appointmentTimeStartInstant =
+                appointmentTimeInstant.minus(preTimeMinutes, DateTimeUnit.MINUTE)
             val duration = appointmentTimeInstant - appointmentTimeStartInstant
             if (currentTimeInstant < appointmentTimeStartInstant) {
                 postSideEffect(AppointmentCardSideEffects.ShowTelemedicineNotReadyDialog(duration))

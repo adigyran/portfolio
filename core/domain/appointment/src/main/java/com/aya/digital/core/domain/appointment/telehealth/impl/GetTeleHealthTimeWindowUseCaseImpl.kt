@@ -8,14 +8,15 @@ import com.aya.digital.core.data.progress.repository.ProgressRepository
 import com.aya.digital.core.domain.appointment.telehealth.GetTeleHealthTimeWindowUseCase
 import com.aya.digital.core.ext.mapResult
 import io.reactivex.rxjava3.core.Single
+import kotlin.time.Duration
 
 internal class GetTeleHealthTimeWindowUseCaseImpl(
     private val appointmentRepository: AppointmentRepository,
     private val progressRepository: ProgressRepository
 ) : GetTeleHealthTimeWindowUseCase {
-    override fun invoke(): Single<RequestResultModel<Boolean>> =
+    override fun invoke(): Single<RequestResultModel<Duration>> =
         appointmentRepository.getTimeWindow()
             .doOnSubscribe { progressRepository.setProgress(true) }
             .doOnSuccess { progressRepository.setProgress(false) }
-            .mapResult({ it.asResultModel() }, { it.toModelError() })
-}/**/
+            .mapResult({ it.beforeTimeout.asResultModel() }, { it.toModelError() })
+}

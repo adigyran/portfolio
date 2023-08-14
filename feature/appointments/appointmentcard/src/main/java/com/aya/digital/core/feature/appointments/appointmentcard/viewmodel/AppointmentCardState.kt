@@ -8,13 +8,14 @@ import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.RawValue
+import kotlin.time.Duration
 
 @Parcelize
 internal data class AppointmentCardState(
     val appointmentDate: @RawValue LocalDateTime? = null,
     val appointmentComment: String? = null,
     val isTelemed: Boolean? = null,
-    val telemedPreTimeMins:Long? = null,
+    val telemedPreTimeDuration:@RawValue Duration? = null,
     val participantAvatar:String? = null,
     val doctorData: DoctorData? = null,
     val patientData:PatientData? = null,
