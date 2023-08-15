@@ -32,6 +32,7 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toJavaLocalDate
 import kotlinx.datetime.toLocalDateTime
 import kotlinx.parcelize.Parcelize
 import org.kodein.di.DI
@@ -166,7 +167,7 @@ class DoctorCardView :
 
     private fun showDatePicker(selectableDates: List<LocalDate>) {
         val constraintsBuilderSelectable = CalendarConstraints.Builder()
-            .setValidator(DateValidatorSelectableDays(selectableDates))
+            .setValidator(DateValidatorSelectableDays(selectableDates.map { it.toJavaLocalDate() }))
         val materialDatePicker = MaterialDatePicker.Builder.datePicker()
             .setCalendarConstraints(constraintsBuilderSelectable.build())
             .build()

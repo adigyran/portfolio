@@ -27,6 +27,8 @@ import com.aya.digital.feature.bottomdialogs.createappointmentdialog.ui.model.Cr
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.toJavaLocalDate
+import kotlinx.datetime.toJavaLocalDateTime
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.RawValue
 import org.kodein.di.DI
@@ -129,8 +131,8 @@ class CreateAppointmentDialogView :
     class Param(
         val requestCode: String,
         val doctorId: Int,
-        val slotDateTime: @RawValue LocalDateTime?,
-        val date: @RawValue LocalDate?
+        val slotDateTime: java.time.LocalDateTime?,
+        val date: @RawValue java.time.LocalDate?
     ) : Parcelable
 
     companion object {
@@ -144,8 +146,8 @@ class CreateAppointmentDialogView :
                 Param(
                     requestCode,
                     doctorId = doctorId,
-                    slotDateTime = slotDateTime,
-                    date = date
+                    slotDateTime = slotDateTime?.toJavaLocalDateTime(),
+                    date = date?.toJavaLocalDate()
                 )
             )
     }

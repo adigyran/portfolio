@@ -31,6 +31,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toJavaLocalDate
 import kotlinx.datetime.toLocalDateTime
 import kotlinx.parcelize.Parcelize
 import org.kodein.di.DI
@@ -152,7 +153,7 @@ internal class AppointmentCardView :
 
     private fun showDatePicker(selectableDates: List<LocalDate>) {
         val constraintsBuilderSelectable = CalendarConstraints.Builder()
-            .setValidator(DateValidatorSelectableDays(selectableDates))
+            .setValidator(DateValidatorSelectableDays(selectableDates.map { it.toJavaLocalDate() }))
         val materialDatePicker = MaterialDatePicker.Builder.datePicker()
             .setCalendarConstraints(constraintsBuilderSelectable.build())
             .build()

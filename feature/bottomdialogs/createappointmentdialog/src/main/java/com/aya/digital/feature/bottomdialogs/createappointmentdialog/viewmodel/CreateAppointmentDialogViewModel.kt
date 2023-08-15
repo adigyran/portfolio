@@ -14,6 +14,8 @@ import com.aya.digital.feature.bottomdialogs.createappointmentdialog.ui.CreateAp
 import kotlinx.coroutines.reactive.asFlow
 import kotlinx.coroutines.rx3.await
 import kotlinx.datetime.LocalDate
+import kotlinx.datetime.toKotlinLocalDate
+import kotlinx.datetime.toKotlinLocalDateTime
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
@@ -40,16 +42,16 @@ class CreateAppointmentDialogViewModel(
 
     private fun loadDaySlots() = intent(registerIdling = false) {
         param.date?.let { date ->
-            getLatestScheduleByDoctorIdByDateUseCase(param.doctorId, date)
+            getLatestScheduleByDoctorIdByDateUseCase(param.doctorId, date.toKotlinLocalDate())
                 .asFlow()
                 .collect { resultModel ->
                     resultModel.processResult({ slots ->
                         val selectedSlotId =
-                            param.slotDateTime?.let { selectedSlot -> slots.firstOrNull { it.startDate == selectedSlot }?.id }
+                            param.slotDateTime?.let { selectedSlot -> slots.firstOrNull { it.startDate == selectedSlot.toKotlinLocalDateTime() }?.id }
                         reduce {
                             state.copy(
                                 slots = slots,
-                                date = date,
+                                date = date.toKotlinLocalDate(),
                                 selectedSlotId = selectedSlotId
                             )
                         }
