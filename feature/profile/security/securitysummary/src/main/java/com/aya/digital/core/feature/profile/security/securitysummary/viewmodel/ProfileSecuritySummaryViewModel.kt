@@ -46,26 +46,33 @@ internal class ProfileSecuritySummaryViewModel(
             logout()
             return@intent
         }
+        listenForChanges()
         coordinatorRouter.sendEvent(
             when (tag) {
                 FieldsTags.EMAIL_FIELD_TAG -> ProfileSecuritySummaryNavigationEvents.ChangeEmail(
-                    RequestCodes.CHANGE_EMAIL_REQUEST_CODE
+                    RequestCodes.CHANGE_SECURITY_INFO_REQUEST_CODE
                 )
 
                 FieldsTags.PHONE_FIELD_TAG -> ProfileSecuritySummaryNavigationEvents.ChangePhone(
-                    RequestCodes.CHANGE_PHONE_REQUEST_CODE,
+                    RequestCodes.CHANGE_SECURITY_INFO_REQUEST_CODE,
                     state.phone?:""
                 )
 
                 FieldsTags.PASSWORD_FIELD_TAG -> ProfileSecuritySummaryNavigationEvents.ChangePassword(
-                    RequestCodes.CHANGE_PASSWORD_REQUEST_CODE
+                    RequestCodes.CHANGE_SECURITY_INFO_REQUEST_CODE
                 )
 
                 else -> {
-                    ProfileSecuritySummaryNavigationEvents.ChangeEmail(RequestCodes.CHANGE_EMAIL_REQUEST_CODE)
+                    ProfileSecuritySummaryNavigationEvents.ChangeEmail(RequestCodes.CHANGE_SECURITY_INFO_REQUEST_CODE)
                 }
             }
         )
+    }
+
+    private fun listenForChanges() = intent {
+        coordinatorRouter.setResultListener(RequestCodes.CHANGE_SECURITY_INFO_REQUEST_CODE) {
+            getSecuritySummary()
+        }
     }
 
     private fun logout() = intent {
