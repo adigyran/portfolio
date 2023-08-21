@@ -81,10 +81,10 @@ interface ProfileService {
     fun updateNotificationsSettings(@Body body:NotificationSettingsBody):Single<NotificationSettingsResponse>
 
     @GET("/api/settings/insurances/profile-insurances")
-    fun getDoctorInsurancePolicies():Observable<List<Int>>
+    fun getDoctorInsurancePolicies():Observable<Set<InsuranceCompanyResponse>>
 
-    @POST("/api/settings/insurances/profile-insurances")
-    fun addDoctorInsurancePolicies(@Body ids:List<Int>):Single<List<Int>>
-    @DELETE("/api/settings/insurances/profile-insurances")
-    fun deleteDoctorInsurancePolicies(@Body ids:List<Int>):Single<Unit>
+    @POST("api/settings/insurances")
+    fun addDoctorInsurancePolicies(@Body ids:Set<Int>):Single<Unit>
+    @HTTP(method = "DELETE", path = "api/settings/insurances", hasBody = true)
+    fun deleteDoctorInsurancePolicies(@Body ids:Set<Int>):Single<Unit>
 }

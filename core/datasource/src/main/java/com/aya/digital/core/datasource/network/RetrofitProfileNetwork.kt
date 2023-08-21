@@ -10,6 +10,7 @@ import com.aya.digital.core.network.model.response.EmergencyContactResponse
 import com.aya.digital.core.network.model.response.profile.AvatarResponse
 import com.aya.digital.core.network.model.response.profile.CurrentProfileResponse
 import com.aya.digital.core.network.model.response.profile.ImageUploadResponse
+import com.aya.digital.core.network.model.response.profile.InsuranceCompanyResponse
 import com.aya.digital.core.network.model.response.profile.InsurancePolicyResponse
 import com.aya.digital.core.network.model.response.profile.NotificationSettingsResponse
 import com.aya.digital.core.network.model.response.profile.PhoneResponse
@@ -110,10 +111,10 @@ class RetrofitProfileNetwork(private val network: ProfileService) :
 
 class RetrofitProfilePractitionerNetwork(private val network: ProfileService) :
     ProfilePractitionerDataSource {
-    override fun getDoctorInsurances(): Observable<List<Int>> = network.getDoctorInsurancePolicies()
-    override fun addDoctorInsurances(ids: List<Int>): Single<List<Int>> = network.addDoctorInsurancePolicies(ids)
+    override fun getDoctorInsurances(): Observable<Set<InsuranceCompanyResponse>> = network.getDoctorInsurancePolicies()
+    override fun addDoctorInsurances(ids: Set<Int>): Single<Unit> = network.addDoctorInsurancePolicies(ids)
 
-    override fun removeDoctorInsurances(ids: List<Int>): Single<Unit> = network.deleteDoctorInsurancePolicies(ids)
+    override fun removeDoctorInsurances(ids: Set<Int>): Single<Unit> = network.deleteDoctorInsurancePolicies(ids)
 
 }
 

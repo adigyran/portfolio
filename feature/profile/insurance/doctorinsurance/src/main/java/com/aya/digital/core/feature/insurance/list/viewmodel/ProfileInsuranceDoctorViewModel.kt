@@ -44,7 +44,7 @@ class ProfileInsuranceDoctorViewModel(
         coordinatorRouter.sendEvent(
             ProfileInsuranceDoctorNavigationEvents.SelectInsuranceCompanies(
                 RequestCodes.INSURANCE_LIST_REQUEST_CODE,
-                state.insurances
+                state.insurances?.toList()
             )
         )
     }
@@ -54,7 +54,7 @@ class ProfileInsuranceDoctorViewModel(
     }
 
     private fun updateInsurances() = intent(registerIdling = false) {
-        updateDoctorInsurancesUseCase(state.insurances?: listOf()).asFlow().collect { result ->
+        updateDoctorInsurancesUseCase(state.insurances?: setOf()).asFlow().collect { result ->
             result.processResult({ ids ->
                 reduce { state.copy(insurances = ids) }
             }, { processError(it) })
@@ -71,7 +71,7 @@ class ProfileInsuranceDoctorViewModel(
     }
 
     private fun setInsuranceCompanies(selectedItems: Set<SelectedItem>) = intent {
-        reduce { state.copy(insurances = selectedItems.map { it.id }) }
+        reduce { state.copy(insurances = selectedItems.map { it.id }.toSet()) }
     }
 
     fun insuranceItemClicked() = intent {

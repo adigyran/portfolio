@@ -60,6 +60,9 @@ fun Context.getStatusBarHeight(): Int {
 
 fun <T, U> List<T>.intersect(uList: List<U>, filterPredicate : (T, U) -> Boolean) = filter { m -> uList.any { filterPredicate(m, it)} }
 
+fun <T, U> List<T>.subtract(uList: List<U>, filterPredicate : (T, U) -> Boolean) = filter { m -> !uList.any { filterPredicate(m, it)} }
+
+
 
 private const val thresholdValue: Double = 0.0001
 

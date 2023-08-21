@@ -17,23 +17,23 @@ internal class PractitionerInsuranceRepositoryImpl(
     private val context: Context,
     private val practitionerDataSource: ProfilePractitionerDataSource
 ) : PractitionerInsuranceRepository {
-    override fun getPractitionerInsurances(): Observable<RequestResult<List<Int>>> =
+    override fun getPractitionerInsurances(): Observable<RequestResult<Set<Int>>> =
         practitionerDataSource.getDoctorInsurances()
             .retryOnError()
             .retrofitResponseToResult(CommonUtils::mapServerErrors)
-            .mapResult({
-                it.asResult()
+            .mapResult({result->
+                result.map { it.id }.toSet().asResult()
             }, { it })
 
-    override fun addInsurances(ids: List<Int>): Single<RequestResult<List<Int>>> =
+    override fun addInsurances(ids: Set<Int>): Single<RequestResult<Boolean>> =
         practitionerDataSource.addDoctorInsurances(ids)
             .retryOnError()
             .retrofitResponseToResult(CommonUtils::mapServerErrors)
-            .mapResult({
-                it.asResult()
+            .mapResult({ result->
+                true.asResult()
             }, { it })
 
-    override fun deleteInsurances(ids: List<Int>): Single<RequestResult<Boolean>> =
+    override fun deleteInsurances(ids: Set<Int>): Single<RequestResult<Boolean>> =
         practitionerDataSource.removeDoctorInsurances(ids)
             .retryOnError()
             .retrofitResponseToResult(CommonUtils::mapServerErrors)

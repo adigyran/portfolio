@@ -23,7 +23,7 @@ class ProfileInsuranceDoctorStateTransformer(context: Context) :
             }
         )
 
-    private fun List<Int>?.getInsurancesCount() = this?.size ?: 0
+    private fun Set<Int>?.getInsurancesCount() = this?.size ?: 0
     private fun Int.getInsurancesCountText() = "%d insurance".format(this)
 
 }

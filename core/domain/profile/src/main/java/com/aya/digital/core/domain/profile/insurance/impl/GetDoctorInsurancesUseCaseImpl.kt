@@ -15,7 +15,7 @@ import io.reactivex.rxjava3.core.Observable
 internal class GetDoctorInsurancesUseCaseImpl(private val practitionerInsuranceRepository: PractitionerInsuranceRepository,
                                               private val progressRepository: ProgressRepository
 ) : GetDoctorInsurancesUseCase {
-    override fun invoke(): Observable<RequestResultModel<List<Int>>> =
+    override fun invoke(): Observable<RequestResultModel<Set<Int>>> =
         practitionerInsuranceRepository.getPractitionerInsurances()
             .trackProgress(progressRepository)
             .mapResult({it.asResultModel()},{it.toModelError()})

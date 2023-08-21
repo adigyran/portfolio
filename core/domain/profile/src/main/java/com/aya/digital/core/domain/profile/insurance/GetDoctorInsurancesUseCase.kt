@@ -5,6 +5,6 @@ import com.aya.digital.core.domain.profile.insurance.model.InsurancePolicyItemMo
 import io.reactivex.rxjava3.core.Observable
 
 interface GetDoctorInsurancesUseCase {
-    operator fun invoke(): Observable<RequestResultModel<List<Int>>>
+    operator fun invoke(): Observable<RequestResultModel<Set<Int>>>
 }
 
