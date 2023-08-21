@@ -66,6 +66,8 @@ dependencies {
     implementation(project(":feature:profile:security:securitysummary"))
     implementation(project(":feature:profile:security:changeemail"))
     implementation(project(":feature:profile:security:changepassword"))
+    implementation(project(":feature:profile:generalinfo:edit"))
+    implementation(project(":feature:profile:generalinfo:view"))
     implementation(project(":feature:appointments:appointmentcard"))
     implementation(project(":core:appbase"))
     implementation(project(":core:baseresources"))

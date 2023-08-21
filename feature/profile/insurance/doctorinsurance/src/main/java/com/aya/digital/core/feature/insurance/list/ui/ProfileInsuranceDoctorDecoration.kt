@@ -1,15 +1,13 @@
-package com.aya.digital.core.feature.profile.insurance.add.ui
+package com.aya.digital.core.feature.insurance.list.ui
 
 import android.graphics.Canvas
 import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.aya.digital.core.ext.dpToPx
-import com.aya.digital.core.ui.delegates.components.fields.name.ui.NameFieldDelegate
-import com.aya.digital.core.ui.delegates.components.fields.selection.ui.SelectionFieldDelegate
-import com.aya.digital.core.ui.delegates.profile.insurance.ui.InsurancePolicyPhotoDelegate
+import com.aya.digital.core.ui.delegates.profile.insurance.ui.InsurancePolicyDelegate
 
-internal class ProfileInsuranceAddDecoration : RecyclerView.ItemDecoration() {
+internal class ProfileInsuranceDoctorDecoration : RecyclerView.ItemDecoration() {
 
     override fun getItemOffsets(
         outRect: Rect,
@@ -18,12 +16,10 @@ internal class ProfileInsuranceAddDecoration : RecyclerView.ItemDecoration() {
         state: RecyclerView.State
     ) {
         val viewHolder = parent.findContainingViewHolder(view)
-        val horizontal = (20).dpToPx()
+        val horizontal = (12).dpToPx()
         val top = when(viewHolder)
         {
-            is InsurancePolicyPhotoDelegate.ViewHolder -> (24).dpToPx()
-            is NameFieldDelegate.ViewHolder -> (12).dpToPx()
-            is SelectionFieldDelegate.ViewHolder -> (32).dpToPx()
+            is InsurancePolicyDelegate.ViewHolder -> (8).dpToPx()
             else -> 0
         }
         outRect.top = top

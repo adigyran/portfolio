@@ -1,5 +1,6 @@
 package com.aya.digital.healthapp.doctor.navigation.tabs.profile
 
+import com.aya.digital.core.feature.profile.generalinfo.view.navigation.ProfileGeneralInfoViewScreen
 import com.aya.digital.core.feature.profile.security.changeemail.navigation.ProfileSecurityChangeEmailNavigationEvents
 import com.aya.digital.core.feature.profile.security.changeemail.navigation.ProfileSecurityChangeEmailScreen
 import com.aya.digital.core.feature.profile.security.changepassword.navigation.ProfileSecurityChangePasswordNavigationEvents
@@ -26,6 +27,7 @@ class ProfileTabCoordinatorGraph : FragmentContainerGraph {
                 mainRouter.newRootScreen(ProfileScreen)
             }
             is ProfileNavigationEvents.OpenProfileGeneralInfo -> {
+                mainRouter.navigateTo(ProfileGeneralInfoViewScreen(event.requestCode))
             }
             ProfileNavigationEvents.OpenProfileEmergencyContact -> {
             }

@@ -1,4 +1,4 @@
-package com.aya.digital.core.ui.delegates.profile.emergencycontactinfo.ui
+package com.aya.digital.core.ui.delegates.profile.insurance.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -10,7 +10,7 @@ import com.aya.digital.core.ui.adapters.base.BaseDelegate
 import com.aya.digital.core.ui.adapters.base.BaseViewHolder
 import com.aya.digital.core.ui.adapters.base.DiffItem
 import com.aya.digital.core.ui.delegates.features.profile.insurance.databinding.ItemInsurancePolicyPhotoBinding
-import com.aya.digital.core.ui.delegates.profile.emergencycontactinfo.model.InsurancePolicyPhotoUIModel
+import com.aya.digital.core.ui.delegates.profile.insurance.model.InsurancePolicyPhotoUIModel
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners

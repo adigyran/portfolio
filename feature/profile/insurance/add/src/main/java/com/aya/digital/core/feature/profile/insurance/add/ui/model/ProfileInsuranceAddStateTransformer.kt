@@ -7,7 +7,7 @@ import com.aya.digital.core.mvi.BaseStateTransformer
 import com.aya.digital.core.ui.adapters.base.DiffItem
 import com.aya.digital.core.ui.delegates.components.fields.name.model.NameFieldUIModel
 import com.aya.digital.core.ui.delegates.components.fields.selection.model.SelectionFieldUIModel
-import com.aya.digital.core.ui.delegates.profile.emergencycontactinfo.model.InsurancePolicyPhotoUIModel
+import com.aya.digital.core.ui.delegates.profile.insurance.model.InsurancePolicyPhotoUIModel
 
 
 class ProfileInsuranceAddStateTransformer(private val context: Context) :

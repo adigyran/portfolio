@@ -1,4 +1,4 @@
-package com.aya.digital.core.ui.delegates.profile.emergencycontactinfo.model
+package com.aya.digital.core.ui.delegates.profile.insurance.model
 
 import com.aya.digital.core.model.InsuranceStatus
 import com.aya.digital.core.ui.adapters.base.DiffItem

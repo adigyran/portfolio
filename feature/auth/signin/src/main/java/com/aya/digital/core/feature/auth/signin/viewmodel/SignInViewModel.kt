@@ -46,18 +46,12 @@ class SignInViewModel(
     }
 
     fun onAuthCodeFailed(exception: AuthorizationException) {
-        Timber.tag("Oauth").d("ERRROORR $exception")
-        //TODO handle errors
     }
 
     fun onAuthCodeReceived(tokenRequest: TokenRequest) {
 
-        Timber.tag("Oauth").d("3. Received code = ${tokenRequest.authorizationCode}")
-
         viewModelScope.launch {
             runCatching {
-                Timber.tag("Oauth")
-                    .d("4. Change code to token. Url = ${tokenRequest.configuration.tokenEndpoint}, verifier = ${tokenRequest.codeVerifier}")
                 performTokenRequestOAuthUseCase(
                     authService = authService,
                     tokenRequest = tokenRequest
