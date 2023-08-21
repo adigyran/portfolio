@@ -40,6 +40,6 @@ fun profileRepositoryDiModule() = DI.Module("profileRepositoryDiModule") {
         PractitionerRepositoryImpl(instance())
     }
     bind<PractitionerInsuranceRepository>() with singleton {
-        PractitionerInsuranceRepositoryImpl(instance())
+        PractitionerInsuranceRepositoryImpl(instance(),instance())
     }
 }
