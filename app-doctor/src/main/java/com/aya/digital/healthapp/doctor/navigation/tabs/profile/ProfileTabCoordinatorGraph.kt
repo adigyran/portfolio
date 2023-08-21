@@ -4,6 +4,7 @@ import com.aya.digital.core.feature.insurance.list.navigation.ProfileInsuranceDo
 import com.aya.digital.core.feature.insurance.list.navigation.ProfileInsuranceDoctorScreen
 import com.aya.digital.core.feature.profile.clinicinfo.navigation.ProfileClinicInfoScreen
 import com.aya.digital.core.feature.profile.generalinfo.edit.navigation.ProfileGeneralInfoEditNavigationEvents
+import com.aya.digital.core.feature.profile.generalinfo.edit.navigation.ProfileGeneralInfoEditScreen
 import com.aya.digital.core.feature.profile.generalinfo.view.navigation.ProfileGeneralInfoViewNavigationEvents
 import com.aya.digital.core.feature.profile.generalinfo.view.navigation.ProfileGeneralInfoViewScreen
 import com.aya.digital.core.feature.profile.notifications.navigation.ProfileNotificationsScreen
@@ -52,6 +53,14 @@ class ProfileTabCoordinatorGraph : FragmentContainerGraph {
 
             ProfileNavigationEvents.OpenProfileNotification -> {
                 mainRouter.navigateTo(ProfileNotificationsScreen)
+            }
+
+            is ProfileGeneralInfoViewNavigationEvents.EditProfile -> {
+                mainRouter.navigateTo(
+                    ProfileGeneralInfoEditScreen(
+                        event.requestCode
+                    )
+                )
             }
 
             is ProfileSecuritySummaryNavigationEvents.ChangeEmail -> {
