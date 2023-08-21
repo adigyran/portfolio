@@ -94,10 +94,10 @@ class ProfileClinicInfoView :
 
     override fun render(state: ProfileClinicInfoState) {
         stateTransformer(state).data?.let {
-            adapter.items = it
+          /*  adapter.items = it
             if (binding.recycler.adapter == null) {
                 binding.recycler.swapAdapter(adapter, true)
-            }
+            }*/
         }
     }
 

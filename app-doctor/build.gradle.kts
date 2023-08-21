@@ -69,6 +69,7 @@ dependencies {
     implementation(project(":feature:profile:security:changepassword"))
     implementation(project(":feature:profile:generalinfo:edit"))
     implementation(project(":feature:profile:generalinfo:view"))
+    implementation(project(":feature:profile:clinicinfo"))
     implementation(project(":feature:profile:insurance:doctorinsurance"))
     implementation(project(":feature:appointments:appointmentcard"))
     implementation(project(":feature:profile:notifications"))
