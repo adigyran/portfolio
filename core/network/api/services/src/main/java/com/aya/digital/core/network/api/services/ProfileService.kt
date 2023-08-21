@@ -84,7 +84,7 @@ interface ProfileService {
     fun getDoctorInsurancePolicies():Observable<Set<InsuranceCompanyResponse>>
 
     @POST("api/settings/insurances")
-    fun addDoctorInsurancePolicies(@Body ids:Set<Int>):Single<Unit>
+    fun addDoctorInsurancePolicies(@Body ids:Set<Int>):Completable
     @HTTP(method = "DELETE", path = "api/settings/insurances", hasBody = true)
-    fun deleteDoctorInsurancePolicies(@Body ids:Set<Int>):Single<Unit>
+    fun deleteDoctorInsurancePolicies(@Body ids:Set<Int>):Completable
 }

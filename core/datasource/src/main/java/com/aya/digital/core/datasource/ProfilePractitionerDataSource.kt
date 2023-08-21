@@ -13,8 +13,8 @@ interface ProfilePractitionerDataSource {
 
     fun getDoctorInsurances(): Observable<Set<InsuranceCompanyResponse>>
 
-    fun addDoctorInsurances(Set:Set<Int>):Single<Unit>
+    fun addDoctorInsurances(ids:Set<Int>):Completable
 
-    fun removeDoctorInsurances(ids:Set<Int>):Single<Unit>
+    fun removeDoctorInsurances(ids:Set<Int>):Completable
 
 }

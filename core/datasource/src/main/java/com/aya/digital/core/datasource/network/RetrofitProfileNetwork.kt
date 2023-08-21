@@ -14,6 +14,7 @@ import com.aya.digital.core.network.model.response.profile.InsuranceCompanyRespo
 import com.aya.digital.core.network.model.response.profile.InsurancePolicyResponse
 import com.aya.digital.core.network.model.response.profile.NotificationSettingsResponse
 import com.aya.digital.core.network.model.response.profile.PhoneResponse
+import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import okhttp3.RequestBody
@@ -112,9 +113,9 @@ class RetrofitProfileNetwork(private val network: ProfileService) :
 class RetrofitProfilePractitionerNetwork(private val network: ProfileService) :
     ProfilePractitionerDataSource {
     override fun getDoctorInsurances(): Observable<Set<InsuranceCompanyResponse>> = network.getDoctorInsurancePolicies()
-    override fun addDoctorInsurances(ids: Set<Int>): Single<Unit> = network.addDoctorInsurancePolicies(ids)
+    override fun addDoctorInsurances(ids: Set<Int>): Completable = network.addDoctorInsurancePolicies(ids)
 
-    override fun removeDoctorInsurances(ids: Set<Int>): Single<Unit> = network.deleteDoctorInsurancePolicies(ids)
+    override fun removeDoctorInsurances(ids: Set<Int>): Completable = network.deleteDoctorInsurancePolicies(ids)
 
 }
 
