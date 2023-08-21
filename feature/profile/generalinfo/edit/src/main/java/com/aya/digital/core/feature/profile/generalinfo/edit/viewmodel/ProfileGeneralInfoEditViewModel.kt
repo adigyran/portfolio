@@ -60,7 +60,7 @@ class ProfileGeneralInfoEditViewModel(
         when (tag) {
             FieldsTags.SEX_FIELD_TAG -> {
                 val selectedSex = ProfileSex.getSexByTag(selectedItemTag)
-                reduce { state.copy(sex = selectedSex) }
+                reduce { state.copy(patientFields = state.patientFields?.apply { sex = selectedSex }) }
             }
         }
     }
@@ -68,7 +68,7 @@ class ProfileGeneralInfoEditViewModel(
     fun selectFieldClicked(tag: Int) = intent {
         when (tag) {
             FieldsTags.BIRTH_DATE_FIELD_TAG -> {
-                postSideEffect(ProfileGeneralInfoEditSideEffect.ShowBirthdayDatePicker(state.dateOfBirth?.toJavaLocalDate()))
+                postSideEffect(ProfileGeneralInfoEditSideEffect.ShowBirthdayDatePicker(state.dateOfBirth))
             }
         }
     }
@@ -80,9 +80,11 @@ class ProfileGeneralInfoEditViewModel(
                     state.copy(firstName = text)
                 }
             }
+
             FieldsTags.LAST_NAME_FIELD_TAG -> {
                 reduce { state.copy(lastName = text) }
             }
+
             FieldsTags.MIDDLE_NAME_FIELD_TAG -> {
                 reduce { state.copy(middleName = text) }
             }
@@ -92,27 +94,34 @@ class ProfileGeneralInfoEditViewModel(
     fun numberFieldChanged(tag: Int, text: String) = intent {
         when (tag) {
             FieldsTags.WEIGHT_FIELD_TAG -> {
-                reduce { state.copy(weight = text) }
+                reduce { state.copy(patientFields = state.patientFields?.apply { weight = text }) }
             }
+
             FieldsTags.HEIGHT_FIELD_TAG -> {
-                reduce { state.copy(height = text) }
+                reduce { state.copy(patientFields = state.patientFields?.apply { height = text }) }
             }
+
             FieldsTags.SSN_OR_TIN_FIELD_TAG -> {
-                reduce { state.copy(ssnOrTin = text) }
+                reduce { state.copy(patientFields = state.patientFields?.apply { ssnOrTin = text }) }
             }
         }
     }
 
     fun onSaveProfileClicked() = intent {
         val profileEditModel = getProfileEditModel(state)
-                val await = saveProfileInfoUseCase(profileEditModel).await()
-                await.processResult({if(it) coordinatorRouter.sendEvent(ProfileGeneralInfoEditNavigationEvents.FinishWithResult(param.requestCode,
+        val await = saveProfileInfoUseCase(profileEditModel).await()
+        await.processResult({
+            if (it) coordinatorRouter.sendEvent(
+                ProfileGeneralInfoEditNavigationEvents.FinishWithResult(
+                    param.requestCode,
                     ProfileSaveResult(true)
-                ))}, { processError(it) })
+                )
+            )
+        }, { processError(it) })
     }
 
     fun birthDaySelected(date: LocalDate) = intent {
-        reduce { state.copy(dateOfBirth = date.toKotlinLocalDate()) }
+        reduce { state.copy(dateOfBirth = date) }
     }
 
     private fun getProfileEditModel(state: ProfileGeneralInfoEditState) =
@@ -120,15 +129,14 @@ class ProfileGeneralInfoEditViewModel(
             firstName = state.firstName
             lastName = state.lastName
             middleName = state.middleName
-            dateOfBirth = state.dateOfBirth
-            sex = state.sex
-            height = state.height
-            weight = state.weight
-            shortAddress = state.shortAddress
-            ssn = state.ssnOrTin
-            tin = state.ssnOrTin
+            dateOfBirth = state.dateOfBirth?.toKotlinLocalDate()
+            sex = state.patientFields?.sex
+            height = state.patientFields?.height
+            weight = state.patientFields?.weight
+            shortAddress = state.patientFields?.shortAddress
+            ssn = state.patientFields?.ssnOrTin
+            tin = state.patientFields?.ssnOrTin
         }
-
 
 
     private inline fun <reified T> compareFields(fieldFirst: T?, fieldSecond: T?): Boolean? =
@@ -144,13 +152,15 @@ class ProfileGeneralInfoEditViewModel(
                 firstName = profileInfo.firstName,
                 middleName = profileInfo.middleName,
                 lastName = profileInfo.lastName,
-                shortAddress = profileInfo.shortAddress,
-                dateOfBirth = profileInfo.dateOfBirth,
-                height = profileInfo.height,
-                sex = profileInfo.sex,
-                weight = profileInfo.weight,
-                ssnOrTin = profileInfo.ssn ?: profileInfo.tin,
-                avatarUrl = profileInfo.avatar?:""
+                patientFields = PatientFields(
+                    shortAddress = profileInfo.shortAddress,
+                    height = profileInfo.height,
+                    sex = profileInfo.sex,
+                    weight = profileInfo.weight,
+                    ssnOrTin = profileInfo.ssn ?: profileInfo.tin,
+                ),
+                dateOfBirth = profileInfo.dateOfBirth?.toJavaLocalDate(),
+                avatarUrl = profileInfo.avatar ?: ""
             )
 
         }

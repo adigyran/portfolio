@@ -22,26 +22,26 @@ data class ProfileGeneralInfoEditState(
 
 @Parcelize
 data class PatientFields(
-    val sex: ProfileSex? = null,
-    val height: String? = null,
-    val heightError: String? = null,
-    val weight: String? = null,
-    val weightError: String? = null,
-    val shortAddress: String? = null,
-    val ssnOrTin: String? = null,
-    val ssnOrTinError: String? = null,
+    var sex: ProfileSex? = null,
+    var height: String? = null,
+    var heightError: String? = null,
+    var weight: String? = null,
+    var weightError: String? = null,
+    var shortAddress: String? = null,
+    var ssnOrTin: String? = null,
+    var ssnOrTinError: String? = null,
 ): Parcelable
 
 @Parcelize
 data class DoctorFields(
-    val npi: String? = null,
-    val npiError:String? = null,
-    val tin: String? = null,
-    val tinError:String? = null,
-    val licenseNumber: String? = null,
-    val licenseNumberError:String? = null,
-    val languages: String? = null,
-    val languagesError:String? = null,
-    val bio: String? = null,
-    val bioError: String? = null,
+    var npi: String? = null,
+    var npiError:String? = null,
+    var tin: String? = null,
+    var tinError:String? = null,
+    var licenseNumber: String? = null,
+    var licenseNumberError:String? = null,
+    var languages: String? = null,
+    var languagesError:String? = null,
+    var bio: String? = null,
+    var bioError: String? = null,
 ): Parcelable

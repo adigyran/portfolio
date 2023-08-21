@@ -11,6 +11,7 @@ import com.aya.digital.core.navigation.coordinator.CoordinatorEvent
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
 import com.aya.digital.core.util.requestcodes.RequestCodes
 import kotlinx.coroutines.rx3.await
+import kotlinx.datetime.toJavaLocalDate
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
@@ -45,13 +46,14 @@ class ProfileGeneralInfoViewViewModel(
                     firstName = profileInfo.firstName,
                     middleName = profileInfo.middleName,
                     lastName = profileInfo.lastName,
-                    shortAddress = profileInfo.shortAddress,
-                    dateOfBirth = profileInfo.dateOfBirth,
-                    height = profileInfo.height,
-                    sex = profileInfo.sex,
-                    weight = profileInfo.weight,
-                    ssn = profileInfo.ssn ?: profileInfo.tin,
-                    tin = profileInfo.tin ?: profileInfo.ssn
+                    patientFields = PatientFields(
+                        height = profileInfo.height,
+                        sex = profileInfo.sex,
+                        weight = profileInfo.weight,
+                        ssn = profileInfo.ssn ?: profileInfo.tin,
+                        tin = profileInfo.tin ?: profileInfo.ssn
+                    ),
+                    dateOfBirth = profileInfo.dateOfBirth?.toJavaLocalDate(),
                 )
             }
         }, { Timber.d(it.toString()) })
