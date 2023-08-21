@@ -11,6 +11,7 @@ import com.aya.digital.core.ext.retryOnError
 import com.aya.digital.core.networkbase.CommonUtils
 import com.aya.digital.core.networkbase.server.RequestResult
 import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.Single
 
 internal class PractitionerInsuranceRepositoryImpl(
     private val context: Context,
@@ -22,5 +23,21 @@ internal class PractitionerInsuranceRepositoryImpl(
             .retrofitResponseToResult(CommonUtils::mapServerErrors)
             .mapResult({
                 it.asResult()
+            }, { it })
+
+    override fun addInsurances(ids: List<Int>): Single<RequestResult<List<Int>>> =
+        practitionerDataSource.addDoctorInsurances(ids)
+            .retryOnError()
+            .retrofitResponseToResult(CommonUtils::mapServerErrors)
+            .mapResult({
+                it.asResult()
+            }, { it })
+
+    override fun deleteInsurances(ids: List<Int>): Single<RequestResult<Boolean>> =
+        practitionerDataSource.removeDoctorInsurances(ids)
+            .retryOnError()
+            .retrofitResponseToResult(CommonUtils::mapServerErrors)
+            .mapResult({
+                true.asResult()
             }, { it })
 }

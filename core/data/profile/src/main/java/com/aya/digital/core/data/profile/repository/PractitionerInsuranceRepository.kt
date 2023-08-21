@@ -10,4 +10,8 @@ import io.reactivex.rxjava3.core.Single
 
 interface PractitionerInsuranceRepository {
     fun getPractitionerInsurances():Observable<RequestResult<List<Int>>>
+
+    fun addInsurances(ids:List<Int>):Single<RequestResult<List<Int>>>
+
+    fun deleteInsurances(ids: List<Int>):Single<RequestResult<Boolean>>
 }

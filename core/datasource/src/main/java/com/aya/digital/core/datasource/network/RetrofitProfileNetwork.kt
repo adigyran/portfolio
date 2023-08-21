@@ -111,6 +111,9 @@ class RetrofitProfileNetwork(private val network: ProfileService) :
 class RetrofitProfilePractitionerNetwork(private val network: ProfileService) :
     ProfilePractitionerDataSource {
     override fun getDoctorInsurances(): Observable<List<Int>> = network.getDoctorInsurancePolicies()
+    override fun addDoctorInsurances(ids: List<Int>): Single<List<Int>> = network.addDoctorInsurancePolicies(ids)
+
+    override fun removeDoctorInsurances(ids: List<Int>): Single<Unit> = network.deleteDoctorInsurancePolicies(ids)
 
 }
 

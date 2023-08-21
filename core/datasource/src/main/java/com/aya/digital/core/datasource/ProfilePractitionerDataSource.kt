@@ -11,4 +11,8 @@ interface ProfilePractitionerDataSource {
 
     fun getDoctorInsurances(): Observable<List<Int>>
 
+    fun addDoctorInsurances(ids:List<Int>):Single<List<Int>>
+
+    fun removeDoctorInsurances(ids:List<Int>):Single<Unit>
+
 }

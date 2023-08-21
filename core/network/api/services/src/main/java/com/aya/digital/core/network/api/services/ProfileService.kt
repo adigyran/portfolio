@@ -82,4 +82,9 @@ interface ProfileService {
 
     @GET("/api/settings/insurances/profile-insurances")
     fun getDoctorInsurancePolicies():Observable<List<Int>>
+
+    @POST("/api/settings/insurances/profile-insurances")
+    fun addDoctorInsurancePolicies(@Body ids:List<Int>):Single<List<Int>>
+    @DELETE("/api/settings/insurances/profile-insurances")
+    fun deleteDoctorInsurancePolicies(@Body ids:List<Int>):Single<Unit>
 }
