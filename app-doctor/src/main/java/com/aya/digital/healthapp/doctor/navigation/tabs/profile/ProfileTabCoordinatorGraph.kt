@@ -2,6 +2,8 @@ package com.aya.digital.healthapp.doctor.navigation.tabs.profile
 
 import com.aya.digital.core.feature.insurance.list.navigation.ProfileInsuranceDoctorNavigationEvents
 import com.aya.digital.core.feature.insurance.list.navigation.ProfileInsuranceDoctorScreen
+import com.aya.digital.core.feature.profile.generalinfo.edit.navigation.ProfileGeneralInfoEditNavigationEvents
+import com.aya.digital.core.feature.profile.generalinfo.view.navigation.ProfileGeneralInfoViewNavigationEvents
 import com.aya.digital.core.feature.profile.generalinfo.view.navigation.ProfileGeneralInfoViewScreen
 import com.aya.digital.core.feature.profile.notifications.navigation.ProfileNotificationsScreen
 import com.aya.digital.core.feature.profile.security.changeemail.navigation.ProfileSecurityChangeEmailNavigationEvents
@@ -30,17 +32,22 @@ class ProfileTabCoordinatorGraph : FragmentContainerGraph {
             ProfileTabNavigationEvents.OpenDefaultScreen -> {
                 mainRouter.newRootScreen(ProfileScreen)
             }
+
             is ProfileNavigationEvents.OpenProfileGeneralInfo -> {
                 mainRouter.navigateTo(ProfileGeneralInfoViewScreen(event.requestCode))
             }
+
             ProfileNavigationEvents.OpenProfileEmergencyContact -> {
             }
+
             ProfileNavigationEvents.OpenProfileInsurance -> {
                 mainRouter.navigateTo(ProfileInsuranceDoctorScreen)
             }
+
             ProfileNavigationEvents.OpenProfileSecurity -> {
                 mainRouter.navigateTo(ProfileSecuritySummaryScreen)
             }
+
             ProfileNavigationEvents.OpenProfileNotification -> {
                 mainRouter.navigateTo(ProfileNotificationsScreen)
             }
@@ -54,12 +61,12 @@ class ProfileTabCoordinatorGraph : FragmentContainerGraph {
             }
 
             is ProfileSecurityChangePasswordNavigationEvents.FinishWithResult -> {
-                mainRouter.sendResult(event.requestCode,event.result)
+                mainRouter.sendResult(event.requestCode, event.result)
                 mainRouter.exit()
             }
 
             is ProfileSecurityChangeEmailNavigationEvents.FinishWithResult -> {
-                mainRouter.sendResult(event.requestCode,event.result)
+                mainRouter.sendResult(event.requestCode, event.result)
                 mainRouter.exit()
             }
 
@@ -67,15 +74,25 @@ class ProfileTabCoordinatorGraph : FragmentContainerGraph {
                 parentCoordinatorRouter.sendEvent(
                     RootContainerNavigationEvents.SelectMultipleItems(
                         event.requestCode,
-                        event.organisationIds?.toSet()?: emptySet()
+                        event.organisationIds?.toSet() ?: emptySet()
                     )
                 )
             }
 
-            CoordinatorEvent.Back ->
-            {
+            is ProfileGeneralInfoEditNavigationEvents.FinishWithResult -> {
+                mainRouter.sendResult(event.requestCode, event.result)
+                mainRouter.exit()
+            }
+
+            is ProfileGeneralInfoViewNavigationEvents.FinishWithResult -> {
+                mainRouter.sendResult(event.requestCode, Unit)
+                mainRouter.exit()
+            }
+
+            CoordinatorEvent.Back -> {
                 navigationRouter.exit()
             }
+
             else -> parentCoordinatorRouter.sendEvent(event)
         }
 

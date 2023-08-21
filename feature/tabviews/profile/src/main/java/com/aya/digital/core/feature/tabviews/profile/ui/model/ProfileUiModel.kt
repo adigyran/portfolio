@@ -6,6 +6,6 @@ import com.aya.digital.core.ui.adapters.base.DiffItem
 data class ProfileUiModel(
     val avatar: String? = null,
     val name: String? = null,
-    val age: String? = null,
+    val subTitle: String? = null,
     val data: List<DiffItem>? = null
 ) : BaseUiModel

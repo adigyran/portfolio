@@ -68,6 +68,7 @@ class ProfileViewModel(
                 }
                 FieldsTags.EMERGENCY_CONTACT_BUTTON_TAG -> ProfileNavigationEvents.OpenProfileEmergencyContact
                 FieldsTags.SECURITY_BUTTON_TAG -> ProfileNavigationEvents.OpenProfileSecurity
+                FieldsTags.CLINIC_INFO_BUTTON_TAG -> ProfileNavigationEvents.OpenClinicInfo
                 FieldsTags.INSURANCE_BUTTON_TAG -> ProfileNavigationEvents.OpenProfileInsurance
                 FieldsTags.NOTIFICATION_BUTTON_TAG -> ProfileNavigationEvents.OpenProfileNotification
                 else -> ProfileNavigationEvents.OpenProfileGeneralInfo(RequestCodes.EDIT_PROFILE_REQUEST_CODE)

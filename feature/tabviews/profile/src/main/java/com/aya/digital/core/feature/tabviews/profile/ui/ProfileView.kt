@@ -89,7 +89,7 @@ class ProfileView :
             name?.let {
                 binding.toolbar.nameTv.text = it
             }
-            age?.let {
+            subTitle?.let {
                 binding.toolbar.ageTv.text = it
             }
             setAvatar(avatar)

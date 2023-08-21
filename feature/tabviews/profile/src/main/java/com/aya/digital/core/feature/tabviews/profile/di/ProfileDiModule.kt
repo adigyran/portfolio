@@ -10,7 +10,7 @@ fun profileDiModule(
     parentCoordinatorEvent: CoordinatorRouter
 ) = DI.Module("profileDiModule") {
 
-    bind<ProfileStateTransformer>() with singleton { ProfileStateTransformer(instance()) }
+    bind<ProfileStateTransformer>() with singleton { ProfileStateTransformer(instance(),instance()) }
 
     bind {
         scoped(CustomFragmentScope).singleton {
