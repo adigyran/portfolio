@@ -1,5 +1,7 @@
 package com.aya.digital.healthapp.doctor.navigation.tabs.profile
 
+import com.aya.digital.core.feature.insurance.list.navigation.ProfileInsuranceDoctorNavigationEvents
+import com.aya.digital.core.feature.insurance.list.navigation.ProfileInsuranceDoctorScreen
 import com.aya.digital.core.feature.profile.generalinfo.view.navigation.ProfileGeneralInfoViewScreen
 import com.aya.digital.core.feature.profile.security.changeemail.navigation.ProfileSecurityChangeEmailNavigationEvents
 import com.aya.digital.core.feature.profile.security.changeemail.navigation.ProfileSecurityChangeEmailScreen
@@ -12,6 +14,7 @@ import com.aya.digital.core.feature.tabviews.profile.navigation.ProfileScreen
 import com.aya.digital.core.navigation.coordinator.CoordinatorEvent
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
 import com.aya.digital.core.navigation.graph.navigator.FragmentContainerGraph
+import com.aya.digital.feature.rootcontainer.navigation.RootContainerNavigationEvents
 import com.aya.digital.feature.tabs.profile.navigation.ProfileTabNavigationEvents
 import com.github.terrakok.cicerone.Router
 
@@ -32,6 +35,7 @@ class ProfileTabCoordinatorGraph : FragmentContainerGraph {
             ProfileNavigationEvents.OpenProfileEmergencyContact -> {
             }
             ProfileNavigationEvents.OpenProfileInsurance -> {
+                mainRouter.navigateTo(ProfileInsuranceDoctorScreen)
             }
             ProfileNavigationEvents.OpenProfileSecurity -> {
                 mainRouter.navigateTo(ProfileSecuritySummaryScreen)
@@ -56,6 +60,16 @@ class ProfileTabCoordinatorGraph : FragmentContainerGraph {
                 mainRouter.sendResult(event.requestCode,event.result)
                 mainRouter.exit()
             }
+
+            is ProfileInsuranceDoctorNavigationEvents.SelectInsuranceCompanies -> {
+                parentCoordinatorRouter.sendEvent(
+                    RootContainerNavigationEvents.SelectMultipleItems(
+                        event.requestCode,
+                        event.organisationIds?.toSet()?: emptySet()
+                    )
+                )
+            }
+
             CoordinatorEvent.Back ->
             {
                 navigationRouter.exit()

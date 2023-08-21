@@ -1,5 +1,6 @@
 package com.aya.digital.core.feature.insurance.list.viewmodel
 
+import com.aya.digital.core.data.base.result.models.dictionaries.MultiSelectResultModel
 import com.aya.digital.core.domain.profile.insurance.DeleteInsuranceUseCase
 import com.aya.digital.core.domain.profile.insurance.GetInsurancesUseCase
 import com.aya.digital.core.feature.insurance.list.navigation.ProfileInsuranceDoctorNavigationEvents
@@ -18,53 +19,45 @@ class ProfileInsuranceDoctorViewModel(
     private val coordinatorRouter: CoordinatorRouter,
     private val getInsurancesUseCase: GetInsurancesUseCase,
     private val deleteInsuranceUseCase: DeleteInsuranceUseCase,
+    private val rootCoordinatorRouter: CoordinatorRouter,
 ) :
     BaseViewModel<ProfileInsuranceDoctorState, ProfileInsuranceDoctorSideEffects>() {
     override val container = container<ProfileInsuranceDoctorState, ProfileInsuranceDoctorSideEffects>(
         initialState = ProfileInsuranceDoctorState(),
     )
     {
-        loadInsurancesList()
+      //  loadInsurancesList()
     }
 
-    private fun loadInsurancesList() = intent(registerIdling = false) {
+ /*   private fun loadInsurancesList() = intent(registerIdling = false) {
         getInsurancesUseCase().asFlow().collect { result ->
             result.processResult({ models ->
-                reduce { state.copy(insuranceModels = models) }
+                reduce { state.copy(insurances = models) }
             }, { processError(it) })
         }
+    }*/
+
+    private fun selectInsuranceCompany() = intent {
+        listenForInsuranceCompany()
+        coordinatorRouter.sendEvent(
+            ProfileInsuranceDoctorNavigationEvents.SelectInsuranceCompanies(
+                RequestCodes.INSURANCE_LIST_REQUEST_CODE,
+                state.insurances
+            )
+        )
     }
 
+
+    private fun listenForInsuranceCompany() = intent {
+        rootCoordinatorRouter.setResultListener(RequestCodes.INSURANCE_LIST_REQUEST_CODE) { result ->
+            if (result is MultiSelectResultModel && result.selectedItems.isNotEmpty()) {
+               // setInsuranceCompany(result.selectedItems.map { it.id }.first())
+
+            }
+        }
+    }
     fun insuranceItemClicked() = intent {
-
-    }
-
-    fun addInsuranceClicked() = intent {
-        listenForInsuranceAddEvent()
-        coordinatorRouter.sendEvent(ProfileInsuranceDoctorNavigationEvents.AddInsurance(RequestCodes.ADD_INSURANCE_REQUEST_CODE))
-    }
-
-    fun insuranceItemMoreClicked(id: Int) = intent {
-        postSideEffect(ProfileInsuranceDoctorSideEffects.ShowInsuranceActionsDialog(id))
-    }
-
-    fun deleteInsurance(id: Int) = intent {
-        deleteInsuranceUseCase(id).await()
-            .processResult({
-                loadInsurancesList()
-            }, { processError(it) })
-    }
-
-    private fun listenForInsuranceEditEvent() = intent {
-        coordinatorRouter.setResultListener(RequestCodes.EDIT_INSURANCE_REQUEST_CODE) {
-            loadInsurancesList()
-        }
-    }
-
-    private fun listenForInsuranceAddEvent() = intent {
-        coordinatorRouter.setResultListener(RequestCodes.ADD_INSURANCE_REQUEST_CODE) {
-            loadInsurancesList()
-        }
+        selectInsuranceCompany()
     }
 
     override fun postErrorSideEffect(errorSideEffect: ErrorSideEffect) = intent {

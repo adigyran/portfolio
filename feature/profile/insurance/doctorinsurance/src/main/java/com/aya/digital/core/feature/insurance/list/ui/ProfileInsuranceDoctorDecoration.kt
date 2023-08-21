@@ -5,6 +5,7 @@ import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.aya.digital.core.ext.dpToPx
+import com.aya.digital.core.ui.delegates.profile.insurance.ui.InsurancePoliciesDelegate
 import com.aya.digital.core.ui.delegates.profile.insurance.ui.InsurancePolicyDelegate
 
 internal class ProfileInsuranceDoctorDecoration : RecyclerView.ItemDecoration() {
@@ -19,7 +20,7 @@ internal class ProfileInsuranceDoctorDecoration : RecyclerView.ItemDecoration() 
         val horizontal = (12).dpToPx()
         val top = when(viewHolder)
         {
-            is InsurancePolicyDelegate.ViewHolder -> (8).dpToPx()
+            is InsurancePoliciesDelegate.ViewHolder -> (8).dpToPx()
             else -> 0
         }
         outRect.top = top

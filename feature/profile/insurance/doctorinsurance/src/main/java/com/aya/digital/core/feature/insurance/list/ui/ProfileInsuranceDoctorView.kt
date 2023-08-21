@@ -48,7 +48,6 @@ class ProfileInsuranceDoctorView :
         recyclers.add(binding.recycler)
         binding.toolbar.backButton bindClick {viewModel.onBack()}
         binding.toolbar.title.text = "Insurance"
-        binding.addInsuranceBtn bindClick { viewModel.addInsuranceClicked() }
         with(binding.recycler) {
             itemAnimator = null
             setHasFixedSize(true)
@@ -78,22 +77,7 @@ class ProfileInsuranceDoctorView :
         when(sideEffect)
         {
             is ProfileInsuranceDoctorSideEffects.Error -> processErrorSideEffect(sideEffect.error)
-            is ProfileInsuranceDoctorSideEffects.ShowInsuranceActionsDialog -> showInsuranceActionsDialog(sideEffect.insuranceId)
         }
-
-    private fun showInsuranceActionsDialog(insuranceId: Int) {
-        MaterialAlertDialogBuilder(requireContext())
-            .setTitle("Delete?")
-            .setMessage("Are you sure you want to remove this insurance?")
-            .setNegativeButton("Cancel") { dialog, which ->
-                dialog.dismiss()
-            }
-            .setPositiveButton("Delete") { dialog, which ->
-                viewModel.deleteInsurance(insuranceId)
-                dialog.dismiss()
-            }
-            .show()
-    }
 
     override fun render(state: ProfileInsuranceDoctorState) {
         stateTransformer(state).data?.let {
