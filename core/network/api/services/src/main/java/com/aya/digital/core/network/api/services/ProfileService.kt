@@ -79,4 +79,7 @@ interface ProfileService {
     fun getNotificationsSettings():Single<NotificationSettingsResponse>
     @PATCH("api/settings/notifications")
     fun updateNotificationsSettings(@Body body:NotificationSettingsBody):Single<NotificationSettingsResponse>
+
+    @GET("/api/settings/insurances/profile-insurances")
+    fun getDoctorInsurancePolicies():Observable<List<Int>>
 }

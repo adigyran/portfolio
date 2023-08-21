@@ -110,6 +110,7 @@ class RetrofitProfileNetwork(private val network: ProfileService) :
 
 class RetrofitProfilePractitionerNetwork(private val network: ProfileService) :
     ProfilePractitionerDataSource {
+    override fun getDoctorInsurances(): Observable<List<Int>> = network.getDoctorInsurancePolicies()
 
 }
 

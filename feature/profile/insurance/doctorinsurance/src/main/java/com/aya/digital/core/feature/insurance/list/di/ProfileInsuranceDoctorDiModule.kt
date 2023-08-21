@@ -20,9 +20,8 @@ fun profileInsuranceDoctorDiModule(
         scoped(CustomFragmentScope).singleton {
             ProfileInsuranceDoctorViewModel(
                 parentCoordinatorEvent,
-                instance(),
-                instance(),
-                instance("parent_coordinator_bottomnav")
+                instance("parent_coordinator_bottomnav"),
+                instance()
             )
         }
     }

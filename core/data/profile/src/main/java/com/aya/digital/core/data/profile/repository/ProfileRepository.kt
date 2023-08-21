@@ -37,19 +37,6 @@ interface ProfileRepository {
     fun checkIfPhoneVerified():Single<RequestResult<Boolean>>
     fun getPhoneVerificationCode():Single<RequestResult<Boolean>>
     fun sendPhoneVerificationCode(code:String):Single<RequestResult<Boolean>>
-    fun addInsurance(insurancePolicyBody: InsurancePolicyBody): Single<RequestResult<Boolean>>
-
-    fun saveInsurance(
-        insuranceId: Int,
-        insurancePolicyBody: InsurancePolicyBody
-    ): Single<RequestResult<Boolean>>
-
-    fun getInsurances(): Observable<RequestResult<List<InsurancePolicyModel>>>
-
-    fun getInsuranceById(insuranceId: Int): Single<RequestResult<InsurancePolicyModel>>
-
-    fun deleteInsurance(insuranceId: Int): Single<RequestResult<Boolean>>
-
     fun getAttachmentById(attachmentId: Int): Single<RequestResult<Boolean>>
 
     fun getNotificationsStatus():Single<RequestResult<NotificationsStatus>>

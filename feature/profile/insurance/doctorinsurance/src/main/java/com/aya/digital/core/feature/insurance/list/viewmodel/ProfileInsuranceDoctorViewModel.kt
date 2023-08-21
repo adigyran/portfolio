@@ -1,7 +1,9 @@
 package com.aya.digital.core.feature.insurance.list.viewmodel
 
 import com.aya.digital.core.data.base.result.models.dictionaries.MultiSelectResultModel
+import com.aya.digital.core.data.base.result.models.dictionaries.SelectedItem
 import com.aya.digital.core.domain.profile.insurance.DeleteInsuranceUseCase
+import com.aya.digital.core.domain.profile.insurance.GetDoctorInsurancesUseCase
 import com.aya.digital.core.domain.profile.insurance.GetInsurancesUseCase
 import com.aya.digital.core.feature.insurance.list.navigation.ProfileInsuranceDoctorNavigationEvents
 import com.aya.digital.core.mvi.BaseViewModel
@@ -17,25 +19,25 @@ import org.orbitmvi.orbit.viewmodel.container
 
 class ProfileInsuranceDoctorViewModel(
     private val coordinatorRouter: CoordinatorRouter,
-    private val getInsurancesUseCase: GetInsurancesUseCase,
-    private val deleteInsuranceUseCase: DeleteInsuranceUseCase,
     private val rootCoordinatorRouter: CoordinatorRouter,
+    private val getDoctorInsurancesUseCase: GetDoctorInsurancesUseCase
 ) :
     BaseViewModel<ProfileInsuranceDoctorState, ProfileInsuranceDoctorSideEffects>() {
-    override val container = container<ProfileInsuranceDoctorState, ProfileInsuranceDoctorSideEffects>(
-        initialState = ProfileInsuranceDoctorState(),
-    )
-    {
-      //  loadInsurancesList()
-    }
+    override val container =
+        container<ProfileInsuranceDoctorState, ProfileInsuranceDoctorSideEffects>(
+            initialState = ProfileInsuranceDoctorState(),
+        )
+        {
+            loadInsurancesList()
+        }
 
- /*   private fun loadInsurancesList() = intent(registerIdling = false) {
-        getInsurancesUseCase().asFlow().collect { result ->
-            result.processResult({ models ->
-                reduce { state.copy(insurances = models) }
+    private fun loadInsurancesList() = intent(registerIdling = false) {
+        getDoctorInsurancesUseCase().asFlow().collect { result ->
+            result.processResult({ ids ->
+                reduce { state.copy(insurances = ids) }
             }, { processError(it) })
         }
-    }*/
+    }
 
     private fun selectInsuranceCompany() = intent {
         listenForInsuranceCompany()
@@ -50,12 +52,17 @@ class ProfileInsuranceDoctorViewModel(
 
     private fun listenForInsuranceCompany() = intent {
         rootCoordinatorRouter.setResultListener(RequestCodes.INSURANCE_LIST_REQUEST_CODE) { result ->
-            if (result is MultiSelectResultModel && result.selectedItems.isNotEmpty()) {
-               // setInsuranceCompany(result.selectedItems.map { it.id }.first())
+            if (result is MultiSelectResultModel) {
+                setInsuranceCompanies(result.selectedItems)
 
             }
         }
     }
+
+    private fun setInsuranceCompanies(selectedItems: Set<SelectedItem>) = intent {
+        reduce { state.copy(insurances = selectedItems.map { it.id }) }
+    }
+
     fun insuranceItemClicked() = intent {
         selectInsuranceCompany()
     }
