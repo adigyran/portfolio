@@ -45,9 +45,7 @@ class ProfileClinicInfoView :
 
     override fun prepareCreatedUi(savedInstanceState: Bundle?) {
         super.prepareCreatedUi(savedInstanceState)
-        prepareDescription()
         recyclers.add(binding.recycler)
-        binding.signInBtn bindClick { viewModel.onSignInClicked() }
         with(binding.recycler) {
             itemAnimator = null
             setHasFixedSize(true)
@@ -65,22 +63,6 @@ class ProfileClinicInfoView :
         }
     }
 
-    private fun prepareDescription() {
-        //Don't have an account yet? Sign Up
-        binding.descrLabl.movementMethod = LinkTouchMovementMethod()
-        val description = "Don't have an account yet? %s".createSpannableText(
-            colors[R.color.button_text_blue],
-            colors[R.color.button_bg_dark_blue],
-            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE,
-            binding.descrLabl.context,
-            R.style.TextAppearance_App_Body_DescriptionMiniText,
-            R.style.TextAppearance_App_ButtonText_Default,
-            listOf(SpannableObject("Sign Up", { signUp() }))
-        )
-        binding.descrLabl.text = description
-    }
-
-    private fun signUp() = viewModel.onSignUpClicked()
 
     override fun provideDiModule(): DI.Module = profileClinicInfoDiModule(tryTyGetParentRouter())
 
