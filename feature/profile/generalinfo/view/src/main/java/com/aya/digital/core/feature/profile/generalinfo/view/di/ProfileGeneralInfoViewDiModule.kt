@@ -15,6 +15,7 @@ fun profileGeneralInfoViewDiModule(
     bind<ProfileGeneralInfoViewStateTransformer>() with singleton {
         ProfileGeneralInfoViewStateTransformer(
             instance(),
+            instance(),
             instance()
         )
     }

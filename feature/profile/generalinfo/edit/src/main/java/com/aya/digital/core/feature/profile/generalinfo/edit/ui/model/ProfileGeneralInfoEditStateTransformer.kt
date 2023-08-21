@@ -74,7 +74,7 @@ class ProfileGeneralInfoEditStateTransformer(
 
     private fun Flavor.getAppSpecificFields(state: ProfileGeneralInfoEditState) = when(this)
     {
-        Flavor.Doctor -> state.getDoctorFields()
+        Flavor.Doctor -> getDoctorFields(state)
         Flavor.Patient -> getPatientFields(state)
     }
 
