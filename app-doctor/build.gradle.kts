@@ -71,6 +71,7 @@ dependencies {
     implementation(project(":feature:profile:generalinfo:view"))
     implementation(project(":feature:profile:insurance:doctorinsurance"))
     implementation(project(":feature:appointments:appointmentcard"))
+    implementation(project(":feature:profile:notifications"))
     implementation(project(":core:appbase"))
     implementation(project(":core:baseresources"))
     implementation(project(":core:dibase"))

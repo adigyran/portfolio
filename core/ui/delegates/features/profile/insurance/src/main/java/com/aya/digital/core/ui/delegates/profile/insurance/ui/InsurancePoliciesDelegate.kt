@@ -7,6 +7,7 @@ import com.aya.digital.core.ext.dpToPx
 import com.aya.digital.core.ui.adapters.base.BaseDelegate
 import com.aya.digital.core.ui.adapters.base.BaseViewHolder
 import com.aya.digital.core.ui.adapters.base.DiffItem
+import com.aya.digital.core.ui.delegates.features.profile.insurance.databinding.ItemInsurancePoliciesBinding
 import com.aya.digital.core.ui.delegates.features.profile.insurance.databinding.ItemInsurancePolicyBinding
 import com.aya.digital.core.ui.delegates.profile.insurance.model.InsurancePoliciesUIModel
 import com.bumptech.glide.Glide
@@ -23,13 +24,13 @@ class InsurancePoliciesDelegate(private val onPoliciesClick: () -> Unit) :
 
     override fun onCreateViewHolder(parent: ViewGroup): BaseViewHolder<InsurancePoliciesUIModel> {
         val binding =
-            ItemInsurancePolicyBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemInsurancePoliciesBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
         return ViewHolder(binding)
     }
 
 
-    inner class ViewHolder(private val binding: ItemInsurancePolicyBinding) :
+    inner class ViewHolder(private val binding: ItemInsurancePoliciesBinding) :
         BaseViewHolder<InsurancePoliciesUIModel>(binding.root) {
 
         init {
@@ -37,6 +38,7 @@ class InsurancePoliciesDelegate(private val onPoliciesClick: () -> Unit) :
         }
         override fun bind(item: InsurancePoliciesUIModel) {
             super.bind(item)
+            binding.count.text = item.count
         }
     }
 }

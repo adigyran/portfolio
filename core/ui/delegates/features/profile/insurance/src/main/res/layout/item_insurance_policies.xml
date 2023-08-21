@@ -11,49 +11,32 @@
     android:background="@drawable/bg_insurance_item"
     >
 
-    <ImageView
-        android:layout_width="72dp"
-        android:layout_height="48dp"
-        android:id="@+id/insuranceCardIv"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        />
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/moreBtn"
-        android:src="@drawable/ic_more"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        />
     <TextView
-        android:id="@+id/number"
+        android:id="@+id/title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="start"
         android:layout_marginStart="12dp"
         android:layout_marginEnd="12dp"
-        android:textAppearance="@style/TextAppearance.App.H4"
-        app:layout_constraintStart_toEndOf="@id/insuranceCardIv"
-        app:layout_constraintEnd_toStartOf="@id/moreBtn"
+        android:text="Insurance"
+        android:textAppearance="@style/TextAppearance.App.Body.DescriptionText"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         />
     <TextView
-        android:id="@+id/name"
+        android:id="@+id/count"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:gravity="start"
-        app:layout_constraintTop_toBottomOf="@id/number"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/insuranceCardIv"
-        app:layout_constraintEnd_toStartOf="@id/moreBtn"
         android:layout_marginStart="12dp"
         android:layout_marginEnd="12dp"
         android:maxLines="1"
+        tools:text="2 insurance"
         android:ellipsize="end"
-        android:textAppearance="@style/TextAppearance.App.Body.DescriptionMiniText"
+        android:textAppearance="@style/TextAppearance.App.Body.DescriptionText"
         android:textColor="@color/text_grey"
        />
 </androidx.constraintlayout.widget.ConstraintLayout>
