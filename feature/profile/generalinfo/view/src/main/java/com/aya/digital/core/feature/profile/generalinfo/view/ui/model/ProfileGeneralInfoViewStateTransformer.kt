@@ -102,7 +102,7 @@ class ProfileGeneralInfoViewStateTransformer(
             )
             add(
                 ProfileInfoUIModel(
-                    "language",
+                    "Language",
                     state.doctorFields?.language.getMaskedText(CommonMasks.getSSNValidator()).getField()
                 )
             )

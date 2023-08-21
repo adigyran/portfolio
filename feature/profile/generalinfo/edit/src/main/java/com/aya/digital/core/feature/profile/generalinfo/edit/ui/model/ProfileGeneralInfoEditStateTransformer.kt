@@ -131,7 +131,53 @@ class ProfileGeneralInfoEditStateTransformer(
         )
     }
 
-    private fun getDoctorFields(state: ProfileGeneralInfoEditState) = mutableListOf<DiffItem>().apply {  }
+    private fun getDoctorFields(state: ProfileGeneralInfoEditState) = mutableListOf<DiffItem>().apply {
+        add(ValidatedFieldUIModel(
+            tag = FieldsTags.NPI_FIELD_TAG,
+            label = "NPI",
+            text = state.doctorFields?.npi.getField(),
+            error = state.doctorFields?.npiError,
+            mask = CommonMasks.getSSNValidator(),
+            suffix = null,
+            inputType = InputType.TYPE_CLASS_NUMBER
+        ))
+        add(ValidatedFieldUIModel(
+            tag = FieldsTags.TIN_FIELD_TAG,
+            label = "TIN",
+            text = state.doctorFields?.tin.getField(),
+            error = state.doctorFields?.tinError,
+            mask = CommonMasks.getSSNValidator(),
+            suffix = null,
+            inputType = InputType.TYPE_CLASS_NUMBER
+        ))
+        add(ValidatedFieldUIModel(
+            tag = FieldsTags.LICENSE_NUMBER_FIELD_TAG,
+            label = "License number",
+            text = state.doctorFields?.licenseNumber.getField(),
+            error = state.doctorFields?.licenseNumberError,
+            mask = CommonMasks.getSSNValidator(),
+            suffix = null,
+            inputType = InputType.TYPE_CLASS_NUMBER
+        ))
+        add(
+            NameFieldUIModel(
+                FieldsTags.LANGUAGES_FIELD_TAG,
+                "Language",
+                state.doctorFields?.languages.getField(),
+                state.doctorFields?.languagesError
+            )
+        )
+
+        add(
+            NameFieldUIModel(
+                FieldsTags.BIO_FIELD_TAG,
+                "Bio",
+                state.doctorFields?.bio.getField(),
+                state.doctorFields?.bioError
+            )
+        )
+
+    }
 
     private fun getSexesList() = ProfileSex.getAllSexes()
         .map { profileSex -> AutoCompleteItem(profileSex.tag, profileSex.sexName()) }
