@@ -15,6 +15,7 @@ fun profileGeneralInfoEditDiModule(
     bind<ProfileGeneralInfoEditStateTransformer>() with singleton {
         ProfileGeneralInfoEditStateTransformer(
             instance(),
+            instance(),
             instance()
         )
     }
