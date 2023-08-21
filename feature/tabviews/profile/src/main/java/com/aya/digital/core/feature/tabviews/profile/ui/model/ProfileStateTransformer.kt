@@ -51,7 +51,7 @@ class ProfileStateTransformer(private val context: Context, private val appFlavo
 
     private fun Flavor.getAppSpecificFields() = when (this) {
         Flavor.Doctor -> getDoctorSpecificFields()
-        Flavor.Patient -> getPatientrSpecificFields()
+        Flavor.Patient -> getPatientSpecificFields()
     }
 
     private fun Flavor.getAppSpecificSubtitle(state: ProfileState) = when(this)
@@ -104,7 +104,7 @@ class ProfileStateTransformer(private val context: Context, private val appFlavo
         )
     }
 
-    private fun getPatientrSpecificFields() = mutableListOf<DiffItem>().apply {
+    private fun getPatientSpecificFields() = mutableListOf<DiffItem>().apply {
         add(
             ProfileMainUIModel(
                 FieldsTags.GENERAL_INFO_BUTTON_TAG,
