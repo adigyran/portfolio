@@ -56,8 +56,8 @@ class ProfileStateTransformer(private val context: Context, private val appFlavo
 
     private fun Flavor.getAppSpecificSubtitle(state: ProfileState) = when(this)
     {
-        Flavor.Doctor -> getAge(state)
-        Flavor.Patient -> getSpeciality(state)
+        Flavor.Doctor -> getSpeciality(state)
+        Flavor.Patient -> getAge(state)
     }
 
     private fun Flavor.getAppSpecificName(state: ProfileState)= when(this)
