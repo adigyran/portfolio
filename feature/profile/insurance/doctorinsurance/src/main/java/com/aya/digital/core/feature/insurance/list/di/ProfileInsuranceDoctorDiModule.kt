@@ -21,6 +21,7 @@ fun profileInsuranceDoctorDiModule(
             ProfileInsuranceDoctorViewModel(
                 parentCoordinatorEvent,
                 instance("parent_coordinator_bottomnav"),
+                instance(),
                 instance()
             )
         }

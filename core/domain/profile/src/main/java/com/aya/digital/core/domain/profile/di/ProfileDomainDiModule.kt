@@ -142,6 +142,13 @@ fun profileDomainDiModule() = DI.Module("profileDomainDiModule") {
             instance()
         )
     }
+
+    bind<UpdateDoctorInsurancesUseCase>() with singleton {
+        UpdateDoctorInsurancesUseCaseImpl(
+            instance(),
+            instance()
+        )
+    }
     bind<AddInsuranceUseCase>() with singleton { AddInsuranceUseCaseImpl(instance(), instance()) }
     bind<SaveInsuranceUseCase>() with singleton { SaveInsuranceUseCaseImpl(instance(), instance()) }
     bind<DeleteInsuranceUseCase>() with singleton {

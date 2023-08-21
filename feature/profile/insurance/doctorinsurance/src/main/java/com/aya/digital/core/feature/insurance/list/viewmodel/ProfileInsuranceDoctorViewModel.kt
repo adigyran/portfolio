@@ -2,16 +2,15 @@ package com.aya.digital.core.feature.insurance.list.viewmodel
 
 import com.aya.digital.core.data.base.result.models.dictionaries.MultiSelectResultModel
 import com.aya.digital.core.data.base.result.models.dictionaries.SelectedItem
-import com.aya.digital.core.domain.profile.insurance.DeleteInsuranceUseCase
 import com.aya.digital.core.domain.profile.insurance.GetDoctorInsurancesUseCase
-import com.aya.digital.core.domain.profile.insurance.GetInsurancesUseCase
+import com.aya.digital.core.domain.profile.insurance.UpdateDoctorInsurancesUseCase
 import com.aya.digital.core.feature.insurance.list.navigation.ProfileInsuranceDoctorNavigationEvents
 import com.aya.digital.core.mvi.BaseViewModel
 import com.aya.digital.core.navigation.coordinator.CoordinatorEvent
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
 import com.aya.digital.core.util.requestcodes.RequestCodes
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.rx3.asFlow
-import kotlinx.coroutines.rx3.await
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
@@ -20,7 +19,8 @@ import org.orbitmvi.orbit.viewmodel.container
 class ProfileInsuranceDoctorViewModel(
     private val coordinatorRouter: CoordinatorRouter,
     private val rootCoordinatorRouter: CoordinatorRouter,
-    private val getDoctorInsurancesUseCase: GetDoctorInsurancesUseCase
+    private val getDoctorInsurancesUseCase: GetDoctorInsurancesUseCase,
+    private val updateDoctorInsurancesUseCase: UpdateDoctorInsurancesUseCase
 ) :
     BaseViewModel<ProfileInsuranceDoctorState, ProfileInsuranceDoctorSideEffects>() {
     override val container =
@@ -49,6 +49,17 @@ class ProfileInsuranceDoctorViewModel(
         )
     }
 
+    fun onUpdateInsurances() {
+        updateInsurances()
+    }
+
+    private fun updateInsurances() = intent(registerIdling = false) {
+        updateDoctorInsurancesUseCase(state.insurances?: listOf()).asFlow().collect { result ->
+            result.processResult({ ids ->
+                reduce { state.copy(insurances = ids) }
+            }, { processError(it) })
+        }
+    }
 
     private fun listenForInsuranceCompany() = intent {
         rootCoordinatorRouter.setResultListener(RequestCodes.INSURANCE_LIST_REQUEST_CODE) { result ->
@@ -74,5 +85,7 @@ class ProfileInsuranceDoctorViewModel(
     override fun onBack() {
         coordinatorRouter.sendEvent(CoordinatorEvent.Back)
     }
+
+
 }
 

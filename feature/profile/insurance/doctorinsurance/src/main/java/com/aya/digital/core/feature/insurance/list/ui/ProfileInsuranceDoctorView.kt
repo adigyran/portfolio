@@ -16,8 +16,6 @@ import com.aya.digital.core.feature.profile.insurance.doctorinsurance.databindin
 import com.aya.digital.core.ui.adapters.base.BaseDelegateAdapter
 import com.aya.digital.core.ui.base.screens.DiFragment
 import com.aya.digital.core.ui.delegates.profile.insurance.ui.InsurancePoliciesDelegate
-import com.aya.digital.core.ui.delegates.profile.insurance.ui.InsurancePolicyDelegate
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.kodein.di.DI
 import org.kodein.di.factory
 import org.kodein.di.on
@@ -48,6 +46,7 @@ class ProfileInsuranceDoctorView :
         recyclers.add(binding.recycler)
         binding.toolbar.backButton bindClick {viewModel.onBack()}
         binding.toolbar.title.text = "Insurance"
+        binding.addInsuranceBtn bindClick {viewModel.onUpdateInsurances()}
         with(binding.recycler) {
             itemAnimator = null
             setHasFixedSize(true)
