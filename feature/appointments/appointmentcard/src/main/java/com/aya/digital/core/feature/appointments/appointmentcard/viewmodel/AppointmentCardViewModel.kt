@@ -2,6 +2,8 @@ package com.aya.digital.core.feature.appointments.appointmentcard.viewmodel
 
 import com.aya.digital.core.domain.appointment.base.CancelAppointmentByIdUseCase
 import com.aya.digital.core.domain.appointment.base.GetAppointmentByIdWithParticipantUseCase
+import com.aya.digital.core.domain.appointment.participants.model.AppointmentDoctorParticipant
+import com.aya.digital.core.domain.appointment.participants.model.AppointmentPatientParticipant
 import com.aya.digital.core.domain.appointment.telehealth.GetTeleHealthTimeWindowUseCase
 import com.aya.digital.core.domain.base.models.appointment.AppointmentModel
 import com.aya.digital.core.domain.base.models.appointment.AppointmentType
@@ -18,6 +20,8 @@ import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.minus
 import kotlinx.datetime.toInstant
+import kotlinx.datetime.toKotlinLocalDate
+import kotlinx.datetime.toKotlinLocalDateTime
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
@@ -56,8 +60,15 @@ internal class AppointmentCardViewModel(
             .await()
             .processResult({ appointmentWithParticipantModel ->
                 showAppointment(appointmentWithParticipantModel.appointmentModel)
-                appointmentWithParticipantModel.doctorModel?.let { showDoctor(it) }
-                appointmentWithParticipantModel.patientModel?.let { showPatient(it) }
+                val appointmentParticipant = appointmentWithParticipantModel.appointmentParticipant
+                when(appointmentParticipant)
+                {
+                    is AppointmentDoctorParticipant -> showDoctor(appointmentParticipant.doctorModel)
+                    is AppointmentPatientParticipant -> showPatient(appointmentParticipant.patientModel)
+                    null -> {
+
+                    }
+                }
             }, { processError(it) })
     }
 
@@ -95,7 +106,7 @@ internal class AppointmentCardViewModel(
 
         reduce {
             state.copy(
-                appointmentDate = appointmentModel.startDate,
+                appointmentDate = appointmentModel.startDate.toKotlinLocalDateTime(),
                 appointmentComment = appointmentModel.comment,
                 isTelemed = appointmentModel.type is AppointmentType.Online
             )
@@ -124,7 +135,7 @@ internal class AppointmentCardViewModel(
         val patientData = PatientData(
             patientFirstName = patientModel.firstName,
             patientLastName = patientModel.lastName,
-            patientBirthDate = patientModel.birthDate,
+            patientBirthDate = patientModel.birthDate?.toKotlinLocalDate(),
             patientInsurances = patientModel.insurances
         )
         reduce {

@@ -9,6 +9,7 @@ import com.aya.digital.core.data.schedule.repository.ScheduleRepository
 import com.aya.digital.core.domain.base.models.progress.trackProgress
 import com.aya.digital.core.domain.schedule.base.GetLatestScheduleByDoctorIdUseCase
 import com.aya.digital.core.domain.schedule.base.model.ScheduleSlotModel
+import com.aya.digital.core.domain.schedule.base.model.getSlotType
 import com.aya.digital.core.ext.mapResult
 import io.reactivex.rxjava3.core.Flowable
 import kotlinx.datetime.*
@@ -27,7 +28,7 @@ internal class GetLatestScheduleByDoctorIdUseCaseImpl(
         val startDateTime = currentInstant.toLocalDateTime(systemTZ)
         val endDateTime =
             currentInstant.plus(days, DateTimeUnit.DAY, systemTZ).toLocalDateTime(systemTZ)
-        return repository.getSlots(doctorId, startDateTime, endDateTime)
+        return repository.getSlots(doctorId, startDateTime.toJavaLocalDateTime(), endDateTime.toJavaLocalDateTime())
             .trackProgress(progressRepository)
             .mapResult({ scheduleSlots -> scheduleSlots.map { it.toSlotModel() }.asResultModel() },
                 { it.toModelError() })
@@ -36,11 +37,11 @@ internal class GetLatestScheduleByDoctorIdUseCaseImpl(
     private fun ScheduleSlot.toSlotModel() =
         ScheduleSlotModel(
             id = id,
-            startDate = startDate,
-            endDate = endDate,
+            startDate = startDate.toKotlinLocalDateTime(),
+            endDate = endDate.toKotlinLocalDateTime(),
             status = statusSlot,
             overBooked = overBooked,
             comment = commentSlot,
-            type = type
+            type = type.getSlotType()
         )
 }

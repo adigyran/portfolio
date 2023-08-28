@@ -90,7 +90,7 @@ class CreateAppointmentDialogViewModel(
                 param.requestCode,
                 CreateAppointmentResultModel(
                     appointmentId = appointmentModel.id,
-                    appointmentDateTime = appointmentModel.startDate
+                    appointmentDateTime = appointmentModel.startDate.toKotlinLocalDateTime()
                 )
             )
         )

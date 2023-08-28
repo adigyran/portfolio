@@ -1,6 +1,7 @@
 package com.aya.digital.core.data.schedule
 
-import kotlinx.datetime.LocalDateTime
+import java.time.LocalDateTime
+
 
 data class ScheduleSlot(
     val id: Int,

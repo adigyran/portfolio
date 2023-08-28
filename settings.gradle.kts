@@ -130,6 +130,7 @@ include(":core:ui:delegates:features:profile:clinicinfo")
 include(":core:ui:delegates:features:profile:insurance")
 //appointments
 include(":core:ui:delegates:features:appointments:patientappointment")
+include(":core:ui:delegates:features:appointments:appointmentsscheduler")
 //appointmentcard
 include(":core:ui:delegates:features:appointmentcard:appointmentdetails")
 //doctors
@@ -148,6 +149,7 @@ include(":feature:tabviews:home")
 include(":feature:tabviews:profile")
 include(":feature:tabviews:doctorsearchcontainer")
 include(":feature:tabviews:appointments")
+include(":feature:tabviews:appointmentsscheduler")
 
 //containers
 include(":feature:rootcontainer")

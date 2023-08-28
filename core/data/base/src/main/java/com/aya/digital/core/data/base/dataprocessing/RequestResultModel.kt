@@ -83,4 +83,21 @@ fun <T, V : Any> Single<RequestResultModel<T>>.mapResult(
 ): Single<V> =
     this.map { it.processResult(successHandler, errorHandler) }
 
+fun <T, V : Any> Single<RequestResultModel<T>>.flatMapResult(
+    successHandler: (T) -> Single<V>,
+    errorHandler: (RequestResultModel.Error) -> Single<V>,
+): Single<V> =
+    this.flatMap { it.processResult(successHandler, errorHandler) }
+fun <T, V : Any> Observable<RequestResultModel<T>>.flatMapResult(
+    successHandler: (T) -> Observable<V>,
+    errorHandler: (RequestResultModel.Error) -> Observable<V>,
+): Observable<V> =
+    this.flatMap { it.processResult(successHandler, errorHandler) }
+
+fun <T, V : Any> Flowable<RequestResultModel<T>>.flatMapResult(
+    successHandler: (T) -> Flowable<V>,
+    errorHandler: (RequestResultModel.Error) -> Flowable<V>,
+): Flowable<V> =
+    this.flatMap { it.processResult(successHandler, errorHandler) }
+
 

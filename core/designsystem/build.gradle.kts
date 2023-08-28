@@ -10,6 +10,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:ext"))
     implementation(project(":core:baseresources"))
     implementation(project(":core:localisation"))
     implementation(libs.androidx.appcompat)

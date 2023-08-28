@@ -14,8 +14,8 @@ android {
 
     defaultConfig {
         applicationId = "com.aya.digital.healthapp.doctor"
-        versionCode = 4
-        versionName = "0.0.4" // X.Y.Z; X = Major, Y = minor, Z = Patch level
+        versionCode = 6
+        versionName = "0.0.6" // X.Y.Z; X = Major, Y = minor, Z = Patch level
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -50,10 +50,11 @@ android {
 dependencies {
     implementation(project(":feature:rootcontainer"))
     implementation(project(":feature:bottomdialogs:bottomdialog"))
+    implementation(project(":feature:bottomdialogs:dateappointmentsdialog"))
     implementation(project(":feature:bottomdialogs:codedialog"))
     implementation(project(":feature:bottomnavhost"))
     implementation(project(":feature:tabs:appointments"))
-    implementation(project(":feature:tabviews:appointments"))
+    implementation(project(":feature:tabviews:appointmentsscheduler"))
     implementation(project(":feature:tabs:profile"))
     implementation(project(":feature:tabviews:profile"))
     implementation(project(":feature:choosers:selectwithsearch"))

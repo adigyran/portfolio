@@ -1,5 +1,6 @@
 package com.aya.digital.core.repository.schedule
 
+import com.aya.digital.core.data.schedule.repository.DoctorSchedulerRepository
 import com.aya.digital.core.data.schedule.repository.ScheduleRepository
 import org.kodein.di.DI
 import org.kodein.di.bind
@@ -8,4 +9,5 @@ import org.kodein.di.singleton
 
 fun scheduleRepositoryDiModule() = DI.Module("scheduleRepositoryDiModule") {
     bind<ScheduleRepository>() with singleton { ScheduleRepositoryImpl(instance(),instance(),instance()) }
+    bind<DoctorSchedulerRepository>() with singleton { DoctorSchedulerRepositoryImpl(instance(),instance(),instance()) }
 }

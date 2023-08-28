@@ -23,6 +23,7 @@ import com.aya.digital.feature.bottomdialogs.createappointmentdialog.navigation.
 import com.aya.digital.feature.bottomdialogs.successappointmentdialog.navigation.SuccessAppointmentDialogScreen
 import com.aya.digital.feature.bottomdialogs.dateappointmentsdialog.navigation.DateAppointmentsDialogNavigationEvents
 import com.aya.digital.feature.bottomdialogs.dateappointmentsdialog.navigation.DateAppointmentsDialogScreen
+import com.aya.digital.feature.bottomdialogs.dateappointmentsdialog.ui.DateAppointmentsDialogView
 import com.aya.digital.feature.bottomdialogs.doctorsclusterlistdialog.navigation.DoctorsClusterListDialogScreen
 import com.aya.digital.feature.rootcontainer.navigation.RootContainerNavigationEvents
 import com.github.terrakok.cicerone.Router
@@ -147,9 +148,9 @@ class PatientRootCoordinatorGraph(context: Context) : RootCoordinatorGraph {
             is DoctorCardNavigationEvents.OpenSuccessAppointmentCreation -> {
                 navigationRouter.navigateTo(
                     SuccessAppointmentDialogScreen(
-                        "SUCCESS_APPOINTMENT",
-                        event.requestCode,
-                        event.appointmentId
+                        tag = "SUCCESS_APPOINTMENT",
+                        requestCode = event.requestCode,
+                        appointmentId = event.appointmentId
                     )
                 )
             }
@@ -157,9 +158,9 @@ class PatientRootCoordinatorGraph(context: Context) : RootCoordinatorGraph {
             is AppointmentsNavigationEvents.OpenAppointmentsForSpecificDate -> {
                 navigationRouter.navigateTo(
                     DateAppointmentsDialogScreen(
-                        "SELECTED_DATE_APPOINTMENTS",
-                        event.requestCode,
-                        event.date
+                        tag = "SELECTED_DATE_APPOINTMENTS",
+                        requestCode = event.requestCode,
+                        dialogParam = DateAppointmentsDialogView.DialogParam.DateParam(date = event.date)
                     )
                 )
 

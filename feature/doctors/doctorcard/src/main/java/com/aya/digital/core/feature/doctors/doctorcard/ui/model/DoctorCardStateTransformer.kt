@@ -3,6 +3,7 @@ package com.aya.digital.core.feature.doctors.doctorcard.ui.model
 import android.content.Context
 import android.text.format.DateUtils
 import com.aya.digital.core.domain.schedule.base.model.ScheduleSlotModel
+import com.aya.digital.core.domain.schedule.base.model.SlotModelType
 import com.aya.digital.core.feature.doctors.doctorcard.DoctorCardMode
 import com.aya.digital.core.feature.doctors.doctorcard.viewmodel.DoctorCardState
 import com.aya.digital.core.mvi.BaseStateTransformer
@@ -63,7 +64,7 @@ class DoctorCardStateTransformer(
                 .groupBy { it.startDate.dayOfMonth }
                 .forEach { entry ->
                     val firstSlot = entry.value.first()
-                    val isTelemed = firstSlot.type.contains("online", ignoreCase = true)
+                    val isTelemed = firstSlot.type is SlotModelType.Online
                     val firstSlotDateTime = firstSlot.startDate
                     val slotTitle = "%s, %s".format(
                         firstSlotDateTime.getRelativeText(),

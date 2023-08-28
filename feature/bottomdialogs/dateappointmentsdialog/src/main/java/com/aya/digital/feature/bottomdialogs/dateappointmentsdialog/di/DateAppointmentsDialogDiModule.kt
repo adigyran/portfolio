@@ -14,15 +14,21 @@ fun dateAppointmentsDialogDiModule(
 
     bind<DateAppointmentsDialogStateTransformer>() with singleton {
         DateAppointmentsDialogStateTransformer(
-            instance(),
-            instance()
+            context = instance(),
+            param = param,
+            dateTimeUtils = instance(),
         )
     }
 
 
     bind {
         scoped(CustomFragmentScope).singleton {
-            DateAppointmentsDialogViewModel(parentCoordinatorEvent, param, instance())
+            DateAppointmentsDialogViewModel(
+                coordinatorRouter = parentCoordinatorEvent,
+                param = param,
+                getAppointmentsByIntervalUseCase = instance(),
+                getAppointmentsByStartDayAndDaysUseCase = instance()
+            )
         }
     }
 

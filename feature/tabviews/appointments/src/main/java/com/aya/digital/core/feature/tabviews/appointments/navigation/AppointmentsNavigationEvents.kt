@@ -1,7 +1,7 @@
 package com.aya.digital.core.feature.tabviews.appointments.navigation
 
 import com.aya.digital.core.navigation.coordinator.CoordinatorEvent
-import kotlinx.datetime.LocalDate
+import java.time.LocalDate
 
 sealed class AppointmentsNavigationEvents : CoordinatorEvent() {
     object OpenDefaultScreen : AppointmentsNavigationEvents()

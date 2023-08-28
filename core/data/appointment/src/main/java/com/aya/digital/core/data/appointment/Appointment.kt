@@ -1,6 +1,7 @@
 package com.aya.digital.core.data.appointment
 
-import kotlinx.datetime.LocalDateTime
+import java.time.LocalDateTime
+
 
 data class Appointment(
     val id: Int,
@@ -13,7 +14,8 @@ data class Appointment(
     val practitioner: Practitioner?,
     val status: Status,
     val type: String?,
-    val telemedPreTime:Long?
+    val telemedPreTime:Long?,
+    val slotId:Int?
 )
 
 enum class Status(val statusName:String) {

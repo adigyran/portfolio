@@ -11,8 +11,6 @@ import com.aya.digital.core.navigation.coordinator.CoordinatorEvent
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
 import com.aya.digital.core.navigation.graph.navigator.FragmentContainerGraph
 import com.aya.digital.feature.bottomdialogs.dateappointmentsdialog.navigation.DateAppointmentsDialogNavigationEvents
-import com.aya.digital.feature.bottomdialogs.dateappointmentsdialog.navigation.DateAppointmentsDialogScreen
-import com.aya.digital.feature.tabs.home.navigation.HomeTabNavigationEvents
 import com.github.terrakok.cicerone.Router
 
 class AppointmentsTabCoordinatorGraph : FragmentContainerGraph {

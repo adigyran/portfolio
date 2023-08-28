@@ -50,9 +50,12 @@ internal class ProfileRepositoryImpl(
     private val notificationsStatusMapper: NotificationsStatusMapper
 ) :
     ProfileRepository {
-    override fun currentProfileId(): Single<RequestResult<Int>> {
-        TODO("Not yet implemented")
-    }
+    override fun currentProfileId(): Single<RequestResult<Int>> = profileDataSource.currentProfile()
+        .retryOnError()
+        .retrofitResponseToResult(CommonUtils::mapServerErrors)
+        .mapResult({ profile ->
+            profile.id.asResult()
+        }, { it })
 
     override fun currentProfileAvatar(): Single<RequestResult<CurrentProfile.Avatar?>> =
         profileDataSource.currentAvatar()

@@ -5,10 +5,14 @@ import androidx.fragment.app.FragmentManager
 import com.aya.digital.core.feature.bottomnavhost.navigation.BottomNavHostScreen
 import com.aya.digital.core.feature.choosers.multiselect.navigation.SelectWithSearchNavigationEvents
 import com.aya.digital.core.feature.choosers.multiselect.navigation.SelectWithSearchScreen
+import com.aya.digital.core.feature.tabviews.appointmentsscheduler.navigation.AppointmentsSchedulerNavigationEvents
 import com.aya.digital.core.navigation.bottomnavigation.StartScreen
 import com.aya.digital.core.navigation.coordinator.CoordinatorEvent
 import com.aya.digital.core.navigation.graph.coordinator.RootCoordinatorGraph
 import com.aya.digital.feature.auth.container.navigation.AuthContainerScreen
+import com.aya.digital.feature.bottomdialogs.dateappointmentsdialog.navigation.DateAppointmentsDialogNavigationEvents
+import com.aya.digital.feature.bottomdialogs.dateappointmentsdialog.navigation.DateAppointmentsDialogScreen
+import com.aya.digital.feature.bottomdialogs.dateappointmentsdialog.ui.DateAppointmentsDialogView
 import com.aya.digital.feature.rootcontainer.navigation.RootContainerNavigationEvents
 import com.aya.digital.feature.rootcontainer.ui.RootView
 import com.github.terrakok.cicerone.Router
@@ -42,6 +46,20 @@ class DoctorRootCoordinatorGraph(context: Context) : RootCoordinatorGraph {
                 openRootScreen(StartScreen.APPOINTMENTS)
             }
 
+            is AppointmentsSchedulerNavigationEvents.OpenAppointmentsForSpecificSlot -> {
+                navigationRouter.navigateTo(
+                    DateAppointmentsDialogScreen(
+                        tag = "SELECTED_SLOt_APPOINTMENTS",
+                        requestCode = event.requestCode,
+                        dialogParam = DateAppointmentsDialogView.DialogParam.IntervalParam(
+                            startDateTime = event.startDateTime,
+                            endDateTime = event.endDateTime
+                        )
+                    )
+                )
+
+            }
+
             is RootContainerNavigationEvents.SelectMultipleItems -> {
                 navigationRouter.navigateTo(
                     SelectWithSearchScreen(
@@ -61,10 +79,15 @@ class DoctorRootCoordinatorGraph(context: Context) : RootCoordinatorGraph {
                     )
                 )
             }
+            is DateAppointmentsDialogNavigationEvents.FinishWithResult -> {
+                navigationRouter.exit()
+                navigationRouter.sendResult(event.requestCode, event.result)
+            }
             is SelectWithSearchNavigationEvents.FinishWithResult -> {
                 navigationRouter.exit()
                 navigationRouter.sendResult(event.requestCode, event.result)
             }
+
         }
     }
 }

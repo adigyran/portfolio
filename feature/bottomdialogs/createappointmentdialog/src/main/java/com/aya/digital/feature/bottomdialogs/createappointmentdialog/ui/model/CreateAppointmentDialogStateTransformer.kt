@@ -2,6 +2,7 @@ package com.aya.digital.feature.bottomdialogs.createappointmentdialog.ui.model
 
 import android.content.Context
 import android.text.format.DateUtils
+import com.aya.digital.core.domain.schedule.base.model.SlotModelType
 import com.aya.digital.core.mvi.BaseStateTransformer
 import com.aya.digital.core.ui.adapters.base.DiffItem
 import com.aya.digital.core.ui.delegates.components.fields.name.model.NameFieldUIModel
@@ -56,7 +57,7 @@ class CreateAppointmentDialogStateTransformer(
             },
             isTelemed = state.slots?.let { slots ->
                 val firstSlot = slots.first()
-                return@let firstSlot.type.contains("online", true)
+                return@let firstSlot.type is SlotModelType.Online
             } ?: false
         )
 

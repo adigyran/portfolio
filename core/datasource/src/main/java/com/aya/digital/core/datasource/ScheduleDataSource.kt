@@ -10,17 +10,23 @@ import io.reactivex.rxjava3.core.Single
 
 interface ScheduleDataSource {
 
-    fun getSelectableSchedule(
+    fun getSelectableDoctorSchedule(
         practitionerId: Int,
         start: String,
         end: String
     ): Flowable<List<ScheduleResponse>>
 
-    fun fetchSlots(
+    fun fetchDoctorSlots(
         practitionerId: Int,
         start: String,
         end: String
     ): Flowable<List<SlotResponse>>
+
+    fun fetchSlots(
+        practitionerId: Int?,
+        start: String,
+        end: String
+    ):Single<List<SlotResponse>>
 
     fun create(
         scheduleWithSlots: ScheduleWithSlotsBody

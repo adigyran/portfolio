@@ -11,6 +11,7 @@ import com.aya.digital.feature.bottomdialogs.successappointmentdialog.ui.Success
 import kotlinx.coroutines.reactive.asFlow
 import kotlinx.coroutines.rx3.await
 import kotlinx.datetime.LocalDate
+import kotlinx.datetime.toKotlinLocalDateTime
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
@@ -39,8 +40,8 @@ class SuccessAppointmentDialogViewModel(
             .processResult({ result ->
                 reduce {
                     state.copy(
-                        doctorName = result.doctorModel?.lastName,
-                        dateTime = result.appointmentModel.startDate
+                        doctorName = result.appointmentParticipant?.lastName,
+                        dateTime = result.appointmentModel.startDate.toKotlinLocalDateTime()
                     )
                 }
             }, { processError(it) })

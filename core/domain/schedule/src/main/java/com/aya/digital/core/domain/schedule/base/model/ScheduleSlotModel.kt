@@ -14,5 +14,5 @@ data class ScheduleSlotModel(
     val overBooked: Boolean,
     val status: String,
     val comment: String,
-    val type: String
+    val type: SlotModelType
 ) : Parcelable

@@ -7,7 +7,7 @@ import com.aya.digital.core.domain.doctors.favourites.CheckDoctorIsInFavoritesUs
 import com.aya.digital.core.domain.doctors.favourites.RemoveDoctorFromFavoritesUseCase
 import com.aya.digital.core.domain.schedule.base.GetLatestScheduleByDoctorIdUseCase
 import com.aya.digital.core.domain.schedule.base.model.ScheduleSlotModel
-import com.aya.digital.core.domain.schedule.selectable.GetSelectableScheduleByDoctorIdUseCase
+import com.aya.digital.core.domain.schedule.patient.selectable.GetSelectableScheduleByDoctorIdUseCase
 import com.aya.digital.core.feature.doctors.doctorcard.DoctorCardMode
 import com.aya.digital.core.feature.doctors.doctorcard.navigation.DoctorCardNavigationEvents
 import com.aya.digital.core.feature.doctors.doctorcard.ui.DoctorCardView
@@ -22,7 +22,6 @@ import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
-import timber.log.Timber
 
 class DoctorCardViewModel(
     private val coordinatorRouter: CoordinatorRouter,

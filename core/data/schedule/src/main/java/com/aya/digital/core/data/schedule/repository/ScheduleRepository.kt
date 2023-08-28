@@ -6,8 +6,8 @@ import com.aya.digital.core.data.schedule.ScheduleSlot
 import com.aya.digital.core.networkbase.server.RequestResult
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Single
-import kotlinx.datetime.LocalDate
-import kotlinx.datetime.LocalDateTime
+import java.time.LocalDateTime
+
 
 interface ScheduleRepository {
     fun getSlots(

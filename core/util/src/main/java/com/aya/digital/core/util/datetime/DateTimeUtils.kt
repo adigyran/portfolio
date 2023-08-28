@@ -13,6 +13,10 @@ interface DateTimeUtils {
     fun formatYmdDate(date: LocalDate): String
     fun formatBirthDate(date: LocalDate):String
     fun formatSlotTime(time: LocalTime):String
+    fun formatSchedulerSlotTime(time: LocalTime):String
+    fun formatSchedulerDateTime(date: LocalDate):String
+    fun formatDayOfWeekName(date: LocalDate):String
+    fun formatDayOfMonth(date: LocalDate):String
     fun formatSlotTitleDate(date:LocalDateTime):String
     fun formatAppointmentDateTime(dateTime: LocalDateTime):Pair<String,String>
     fun formatAppointmentCardDateTime(dateTime: LocalDateTime):String

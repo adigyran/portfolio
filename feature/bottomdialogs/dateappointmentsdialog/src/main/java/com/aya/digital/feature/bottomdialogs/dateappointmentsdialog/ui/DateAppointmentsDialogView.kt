@@ -9,28 +9,26 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.aya.digital.core.ext.argument
-import com.aya.digital.core.ext.bindClick
 import com.aya.digital.core.ext.createFragment
-import com.aya.digital.core.ext.toggleVisibility
 import com.aya.digital.feature.bottomdialogs.dateappointmentsdialog.di.dateAppointmentsDialogDiModule
 import com.aya.digital.feature.bottomdialogs.dateappointmentsdialog.viewmodel.DateAppointmentsDialogState
 import com.aya.digital.feature.bottomdialogs.dateappointmentsdialog.viewmodel.DateAppointmentsDialogViewModel
 import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.ui.adapters.base.BaseDelegateAdapter
 import com.aya.digital.core.ui.base.screens.DiBottomSheetDialogFragment
+import com.aya.digital.core.ui.delegates.appointments.patientappointment.ui.DoctorAppointmentDelegate
 import com.aya.digital.core.ui.delegates.appointments.patientappointment.ui.PatientAppointmentDelegate
 import com.aya.digital.core.ui.delegates.appointments.patientappointment.ui.PatientEmptyAppointmentDelegate
 import com.aya.digital.feature.bottomdialogs.dateappointmentsdialog.databinding.ViewDateAppointmentsDialogBinding
 import com.aya.digital.feature.bottomdialogs.dateappointmentsdialog.ui.model.DateAppointmentsDialogStateTransformer
 import com.aya.digital.feature.bottomdialogs.dateappointmentsdialog.ui.model.DateAppointmentsDialogDialogUiModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import kotlinx.datetime.LocalDate
-import kotlinx.datetime.LocalDateTime
 import kotlinx.parcelize.Parcelize
-import kotlinx.parcelize.RawValue
 import org.kodein.di.DI
 import org.kodein.di.factory
 import org.kodein.di.on
+import java.time.LocalDate
+import java.time.LocalDateTime
 
 class DateAppointmentsDialogView :
     DiBottomSheetDialogFragment<ViewDateAppointmentsDialogBinding, DateAppointmentsDialogViewModel, DateAppointmentsDialogState, BaseSideEffect, DateAppointmentsDialogDialogUiModel, DateAppointmentsDialogStateTransformer>() {
@@ -55,6 +53,7 @@ class DateAppointmentsDialogView :
     private val adapter by lazy(LazyThreadSafetyMode.NONE) {
         BaseDelegateAdapter.create {
             delegate { PatientAppointmentDelegate(viewModel::onAppointmentClicked) }
+            delegate { DoctorAppointmentDelegate(viewModel::onAppointmentClicked) }
             delegate { PatientEmptyAppointmentDelegate() }
         }
     }
@@ -70,8 +69,8 @@ class DateAppointmentsDialogView :
 
     override fun prepareUi(savedInstanceState: Bundle?) {
         super.prepareUi(savedInstanceState)
-/*        binding.btnClose bindClick { viewModel.close() }
-        binding.btnBack.bindClick { viewModel.close() }*/
+        /*        binding.btnClose bindClick { viewModel.close() }
+                binding.btnBack.bindClick { viewModel.close() }*/
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
         bottomSheetBehavior.skipCollapsed = true
         with(binding.recycler) {
@@ -112,20 +111,34 @@ class DateAppointmentsDialogView :
     }
 
     @Parcelize
-    class Param(
+    data class Param(
         val requestCode: String,
-        val date: @RawValue LocalDate
+        val dialogParam: DialogParam
     ) : Parcelable
+
+    @Parcelize
+    sealed class DialogParam:Parcelable{
+        @Parcelize
+        data class DateParam(
+            val date: LocalDate
+        ) : DialogParam()
+        @Parcelize
+        data class IntervalParam(
+            val startDateTime: LocalDateTime,
+            val endDateTime: LocalDateTime
+        ) : DialogParam()
+    }
+
 
     companion object {
         fun getNewInstance(
             requestCode: String,
-            date: LocalDate
+            dialogParam: DialogParam
         ): DateAppointmentsDialogView =
             createFragment(
                 Param(
                     requestCode = requestCode,
-                    date = date
+                    dialogParam = dialogParam
                 )
             )
     }

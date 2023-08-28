@@ -3,9 +3,9 @@ package com.aya.digital.core.domain.base.models.patients
 import android.os.Parcelable
 import com.aya.digital.core.data.doctors.DoctorData
 import com.aya.digital.core.data.doctors.PatientData
-import kotlinx.datetime.LocalDate
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.RawValue
+import java.time.LocalDate
 
 /*   val id: Int,
     val firstName: String,
@@ -22,7 +22,7 @@ data class PatientModel(
     val lastName: String,
     val middleName: String?,
     val avatarPhotoLink: String?,
-    val birthDate:@RawValue LocalDate?,
+    val birthDate: LocalDate?,
     val insurances:List<InsuranceModel>
 ):Parcelable
 {

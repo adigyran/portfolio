@@ -126,6 +126,20 @@ Added Firebase Distribution\n
         version 55 patient
         code input size fix
         telehealth wait time from server
-        version 56 patient
+        version 57 patient
+        added finish with result navigation when changing password
+        fixed google auth infinite back
+        doctor profile demonstration
+        added doctor insurance
+        added doctor clinic info blank screen (temporary)
+        patient fields and doctor field separated in profile
+        added doctor scheduler demonstration
+        version 58 patient/version 5 doctor
+        refactored appointment participant fetch code
+        scheduler for doctor shows slots and appointments
+        added day choose to scheduler
+        added multiple appointments per slot dialog
+        telemedicine in doctor app working as intended
+        version 59 patient/version 6 doctor
 
 

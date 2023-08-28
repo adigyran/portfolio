@@ -26,6 +26,14 @@ internal class DateTimeUtilsImpl(
     override fun formatSlotTime(time: LocalTime): String =
         time.format(formatters.dateFormatterTimeSlot)
 
+    override fun formatSchedulerSlotTime(time: LocalTime): String = time.format(formatters.dateFormatterSchedulerTimeSlot)
+
+    override fun formatSchedulerDateTime(date: LocalDate): String = date.format(formatters.dateFormatterSchedulerDate)
+
+    override fun formatDayOfWeekName(date: LocalDate): String = date.format(formatters.dateFormatterDayOfWeek)
+
+    override fun formatDayOfMonth(date: LocalDate): String = date.format(formatters.dateFormatterDayOfMonth)
+
     override fun formatSlotTitleDate(date: LocalDateTime): String =
         date.format(formatters.dateFormatterTimeSlotTitle)
 

@@ -11,18 +11,26 @@ import retrofit2.http.*
 
 interface ScheduleService {
     @GET("api/schedules/freeslots")
-    fun getFreeSlotsSchedule(
+    fun getFreeDoctorSlotsSchedule(
         @Query("practitionerId") practitionerId: Int,
         @Query("start") start: String,
         @Query("end") end: String
     ): Flowable<List<ScheduleResponse>>
 
     @GET("api/slots")
-    fun fetchSlots(
+    fun fetchDoctorSlots(
         @Query("practitionerId") practitionerId: Int,
         @Query("start") start: String,
         @Query("end") end: String
     ): Flowable<List<SlotResponse>>
+
+    @GET("api/slots")
+    fun fetchSlots(
+        @Query("practitionerId") practitionerId: Int?,
+        @Query("start") start: String,
+        @Query("end") end: String,
+        @Query("status") status:List<String> = listOf("free","busy")
+    ): Single<List<SlotResponse>>
 
     @POST("api/schedules/with-slots")
     fun create(

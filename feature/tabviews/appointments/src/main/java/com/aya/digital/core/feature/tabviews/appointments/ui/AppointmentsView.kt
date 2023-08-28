@@ -91,7 +91,7 @@ class AppointmentsView :
                 viewModel.onDateSelected(date)
             }
         materialDatePicker
-            .show(childFragmentManager, "BirthDAY")
+            .show(childFragmentManager, "ScheduleDAY")
     }
 
     override fun provideDiModule(): DI.Module = appointmentsDiModule(tryTyGetParentRouter())

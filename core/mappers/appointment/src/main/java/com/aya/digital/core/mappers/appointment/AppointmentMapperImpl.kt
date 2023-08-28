@@ -6,26 +6,26 @@ import com.aya.digital.core.data.appointment.Practitioner
 import com.aya.digital.core.data.appointment.Status
 import com.aya.digital.core.data.appointment.mappers.AppointmentMapper
 import com.aya.digital.core.network.model.response.AppointmentResponse
-import kotlinx.datetime.Instant
-import kotlinx.datetime.LocalDateTime
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toLocalDateTime
+import java.time.Instant
+
+import java.time.ZoneId
 
 internal class AppointmentMapperImpl : AppointmentMapper() {
     override fun mapFrom(type: AppointmentResponse): Appointment =
         Appointment(
             id = type.id,
             comment = type.comment,
-            createdAt = Instant.parse(type.createdAt)
-                .toLocalDateTime(TimeZone.currentSystemDefault()),
-            startDate = Instant.parse(type.startDate)
-                .toLocalDateTime(TimeZone.currentSystemDefault()),
-            endDate = Instant.parse(type.endDate).toLocalDateTime(TimeZone.currentSystemDefault()),
+            createdAt = type.createdAt.parseDate(),
+            startDate = type.startDate.parseDate(),
+            endDate = type.endDate.parseDate(),
             minutesDuration = type.minutesDurations,
             participant = type.participant?.let { Participant(it.id, it.firstname, it.lastname) },
             practitioner = type.practitioner?.let { Practitioner(it.id) },
             status = Status.values().find { it.statusName == type.status } ?: Status.CANCELLED,
             type = type.type,
-            telemedPreTime = type.telemedPreTime
+            telemedPreTime = type.telemedPreTime,
+            slotId = type.slotId
         )
+
+    private fun String.parseDate() = Instant.parse(this).atZone(ZoneId.systemDefault()).toLocalDateTime()
 }

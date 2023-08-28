@@ -2,8 +2,9 @@ package com.aya.digital.healthapp.doctor.navigation.tabs.appointments
 
 import com.aya.digital.core.feature.appointments.appointmentcard.navigation.AppointmentCardNavigationEvents
 import com.aya.digital.core.feature.appointments.appointmentcard.navigation.AppointmentCardScreen
-import com.aya.digital.core.feature.tabviews.appointments.navigation.AppointmentsNavigationEvents
-import com.aya.digital.core.feature.tabviews.appointments.navigation.AppointmentsScreen
+import com.aya.digital.core.feature.tabviews.appointmentsscheduler.navigation.AppointmentsSchedulerNavigationEvents
+import com.aya.digital.core.feature.tabviews.appointmentsscheduler.navigation.AppointmentsSchedulerScreen
+
 import com.aya.digital.core.feature.videocall.videocallscreen.navigation.VideoCallScreenNavigationEvents
 import com.aya.digital.core.feature.videocall.videocallscreen.navigation.VideoCallScreenScreen
 import com.aya.digital.core.navigation.coordinator.CoordinatorEvent
@@ -18,15 +19,15 @@ class AppointmentsTabCoordinatorGraph : FragmentContainerGraph {
         parentCoordinatorRouter: CoordinatorRouter
     ) {
         when (event) {
-            AppointmentsNavigationEvents.OpenDefaultScreen -> {
-                navigationRouter.newRootScreen(AppointmentsScreen)
+            AppointmentsSchedulerNavigationEvents.OpenDefaultScreen -> {
+                navigationRouter.newRootScreen(AppointmentsSchedulerScreen)
             }
 
             is AppointmentCardNavigationEvents.OpenVideoCall -> {
                 navigationRouter.navigateTo(VideoCallScreenScreen(event.roomId))
             }
 
-            is AppointmentsNavigationEvents.OpenAppointment -> {
+            is AppointmentsSchedulerNavigationEvents.OpenAppointment -> {
                 navigationRouter.navigateTo(AppointmentCardScreen(event.appointmentId))
             }
 

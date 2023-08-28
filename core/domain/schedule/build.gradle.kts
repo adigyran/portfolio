@@ -14,6 +14,7 @@ dependencies {
     implementation(project(":core:data:base"))
     implementation(project(":core:data:progress"))
     implementation(project(":core:data:schedule"))
+    implementation(project(":core:data:profile"))
     implementation(project(":core:network:model"))
     implementation(libs.rxkotlin)
     implementation(libs.kotlinx.time)

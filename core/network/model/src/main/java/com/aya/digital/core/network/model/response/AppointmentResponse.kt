@@ -14,6 +14,7 @@ data class AppointmentResponse(
     val practitioner:PractitionerResponse?,
     val status:String?,
     val type:String?,
+    val slotId:Int?,
     val telemedPreTime:Long?
 )
 

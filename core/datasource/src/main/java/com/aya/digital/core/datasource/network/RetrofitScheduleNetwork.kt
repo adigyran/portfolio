@@ -25,18 +25,25 @@ fun scheduleNetworkModule() = DI.Module("scheduleNetworkModule") {
 
 class RetrofitScheduleNetwork(private val network: ScheduleService) :
     ScheduleDataSource {
-    override fun getSelectableSchedule(
+    override fun getSelectableDoctorSchedule(
         practitionerId: Int,
         start: String,
         end: String
-    ): Flowable<List<ScheduleResponse>> = network.getFreeSlotsSchedule(practitionerId, start, end)
+    ): Flowable<List<ScheduleResponse>> =
+        network.getFreeDoctorSlotsSchedule(practitionerId, start, end)
 
-    override fun fetchSlots(
+    override fun fetchDoctorSlots(
         practitionerId: Int,
         start: String,
         end: String
     ): Flowable<List<SlotResponse>> =
-        network.fetchSlots(practitionerId, start, end)
+        network.fetchDoctorSlots(practitionerId, start, end)
+
+    override fun fetchSlots(
+        practitionerId: Int?,
+        start: String,
+        end: String
+    ): Single<List<SlotResponse>> = network.fetchSlots(practitionerId, start, end)
 
     override fun create(scheduleWithSlots: ScheduleWithSlotsBody): Completable =
         network.create(scheduleWithSlots)

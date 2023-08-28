@@ -1,6 +1,6 @@
 package com.aya.digital.core.data.doctors
 
-import kotlinx.datetime.LocalDate
+import java.time.LocalDate
 
 
 data class PatientData(
@@ -9,6 +9,6 @@ data class PatientData(
     val lastName: String,
     val middleName: String?,
     val avatarPhotoLink:String?,
-    val birthDate:LocalDate?,
+    val birthDate: LocalDate?,
     val insurances:List<Insurance>,
     )

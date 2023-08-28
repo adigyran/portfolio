@@ -11,29 +11,28 @@ import com.aya.digital.core.domain.base.models.appointment.toAppointmentModel
 import com.aya.digital.core.domain.base.models.progress.trackProgress
 import com.aya.digital.core.ext.mapResult
 import io.reactivex.rxjava3.core.Flowable
-import kotlinx.datetime.Clock
-import kotlinx.datetime.DateTimeUnit
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.plus
-import kotlinx.datetime.toLocalDateTime
+import java.time.Instant
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.ZoneId
 
 internal class GetAppointmentsUseCaseImpl(
     private val appointmentRepository: AppointmentRepository,
     private val progressRepository: ProgressRepository
 ) :
     GetAppointmentsUseCase {
-    override fun invoke(): Flowable<RequestResultModel<List<AppointmentModel>>> {
-        val currentInstant = Clock.System.now()
-        val systemTZ = TimeZone.currentSystemDefault()
-        val startDateTime = currentInstant.toLocalDateTime(systemTZ)
-        val endDateTime =
-            currentInstant.plus(100, DateTimeUnit.DAY, systemTZ).toLocalDateTime(systemTZ)
-        return appointmentRepository.getAppointments(startDateTime, endDateTime/**/)
+    override fun invoke(startDateTime: LocalDateTime,
+                        endDateTime: LocalDateTime
+    ): Flowable<RequestResultModel<List<AppointmentModel>>> {
+        return appointmentRepository.getAppointments(startDateTime, endDateTime)
+            .trackProgress(progressRepository)
             .mapResult({ it.map { item -> item.toAppointmentModel() }.asResultModel() },
                 { it.toModelError() })
-            .trackProgress(progressRepository)
+
 
     }
+
+
 
 
 }

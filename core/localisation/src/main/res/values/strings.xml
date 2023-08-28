@@ -55,6 +55,8 @@
     <!-- appointment success -->
     <string name="appointment_success_dialog_doctor">Dr. %s will be waiting for you on %s</string>
     <string name="appointment_success_dialog_description">If you change your plans, you will be able to cancel 24 hours in advance.</string>
+    <string name="scheduler_item_empty_day_title">Hi %s, when will you be able to see patients?</string>
+    <string name="scheduler_item_empty_day_descr">To get new entries, you must specify a schedule.</string>
 
 
 </resources>

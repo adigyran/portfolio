@@ -5,7 +5,6 @@ import com.aya.digital.core.data.schedule.ScheduleSlot
 import com.aya.digital.core.data.schedule.mappers.ScheduleMapper
 import com.aya.digital.core.data.schedule.mappers.ScheduleSlotMapper
 import com.aya.digital.core.data.schedule.repository.ScheduleRepository
-import com.aya.digital.core.datasource.PractitionersDataSource
 import com.aya.digital.core.datasource.ScheduleDataSource
 import com.aya.digital.core.ext.asResult
 import com.aya.digital.core.ext.mapResult
@@ -14,11 +13,8 @@ import com.aya.digital.core.ext.retryOnError
 import com.aya.digital.core.networkbase.CommonUtils
 import com.aya.digital.core.networkbase.server.RequestResult
 import io.reactivex.rxjava3.core.Flowable
-import io.reactivex.rxjava3.core.Single
-import kotlinx.datetime.LocalDate
-import kotlinx.datetime.LocalDateTime
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toInstant
+import java.time.LocalDateTime
+import java.time.ZoneId
 
 internal class ScheduleRepositoryImpl(
     private val scheduleDataSource: ScheduleDataSource,
@@ -30,12 +26,10 @@ internal class ScheduleRepositoryImpl(
         start: LocalDateTime,
         end: LocalDateTime
     ): Flowable<RequestResult<List<ScheduleSlot>>> =
-        scheduleDataSource.fetchSlots(
-            practitionerId,
-            start.toInstant(TimeZone.currentSystemDefault()).toString(),
-            end.toInstant(
-                TimeZone.currentSystemDefault()
-            ).toString()
+        scheduleDataSource.fetchDoctorSlots(
+            practitionerId = practitionerId,
+            start =  start.atZone(ZoneId.systemDefault()).toInstant().toString(),
+            end =  end.atZone(ZoneId.systemDefault()).toInstant().toString(),
         )
             .retryOnError()
             .retrofitResponseToResult(CommonUtils::mapServerErrors)
@@ -46,12 +40,10 @@ internal class ScheduleRepositoryImpl(
         start: LocalDateTime,
         end: LocalDateTime
     ): Flowable<RequestResult<List<Schedule>>> =
-        scheduleDataSource.getSelectableSchedule(
-            practitionerId,
-            start.toInstant(TimeZone.currentSystemDefault()).toString(),
-            end.toInstant(
-                TimeZone.currentSystemDefault()
-            ).toString()
+        scheduleDataSource.getSelectableDoctorSchedule(
+            practitionerId = practitionerId,
+            start =  start.atZone(ZoneId.systemDefault()).toInstant().toString(),
+            end =  end.atZone(ZoneId.systemDefault()).toInstant().toString(),
         )
             .retryOnError()
             .retrofitResponseToResult(CommonUtils::mapServerErrors)
