@@ -121,14 +121,14 @@ class ProfileGeneralInfoEditStateTransformer(
                 mask = CommonMasks.getWeightValidator()
             )
         )
-        add(
+       /* add(
             NameFieldUIModel(
                 FieldsTags.SHORT_ADDRESS_FIELD_TAG,
                 "Short Address",
                 state.patientFields?.shortAddress.getField(),
                 null,
             )
-        )
+        )*/
     }
 
     private fun getDoctorFields(state: ProfileGeneralInfoEditState) = mutableListOf<DiffItem>().apply {
