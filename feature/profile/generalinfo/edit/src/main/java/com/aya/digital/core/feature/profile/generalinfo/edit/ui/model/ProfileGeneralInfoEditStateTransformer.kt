@@ -82,7 +82,7 @@ class ProfileGeneralInfoEditStateTransformer(
         add(
             ValidatedFieldUIModel(
                 tag = FieldsTags.SSN_OR_TIN_FIELD_TAG,
-                label = "SSN or TIN",
+                label = "SSN",
                 text = state.patientFields?.ssnOrTin.getField(),
                 error = state.patientFields?.ssnOrTinError,
                 mask = CommonMasks.getSSNValidator(),

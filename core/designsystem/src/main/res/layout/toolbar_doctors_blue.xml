@@ -50,7 +50,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="28dp"
                     android:gravity="start"
-                    android:text="Hello!\nWe hope you're okay."
+                    android:text="Find the best\nspecialist for you"
                     android:textAppearance="@style/TextAppearance.App.H2"
                     android:textColor="@color/text_white"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -100,15 +100,27 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <Button
-                    android:id="@+id/btnFindDoctor"
+                    android:id="@+id/btnApplyFilters"
                     style="@style/Widget.App.Button.FilledButton.DarkBlue"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="Find Doctor"
+                    android:text="Apply Filters"
+                    app:layout_constraintEnd_toStartOf="@id/btnClearFilters"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/filterFields" />
+                <Button
+                    android:id="@+id/btnClearFilters"
+                    style="@style/Widget.App.Button.FilledButton.DarkBlue"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="10dp"
+                    android:text="Clear Filters"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/btnApplyFilters"
                     app:layout_constraintTop_toBottomOf="@id/filterFields" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 

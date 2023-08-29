@@ -86,7 +86,11 @@ class DoctorSearchListViewModel(
         if (state.dataOperation.isLoading || state.dataOperation.isNextPageLoading) return@intent
         if (state.cursor.isNullOrBlank()) return@intent
         reduce {
-            state.copy(dataOperation = DataLoadingOperationWithPagination.NextPageLoading(OperationState.PROGRESS))
+            state.copy(
+                dataOperation = DataLoadingOperationWithPagination.NextPageLoading(
+                    OperationState.PROGRESS
+                )
+            )
         }
         getDoctors(state)
             .collect { resultModel ->
@@ -250,7 +254,20 @@ class DoctorSearchListViewModel(
         loadDoctors()
     }
 
-    fun findDoctorClicked() = intent {
+    fun applyFiltersClicked() = intent {
+        loadDoctors()
+    }
+
+    fun clearFiltersClicked() = intent {
+        clearFilters()
+    }
+
+    private fun clearFilters() = intent {
+        reduce {
+            state.copy(
+                selectedFilters = setOf()
+            )
+        }
         loadDoctors()
     }
 

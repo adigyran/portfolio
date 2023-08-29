@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.aya.digital.core.ext.bindClick
+import com.aya.digital.core.ext.toggleAvailability
 import com.aya.digital.core.ext.toggleSelection
 import com.aya.digital.core.feature.doctors.doctorssearch.doctorsearchlist.databinding.ViewDoctorsearchListBinding
 import com.aya.digital.core.feature.doctors.doctorssearch.doctorssearchlist.DoctorSearchListMode
@@ -45,7 +46,8 @@ class DoctorSearchListView :
 
     override fun prepareCreatedUi(savedInstanceState: Bundle?) {
         super.prepareCreatedUi(savedInstanceState)
-        binding.toolbar.btnFindDoctor bindClick { viewModel.findDoctorClicked() }
+        binding.toolbar.btnApplyFilters bindClick { viewModel.applyFiltersClicked() }
+        binding.toolbar.btnClearFilters bindClick { viewModel.clearFiltersClicked() }
         binding.swipeRefresh.setOnRefreshListener {
             viewModel.onRefreshDoctors()
             binding.swipeRefresh.isRefreshing = false
@@ -111,6 +113,10 @@ class DoctorSearchListView :
             doctorSearchMode.let { doctorSearchMode ->
                 binding.toolbar.favoriteButton.toggleSelection(doctorSearchMode == DoctorSearchListMode.ShowingFavoriteDoctors)
                 binding.toolbar.allDoctorsBtn.toggleSelection(doctorSearchMode == DoctorSearchListMode.ShowingAllDoctors)
+            }
+            filtersEnabled.let {
+                binding.toolbar.btnApplyFilters.toggleAvailability(it)
+                binding.toolbar.btnClearFilters.toggleAvailability(it)
             }
         }
         /*stateTransformer(state).data?.let {

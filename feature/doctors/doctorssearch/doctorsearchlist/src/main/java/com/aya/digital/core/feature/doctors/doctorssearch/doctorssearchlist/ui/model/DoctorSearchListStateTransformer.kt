@@ -95,6 +95,8 @@ class DoctorSearchListStateTransformer(private val context: Context) :
                         )
                     }.toString()
             },
+            filtersEnabled = state.selectedFilters.isNotEmpty()
+
         )
 
     private fun checkIsFavorite(id: Int, state: DoctorSearchListState): Boolean = state.favoriteDoctors?.contains(id)?:false

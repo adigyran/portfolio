@@ -25,7 +25,7 @@ class DateValidatorBirthday : DateValidator, Parcelable {
             Instant.fromEpochMilliseconds(date).toLocalDateTime(TimeZone.currentSystemDefault())
 
         val currentNow = Clock.System.now()
-        val maxDate = currentNow.minus(18, DateTimeUnit.YEAR, TimeZone.currentSystemDefault()).toLocalDateTime(
+        val maxDate = currentNow.minus(1, DateTimeUnit.DAY, TimeZone.currentSystemDefault()).toLocalDateTime(
             TimeZone.currentSystemDefault())
         return toLocalDateTime.toJavaLocalDateTime().isBefore(maxDate.toJavaLocalDateTime())
     }
