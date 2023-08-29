@@ -8,5 +8,13 @@ import org.kodein.di.instance
 import org.kodein.di.singleton
 
 fun dictionariesRepositoryDiModule() = DI.Module("dictionariesRepositoryDiModule") {
-    bind<DictionariesRepository>() with singleton { DictionariesRepositoryImpl(instance(),instance(),instance(),instance()) }
+    bind<DictionariesRepository>() with singleton {
+        DictionariesRepositoryImpl(
+            dictionariesDataSource = instance(),
+            insuranceMapper = instance(),
+            specialityMapper = instance(),
+            cityMapper = instance(),
+            languageMapper = instance()
+        )
+    }
 }

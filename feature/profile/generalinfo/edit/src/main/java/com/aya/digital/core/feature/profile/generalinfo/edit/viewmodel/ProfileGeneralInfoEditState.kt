@@ -2,6 +2,8 @@ package com.aya.digital.core.feature.profile.generalinfo.edit.viewmodel
 
 import android.net.Uri
 import android.os.Parcelable
+import com.aya.digital.core.domain.profile.generalinfo.edit.model.FlavoredProfileEditModel
+import com.aya.digital.core.domain.profile.generalinfo.view.model.FlavoredProfileModel
 import com.aya.digital.core.model.ProfileSex
 import com.aya.digital.core.mvi.BaseState
 import kotlinx.parcelize.Parcelize
@@ -40,7 +42,7 @@ data class DoctorFields(
     var tinError:String? = null,
     var licenseNumber: String? = null,
     var licenseNumberError:String? = null,
-    var languages: String? = null,
+    var languages: List<FlavoredProfileModel.DoctorProfileModel.Language>? = null,
     var languagesError:String? = null,
     var bio: String? = null,
     var bioError: String? = null,

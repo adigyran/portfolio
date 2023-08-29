@@ -27,6 +27,5 @@ internal class GetProfileUseCaseImpl(
                         profile.mapToBriefProfile(avatar).asResultModel()
                     }, { it.toModelError() })
             }, { Single.just(it.toModelError()) })
-    // .mapResult({ it.mapToBriefProfile().asResultModel() }, { it.toModelError() })
 
 }

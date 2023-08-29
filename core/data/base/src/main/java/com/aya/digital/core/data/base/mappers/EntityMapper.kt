@@ -10,6 +10,5 @@ package com.aya.digital.core.data.base.mappers
  */
 interface EntityMapper<From, To> {
     fun mapFrom(type: From): To
-
     fun mapFromList(type: List<From>): List<To> = type.map { mapFrom(it) }
 }

@@ -7,14 +7,22 @@ import com.aya.digital.core.domain.profile.emergencycontact.impl.GetEmergencyCon
 import com.aya.digital.core.domain.profile.emergencycontact.SaveEmergencyContactUseCase
 import com.aya.digital.core.domain.profile.emergencycontact.impl.SaveEmergencyContactUseCaseImpl
 import com.aya.digital.core.domain.profile.generalinfo.edit.SaveProfileInfoUseCase
-import com.aya.digital.core.domain.profile.generalinfo.edit.impl.SaveProfileInfoUseCaseImpl
+import com.aya.digital.core.domain.profile.generalinfo.edit.impl.SaveDoctorProfileInfoUseCaseImpl
 import com.aya.digital.core.domain.profile.generalinfo.edit.SetAvatarUseCase
+import com.aya.digital.core.domain.profile.generalinfo.edit.UpdateDoctorLanguagesUseCase
+import com.aya.digital.core.domain.profile.generalinfo.edit.impl.SavePatientProfileInfoUseCaseImpl
 import com.aya.digital.core.domain.profile.generalinfo.edit.impl.SetAvatarUseCaseImpl
+import com.aya.digital.core.domain.profile.generalinfo.edit.impl.UpdateDoctorLanguagesUseCaseImpl
+import com.aya.digital.core.domain.profile.generalinfo.view.GetDoctorBioUseCase
+import com.aya.digital.core.domain.profile.generalinfo.view.GetDoctorLanguagesUseCase
 import com.aya.digital.core.domain.profile.generalinfo.view.GetProfileAvatarUseCase
 import com.aya.digital.core.domain.profile.generalinfo.view.GetProfileBriefUseCase
 import com.aya.digital.core.domain.profile.generalinfo.view.GetProfileInfoUseCase
+import com.aya.digital.core.domain.profile.generalinfo.view.impl.GetDoctorBioUseCaseImpl
+import com.aya.digital.core.domain.profile.generalinfo.view.impl.GetDoctorLanguagesUseCaseImpl
+import com.aya.digital.core.domain.profile.generalinfo.view.impl.GetDoctorProfileInfoUseCaseImpl
 import com.aya.digital.core.domain.profile.generalinfo.view.impl.GetProfileAvatarUseCaseImpl
-import com.aya.digital.core.domain.profile.generalinfo.view.impl.GetProfileInfoUseCaseImpl
+import com.aya.digital.core.domain.profile.generalinfo.view.impl.GetPatientProfileInfoUseCaseImpl
 import com.aya.digital.core.domain.profile.generalinfo.view.impl.GetProfileUseCaseImpl
 import com.aya.digital.core.domain.profile.insurance.*
 import com.aya.digital.core.domain.profile.insurance.impl.*
@@ -43,6 +51,8 @@ import com.aya.digital.core.domain.profile.security.logout.LogoutUseCase
 import com.aya.digital.core.domain.profile.security.logout.impl.LogoutUseCaseImpl
 import com.aya.digital.core.domain.profile.security.summary.GetSecuritySummaryUseCase
 import com.aya.digital.core.domain.profile.security.summary.impl.GetSecuritySummaryUseCaseImpl
+import com.aya.digital.core.navigation.AppFlavour
+import com.aya.digital.core.navigation.Flavor
 import org.kodein.di.DI
 import org.kodein.di.bind
 import org.kodein.di.instance
@@ -53,24 +63,69 @@ fun profileDomainDiModule() = DI.Module("profileDomainDiModule") {
     //get profile general info
     bind<GetProfileBriefUseCase>() with singleton { GetProfileUseCaseImpl(instance(), instance()) }
     bind<GetProfileInfoUseCase>() with singleton {
-        GetProfileInfoUseCaseImpl(
-            instance(),
-            instance()
-        )
+        val flavour = instance<AppFlavour>()
+        when (flavour.flavour) {
+            is Flavor.Patient -> GetPatientProfileInfoUseCaseImpl(
+                profileRepository = instance(),
+                getProfileBriefUseCase = instance(),
+                progressRepository = instance()
+            )
+
+            is Flavor.Doctor -> GetDoctorProfileInfoUseCaseImpl(
+                getDoctorBioUseCase = instance(),
+                getDoctorLanguagesUseCase = instance(),
+                getProfileBriefUseCase = instance(),
+                progressRepository = instance()
+            )
+            else -> GetPatientProfileInfoUseCaseImpl(
+                profileRepository = instance(),
+                getProfileBriefUseCase = instance(),
+                progressRepository = instance()
+            )
+        }
     }
     //save profile
     bind<SaveProfileInfoUseCase>() with singleton {
-        SaveProfileInfoUseCaseImpl(
-            instance(),
-            instance(),
-            instance()
-        )
+        val flavour = instance<AppFlavour>()
+        when (flavour.flavour) {
+            is Flavor.Patient -> SavePatientProfileInfoUseCaseImpl(
+                profileRepository = instance(),
+                dateTimeUtils = instance(),
+                progressRepository = instance()
+            )
+
+            is Flavor.Doctor -> SaveDoctorProfileInfoUseCaseImpl(
+                profileRepository = instance(),
+                dateTimeUtils = instance(),
+                progressRepository = instance()
+            )
+
+            else -> SavePatientProfileInfoUseCaseImpl(
+                profileRepository = instance(),
+                dateTimeUtils = instance(),
+                progressRepository = instance()
+            )
+        }
     }
     //set avatar
     bind<SetAvatarUseCase>() with singleton { SetAvatarUseCaseImpl(instance(), instance()) }
     //get avatar
     bind<GetProfileAvatarUseCase>() with singleton {
         GetProfileAvatarUseCaseImpl(
+            instance(),
+            instance()
+        )
+    }
+
+    bind<GetDoctorBioUseCase>() with singleton {
+        GetDoctorBioUseCaseImpl(
+            instance(),
+            instance()
+        )
+    }
+
+    bind<GetDoctorLanguagesUseCase>() with singleton {
+        GetDoctorLanguagesUseCaseImpl(
             instance(),
             instance()
         )
@@ -145,6 +200,13 @@ fun profileDomainDiModule() = DI.Module("profileDomainDiModule") {
 
     bind<UpdateDoctorInsurancesUseCase>() with singleton {
         UpdateDoctorInsurancesUseCaseImpl(
+            instance(),
+            instance()
+        )
+    }
+
+    bind<UpdateDoctorLanguagesUseCase>() with singleton {
+        UpdateDoctorLanguagesUseCaseImpl(
             instance(),
             instance()
         )

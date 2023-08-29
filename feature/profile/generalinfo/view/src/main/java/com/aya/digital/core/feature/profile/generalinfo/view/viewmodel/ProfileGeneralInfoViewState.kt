@@ -1,10 +1,10 @@
 package com.aya.digital.core.feature.profile.generalinfo.view.viewmodel
 
 import android.os.Parcelable
+import com.aya.digital.core.domain.profile.generalinfo.view.model.FlavoredProfileModel
 import com.aya.digital.core.model.ProfileSex
 import com.aya.digital.core.mvi.BaseState
 import kotlinx.parcelize.Parcelize
-import kotlinx.parcelize.RawValue
 import java.time.LocalDate
 
 @Parcelize
@@ -35,7 +35,7 @@ data class DoctorFields(
     val npi: String? = null,
     val tin: String? = null,
     val licenseNumber: String? = null,
-    val language: String? = null,
+    val languages: List<FlavoredProfileModel.DoctorProfileModel.Language>? = null,
     val bio: String? = null,
 ):Parcelable
 

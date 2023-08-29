@@ -3,6 +3,7 @@ package com.aya.digital.core.datasource
 import com.aya.digital.core.network.model.response.base.PagedCursorResponse
 import com.aya.digital.core.network.model.response.doctors.CityResponse
 import com.aya.digital.core.network.model.response.doctors.SpecialityResponse
+import com.aya.digital.core.network.model.response.language.LanguageResponse
 import com.aya.digital.core.network.model.response.profile.InsuranceCompanyResponse
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Observable
@@ -19,5 +20,7 @@ interface DictionariesDataSource {
     fun getSpecialisations(searchTerm:String?,selectedIds:List<Int>,cursor:String?) : Flowable<PagedCursorResponse<SpecialityResponse>>
 
     fun getCities(searchTerm: String?,selectedIds:List<Int>,cursor:String?): Flowable<PagedCursorResponse<CityResponse.CityContent>>
+
+    fun getLanguages(searchTerm: String?,selectedIds:List<Int>,cursor:String?):Flowable<PagedCursorResponse<LanguageResponse>>
 
 }

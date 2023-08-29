@@ -27,4 +27,7 @@ fun profileMappersDiModule() = DI.Module("profileMappersDiModule") {
     bind<CurrentProfileMapper>() with singleton { CurrentProfileMapperImpl(instance(),instance()) }
     bind<NotificationsStatusMapper>() with singleton { NotificationsStatusMapperImpl() }
 
+    bind<DoctorBioMapper>() with singleton { DoctorBioMapperImpl() }
+
+
 }

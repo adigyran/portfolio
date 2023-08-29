@@ -79,12 +79,4 @@ interface ProfileService {
     fun getNotificationsSettings():Single<NotificationSettingsResponse>
     @PATCH("api/settings/notifications")
     fun updateNotificationsSettings(@Body body:NotificationSettingsBody):Single<NotificationSettingsResponse>
-
-    @GET("/api/settings/insurances/profile-insurances")
-    fun getDoctorInsurancePolicies():Observable<Set<InsuranceCompanyResponse>>
-
-    @POST("api/settings/insurances")
-    fun addDoctorInsurancePolicies(@Body ids:Set<Int>):Completable
-    @HTTP(method = "DELETE", path = "api/settings/insurances", hasBody = true)
-    fun deleteDoctorInsurancePolicies(@Body ids:Set<Int>):Completable
 }

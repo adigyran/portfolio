@@ -19,7 +19,7 @@ import com.aya.digital.core.network.model.response.doctors.CityResponse
 import com.aya.digital.core.networkbase.server.RequestResult
 import io.reactivex.rxjava3.core.Flowable
 
-class GetCityItemsUseCaseImpl(
+internal class GetCityItemsUseCaseImpl(
     private val dictionariesRepository: DictionariesRepository,
     private val progressRepository: ProgressRepository
 ) : GetCityItemsUseCase {

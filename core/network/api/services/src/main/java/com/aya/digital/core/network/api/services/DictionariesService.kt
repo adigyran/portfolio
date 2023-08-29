@@ -4,6 +4,7 @@ import com.aya.digital.core.network.model.request.*
 import com.aya.digital.core.network.model.response.base.PagedCursorResponse
 import com.aya.digital.core.network.model.response.doctors.CityResponse
 import com.aya.digital.core.network.model.response.doctors.SpecialityResponse
+import com.aya.digital.core.network.model.response.language.LanguageResponse
 import com.aya.digital.core.network.model.response.profile.InsuranceCompanyResponse
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Observable
@@ -41,5 +42,13 @@ interface DictionariesService {
         @Query("selectItemsIds") selectedItems: List<Int>?,
         @Query("sizeCollection") size: Int = 25
     ): Flowable<PagedCursorResponse<CityResponse.CityContent>>
+
+    @GET("search-app/api/languages")
+    fun getLanguages(
+        @Query("search") searchTerm: String?,
+        @Query("scrollId") cursor: String?,
+        @Query("selectItemsIds") selectedItems: List<Int>?,
+        @Query("sizeCollection") size: Int = 25
+    ): Flowable<PagedCursorResponse<LanguageResponse>>
 
 }

@@ -80,7 +80,7 @@ class ProfileStateTransformer(private val context: Context, private val appFlavo
     private fun getAge(state: ProfileState)= state.dateOFBirth?.let { birthday ->
         "${
             ChronoUnit.YEARS.between(
-                birthday.toJavaLocalDate(),
+                birthday,
                 LocalDate.now()
             )
         }"
@@ -95,13 +95,13 @@ class ProfileStateTransformer(private val context: Context, private val appFlavo
                 "Personal Information"
             )
         )
-        add(
+       /* add(
             ProfileMainUIModel(
                 FieldsTags.CLINIC_INFO_BUTTON_TAG,
                 R.drawable.ic_profile_clinic_info,
                 "Clinic info"
             )
-        )
+        )*/
     }
 
     private fun getPatientSpecificFields() = mutableListOf<DiffItem>().apply {

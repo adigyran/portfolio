@@ -8,7 +8,8 @@ import com.aya.digital.core.domain.dictionaries.base.GetMultiSelectItemsUseCase
 import com.aya.digital.core.domain.dictionaries.base.model.ItemPaginationModelWithCursor
 import com.aya.digital.core.domain.dictionaries.base.model.MultiSelectItem
 import com.aya.digital.core.domain.dictionaries.base.model.MultiSelectItemPaginationModel
-import com.aya.digital.core.domain.dictionaries.cities.GetCityItemsUseCase
+import com.aya.digital.core.domain.dictionaries.cities.impl.GetLanguageItemsUseCaseImpl
+import com.aya.digital.core.domain.dictionaries.languages.GetLanguageItemsUseCase
 import com.aya.digital.core.domain.dictionaries.speciality.GetSpecialityItemsUseCase
 import com.aya.digital.core.util.requestcodes.RequestCodes
 import io.reactivex.rxjava3.core.Flowable
@@ -16,7 +17,8 @@ import io.reactivex.rxjava3.core.Flowable
 internal class GetMultiSelectItemsUseCaseImpl(
     private val getInsuranceCompanyItemsUseCase: GetInsuranceCompanyItemsUseCase,
     private val getSpecialityItemsUseCase: GetSpecialityItemsUseCase,
-    private val getCityItemsUseCase: GetCityItemsUseCase,
+    private val getCityItemsUseCase: GetLanguageItemsUseCase,
+    private val getLanguageItemsUseCase: GetLanguageItemsUseCase
 ) :
     GetMultiSelectItemsUseCase {
     override fun invoke(
@@ -44,6 +46,14 @@ internal class GetMultiSelectItemsUseCaseImpl(
             { it })
 
         RequestCodes.LOCATIONS_LIST_REQUEST_CODE -> getCityItemsUseCase(
+            searchTerm,
+            selectedItems,
+            cursor
+        ).mapResult(
+            { paginationModel -> paginationModel.mapToMultiselectItem().asResultModel() },
+            { it })
+
+        RequestCodes.LANGUAGES_LIST_REQUEST_CODE -> getLanguageItemsUseCase(
             searchTerm,
             selectedItems,
             cursor

@@ -3,7 +3,7 @@ package com.aya.digital.core.domain.profile.generalinfo.view.model
 import com.aya.digital.core.data.profile.CurrentProfile
 import com.aya.digital.core.model.ProfileSex
 import kotlinx.datetime.Instant
-import kotlinx.datetime.LocalDate
+import java.time.LocalDate
 
 data class BriefProfileModel(
     val id: Int,

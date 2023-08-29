@@ -16,6 +16,7 @@ dependencies {
     implementation(project(":core:data:profile"))
     implementation(project(":core:network:model"))
     implementation(project(":core:data:dictionaries"))
+    implementation(project(":core:navigation"))
     implementation(project(":core:model"))
     implementation(libs.rxkotlin)
     implementation(libs.kotlinx.time)

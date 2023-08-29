@@ -1,7 +1,7 @@
 package com.aya.digital.core.data.profile
 
 import com.aya.digital.core.network.model.response.profile.AvatarResponse
-import kotlinx.datetime.LocalDate
+import java.time.LocalDate
 
 data class CurrentProfile(
     val id: Int,

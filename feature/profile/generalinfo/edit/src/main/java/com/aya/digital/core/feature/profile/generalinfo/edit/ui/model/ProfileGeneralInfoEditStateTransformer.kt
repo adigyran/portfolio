@@ -132,7 +132,7 @@ class ProfileGeneralInfoEditStateTransformer(
     }
 
     private fun getDoctorFields(state: ProfileGeneralInfoEditState) = mutableListOf<DiffItem>().apply {
-        add(ValidatedFieldUIModel(
+/*        add(ValidatedFieldUIModel(
             tag = FieldsTags.NPI_FIELD_TAG,
             label = "NPI",
             text = state.doctorFields?.npi.getField(),
@@ -158,12 +158,12 @@ class ProfileGeneralInfoEditStateTransformer(
             mask = CommonMasks.getSSNValidator(),
             suffix = null,
             inputType = InputType.TYPE_CLASS_NUMBER
-        ))
+        ))*/
         add(
-            NameFieldUIModel(
+            SelectionFieldUIModel(
                 FieldsTags.LANGUAGES_FIELD_TAG,
                 "Language",
-                state.doctorFields?.languages.getField(),
+               "",
                 state.doctorFields?.languagesError
             )
         )

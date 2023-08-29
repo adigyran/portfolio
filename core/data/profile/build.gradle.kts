@@ -9,6 +9,7 @@ android {
 
 dependencies {
     implementation(project(":core:data:base"))
+    implementation(project(":core:data:dictionaries"))
     implementation(project(":core:network:model"))
     implementation(libs.rxkotlin)
     implementation(libs.kotlinx.time)

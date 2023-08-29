@@ -16,16 +16,16 @@ import org.kodein.di.singleton
 fun profileRepositoryDiModule() = DI.Module("profileRepositoryDiModule") {
     bind<ProfileRepository>() with singleton {
         ProfileRepositoryImpl(
-            instance(),
-            instance(),
-            instance(),
-            instance(),
-            instance(),
-            instance(),
-            instance(),
-            instance(),
-            instance(),
-            instance()
+            context = instance(),
+            profileDataSource = instance(),
+            tokenDataSource = instance(),
+            appDataStore = instance(),
+            currentProfileMapper = instance(),
+            emergencyContactMapper = instance(),
+            avatarMapper = instance(),
+            invalidTokenEventManager = instance(),
+            imageUploadResultMapper = instance(),
+            notificationsStatusMapper = instance()
         )
     }
 
@@ -37,7 +37,12 @@ fun profileRepositoryDiModule() = DI.Module("profileRepositoryDiModule") {
     }
 
     bind<PractitionerRepository>() with singleton {
-        PractitionerRepositoryImpl(instance())
+        PractitionerRepositoryImpl(
+            context = instance(),
+            practitionerDataSource = instance(),
+            languageMapper = instance(),
+            bioMapper = instance()
+        )
     }
     bind<PractitionerInsuranceRepository>() with singleton {
         PractitionerInsuranceRepositoryImpl(instance(),instance())

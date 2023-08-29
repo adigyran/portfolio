@@ -103,13 +103,13 @@ class ProfileGeneralInfoViewStateTransformer(
             add(
                 ProfileInfoUIModel(
                     "Language",
-                    state.doctorFields?.language.getMaskedText(CommonMasks.getSSNValidator()).getField()
+                    ""
                 )
             )
             add(
                 ProfileInfoUIModel(
                     "Bio",
-                    state.doctorFields?.bio.getMaskedText(CommonMasks.getSSNValidator()).getField()
+                    state.doctorFields?.bio.getField()
                 )
             )
         }

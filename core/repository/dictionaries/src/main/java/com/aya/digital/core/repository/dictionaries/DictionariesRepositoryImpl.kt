@@ -3,9 +3,11 @@ package com.aya.digital.core.repository.dictionaries
 import com.aya.digital.core.data.base.dataprocessing.PaginationCursorModel
 import com.aya.digital.core.data.dictionaries.CityModel
 import com.aya.digital.core.data.dictionaries.InsuranceCompanyModel
+import com.aya.digital.core.data.dictionaries.LanguageModel
 import com.aya.digital.core.data.dictionaries.SpecialityModel
 import com.aya.digital.core.data.dictionaries.mappers.CityMapper
 import com.aya.digital.core.data.dictionaries.mappers.InsuranceCompanyMapper
+import com.aya.digital.core.data.dictionaries.mappers.LanguageMapper
 import com.aya.digital.core.data.dictionaries.mappers.SpecialityMapper
 import com.aya.digital.core.data.dictionaries.repository.DictionariesRepository
 import com.aya.digital.core.datasource.DictionariesDataSource
@@ -21,7 +23,8 @@ class DictionariesRepositoryImpl(
     private val dictionariesDataSource: DictionariesDataSource,
     private val insuranceMapper: InsuranceCompanyMapper,
     private val specialityMapper: SpecialityMapper,
-    private val cityMapper: CityMapper
+    private val cityMapper: CityMapper,
+    private val languageMapper: LanguageMapper
 ) : DictionariesRepository {
 
     override fun getInsuranceCompanies(
@@ -89,6 +92,26 @@ class DictionariesRepositoryImpl(
                     val cities = cityMapper.mapFromList(result.data)
                     PaginationCursorModel(
                         cities,
+                        result.scrollToken,
+                        result.sizeResult
+                    ).asResult()
+                },
+                { it }
+            )
+
+    override fun getLanguages(
+        searchTerm: String?,
+        selectedIds: List<Int>,
+        cursor: String?
+    ): Flowable<RequestResult<PaginationCursorModel<LanguageModel>>> =
+        dictionariesDataSource.getLanguages(searchTerm, selectedIds, cursor)
+            .retryOnError()
+            .retrofitResponseToResult(CommonUtils::mapServerErrors)
+            .mapResult(
+                { result ->
+                    val languages = languageMapper.mapFromList(result.data)
+                    PaginationCursorModel(
+                        languages,
                         result.scrollToken,
                         result.sizeResult
                     ).asResult()

@@ -18,6 +18,7 @@ import com.aya.digital.core.util.requestcodes.RequestCodes
 import kotlinx.coroutines.reactive.asFlow
 import kotlinx.coroutines.rx3.await
 import kotlinx.datetime.LocalDate
+import kotlinx.datetime.toKotlinLocalDate
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
@@ -115,7 +116,7 @@ class DoctorCardViewModel(
         getSelectableScheduleByDoctorIdUseCase(param.doctorId, days = 50).asFlow()
             .collect { scheduleResult ->
                 scheduleResult.processResult(
-                    { scheduleModels -> showDateSelector(scheduleModels.map { it.date }) },
+                    { scheduleModels -> showDateSelector(scheduleModels.map { it.date.toKotlinLocalDate() }) },
                     { processError(it) })
             }
     }

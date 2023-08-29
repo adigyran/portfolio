@@ -14,15 +14,22 @@ fun profileGeneralInfoEditDiModule(
 
     bind<ProfileGeneralInfoEditStateTransformer>() with singleton {
         ProfileGeneralInfoEditStateTransformer(
-            instance(),
-            instance(),
-            instance()
+            context = instance(),
+            dateTimeUtils = instance(),
+            appFlavour = instance()
         )
     }
 
     bind {
         scoped(CustomFragmentScope).singleton {
-            ProfileGeneralInfoEditViewModel(param, parentCoordinatorEvent, instance(), instance(),instance())
+            ProfileGeneralInfoEditViewModel(
+                param = param,
+                coordinatorRouter = parentCoordinatorEvent,
+                profileInfoUseCase = instance(),
+                saveProfileInfoUseCase = instance(),
+                flavour = instance(),
+                setAvatarUseCase = instance()
+            )
         }
     }
 }

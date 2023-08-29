@@ -3,6 +3,7 @@ package com.aya.digital.core.feature.profile.generalinfo.view.viewmodel
 import android.net.Uri
 import com.aya.digital.core.domain.profile.generalinfo.edit.SetAvatarUseCase
 import com.aya.digital.core.domain.profile.generalinfo.view.GetProfileInfoUseCase
+import com.aya.digital.core.domain.profile.generalinfo.view.model.FlavoredProfileModel
 import com.aya.digital.core.feature.profile.generalinfo.view.navigation.ProfileGeneralInfoViewNavigationEvents
 import com.aya.digital.core.feature.profile.generalinfo.view.ui.ProfileGeneralInfoViewView
 import com.aya.digital.core.mvi.BaseSideEffect
@@ -46,15 +47,30 @@ class ProfileGeneralInfoViewViewModel(
                     firstName = profileInfo.firstName,
                     middleName = profileInfo.middleName,
                     lastName = profileInfo.lastName,
-                    patientFields = PatientFields(
-                        height = profileInfo.height,
-                        sex = profileInfo.sex,
-                        weight = profileInfo.weight,
-                        ssn = profileInfo.ssn ?: profileInfo.tin,
-                        tin = profileInfo.tin ?: profileInfo.ssn
-                    ),
-                    dateOfBirth = profileInfo.dateOfBirth?.toJavaLocalDate(),
+                    dateOfBirth = profileInfo.dateOfBirth
                 )
+            }
+            when (val flavoredProfileModel = profileInfo.flavoredProfileModel) {
+                is FlavoredProfileModel.DoctorProfileModel -> reduce {
+                    state.copy(
+                        doctorFields = DoctorFields(
+                            bio = flavoredProfileModel.bio,
+                            languages = flavoredProfileModel.languages
+                        )
+                    )
+                }
+
+                is FlavoredProfileModel.PatientProfileModel -> reduce {state.copy(
+                    patientFields = PatientFields(
+                        sex = flavoredProfileModel.sex,
+                        height = flavoredProfileModel.height,
+                        weight = flavoredProfileModel.weight,
+                        shortAddress = flavoredProfileModel.shortAddress,
+                        ssn = flavoredProfileModel.ssn,
+                        tin = flavoredProfileModel.tin
+                    )
+                ) }
+                null -> {}
             }
         }, { Timber.d(it.toString()) })
 

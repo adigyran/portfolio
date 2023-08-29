@@ -3,11 +3,14 @@ package com.aya.digital.core.datasource.network
 import com.aya.digital.core.datasource.ProfileDataSource
 import com.aya.digital.core.datasource.ProfilePatientDataSource
 import com.aya.digital.core.datasource.ProfilePractitionerDataSource
+import com.aya.digital.core.network.api.services.PractitionerProfileService
 import com.aya.digital.core.network.api.services.ProfileService
 import com.aya.digital.core.network.main.di.modules.createApiService
 import com.aya.digital.core.network.model.request.*
 import com.aya.digital.core.network.model.response.EmergencyContactResponse
+import com.aya.digital.core.network.model.response.language.LanguageResponse
 import com.aya.digital.core.network.model.response.profile.AvatarResponse
+import com.aya.digital.core.network.model.response.profile.BioResponse
 import com.aya.digital.core.network.model.response.profile.CurrentProfileResponse
 import com.aya.digital.core.network.model.response.profile.ImageUploadResponse
 import com.aya.digital.core.network.model.response.profile.InsuranceCompanyResponse
@@ -35,7 +38,7 @@ fun profileNetworkModule() = DI.Module("profileNetworkModule") {
 fun profilePractitionerModule() = DI.Module("profilePractitionerModule") {
     bind<ProfilePractitionerDataSource>() with singleton {
         val apiService =
-            createApiService<ProfileService>(instance())
+            createApiService<PractitionerProfileService>(instance())
         return@singleton RetrofitProfilePractitionerNetwork(apiService)
     }
 }
@@ -110,12 +113,21 @@ class RetrofitProfileNetwork(private val network: ProfileService) :
         network.updateNotificationsSettings(body)
 }
 
-class RetrofitProfilePractitionerNetwork(private val network: ProfileService) :
+class RetrofitProfilePractitionerNetwork(private val network: PractitionerProfileService) :
     ProfilePractitionerDataSource {
     override fun getDoctorInsurances(): Observable<Set<InsuranceCompanyResponse>> = network.getDoctorInsurancePolicies()
     override fun addDoctorInsurances(ids: Set<Int>): Completable = network.addDoctorInsurancePolicies(ids)
 
     override fun removeDoctorInsurances(ids: Set<Int>): Completable = network.deleteDoctorInsurancePolicies(ids)
+    override fun getDoctorBio(): Single<BioResponse> = network.getDoctorBio()
+
+    override fun updateDoctorBio(bioText: String): Completable = network.updateDoctorBio(BioBody(aboutText = bioText))
+
+    override fun getDoctorLanguages(): Observable<Set<LanguageResponse>> = network.getDoctorLanguages()
+
+    override fun addDoctorLanguages(languages: Set<Int>): Completable = network.addDoctorLanguages(languages)
+
+    override fun removeDoctorLanguages(languages: Set<Int>): Completable = network.removeDoctorLanguages(languages)
 
 }
 
