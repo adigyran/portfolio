@@ -6,8 +6,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.aya.digital.core.ext.bindClick
+import com.aya.digital.core.ext.colors
 import com.aya.digital.core.ext.toggleAvailability
 import com.aya.digital.core.ext.toggleSelection
+import com.aya.digital.core.feature.doctors.doctorssearch.doctorsearchlist.R
+import com.aya.digital.core.designsystem.R as DR
 import com.aya.digital.core.feature.doctors.doctorssearch.doctorsearchlist.databinding.ViewDoctorsearchListBinding
 import com.aya.digital.core.feature.doctors.doctorssearch.doctorssearchlist.DoctorSearchListMode
 import com.aya.digital.core.feature.doctors.doctorssearch.doctorssearchlist.di.doctorSearchListDiModule
