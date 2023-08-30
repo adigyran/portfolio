@@ -19,7 +19,7 @@ internal class UpdateDoctorLanguagesUseCaseImpl(
     private val practitionerRepository: PractitionerRepository,
     private val progressRepository: ProgressRepository
 ) : UpdateDoctorLanguagesUseCase {
-    override fun invoke(ids: Set<Int>): Observable<RequestResultModel<Set<Int>>> =
+    override fun invoke(ids: Set<Int>): Observable<RequestResultModel<Boolean>> =
         getLanguages()
             .flatMapResult({ serverIds ->
                 val addDelta = ids.subtract(serverIds.map { it.id }.toSet())
@@ -36,10 +36,9 @@ internal class UpdateDoctorLanguagesUseCaseImpl(
                     })
                     .flatMapObservable { result ->
                         result.processResult({ updated ->
-                            if (!updated) return@flatMapObservable Observable.just(serverIds.map { it.id }
-                                .toSet().asResultModel())
+                            if (!updated) return@flatMapObservable Observable.just(false.asResultModel())
                             getLanguages().mapResult(
-                                { it.map { it.id }.toSet().asResultModel() },
+                                { true.asResultModel() },
                                 { it.toModelError() })
                         }, { Observable.just(it.toModelError()) })
 

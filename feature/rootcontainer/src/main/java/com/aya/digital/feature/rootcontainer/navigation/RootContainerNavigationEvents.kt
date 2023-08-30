@@ -17,6 +17,7 @@ sealed class RootContainerNavigationEvents : CoordinatorEvent() {
     data class RestorePassword(val requestCode:String) : RootContainerNavigationEvents()
     data class ChangeTempPassword(val requestCode:String) : RootContainerNavigationEvents()
 
+    data class OpenVideoCall(val roomId:Int):RootContainerNavigationEvents()
 
 
 }

@@ -141,5 +141,9 @@ Added Firebase Distribution\n
         added multiple appointments per slot dialog
         telemedicine in doctor app working as intended
         version 59 patient/version 6 doctor
+        fixed bugs for demonstration
+        added apply filters and clear filters
+        fixed videocall screen navigation
+        version 60 patient/version 7 doctor
 
 

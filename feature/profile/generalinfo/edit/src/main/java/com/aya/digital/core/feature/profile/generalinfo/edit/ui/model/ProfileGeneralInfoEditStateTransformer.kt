@@ -3,6 +3,8 @@ package com.aya.digital.core.feature.profile.generalinfo.edit.ui.model
 import android.content.Context
 import android.text.InputType
 import com.aya.digital.core.baseresources.R.*
+import com.aya.digital.core.domain.profile.generalinfo.edit.model.FlavoredProfileEditModel
+import com.aya.digital.core.domain.profile.generalinfo.view.model.FlavoredProfileModel
 import com.aya.digital.core.feature.profile.generalinfo.edit.FieldsTags
 import com.aya.digital.core.feature.profile.generalinfo.edit.viewmodel.ProfileGeneralInfoEditState
 import com.aya.digital.core.model.ProfileSex
@@ -72,66 +74,67 @@ class ProfileGeneralInfoEditStateTransformer(
             avatarUrl = state.avatarUrl
         )
 
-    private fun Flavor.getAppSpecificFields(state: ProfileGeneralInfoEditState) = when(this)
-    {
+    private fun Flavor.getAppSpecificFields(state: ProfileGeneralInfoEditState) = when (this) {
         Flavor.Doctor -> getDoctorFields(state)
         Flavor.Patient -> getPatientFields(state)
     }
 
-    private fun getPatientFields(state: ProfileGeneralInfoEditState) = mutableListOf<DiffItem>().apply {
-        add(
-            ValidatedFieldUIModel(
-                tag = FieldsTags.SSN_OR_TIN_FIELD_TAG,
-                label = "SSN",
-                text = state.patientFields?.ssnOrTin.getField(),
-                error = state.patientFields?.ssnOrTinError,
-                mask = CommonMasks.getSSNValidator(),
-                suffix = null,
-                inputType = InputType.TYPE_CLASS_NUMBER
+    private fun getPatientFields(state: ProfileGeneralInfoEditState) =
+        mutableListOf<DiffItem>().apply {
+            add(
+                ValidatedFieldUIModel(
+                    tag = FieldsTags.SSN_OR_TIN_FIELD_TAG,
+                    label = "SSN or TIN",
+                    text = state.patientFields?.ssnOrTin.getField(),
+                    error = state.patientFields?.ssnOrTinError,
+                    mask = CommonMasks.getSSNValidator(),
+                    suffix = null,
+                    inputType = InputType.TYPE_CLASS_NUMBER
+                )
             )
-        )
-        add(
-            DropdownFieldUIModel(
-                FieldsTags.SEX_FIELD_TAG,
-                getSexesList(),
-                "Sex",
-                state.patientFields?.sex.getField(),
-                null
+            add(
+                DropdownFieldUIModel(
+                    FieldsTags.SEX_FIELD_TAG,
+                    getSexesList(),
+                    "Sex",
+                    state.patientFields?.sex.getField(),
+                    null
+                )
             )
-        )
-        add(
-            ValidatedFieldUIModel(
-                FieldsTags.HEIGHT_FIELD_TAG,
-                "Height",
-                state.patientFields?.height.getField(),
-                state.patientFields?.heightError,
-                suffix = getHeightUnit(),
-                inputType = InputType.TYPE_CLASS_NUMBER,
-                mask = CommonMasks.getHeightValidator()
+            add(
+                ValidatedFieldUIModel(
+                    FieldsTags.HEIGHT_FIELD_TAG,
+                    "Height",
+                    state.patientFields?.height.getField(),
+                    state.patientFields?.heightError,
+                    suffix = getHeightUnit(),
+                    inputType = InputType.TYPE_CLASS_NUMBER,
+                    mask = CommonMasks.getHeightValidator()
+                )
             )
-        )
-        add(
-            ValidatedFieldUIModel(
-                FieldsTags.WEIGHT_FIELD_TAG,
-                "Weight",
-                state.patientFields?.weight.getField(),
-                state.patientFields?.weightError,
-                suffix = getWeightUnit(),
-                inputType = InputType.TYPE_CLASS_NUMBER,
-                mask = CommonMasks.getWeightValidator()
+            add(
+                ValidatedFieldUIModel(
+                    FieldsTags.WEIGHT_FIELD_TAG,
+                    "Weight",
+                    state.patientFields?.weight.getField(),
+                    state.patientFields?.weightError,
+                    suffix = getWeightUnit(),
+                    inputType = InputType.TYPE_CLASS_NUMBER,
+                    mask = CommonMasks.getWeightValidator()
+                )
             )
-        )
-       /* add(
-            NameFieldUIModel(
-                FieldsTags.SHORT_ADDRESS_FIELD_TAG,
-                "Short Address",
-                state.patientFields?.shortAddress.getField(),
-                null,
+            add(
+                NameFieldUIModel(
+                    FieldsTags.SHORT_ADDRESS_FIELD_TAG,
+                    "Short Address",
+                    state.patientFields?.shortAddress.getField(),
+                    null,
+                )
             )
-        )*/
-    }
+        }
 
-    private fun getDoctorFields(state: ProfileGeneralInfoEditState) = mutableListOf<DiffItem>().apply {
+    private fun getDoctorFields(state: ProfileGeneralInfoEditState) =
+        mutableListOf<DiffItem>().apply {
 /*        add(ValidatedFieldUIModel(
             tag = FieldsTags.NPI_FIELD_TAG,
             label = "NPI",
@@ -159,25 +162,25 @@ class ProfileGeneralInfoEditStateTransformer(
             suffix = null,
             inputType = InputType.TYPE_CLASS_NUMBER
         ))*/
-        add(
-            SelectionFieldUIModel(
-                FieldsTags.LANGUAGES_FIELD_TAG,
-                "Language",
-               "",
-                state.doctorFields?.languagesError
+            add(
+                SelectionFieldUIModel(
+                    tag = FieldsTags.LANGUAGES_FIELD_TAG,
+                    label = "Language",
+                    text = state.doctorFields?.languages.getLanguagesText(),
+                    error = state.doctorFields?.languagesError
+                )
             )
-        )
 
-        add(
-            NameFieldUIModel(
-                FieldsTags.BIO_FIELD_TAG,
-                "Bio",
-                state.doctorFields?.bio.getField(),
-                state.doctorFields?.bioError
+            add(
+                NameFieldUIModel(
+                    tag = FieldsTags.BIO_FIELD_TAG,
+                    label = "Bio",
+                    text = state.doctorFields?.bio.getField(),
+                    error = state.doctorFields?.bioError
+                )
             )
-        )
 
-    }
+        }
 
     private fun getSexesList() = ProfileSex.getAllSexes()
         .map { profileSex -> AutoCompleteItem(profileSex.tag, profileSex.sexName()) }
@@ -191,6 +194,9 @@ class ProfileGeneralInfoEditStateTransformer(
     private fun getWeightUnit() = "lbs"
 
     private fun getBirthDayIcon() = drawable.ic_calendar_icon
+
+    private fun List<FlavoredProfileModel.DoctorProfileModel.Language>?.getLanguagesText() =
+        this?.joinToString(separator = ", ", transform = { it.name })
 
 
 }

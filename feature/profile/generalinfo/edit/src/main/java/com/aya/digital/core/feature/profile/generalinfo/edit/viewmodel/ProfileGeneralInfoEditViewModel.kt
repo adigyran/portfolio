@@ -1,5 +1,6 @@
 package com.aya.digital.core.feature.profile.generalinfo.edit.viewmodel
 
+import com.aya.digital.core.data.base.result.models.dictionaries.MultiSelectResultModel
 import com.aya.digital.core.data.base.result.models.profile.ProfileSaveResult
 import com.aya.digital.core.domain.profile.generalinfo.edit.SaveProfileInfoUseCase
 import com.aya.digital.core.domain.profile.generalinfo.edit.SetAvatarUseCase
@@ -17,8 +18,8 @@ import com.aya.digital.core.navigation.AppFlavour
 import com.aya.digital.core.navigation.Flavor
 import com.aya.digital.core.navigation.coordinator.CoordinatorEvent
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
+import com.aya.digital.core.util.requestcodes.RequestCodes
 import kotlinx.coroutines.rx3.await
-import kotlinx.datetime.toJavaLocalDate
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
@@ -28,6 +29,7 @@ import java.time.LocalDate
 class ProfileGeneralInfoEditViewModel(
     private val param: ProfileGeneralInfoEditView.Param,
     private val coordinatorRouter: CoordinatorRouter,
+    private val rootCoordinatorRouter: CoordinatorRouter,
     private val profileInfoUseCase: GetProfileInfoUseCase,
     private val saveProfileInfoUseCase: SaveProfileInfoUseCase,
     private val flavour: AppFlavour,
@@ -78,9 +80,40 @@ class ProfileGeneralInfoEditViewModel(
             }
 
             FieldsTags.LANGUAGES_FIELD_TAG -> {
+                selectLanguages()
+            }
+        }
+    }
+
+    private fun selectLanguages() = intent {
+        listenForLanguages()
+        coordinatorRouter.sendEvent(
+            ProfileGeneralInfoEditNavigationEvents.SelectLanguages(
+                RequestCodes.LANGUAGES_LIST_REQUEST_CODE,
+                state.doctorFields?.languages?.map { it.id } ?: listOf()
+            )
+        )
+    }
+
+    private fun listenForLanguages() = intent {
+        rootCoordinatorRouter.setResultListener(RequestCodes.INSURANCE_LIST_REQUEST_CODE) { result ->
+            if (result is MultiSelectResultModel && result.selectedItems.isNotEmpty()) {
+                setLanguages(result.selectedItems.map {
+                    FlavoredProfileModel.DoctorProfileModel.Language(
+                        id = it.id,
+                        code = "",
+                        name = it.text
+                    )
+                })
 
             }
         }
+    }
+
+    private fun setLanguages(selectedLanguages: List<FlavoredProfileModel.DoctorProfileModel.Language>) = intent {
+       reduce {
+           state.copy(doctorFields = state.doctorFields?.apply { languages = selectedLanguages })
+       }
     }
 
     fun nameFieldChanged(tag: Int, text: String) = intent {
@@ -100,7 +133,7 @@ class ProfileGeneralInfoEditViewModel(
             }
 
             FieldsTags.BIO_FIELD_TAG -> {
-
+                reduce { state.copy(doctorFields = state.doctorFields?.apply { bio = text}) }
             }
         }
     }
@@ -129,7 +162,7 @@ class ProfileGeneralInfoEditViewModel(
         val profileEditModel = getProfileEditModel(state)
         val await = saveProfileInfoUseCase(profileEditModel).await()
         await.processResult({
-            if (it) coordinatorRouter.sendEvent(
+           coordinatorRouter.sendEvent(
                 ProfileGeneralInfoEditNavigationEvents.FinishWithResult(
                     param.requestCode,
                     ProfileSaveResult(true)

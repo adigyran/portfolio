@@ -2,6 +2,7 @@ package com.aya.digital.healthapp.patient.navigation.root
 
 import android.content.Context
 import androidx.fragment.app.FragmentManager
+import com.aya.digital.core.feature.appointments.appointmentcard.navigation.AppointmentCardNavigationEvents
 import com.aya.digital.core.feature.auth.restorepassword.navigation.RestorePasswordNavigationEvents
 import com.aya.digital.core.feature.auth.restorepassword.navigation.RestorePasswordOperationStateParam
 import com.aya.digital.core.feature.auth.restorepassword.navigation.RestorePasswordScreen
@@ -12,6 +13,8 @@ import com.aya.digital.core.feature.choosers.multiselect.navigation.SelectWithSe
 import com.aya.digital.core.feature.doctors.doctorcard.navigation.DoctorCardNavigationEvents
 import com.aya.digital.core.feature.doctors.doctorssearch.doctorsearchmap.navigation.DoctorSearchMapNavigationEvents
 import com.aya.digital.core.feature.tabviews.appointments.navigation.AppointmentsNavigationEvents
+import com.aya.digital.core.feature.videocall.videocallscreen.navigation.VideoCallScreenNavigationEvents
+import com.aya.digital.core.feature.videocall.videocallscreen.navigation.VideoCallScreenScreen
 import com.aya.digital.core.navigation.bottomnavigation.StartScreen
 import com.aya.digital.core.navigation.coordinator.CoordinatorEvent
 import com.aya.digital.core.navigation.graph.coordinator.RootCoordinatorGraph
@@ -71,6 +74,14 @@ class PatientRootCoordinatorGraph(context: Context) : RootCoordinatorGraph {
                     )
                 )
             }
+
+            is RootContainerNavigationEvents.OpenVideoCall -> {
+                navigationRouter.navigateTo(VideoCallScreenScreen(event.roomId))
+            }
+            VideoCallScreenNavigationEvents.Back -> {
+                navigationRouter.exit()
+            }
+
 
             is RootContainerNavigationEvents.SelectSingleItem -> {
                 navigationRouter.navigateTo(

@@ -1,9 +1,12 @@
 
 import com.aya.digital.healthapp.AyaPatientBuildType
-
+import java.io.FileInputStream
+import java.util.Properties
 
 plugins {
     id("healthapp.android.application")
+    id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
 }
 
 android {
@@ -14,8 +17,8 @@ android {
 
     defaultConfig {
         applicationId = "com.aya.digital.healthapp.doctor"
-        versionCode = 6
-        versionName = "0.0.6" // X.Y.Z; X = Major, Y = minor, Z = Patch level
+        versionCode = 7
+        versionName = "0.0.7" // X.Y.Z; X = Major, Y = minor, Z = Patch level
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -23,6 +26,18 @@ android {
     buildFeatures {
         viewBinding = true
         buildConfig = true
+    }
+
+    val keystorePropertiesFile = rootProject.file("keystore_doctor.properties");
+    val keystoreProperties = Properties()
+    keystoreProperties.load(FileInputStream(keystorePropertiesFile))
+    signingConfigs {
+        create("release") {
+            keyAlias = keystoreProperties.getProperty("keyAlias")
+            keyPassword = keystoreProperties.getProperty("keyPassword")
+            storeFile = file(keystoreProperties.getProperty("storeFile"))
+            storePassword = keystoreProperties.getProperty("storePassword")
+        }
     }
 
     buildTypes {
@@ -33,6 +48,14 @@ android {
                 groups="general"
                 releaseNotesFile = "${parent!!.projectDir}/releasenotes.txt"
             }
+        }
+        val release by getting {
+            firebaseAppDistribution {
+                serviceCredentialsFile = "./ayadoc-28b1b-e839ed480468.json"
+                groups="general"
+                releaseNotesFile = "${parent!!.projectDir}/releasenotes.txt"
+            }
+            signingConfig = signingConfigs.getByName("release")
         }
     }
     packagingOptions {

@@ -30,8 +30,7 @@ class BottomNavHostNavigator(
     }
 
     override fun applyCommands(commands: Array<out Command>) {
-        val fragment = fragmentWeak.get()
-        if (fragment == null) return
+        val fragment = fragmentWeak.get() ?: return
         fragment.requireActivity().runOnUiThread {
             fragment.requireActivity().closeKeyboard()
             super.applyCommands(commands)
@@ -40,8 +39,7 @@ class BottomNavHostNavigator(
 
     override fun applyCommand(command: Command) {
         (command as? Back)?.let {
-            val fragment = fragmentWeak.get()
-            if (fragment == null) return
+            val fragment = fragmentWeak.get() ?: return
 
             if (fragment.childFragmentManager.backStackEntryCount > 0) {
                 fragment.childFragmentManager.popBackStack()
@@ -53,18 +51,15 @@ class BottomNavHostNavigator(
         (command as? Replace)?.let {
             val screen = command.screen
 
-            val navView = navViewWeak.get()
-            if (navView == null) return
+            val navView = navViewWeak.get() ?: return
 
             openTab(screen)
         }
 
         (command as? Forward)?.let {
-            val fragment = fragmentWeak.get()
-            if (fragment == null) return
+            val fragment = fragmentWeak.get() ?: return
 
-            val screen = it.screen
-            when (screen) {
+            when (it.screen) {
             }
         }
     }

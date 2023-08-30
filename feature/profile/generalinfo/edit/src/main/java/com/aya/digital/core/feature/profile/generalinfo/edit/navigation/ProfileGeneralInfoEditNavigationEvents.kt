@@ -5,6 +5,7 @@ import com.aya.digital.core.data.base.result.models.profile.ProfileSaveResult
 import com.aya.digital.core.navigation.coordinator.CoordinatorEvent
 
 sealed class ProfileGeneralInfoEditNavigationEvents : CoordinatorEvent() {
+    data class SelectLanguages(val requestCode: String, val selectedLanguages:List<Int>) :  ProfileGeneralInfoEditNavigationEvents()
     data class FinishWithResult(val requestCode: String, val result: ProfileSaveResult) :
         ProfileGeneralInfoEditNavigationEvents()
 

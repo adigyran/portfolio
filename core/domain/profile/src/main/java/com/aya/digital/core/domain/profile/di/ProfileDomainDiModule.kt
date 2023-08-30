@@ -9,9 +9,11 @@ import com.aya.digital.core.domain.profile.emergencycontact.impl.SaveEmergencyCo
 import com.aya.digital.core.domain.profile.generalinfo.edit.SaveProfileInfoUseCase
 import com.aya.digital.core.domain.profile.generalinfo.edit.impl.SaveDoctorProfileInfoUseCaseImpl
 import com.aya.digital.core.domain.profile.generalinfo.edit.SetAvatarUseCase
+import com.aya.digital.core.domain.profile.generalinfo.edit.UpdateDoctorBioUseCase
 import com.aya.digital.core.domain.profile.generalinfo.edit.UpdateDoctorLanguagesUseCase
 import com.aya.digital.core.domain.profile.generalinfo.edit.impl.SavePatientProfileInfoUseCaseImpl
 import com.aya.digital.core.domain.profile.generalinfo.edit.impl.SetAvatarUseCaseImpl
+import com.aya.digital.core.domain.profile.generalinfo.edit.impl.UpdateDoctorBioUseCaseImpl
 import com.aya.digital.core.domain.profile.generalinfo.edit.impl.UpdateDoctorLanguagesUseCaseImpl
 import com.aya.digital.core.domain.profile.generalinfo.view.GetDoctorBioUseCase
 import com.aya.digital.core.domain.profile.generalinfo.view.GetDoctorLanguagesUseCase
@@ -77,6 +79,7 @@ fun profileDomainDiModule() = DI.Module("profileDomainDiModule") {
                 getProfileBriefUseCase = instance(),
                 progressRepository = instance()
             )
+
             else -> GetPatientProfileInfoUseCaseImpl(
                 profileRepository = instance(),
                 getProfileBriefUseCase = instance(),
@@ -97,7 +100,9 @@ fun profileDomainDiModule() = DI.Module("profileDomainDiModule") {
             is Flavor.Doctor -> SaveDoctorProfileInfoUseCaseImpl(
                 profileRepository = instance(),
                 dateTimeUtils = instance(),
-                progressRepository = instance()
+                progressRepository = instance(),
+                updateDoctorBioUseCase = instance(),
+                updateDoctorLanguagesUseCase = instance()
             )
 
             else -> SavePatientProfileInfoUseCaseImpl(
@@ -207,6 +212,13 @@ fun profileDomainDiModule() = DI.Module("profileDomainDiModule") {
 
     bind<UpdateDoctorLanguagesUseCase>() with singleton {
         UpdateDoctorLanguagesUseCaseImpl(
+            instance(),
+            instance()
+        )
+    }
+
+    bind<UpdateDoctorBioUseCase>() with singleton {
+        UpdateDoctorBioUseCaseImpl(
             instance(),
             instance()
         )
