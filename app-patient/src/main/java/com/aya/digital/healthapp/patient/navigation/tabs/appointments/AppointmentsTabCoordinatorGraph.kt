@@ -11,6 +11,7 @@ import com.aya.digital.core.navigation.coordinator.CoordinatorEvent
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
 import com.aya.digital.core.navigation.graph.navigator.FragmentContainerGraph
 import com.aya.digital.feature.bottomdialogs.dateappointmentsdialog.navigation.DateAppointmentsDialogNavigationEvents
+import com.aya.digital.feature.rootcontainer.navigation.RootContainerNavigationEvents
 import com.github.terrakok.cicerone.Router
 
 class AppointmentsTabCoordinatorGraph : FragmentContainerGraph {
@@ -25,7 +26,7 @@ class AppointmentsTabCoordinatorGraph : FragmentContainerGraph {
             }
 
             is AppointmentCardNavigationEvents.OpenVideoCall -> {
-                navigationRouter.navigateTo(VideoCallScreenScreen(event.roomId))
+                parentCoordinatorRouter.sendEvent(RootContainerNavigationEvents.OpenVideoCall(event.roomId))
             }
 
             VideoCallScreenNavigationEvents.Back -> {

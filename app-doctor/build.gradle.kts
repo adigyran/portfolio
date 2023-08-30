@@ -1,9 +1,12 @@
 
 import com.aya.digital.healthapp.AyaPatientBuildType
-
+import java.io.FileInputStream
+import java.util.Properties
 
 plugins {
     id("healthapp.android.application")
+    id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
 }
 
 android {
@@ -25,6 +28,18 @@ android {
         buildConfig = true
     }
 
+    /*val keystorePropertiesFile = rootProject.file("keystore_doctor.properties");
+    val keystoreProperties = java.util.Properties()
+    keystoreProperties.load(java.io.FileInputStream(keystorePropertiesFile))
+    signingConfigs {
+        create("release") {
+            keyAlias = keystoreProperties.getProperty("keyAlias")
+            keyPassword = keystoreProperties.getProperty("keyPassword")
+            storeFile = file(keystoreProperties.getProperty("storeFile"))
+            storePassword = keystoreProperties.getProperty("storePassword")
+        }
+    }*/
+
     buildTypes {
         val debug by getting {
             applicationIdSuffix = AyaPatientBuildType.DEBUG.applicationIdSuffix
@@ -34,6 +49,14 @@ android {
                 releaseNotesFile = "${parent!!.projectDir}/releasenotes.txt"
             }
         }
+       /* val release by getting {
+            firebaseAppDistribution {
+                serviceCredentialsFile = "./ayadoc-28b1b-e839ed480468.json"
+                groups="general"
+                releaseNotesFile = "${parent!!.projectDir}/releasenotes.txt"
+            }
+            signingConfig = signingConfigs.getByName("release")
+        }*/
     }
     packagingOptions {
         resources {
