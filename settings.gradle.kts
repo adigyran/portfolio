@@ -138,6 +138,8 @@ include(":core:ui:delegates:features:doctors:doctoritem")
 //doctorcard
 include(":core:ui:delegates:features:doctorcard:doctorslot")
 include(":core:ui:delegates:features:doctorcard:doctordetails")
+//home
+include(":core:ui:delegates:features:home:homeitems")
 
 //tabs
 include(":feature:tabs:home")
