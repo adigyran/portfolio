@@ -1,6 +1,7 @@
 package com.aya.digital.core.feature.profile.generalinfo.view.ui.model
 
 import android.content.Context
+import com.aya.digital.core.domain.profile.generalinfo.view.model.FlavoredProfileModel
 import com.aya.digital.core.feature.profile.generalinfo.view.viewmodel.ProfileGeneralInfoViewState
 import com.aya.digital.core.model.ProfileSex
 import com.aya.digital.core.model.getSexName
@@ -97,13 +98,14 @@ class ProfileGeneralInfoViewStateTransformer(
             add(
                 ProfileInfoUIModel(
                     "License number",
-                    state.doctorFields?.licenseNumber.getMaskedText(CommonMasks.getSSNValidator()).getField()
+                    state.doctorFields?.licenseNumber.getMaskedText(CommonMasks.getSSNValidator())
+                        .getField()
                 )
             )
             add(
                 ProfileInfoUIModel(
                     "Language",
-                    ""
+                    state.doctorFields?.languages.getLanguagesText().getField()
                 )
             )
             add(
@@ -132,5 +134,7 @@ class ProfileGeneralInfoViewStateTransformer(
 
     private fun getHeightUnit() = "ft."
     private fun getWeightUnit() = "lbs"
+    private fun List<FlavoredProfileModel.DoctorProfileModel.Language>?.getLanguagesText() =
+        this?.joinToString(separator = ", ", transform = { it.name })
 }
 

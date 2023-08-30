@@ -20,7 +20,8 @@ import io.reactivex.rxjava3.core.Single
 import kotlinx.datetime.toKotlinLocalDate
 
 internal class SavePatientProfileInfoUseCaseImpl(
-    private val profileRepository: ProfileRepository, private val dateTimeUtils: DateTimeUtils,
+    private val profileRepository: ProfileRepository,
+    private val dateTimeUtils: DateTimeUtils,
     private val progressRepository: ProgressRepository
 ) :
     SaveProfileInfoUseCase {

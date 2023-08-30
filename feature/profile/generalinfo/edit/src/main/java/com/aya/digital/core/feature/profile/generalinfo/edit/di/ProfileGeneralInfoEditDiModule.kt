@@ -25,6 +25,7 @@ fun profileGeneralInfoEditDiModule(
             ProfileGeneralInfoEditViewModel(
                 param = param,
                 coordinatorRouter = parentCoordinatorEvent,
+                rootCoordinatorRouter = instance(tag = "parent_coordinator_bottomnav"),
                 profileInfoUseCase = instance(),
                 saveProfileInfoUseCase = instance(),
                 flavour = instance(),

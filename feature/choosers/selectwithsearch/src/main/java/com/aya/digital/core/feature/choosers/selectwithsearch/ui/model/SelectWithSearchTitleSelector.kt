@@ -9,6 +9,7 @@ internal object SelectWithSearchTitleSelector {
         RequestCodes.INSURANCE_LIST_REQUEST_CODE -> R.string.multiselect_insurances_title
         RequestCodes.LOCATIONS_LIST_REQUEST_CODE -> R.string.multiselect_location_title
         RequestCodes.SPECIALITIES_LIST_REQUEST_CODE -> R.string.multiselect_speciality_title
+        RequestCodes.LANGUAGES_LIST_REQUEST_CODE -> R.string.multiselect_languages_title
         else -> R.string.multiselect_empty_title
     }
 }

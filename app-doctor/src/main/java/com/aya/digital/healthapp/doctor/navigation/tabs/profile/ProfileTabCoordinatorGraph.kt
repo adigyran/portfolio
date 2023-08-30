@@ -100,6 +100,10 @@ class ProfileTabCoordinatorGraph : FragmentContainerGraph {
                 mainRouter.exit()
             }
 
+            is ProfileGeneralInfoEditNavigationEvents.SelectLanguages ->
+            {
+                parentCoordinatorRouter.sendEvent(RootContainerNavigationEvents.SelectMultipleItems(event.requestCode,event.selectedLanguages.toSet()))
+            }
             CoordinatorEvent.Back -> {
                 navigationRouter.exit()
             }
