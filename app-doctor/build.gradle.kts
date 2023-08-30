@@ -17,8 +17,8 @@ android {
 
     defaultConfig {
         applicationId = "com.aya.digital.healthapp.doctor"
-        versionCode = 6
-        versionName = "0.0.6" // X.Y.Z; X = Major, Y = minor, Z = Patch level
+        versionCode = 7
+        versionName = "0.0.7" // X.Y.Z; X = Major, Y = minor, Z = Patch level
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -28,9 +28,9 @@ android {
         buildConfig = true
     }
 
-    /*val keystorePropertiesFile = rootProject.file("keystore_doctor.properties");
-    val keystoreProperties = java.util.Properties()
-    keystoreProperties.load(java.io.FileInputStream(keystorePropertiesFile))
+    val keystorePropertiesFile = rootProject.file("keystore_doctor.properties");
+    val keystoreProperties = Properties()
+    keystoreProperties.load(FileInputStream(keystorePropertiesFile))
     signingConfigs {
         create("release") {
             keyAlias = keystoreProperties.getProperty("keyAlias")
@@ -38,7 +38,7 @@ android {
             storeFile = file(keystoreProperties.getProperty("storeFile"))
             storePassword = keystoreProperties.getProperty("storePassword")
         }
-    }*/
+    }
 
     buildTypes {
         val debug by getting {
@@ -49,14 +49,14 @@ android {
                 releaseNotesFile = "${parent!!.projectDir}/releasenotes.txt"
             }
         }
-       /* val release by getting {
+        val release by getting {
             firebaseAppDistribution {
                 serviceCredentialsFile = "./ayadoc-28b1b-e839ed480468.json"
                 groups="general"
                 releaseNotesFile = "${parent!!.projectDir}/releasenotes.txt"
             }
             signingConfig = signingConfigs.getByName("release")
-        }*/
+        }
     }
     packagingOptions {
         resources {
