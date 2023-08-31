@@ -1,4 +1,5 @@
 
+import com.android.build.gradle.internal.tasks.factory.dependsOn
 import com.aya.digital.healthapp.AyaPatientBuildType
 import java.io.FileInputStream
 import java.util.Properties
@@ -52,6 +53,7 @@ android {
             }
         }
     }*/
+    project.tasks.preBuild.dependsOn("copyNotesToAssets")
     buildTypes {
         val debug by getting {
             applicationIdSuffix = AyaPatientBuildType.DEBUG.applicationIdSuffix
@@ -70,18 +72,21 @@ android {
             signingConfig = signingConfigs.getByName("release")
         }
     }
-    packagingOptions {
+    packaging {
         resources {
             excludes.add("/META-INF/{AL2.0,LGPL2.1}")
         }
     }
 
 
-
     namespace = "com.aya.digital.healthapp.patient"
 
 }
 
+tasks.register<Copy>(name = "copyNotesToAssets") {
+    from(layout.buildDirectory.file("${parent!!.projectDir}/releasenotes.txt"))
+    into(layout.buildDirectory.dir("${projectDir}/src/main/assets"))
+}
 dependencies {
     implementation(project(":feature:rootcontainer"))
     implementation(project(":feature:bottomdialogs:bottomdialog"))

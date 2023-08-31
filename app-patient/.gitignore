@@ -10,3 +10,5 @@ gradle
 .externalNativeBuild
 local.properties
 /.project
+/src/main/assets
+releasenotes.txt
