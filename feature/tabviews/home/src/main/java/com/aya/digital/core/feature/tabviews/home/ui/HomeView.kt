@@ -54,6 +54,7 @@ class HomeView :
                 false
             )
             layoutManager = lm
+            addItemDecoration(HomeTabDecoration(context))
 
         }
     }

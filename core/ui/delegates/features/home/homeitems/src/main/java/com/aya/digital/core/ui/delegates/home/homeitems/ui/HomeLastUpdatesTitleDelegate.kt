@@ -25,7 +25,7 @@ class HomeLastUpdatesTitleDelegate() :
 
 
     inner class ViewHolder(private val binding: ItemHomeLastUpdatesTitleBinding) :
-        BaseViewHolder<HomeLastUpdatesTitleUIModel>(binding.root) {
+        BaseViewHolder<HomeLastUpdatesTitleUIModel>(binding.root),SectionHolder {
 
         init {
 
@@ -34,5 +34,7 @@ class HomeLastUpdatesTitleDelegate() :
             super.bind(item)
             binding.latestUpdatesTitle.text = item.text
         }
+        override fun getHomeSection(): HomeSection = HomeSection.Other
+
     }
 }

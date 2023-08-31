@@ -1,9 +1,12 @@
 package com.aya.digital.core.feature.tabviews.home.ui.model
 
 import android.content.Context
+import com.aya.digital.core.feature.tabviews.home.ButtonsTags
+import com.aya.digital.core.feature.tabviews.home.R
 import com.aya.digital.core.feature.tabviews.home.viewmodel.HomeState
 import com.aya.digital.core.mvi.BaseStateTransformer
 import com.aya.digital.core.ui.adapters.base.DiffItem
+import com.aya.digital.core.ui.delegates.home.homeitems.model.HomeButtonUIModel
 import com.aya.digital.core.ui.delegates.home.homeitems.model.HomeLastUpdatesBottomUIModel
 import com.aya.digital.core.ui.delegates.home.homeitems.model.HomeLastUpdatesTopUIModel
 import com.aya.digital.core.ui.delegates.home.homeitems.model.HomeNewsContainerUIModel
@@ -22,7 +25,55 @@ class HomeStateTransformer(private val context : Context): BaseStateTransformer<
         )
 
     private fun getHomeButtons() = mutableListOf<DiffItem>().apply {
-
+        add(HomeButtonUIModel(
+            tag = ButtonsTags.FIND_DOCTOR,
+            title = "Find Doctor",
+            descr = "2658 doctors",
+            iconId = R.drawable.ic_finddoctor,
+            enabled = true
+        ))
+        add(HomeButtonUIModel(
+            tag = ButtonsTags.APPOINTMENTS,
+            title = "Appointments",
+            descr = "2 appointments",
+            iconId = R.drawable.ic_appointments,
+            enabled = true
+        ))
+        add(HomeButtonUIModel(
+            tag = ButtonsTags.TELEMEDICINE,
+            title = "Telemedicine",
+            descr = "2 appointments",
+            iconId = R.drawable.ic_appointments,
+            enabled = true
+        ))
+        add(HomeButtonUIModel(
+            tag = ButtonsTags.RECIPES,
+            title = "Recipes",
+            descr = "Coming soon",
+            iconId = R.drawable.ic_recipes,
+            enabled = false
+        ))
+        add(HomeButtonUIModel(
+            tag = ButtonsTags.PHARMACIES,
+            title = "Pharmacies",
+            descr = "Coming soon",
+            iconId = R.drawable.ic_pharmacy,
+            enabled = false
+        ))
+        add(HomeButtonUIModel(
+            tag = ButtonsTags.SERVICE_COST,
+            title = "Service cost",
+            descr = "Coming soon",
+            iconId = R.drawable.ic_service,
+            enabled = false
+        ))
+        add(HomeButtonUIModel(
+            tag = ButtonsTags.DOCUMENTS,
+            title = "Documents",
+            descr = "Coming soon",
+            iconId = R.drawable.ic_documents,
+            enabled = false
+        ))
     }
     private fun getHomeNews() = mutableListOf<HomeNewsUIModel>().apply {
         add(

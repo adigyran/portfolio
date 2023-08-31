@@ -32,7 +32,7 @@ class HomeNewsContainerDelegate(private val recyclerPool: RecyclerView.RecycledV
 
 
     inner class ViewHolder(private val binding: ItemHomeNewsContainerBinding) :
-        BaseViewHolder<HomeNewsContainerUIModel>(binding.root) {
+        BaseViewHolder<HomeNewsContainerUIModel>(binding.root),SectionHolder {
 
         private val lm = LinearLayoutManager(binding.root.context, RecyclerView.HORIZONTAL, false)
             .apply {
@@ -80,5 +80,7 @@ class HomeNewsContainerDelegate(private val recyclerPool: RecyclerView.RecycledV
                 }
 
         }
+        override fun getHomeSection(): HomeSection = HomeSection.News
+
     }
 }

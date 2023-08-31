@@ -27,7 +27,7 @@ class HomeButtonItemDelegate(val onButtonClick:(tag:Int) -> Unit) :
 
 
     inner class ViewHolder(private val binding: ItemHomeButtonBinding) :
-        BaseViewHolder<HomeButtonUIModel>(binding.root) {
+        BaseViewHolder<HomeButtonUIModel>(binding.root),SectionHolder {
 
         init {
             binding.root bindClick {onButtonClick(item.tag)}
@@ -42,5 +42,7 @@ class HomeButtonItemDelegate(val onButtonClick:(tag:Int) -> Unit) :
                 .dontAnimate()
                 .into(binding.buttonImage)
         }
+
+        override fun getHomeSection(): HomeSection = HomeSection.Buttons
     }
 }
