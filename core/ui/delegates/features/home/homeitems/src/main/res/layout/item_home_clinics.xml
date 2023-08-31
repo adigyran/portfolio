@@ -4,40 +4,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/bg_buttons_active"
-    android:padding="16dp"
-    >
-    <ImageView
-        android:id="@+id/buttonImage"
+    android:background="@drawable/bg_clinics"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
+        android:text="Clinics Nearby"
+        android:textAppearance="@style/TextAppearance.App.H3"
         app:layout_constraintStart_toStartOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/btnTitle"
+        android:id="@+id/clinicsCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.App.Body.DescriptionMiniText"
+        android:textColor="@color/text_grey"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        tools:text="3 clinics" />
+
+    <ImageView
+        android:id="@+id/mapImage"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        tools:text="Appointments"
-        android:textAppearance="@style/TextAppearance.App.H4"
-        android:gravity="start"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/buttonImage"
-        />
-
-    <TextView
-        android:id="@+id/btnDescr"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        tools:text="2 appointments"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnTitle"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:gravity="start"
-        android:layout_marginTop="8dp"
-        android:textAppearance="@style/TextAppearance.App.Body.LabelMiniText" />
-
+        app:layout_constraintTop_toBottomOf="@id/clinicsCount" />
 </androidx.constraintlayout.widget.ConstraintLayout>

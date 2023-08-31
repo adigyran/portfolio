@@ -7,6 +7,7 @@ import com.aya.digital.core.feature.tabviews.home.viewmodel.HomeState
 import com.aya.digital.core.mvi.BaseStateTransformer
 import com.aya.digital.core.ui.adapters.base.DiffItem
 import com.aya.digital.core.ui.delegates.home.homeitems.model.HomeButtonUIModel
+import com.aya.digital.core.ui.delegates.home.homeitems.model.HomeClinicsUIModel
 import com.aya.digital.core.ui.delegates.home.homeitems.model.HomeLastUpdatesBottomUIModel
 import com.aya.digital.core.ui.delegates.home.homeitems.model.HomeLastUpdatesTopUIModel
 import com.aya.digital.core.ui.delegates.home.homeitems.model.HomeNewsContainerUIModel
@@ -19,6 +20,7 @@ class HomeStateTransformer(private val context : Context): BaseStateTransformer<
                return@run mutableListOf<DiffItem>().apply {
                    addAll(getHomeButtons())
                    add(HomeNewsContainerUIModel(news = getHomeNews()))
+                   addAll(getHomeClinics())
                    addAll(getHomeUpdatesSection())
                 }
             }
@@ -107,6 +109,13 @@ class HomeStateTransformer(private val context : Context): BaseStateTransformer<
 
     private fun getHomeUpdates() = mutableListOf<DiffItem>().apply {
 
+    }
+
+    private fun getHomeClinics() = mutableListOf<DiffItem>().apply {
+        add(HomeClinicsUIModel(
+            clinicsCount = "3 clinics",
+            mapImageId = R.drawable.map
+        ))
     }
 
 }

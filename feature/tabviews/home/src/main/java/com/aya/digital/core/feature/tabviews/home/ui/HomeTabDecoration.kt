@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.aya.digital.core.designsystem.R
 import com.aya.digital.core.ext.dpToPx
 import com.aya.digital.core.ui.delegates.home.homeitems.ui.HomeButtonItemDelegate
+import com.aya.digital.core.ui.delegates.home.homeitems.ui.HomeClinicsItemDelegate
 import com.aya.digital.core.ui.delegates.home.homeitems.ui.HomeLastUpdatesBottomDelegate
 import com.aya.digital.core.ui.delegates.home.homeitems.ui.HomeLastUpdatesItemDelegate
 import com.aya.digital.core.ui.delegates.home.homeitems.ui.HomeLastUpdatesTitleDelegate
@@ -77,6 +78,7 @@ internal class HomeTabDecoration(private val context: Context) :
             is HomeLastUpdatesTopDelegate.ViewHolder -> 16
             is HomeLastUpdatesTitleDelegate.ViewHolder -> 24
             is HomeLastUpdatesItemDelegate.ViewHolder -> 12
+            is HomeClinicsItemDelegate.ViewHolder -> 24
             else -> 0
         }
         outRect.top = top.dpToPx()

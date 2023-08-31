@@ -6,6 +6,7 @@ import com.aya.digital.core.ui.adapters.base.BaseDelegateAdapter2
 import com.aya.digital.core.ui.adapters.base.BaseDiffCallback
 import com.aya.digital.core.ui.adapters.base.DiffItem
 import com.aya.digital.core.ui.delegates.home.homeitems.ui.HomeButtonItemDelegate
+import com.aya.digital.core.ui.delegates.home.homeitems.ui.HomeClinicsItemDelegate
 import com.aya.digital.core.ui.delegates.home.homeitems.ui.HomeLastUpdatesBottomDelegate
 import com.aya.digital.core.ui.delegates.home.homeitems.ui.HomeLastUpdatesItemDelegate
 import com.aya.digital.core.ui.delegates.home.homeitems.ui.HomeLastUpdatesTitleDelegate
@@ -28,6 +29,7 @@ class HomeAdapter(private val onButtonClick: (tag: Int) -> Unit) : BaseDelegateA
             addDelegate(HomeLastUpdatesTopDelegate())
             addDelegate(HomeLastUpdatesItemDelegate())
             addDelegate(HomeLastUpdatesTitleDelegate())
+            addDelegate(HomeClinicsItemDelegate())
         }
     override val adapter: AsyncListDifferDelegationAdapterModified<DiffItem> =
         AsyncListDifferDelegationAdapterModified(BaseDiffCallback(), adapterDelegatesManager)
