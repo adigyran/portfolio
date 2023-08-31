@@ -1,11 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/bg_buttons_active"
-    android:padding="16dp"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/bg_last_updates_items_bg"
+    android:padding="16dp">
+    <TextView
+        android:id="@+id/latestUpdatesText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.App.Body.DescriptionText"
+        android:background="@drawable/bg_last_updates_item"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"
+        tools:text="Nov 5, 2022"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,7 +6,6 @@
     android:layout_height="wrap_content"
     android:background="@drawable/bg_last_updates_bottom"
     android:padding="16dp"
-
     >
 
 </androidx.constraintlayout.widget.ConstraintLayout>

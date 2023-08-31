@@ -11,6 +11,7 @@
     <color name="bg_white">#FFFFFF</color>
     <color name="bg_light_grey">#F4F6F8</color>
     <color name="bg_green">#63C6B3</color>
+    <color name="bg_light_green">#EDFFFB</color>
 
     <color name="bg_scheduled_appointments">#B2D6FF</color>
     <color name="bg_done_appointments">#B2D6FF</color>
