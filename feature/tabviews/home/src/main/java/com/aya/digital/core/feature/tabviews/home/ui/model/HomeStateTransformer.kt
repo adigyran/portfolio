@@ -9,6 +9,8 @@ import com.aya.digital.core.ui.adapters.base.DiffItem
 import com.aya.digital.core.ui.delegates.home.homeitems.model.HomeButtonUIModel
 import com.aya.digital.core.ui.delegates.home.homeitems.model.HomeClinicsUIModel
 import com.aya.digital.core.ui.delegates.home.homeitems.model.HomeLastUpdatesBottomUIModel
+import com.aya.digital.core.ui.delegates.home.homeitems.model.HomeLastUpdatesItemUIModel
+import com.aya.digital.core.ui.delegates.home.homeitems.model.HomeLastUpdatesTitleUIModel
 import com.aya.digital.core.ui.delegates.home.homeitems.model.HomeLastUpdatesTopUIModel
 import com.aya.digital.core.ui.delegates.home.homeitems.model.HomeNewsContainerUIModel
 import com.aya.digital.core.ui.delegates.home.homeitems.model.HomeNewsUIModel
@@ -21,7 +23,7 @@ class HomeStateTransformer(private val context : Context): BaseStateTransformer<
                    addAll(getHomeButtons())
                    add(HomeNewsContainerUIModel(news = getHomeNews()))
                    addAll(getHomeClinics())
-                   addAll(getHomeUpdatesSection())
+                   addAll(getHomeUpdatesSection(state))
                 }
             }
         )
@@ -101,14 +103,19 @@ class HomeStateTransformer(private val context : Context): BaseStateTransformer<
         )
     }
 
-   private fun getHomeUpdatesSection() = mutableListOf<DiffItem>().apply {
+   private fun getHomeUpdatesSection(state: HomeState) = mutableListOf<DiffItem>().apply {
        add(HomeLastUpdatesTopUIModel())
-       addAll(getHomeUpdates())
+       addAll(getHomeUpdates(state))
        add(HomeLastUpdatesBottomUIModel())
    }
 
-    private fun getHomeUpdates() = mutableListOf<DiffItem>().apply {
-
+    private fun getHomeUpdates(state: HomeState) = mutableListOf<DiffItem>().apply {
+        state.lastUpdates?.let {
+            it.forEach { entry ->
+                this.add(HomeLastUpdatesTitleUIModel(entry.value.title))
+                this.addAll(entry.value.items.map { item-> HomeLastUpdatesItemUIModel(item.text) })
+            }
+        }
     }
 
     private fun getHomeClinics() = mutableListOf<DiffItem>().apply {

@@ -81,8 +81,8 @@ internal class HomeTabDecoration(private val context: Context) :
         val top = when (viewHolder) {
             is HomeButtonItemDelegate.ViewHolder -> 10
             is HomeLastUpdatesTopDelegate.ViewHolder -> 16
-            is HomeLastUpdatesTitleDelegate.ViewHolder -> 24
-            is HomeLastUpdatesItemDelegate.ViewHolder -> 12
+            is HomeLastUpdatesTitleDelegate.ViewHolder -> 0
+            is HomeLastUpdatesItemDelegate.ViewHolder -> 0
             is HomeClinicsItemDelegate.ViewHolder -> 24
             else -> 0
         }

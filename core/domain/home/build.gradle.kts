@@ -11,6 +11,7 @@ dependencies {
     implementation(project(":core:util"))
     implementation(project(":core:dibase"))
     implementation(project(":core:data:base"))
+    implementation(project(":core:domain:base"))
     implementation(project(":core:data:profile"))
     implementation(project(":core:network:model"))
     implementation(project(":core:data:progress"))

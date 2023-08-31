@@ -14,7 +14,7 @@ fun homeDiModule(
 
     bind {
         scoped(CustomFragmentScope).singleton {
-            HomeViewModel(parentCoordinatorEvent)
+            HomeViewModel(parentCoordinatorEvent,instance())
         }
     }
 }
