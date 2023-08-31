@@ -20,6 +20,7 @@
         android:id="@+id/clinicsCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:textAppearance="@style/TextAppearance.App.Body.DescriptionMiniText"
         android:textColor="@color/text_grey"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,7 +30,9 @@
     <ImageView
         android:id="@+id/mapImage"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="200dp"
+        android:scaleType="fitXY"
+        android:layout_marginTop="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

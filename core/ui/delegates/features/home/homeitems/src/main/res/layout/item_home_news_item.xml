@@ -5,12 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/bg_news_item"
+    android:maxWidth="250dp"
     android:padding="16dp"
     >
     <ImageView
         android:id="@+id/newsImage"
-        android:layout_width="188dp"
-        android:layout_height="126dp"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:scaleType="centerInside"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -24,7 +26,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="12dp"
-        android:text="Case Report: COVID-19\nPneumonia Complicated by Lung Abscess\n"
+        tools:text="Case Report: COVID-19\nPneumonia Complicated by Lung Abscess\n"
         android:textAppearance="@style/TextAppearance.App.Body.DescriptionText" />
 
     <TextView
@@ -33,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         app:layout_constraintTop_toBottomOf="@id/newsTitle"
-        android:text="Nov 20, 2022"
+        tools:text="Nov 20, 2022"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:textColor="@color/text_grey"

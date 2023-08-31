@@ -1,11 +1,15 @@
 package com.aya.digital.core.ui.delegates.home.homeitems.ui
 
+import android.content.Context
+import android.graphics.Rect
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.aya.digital.core.ext.addOnPositionChangeListener
+import com.aya.digital.core.ext.dpToPx
 import com.aya.digital.core.ui.adapters.base.BaseDelegate
 import com.aya.digital.core.ui.adapters.base.BaseDelegateAdapter
 import com.aya.digital.core.ui.adapters.base.BaseViewHolder
@@ -54,6 +58,7 @@ class HomeNewsContainerDelegate(private val recyclerPool: RecyclerView.RecycledV
                 setRecycledViewPool(recyclerPool)
                 layoutManager = lm
                 swapAdapter(newsAdapter, true)
+                addItemDecoration(HomeNewsContainerDecoration(context))
             }
             PagerSnapHelper().attachToRecyclerView(binding.rvNews)
 
@@ -83,4 +88,28 @@ class HomeNewsContainerDelegate(private val recyclerPool: RecyclerView.RecycledV
         override fun getHomeSection(): HomeSection = HomeSection.News
 
     }
+    private class HomeNewsContainerDecoration(private val context: Context) :
+        RecyclerView.ItemDecoration() {
+        override fun getItemOffsets(
+            outRect: Rect,
+            view: View,
+            parent: RecyclerView,
+            state: RecyclerView.State
+        ) {
+            val viewHolder = parent.findContainingViewHolder(view)
+            val position = parent.getChildAdapterPosition(view)
+            if(position == RecyclerView.NO_POSITION) return
+            val horizontalSpacing = when(position)
+            {
+                0->HorizontalSpacings(0,5)
+                else-> HorizontalSpacings(5,5)
+            }
+            outRect.left=horizontalSpacing.left.dpToPx()
+            outRect.right=horizontalSpacing.right.dpToPx()
+        }
+
+    }
+
+    private data class HorizontalSpacings(val left: Int, val right: Int)
+
 }

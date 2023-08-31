@@ -68,10 +68,15 @@ internal class HomeTabDecoration(private val context: Context) :
                 outRect.left = (20).dpToPx()
                 outRect.right = (20).dpToPx()
             }
+            is HomeClinicsItemDelegate.ViewHolder -> {
+                outRect.left = (20).dpToPx()
+                outRect.right = (20).dpToPx()
+            }
             else -> {
                 outRect.left = (0).dpToPx()
                 outRect.right = (0).dpToPx()
             }
+
         }
         val top = when (viewHolder) {
             is HomeButtonItemDelegate.ViewHolder -> 10
