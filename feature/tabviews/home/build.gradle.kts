@@ -7,5 +7,6 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:ui:delegates:features:home:homeitems"))
 
 }

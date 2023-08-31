@@ -5,11 +5,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.aya.digital.core.ext.addOnPositionChangeListener
 import com.aya.digital.core.ext.bindClick
 import com.aya.digital.core.ui.adapters.base.BaseDelegate
 import com.aya.digital.core.ui.adapters.base.BaseDelegateAdapter
 import com.aya.digital.core.ui.adapters.base.BaseViewHolder
 import com.aya.digital.core.ui.adapters.base.DiffItem
+import com.aya.digital.core.ui.adapters.base.ScrolledItemPosition
 import com.aya.digital.core.ui.delegates.doctorcard.doctordetails.model.HomeButtonUIModel
 import com.aya.digital.core.ui.delegates.doctorcard.doctordetails.model.HomeNewsContainerUIModel
 import com.aya.digital.core.ui.delegates.features.home.homeitems.databinding.ItemHomeButtonBinding
@@ -18,7 +20,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import java.security.AccessController.getContext
 
-class HomeNewsContainerDelegate(private val recyclerPool: RecyclerView.RecycledViewPool,) :
+class HomeNewsContainerDelegate(private val recyclerPool: RecyclerView.RecycledViewPool,
+                                private val recyclerScrollPositions: () -> MutableMap<String, ScrolledItemPosition>,) :
     BaseDelegate<HomeNewsContainerUIModel>() {
     override fun isForViewType(
         item: DiffItem,
@@ -64,6 +67,23 @@ class HomeNewsContainerDelegate(private val recyclerPool: RecyclerView.RecycledV
         override fun bind(item: HomeNewsContainerUIModel) {
             super.bind(item)
             newsAdapter.items = item.news
+            positionChangeListener?.let { binding.rvNews.removeOnScrollListener(it) }
+
+            val scrolledPosition = recyclerScrollPositions()["HomeNewsContainerDelegate:"]
+            if (scrolledPosition == null) {
+                lm.scrollToPosition(0)
+            } else {
+                lm.scrollToPositionWithOffset(scrolledPosition.first, scrolledPosition.second)
+            }
+
+            positionChangeListener =
+                binding.rvNews.addOnPositionChangeListener { firstVisibleItemPosition, offset ->
+                    recyclerScrollPositions()["HomeNewsContainerDelegate"] =
+                        ScrolledItemPosition(
+                            firstVisibleItemPosition,
+                            offset
+                        )
+                }
 
         }
     }
