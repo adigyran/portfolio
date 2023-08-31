@@ -1,4 +1,4 @@
-package com.aya.digital.core.ui.delegates.doctorcard.doctordetails.model
+package com.aya.digital.core.ui.delegates.home.homeitems.model
 
 import com.aya.digital.core.ui.adapters.base.DiffItem
 

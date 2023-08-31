@@ -7,6 +7,6 @@ internal class HomeSpanSizeLookup(private val adapter: RecyclerView.Adapter<Recy
     GridLayoutManager.SpanSizeLookup() {
     override fun getSpanSize(position: Int): Int = when (adapter?.getItemViewType(position)) {
         0 -> 1
-        else -> 4
+        else -> 2
     }
 }

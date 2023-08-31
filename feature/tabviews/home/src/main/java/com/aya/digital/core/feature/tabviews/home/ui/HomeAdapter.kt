@@ -5,13 +5,12 @@ import com.aya.digital.core.ui.adapters.base.BaseDelegateAdapter
 import com.aya.digital.core.ui.adapters.base.BaseDelegateAdapter2
 import com.aya.digital.core.ui.adapters.base.BaseDiffCallback
 import com.aya.digital.core.ui.adapters.base.DiffItem
-import com.aya.digital.core.ui.adapters.base.ScrolledItemPosition
-import com.aya.digital.core.ui.delegates.doctorcard.doctordetails.ui.HomeButtonItemDelegate
-import com.aya.digital.core.ui.delegates.doctorcard.doctordetails.ui.HomeLastUpdatesBottomDelegate
-import com.aya.digital.core.ui.delegates.doctorcard.doctordetails.ui.HomeLastUpdatesItemDelegate
-import com.aya.digital.core.ui.delegates.doctorcard.doctordetails.ui.HomeLastUpdatesTitleDelegate
-import com.aya.digital.core.ui.delegates.doctorcard.doctordetails.ui.HomeLastUpdatesTopDelegate
-import com.aya.digital.core.ui.delegates.doctorcard.doctordetails.ui.HomeNewsContainerDelegate
+import com.aya.digital.core.ui.delegates.home.homeitems.ui.HomeButtonItemDelegate
+import com.aya.digital.core.ui.delegates.home.homeitems.ui.HomeLastUpdatesBottomDelegate
+import com.aya.digital.core.ui.delegates.home.homeitems.ui.HomeLastUpdatesItemDelegate
+import com.aya.digital.core.ui.delegates.home.homeitems.ui.HomeLastUpdatesTitleDelegate
+import com.aya.digital.core.ui.delegates.home.homeitems.ui.HomeLastUpdatesTopDelegate
+import com.aya.digital.core.ui.delegates.home.homeitems.ui.HomeNewsContainerDelegate
 import com.hannesdorfmann.adapterdelegates4.AdapterDelegatesManager
 
 class HomeAdapter(private val onButtonClick: (tag: Int) -> Unit) : BaseDelegateAdapter2() {

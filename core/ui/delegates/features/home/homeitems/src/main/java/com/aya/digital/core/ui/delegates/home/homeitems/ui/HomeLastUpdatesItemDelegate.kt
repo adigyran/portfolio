@@ -1,17 +1,12 @@
-package com.aya.digital.core.ui.delegates.doctorcard.doctordetails.ui
+package com.aya.digital.core.ui.delegates.home.homeitems.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.aya.digital.core.ext.bindClick
 import com.aya.digital.core.ui.adapters.base.BaseDelegate
 import com.aya.digital.core.ui.adapters.base.BaseViewHolder
 import com.aya.digital.core.ui.adapters.base.DiffItem
-import com.aya.digital.core.ui.delegates.doctorcard.doctordetails.model.HomeButtonUIModel
-import com.aya.digital.core.ui.delegates.doctorcard.doctordetails.model.HomeLastUpdatesItemUIModel
-import com.aya.digital.core.ui.delegates.features.home.homeitems.databinding.ItemHomeButtonBinding
+import com.aya.digital.core.ui.delegates.home.homeitems.model.HomeLastUpdatesItemUIModel
 import com.aya.digital.core.ui.delegates.features.home.homeitems.databinding.ItemHomeLastUpdatesItemBinding
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.CircleCrop
 
 class HomeLastUpdatesItemDelegate() :
     BaseDelegate<HomeLastUpdatesItemUIModel>() {

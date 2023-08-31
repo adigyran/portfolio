@@ -1,4 +1,4 @@
-package com.aya.digital.core.ui.delegates.doctorcard.doctordetails.ui
+package com.aya.digital.core.ui.delegates.home.homeitems.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,19 +6,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.aya.digital.core.ext.addOnPositionChangeListener
-import com.aya.digital.core.ext.bindClick
 import com.aya.digital.core.ui.adapters.base.BaseDelegate
 import com.aya.digital.core.ui.adapters.base.BaseDelegateAdapter
 import com.aya.digital.core.ui.adapters.base.BaseViewHolder
 import com.aya.digital.core.ui.adapters.base.DiffItem
 import com.aya.digital.core.ui.adapters.base.ScrolledItemPosition
-import com.aya.digital.core.ui.delegates.doctorcard.doctordetails.model.HomeButtonUIModel
-import com.aya.digital.core.ui.delegates.doctorcard.doctordetails.model.HomeNewsContainerUIModel
-import com.aya.digital.core.ui.delegates.features.home.homeitems.databinding.ItemHomeButtonBinding
+import com.aya.digital.core.ui.delegates.home.homeitems.model.HomeNewsContainerUIModel
 import com.aya.digital.core.ui.delegates.features.home.homeitems.databinding.ItemHomeNewsContainerBinding
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.CircleCrop
-import java.security.AccessController.getContext
 
 class HomeNewsContainerDelegate(private val recyclerPool: RecyclerView.RecycledViewPool,
                                 private val recyclerScrollPositions: () -> MutableMap<String, ScrolledItemPosition>,) :
