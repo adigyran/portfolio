@@ -8,5 +8,8 @@ android {
 
 dependencies {
     implementation(project(":core:ui:delegates:features:home:homeitems"))
+    implementation(project(":core:domain:base"))
+    implementation(project(":core:domain:home"))
+
 
 }
