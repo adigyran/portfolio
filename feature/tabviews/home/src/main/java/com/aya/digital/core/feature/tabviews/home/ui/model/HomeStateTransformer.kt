@@ -111,10 +111,12 @@ class HomeStateTransformer(private val context : Context): BaseStateTransformer<
 
     private fun getHomeUpdates(state: HomeState) = mutableListOf<DiffItem>().apply {
         state.lastUpdates?.let {
+            val list = mutableListOf<DiffItem>()
             it.forEach { entry ->
-                this.add(HomeLastUpdatesTitleUIModel(entry.value.title))
-                this.addAll(entry.value.items.map { item-> HomeLastUpdatesItemUIModel(item.text) })
+                list.add(HomeLastUpdatesTitleUIModel(entry.value.title))
+                list.addAll(entry.value.items.map { item-> HomeLastUpdatesItemUIModel(item.text) })
             }
+            addAll(list)
         }
     }
 

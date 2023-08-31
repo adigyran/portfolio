@@ -19,7 +19,7 @@ internal class GetLastUpdatesUseCaseImpl(
     private val context: Context,
     private val progressRepository: ProgressRepository
 ) : GetLastUpdatesUseCase {
-    override fun invoke(): Single<RequestResultModel<HashMap<String, LastUpdatesModel>>> =
+    override fun invoke(): Single<RequestResultModel<LinkedHashMap<String, LastUpdatesModel>>> =
         Single.just(FILE_NAME)
             .trackProgress(progressRepository)
             .subscribeOn(Schedulers.io())
@@ -29,14 +29,17 @@ internal class GetLastUpdatesUseCaseImpl(
                 list
             }
             .map { list ->
-                val updates: HashMap<String, LastUpdatesModel> = hashMapOf()
-                val updateItems = mutableListOf<LastUpdatesItem>()
+                val updates: LinkedHashMap<String, LastUpdatesModel> = linkedMapOf()
+                val updateItems = mutableListOf<String>()
                 list.forEach { line ->
                     if (line.contains("version",true)) {
-                        updates[line] = LastUpdatesModel(line, updateItems)
+                        Timber.d("$line")
+                        val updateItemsCopy = updateItems
+                        updates[line] = LastUpdatesModel(line, updateItemsCopy.map { LastUpdatesItem(it) })
                         updateItems.clear()
-                    } else {
-                        updateItems.add(LastUpdatesItem(line))
+                        Timber.d("$updateItemsCopy")
+                    } else if(line.isNotBlank()) {
+                        updateItems.add(line)
                     }
                 }
                 updates.asResultModel()
@@ -51,7 +54,7 @@ internal class GetLastUpdatesUseCaseImpl(
             .forEachLine {
                 list.add(it)
             }
-        return list
+        return list.asReversed()
     }
 
 }
