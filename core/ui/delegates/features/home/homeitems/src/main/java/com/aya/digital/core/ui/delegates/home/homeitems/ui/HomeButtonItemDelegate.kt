@@ -30,7 +30,9 @@ class HomeButtonItemDelegate(val onButtonClick:(tag:Int) -> Unit) :
         BaseViewHolder<HomeButtonUIModel>(binding.root),SectionHolder {
 
         init {
-            binding.root bindClick {onButtonClick(item.tag)}
+            binding.root bindClick {
+                onButtonClick(item.tag)
+            }
         }
         override fun bind(item: HomeButtonUIModel) {
             super.bind(item)

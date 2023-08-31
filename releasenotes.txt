@@ -147,6 +147,12 @@ fixed videocall screen navigation
 version 60 patient/version 7 doctor
 fixed videocall navigation
 doctor profile now fully works
+version 62 patient/version 9 doctor
+added dynamic home screen
+last updates working
+news working
+buttons working
+
 
 
 

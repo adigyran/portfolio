@@ -20,7 +20,7 @@ class HomeStateTransformer(private val context : Context): BaseStateTransformer<
         HomeUiModel(
             data = kotlin.run {
                return@run mutableListOf<DiffItem>().apply {
-                   addAll(getHomeButtons())
+                   addAll(getHomeButtons(state))
                    add(HomeNewsContainerUIModel(news = getHomeNews()))
                    addAll(getHomeClinics())
                    addAll(getHomeUpdatesSection(state))
@@ -28,25 +28,25 @@ class HomeStateTransformer(private val context : Context): BaseStateTransformer<
             }
         )
 
-    private fun getHomeButtons() = mutableListOf<DiffItem>().apply {
+    private fun getHomeButtons(state: HomeState) = mutableListOf<DiffItem>().apply {
         add(HomeButtonUIModel(
             tag = ButtonsTags.FIND_DOCTOR,
             title = "Find Doctor",
-            descr = "2658 doctors",
+            descr = "%d doctors".format(state.doctorsCount),
             iconId = R.drawable.ic_finddoctor,
             enabled = true
         ))
         add(HomeButtonUIModel(
             tag = ButtonsTags.APPOINTMENTS,
             title = "Appointments",
-            descr = "2 appointments",
+            descr = "%d appointments".format(state.appointmentsCount),
             iconId = R.drawable.ic_appointments,
             enabled = true
         ))
         add(HomeButtonUIModel(
             tag = ButtonsTags.TELEMEDICINE,
             title = "Telemedicine",
-            descr = "2 appointments",
+            descr = "%d appointments".format(state.telemedicineCount),
             iconId = R.drawable.ic_appointments,
             enabled = true
         ))

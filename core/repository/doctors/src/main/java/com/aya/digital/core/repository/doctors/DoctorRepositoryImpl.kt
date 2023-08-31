@@ -101,7 +101,8 @@ internal class DoctorRepositoryImpl(
                 PaginationCursorModel(
                     data = doctorDataMapper.mapFromList(result.data),
                     scrollToken = result.scrollToken,
-                    sizeResult = result.sizeResult
+                    sizeResult = result.sizeResult,
+                    totalResults = result.totalResults?:0
                 ).asResult()
             }, { it })
 

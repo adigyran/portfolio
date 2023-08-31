@@ -8,5 +8,6 @@ package com.aya.digital.core.data.base.dataprocessing
 data class PaginationCursorModel<T>(
     var data: List<T> = listOf(),
     var scrollToken: String?,
-    var sizeResult: Int?
+    var sizeResult: Int?,
+    val totalResults:Int = 0
 )

@@ -23,7 +23,7 @@ class HomeAdapter(private val onButtonClick: (tag: Int) -> Unit) : BaseDelegateA
 
     private val adapterDelegatesManager: AdapterDelegatesManager<List<DiffItem>> =
         AdapterDelegatesManager<List<DiffItem>>().apply {
-            addDelegate(HomeButtonItemDelegate(onButtonClick))
+            addDelegate(HomeButtonItemDelegate(this@HomeAdapter::onButtonClickF))
             addDelegate(HomeNewsContainerDelegate(RecyclerView.RecycledViewPool()) { recyclerScrollPositions })
             addDelegate(HomeLastUpdatesBottomDelegate())
             addDelegate(HomeLastUpdatesTopDelegate())
@@ -31,6 +31,11 @@ class HomeAdapter(private val onButtonClick: (tag: Int) -> Unit) : BaseDelegateA
             addDelegate(HomeLastUpdatesTitleDelegate())
             addDelegate(HomeClinicsItemDelegate())
         }
+
+    private fun onButtonClickF(tag: Int)
+    {
+        onButtonClick(tag)
+    }
     override val adapter: AsyncListDifferDelegationAdapterModified<DiffItem> =
         AsyncListDifferDelegationAdapterModified(BaseDiffCallback(), adapterDelegatesManager)
 

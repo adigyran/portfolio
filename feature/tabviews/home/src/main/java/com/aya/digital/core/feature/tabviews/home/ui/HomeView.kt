@@ -10,11 +10,9 @@ import com.aya.digital.core.feature.tabviews.home.di.homeDiModule
 import com.aya.digital.core.feature.tabviews.home.ui.model.HomeStateTransformer
 import com.aya.digital.core.feature.tabviews.home.ui.model.HomeUiModel
 import com.aya.digital.core.feature.tabviews.home.viewmodel.HomeState
-import com.aya.digital.core.feature.auth.signin.viewmodel.HomeViewModel
+import com.aya.digital.core.feature.tabviews.home.viewmodel.HomeViewModel
 import com.aya.digital.core.feature.tabviews.home.databinding.ViewHomeBinding
 import com.aya.digital.core.feature.tabviews.home.viewmodel.HomeSideEffects
-import com.aya.digital.core.mvi.BaseSideEffect
-import com.aya.digital.core.ui.adapters.base.BaseDelegateAdapter
 import com.aya.digital.core.ui.base.screens.DiFragment
 import org.kodein.di.DI
 import org.kodein.di.factory
@@ -33,16 +31,13 @@ class HomeView :
 
     private val adapter by lazy(LazyThreadSafetyMode.NONE) {
        HomeAdapter(
-           onButtonClick = {}
+           onButtonClick = viewModel::onButtonClick
        )
     }
 
     private lateinit var lm: GridLayoutManager
     override fun prepareCreatedUi(savedInstanceState: Bundle?) {
         super.prepareCreatedUi(savedInstanceState)
-        binding.findDoctorBtn bindClick {viewModel.openDoctors()}
-        binding.appointmentsBtn bindClick {viewModel.openAppointments()}
-        binding.covidBtn bindClick {viewModel.openAppointments()}
         recyclers.add(binding.rvHome)
         with(binding.rvHome) {
             itemAnimator = null
