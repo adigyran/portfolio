@@ -35,6 +35,7 @@ dependencies {
     implementation(project(":core:domain:doctors"))
     implementation(project(":core:domain:schedule"))
     implementation(project(":core:domain:root"))
+    implementation(project(":core:domain:home"))
     implementation(project(":core:domain:location"))
     implementation(project(":core:security"))
     implementation(libs.kodein)

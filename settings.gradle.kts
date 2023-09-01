@@ -96,6 +96,7 @@ include(":core:domain:dictionaries")
 include(":core:domain:schedule")
 include(":core:domain:root")
 include(":core:domain:location")
+include(":core:domain:home")
 
 //ui delegates
 //components
@@ -138,6 +139,8 @@ include(":core:ui:delegates:features:doctors:doctoritem")
 //doctorcard
 include(":core:ui:delegates:features:doctorcard:doctorslot")
 include(":core:ui:delegates:features:doctorcard:doctordetails")
+//home
+include(":core:ui:delegates:features:home:homeitems")
 
 //tabs
 include(":feature:tabs:home")

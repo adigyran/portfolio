@@ -35,10 +35,12 @@ internal class GetDoctorsUseCaseImpl(
             .trackProgress(progressRepository)
             .mapResult({ paginationModel ->
                 paginationPageModel = paginationModel
-                DoctorPaginationModel(
+                val asResultModel = DoctorPaginationModel(
+                    totalItems = paginationModel.totalResults ?: 0,
                     cursor = paginationModel.scrollToken,
                     doctors = paginationModel.data.map { doctorData -> doctorData.mapToDoctorModel() }
                 ).asResultModel()
+                asResultModel
                 //it.data.map { doctorData -> doctorData.mapToDoctorModel() }.asResultModel()
             }, { it.toModelError() })
 }

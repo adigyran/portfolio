@@ -24,6 +24,7 @@ internal class GetDoctorsByCoordinatesUseCaseImpl(
             .trackProgress(progressRepository)
             .mapResult({ paginationModel ->
                 DoctorPaginationModel(
+                    totalItems = paginationModel.totalResults?:0,
                     cursor = paginationModel.scrollToken,
                     doctors = paginationModel.data.map { doctorData -> doctorData.mapToDoctorModel() }
                 ).asResultModel()

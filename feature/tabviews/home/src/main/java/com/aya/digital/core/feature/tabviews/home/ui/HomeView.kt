@@ -3,16 +3,16 @@ package com.aya.digital.core.feature.tabviews.home.ui
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.aya.digital.core.ext.bindClick
 import com.aya.digital.core.feature.tabviews.home.di.homeDiModule
 import com.aya.digital.core.feature.tabviews.home.ui.model.HomeStateTransformer
 import com.aya.digital.core.feature.tabviews.home.ui.model.HomeUiModel
 import com.aya.digital.core.feature.tabviews.home.viewmodel.HomeState
-import com.aya.digital.core.feature.auth.signin.viewmodel.HomeViewModel
+import com.aya.digital.core.feature.tabviews.home.viewmodel.HomeViewModel
 import com.aya.digital.core.feature.tabviews.home.databinding.ViewHomeBinding
 import com.aya.digital.core.feature.tabviews.home.viewmodel.HomeSideEffects
-import com.aya.digital.core.mvi.BaseSideEffect
-import com.aya.digital.core.ui.adapters.base.BaseDelegateAdapter
 import com.aya.digital.core.ui.base.screens.DiFragment
 import org.kodein.di.DI
 import org.kodein.di.factory
@@ -30,17 +30,28 @@ class HomeView :
     ).factory()
 
     private val adapter by lazy(LazyThreadSafetyMode.NONE) {
-        BaseDelegateAdapter.create {
-
-
-        }
+       HomeAdapter(
+           onButtonClick = viewModel::onButtonClick
+       )
     }
 
+    private lateinit var lm: GridLayoutManager
     override fun prepareCreatedUi(savedInstanceState: Bundle?) {
         super.prepareCreatedUi(savedInstanceState)
-        binding.findDoctorBtn bindClick {viewModel.openDoctors()}
-        binding.appointmentsBtn bindClick {viewModel.openAppointments()}
-        binding.covidBtn bindClick {viewModel.openAppointments()}
+        recyclers.add(binding.rvHome)
+        with(binding.rvHome) {
+            itemAnimator = null
+            setHasFixedSize(false)
+            lm = GridLayoutManager(
+                context,
+                2,
+                RecyclerView.VERTICAL,
+                false
+            )
+            layoutManager = lm
+            addItemDecoration(HomeTabDecoration(context))
+
+        }
     }
 
 
@@ -58,8 +69,14 @@ class HomeView :
         }
 
     override fun render(state: HomeState) {
-        stateTransformer(state).data?.let {
-
+        stateTransformer(state).run {
+            data?.let {
+                adapter.items = it
+                if (binding.rvHome.adapter == null) {
+                    binding.rvHome.swapAdapter(adapter, true)
+                    lm.spanSizeLookup = HomeSpanSizeLookup(adapter)
+                }
+            }
         }
     }
 

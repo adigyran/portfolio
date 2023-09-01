@@ -9,5 +9,6 @@ data class DoctorSearchListUiModel(
     val data: List<DiffItem>? = null,
     val specialityFilterText: String? = null,
     val locationFilterText: String? = null,
-    val insuranceFilterText: String? = null
+    val insuranceFilterText: String? = null,
+    val filtersEnabled:Boolean=false
 ) : BaseUiModel

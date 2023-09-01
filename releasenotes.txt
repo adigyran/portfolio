@@ -1,149 +1,159 @@
-Added Firebase Distribution\n
-        Testing distribution notifications\nAdded Auth and Sign in Screens with insurance selector\n
-        Added bottom navigation, proper auth endpoints, code dialog\n
-        added check for auth to show main screen, added main and profile screens\n
-        added code input screen\n
-        now insurances loading by id\n
-        added profile screens - profile edit, profile view\n
-        profile security with ability to change email and password\n
-        profile emergency contact, profile notification settings\n
-        profile insurances\n
-        added screen to restore/change temp password\n
-        added proper signup profile validation\n
-        insurances working now\n
-        emergency contact\n
-        added avatar\n
-        auth, profile, main screen design\n
-        main screen WIP due to font oddities\n
-        added google auth\n
-        added toolbars, fixed design\n
-        added appointments list\n
-        doctor search test\n
-        doctor card test\n
-        video calls\nchanged app icon\n
-        fixed videocalls\n
-        fully working doctor card (without share and favorite for now)\n
-        fully working doctor slots\n
-        ability to select custom day for slots\n
-        creating an appointment (without result screen rn)\n
-        disabled tinting and titles on bottom navhost\n
-        fixed password change endpoint\n
-        fixed empty insurance photo\n
-        fixed profile crash\n
-        fixed appointments dates\n
-        added badge to appointments\n
-        added telemedicine icon\n
-        added logout to security screen\n
-        fixed profile saving\n
-        added ability to change audio output in videocall\n
-        added telemedicine flag to slots\n
-        changed default doctor\n
-        added info to appointment card, created doctor app\n
-        added telemed icon everywhere\n
-        added pull to refresh on appointments\n
-        version 26 patient, doctor 1\n
-        fixed endpoints\n
-        doctors list without pagination\n
-        version 27 patient\n
-        added pagination to doctors list\n
-        fixed back buttons, every button work now\n
-        version 28 patient, doctor 2\n
-        fixed api\n
-        version 29 patient, doctor 3\n
-        added appointment card with detail info\n
-        version 30 patient\n
-        added appointment card with patient info for doctor\n
-        version 31 patient, doctor 4\n
-        added appointments for specific date screen\n
-        added create appointment success screen\n
-        appoinments list is currently pretty slow, bc it load each doctor for each appointment, future cache will fix that\n
-        version 32 patient\n
-        added doctor caching (don't have cache update functionality yet)\n
-        version 33 patient\n
-        appointments split by status\n
-        fixed insurances\n
-        version 34 patient\n
-        version 35 patient\n
-        appointments split by status with colors\n
-        doctor filters without location rn\n
-        fixed some ui bugs\n
-        multiselect screen with search\n
-        version 36 patient\n
-        profile avatar fixed\n
-        collapsible appointments\n
-        doctor search\n
-        version 37 patient\n
-        ci/cd innerworkings
-        progress bar for app
-        home screen now clickable
-        moved hardcoded strings
-        profile avatar in bottom navigation
-        version 39 patient\n
-        fixed doctors filter
-        added progress bar for all network requests
-        version 40 patient\n
-        added pagination to filters
-        doctors can now be added to favorites
-        single mode filter has been fixed
-        version 41 patient\n
-        phone verification
-        notification settings
-        version 42 patient\n
-        notification switches - fixed appearance
-        version 43 patient\n
-        fixed screen rotation
-        fixed filters
-        version 44 patient\n
-        added doctors map with clustering
-        currently it has some navigation problems
-        you can toggle between list and map
-        version 45 patient\n
-        doctors favorite on map
-        geolocation
-        version 46 patient\n
-        fixed phone confirmation
-        fixed image upload on previous android versions
-        fixed insurances
-        added appointments spacer when it's only one in category,
-        Telemedicine button now shows message about 15 min before appointment time
-        code input dialog changed
-        phone now have input mask.
-        fixed profile update
-        version 50 patient\n
-        video call, keep screen on experiment
-        version 51 patient
-        profile update on back
-        version 52 patient
-        profile avatar image and insurance image size limit dialog
-        added phone mask to emergency contact
-        phone mask is fixed, now properly editable in emergency contact and change phone (this is temp fix)
-        emergency contact fields jumping fix
-        version 53 patient
-        doctors scroll fixes
-        version 54 patient
-        email field fixed
-        validation added to email and password reset
-        version 55 patient
-        code input size fix
-        telehealth wait time from server
-        version 57 patient
-        added finish with result navigation when changing password
-        fixed google auth infinite back
-        doctor profile demonstration
-        added doctor insurance
-        added doctor clinic info blank screen (temporary)
-        patient fields and doctor field separated in profile
-        added doctor scheduler demonstration
-        version 58 patient/version 5 doctor
-        refactored appointment participant fetch code
-        scheduler for doctor shows slots and appointments
-        added day choose to scheduler
-        added multiple appointments per slot dialog
-        telemedicine in doctor app working as intended
-        version 59 patient/version 6 doctor
-        fixed bugs for demonstration
-        added apply filters and clear filters
-        fixed videocall screen navigation
-        version 60 patient/version 7 doctor
+Added Firebase Distribution
+Testing distribution notificationsAdded Auth and Sign in Screens with insurance selector
+Added bottom navigation, proper auth endpoints, code dialog
+added check for auth to show main screen, added main and profile screens
+added code input screen
+now insurances loading by id
+added profile screens - profile edit, profile view
+profile security with ability to change email and password
+profile emergency contact, profile notification settings
+profile insurances
+added screen to restore/change temp password
+added proper signup profile validation
+insurances working now
+emergency contact
+added avatar
+auth, profile, main screen design
+main screen WIP due to font oddities
+added google auth
+added toolbars, fixed design
+added appointments list
+doctor search test
+doctor card test
+video callschanged app icon
+fixed videocalls
+fully working doctor card (without share and favorite for now)
+fully working doctor slots
+ability to select custom day for slots
+creating an appointment (without result screen rn)
+disabled tinting and titles on bottom navhost
+fixed password change endpoint
+fixed empty insurance photo
+fixed profile crash
+fixed appointments dates
+added badge to appointments
+added telemedicine icon
+added logout to security screen
+fixed profile saving
+added ability to change audio output in videocall
+added telemedicine flag to slots
+changed default doctor
+added info to appointment card, created doctor app
+added telemed icon everywhere
+added pull to refresh on appointments
+version 26 patient, doctor 1
+fixed endpoints
+doctors list without pagination
+version 27 patient
+added pagination to doctors list
+fixed back buttons, every button work now
+version 28 patient, doctor 2
+fixed api
+version 29 patient, doctor 3
+added appointment card with detail info
+version 30 patient
+added appointment card with patient info for doctor
+version 31 patient, doctor 4
+added appointments for specific date screen
+added create appointment success screen
+appoinments list is currently pretty slow, bc it load each doctor for each appointment, future cache will fix that
+version 32 patient
+added doctor caching (don't have cache update functionality yet)
+version 33 patient
+appointments split by status
+fixed insurances
+version 34 patient
+version 35 patient
+appointments split by status with colors
+doctor filters without location rn
+fixed some ui bugs
+multiselect screen with search
+version 36 patient
+profile avatar fixed
+collapsible appointments
+doctor search
+version 37 patient
+ci/cd innerworkings
+progress bar for app
+home screen now clickable
+moved hardcoded strings
+profile avatar in bottom navigation
+version 39 patient
+fixed doctors filter
+added progress bar for all network requests
+version 40 patient
+added pagination to filters
+doctors can now be added to favorites
+single mode filter has been fixed
+version 41 patient
+phone verification
+notification settings
+version 42 patient
+notification switches - fixed appearance
+version 43 patient
+fixed screen rotation
+fixed filters
+version 44 patient
+added doctors map with clustering
+currently it has some navigation problems
+you can toggle between list and map
+version 45 patient
+doctors favorite on map
+geolocation
+version 46 patient
+fixed phone confirmation
+fixed image upload on previous android versions
+fixed insurances
+added appointments spacer when it's only one in category,
+Telemedicine button now shows message about 15 min before appointment time
+code input dialog changed
+phone now have input mask.
+fixed profile update
+version 50 patient
+video call, keep screen on experiment
+version 51 patient
+profile update on back
+version 52 patient
+profile avatar image and insurance image size limit dialog
+added phone mask to emergency contact
+phone mask is fixed, now properly editable in emergency contact and change phone (this is temp fix)
+emergency contact fields jumping fix
+version 53 patient
+doctors scroll fixes
+version 54 patient
+email field fixed
+validation added to email and password reset
+version 55 patient
+code input size fix
+telehealth wait time from server
+version 57 patient
+added finish with result navigation when changing password
+fixed google auth infinite back
+doctor profile demonstration
+added doctor insurance
+added doctor clinic info blank screen (temporary)
+patient fields and doctor field separated in profile
+added doctor scheduler demonstration
+version 58 patient/version 5 doctor
+refactored appointment participant fetch code
+scheduler for doctor shows slots and appointments
+added day choose to scheduler
+added multiple appointments per slot dialog
+telemedicine in doctor app working as intended
+version 59 patient/version 6 doctor
+fixed bugs for demonstration
+added apply filters and clear filters
+fixed videocall screen navigation
+version 60 patient/version 7 doctor
+fixed videocall navigation
+doctor profile now fully works
+version 62 patient/version 9 doctor
+added dynamic home screen
+last updates working
+news working
+buttons working
+
+
+
 
 
