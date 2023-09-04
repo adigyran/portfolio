@@ -152,6 +152,9 @@ added dynamic home screen
 last updates working
 news working
 buttons working
+version 63 patient
+disabled screen rotation for investigation
+added home screen updating functionality
 
 
 

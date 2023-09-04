@@ -47,6 +47,12 @@ class HomeViewModel(
         getAppointmentsCount()
     }
 
+    fun getLastData()
+    {
+        getDoctorsCount()
+        getAppointmentsCount()
+    }
+
     private fun getDoctorsCount() = intent {
         getDoctorsUseCase(
             cursor = null,

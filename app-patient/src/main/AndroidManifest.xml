@@ -29,6 +29,7 @@
         <activity
             android:name="com.aya.digital.feature.rootcontainer.ui.RootView"
             android:theme="@style/Theme.HealthAppAya"
+            android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
