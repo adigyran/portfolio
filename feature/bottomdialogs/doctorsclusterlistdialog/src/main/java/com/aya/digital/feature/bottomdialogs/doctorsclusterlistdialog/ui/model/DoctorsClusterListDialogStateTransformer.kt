@@ -43,7 +43,7 @@ class DoctorsClusterListDialogStateTransformer(
     private fun DoctorModel.composeName() =
         "Dr. %s, %s".format(lastName, clinics.firstOrNull()?.clinicName)
 
-    private fun DoctorModel.getSpeciality() = "%s".format(specialities.firstOrNull()?.name)
+    private fun DoctorModel.getSpeciality() = "%s".format(specialities.firstOrNull()?.name?:"")
 
 }
 
