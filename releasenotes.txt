@@ -158,6 +158,8 @@ added home screen updating functionality
 version 64 patient
 removed null if doctor specialities is empty
 fixed parsing data crash on doctor schedule
+version 65 patient
+fixed cities list
 
 
 
