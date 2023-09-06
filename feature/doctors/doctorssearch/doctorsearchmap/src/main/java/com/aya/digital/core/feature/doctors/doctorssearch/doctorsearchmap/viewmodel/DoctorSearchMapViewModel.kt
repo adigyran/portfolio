@@ -4,6 +4,7 @@ package com.aya.digital.core.feature.doctors.doctorssearch.doctorsearchmap.viewm
 import com.aya.digital.core.data.base.dataprocessing.dataloading.DataLoadingOperationWithPagination
 import com.aya.digital.core.data.base.dataprocessing.dataloading.enums.OperationState
 import com.aya.digital.core.data.base.result.models.dictionaries.MultiSelectResultModel
+import com.aya.digital.core.data.base.result.models.doctors.SelectDoctorClusterResultModel
 import com.aya.digital.core.domain.doctors.base.GetDoctorsUseCase
 import com.aya.digital.core.domain.base.models.doctors.DoctorModel
 import com.aya.digital.core.domain.doctors.base.GetDoctorsByCoordinatesUseCase
@@ -22,6 +23,7 @@ import com.aya.digital.core.util.requestcodes.RequestCodes
 import kotlinx.coroutines.reactive.asFlow
 import kotlinx.coroutines.rx3.asFlow
 import kotlinx.coroutines.rx3.await
+import org.orbitmvi.orbit.syntax.simple.blockingIntent
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
@@ -128,11 +130,22 @@ class DoctorSearchMapViewModel(
         val selectedDoctors =
             state.doctors?.intersect(doctorIds) { doctorModel, i -> doctorModel.id == i }
         if (selectedDoctors.isNullOrEmpty()) return@intent
+        listenForDoctorSelection()
         coordinatorRouter.sendEvent(
             DoctorSearchMapNavigationEvents.OpenDoctorsCluster(
+                RequestCodes.DOCTOR_CLUSTER_LIST_REQUEST_CODE,
                 selectedDoctors
             )
         )
+    }
+
+    private fun listenForDoctorSelection() {
+        rootCoordinatorRouter.setResultListener(RequestCodes.DOCTOR_CLUSTER_LIST_REQUEST_CODE) {
+           if(it is SelectDoctorClusterResultModel)
+           {
+               onDoctorClicked(it.doctorId)
+           }
+        }
     }
 
     fun onDoctorMarkerClicked(doctorId: Int) = intent {

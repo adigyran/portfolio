@@ -7,7 +7,7 @@ sealed class DoctorSearchMapNavigationEvents : CoordinatorEvent() {
     object OpenDefaultScreen : DoctorSearchMapNavigationEvents()
     data class OpenDoctorCard(val doctorId: Int) : DoctorSearchMapNavigationEvents()
 
-    data class OpenDoctorsCluster(val doctors:List<DoctorModel>)  : DoctorSearchMapNavigationEvents()
+    data class OpenDoctorsCluster( val requestCode: String,val doctors:List<DoctorModel>)  : DoctorSearchMapNavigationEvents()
     data class SelectInsuranceCompanies(
         val requestCode: String,
         val selectedInsurancesIds: List<Int>?

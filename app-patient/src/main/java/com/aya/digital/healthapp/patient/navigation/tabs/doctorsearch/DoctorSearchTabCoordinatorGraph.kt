@@ -10,6 +10,8 @@ import com.aya.digital.core.feature.tabviews.doctorsearchcontainer.navigation.Do
 import com.aya.digital.core.navigation.coordinator.CoordinatorEvent
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
 import com.aya.digital.core.navigation.graph.navigator.FragmentContainerGraph
+import com.aya.digital.feature.bottomdialogs.doctorsclusterlistdialog.navigation.DoctorsClusterListDialogNavigationEvents
+import com.aya.digital.feature.bottomdialogs.doctorsclusterlistdialog.viewmodel.DoctorsClusterListDialogViewModel
 import com.aya.digital.feature.rootcontainer.navigation.RootContainerNavigationEvents
 import com.github.terrakok.cicerone.Router
 
