@@ -32,6 +32,7 @@ import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.SphericalUtil
 import com.google.maps.android.clustering.ClusterManager
+import io.reactivex.rxjava3.subjects.BehaviorSubject
 import org.kodein.di.DI
 import org.kodein.di.factory
 import org.kodein.di.on
@@ -60,6 +61,7 @@ internal class DoctorSearchMapView :
         }
     }
 
+    private val clusterManagerReadySubject = BehaviorSubject.create<Boolean>().apply { onNext(false) }
     private var mMap: MapView? = null
 
     private val locationPermissions = arrayOf(
@@ -135,10 +137,11 @@ internal class DoctorSearchMapView :
     override fun prepareUi(savedInstanceState: Bundle?) {
         super.prepareUi(savedInstanceState)
         getGeolocation()
+        clusterManagerReadySubject.onNext(false)
         mMap = binding.mapView
         mMap?.onCreate(savedInstanceState)
         mMap?.getMapAsync {
-            if (map != null) return@getMapAsync
+            if (map != null && savedInstanceState!=null) return@getMapAsync
             map = it
             configureMap()
             configureCluster()
@@ -189,8 +192,8 @@ internal class DoctorSearchMapView :
         map?.setOnCameraIdleListener(clusterManager)
         map?.setOnMarkerClickListener(clusterManager)
         map?.setOnInfoWindowClickListener(clusterManager)
+
         clusterManager?.setOnClusterClickListener { cluster ->
-            Timber.d("$cluster")
             val doctorMarkerModels = cluster?.items
             if (doctorMarkerModels.isNullOrEmpty()) return@setOnClusterClickListener true
             if (calculateClusterDensityIsSingleAddress(doctorMarkerModels.toList())) {
@@ -207,10 +210,10 @@ internal class DoctorSearchMapView :
             return@setOnClusterClickListener true
         }
         clusterManager?.setOnClusterItemClickListener {
-            Timber.d("$it")
             viewModel.onDoctorMarkerClicked(it.doctorId)
             true
         }
+        clusterManagerReadySubject.onNext(true)
     }
 
     override fun prepareCreatedUi(savedInstanceState: Bundle?) {
@@ -242,9 +245,11 @@ internal class DoctorSearchMapView :
         )
     }
 
+    @SuppressLint("CheckResult")
     override fun render(state: DoctorSearchMapState) {
         stateTransformer(state).run {
             data?.let { list ->
+                if (list.isEmpty()) return@let
                 binding.recycler.toggleVisibility(list.isNotEmpty())
                 adapter.items = list
                 if (binding.recycler.adapter == null) {
@@ -252,22 +257,16 @@ internal class DoctorSearchMapView :
                 }
             }
             markers?.let { list ->
-                if (list.isEmpty()) return@run
-                /*  map?.animateCamera(
-                      CameraUpdateFactory.newLatLngZoom(
-                          list.first().position,
-                          map?.cameraPosition!!.zoom + ZOOM_FACTOR
-                      )
-                  )*/
-                Timber.d("RENDER $clusterManager ${list.toString()}")
-                clusterManager?.clearItems()
-                clusterManager?.addItems(list)
-                clusterManager?.cluster()
+                if (list.isEmpty()) return@let
+                clusterManagerReadySubject.subscribe {
+                    if(!it) return@subscribe
+                    clusterManager?.clearItems()
+                    clusterManager?.addItems(list)
+                    clusterManager?.cluster()
+                }
+
             }
         }
-        /*stateTransformer(state).data?.let {
-
-        }*/
     }
 
     override fun onResume() {
@@ -289,6 +288,11 @@ internal class DoctorSearchMapView :
     override fun onLowMemory() {
         super.onLowMemory()
         mMap?.onLowMemory()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        clusterManager = null
     }
 
     override fun provideViewModel(): DoctorSearchMapViewModel = viewModelFactory(Unit)
