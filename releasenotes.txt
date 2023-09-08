@@ -152,6 +152,17 @@ added dynamic home screen
 last updates working
 news working
 buttons working
+version 63 patient
+disabled screen rotation for investigation
+added home screen updating functionality
+version 64 patient
+removed null if doctor specialities is empty
+fixed parsing data crash on doctor schedule
+version 65 patient
+fixed cities list
+version 66 patient
+fixed doctor cluster list open
+fixed doctors empty map
 
 
 

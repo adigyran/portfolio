@@ -55,6 +55,11 @@ class HomeView :
     }
 
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.getLastData()
+    }
+
     override fun provideDiModule(): DI.Module = homeDiModule(tryTyGetParentRouter())
 
     override fun provideViewBinding(

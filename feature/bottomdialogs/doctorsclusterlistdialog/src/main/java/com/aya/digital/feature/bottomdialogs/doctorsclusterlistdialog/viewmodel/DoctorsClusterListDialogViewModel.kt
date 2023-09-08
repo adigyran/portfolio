@@ -1,6 +1,7 @@
 package com.aya.digital.feature.bottomdialogs.doctorsclusterlistdialog.viewmodel
 
 
+import com.aya.digital.core.data.base.result.models.doctors.SelectDoctorClusterResultModel
 import com.aya.digital.core.domain.doctors.favourites.AddDoctorToFavoritesUseCase
 import com.aya.digital.core.domain.doctors.favourites.GetFavoriteDoctorsUseCase
 import com.aya.digital.core.domain.doctors.favourites.RemoveDoctorFromFavoritesUseCase
@@ -39,7 +40,9 @@ class DoctorsClusterListDialogViewModel(
 
 
     fun onDoctorClicked(doctorId: Int) = intent {
-        coordinatorRouter.sendEvent(DoctorsClusterListDialogNavigationEvents.OpenDoctorCard(doctorId = doctorId))
+        coordinatorRouter.sendEvent(DoctorsClusterListDialogNavigationEvents.FinishWithResult(param.requestCode,
+            SelectDoctorClusterResultModel(doctorId)
+        ))
     }
 
     fun close() = intent {

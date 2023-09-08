@@ -101,7 +101,6 @@ internal class DoctorMapMarkerRenderer(
 
     private fun showDoctorImage(photo:String?)
     {
-        Timber.d("$photo $doctorAvatarIv")
         if(doctorAvatarIv==null || photo==null) return
         Glide
             .with(doctorAvatarIv!!)
@@ -109,7 +108,6 @@ internal class DoctorMapMarkerRenderer(
             .transform(
                 CircleCrop()
             )
-            .dontAnimate()
             .into(doctorAvatarIv!!)
     }
 

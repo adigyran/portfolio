@@ -11,6 +11,7 @@ import com.aya.digital.core.feature.bottomnavhost.navigation.BottomNavHostScreen
 import com.aya.digital.core.feature.choosers.multiselect.navigation.SelectWithSearchNavigationEvents
 import com.aya.digital.core.feature.choosers.multiselect.navigation.SelectWithSearchScreen
 import com.aya.digital.core.feature.doctors.doctorcard.navigation.DoctorCardNavigationEvents
+import com.aya.digital.core.feature.doctors.doctorcard.navigation.DoctorCardScreen
 import com.aya.digital.core.feature.doctors.doctorssearch.doctorsearchmap.navigation.DoctorSearchMapNavigationEvents
 import com.aya.digital.core.feature.tabviews.appointments.navigation.AppointmentsNavigationEvents
 import com.aya.digital.core.feature.videocall.videocallscreen.navigation.VideoCallScreenNavigationEvents
@@ -27,6 +28,7 @@ import com.aya.digital.feature.bottomdialogs.successappointmentdialog.navigation
 import com.aya.digital.feature.bottomdialogs.dateappointmentsdialog.navigation.DateAppointmentsDialogNavigationEvents
 import com.aya.digital.feature.bottomdialogs.dateappointmentsdialog.navigation.DateAppointmentsDialogScreen
 import com.aya.digital.feature.bottomdialogs.dateappointmentsdialog.ui.DateAppointmentsDialogView
+import com.aya.digital.feature.bottomdialogs.doctorsclusterlistdialog.navigation.DoctorsClusterListDialogNavigationEvents
 import com.aya.digital.feature.bottomdialogs.doctorsclusterlistdialog.navigation.DoctorsClusterListDialogScreen
 import com.aya.digital.feature.rootcontainer.navigation.RootContainerNavigationEvents
 import com.github.terrakok.cicerone.Router
@@ -112,13 +114,14 @@ class PatientRootCoordinatorGraph(context: Context) : RootCoordinatorGraph {
             }
 
             is CodeDialogNavigationEvents.FinishWithResult -> {
-                navigationRouter.exit()
                 navigationRouter.sendResult(event.requestCode, event.result)
+                navigationRouter.exit()
+
             }
 
             is SelectWithSearchNavigationEvents.FinishWithResult -> {
-                navigationRouter.exit()
                 navigationRouter.sendResult(event.requestCode, event.result)
+                navigationRouter.exit()
             }
 
             is CodeDialogNavigationEvents.Exit -> {
@@ -181,12 +184,22 @@ class PatientRootCoordinatorGraph(context: Context) : RootCoordinatorGraph {
                 navigationRouter.navigateTo(
                     DoctorsClusterListDialogScreen(
                         "CLUSTER_LIST",
-                        "TTT",
+                        event.requestCode,
                         event.doctors
                     )
                 )
             }
 
+
+           /* is DoctorsClusterListDialogNavigationEvents.OpenDoctorCard -> {
+                navigationRouter.navigateTo(DoctorCardScreen(event.doctorId))
+            }*/
+
+
+            is DoctorsClusterListDialogNavigationEvents.FinishWithResult -> {
+                navigationRouter.sendResult(event.requestCode, event.result)
+                navigationRouter.exit()
+            }
             is BottomNavHostNavigationEvents.Finish -> navigationRouter.exit()
 
             is CoordinatorEvent.Back -> {
