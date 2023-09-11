@@ -5,6 +5,7 @@ import com.aya.digital.core.network.api.services.DictionariesService
 import com.aya.digital.core.network.main.di.modules.createApiService
 import com.aya.digital.core.network.model.response.base.PagedCursorResponse
 import com.aya.digital.core.network.model.response.doctors.CityResponse
+import com.aya.digital.core.network.model.response.doctors.MedicalDegreeResponse
 import com.aya.digital.core.network.model.response.doctors.SpecialityResponse
 import com.aya.digital.core.network.model.response.language.LanguageResponse
 import com.aya.digital.core.network.model.response.profile.InsuranceCompanyResponse
@@ -29,10 +30,10 @@ class RetrofitDictionariesNetwork(private val network: DictionariesService) :
     DictionariesDataSource {
     override fun getInsuranceCompanies(
         searchTerm: String?,
-        selectedIds:List<Int>,
+        selectedIds: List<Int>,
         cursor: String?
     ): Flowable<PagedCursorResponse<InsuranceCompanyResponse>> =
-        network.getInsurances(searchTerm, cursor,selectedIds)
+        network.getInsurances(searchTerm, cursor, selectedIds)
 
     override fun getInsuranceCompanyById(id: Int): Single<PagedCursorResponse<InsuranceCompanyResponse>> =
         network.getInsuranceById(id)
@@ -42,22 +43,29 @@ class RetrofitDictionariesNetwork(private val network: DictionariesService) :
 
     override fun getSpecialisations(
         searchTerm: String?,
-        selectedIds:List<Int>,
+        selectedIds: List<Int>,
         cursor: String?
     ): Flowable<PagedCursorResponse<SpecialityResponse>> =
-        network.getSpecialities(searchTerm, cursor,selectedIds)
+        network.getSpecialities(searchTerm, cursor, selectedIds)
 
     override fun getCities(
         searchTerm: String?,
-        selectedIds:List<Int>,
+        selectedIds: List<Int>,
         cursor: String?
     ): Flowable<PagedCursorResponse<CityResponse.CityContent>> =
-        network.getCities(searchTerm, cursor,selectedIds)
+        network.getCities(searchTerm, cursor, selectedIds)
 
     override fun getLanguages(
         searchTerm: String?,
         selectedIds: List<Int>,
         cursor: String?
     ): Flowable<PagedCursorResponse<LanguageResponse>> =
-        network.getLanguages(searchTerm,cursor,selectedIds)
+        network.getLanguages(searchTerm, cursor, selectedIds)
+
+    override fun getMedicalDegrees(
+        searchTerm: String?,
+        selectedIds: List<Int>,
+        cursor: String?
+    ): Flowable<PagedCursorResponse<MedicalDegreeResponse>> =
+        network.getMedicalDegrees(searchTerm, cursor, selectedIds)
 }

@@ -3,6 +3,7 @@ package com.aya.digital.core.network.api.services
 import com.aya.digital.core.network.model.request.*
 import com.aya.digital.core.network.model.response.base.PagedCursorResponse
 import com.aya.digital.core.network.model.response.doctors.CityResponse
+import com.aya.digital.core.network.model.response.doctors.MedicalDegreeResponse
 import com.aya.digital.core.network.model.response.doctors.SpecialityResponse
 import com.aya.digital.core.network.model.response.language.LanguageResponse
 import com.aya.digital.core.network.model.response.profile.InsuranceCompanyResponse
@@ -43,12 +44,20 @@ interface DictionariesService {
         @Query("sizeCollection") size: Int = 25
     ): Flowable<PagedCursorResponse<CityResponse.CityContent>>
 
-    @GET("search-app/api/languages")
+    @GET("search-app/languages")
     fun getLanguages(
         @Query("search") searchTerm: String?,
         @Query("scrollId") cursor: String?,
         @Query("selectItemsIds") selectedItems: List<Int>?,
         @Query("sizeCollection") size: Int = 25
     ): Flowable<PagedCursorResponse<LanguageResponse>>
+
+    @GET("search-app/medical-degrees")
+    fun getMedicalDegrees(
+        @Query("search") searchTerm: String?,
+        @Query("scrollId") cursor: String?,
+        @Query("selectItemsIds") selectedItems: List<Int>?,
+        @Query("sizeCollection") size: Int = 25
+    ): Flowable<PagedCursorResponse<MedicalDegreeResponse>>
 
 }

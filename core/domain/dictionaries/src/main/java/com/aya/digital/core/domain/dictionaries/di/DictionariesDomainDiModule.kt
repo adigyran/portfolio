@@ -6,7 +6,7 @@ import com.aya.digital.core.domain.dictionaries.base.impl.GetMultiSelectItemsUse
 import com.aya.digital.core.domain.dictionaries.cities.GetCityItemsUseCase
 import com.aya.digital.core.domain.dictionaries.cities.impl.GetCityItemsUseCaseImpl
 import com.aya.digital.core.domain.dictionaries.languages.GetLanguageItemsUseCase
-import com.aya.digital.core.domain.dictionaries.cities.impl.GetLanguageItemsUseCaseImpl
+import com.aya.digital.core.domain.dictionaries.languages.impl.GetLanguageItemsUseCaseImpl
 import com.aya.digital.core.domain.dictionaries.insurancecompany.GetInsuranceCompanyItemByIdUseCase
 import com.aya.digital.core.domain.dictionaries.insurancecompany.impl.GetInsuranceCompanyItemByIdUseCaseImpl
 import com.aya.digital.core.domain.dictionaries.insurancecompany.impl.GetInsuranceCompanyItemsUseCaseImpl

@@ -137,6 +137,10 @@ class PatientRootCoordinatorGraph(context: Context) : RootCoordinatorGraph {
                 navigationRouter.sendResult(event.requestCode, event.result)
             }
 
+            is CreateAppointmentDialogNavigationEvents.Exit -> {
+                navigationRouter.exit()
+            }
+
             is DateAppointmentsDialogNavigationEvents.FinishWithResult -> {
                 navigationRouter.exit()
                 navigationRouter.sendResult(event.requestCode, event.result)

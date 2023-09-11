@@ -14,7 +14,8 @@ fun dictionariesRepositoryDiModule() = DI.Module("dictionariesRepositoryDiModule
             insuranceMapper = instance(),
             specialityMapper = instance(),
             cityMapper = instance(),
-            languageMapper = instance()
+            languageMapper = instance(),
+            medicalDegreeMapper = instance()
         )
     }
 }

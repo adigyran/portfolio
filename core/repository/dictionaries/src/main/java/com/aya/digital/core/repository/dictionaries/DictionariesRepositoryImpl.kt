@@ -4,15 +4,16 @@ import com.aya.digital.core.data.base.dataprocessing.PaginationCursorModel
 import com.aya.digital.core.data.dictionaries.CityModel
 import com.aya.digital.core.data.dictionaries.InsuranceCompanyModel
 import com.aya.digital.core.data.dictionaries.LanguageModel
+import com.aya.digital.core.data.dictionaries.MedicalDegreeModel
 import com.aya.digital.core.data.dictionaries.SpecialityModel
 import com.aya.digital.core.data.dictionaries.mappers.CityMapper
 import com.aya.digital.core.data.dictionaries.mappers.InsuranceCompanyMapper
 import com.aya.digital.core.data.dictionaries.mappers.LanguageMapper
+import com.aya.digital.core.data.dictionaries.mappers.MedicalDegreeMapper
 import com.aya.digital.core.data.dictionaries.mappers.SpecialityMapper
 import com.aya.digital.core.data.dictionaries.repository.DictionariesRepository
 import com.aya.digital.core.datasource.DictionariesDataSource
 import com.aya.digital.core.ext.*
-import com.aya.digital.core.network.model.response.doctors.CityResponse
 import com.aya.digital.core.networkbase.CommonUtils
 import com.aya.digital.core.networkbase.server.RequestResult
 import io.reactivex.rxjava3.core.Flowable
@@ -24,7 +25,8 @@ class DictionariesRepositoryImpl(
     private val insuranceMapper: InsuranceCompanyMapper,
     private val specialityMapper: SpecialityMapper,
     private val cityMapper: CityMapper,
-    private val languageMapper: LanguageMapper
+    private val languageMapper: LanguageMapper,
+    private val medicalDegreeMapper: MedicalDegreeMapper
 ) : DictionariesRepository {
 
     override fun getInsuranceCompanies(
@@ -112,6 +114,26 @@ class DictionariesRepositoryImpl(
                     val languages = languageMapper.mapFromList(result.data)
                     PaginationCursorModel(
                         languages,
+                        result.scrollToken,
+                        result.sizeResult
+                    ).asResult()
+                },
+                { it }
+            )
+
+    override fun getMedicalDegrees(
+        searchTerm: String?,
+        selectedIds: List<Int>,
+        cursor: String?
+    ): Flowable<RequestResult<PaginationCursorModel<MedicalDegreeModel>>> =
+        dictionariesDataSource.getMedicalDegrees(searchTerm, selectedIds, cursor)
+            .retryOnError()
+            .retrofitResponseToResult(CommonUtils::mapServerErrors)
+            .mapResult(
+                { result ->
+                    val medicalDegreeModels = medicalDegreeMapper.mapFromList(result.data)
+                    PaginationCursorModel(
+                        medicalDegreeModels,
                         result.scrollToken,
                         result.sizeResult
                     ).asResult()

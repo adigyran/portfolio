@@ -96,7 +96,7 @@ class ProfileGeneralInfoEditViewModel(
     }
 
     private fun listenForLanguages() = intent {
-        rootCoordinatorRouter.setResultListener(RequestCodes.INSURANCE_LIST_REQUEST_CODE) { result ->
+        rootCoordinatorRouter.setResultListener(RequestCodes.LANGUAGES_LIST_REQUEST_CODE) { result ->
             if (result is MultiSelectResultModel && result.selectedItems.isNotEmpty()) {
                 setLanguages(result.selectedItems.map {
                     FlavoredProfileModel.DoctorProfileModel.Language(
