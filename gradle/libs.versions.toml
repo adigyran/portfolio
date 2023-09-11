@@ -136,7 +136,7 @@ lint = "30.3.1"
 detekt = "1.22.0"
 
 #leak canary
-leakCanary = "2.10"
+leakCanary = "2.12"
 
 #documentation
 dokka = "1.7.20"
