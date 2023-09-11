@@ -14,6 +14,7 @@ import com.aya.digital.core.ui.delegates.appointments.patientappointment.model.P
 import com.aya.digital.core.ui.delegates.appointments.patientappointment.model.PatientAppointmentsStatusFooterUIModel
 import com.aya.digital.core.ui.delegates.appointments.patientappointment.model.PatientAppointmentsStatusHeaderUIModel
 import com.aya.digital.core.util.datetime.DateTimeUtils
+import kotlinx.datetime.toKotlinLocalDateTime
 
 class AppointmentsStateTransformer(
     private val context: Context,
@@ -25,7 +26,7 @@ class AppointmentsStateTransformer(
                 return@run mutableListOf<DiffItem>().apply {
                     state.appointments?.run {
                         AppointmentModel.AppointmentStatus.values().forEach { status ->
-                            val appointments = state.appointments.filter { it.status == status }
+                            val appointments = state.appointments.filter { it.status == status }.sortedBy { appointmentData -> appointmentData.startDate }
                             if(appointments.isEmpty())
                             {
                                 add(PatientAppointmentsStatusHeaderUIModel(status = status.mapToUiStatus(), isEmpty = true))
@@ -76,7 +77,7 @@ class AppointmentsStateTransformer(
         return PatientAppointmentUIModel(
             id = this.id,
             startDateTime = dateTimeUtils.formatAppointmentDateTime(
-                this.startDate
+                this.startDate.toKotlinLocalDateTime()
             ),
             duration = "",
             doctorName = "Dr. %s, %s".format(

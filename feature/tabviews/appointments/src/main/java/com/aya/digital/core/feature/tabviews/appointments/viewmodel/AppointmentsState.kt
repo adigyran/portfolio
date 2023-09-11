@@ -4,9 +4,8 @@ import android.os.Parcelable
 import com.aya.digital.core.domain.base.models.appointment.AppointmentModel
 import com.aya.digital.core.domain.base.models.doctors.DoctorModel
 import com.aya.digital.core.mvi.BaseState
-import kotlinx.datetime.LocalDateTime
 import kotlinx.parcelize.Parcelize
-import kotlinx.parcelize.RawValue
+import java.time.LocalDateTime
 
 @Parcelize
 data class AppointmentsState(
@@ -17,7 +16,7 @@ data class AppointmentsState(
 @Parcelize
 data class AppointmentData(
     val id: Int,
-    val startDate: @RawValue LocalDateTime,
+    val startDate: LocalDateTime,
     val status: AppointmentModel.AppointmentStatus = AppointmentModel.AppointmentStatus.SCHEDULED,
     val isTelemed: Boolean = false,
     val doctor: AppointmentDoctor? = null

@@ -59,7 +59,7 @@ class AppointmentsViewModel(
     private fun AppointmentWithParticipantModel.toPatientAppointments() =
         AppointmentData(
             id = appointmentModel.id,
-            startDate = appointmentModel.startDate.toKotlinLocalDateTime(),
+            startDate = appointmentModel.startDate,
             isTelemed = appointmentModel.type is AppointmentType.Online,
             status = appointmentModel.status,
             doctor = if (appointmentParticipant != null && appointmentParticipant is AppointmentDoctorParticipant) (appointmentParticipant as? AppointmentDoctorParticipant)?.mapToAppointmentDoctor() else null
