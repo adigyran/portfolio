@@ -74,6 +74,7 @@ dependencies {
     implementation(project(":feature:rootcontainer"))
     implementation(project(":feature:bottomdialogs:bottomdialog"))
     implementation(project(":feature:bottomdialogs:dateappointmentsdialog"))
+    implementation(project(":feature:bottomdialogs:createscheduledialog"))
     implementation(project(":feature:bottomdialogs:codedialog"))
     implementation(project(":feature:bottomnavhost"))
     implementation(project(":feature:tabs:appointments"))

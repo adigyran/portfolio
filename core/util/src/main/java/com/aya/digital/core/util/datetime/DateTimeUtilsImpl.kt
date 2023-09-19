@@ -15,7 +15,7 @@ internal class DateTimeUtilsImpl(
         date.toString()
 
     override fun parseYmdDate(date: String): LocalDate =
-        date.parыe(formatters.dateFormatterYmd)
+        date.parse(formatters.dateFormatterYmd)
 
     override fun formatYmdDate(date: LocalDate): String =
         date.format(formatters.dateFormatterYmd)
@@ -25,6 +25,12 @@ internal class DateTimeUtilsImpl(
 
     override fun formatSlotTime(time: LocalTime): String =
         time.format(formatters.dateFormatterTimeSlot)
+
+    override fun format24HoursTime(time: LocalTime): String =
+        time.format(formatters.dateFormatter24Hours)
+
+    override fun formatTimeZone(date: LocalDate): String =
+        date.format(formatters.dateFormatterTimeZone)
 
     override fun formatSchedulerSlotTime(time: LocalTime): String = time.format(formatters.dateFormatterSchedulerTimeSlot)
 
@@ -62,7 +68,7 @@ internal class DateTimeUtilsImpl(
     private fun LocalDate.format(formatter: ThreadLocal<DateTimeFormatter>) =
         this.toJavaLocalDate().format(formatter.get())
 
-    private fun String.parыe(formatter: ThreadLocal<DateTimeFormatter>) =
+    private fun String.parse(formatter: ThreadLocal<DateTimeFormatter>) =
         java.time.LocalDate.parse(this, formatter.get()).toKotlinLocalDate()
 
 }

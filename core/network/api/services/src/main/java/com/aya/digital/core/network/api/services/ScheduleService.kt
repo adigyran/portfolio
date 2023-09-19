@@ -32,7 +32,7 @@ interface ScheduleService {
         @Query("status") status:List<String> = listOf("free","busy")
     ): Single<List<SlotResponse>>
 
-    @POST("api/schedules/with-slots")
+    @POST("api/schedules")
     fun create(
         @Body scheduleWithSlots: ScheduleWithSlotsBody
     ): Completable

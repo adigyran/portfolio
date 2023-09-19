@@ -37,14 +37,12 @@ internal class DoctorRepositoryImpl(
     private val doctorDataMapper: DoctorDataMapper,
     private val patientDataMapper: PatientDataMapper,
     private val doctorsDao: DoctorsDao
-) : DoctorRepository {
+) :  DoctorRepository {
     override fun fetchDoctorById(id: Int): Single<RequestResult<DoctorData>> =
         doctorsDao.isDoctorExist(id)
             .flatMap { doctorExist ->
                 //TODO temp disable caching
-                if (doctorExist && ENABLE_DOCTORS_CACHING) return@flatMap doctorsDao.getDoctor(id)
-                    .map { it.asExternalModel().asResult() }
-                else return@flatMap loadDoctorFromNetworkAndSave(id)
+                 return@flatMap loadDoctorFromNetworkAndSave(id)
             }
 
     private fun loadDoctorFromNetworkAndSave(id: Int) =
@@ -54,7 +52,7 @@ internal class DoctorRepositoryImpl(
             .flatMapResult({ doctorDataResponse ->
                 val doctorData = doctorDataMapper.mapFrom(doctorDataResponse)
                 Single.just(doctorData)
-                    .flatMap { saveData(it) }
+                  //  .flatMap { saveData(it) }
                     .map { doctorData.asResult() }
 
             }, { Single.just(it) })

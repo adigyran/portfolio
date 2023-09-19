@@ -164,6 +164,7 @@ include(":feature:bottomdialogs:createappointmentdialog")
 include(":feature:bottomdialogs:dateappointmentsdialog")
 include(":feature:bottomdialogs:successappointmentdialog")
 include(":feature:bottomdialogs:doctorsclusterlistdialog")
+include(":feature:bottomdialogs:createscheduledialog")
 
 //auth
 include(":feature:auth:chooser")

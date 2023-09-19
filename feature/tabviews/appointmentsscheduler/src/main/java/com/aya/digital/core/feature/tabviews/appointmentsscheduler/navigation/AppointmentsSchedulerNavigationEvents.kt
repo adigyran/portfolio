@@ -1,6 +1,7 @@
 package com.aya.digital.core.feature.tabviews.appointmentsscheduler.navigation
 
 import com.aya.digital.core.navigation.coordinator.CoordinatorEvent
+import java.time.LocalDate
 import java.time.LocalDateTime
 
 sealed class AppointmentsSchedulerNavigationEvents : CoordinatorEvent() {
@@ -16,4 +17,6 @@ sealed class AppointmentsSchedulerNavigationEvents : CoordinatorEvent() {
         AppointmentsSchedulerNavigationEvents()
 
     data class OpenVideoCall(val roomId: Int) : AppointmentsSchedulerNavigationEvents()
+
+    data class CreateSlots(val requestCode: String,val date: LocalDate):AppointmentsSchedulerNavigationEvents()
 }

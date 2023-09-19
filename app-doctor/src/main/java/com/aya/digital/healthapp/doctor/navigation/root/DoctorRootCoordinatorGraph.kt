@@ -6,10 +6,13 @@ import com.aya.digital.core.feature.bottomnavhost.navigation.BottomNavHostScreen
 import com.aya.digital.core.feature.choosers.multiselect.navigation.SelectWithSearchNavigationEvents
 import com.aya.digital.core.feature.choosers.multiselect.navigation.SelectWithSearchScreen
 import com.aya.digital.core.feature.tabviews.appointmentsscheduler.navigation.AppointmentsSchedulerNavigationEvents
+import com.aya.digital.core.feature.videocall.videocallscreen.navigation.VideoCallScreenScreen
 import com.aya.digital.core.navigation.bottomnavigation.StartScreen
 import com.aya.digital.core.navigation.coordinator.CoordinatorEvent
 import com.aya.digital.core.navigation.graph.coordinator.RootCoordinatorGraph
 import com.aya.digital.feature.auth.container.navigation.AuthContainerScreen
+import com.aya.digital.feature.bottomdialogs.createscheduledialog.navigation.CreateScheduleDialogNavigationEvents
+import com.aya.digital.feature.bottomdialogs.createscheduledialog.navigation.CreateScheduleDialogScreen
 import com.aya.digital.feature.bottomdialogs.dateappointmentsdialog.navigation.DateAppointmentsDialogNavigationEvents
 import com.aya.digital.feature.bottomdialogs.dateappointmentsdialog.navigation.DateAppointmentsDialogScreen
 import com.aya.digital.feature.bottomdialogs.dateappointmentsdialog.ui.DateAppointmentsDialogView
@@ -24,6 +27,7 @@ class DoctorRootCoordinatorGraph(context: Context) : RootCoordinatorGraph {
     init {
         this.contextWeak = WeakReference(context)
     }
+
     override fun processEvent(
         event: CoordinatorEvent,
         navigationRouter: Router,
@@ -32,12 +36,11 @@ class DoctorRootCoordinatorGraph(context: Context) : RootCoordinatorGraph {
         fun openRootScreen(startScreen: StartScreen) =
             navigationRouter.newRootScreen(BottomNavHostScreen(startScreen))
 
-        when(event)
-        {
-            is RootContainerNavigationEvents.OpenDefaultScreen ->
-            {
+        when (event) {
+            is RootContainerNavigationEvents.OpenDefaultScreen -> {
                 navigationRouter.newRootScreen(AuthContainerScreen)
             }
+
             is RootContainerNavigationEvents.OpenDefaultScreenAuthorized -> {
                 openRootScreen(StartScreen.APPOINTMENTS)
             }
@@ -79,13 +82,38 @@ class DoctorRootCoordinatorGraph(context: Context) : RootCoordinatorGraph {
                     )
                 )
             }
+
+            is AppointmentsSchedulerNavigationEvents.CreateSlots -> {
+                navigationRouter.navigateTo(
+                    CreateScheduleDialogScreen(
+                        tag = "CREATE_SCHEDULE",
+                        requestCode = event.requestCode,
+                        date = event.date
+                    )
+                )
+            }
+
+            is RootContainerNavigationEvents.OpenVideoCall -> {
+                navigationRouter.navigateTo(VideoCallScreenScreen(event.roomId))
+            }
+
             is DateAppointmentsDialogNavigationEvents.FinishWithResult -> {
                 navigationRouter.exit()
                 navigationRouter.sendResult(event.requestCode, event.result)
             }
+
             is SelectWithSearchNavigationEvents.FinishWithResult -> {
                 navigationRouter.exit()
                 navigationRouter.sendResult(event.requestCode, event.result)
+            }
+
+            is CreateScheduleDialogNavigationEvents.FinishWithResult -> {
+                navigationRouter.exit()
+                navigationRouter.sendResult(event.requestCode, event.result)
+            }
+
+            is CreateScheduleDialogNavigationEvents.Exit -> {
+                navigationRouter.exit()
             }
 
         }

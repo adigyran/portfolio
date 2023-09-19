@@ -88,8 +88,21 @@ class AppointmentsSchedulerViewModel(
 
     fun onSlotClicked(slotId: Int) = openSlotAppointments(slotId)
 
-    fun onCreateScheduleClicked() {
+    fun onCreateScheduleClicked()  = intent {
+        val selectedDate = state.selectedDay
+        selectedDate?.let {
+            listenForScheduleCreation()
+            coordinatorRouter.sendEvent(AppointmentsSchedulerNavigationEvents.CreateSlots(
+                requestCode = RequestCodes.CREATE_SCHEDULE_REQUEST_CODE,
+                date = selectedDate
+            ))
+        }
+    }
 
+    private fun listenForScheduleCreation() {
+        rootCoordinatorRouter.setResultListener(RequestCodes.CREATE_SCHEDULE_REQUEST_CODE) {
+            refreshDay()
+        }
     }
 
     private fun openSlotAppointments(slotId: Int) = intent {

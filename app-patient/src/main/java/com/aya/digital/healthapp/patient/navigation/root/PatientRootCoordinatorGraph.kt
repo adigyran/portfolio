@@ -2,7 +2,6 @@ package com.aya.digital.healthapp.patient.navigation.root
 
 import android.content.Context
 import androidx.fragment.app.FragmentManager
-import com.aya.digital.core.feature.appointments.appointmentcard.navigation.AppointmentCardNavigationEvents
 import com.aya.digital.core.feature.auth.restorepassword.navigation.RestorePasswordNavigationEvents
 import com.aya.digital.core.feature.auth.restorepassword.navigation.RestorePasswordOperationStateParam
 import com.aya.digital.core.feature.auth.restorepassword.navigation.RestorePasswordScreen
@@ -22,8 +21,8 @@ import com.aya.digital.core.navigation.graph.coordinator.RootCoordinatorGraph
 import com.aya.digital.feature.auth.container.navigation.AuthContainerScreen
 import com.aya.digital.feature.bottomdialogs.codedialog.navigation.CodeDialogNavigationEvents
 import com.aya.digital.feature.bottomdialogs.codedialog.navigation.CodeDialogScreen
-import com.aya.digital.feature.bottomdialogs.createappointmentdialog.navigation.CreateAppointmentDialogNavigationEvents
-import com.aya.digital.feature.bottomdialogs.createappointmentdialog.navigation.CreateAppointmentDialogScreen
+import com.aya.digital.feature.bottomdialogs.createscheduledialog.navigation.CreateScheduleDialogNavigationEvents
+import com.aya.digital.feature.bottomdialogs.createscheduledialog.navigation.CreateScheduleDialogScreen
 import com.aya.digital.feature.bottomdialogs.successappointmentdialog.navigation.SuccessAppointmentDialogScreen
 import com.aya.digital.feature.bottomdialogs.dateappointmentsdialog.navigation.DateAppointmentsDialogNavigationEvents
 import com.aya.digital.feature.bottomdialogs.dateappointmentsdialog.navigation.DateAppointmentsDialogScreen
@@ -132,7 +131,7 @@ class PatientRootCoordinatorGraph(context: Context) : RootCoordinatorGraph {
                 navigationRouter.exit()
             }
 
-            is CreateAppointmentDialogNavigationEvents.FinishWithResult -> {
+            is CreateScheduleDialogNavigationEvents.FinishWithResult -> {
                 navigationRouter.exit()
                 navigationRouter.sendResult(event.requestCode, event.result)
             }
@@ -153,7 +152,7 @@ class PatientRootCoordinatorGraph(context: Context) : RootCoordinatorGraph {
 
             is DoctorCardNavigationEvents.CreateAppointment -> {
                 navigationRouter.navigateTo(
-                    CreateAppointmentDialogScreen(
+                    CreateScheduleDialogScreen(
                         "CREATE_APPOINTMENT",
                         event.requestCode,
                         event.doctorId,

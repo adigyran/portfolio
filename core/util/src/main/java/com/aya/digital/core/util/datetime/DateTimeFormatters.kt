@@ -24,6 +24,20 @@ internal class DateTimeFormatters(private val context: Context) {
                 .currentLocale()
     }
 
+    val dateFormatter24Hours = object : ThreadLocal<DateTimeFormatter>() {
+        override fun initialValue(): DateTimeFormatter =
+            DateTimeFormatter
+                .ofPattern(context.strings[R.string.time_24_hours_format])
+                .currentLocale()
+    }
+
+    val dateFormatterTimeZone  = object : ThreadLocal<DateTimeFormatter>() {
+        override fun initialValue(): DateTimeFormatter =
+            DateTimeFormatter
+                .ofPattern(context.strings[R.string.timezone_offset_format])
+                .currentLocale()
+    }
+
     val dateFormatterTimeSlot = object : ThreadLocal<DateTimeFormatter>() {
         override fun initialValue(): DateTimeFormatter =
             DateTimeFormatter

@@ -4,8 +4,10 @@ import com.aya.digital.core.domain.schedule.base.GetLatestScheduleByDoctorIdByDa
 import com.aya.digital.core.domain.schedule.base.GetLatestScheduleByDoctorIdUseCase
 import com.aya.digital.core.domain.schedule.base.impl.GetLatestScheduleByDoctorIdByDateUseCaseImpl
 import com.aya.digital.core.domain.schedule.base.impl.GetLatestScheduleByDoctorIdUseCaseImpl
+import com.aya.digital.core.domain.schedule.doctor.scheduler.CreateDaySlotsScheduleUseCase
 import com.aya.digital.core.domain.schedule.doctor.scheduler.GetDaySlotsScheduleUseCase
 import com.aya.digital.core.domain.schedule.doctor.scheduler.GetMonthScheduleUseCase
+import com.aya.digital.core.domain.schedule.doctor.scheduler.impl.CreateDaySlotsScheduleUseCaseImpl
 import com.aya.digital.core.domain.schedule.doctor.scheduler.impl.GetDaySlotsScheduleUseCaseImpl
 import com.aya.digital.core.domain.schedule.doctor.scheduler.impl.GetMonthScheduleUseCaseImpl
 import com.aya.digital.core.domain.schedule.patient.selectable.GetSelectableScheduleByDoctorIdUseCase
@@ -39,6 +41,13 @@ fun scheduleDomainDiModule() = DI.Module("scheduleDomainDiModule") {
     bind<GetDaySlotsScheduleUseCase>() with singleton {
         GetDaySlotsScheduleUseCaseImpl(
             instance(),
+            instance(),
+            instance()
+        )
+    }
+
+    bind<CreateDaySlotsScheduleUseCase>() with singleton {
+        CreateDaySlotsScheduleUseCaseImpl(
             instance(),
             instance()
         )
