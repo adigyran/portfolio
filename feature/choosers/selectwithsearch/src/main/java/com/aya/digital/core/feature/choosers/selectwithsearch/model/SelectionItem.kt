@@ -1,4 +1,4 @@
-package com.aya.digital.core.feature.choosers.multiselect.model
+package com.aya.digital.core.feature.choosers.selectwithsearch.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

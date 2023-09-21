@@ -1,7 +1,7 @@
-package com.aya.digital.core.feature.choosers.multiselect.viewmodel
+package com.aya.digital.core.feature.choosers.selectwithsearch.viewmodel
 
 import com.aya.digital.core.data.base.dataprocessing.dataloading.DataLoadingOperationWithPagination
-import com.aya.digital.core.feature.choosers.multiselect.model.SelectionItem
+import com.aya.digital.core.feature.choosers.selectwithsearch.model.SelectionItem
 import com.aya.digital.core.mvi.BaseState
 import kotlinx.parcelize.Parcelize
 

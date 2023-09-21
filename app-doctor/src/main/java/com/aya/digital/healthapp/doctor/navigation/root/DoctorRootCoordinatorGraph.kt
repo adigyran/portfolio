@@ -3,8 +3,8 @@ package com.aya.digital.healthapp.doctor.navigation.root
 import android.content.Context
 import androidx.fragment.app.FragmentManager
 import com.aya.digital.core.feature.bottomnavhost.navigation.BottomNavHostScreen
-import com.aya.digital.core.feature.choosers.multiselect.navigation.SelectWithSearchNavigationEvents
-import com.aya.digital.core.feature.choosers.multiselect.navigation.SelectWithSearchScreen
+import com.aya.digital.core.feature.choosers.selectwithsearch.navigation.SelectWithSearchNavigationEvents
+import com.aya.digital.core.feature.choosers.selectwithsearch.navigation.SelectWithSearchScreen
 import com.aya.digital.core.feature.tabviews.appointmentsscheduler.navigation.AppointmentsSchedulerNavigationEvents
 import com.aya.digital.core.feature.videocall.videocallscreen.navigation.VideoCallScreenScreen
 import com.aya.digital.core.navigation.bottomnavigation.StartScreen
@@ -17,7 +17,6 @@ import com.aya.digital.feature.bottomdialogs.dateappointmentsdialog.navigation.D
 import com.aya.digital.feature.bottomdialogs.dateappointmentsdialog.navigation.DateAppointmentsDialogScreen
 import com.aya.digital.feature.bottomdialogs.dateappointmentsdialog.ui.DateAppointmentsDialogView
 import com.aya.digital.feature.rootcontainer.navigation.RootContainerNavigationEvents
-import com.aya.digital.feature.rootcontainer.ui.RootView
 import com.github.terrakok.cicerone.Router
 import java.lang.ref.WeakReference
 

@@ -1,9 +1,9 @@
-package com.aya.digital.core.feature.choosers.multiselect.di
+package com.aya.digital.core.feature.choosers.selectwithsearch.di
 
 import com.aya.digital.core.dibase.scopes.CustomFragmentScope
-import com.aya.digital.core.feature.choosers.multiselect.ui.SelectWithSearchView
+import com.aya.digital.core.feature.choosers.selectwithsearch.ui.SelectWithSearchView
 import com.aya.digital.core.feature.choosers.selectwithsearch.ui.model.SelectWithSearchStateTransformer
-import com.aya.digital.core.feature.choosers.multiselect.viewmodel.SelectWithSearchChooserViewModel
+import com.aya.digital.core.feature.choosers.selectwithsearch.viewmodel.SelectWithSearchChooserViewModel
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
 import org.kodein.di.*
 

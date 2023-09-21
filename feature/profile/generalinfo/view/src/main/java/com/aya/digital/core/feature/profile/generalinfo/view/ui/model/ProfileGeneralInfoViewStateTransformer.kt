@@ -104,7 +104,19 @@ class ProfileGeneralInfoViewStateTransformer(
             )
             add(
                 ProfileInfoUIModel(
-                    "Language",
+                    "Specialities",
+                    state.doctorFields?.specialities.getSpecialitiesText().getField()
+                )
+            )
+            add(
+                ProfileInfoUIModel(
+                    "Medical degrees",
+                    state.doctorFields?.medicalDegrees.getDegreesText().getField()
+                )
+            )
+            add(
+                ProfileInfoUIModel(
+                    "Languages",
                     state.doctorFields?.languages.getLanguagesText().getField()
                 )
             )
@@ -135,6 +147,12 @@ class ProfileGeneralInfoViewStateTransformer(
     private fun getHeightUnit() = "ft."
     private fun getWeightUnit() = "lbs"
     private fun List<FlavoredProfileModel.DoctorProfileModel.Language>?.getLanguagesText() =
+        this?.joinToString(separator = ", ", transform = { it.name })
+
+    private fun List<FlavoredProfileModel.DoctorProfileModel.Speciality>?.getSpecialitiesText() =
+        this?.joinToString(separator = ", ", transform = { it.name })
+
+    private fun List<FlavoredProfileModel.DoctorProfileModel.Degree>?.getDegreesText() =
         this?.joinToString(separator = ", ", transform = { it.name })
 }
 

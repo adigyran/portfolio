@@ -2,7 +2,7 @@ package com.aya.digital.core.feature.choosers.selectwithsearch.ui.model
 
 import android.content.Context
 import com.aya.digital.core.ext.strings
-import com.aya.digital.core.feature.choosers.multiselect.viewmodel.SelectWithSearchChooserState
+import com.aya.digital.core.feature.choosers.selectwithsearch.viewmodel.SelectWithSearchChooserState
 import com.aya.digital.core.mvi.BaseStateTransformer
 import com.aya.digital.core.ui.adapters.base.DiffItem
 import com.aya.digital.core.ui.delegates.features.choosers.selectwithsearch.model.SelectWithSearchItemUIModel

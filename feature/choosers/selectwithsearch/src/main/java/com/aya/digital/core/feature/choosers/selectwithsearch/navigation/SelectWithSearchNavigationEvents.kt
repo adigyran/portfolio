@@ -1,4 +1,4 @@
-package com.aya.digital.core.feature.choosers.multiselect.navigation
+package com.aya.digital.core.feature.choosers.selectwithsearch.navigation
 
 import com.aya.digital.core.data.base.result.models.dictionaries.MultiSelectResultModel
 import com.aya.digital.core.navigation.coordinator.CoordinatorEvent

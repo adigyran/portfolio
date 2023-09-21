@@ -172,6 +172,23 @@ class ProfileGeneralInfoEditStateTransformer(
             )
 
             add(
+                SelectionFieldUIModel(
+                    tag = FieldsTags.SPECIALISATIONS_FIELD_TAG,
+                    label = "Specialities",
+                    text = state.doctorFields?.specialities.getSpecialitiesText(),
+                    error = state.doctorFields?.specialitiesError
+                )
+            )
+            add(
+                SelectionFieldUIModel(
+                    tag = FieldsTags.MEDICAL_DEGREES_FIELD_TAG,
+                    label = "Medical degrees",
+                    text = state.doctorFields?.medicalDegrees.getDegreesText(),
+                    error = state.doctorFields?.medicalDegreesError
+                )
+            )
+
+            add(
                 NameFieldUIModel(
                     tag = FieldsTags.BIO_FIELD_TAG,
                     label = "Bio",
@@ -198,5 +215,9 @@ class ProfileGeneralInfoEditStateTransformer(
     private fun List<FlavoredProfileModel.DoctorProfileModel.Language>?.getLanguagesText() =
         this?.joinToString(separator = ", ", transform = { it.name })
 
+    private fun List<FlavoredProfileModel.DoctorProfileModel.Degree>?.getDegreesText() =
+        this?.joinToString(separator = ", ", transform = { it.name })
 
+    private fun List<FlavoredProfileModel.DoctorProfileModel.Speciality>?.getSpecialitiesText() =
+        this?.joinToString(separator = ", ", transform = { it.name })
 }

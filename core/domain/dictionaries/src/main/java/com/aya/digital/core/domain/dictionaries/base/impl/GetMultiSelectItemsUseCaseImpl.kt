@@ -10,6 +10,7 @@ import com.aya.digital.core.domain.dictionaries.base.model.MultiSelectItem
 import com.aya.digital.core.domain.dictionaries.base.model.MultiSelectItemPaginationModel
 import com.aya.digital.core.domain.dictionaries.cities.GetCityItemsUseCase
 import com.aya.digital.core.domain.dictionaries.languages.GetLanguageItemsUseCase
+import com.aya.digital.core.domain.dictionaries.medicaldegrees.GetMedicalDegreeItemsUseCase
 import com.aya.digital.core.domain.dictionaries.speciality.GetSpecialityItemsUseCase
 import com.aya.digital.core.util.requestcodes.RequestCodes
 import io.reactivex.rxjava3.core.Flowable
@@ -17,6 +18,7 @@ import io.reactivex.rxjava3.core.Flowable
 internal class GetMultiSelectItemsUseCaseImpl(
     private val getInsuranceCompanyItemsUseCase: GetInsuranceCompanyItemsUseCase,
     private val getSpecialityItemsUseCase: GetSpecialityItemsUseCase,
+    private val getMedicalDegreeItemsUseCase: GetMedicalDegreeItemsUseCase,
     private val getCityItemsUseCase: GetCityItemsUseCase,
     private val getLanguageItemsUseCase: GetLanguageItemsUseCase
 ) :
@@ -61,6 +63,13 @@ internal class GetMultiSelectItemsUseCaseImpl(
             { paginationModel -> paginationModel.mapToMultiselectItem().asResultModel() },
             { it })
 
+        RequestCodes.MEDICAL_DEGREE_LIST_REQUEST_CODE -> getMedicalDegreeItemsUseCase(
+            searchTerm,
+            selectedItems,
+            cursor
+        ).mapResult(
+            { paginationModel -> paginationModel.mapToMultiselectItem().asResultModel() },
+            { it })
         else -> {
             Flowable.empty()
         }

@@ -2,6 +2,8 @@ package com.aya.digital.core.network.api.services
 
 import com.aya.digital.core.network.model.request.*
 import com.aya.digital.core.network.model.response.EmergencyContactResponse
+import com.aya.digital.core.network.model.response.doctors.MedicalDegreeResponse
+import com.aya.digital.core.network.model.response.doctors.SpecialityResponse
 import com.aya.digital.core.network.model.response.language.LanguageResponse
 import com.aya.digital.core.network.model.response.profile.*
 import io.reactivex.rxjava3.core.Completable
@@ -34,4 +36,22 @@ interface PractitionerProfileService {
 
     @HTTP(method = "DELETE", path = "api/settings/languages", hasBody = true)
     fun removeDoctorLanguages(@Body languages: Set<Int>):Completable
+
+    @GET("/api/settings/show-my-specialities")
+    fun getDoctorSpecialities():Observable<Set<SpecialityResponse>>
+
+    @POST("api/settings/add-specialities")
+    fun addDoctorSpecialities(@Body specialities:Set<Int>):Completable
+
+    @HTTP(method = "DELETE", path = "api/settings/destroy-specialities", hasBody = true)
+    fun removeDoctorSpecialities(@Body specialities: Set<Int>):Completable
+
+    @GET("/api/settings/medical-degrees/list-profile")
+    fun getDoctorMedicalDegrees():Observable<Set<MedicalDegreeResponse>>
+
+    @POST("api/settings/medical-degrees")
+    fun addDoctorMedicalDegrees(@Body degrees:Set<Int>):Completable
+
+    @HTTP(method = "DELETE", path = "api/settings/medical-degrees", hasBody = true)
+    fun removeDoctorMedicalDegrees(@Body degrees: Set<Int>):Completable
 }

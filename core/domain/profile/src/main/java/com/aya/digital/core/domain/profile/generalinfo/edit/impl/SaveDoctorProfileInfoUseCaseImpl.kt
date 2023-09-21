@@ -10,6 +10,8 @@ import com.aya.digital.core.domain.base.models.progress.trackProgress
 import com.aya.digital.core.domain.profile.generalinfo.edit.SaveProfileInfoUseCase
 import com.aya.digital.core.domain.profile.generalinfo.edit.UpdateDoctorBioUseCase
 import com.aya.digital.core.domain.profile.generalinfo.edit.UpdateDoctorLanguagesUseCase
+import com.aya.digital.core.domain.profile.generalinfo.edit.UpdateDoctorMedicalDegreesUseCase
+import com.aya.digital.core.domain.profile.generalinfo.edit.UpdateDoctorSpecialitiesUseCase
 import com.aya.digital.core.domain.profile.generalinfo.edit.model.FlavoredProfileEditModel
 import com.aya.digital.core.domain.profile.generalinfo.edit.model.ProfileEditModel
 import com.aya.digital.core.domain.profile.generalinfo.view.model.FlavoredProfileModel
@@ -22,12 +24,15 @@ import com.aya.digital.core.network.model.request.ProfileBody
 import com.aya.digital.core.util.datetime.DateTimeUtils
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.functions.BiFunction
+import io.reactivex.rxjava3.functions.Function4
 import kotlinx.datetime.toKotlinLocalDate
 
 internal class SaveDoctorProfileInfoUseCaseImpl(
     private val profileRepository: ProfileRepository,
     private val updateDoctorBioUseCase: UpdateDoctorBioUseCase,
     private val updateDoctorLanguagesUseCase: UpdateDoctorLanguagesUseCase,
+    private val updateDoctorMedicalDegreesUseCase: UpdateDoctorMedicalDegreesUseCase,
+    private val updateDoctorSpecialitiesUseCase: UpdateDoctorSpecialitiesUseCase,
     private val dateTimeUtils: DateTimeUtils,
     private val progressRepository: ProgressRepository
 ) :
@@ -45,14 +50,31 @@ internal class SaveDoctorProfileInfoUseCaseImpl(
                 val updateLanguagesUseCase = doctorProfileEditModel?.languages?.let { languages ->
                     updateDoctorLanguagesUseCase(languages.map { it.id }.toSet()).firstOrError()
                 } ?: Single.just(false.asResultModel())
+
+                val updateMedicalDegreesUseCase =
+                    doctorProfileEditModel?.medicalDegrees?.let { medicalDegrees ->
+                        updateDoctorMedicalDegreesUseCase(medicalDegrees.map { it.id }
+                            .toSet()).firstOrError()
+                    } ?: Single.just(false.asResultModel())
+
+                val updateSpecialitiesUseCase =
+                    doctorProfileEditModel?.specialities?.let { specialities ->
+                        updateDoctorSpecialitiesUseCase(specialities.map { it.id }
+                            .toSet()).firstOrError()
+                    } ?: Single.just(false.asResultModel())
                 doctorProfileEditModel?.let {
-                    Single.zip(updateBioUseCase, updateLanguagesUseCase,
-                        BiFunction { t1, t2 ->
+                    Single.zip(updateBioUseCase,
+                        updateLanguagesUseCase,
+                        updateMedicalDegreesUseCase,
+                        updateSpecialitiesUseCase,
+                        Function4 { t1, t2, t3, t4 ->
                             var updated: Boolean = false
                             t1.processResult({
                                 updated = it
-                            }, { return@BiFunction it })
-                            t2.processResult({ updated = it }, { return@BiFunction it })
+                            }, { return@Function4 it })
+                            t2.processResult({ updated = it }, { return@Function4 it })
+                            t3.processResult({ updated = it }, { return@Function4 it })
+                            t4.processResult({ updated = it }, { return@Function4 it })
                             updated.asResultModel()
                         })
                 }

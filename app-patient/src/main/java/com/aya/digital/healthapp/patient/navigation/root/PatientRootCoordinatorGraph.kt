@@ -7,10 +7,9 @@ import com.aya.digital.core.feature.auth.restorepassword.navigation.RestorePassw
 import com.aya.digital.core.feature.auth.restorepassword.navigation.RestorePasswordScreen
 import com.aya.digital.core.feature.bottomnavhost.navigation.BottomNavHostNavigationEvents
 import com.aya.digital.core.feature.bottomnavhost.navigation.BottomNavHostScreen
-import com.aya.digital.core.feature.choosers.multiselect.navigation.SelectWithSearchNavigationEvents
-import com.aya.digital.core.feature.choosers.multiselect.navigation.SelectWithSearchScreen
+import com.aya.digital.core.feature.choosers.selectwithsearch.navigation.SelectWithSearchNavigationEvents
+import com.aya.digital.core.feature.choosers.selectwithsearch.navigation.SelectWithSearchScreen
 import com.aya.digital.core.feature.doctors.doctorcard.navigation.DoctorCardNavigationEvents
-import com.aya.digital.core.feature.doctors.doctorcard.navigation.DoctorCardScreen
 import com.aya.digital.core.feature.doctors.doctorssearch.doctorsearchmap.navigation.DoctorSearchMapNavigationEvents
 import com.aya.digital.core.feature.tabviews.appointments.navigation.AppointmentsNavigationEvents
 import com.aya.digital.core.feature.videocall.videocallscreen.navigation.VideoCallScreenNavigationEvents

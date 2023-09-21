@@ -10,6 +10,7 @@ import com.aya.digital.core.domain.profile.generalinfo.view.GetProfileInfoUseCas
 import com.aya.digital.core.domain.profile.generalinfo.view.model.FlavoredProfileModel
 import com.aya.digital.core.domain.profile.generalinfo.view.model.ProfileInfoModel
 import com.aya.digital.core.feature.profile.generalinfo.edit.FieldsTags
+import com.aya.digital.core.feature.profile.generalinfo.edit.getRequestCodeForSelectionField
 import com.aya.digital.core.feature.profile.generalinfo.edit.navigation.ProfileGeneralInfoEditNavigationEvents
 import com.aya.digital.core.feature.profile.generalinfo.edit.ui.ProfileGeneralInfoEditView
 import com.aya.digital.core.model.ProfileSex
@@ -80,32 +81,46 @@ class ProfileGeneralInfoEditViewModel(
             }
 
             FieldsTags.LANGUAGES_FIELD_TAG -> {
-                selectLanguages()
+                selectField(tag,state.doctorFields?.languages?.map { it.id }?: listOf())
+            }
+            FieldsTags.MEDICAL_DEGREES_FIELD_TAG -> {
+                selectField(tag,state.doctorFields?.medicalDegrees?.map { it.id }?: listOf())
+            }
+            FieldsTags.SPECIALISATIONS_FIELD_TAG -> {
+                selectField(tag,state.doctorFields?.specialities?.map { it.id }?: listOf())
             }
         }
     }
 
-    private fun selectLanguages() = intent {
-        listenForLanguages()
-        coordinatorRouter.sendEvent(
+    private fun selectField(fieldTag:Int,ids:List<Int>) = intent {
+        val requestCode = fieldTag.getRequestCodeForSelectionField()
+        val event = when(fieldTag)
+        {
+            FieldsTags.MEDICAL_DEGREES_FIELD_TAG -> ProfileGeneralInfoEditNavigationEvents.FieldSelection.SelectDegrees(requestCode,ids)
+            FieldsTags.SPECIALISATIONS_FIELD_TAG ->ProfileGeneralInfoEditNavigationEvents.FieldSelection.SelectSpecialities(requestCode,ids)
+            FieldsTags.LANGUAGES_FIELD_TAG ->ProfileGeneralInfoEditNavigationEvents.FieldSelection.SelectLanguages(requestCode,ids)
+            else -> ProfileGeneralInfoEditNavigationEvents.FieldSelection.StubField
+        }
+        listenForFieldSelection(event)
+        coordinatorRouter.sendEvent(event)
+    /*    coordinatorRouter.sendEvent(
             ProfileGeneralInfoEditNavigationEvents.SelectLanguages(
                 RequestCodes.LANGUAGES_LIST_REQUEST_CODE,
                 state.doctorFields?.languages?.map { it.id } ?: listOf()
             )
-        )
+        )*/
     }
 
-    private fun listenForLanguages() = intent {
-        rootCoordinatorRouter.setResultListener(RequestCodes.LANGUAGES_LIST_REQUEST_CODE) { result ->
+    private fun listenForFieldSelection(event: ProfileGeneralInfoEditNavigationEvents.FieldSelection) {
+        rootCoordinatorRouter.setResultListener(event.requestCode) { result ->
             if (result is MultiSelectResultModel && result.selectedItems.isNotEmpty()) {
-                setLanguages(result.selectedItems.map {
-                    FlavoredProfileModel.DoctorProfileModel.Language(
-                        id = it.id,
-                        code = "",
-                        name = it.text
-                    )
-                })
-
+                when(event)
+                {
+                    is ProfileGeneralInfoEditNavigationEvents.FieldSelection.SelectDegrees -> setMedicalDegrees(result.selectedItems.map { FlavoredProfileModel.DoctorProfileModel.Degree(id = it.id,code="",name=it.text) })
+                    is ProfileGeneralInfoEditNavigationEvents.FieldSelection.SelectLanguages -> setLanguages(result.selectedItems.map { FlavoredProfileModel.DoctorProfileModel.Language(id = it.id,code="",name=it.text) })
+                    is ProfileGeneralInfoEditNavigationEvents.FieldSelection.SelectSpecialities ->setSpecialities(result.selectedItems.map { FlavoredProfileModel.DoctorProfileModel.Speciality(id = it.id,code="",name=it.text) })
+                    else -> {}
+                }
             }
         }
     }
@@ -114,6 +129,18 @@ class ProfileGeneralInfoEditViewModel(
        reduce {
            state.copy(doctorFields = state.doctorFields?.apply { languages = selectedLanguages })
        }
+    }
+
+    private fun setMedicalDegrees(selectedDegrees: List<FlavoredProfileModel.DoctorProfileModel.Degree>) = intent {
+        reduce {
+            state.copy(doctorFields = state.doctorFields?.apply { medicalDegrees = selectedDegrees })
+        }
+    }
+
+    private fun setSpecialities(selectedSpecialities: List<FlavoredProfileModel.DoctorProfileModel.Speciality>) = intent {
+        reduce {
+            state.copy(doctorFields = state.doctorFields?.apply { specialities = selectedSpecialities })
+        }
     }
 
     fun nameFieldChanged(tag: Int, text: String) = intent {
@@ -194,7 +221,22 @@ class ProfileGeneralInfoEditViewModel(
                         code = it.code,
                         name = it.name
                     )
-                })
+                },
+                medicalDegrees = state.doctorFields?.medicalDegrees?.map {
+                    FlavoredProfileEditModel.DoctorProfileEditModel.MedicalDegree(
+                        id = it.id,
+                        code = it.code,
+                        name = it.name
+                    )
+                },
+                specialities = state.doctorFields?.specialities?.map {
+                    FlavoredProfileEditModel.DoctorProfileEditModel.Speciality(
+                        id = it.id,
+                        code = it.code,
+                        name = it.name
+                    )
+                },
+                )
 
             Flavor.Patient -> FlavoredProfileEditModel.PatientProfileEditModel(
                 sex = state.patientFields?.sex,

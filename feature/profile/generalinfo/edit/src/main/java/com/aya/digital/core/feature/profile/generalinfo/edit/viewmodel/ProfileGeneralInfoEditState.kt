@@ -44,6 +44,10 @@ data class DoctorFields(
     var licenseNumberError:String? = null,
     var languages: List<FlavoredProfileModel.DoctorProfileModel.Language>? = null,
     var languagesError:String? = null,
+    var specialities:List<FlavoredProfileModel.DoctorProfileModel.Speciality>? = null,
+    var specialitiesError:String? = null,
+    var medicalDegrees:List<FlavoredProfileModel.DoctorProfileModel.Degree>? = null,
+    var medicalDegreesError:String? = null,
     var bio: String? = null,
     var bioError: String? = null,
 ): Parcelable

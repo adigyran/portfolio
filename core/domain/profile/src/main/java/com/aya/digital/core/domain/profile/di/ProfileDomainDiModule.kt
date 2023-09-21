@@ -11,18 +11,25 @@ import com.aya.digital.core.domain.profile.generalinfo.edit.impl.SaveDoctorProfi
 import com.aya.digital.core.domain.profile.generalinfo.edit.SetAvatarUseCase
 import com.aya.digital.core.domain.profile.generalinfo.edit.UpdateDoctorBioUseCase
 import com.aya.digital.core.domain.profile.generalinfo.edit.UpdateDoctorLanguagesUseCase
+import com.aya.digital.core.domain.profile.generalinfo.edit.UpdateDoctorMedicalDegreesUseCase
+import com.aya.digital.core.domain.profile.generalinfo.edit.UpdateDoctorSpecialitiesUseCase
 import com.aya.digital.core.domain.profile.generalinfo.edit.impl.SavePatientProfileInfoUseCaseImpl
 import com.aya.digital.core.domain.profile.generalinfo.edit.impl.SetAvatarUseCaseImpl
 import com.aya.digital.core.domain.profile.generalinfo.edit.impl.UpdateDoctorBioUseCaseImpl
 import com.aya.digital.core.domain.profile.generalinfo.edit.impl.UpdateDoctorLanguagesUseCaseImpl
+import com.aya.digital.core.domain.profile.generalinfo.edit.impl.UpdateDoctorMedicalDegreesUseCaseImpl
+import com.aya.digital.core.domain.profile.generalinfo.edit.impl.UpdateDoctorSpecialitiesUseCaseImpl
 import com.aya.digital.core.domain.profile.generalinfo.view.GetDoctorBioUseCase
 import com.aya.digital.core.domain.profile.generalinfo.view.GetDoctorLanguagesUseCase
+import com.aya.digital.core.domain.profile.generalinfo.view.GetDoctorMedicalDegreesUseCase
 import com.aya.digital.core.domain.profile.generalinfo.view.GetProfileAvatarUseCase
 import com.aya.digital.core.domain.profile.generalinfo.view.GetProfileBriefUseCase
 import com.aya.digital.core.domain.profile.generalinfo.view.GetProfileInfoUseCase
 import com.aya.digital.core.domain.profile.generalinfo.view.impl.GetDoctorBioUseCaseImpl
 import com.aya.digital.core.domain.profile.generalinfo.view.impl.GetDoctorLanguagesUseCaseImpl
+import com.aya.digital.core.domain.profile.generalinfo.view.impl.GetDoctorMedicalDegreesUseCaseImpl
 import com.aya.digital.core.domain.profile.generalinfo.view.impl.GetDoctorProfileInfoUseCaseImpl
+import com.aya.digital.core.domain.profile.generalinfo.view.impl.GetDoctorSpecialitiesUseCaseImpl
 import com.aya.digital.core.domain.profile.generalinfo.view.impl.GetProfileAvatarUseCaseImpl
 import com.aya.digital.core.domain.profile.generalinfo.view.impl.GetPatientProfileInfoUseCaseImpl
 import com.aya.digital.core.domain.profile.generalinfo.view.impl.GetProfileUseCaseImpl
@@ -76,6 +83,8 @@ fun profileDomainDiModule() = DI.Module("profileDomainDiModule") {
             is Flavor.Doctor -> GetDoctorProfileInfoUseCaseImpl(
                 getDoctorBioUseCase = instance(),
                 getDoctorLanguagesUseCase = instance(),
+                getDoctorMedicalDegreesUseCase = instance(),
+                getDoctorSpecialitiesUseCase = instance(),
                 getProfileBriefUseCase = instance(),
                 progressRepository = instance()
             )
@@ -102,7 +111,9 @@ fun profileDomainDiModule() = DI.Module("profileDomainDiModule") {
                 dateTimeUtils = instance(),
                 progressRepository = instance(),
                 updateDoctorBioUseCase = instance(),
-                updateDoctorLanguagesUseCase = instance()
+                updateDoctorLanguagesUseCase = instance(),
+                updateDoctorMedicalDegreesUseCase = instance(),
+                updateDoctorSpecialitiesUseCase = instance()
             )
 
             else -> SavePatientProfileInfoUseCaseImpl(
@@ -135,6 +146,21 @@ fun profileDomainDiModule() = DI.Module("profileDomainDiModule") {
             instance()
         )
     }
+
+    bind<GetDoctorMedicalDegreesUseCase>() with singleton {
+        GetDoctorMedicalDegreesUseCaseImpl(
+            instance(),
+            instance()
+        )
+    }
+
+    bind<GetDoctorSpecialitiesUseCaseImpl>() with singleton {
+        GetDoctorSpecialitiesUseCaseImpl(
+            instance(),
+            instance()
+        )
+    }
+
 
     //phone
     bind<ChangePhoneGetCodeUseCase>() with singleton {
@@ -212,6 +238,18 @@ fun profileDomainDiModule() = DI.Module("profileDomainDiModule") {
 
     bind<UpdateDoctorLanguagesUseCase>() with singleton {
         UpdateDoctorLanguagesUseCaseImpl(
+            instance(),
+            instance()
+        )
+    }
+    bind<UpdateDoctorSpecialitiesUseCase>() with singleton {
+        UpdateDoctorSpecialitiesUseCaseImpl(
+            instance(),
+            instance()
+        )
+    }
+    bind<UpdateDoctorMedicalDegreesUseCase>() with singleton {
+        UpdateDoctorMedicalDegreesUseCaseImpl(
             instance(),
             instance()
         )

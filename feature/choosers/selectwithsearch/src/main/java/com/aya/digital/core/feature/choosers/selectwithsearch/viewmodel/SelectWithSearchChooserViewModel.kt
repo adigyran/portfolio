@@ -1,14 +1,13 @@
-package com.aya.digital.core.feature.choosers.multiselect.viewmodel
+package com.aya.digital.core.feature.choosers.selectwithsearch.viewmodel
 
 import com.aya.digital.core.data.base.dataprocessing.dataloading.DataLoadingOperationWithPagination
 import com.aya.digital.core.data.base.dataprocessing.dataloading.enums.OperationState
 import com.aya.digital.core.data.base.result.models.dictionaries.MultiSelectResultModel
 import com.aya.digital.core.data.base.result.models.dictionaries.SelectedItem
 import com.aya.digital.core.domain.dictionaries.base.GetMultiSelectItemsUseCase
-import com.aya.digital.core.feature.choosers.multiselect.model.SelectionItem
-import com.aya.digital.core.feature.choosers.multiselect.navigation.SelectWithSearchNavigationEvents
-import com.aya.digital.core.feature.choosers.multiselect.ui.SelectWithSearchView
-import com.aya.digital.core.feature.choosers.selectwithsearch.viewmodel.SelectWithSearchChooserSideEffects
+import com.aya.digital.core.feature.choosers.selectwithsearch.model.SelectionItem
+import com.aya.digital.core.feature.choosers.selectwithsearch.navigation.SelectWithSearchNavigationEvents
+import com.aya.digital.core.feature.choosers.selectwithsearch.ui.SelectWithSearchView
 import com.aya.digital.core.mvi.BaseViewModel
 import com.aya.digital.core.navigation.coordinator.CoordinatorEvent
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter

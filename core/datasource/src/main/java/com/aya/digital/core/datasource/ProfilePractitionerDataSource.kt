@@ -2,6 +2,8 @@ package com.aya.digital.core.datasource
 
 import com.aya.digital.core.network.model.request.PractitionerProfileBody
 import com.aya.digital.core.network.model.response.doctor.PractitionerProfileResponse
+import com.aya.digital.core.network.model.response.doctors.MedicalDegreeResponse
+import com.aya.digital.core.network.model.response.doctors.SpecialityResponse
 import com.aya.digital.core.network.model.response.language.LanguageResponse
 import com.aya.digital.core.network.model.response.profile.AddressResponse
 import com.aya.digital.core.network.model.response.profile.BioResponse
@@ -28,5 +30,19 @@ interface ProfilePractitionerDataSource {
     fun addDoctorLanguages(languages:Set<Int>):Completable
 
     fun removeDoctorLanguages(languages: Set<Int>):Completable
+
+    fun getDoctorSpecialities():Observable<Set<SpecialityResponse>>
+
+    fun addDoctorSpecialities(specialities:Set<Int>):Completable
+
+    fun removeDoctorSpecialities(specialities: Set<Int>):Completable
+
+    fun getDoctorMedicalDegrees():Observable<Set<MedicalDegreeResponse>>
+
+    fun addDoctorMedicalDegrees(medicalDegrees:Set<Int>):Completable
+
+    fun removeDoctorMedicalDegrees(medicalDegrees: Set<Int>):Completable
+
+
 
 }

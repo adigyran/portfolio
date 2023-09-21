@@ -36,6 +36,8 @@ data class DoctorFields(
     val tin: String? = null,
     val licenseNumber: String? = null,
     val languages: List<FlavoredProfileModel.DoctorProfileModel.Language>? = null,
+    var specialities:List<FlavoredProfileModel.DoctorProfileModel.Speciality>? = null,
+    var medicalDegrees:List<FlavoredProfileModel.DoctorProfileModel.Degree>? = null,
     val bio: String? = null,
 ):Parcelable
 

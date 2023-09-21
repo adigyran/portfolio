@@ -10,6 +10,8 @@ import com.aya.digital.core.domain.dictionaries.languages.impl.GetLanguageItemsU
 import com.aya.digital.core.domain.dictionaries.insurancecompany.GetInsuranceCompanyItemByIdUseCase
 import com.aya.digital.core.domain.dictionaries.insurancecompany.impl.GetInsuranceCompanyItemByIdUseCaseImpl
 import com.aya.digital.core.domain.dictionaries.insurancecompany.impl.GetInsuranceCompanyItemsUseCaseImpl
+import com.aya.digital.core.domain.dictionaries.medicaldegrees.GetMedicalDegreeItemsUseCase
+import com.aya.digital.core.domain.dictionaries.medicaldegrees.impl.GetMedicalDegreeItemsUseCaseImpl
 import com.aya.digital.core.domain.dictionaries.speciality.GetSpecialityItemsUseCase
 import com.aya.digital.core.domain.dictionaries.speciality.impl.GetSpecialityItemsUseCaseImpl
 import org.kodein.di.DI
@@ -38,6 +40,13 @@ fun dictionariesDomainDiModule() = DI.Module("dictionariesDomainDiModule") {
         )
     }
 
+    bind<GetMedicalDegreeItemsUseCase>() with singleton {
+        GetMedicalDegreeItemsUseCaseImpl(
+            instance(),
+            instance()
+        )
+    }
+
     bind<GetCityItemsUseCase>() with singleton { GetCityItemsUseCaseImpl(instance(), instance()) }
 
 
@@ -53,7 +62,8 @@ fun dictionariesDomainDiModule() = DI.Module("dictionariesDomainDiModule") {
             getInsuranceCompanyItemsUseCase = instance(),
             getSpecialityItemsUseCase = instance(),
             getCityItemsUseCase = instance(),
-            getLanguageItemsUseCase = instance()
+            getLanguageItemsUseCase = instance(),
+            getMedicalDegreeItemsUseCase = instance()
         )
     }
 }

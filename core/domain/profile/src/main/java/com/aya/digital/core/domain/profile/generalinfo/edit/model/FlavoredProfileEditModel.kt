@@ -19,9 +19,13 @@ sealed class FlavoredProfileEditModel : Parcelable {
 
     }
 
-    data class DoctorProfileEditModel(val bio: String?, val languages: List<Language>?) : FlavoredProfileEditModel() {
+    data class DoctorProfileEditModel(val bio: String?, val languages: List<Language>?,val medicalDegrees: List<MedicalDegree>?,val specialities: List<Speciality>?) : FlavoredProfileEditModel() {
         @Parcelize
         data class Language(val id: Int, val code: String, val name: String) : Parcelable
+        @Parcelize
+        data class MedicalDegree(val id: Int, val code: String, val name: String) : Parcelable
+        @Parcelize
+        data class Speciality(val id: Int, val code: String, val name: String) : Parcelable
     }
 }
 

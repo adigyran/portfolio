@@ -2,7 +2,11 @@ package com.aya.digital.core.repository.profile.practitioner
 
 import android.content.Context
 import com.aya.digital.core.data.dictionaries.LanguageModel
+import com.aya.digital.core.data.dictionaries.MedicalDegreeModel
+import com.aya.digital.core.data.dictionaries.SpecialityModel
 import com.aya.digital.core.data.dictionaries.mappers.LanguageMapper
+import com.aya.digital.core.data.dictionaries.mappers.MedicalDegreeMapper
+import com.aya.digital.core.data.dictionaries.mappers.SpecialityMapper
 import com.aya.digital.core.data.profile.DoctorBio
 import com.aya.digital.core.data.profile.mappers.DoctorBioMapper
 import com.aya.digital.core.data.profile.repository.PractitionerRepository
@@ -20,7 +24,9 @@ internal class PractitionerRepositoryImpl(
     private val context: Context,
     private val practitionerDataSource: ProfilePractitionerDataSource,
     private val languageMapper: LanguageMapper,
-    private val bioMapper: DoctorBioMapper
+    private val bioMapper: DoctorBioMapper,
+    private val medicalDegreeMapper: MedicalDegreeMapper,
+    private val specialityMapper: SpecialityMapper
 ) : PractitionerRepository {
     override fun getDoctorBio(): Single<RequestResult<DoctorBio>> =
         practitionerDataSource
@@ -61,6 +67,60 @@ internal class PractitionerRepositoryImpl(
     override fun removeDoctorLanguages(languages: Set<Int>): Single<RequestResult<Boolean>> =
         practitionerDataSource
             .removeDoctorLanguages(languages)
+            .retryOnError()
+            .retrofitResponseToResult(CommonUtils::mapServerErrors)
+            .mapResult({ result ->
+                true.asResult()
+            }, { it })
+
+    override fun getDoctorMedicalDegrees(): Observable<RequestResult<Set<MedicalDegreeModel>>> =
+        practitionerDataSource
+            .getDoctorMedicalDegrees()
+            .retryOnError()
+            .retrofitResponseToResult(CommonUtils::mapServerErrors)
+            .mapResult({ result ->
+                result.map { medicalDegreeMapper.mapFrom(it) }.toSet().asResult()
+            }, { it })
+
+    override fun addDoctorMedicalDegrees(degrees: Set<Int>): Single<RequestResult<Boolean>>  =
+        practitionerDataSource
+            .addDoctorMedicalDegrees(degrees)
+            .retryOnError()
+            .retrofitResponseToResult(CommonUtils::mapServerErrors)
+            .mapResult({ result ->
+                true.asResult()
+            }, { it })
+
+    override fun removeDoctorMedicalDegrees(degrees: Set<Int>): Single<RequestResult<Boolean>> =
+        practitionerDataSource
+            .removeDoctorMedicalDegrees(degrees)
+            .retryOnError()
+            .retrofitResponseToResult(CommonUtils::mapServerErrors)
+            .mapResult({ result ->
+                true.asResult()
+            }, { it })
+
+    override fun getDoctorSpecialities(): Observable<RequestResult<Set<SpecialityModel>>> =
+        practitionerDataSource
+            .getDoctorSpecialities()
+            .retryOnError()
+            .retrofitResponseToResult(CommonUtils::mapServerErrors)
+            .mapResult({ result ->
+                result.map { specialityMapper.mapFrom(it) }.toSet().asResult()
+            }, { it })
+
+    override fun addDoctorSpecialities(specialities: Set<Int>): Single<RequestResult<Boolean>> =
+        practitionerDataSource
+            .addDoctorSpecialities(specialities)
+            .retryOnError()
+            .retrofitResponseToResult(CommonUtils::mapServerErrors)
+            .mapResult({ result ->
+                true.asResult()
+            }, { it })
+
+    override fun removeDoctorSpecialities(specialities: Set<Int>): Single<RequestResult<Boolean>>  =
+        practitionerDataSource
+            .removeDoctorSpecialities(specialities)
             .retryOnError()
             .retrofitResponseToResult(CommonUtils::mapServerErrors)
             .mapResult({ result ->

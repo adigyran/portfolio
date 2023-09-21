@@ -41,7 +41,9 @@ fun profileRepositoryDiModule() = DI.Module("profileRepositoryDiModule") {
             context = instance(),
             practitionerDataSource = instance(),
             languageMapper = instance(),
-            bioMapper = instance()
+            bioMapper = instance(),
+            medicalDegreeMapper = instance(),
+            specialityMapper = instance()
         )
     }
     bind<PractitionerInsuranceRepository>() with singleton {

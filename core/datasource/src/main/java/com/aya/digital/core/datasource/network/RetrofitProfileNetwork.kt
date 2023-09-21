@@ -8,6 +8,8 @@ import com.aya.digital.core.network.api.services.ProfileService
 import com.aya.digital.core.network.main.di.modules.createApiService
 import com.aya.digital.core.network.model.request.*
 import com.aya.digital.core.network.model.response.EmergencyContactResponse
+import com.aya.digital.core.network.model.response.doctors.MedicalDegreeResponse
+import com.aya.digital.core.network.model.response.doctors.SpecialityResponse
 import com.aya.digital.core.network.model.response.language.LanguageResponse
 import com.aya.digital.core.network.model.response.profile.AvatarResponse
 import com.aya.digital.core.network.model.response.profile.BioResponse
@@ -128,6 +130,15 @@ class RetrofitProfilePractitionerNetwork(private val network: PractitionerProfil
     override fun addDoctorLanguages(languages: Set<Int>): Completable = network.addDoctorLanguages(languages)
 
     override fun removeDoctorLanguages(languages: Set<Int>): Completable = network.removeDoctorLanguages(languages)
+    override fun getDoctorSpecialities(): Observable<Set<SpecialityResponse>> = network.getDoctorSpecialities()
+    override fun addDoctorSpecialities(specialities: Set<Int>): Completable = network.addDoctorSpecialities(specialities)
+
+    override fun removeDoctorSpecialities(specialities: Set<Int>): Completable  = network.removeDoctorSpecialities(specialities)
+
+    override fun getDoctorMedicalDegrees(): Observable<Set<MedicalDegreeResponse>> = network.getDoctorMedicalDegrees()
+    override fun addDoctorMedicalDegrees(medicalDegrees: Set<Int>): Completable = network.addDoctorMedicalDegrees(medicalDegrees)
+
+    override fun removeDoctorMedicalDegrees(medicalDegrees: Set<Int>): Completable  = network.removeDoctorMedicalDegrees(medicalDegrees)
 
 }
 

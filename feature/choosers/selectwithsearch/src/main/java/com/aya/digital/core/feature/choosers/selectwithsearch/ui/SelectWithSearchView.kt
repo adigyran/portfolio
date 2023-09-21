@@ -1,4 +1,4 @@
-package com.aya.digital.core.feature.choosers.multiselect.ui
+package com.aya.digital.core.feature.choosers.selectwithsearch.ui
 
 import android.os.Bundle
 import android.os.Parcelable
@@ -11,13 +11,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.aya.digital.core.ext.argument
 import com.aya.digital.core.ext.bindClick
 import com.aya.digital.core.ext.createFragment
-import com.aya.digital.core.feature.choosers.multiselect.di.selectWithSearchDiModule
+import com.aya.digital.core.feature.choosers.selectwithsearch.di.selectWithSearchDiModule
 import com.aya.digital.core.feature.choosers.selectwithsearch.ui.model.SelectWithSearchStateTransformer
 import com.aya.digital.core.feature.choosers.selectwithsearch.ui.model.SelectWithSearchChooserUiModel
-import com.aya.digital.core.feature.choosers.multiselect.viewmodel.SelectWithSearchChooserState
-import com.aya.digital.core.feature.choosers.multiselect.viewmodel.SelectWithSearchChooserViewModel
+import com.aya.digital.core.feature.choosers.selectwithsearch.viewmodel.SelectWithSearchChooserState
+import com.aya.digital.core.feature.choosers.selectwithsearch.viewmodel.SelectWithSearchChooserViewModel
 import com.aya.digital.core.feature.choosers.selectwithsearch.databinding.ViewSelectWithSearchBinding
-import com.aya.digital.core.feature.choosers.selectwithsearch.ui.SelectWithSearchDecoration
 import com.aya.digital.core.feature.choosers.selectwithsearch.viewmodel.SelectWithSearchChooserSideEffects
 import com.aya.digital.core.ui.adapters.base.BaseDelegateAdapter
 import com.aya.digital.core.ui.base.screens.DiFragment
