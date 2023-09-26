@@ -4,6 +4,6 @@ import com.squareup.moshi.JsonClass
 
 
 @JsonClass(generateAdapter = true)
-data class DoctorLanguagesBody(
-    val languageIds: Set<Int>?
+data class DoctorFieldsBody(
+    val ids: Set<Int>?
 )

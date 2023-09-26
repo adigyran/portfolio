@@ -127,18 +127,18 @@ class RetrofitProfilePractitionerNetwork(private val network: PractitionerProfil
 
     override fun getDoctorLanguages(): Observable<Set<LanguageResponse>> = network.getDoctorLanguages()
 
-    override fun addDoctorLanguages(languages: Set<Int>): Completable = network.addDoctorLanguages(languages)
+    override fun addDoctorLanguages(languages: Set<Int>): Completable = network.addDoctorLanguages(DoctorLanguagesBody(languages))
 
-    override fun removeDoctorLanguages(languages: Set<Int>): Completable = network.removeDoctorLanguages(languages)
+    override fun removeDoctorLanguages(languages: Set<Int>): Completable = network.removeDoctorLanguages(DoctorLanguagesBody(languages))
     override fun getDoctorSpecialities(): Observable<Set<SpecialityResponse>> = network.getDoctorSpecialities()
-    override fun addDoctorSpecialities(specialities: Set<Int>): Completable = network.addDoctorSpecialities(specialities)
+    override fun addDoctorSpecialities(specialities: Set<Int>): Completable = network.addDoctorSpecialities(DoctorFieldsBody(specialities))
 
-    override fun removeDoctorSpecialities(specialities: Set<Int>): Completable  = network.removeDoctorSpecialities(specialities)
+    override fun removeDoctorSpecialities(specialities: Set<Int>): Completable  = network.removeDoctorSpecialities(DoctorFieldsBody(specialities))
 
     override fun getDoctorMedicalDegrees(): Observable<Set<MedicalDegreeResponse>> = network.getDoctorMedicalDegrees()
-    override fun addDoctorMedicalDegrees(medicalDegrees: Set<Int>): Completable = network.addDoctorMedicalDegrees(medicalDegrees)
+    override fun addDoctorMedicalDegrees(medicalDegrees: Set<Int>): Completable = network.addDoctorMedicalDegrees(DoctorFieldsBody(medicalDegrees))
 
-    override fun removeDoctorMedicalDegrees(medicalDegrees: Set<Int>): Completable  = network.removeDoctorMedicalDegrees(medicalDegrees)
+    override fun removeDoctorMedicalDegrees(medicalDegrees: Set<Int>): Completable  = network.removeDoctorMedicalDegrees(DoctorFieldsBody(medicalDegrees))
 
 }
 

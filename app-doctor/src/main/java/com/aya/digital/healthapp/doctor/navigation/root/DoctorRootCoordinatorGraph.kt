@@ -115,6 +115,10 @@ class DoctorRootCoordinatorGraph(context: Context) : RootCoordinatorGraph {
                 navigationRouter.exit()
             }
 
+            is CoordinatorEvent.Back -> {
+                navigationRouter.exit()
+            }
+
         }
     }
 }

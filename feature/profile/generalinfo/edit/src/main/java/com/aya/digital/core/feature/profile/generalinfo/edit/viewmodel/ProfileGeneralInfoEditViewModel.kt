@@ -272,7 +272,9 @@ class ProfileGeneralInfoEditViewModel(
                 state.copy(
                     doctorFields = DoctorFields(
                         bio = flavoredProfileModel.bio,
-                        languages = flavoredProfileModel.languages
+                        languages = flavoredProfileModel.languages,
+                        specialities = flavoredProfileModel.specialities,
+                        medicalDegrees = flavoredProfileModel.degrees
                     )
                 )
             }

@@ -32,26 +32,26 @@ interface PractitionerProfileService {
     fun getDoctorLanguages():Observable<Set<LanguageResponse>>
 
     @POST("api/settings/languages")
-    fun addDoctorLanguages(@Body languages:Set<Int>):Completable
+    fun addDoctorLanguages(@Body languages:DoctorLanguagesBody):Completable
 
     @HTTP(method = "DELETE", path = "api/settings/languages", hasBody = true)
-    fun removeDoctorLanguages(@Body languages: Set<Int>):Completable
+    fun removeDoctorLanguages(@Body languages: DoctorLanguagesBody):Completable
 
     @GET("/api/settings/show-my-specialities")
     fun getDoctorSpecialities():Observable<Set<SpecialityResponse>>
 
     @POST("api/settings/add-specialities")
-    fun addDoctorSpecialities(@Body specialities:Set<Int>):Completable
+    fun addDoctorSpecialities(@Body specialities:DoctorFieldsBody):Completable
 
     @HTTP(method = "DELETE", path = "api/settings/destroy-specialities", hasBody = true)
-    fun removeDoctorSpecialities(@Body specialities: Set<Int>):Completable
+    fun removeDoctorSpecialities(@Body specialities:DoctorFieldsBody):Completable
 
     @GET("/api/settings/medical-degrees/list-profile")
     fun getDoctorMedicalDegrees():Observable<Set<MedicalDegreeResponse>>
 
     @POST("api/settings/medical-degrees")
-    fun addDoctorMedicalDegrees(@Body degrees:Set<Int>):Completable
+    fun addDoctorMedicalDegrees(@Body degrees:DoctorFieldsBody):Completable
 
     @HTTP(method = "DELETE", path = "api/settings/medical-degrees", hasBody = true)
-    fun removeDoctorMedicalDegrees(@Body degrees: Set<Int>):Completable
+    fun removeDoctorMedicalDegrees(@Body degrees: DoctorFieldsBody):Completable
 }
