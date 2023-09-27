@@ -116,7 +116,7 @@ class HomeStateTransformer(private val context : Context): BaseStateTransformer<
                 list.add(HomeLastUpdatesTitleUIModel(entry.value.title))
                 list.addAll(entry.value.items.map { item-> HomeLastUpdatesItemUIModel(item.text) })
             }
-            addAll(list)
+            addAll(list.take(6))
         }
     }
 

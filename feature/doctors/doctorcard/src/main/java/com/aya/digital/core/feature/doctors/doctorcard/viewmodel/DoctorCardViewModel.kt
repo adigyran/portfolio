@@ -26,7 +26,7 @@ import org.orbitmvi.orbit.viewmodel.container
 
 class DoctorCardViewModel(
     private val coordinatorRouter: CoordinatorRouter,
-    private val rootCoordinatorRouter: CoordinatorRouter,
+   // private val rootCoordinatorRouter: CoordinatorRouter,
     private val param: DoctorCardView.Param,
     private val getDoctorByIdUseCase: GetDoctorByIdUseCase,
     private val getLatestScheduleByDoctorIdUseCase: GetLatestScheduleByDoctorIdUseCase,
@@ -137,7 +137,7 @@ class DoctorCardViewModel(
     }
 
     private fun listenForAppointmentCreation() {
-        rootCoordinatorRouter.setResultListener(RequestCodes.CREATE_APPOINTMENT_REQUEST_CODE) { result ->
+        coordinatorRouter.setResultListener(RequestCodes.CREATE_APPOINTMENT_REQUEST_CODE) { result ->
             if (result !is CreateAppointmentResultModel) return@setResultListener
             loadDoctorSchedule(param.doctorId)
             coordinatorRouter.sendEvent(

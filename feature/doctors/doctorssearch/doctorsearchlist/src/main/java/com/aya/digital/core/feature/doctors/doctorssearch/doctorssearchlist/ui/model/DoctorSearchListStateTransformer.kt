@@ -102,7 +102,7 @@ class DoctorSearchListStateTransformer(private val context: Context) :
     private fun checkIsFavorite(id: Int, state: DoctorSearchListState): Boolean = state.favoriteDoctors?.contains(id)?:false
 
     private fun DoctorModel.composeName() =
-        "Dr. %s, %s".format(lastName, clinics.firstOrNull()?.clinicName)
+        "Dr. %s, %s".format(lastName, clinics.firstOrNull()?.clinicName?:"")
 
     private fun DoctorModel.getSpeciality() = "%s".format(specialities.firstOrNull()?.name?:"")
 

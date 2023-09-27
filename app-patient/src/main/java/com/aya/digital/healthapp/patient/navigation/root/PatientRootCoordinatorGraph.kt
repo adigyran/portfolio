@@ -10,8 +10,13 @@ import com.aya.digital.core.feature.bottomnavhost.navigation.BottomNavHostScreen
 import com.aya.digital.core.feature.choosers.selectwithsearch.navigation.SelectWithSearchNavigationEvents
 import com.aya.digital.core.feature.choosers.selectwithsearch.navigation.SelectWithSearchScreen
 import com.aya.digital.core.feature.doctors.doctorcard.navigation.DoctorCardNavigationEvents
+import com.aya.digital.core.feature.doctors.doctorcard.navigation.DoctorCardScreen
 import com.aya.digital.core.feature.doctors.doctorssearch.doctorsearchmap.navigation.DoctorSearchMapNavigationEvents
+import com.aya.digital.core.feature.doctors.doctorssearch.doctorsearchmap.navigation.DoctorSearchMapScreen
+import com.aya.digital.core.feature.doctors.doctorssearch.doctorssearchlist.navigation.DoctorSearchListNavigationEvents
+import com.aya.digital.core.feature.doctors.doctorssearch.doctorssearchlist.navigation.DoctorSearchListScreen
 import com.aya.digital.core.feature.tabviews.appointments.navigation.AppointmentsNavigationEvents
+import com.aya.digital.core.feature.tabviews.doctorsearchcontainer.navigation.DoctorSearchContainerNavigationEvents
 import com.aya.digital.core.feature.videocall.videocallscreen.navigation.VideoCallScreenNavigationEvents
 import com.aya.digital.core.feature.videocall.videocallscreen.navigation.VideoCallScreenScreen
 import com.aya.digital.core.navigation.bottomnavigation.StartScreen
@@ -206,6 +211,25 @@ class PatientRootCoordinatorGraph(context: Context) : RootCoordinatorGraph {
 
             is CoordinatorEvent.Back -> {
                 navigationRouter.exit()
+            }
+
+            DoctorSearchContainerNavigationEvents.OpenDefaultScreen -> {
+                navigationRouter.replaceScreen(DoctorSearchListScreen)
+            }
+
+            DoctorSearchContainerNavigationEvents.OpenMap -> {
+                navigationRouter.replaceScreen(DoctorSearchMapScreen)
+            }
+
+            DoctorSearchContainerNavigationEvents.OpenList -> {
+                navigationRouter.replaceScreen(DoctorSearchListScreen)
+            }
+            is DoctorSearchMapNavigationEvents.OpenDoctorCard -> {
+                navigationRouter.navigateTo(DoctorCardScreen(event.doctorId))
+            }
+
+            is DoctorSearchListNavigationEvents.OpenDoctorCard -> {
+                navigationRouter.navigateTo(DoctorCardScreen(event.doctorId))
             }
         }
     }

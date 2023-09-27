@@ -22,7 +22,7 @@ class DoctorSearchTabCoordinatorGraph : FragmentContainerGraph {
         parentCoordinatorRouter: CoordinatorRouter
     ) {
         when (event) {
-            DoctorSearchContainerNavigationEvents.OpenDefaultScreen -> {
+          /*  DoctorSearchContainerNavigationEvents.OpenDefaultScreen -> {
                 navigationRouter.replaceScreen(DoctorSearchListScreen)
             }
 
@@ -39,7 +39,7 @@ class DoctorSearchTabCoordinatorGraph : FragmentContainerGraph {
 
             is DoctorSearchListNavigationEvents.OpenDoctorCard -> {
                 navigationRouter.navigateTo(DoctorCardScreen(event.doctorId))
-            }
+            }*/
             CoordinatorEvent.Back ->
             {
                 navigationRouter.exit()
