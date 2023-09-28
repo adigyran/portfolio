@@ -163,6 +163,18 @@ fixed cities list
 version 66 patient
 fixed doctor cluster list open
 fixed doctors empty map
+version 68 patient/version 10 doctor
+fixed videocall camera/audio toggles not working when moving to background and to foreground
+fixed videocall on changing orientation, it reconnects
+refactored videocall screen to remove unused, boilerplate code
+moved videocall state to viewmodel
+updated leak canary
+patients appointments now sort by datedate with most recent on top
+fixed close icons on bottom dialogs
+fixed navigation crash and back button
+fixed map icon
+removed null in doctors list
+reduced amount of last updates on home screen
 
 
 

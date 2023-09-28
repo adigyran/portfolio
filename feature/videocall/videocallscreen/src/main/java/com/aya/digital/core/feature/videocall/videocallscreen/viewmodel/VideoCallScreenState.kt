@@ -5,5 +5,8 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class VideoCallScreenState(
-    val roomToken:String?=null
+    val roomToken:String?=null,
+    val localVideoEnabled:Boolean = false,
+    val localAudioEnabled:Boolean = false,
+    val isConnected:Boolean = false
 ) : BaseState

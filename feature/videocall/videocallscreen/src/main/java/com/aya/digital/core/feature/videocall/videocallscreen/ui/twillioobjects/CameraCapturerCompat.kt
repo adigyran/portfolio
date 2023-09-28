@@ -1,4 +1,4 @@
-package com.aya.digital.core.feature.videocall.videocallscreen.ui
+package com.aya.digital.core.feature.videocall.videocallscreen.ui.twillioobjects
 
 import android.annotation.TargetApi
 import android.content.Context
