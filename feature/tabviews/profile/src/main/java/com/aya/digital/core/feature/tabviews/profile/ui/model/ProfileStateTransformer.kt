@@ -74,7 +74,7 @@ class ProfileStateTransformer(private val context: Context, private val appFlavo
     }
 
     private fun getDoctorName(state: ProfileState) = kotlin.run {
-        ""
+        "Dr. %s %s".format(state.firstName?:"",state.lastName?:"")
     }
 
     private fun getAge(state: ProfileState)= state.dateOFBirth?.let { birthday ->
@@ -86,7 +86,7 @@ class ProfileStateTransformer(private val context: Context, private val appFlavo
         }"
     } ?: ""
 
-    private fun getSpeciality(state: ProfileState) = ""
+    private fun getSpeciality(state: ProfileState) = state.doctorProfile?.doctorSpecialities?.firstOrNull()?.name?:""
     private fun getDoctorSpecificFields() = mutableListOf<DiffItem>().apply {
         add(
             ProfileMainUIModel(

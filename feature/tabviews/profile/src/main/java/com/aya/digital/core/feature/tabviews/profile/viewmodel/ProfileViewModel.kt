@@ -1,14 +1,19 @@
 package com.aya.digital.core.feature.tabviews.profile.viewmodel
 
+import com.aya.digital.core.domain.profile.generalinfo.view.GetDoctorMedicalDegreesUseCase
+import com.aya.digital.core.domain.profile.generalinfo.view.GetDoctorSpecialitiesUseCase
 import com.aya.digital.core.domain.profile.generalinfo.view.model.BriefProfileModel
 import com.aya.digital.core.domain.profile.generalinfo.view.GetProfileBriefUseCase
 import com.aya.digital.core.feature.tabviews.profile.FieldsTags
 import com.aya.digital.core.feature.tabviews.profile.navigation.ProfileNavigationEvents
 import com.aya.digital.core.mvi.BaseSideEffect
 import com.aya.digital.core.mvi.BaseViewModel
+import com.aya.digital.core.navigation.AppFlavour
+import com.aya.digital.core.navigation.Flavor
 import com.aya.digital.core.navigation.coordinator.CoordinatorEvent
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
 import com.aya.digital.core.util.requestcodes.RequestCodes
+import kotlinx.coroutines.rx3.asFlow
 import kotlinx.coroutines.rx3.await
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.reduce
@@ -17,7 +22,9 @@ import timber.log.Timber
 
 class ProfileViewModel(
     private val coordinatorRouter: CoordinatorRouter,
-    private val getProfileUseCase: GetProfileBriefUseCase
+    private val getProfileUseCase: GetProfileBriefUseCase,
+    private val getDoctorSpecialitiesUseCase: GetDoctorSpecialitiesUseCase,
+    private val flavor: AppFlavour
 ) :
     BaseViewModel<ProfileState, ProfileSideEffects>() {
     override fun onBack() {
@@ -39,6 +46,19 @@ class ProfileViewModel(
         profile.processResult({
             processBriefProfile(it)
         }, { processError(it) })
+        if (flavor.flavour == Flavor.Doctor) loadDoctorProfile()
+
+    }
+
+
+    private fun loadDoctorProfile() = intent {
+        getDoctorSpecialitiesUseCase().asFlow()
+            .collect { result ->
+                result.processResult({ specialities ->
+                    reduce { state.copy(doctorProfile = DoctorProfile(doctorSpecialities = specialities)) }
+
+                }, { processError(it) })
+            }
     }
 
     private fun processBriefProfile(profile: BriefProfileModel) = intent {
@@ -66,6 +86,7 @@ class ProfileViewModel(
                     listenForProfileEdit()
                     ProfileNavigationEvents.OpenProfileGeneralInfo(RequestCodes.VIEW_PROFILE_REQUEST_CODE)
                 }
+
                 FieldsTags.EMERGENCY_CONTACT_BUTTON_TAG -> ProfileNavigationEvents.OpenProfileEmergencyContact
                 FieldsTags.SECURITY_BUTTON_TAG -> ProfileNavigationEvents.OpenProfileSecurity
                 FieldsTags.CLINIC_INFO_BUTTON_TAG -> ProfileNavigationEvents.OpenClinicInfo
