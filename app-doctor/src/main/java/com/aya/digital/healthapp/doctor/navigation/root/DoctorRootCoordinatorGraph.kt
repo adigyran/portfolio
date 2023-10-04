@@ -6,7 +6,9 @@ import com.aya.digital.core.feature.bottomnavhost.navigation.BottomNavHostScreen
 import com.aya.digital.core.feature.choosers.selectwithsearch.navigation.SelectWithSearchNavigationEvents
 import com.aya.digital.core.feature.choosers.selectwithsearch.navigation.SelectWithSearchScreen
 import com.aya.digital.core.feature.tabviews.appointmentsscheduler.navigation.AppointmentsSchedulerNavigationEvents
+import com.aya.digital.core.feature.videocall.videocallscreen.navigation.VideoCallScreenNavigationEvents
 import com.aya.digital.core.feature.videocall.videocallscreen.navigation.VideoCallScreenScreen
+import com.aya.digital.core.feature.videocall.videocallservice.VideoService
 import com.aya.digital.core.navigation.bottomnavigation.StartScreen
 import com.aya.digital.core.navigation.coordinator.CoordinatorEvent
 import com.aya.digital.core.navigation.graph.coordinator.RootCoordinatorGraph
@@ -94,6 +96,23 @@ class DoctorRootCoordinatorGraph(context: Context) : RootCoordinatorGraph {
 
             is RootContainerNavigationEvents.OpenVideoCall -> {
                 navigationRouter.navigateTo(VideoCallScreenScreen(event.roomId))
+            }
+
+            VideoCallScreenNavigationEvents.Back -> {
+                navigationRouter.exit()
+            }
+
+            is VideoCallScreenNavigationEvents.StartForegroundService -> {
+                contextWeak.get()?.let {
+                    VideoService.startService(it,event.roomName)
+                }
+
+            }
+
+            is VideoCallScreenNavigationEvents.StopForegroundService -> {
+                contextWeak.get()?.let {
+                    VideoService.stopService(it)
+                }
             }
 
             is DateAppointmentsDialogNavigationEvents.FinishWithResult -> {

@@ -198,6 +198,10 @@ include(":feature:doctors:doctorssearch:doctorsearchmap")
 include(":feature:appointments:appointmentcard")
 //videocall
 include(":feature:videocall:videocallscreen")
+include(":feature:videocall:videocallservice")
+include(":feature:videocall:videocallcontainer")
+
+
 
 include(":core:localisation")
 

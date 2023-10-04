@@ -26,6 +26,8 @@ import com.aya.digital.healthapp.patient.navigation.tabs.home.HomeTabCoordinator
 import com.aya.digital.healthapp.patient.navigation.tabs.home.HomeTabDefaultRootScreenManager
 import com.aya.digital.healthapp.patient.navigation.tabs.profile.ProfileTabCoordinatorGraph
 import com.aya.digital.healthapp.patient.navigation.tabs.profile.ProfileTabDefaultRootScreenManager
+import com.aya.digital.healthapp.patient.navigation.videocall.VideoCallContainerCoordinatorGraph
+import com.aya.digital.healthapp.patient.navigation.videocall.VideoCallContainerNavigationGraph
 
 import org.kodein.di.DI
 import org.kodein.di.bind
@@ -68,4 +70,13 @@ fun patientAppDiModule() = DI.Module("patientAppDiModule") {
 
     bind<DoctorSearchScreenTabsScreens>() with singleton { DoctorSearchScreenTabsScreensImpl() }
 
+    bind<RootCoordinatorGraph>("videocall_navigation") with singleton {
+        VideoCallContainerCoordinatorGraph(
+            instance()
+        )
+    }
+
+    bind<RootNavigationGraph>("videocall_navigation") with singleton {
+       VideoCallContainerNavigationGraph()
+    }
 }

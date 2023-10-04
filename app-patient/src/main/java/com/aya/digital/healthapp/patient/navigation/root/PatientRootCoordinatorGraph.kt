@@ -19,6 +19,7 @@ import com.aya.digital.core.feature.tabviews.appointments.navigation.Appointment
 import com.aya.digital.core.feature.tabviews.doctorsearchcontainer.navigation.DoctorSearchContainerNavigationEvents
 import com.aya.digital.core.feature.videocall.videocallscreen.navigation.VideoCallScreenNavigationEvents
 import com.aya.digital.core.feature.videocall.videocallscreen.navigation.VideoCallScreenScreen
+import com.aya.digital.core.feature.videocall.videocallservice.VideoService
 import com.aya.digital.core.navigation.bottomnavigation.StartScreen
 import com.aya.digital.core.navigation.coordinator.CoordinatorEvent
 import com.aya.digital.core.navigation.graph.coordinator.RootCoordinatorGraph
@@ -34,6 +35,7 @@ import com.aya.digital.feature.bottomdialogs.dateappointmentsdialog.ui.DateAppoi
 import com.aya.digital.feature.bottomdialogs.doctorsclusterlistdialog.navigation.DoctorsClusterListDialogNavigationEvents
 import com.aya.digital.feature.bottomdialogs.doctorsclusterlistdialog.navigation.DoctorsClusterListDialogScreen
 import com.aya.digital.feature.rootcontainer.navigation.RootContainerNavigationEvents
+import com.aya.digital.feature.videocallcontainer.navigation.VideoContainerScreen
 import com.github.terrakok.cicerone.Router
 import java.lang.ref.WeakReference
 
@@ -81,12 +83,25 @@ class PatientRootCoordinatorGraph(context: Context) : RootCoordinatorGraph {
             }
 
             is RootContainerNavigationEvents.OpenVideoCall -> {
-                navigationRouter.navigateTo(VideoCallScreenScreen(event.roomId))
+               // navigationRouter.navigateTo(VideoCallScreenScreen(event.roomId))
+                navigationRouter.navigateTo(VideoContainerScreen(event.roomId))
             }
             VideoCallScreenNavigationEvents.Back -> {
                 navigationRouter.exit()
             }
 
+            is VideoCallScreenNavigationEvents.StartForegroundService -> {
+                contextWeak.get()?.let {
+                    VideoService.startService(it,event.roomName)
+                }
+
+            }
+
+            is VideoCallScreenNavigationEvents.StopForegroundService -> {
+                contextWeak.get()?.let {
+                    VideoService.stopService(it)
+                }
+            }
 
             is RootContainerNavigationEvents.SelectSingleItem -> {
                 navigationRouter.navigateTo(

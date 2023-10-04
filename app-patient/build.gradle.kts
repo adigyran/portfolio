@@ -127,7 +127,8 @@ dependencies {
     implementation(project(":feature:auth:restorepassword"))
 
     implementation(project(":feature:videocall:videocallscreen"))
-
+    implementation(project(":feature:videocall:videocallservice"))
+    implementation(project(":feature:videocall:videocallcontainer"))
 
     implementation(project(":core:appbase"))
     implementation(project(":core:data:base"))

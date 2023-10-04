@@ -89,6 +89,8 @@ dependencies {
     implementation(project(":feature:auth:restorepassword"))
     implementation(project(":feature:choosers:selectwithsearch"))
     implementation(project(":feature:videocall:videocallscreen"))
+    implementation(project(":feature:videocall:videocallservice"))
+    implementation(project(":feature:videocall:videocallcontainer"))
     implementation(project(":feature:profile:security:securitysummary"))
     implementation(project(":feature:profile:security:changeemail"))
     implementation(project(":feature:profile:security:changepassword"))

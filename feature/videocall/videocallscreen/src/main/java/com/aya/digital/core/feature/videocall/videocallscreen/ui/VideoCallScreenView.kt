@@ -1,13 +1,22 @@
 package com.aya.digital.core.feature.videocall.videocallscreen.ui
 
 import android.Manifest
+import android.app.PendingIntent
+import android.app.PictureInPictureParams
+import android.app.RemoteAction
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
+import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.content.res.Configuration
+import android.graphics.drawable.Icon
 import android.media.AudioManager
 import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
+import android.util.Rational
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -16,13 +25,23 @@ import android.view.WindowManager
 import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.DrawableRes
+import androidx.annotation.RequiresApi
+import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.registerReceiver
 import com.aya.digital.core.ext.argument
 import com.aya.digital.core.ext.bindClick
+import com.aya.digital.core.ext.booleans
 import com.aya.digital.core.ext.createFragment
 import com.aya.digital.core.ext.toggleVisibility
+import com.aya.digital.core.feature.videocall.videocallscreen.ACTION_CALL_CONTROL
+import com.aya.digital.core.feature.videocall.videocallscreen.CONTROL_TYPE_END_CALL
+import com.aya.digital.core.feature.videocall.videocallscreen.CONTROL_TYPE_TOGGLE_AUDIO
+import com.aya.digital.core.feature.videocall.videocallscreen.CONTROL_TYPE_TOGGLE_CAMERA
+import com.aya.digital.core.feature.videocall.videocallscreen.EXTRA_CONTROL_TYPE
 import com.aya.digital.core.feature.videocall.videocallscreen.databinding.ContentVideoBinding
 import com.aya.digital.core.feature.videocall.videocallscreen.databinding.ViewVideocallScreenBinding
 import com.aya.digital.core.feature.videocall.videocallscreen.di.videoCallScreenDiModule
@@ -38,6 +57,7 @@ import com.aya.digital.core.feature.videocall.videocallscreen.ui.twillioobjects.
 import com.aya.digital.core.feature.videocall.videocallscreen.viewmodel.VideoCallScreenSideEffects
 import com.aya.digital.core.feature.videocall.videocallscreen.viewmodel.VideoCallScreenState
 import com.aya.digital.core.feature.videocall.videocallscreen.viewmodel.VideoCallScreenViewModel
+import com.aya.digital.core.navigation.utils.BackButtonListener
 import com.aya.digital.core.ui.base.screens.DiFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -59,11 +79,15 @@ import tvi.webrtc.VideoSink
 import kotlin.properties.Delegates
 import com.aya.digital.core.feature.videocall.videocallscreen.R as VideocallscreenR
 
+
+
+
 class VideoCallScreenView :
-    DiFragment<ViewVideocallScreenBinding, VideoCallScreenViewModel, VideoCallScreenState, VideoCallScreenSideEffects, VideoCallScreenUiModel, VideoCallScreenStateTransformer>() {
+    DiFragment<ViewVideocallScreenBinding, VideoCallScreenViewModel, VideoCallScreenState, VideoCallScreenSideEffects, VideoCallScreenUiModel, VideoCallScreenStateTransformer>(), BackButtonListener {
     private val CAMERA_MIC_PERMISSION_REQUEST_CODE = 1
     private val CAMERA_PERMISSION_INDEX = 0
     private val MIC_PERMISSION_INDEX = 1
+
 
     private var param: Param by argument("param")
 
@@ -79,9 +103,10 @@ class VideoCallScreenView :
     private var room: Room? = null
     private var localParticipant: LocalParticipant? = null
 
-    private val localVideoTrackReadySubject = BehaviorSubject.create<Boolean>().apply { onNext(false) }
-    private val localAudioTrackReadySubject = BehaviorSubject.create<Boolean>().apply { onNext(false) }
-
+    private val localVideoTrackReadySubject =
+        BehaviorSubject.create<Boolean>().apply { onNext(false) }
+    private val localAudioTrackReadySubject =
+        BehaviorSubject.create<Boolean>().apply { onNext(false) }
 
 
     private val viewModelFactory: ((Unit) -> VideoCallScreenViewModel) by kodein.on(
@@ -126,6 +151,20 @@ class VideoCallScreenView :
     /*
  * Room events listener
  */
+    private val broadcastReceiver = object : BroadcastReceiver() {
+
+        // Called when an item is clicked.
+        override fun onReceive(context: Context?, intent: Intent?) {
+            if (intent == null || intent.action != ACTION_CALL_CONTROL) {
+                return
+            }
+            when (intent.getIntExtra(EXTRA_CONTROL_TYPE, 0)) {
+                CONTROL_TYPE_END_CALL -> viewModel.toggleConnectionClicked()
+                CONTROL_TYPE_TOGGLE_CAMERA -> viewModel.toggleLocalVideoClicked()
+                CONTROL_TYPE_TOGGLE_AUDIO -> viewModel.toggleLocalAudioClicked()
+            }
+        }
+    }
     private val roomListener = RoomListenerImpl(object : RoomListener {
         override fun onConnected(room: Room) {
             viewModel.onSuccessfulConnection()
@@ -231,6 +270,29 @@ class VideoCallScreenView :
 
         initializeUI()
         viewModel.resumeOngoingConnection()
+
+        requireActivity().registerReceiver(broadcastReceiver, IntentFilter(ACTION_CALL_CONTROL))
+
+    }
+
+    override fun onPictureInPictureModeChanged(isInPictureInPictureMode: Boolean) {
+        super.onPictureInPictureModeChanged(isInPictureInPictureMode)
+        viewModel.togglePipMode(isInPictureInPictureMode)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.S)
+    private fun updatePictureInPictureParams(remoteActions:List<RemoteAction>): PictureInPictureParams {
+        val params = PictureInPictureParams.Builder()
+            .setActions(
+                remoteActions
+            )
+
+            .setAutoEnterEnabled(true)
+            .setSeamlessResizeEnabled(false)
+            .setAspectRatio(Rational(16, 9))
+            .build()
+        requireActivity().setPictureInPictureParams(params)
+        return params
     }
 
     private fun initializeUI() {
@@ -289,17 +351,28 @@ class VideoCallScreenView :
             this.cameraSwitchVisible.let { binding.switchCameraActionFab.toggleVisibility(it) }
             this.localAudioEnabled.let { audioEnabled ->
                 localAudioTrackReadySubject.subscribe {
-                    if(!it) return@subscribe
+                    if (!it) return@subscribe
                     localAudioTrack?.apply { enabled = audioEnabled }
                 }
 
             }
             this.localVideoEnabled.let { videoEnabled ->
                 localVideoTrackReadySubject.subscribe {
-                    if(!it) return@subscribe
+                    if (!it) return@subscribe
                     localVideoTrack?.apply { enabled = videoEnabled }
                 }
             }
+            this.remoteActions.let { remoteActions ->
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                    updatePictureInPictureParams(remoteActions
+                    )
+                }
+            }
+            this.uiVisibility.let {
+                binding.buttonsContainer.toggleVisibility(it)
+                contentVideoBinding.videoStatusTextView.toggleVisibility(it)
+            }
+
         }
     }
 
@@ -502,61 +575,68 @@ class VideoCallScreenView :
 
     override fun onResume() {
         super.onResume()
-        /*
+        if (requireActivity().isInPictureInPictureMode) {
+
+        } else {
+            /*
          * If the local video track was released when the app was put in the background, recreate.
          */
-        localVideoTrack =
-            if (localVideoTrack == null && permissionChecker.checkPermissionForCameraAndMicrophoneAndBluetooth()) {
-                createLocalVideoTrack(
-                    requireActivity(),
-                    true,
-                    cameraCapturerCompat
-                )
+            localVideoTrack =
+                if (localVideoTrack == null && permissionChecker.checkPermissionForCameraAndMicrophoneAndBluetooth()) {
+                    createLocalVideoTrack(
+                        requireActivity(),
+                        true,
+                        cameraCapturerCompat
+                    )
 
-            } else {
-                localVideoTrack
-            }
-        localVideoTrackReadySubject.onNext(true)
-        localVideoTrack?.addSink(localVideoView)
+                } else {
+                    localVideoTrack
+                }
+            localVideoTrackReadySubject.onNext(true)
+            localVideoTrack?.addSink(localVideoView)
 
-        /*
+            /*
          * If connected to a Room then share the local video track.
          */
-        localVideoTrack?.let { localParticipant?.publishTrack(it) }
+            localVideoTrack?.let { localParticipant?.publishTrack(it) }
 
-        /*
+            /*
          * Update encoding parameters if they have changed.
          */
-        localParticipant?.setEncodingParameters(encodingParameters)
+            localParticipant?.setEncodingParameters(encodingParameters)
 
-        /*
+            /*
          * Update reconnecting UI
          */
-        room?.let {
-            /*  reconnectingProgressBar.visibility = if (it.state != Room.State.RECONNECTING)
+            room?.let {
+                /*  reconnectingProgressBar.visibility = if (it.state != Room.State.RECONNECTING)
                   View.GONE else
                   View.VISIBLE
               videoStatusTextView.text = "Connected to ${it.name}"*/
+            }
         }
     }
 
 
-
     override fun onPause() {
-        /*
-         * If this local video track is being shared in a Room, remove from local
-         * participant before releasing the video track. Participants will be notified that
-         * the track has been removed.
-         */
-        localVideoTrack?.let { localParticipant?.unpublishTrack(it) }
+        if (requireActivity().isInPictureInPictureMode) {
 
-        /*
-         * Release the local video track before going in the background. This ensures that the
-         * camera can be used by other applications while this app is in the background.
-         */
-        localVideoTrack?.release()
-        localVideoTrack = null
-        localVideoTrackReadySubject.onNext(false)
+        } else {
+            /*
+     * If this local video track is being shared in a Room, remove from local
+     * participant before releasing the video track. Participants will be notified that
+     * the track has been removed.
+     */
+            localVideoTrack?.let { localParticipant?.unpublishTrack(it) }
+
+            /*
+             * Release the local video track before going in the background. This ensures that the
+             * camera can be used by other applications while this app is in the background.
+             */
+            localVideoTrack?.release()
+            localVideoTrack = null
+            localVideoTrackReadySubject.onNext(false)
+        }
         super.onPause()
     }
 
@@ -606,10 +686,18 @@ class VideoCallScreenView :
     override fun provideStateTransformer(): VideoCallScreenStateTransformer =
         stateTransformerFactory(Unit)
 
+
+
+
     companion object {
         fun getNewInstance(roomId: Int): VideoCallScreenView =
             createFragment(
                 Param(roomId)
             )
+    }
+
+    override fun onBackPressed(): Boolean {
+        viewModel.onBack()
+        return true
     }
 }

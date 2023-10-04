@@ -1,12 +1,19 @@
 package com.aya.digital.core.feature.videocall.videocallscreen.viewmodel
 
+import com.aya.digital.core.domain.appointment.base.GetAppointmentByIdWithParticipantUseCase
+import com.aya.digital.core.domain.appointment.participants.model.AppointmentDoctorParticipant
+import com.aya.digital.core.domain.appointment.participants.model.AppointmentPatientParticipant
 import com.aya.digital.core.domain.appointment.telehealth.GetTeleHealthRoomTokenUseCase
+import com.aya.digital.core.domain.base.models.appointment.AppointmentModel
+import com.aya.digital.core.domain.base.models.doctors.DoctorModel
+import com.aya.digital.core.domain.base.models.patients.PatientModel
 import com.aya.digital.core.feature.videocall.videocallscreen.navigation.VideoCallScreenNavigationEvents
 import com.aya.digital.core.feature.videocall.videocallscreen.ui.VideoCallScreenView
 import com.aya.digital.core.mvi.BaseViewModel
 import com.aya.digital.core.navigation.coordinator.CoordinatorEvent
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
 import kotlinx.coroutines.rx3.await
+import kotlinx.datetime.toKotlinLocalDate
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
@@ -15,8 +22,9 @@ import org.orbitmvi.orbit.viewmodel.container
 class VideoCallScreenViewModel(
     private val coordinatorRouter: CoordinatorRouter,
     private val param: VideoCallScreenView.Param,
-    private val getTeleHealthRoomTokenUseCase: GetTeleHealthRoomTokenUseCase
-) :
+    private val getTeleHealthRoomTokenUseCase: GetTeleHealthRoomTokenUseCase,
+    private val getAppointmentByIdWithParticipantUseCase: GetAppointmentByIdWithParticipantUseCase
+    ) :
     BaseViewModel<VideoCallScreenState, VideoCallScreenSideEffects>() {
     override val container = container<VideoCallScreenState, VideoCallScreenSideEffects>(
         initialState = VideoCallScreenState(),
@@ -35,13 +43,76 @@ class VideoCallScreenViewModel(
         }
     }
 
+    private fun loadAppointment() = intent {
+        getAppointmentByIdWithParticipantUseCase(param.roomId)
+            .await()
+            .processResult({ appointmentWithParticipantModel ->
+                showAppointment(appointmentWithParticipantModel.appointmentModel)
+                val appointmentParticipant = appointmentWithParticipantModel.appointmentParticipant
+                when(appointmentParticipant)
+                {
+                    is AppointmentDoctorParticipant -> showDoctor(appointmentParticipant.doctorModel)
+                    is AppointmentPatientParticipant -> showPatient(appointmentParticipant.patientModel)
+                    null -> {
 
+                    }
+                }
+            }, { processError(it) })
+    }
+
+    private fun showAppointment(appointmentModel: AppointmentModel) = intent {
+
+      /*  reduce {
+            state.copy(
+                appointmentDate = appointmentModel.startDate.toKotlinLocalDateTime(),
+                appointmentComment = appointmentModel.comment,
+                isTelemed = appointmentModel.type is AppointmentType.Online
+            )
+        }*/
+    }
+
+    private fun showDoctor(doctorModel: DoctorModel) = intent {
+        val doctorData = DoctorData(
+            doctorFirstName = doctorModel.firstName,
+            doctorLastName = doctorModel.lastName,
+            doctorMiddleName = doctorModel.middleName,
+            doctorAddress = doctorModel.address,
+            doctorClinics = doctorModel.clinics,
+            doctorSpecialities = doctorModel.specialities,
+            doctorInsurances = doctorModel.insurances
+        )
+        reduce {
+            state.copy(
+             //   participantAvatar = doctorModel.avatarPhotoLink,
+                doctorData = doctorData
+            )
+        }
+    }
+
+    private fun showPatient(patientModel: PatientModel) = intent {
+        val patientData = PatientData(
+            patientFirstName = patientModel.firstName,
+            patientLastName = patientModel.lastName,
+            patientBirthDate = patientModel.birthDate,
+            patientInsurances = patientModel.insurances
+        )
+        reduce {
+            state.copy(
+               // participantAvatar = patientModel.avatarPhotoLink,
+                patientData = patientData
+            )
+        }
+    }
 
     fun toggleConnectionClicked() = intent {
         when (state.isConnected) {
             true -> showDisconnectDialog()
             false -> connect()
         }
+    }
+
+    fun togglePipMode(isPip:Boolean) = intent {
+        reduce { state.copy(pipMode = isPip) }
     }
 
     fun resumeOngoingConnection() = intent {

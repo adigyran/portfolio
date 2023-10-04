@@ -13,6 +13,8 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+
 
 
     <application
@@ -35,6 +37,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.aya.digital.feature.videocallcontainer.ui.VideoContainerView"
+            android:theme="@style/Theme.HealthAppAya"
+            android:supportsPictureInPicture="true"
+            android:configChanges=
+                "screenSize|smallestScreenSize|screenLayout|orientation"
+            android:exported="true">
+        </activity>
+        <service
+            android:foregroundServiceType="mediaProjection"
+            android:name="com.aya.digital.core.feature.videocall.videocallservice.VideoService"/>
     </application>
     <queries>
         <intent>

@@ -24,6 +24,8 @@ import com.aya.digital.healthapp.doctor.navigation.tabs.appointments.Appointment
 import com.aya.digital.healthapp.doctor.navigation.tabs.profile.ProfileTabCoordinatorGraph
 import com.aya.digital.healthapp.doctor.navigation.tabs.profile.ProfileTabDefaultRootScreenManager
 import com.aya.digital.healthapp.patient.navigation.auth.DoctorAuthGraph
+import com.aya.digital.healthapp.doctor.navigation.videocall.VideoCallContainerCoordinatorGraph
+import com.aya.digital.healthapp.doctor.navigation.videocall.VideoCallContainerNavigationGraph
 import org.kodein.di.DI
 import org.kodein.di.bind
 import org.kodein.di.instance
@@ -59,4 +61,13 @@ fun doctorAppDiModule() = DI.Module("doctorAppDiModule") {
     bind<DefaultRootScreenManager>("appointments_tab_navigation") with singleton { AppointmentsTabDefaultRootScreenManager() }
     bind<FragmentContainerGraph>("appointments_tab_navigation") with singleton { AppointmentsTabCoordinatorGraph() }
 
+    bind<RootCoordinatorGraph>("videocall_navigation") with singleton {
+        VideoCallContainerCoordinatorGraph(
+            instance()
+        )
+    }
+
+    bind<RootNavigationGraph>("videocall_navigation") with singleton {
+        VideoCallContainerNavigationGraph()
+    }
 }

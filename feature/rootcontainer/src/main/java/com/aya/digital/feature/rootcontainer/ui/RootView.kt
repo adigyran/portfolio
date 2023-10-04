@@ -1,6 +1,9 @@
 package com.aya.digital.feature.rootcontainer.ui
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.os.Parcelable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,6 +11,7 @@ import android.widget.RelativeLayout
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.FragmentManager
 import com.aya.digital.core.baseresources.databinding.ViewFragmentContainerBinding
+import com.aya.digital.core.ext.createActivity
 import com.aya.digital.core.ext.gone
 import com.aya.digital.core.ext.toggleVisibility
 import com.aya.digital.core.ext.visible
@@ -28,6 +32,7 @@ import com.aya.digital.feature.rootcontainer.databinding.RootViewTopLayoutBindin
 import com.aya.digital.feature.rootcontainer.ui.model.RootContainerStateTransformer
 import com.aya.digital.feature.rootcontainer.ui.model.RootContainerUiModel
 import com.github.terrakok.cicerone.Navigator
+import kotlinx.parcelize.Parcelize
 import org.kodein.di.factory
 import org.kodein.di.instance
 import org.kodein.di.on
@@ -115,5 +120,13 @@ class RootView :
         localCicerone.router.exit()
     }*/
     override fun provideCoordinator(): Coordinator = coordinatorFactory(supportFragmentManager)
+    @Parcelize
+    object Param : Parcelable
 
+    companion object {
+        fun getNewInstance(
+            context: Context
+        ): Intent = createActivity<RootView, Param>(context, Param)
+
+    }
 }

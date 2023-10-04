@@ -1,0 +1,5 @@
+<resources>
+    <string name="room_notification_channel_title">Video Call</string>
+    <string name="room_notification_title">Ongoing video call in %s</string>
+    <string name="room_notification_message">Tap to return to the room.</string>
+</resources>

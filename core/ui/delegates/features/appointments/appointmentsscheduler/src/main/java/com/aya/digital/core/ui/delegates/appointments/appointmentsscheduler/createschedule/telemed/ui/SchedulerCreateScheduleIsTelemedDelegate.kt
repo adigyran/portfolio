@@ -41,13 +41,16 @@ class SchedulerCreateScheduleIsTelemedDelegate(private val onTelemedChecked:(che
         BaseViewHolder<SchedulerCreateScheduleIsTelemedUIModel>(binding.root) {
 
         init {
-            binding.root bindClick {onTelemedChecked(true)}
+            binding.root bindClick {
+                onTelemedChecked(true)
+            }
         }
 
         override fun bind(item: SchedulerCreateScheduleIsTelemedUIModel) {
             super.bind(item)
 
             binding.isTelemedSwitch.isChecked = item.isTelemed
+
         }
 
 
