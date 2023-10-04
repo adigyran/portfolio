@@ -175,6 +175,12 @@ fixed navigation crash and back button
 fixed map icon
 removed null in doctors list
 reduced amount of last updates on home screen
+version 70 patient/version 11 doctor
+videocall now in picture in picture mode (> android API 12)
+videocall moved to another activity to support pip and deeplinks
+fixed doctor navigation
+fixed doctor fields, now everything is editable
+fixed schedule creation, when online mode was not togglable
 
 
 
