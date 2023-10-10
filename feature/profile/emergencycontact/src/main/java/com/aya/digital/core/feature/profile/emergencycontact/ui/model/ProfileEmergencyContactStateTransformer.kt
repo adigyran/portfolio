@@ -9,6 +9,7 @@ import com.aya.digital.core.ui.adapters.base.DiffItem
 import com.aya.digital.core.ui.base.masks.CommonMasks
 import com.aya.digital.core.ui.delegates.components.fields.emailphone.model.PhoneFieldUIModel
 import com.aya.digital.core.ui.delegates.components.fields.name.model.NameFieldUIModel
+import com.aya.digital.core.ui.delegates.components.fields.selection.model.SelectionFieldUIModel
 import com.aya.digital.core.ui.delegates.components.fields.validated.model.ValidatedFieldUIModel
 import com.aya.digital.core.ui.delegates.profile.emergencycontactinfo.model.EmergencyContactInfoUIModel
 import ru.tinkoff.decoro.MaskImpl
@@ -25,18 +26,36 @@ class ProfileEmergencyContactStateTransformer(context: Context) :
                             NameFieldUIModel(
                                 FieldsTags.NAME_FIELD,
                                 "Contact Name",
-                                state.contactNameEditable.getEditableField(),
-                                state.contactNameError
+                                state.editableEmergencyContact?.contactNameEditable.getEditableField(),
+                                state.editableEmergencyContact?.contactNameError
                             )
                         )
                         add(
                             ValidatedFieldUIModel(
                                 tag = FieldsTags.PHONE_FIELD,
                                 label = "Contact Phone",
-                                text = state.contactPhoneEditable.getEditableField(),
-                                error = state.contactPhoneError,
+                                state.editableEmergencyContact?.contactPhoneEditable.getEditableField(),
+                                state.editableEmergencyContact?.contactPhoneError,
                                 inputType = InputType.TYPE_CLASS_NUMBER,
                                 mask = CommonMasks.getUsPhoneValidator()
+                            )
+
+                        )
+                        add(
+                            NameFieldUIModel(
+                                tag = FieldsTags.SUMMARY_FIELD,
+                                label = "Contact Summary",
+                                state.editableEmergencyContact?.contactSummaryEditable.getEditableField(),
+                                state.editableEmergencyContact?.contactSummaryError
+                            )
+
+                        )
+                        add(
+                            SelectionFieldUIModel(
+                                tag = FieldsTags.TYPE_FIELD,
+                                label = "Contact Type",
+                                state.editableEmergencyContact?.contactTypeEditable.getEditableField(),
+                                state.editableEmergencyContact?.contactTypeError
                             )
 
                         )
@@ -44,27 +63,30 @@ class ProfileEmergencyContactStateTransformer(context: Context) :
                     }
                 } else {
                     return@run mutableListOf<DiffItem>().apply {
-                        add(
-                            EmergencyContactInfoUIModel(
-                                "Contact Name",
-                                state.contactName.getField()
-                            )
-                        )
-                        add(
-                            EmergencyContactInfoUIModel(
-                                "Contact Phone",
-                                state.contactPhone.getMaskedText(CommonMasks.getUsPhoneValidator()).getField()
-                            )
-                        )
+                        state.emergencyContacts?.run {
+                            addAll(state.emergencyContacts.map {
+                                EmergencyContactInfoUIModel(
+                                    id = it.Id,
+                                    fullName = it.name?:"",
+                                    phone = it.phone?:"",
+                                    summary = it.summary?:"",
+                                    type = it.type?.name?:""
+                                )
+                            })
+
+                        }
+
                     }
                 }
             },
             buttonText = kotlin.run {
-                if (state.editMode) "Save" else "Edit"
+                if (state.editMode) "Save" else "Create"
             }
         )
 
-    private fun getNotSpecifiedText() = "Not specified"
+
+
+    fun getNotSpecifiedText() = "Not specified"
     private fun String?.getField() = this ?: getNotSpecifiedText()
     private fun String?.getEditableField() = this ?: ""
 

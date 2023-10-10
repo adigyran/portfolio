@@ -8,9 +8,10 @@ android {
 
 dependencies {
     implementation(project(":core:domain:profile"))
+    implementation(project(":core:domain:dictionaries"))
     implementation(project(":core:ui:delegates:features:profile:emergencycontactinfo"))
     implementation(project(":core:ui:delegates:components:fields:name"))
     implementation(project(":core:ui:delegates:components:fields:emailphone"))
     implementation(project(":core:ui:delegates:components:fields:validated"))
-
+    implementation(project(":core:ui:delegates:components:fields:selection"))
 }

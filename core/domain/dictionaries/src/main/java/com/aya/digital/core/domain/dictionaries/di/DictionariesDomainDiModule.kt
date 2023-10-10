@@ -5,6 +5,10 @@ import com.aya.digital.core.domain.dictionaries.base.GetMultiSelectItemsUseCase
 import com.aya.digital.core.domain.dictionaries.base.impl.GetMultiSelectItemsUseCaseImpl
 import com.aya.digital.core.domain.dictionaries.cities.GetCityItemsUseCase
 import com.aya.digital.core.domain.dictionaries.cities.impl.GetCityItemsUseCaseImpl
+import com.aya.digital.core.domain.dictionaries.emergencycontacttype.GetEmergencyContactTypeItemByIdUseCase
+import com.aya.digital.core.domain.dictionaries.emergencycontacttype.GetEmergencyContactTypeItemsUseCase
+import com.aya.digital.core.domain.dictionaries.emergencycontacttype.impl.GetEmergencyContactTypeItemByIdUseCaseImpl
+import com.aya.digital.core.domain.dictionaries.emergencycontacttype.impl.GetEmergencyContactTypetemsUseCaseImpl
 import com.aya.digital.core.domain.dictionaries.languages.GetLanguageItemsUseCase
 import com.aya.digital.core.domain.dictionaries.languages.impl.GetLanguageItemsUseCaseImpl
 import com.aya.digital.core.domain.dictionaries.insurancecompany.GetInsuranceCompanyItemByIdUseCase
@@ -47,6 +51,20 @@ fun dictionariesDomainDiModule() = DI.Module("dictionariesDomainDiModule") {
         )
     }
 
+    bind<GetEmergencyContactTypeItemsUseCase>() with singleton {
+        GetEmergencyContactTypetemsUseCaseImpl(
+            instance(),
+            instance()
+        )
+    }
+
+    bind<GetEmergencyContactTypeItemByIdUseCase>() with singleton {
+        GetEmergencyContactTypeItemByIdUseCaseImpl(
+            instance(),
+            instance()
+        )
+    }
+
     bind<GetCityItemsUseCase>() with singleton { GetCityItemsUseCaseImpl(instance(), instance()) }
 
 
@@ -63,7 +81,8 @@ fun dictionariesDomainDiModule() = DI.Module("dictionariesDomainDiModule") {
             getSpecialityItemsUseCase = instance(),
             getCityItemsUseCase = instance(),
             getLanguageItemsUseCase = instance(),
-            getMedicalDegreeItemsUseCase = instance()
+            getMedicalDegreeItemsUseCase = instance(),
+            getEmergencyContactTypeItemsUseCase = instance()
         )
     }
 }

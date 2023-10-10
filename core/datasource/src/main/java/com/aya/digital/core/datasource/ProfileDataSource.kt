@@ -5,16 +5,21 @@ import com.aya.digital.core.network.model.request.InsurancePolicyBody
 import com.aya.digital.core.network.model.request.NotificationSettingsBody
 import com.aya.digital.core.network.model.request.ProfileBody
 import com.aya.digital.core.network.model.request.UpdatePhoneBody
-import com.aya.digital.core.network.model.response.EmergencyContactResponse
+import com.aya.digital.core.network.model.response.emergencycontact.EmergencyContactResponse
 import com.aya.digital.core.network.model.response.profile.AvatarResponse
 import com.aya.digital.core.network.model.response.profile.CurrentProfileResponse
 import com.aya.digital.core.network.model.response.profile.ImageUploadResponse
 import com.aya.digital.core.network.model.response.profile.InsurancePolicyResponse
 import com.aya.digital.core.network.model.response.profile.NotificationSettingsResponse
 import com.aya.digital.core.network.model.response.profile.PhoneResponse
+import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import okhttp3.RequestBody
+import retrofit2.http.Body
+import retrofit2.http.GET
+import retrofit2.http.POST
+import retrofit2.http.Path
 
 interface ProfileDataSource {
 
@@ -31,10 +36,12 @@ interface ProfileDataSource {
     ): Single<Unit>
     fun getEmergencyContact(): Single<EmergencyContactResponse>
 
-    fun updateEmergencyContact(
-        body: EmergencyContactBody
-    ): Single<Unit>
+    fun getEmergencyContacts(): Single<List<EmergencyContactResponse>>
 
+    fun createEmergencyContact(body: EmergencyContactBody): Completable
+    fun updateEmergencyContact(contactId:Int, body: EmergencyContactBody): Completable
+
+    fun deleteEmergencyContact(contactId: Int): Completable
     fun uploadAttachmentImage(
         mime:String,
         file: RequestBody

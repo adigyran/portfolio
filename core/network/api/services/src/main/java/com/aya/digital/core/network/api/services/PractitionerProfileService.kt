@@ -1,7 +1,6 @@
 package com.aya.digital.core.network.api.services
 
 import com.aya.digital.core.network.model.request.*
-import com.aya.digital.core.network.model.response.EmergencyContactResponse
 import com.aya.digital.core.network.model.response.doctors.MedicalDegreeResponse
 import com.aya.digital.core.network.model.response.doctors.SpecialityResponse
 import com.aya.digital.core.network.model.response.language.LanguageResponse
@@ -9,7 +8,6 @@ import com.aya.digital.core.network.model.response.profile.*
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
-import okhttp3.RequestBody
 import retrofit2.http.*
 
 interface PractitionerProfileService {

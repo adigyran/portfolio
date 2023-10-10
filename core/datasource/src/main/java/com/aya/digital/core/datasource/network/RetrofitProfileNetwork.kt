@@ -7,7 +7,7 @@ import com.aya.digital.core.network.api.services.PractitionerProfileService
 import com.aya.digital.core.network.api.services.ProfileService
 import com.aya.digital.core.network.main.di.modules.createApiService
 import com.aya.digital.core.network.model.request.*
-import com.aya.digital.core.network.model.response.EmergencyContactResponse
+import com.aya.digital.core.network.model.response.emergencycontact.EmergencyContactResponse
 import com.aya.digital.core.network.model.response.doctors.MedicalDegreeResponse
 import com.aya.digital.core.network.model.response.doctors.SpecialityResponse
 import com.aya.digital.core.network.model.response.language.LanguageResponse
@@ -69,8 +69,12 @@ class RetrofitProfileNetwork(private val network: ProfileService) :
     override fun getEmergencyContact(): Single<EmergencyContactResponse> =
         network.getEmergencyContact()
 
-    override fun updateEmergencyContact(body: EmergencyContactBody): Single<Unit> =
-        network.updateEmergencyContact(body)
+    override fun getEmergencyContacts(): Single<List<EmergencyContactResponse>>  = network.getEmergencyContacts()
+    override fun createEmergencyContact(body: EmergencyContactBody): Completable = network.createEmergencyContact(body)
+
+    override fun updateEmergencyContact(contactId: Int, body: EmergencyContactBody): Completable = network.updateEmergencyContact(contactId, body)
+
+    override fun deleteEmergencyContact(contactId: Int): Completable = network.deleteEmergencyContact(contactId)
 
     override fun uploadAttachmentImage(
         mime: String,

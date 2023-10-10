@@ -11,6 +11,7 @@ internal object SelectWithSearchTitleSelector {
         RequestCodes.SPECIALITIES_LIST_REQUEST_CODE -> R.string.multiselect_speciality_title
         RequestCodes.MEDICAL_DEGREE_LIST_REQUEST_CODE -> R.string.multiselect_speciality_title
         RequestCodes.LANGUAGES_LIST_REQUEST_CODE -> R.string.multiselect_languages_title
+        RequestCodes.EMERGENCY_CONTACT_TYPE_LIST_REQUEST_CODE -> R.string.multiselect_emergency_contact_types_title
         else -> R.string.multiselect_empty_title
     }
 }

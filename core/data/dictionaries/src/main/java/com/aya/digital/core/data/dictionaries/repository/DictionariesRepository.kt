@@ -2,11 +2,11 @@ package com.aya.digital.core.data.dictionaries.repository
 
 import com.aya.digital.core.data.base.dataprocessing.PaginationCursorModel
 import com.aya.digital.core.data.dictionaries.CityModel
+import com.aya.digital.core.data.dictionaries.EmergencyContactTypeModel
 import com.aya.digital.core.data.dictionaries.InsuranceCompanyModel
 import com.aya.digital.core.data.dictionaries.LanguageModel
 import com.aya.digital.core.data.dictionaries.MedicalDegreeModel
 import com.aya.digital.core.data.dictionaries.SpecialityModel
-import com.aya.digital.core.network.model.response.doctors.CityResponse
 import com.aya.digital.core.networkbase.server.RequestResult
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Observable
@@ -26,5 +26,8 @@ interface DictionariesRepository {
 
     fun getMedicalDegrees(searchTerm: String?,selectedIds:List<Int>, cursor:String?): Flowable<RequestResult<PaginationCursorModel<MedicalDegreeModel>>>
 
+    fun getEmergencyContactTypeById(id:Int): Single<RequestResult<EmergencyContactTypeModel>>
+
+    fun getEmergencyContactTypes(searchTerm: String?, selectedIds:List<Int>, cursor:String?): Flowable<RequestResult<PaginationCursorModel<EmergencyContactTypeModel>>>
 
 }

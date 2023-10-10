@@ -13,6 +13,7 @@
         android:layout_height="0dp"
         android:clipToPadding="true"
         android:paddingBottom="60dp"
+        android:background="@color/bg_light_grey"
         app:layout_constraintBottom_toTopOf="@id/editSaveBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

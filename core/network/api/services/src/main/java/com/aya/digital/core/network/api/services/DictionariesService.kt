@@ -5,6 +5,7 @@ import com.aya.digital.core.network.model.response.base.PagedCursorResponse
 import com.aya.digital.core.network.model.response.doctors.CityResponse
 import com.aya.digital.core.network.model.response.doctors.MedicalDegreeResponse
 import com.aya.digital.core.network.model.response.doctors.SpecialityResponse
+import com.aya.digital.core.network.model.response.emergencycontact.EmergencyContactTypeResponse
 import com.aya.digital.core.network.model.response.language.LanguageResponse
 import com.aya.digital.core.network.model.response.profile.InsuranceCompanyResponse
 import io.reactivex.rxjava3.core.Flowable
@@ -60,4 +61,16 @@ interface DictionariesService {
         @Query("sizeCollection") size: Int = 25
     ): Flowable<PagedCursorResponse<MedicalDegreeResponse>>
 
+    @GET("search-app/api/emergency-types")
+    fun getEmergencyContactsTypes(
+        @Query("search") searchTerm: String?,
+        @Query("scrollId") cursor: String?,
+        @Query("selectItemsIds") selectedItems: List<Int>?,
+        @Query("sizeCollection") size: Int = 25
+    ): Flowable<PagedCursorResponse<EmergencyContactTypeResponse>>
+
+    @GET("search-app/api/emergency-types")
+    fun getEmergencyContactsTypeById(
+        @Query("id") id: Int
+    ): Single<PagedCursorResponse<EmergencyContactTypeResponse>>
 }

@@ -44,6 +44,8 @@
 
     <string name="multiselect_insurances_title">Insurances</string>
     <string name="multiselect_languages_title">Languages</string>
+    <string name="multiselect_emergency_contact_types_title">Contact Types</string>
+
 
     <!-- appointment card -->
     <string name="appointment_card_location">Location</string>

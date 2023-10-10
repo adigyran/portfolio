@@ -90,13 +90,41 @@ internal class ProfileRepositoryImpl(
                 emergencyContactMapper.mapFrom(it).asResult()
             }, { it })
 
-    override fun updateEmergencyContact(body: EmergencyContactBody): Single<RequestResult<Unit>> =
-        profileDataSource.updateEmergencyContact(body)
+    override fun getEmergencyContacts(): Single<RequestResult<List<EmergencyContact>>> =
+        profileDataSource.getEmergencyContacts()
             .retryOnError()
             .retrofitResponseToResult(CommonUtils::mapServerErrors)
             .mapResult({
-                Unit.asResult()
+                emergencyContactMapper.mapFromList(it).asResult()
             }, { it })
+
+    override fun updateEmergencyContact(
+        id: Int,
+        body: EmergencyContactBody
+    ): Single<RequestResult<Boolean>> =
+        profileDataSource.updateEmergencyContact(id,body)
+            .retryOnError()
+            .retrofitResponseToResult(CommonUtils::mapServerErrors)
+            .mapResult({
+                true.asResult()
+            }, { it })
+
+    override fun createEmergencyContact(body: EmergencyContactBody): Single<RequestResult<Boolean>> =
+        profileDataSource.createEmergencyContact(body)
+            .retryOnError()
+            .retrofitResponseToResult(CommonUtils::mapServerErrors)
+            .mapResult({
+                true.asResult()
+            }, { it })
+
+    override fun deleteEmergencyContact(id: Int): Single<RequestResult<Boolean>> =
+        profileDataSource.deleteEmergencyContact(id)
+            .retryOnError()
+            .retrofitResponseToResult(CommonUtils::mapServerErrors)
+            .mapResult({
+                true.asResult()
+            }, { it })
+
 
     override fun uploadAttachment(uri: Uri): Single<RequestResult<ImageUploadResult>> =
         Single.just(uri)

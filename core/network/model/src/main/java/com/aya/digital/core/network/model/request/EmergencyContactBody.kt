@@ -4,6 +4,8 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class EmergencyContactBody(
-    val name: String? = null,
-    val phone: String? = null
+    val fullName: String? = null,
+    val phone: String? = null,
+    val summary:String? = null,
+    val typeId:Int?=null
 )

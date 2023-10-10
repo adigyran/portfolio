@@ -3,9 +3,15 @@ package com.aya.digital.core.domain.profile.di
 import com.aya.digital.core.domain.profile.attachment.GetAttachmentByIdUseCase
 import com.aya.digital.core.domain.profile.attachment.impl.GetAttachmentByIdUseCaseImpl
 import com.aya.digital.core.domain.profile.emergencycontact.GetEmergencyContactUseCase
+import com.aya.digital.core.domain.profile.emergencycontact.GetEmergencyContactsUseCase
 import com.aya.digital.core.domain.profile.emergencycontact.impl.GetEmergencyContactUseCaseImpl
-import com.aya.digital.core.domain.profile.emergencycontact.SaveEmergencyContactUseCase
-import com.aya.digital.core.domain.profile.emergencycontact.impl.SaveEmergencyContactUseCaseImpl
+import com.aya.digital.core.domain.profile.emergencycontact.operations.SaveEmergencyContactUseCase
+import com.aya.digital.core.domain.profile.emergencycontact.impl.GetEmergencyContactsUseCaseImpl
+import com.aya.digital.core.domain.profile.emergencycontact.operations.CreateEmergencyContactUseCase
+import com.aya.digital.core.domain.profile.emergencycontact.operations.DeleteEmergencyContactUseCase
+import com.aya.digital.core.domain.profile.emergencycontact.operations.impl.CreateEmergencyContactUseCaseImpl
+import com.aya.digital.core.domain.profile.emergencycontact.operations.impl.DeleteEmergencyContactUseCaseImpl
+import com.aya.digital.core.domain.profile.emergencycontact.operations.impl.SaveEmergencyContactUseCaseImpl
 import com.aya.digital.core.domain.profile.generalinfo.edit.SaveProfileInfoUseCase
 import com.aya.digital.core.domain.profile.generalinfo.edit.impl.SaveDoctorProfileInfoUseCaseImpl
 import com.aya.digital.core.domain.profile.generalinfo.edit.SetAvatarUseCase
@@ -199,12 +205,35 @@ fun profileDomainDiModule() = DI.Module("profileDomainDiModule") {
         )
     }
 
-    bind<SaveEmergencyContactUseCase>() with singleton {
-        SaveEmergencyContactUseCaseImpl(
+    bind<GetEmergencyContactsUseCase>() with singleton {
+        GetEmergencyContactsUseCaseImpl(
             instance(),
             instance()
         )
     }
+
+    bind<DeleteEmergencyContactUseCase>() with singleton {
+        DeleteEmergencyContactUseCaseImpl(
+            instance(),
+            instance()
+        )
+    }
+
+    bind<CreateEmergencyContactUseCase>() with singleton {
+        CreateEmergencyContactUseCaseImpl(
+            instance(),
+            instance()
+        )
+    }
+
+    bind<SaveEmergencyContactUseCase>() with singleton {
+        SaveEmergencyContactUseCaseImpl(
+            instance(),
+            instance(),
+            instance()
+        )
+    }
+
 
     //insurance
     bind<GetInsurancesUseCase>() with singleton {

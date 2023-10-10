@@ -116,7 +116,7 @@ class ProfileStateTransformer(private val context: Context, private val appFlavo
             ProfileMainUIModel(
                 FieldsTags.EMERGENCY_CONTACT_BUTTON_TAG,
                 R.drawable.ic_profile_emergency,
-                "Emergency Contact"
+                "Emergency Contacts"
             )
         )
     }

@@ -1,11 +1,13 @@
 package com.aya.digital.core.mappers.dictionaries.di
 
 import com.aya.digital.core.data.dictionaries.mappers.CityMapper
+import com.aya.digital.core.data.dictionaries.mappers.EmergencyContactTypeMapper
 import com.aya.digital.core.data.dictionaries.mappers.InsuranceCompanyMapper
 import com.aya.digital.core.data.dictionaries.mappers.LanguageMapper
 import com.aya.digital.core.data.dictionaries.mappers.MedicalDegreeMapper
 import com.aya.digital.core.data.dictionaries.mappers.SpecialityMapper
 import com.aya.digital.core.mappers.dictionaries.CityMapperImpl
+import com.aya.digital.core.mappers.dictionaries.EmergencyContactTypeMapperImpl
 import com.aya.digital.core.mappers.dictionaries.InsuranceCompanyMapperImpl
 import com.aya.digital.core.mappers.dictionaries.LanguageMapperImpl
 import com.aya.digital.core.mappers.dictionaries.MedicalDegreeMapperImpl
@@ -21,6 +23,6 @@ fun dictionariesMappersDiModule() = DI.Module("dictionariesMappersDiModule") {
     bind<CityMapper>() with singleton { CityMapperImpl() }
     bind<LanguageMapper>() with singleton { LanguageMapperImpl() }
     bind<MedicalDegreeMapper>() with singleton { MedicalDegreeMapperImpl() }
-
+    bind<EmergencyContactTypeMapper>() with singleton { EmergencyContactTypeMapperImpl() }
 
 }

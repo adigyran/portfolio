@@ -1,7 +1,7 @@
 package com.aya.digital.core.network.api.services
 
 import com.aya.digital.core.network.model.request.*
-import com.aya.digital.core.network.model.response.EmergencyContactResponse
+import com.aya.digital.core.network.model.response.emergencycontact.EmergencyContactResponse
 import com.aya.digital.core.network.model.response.profile.*
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
@@ -64,10 +64,22 @@ interface ProfileService {
     @GET("api/profile/emergency")
     fun getEmergencyContact(): Single<EmergencyContactResponse>
 
-    @PATCH("api/profile/emergency")
+    @GET("api/profile/emergency/v2")
+    fun getEmergencyContacts(): Single<List<EmergencyContactResponse>>
+
+    @POST("api/profile/emergency/v2")
+    fun createEmergencyContact(@Body body: EmergencyContactBody): Completable
+
+    @POST("api/profile/emergency/v2/{id}")
+    fun updateEmergencyContact(@Path("id") contactId:Int, @Body body: EmergencyContactBody): Completable
+
+    @DELETE("api/profile/emergency/v2/{id}")
+    fun deleteEmergencyContact(@Path("id") contactId:Int): Completable
+
+  /*  @PATCH("api/profile/emergency")
     fun updateEmergencyContact(
         @Body body: EmergencyContactBody
-    ): Single<Unit>
+    ): Single<Unit>*/
 
     @DELETE("api/profile/insurances/{id}")
     fun deleteInsurance(@Path("id") insuranceId: Int): Single<Unit>

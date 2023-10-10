@@ -9,6 +9,7 @@ import com.aya.digital.core.domain.dictionaries.base.model.ItemPaginationModelWi
 import com.aya.digital.core.domain.dictionaries.base.model.MultiSelectItem
 import com.aya.digital.core.domain.dictionaries.base.model.MultiSelectItemPaginationModel
 import com.aya.digital.core.domain.dictionaries.cities.GetCityItemsUseCase
+import com.aya.digital.core.domain.dictionaries.emergencycontacttype.GetEmergencyContactTypeItemsUseCase
 import com.aya.digital.core.domain.dictionaries.languages.GetLanguageItemsUseCase
 import com.aya.digital.core.domain.dictionaries.medicaldegrees.GetMedicalDegreeItemsUseCase
 import com.aya.digital.core.domain.dictionaries.speciality.GetSpecialityItemsUseCase
@@ -19,6 +20,7 @@ internal class GetMultiSelectItemsUseCaseImpl(
     private val getInsuranceCompanyItemsUseCase: GetInsuranceCompanyItemsUseCase,
     private val getSpecialityItemsUseCase: GetSpecialityItemsUseCase,
     private val getMedicalDegreeItemsUseCase: GetMedicalDegreeItemsUseCase,
+    private val getEmergencyContactTypeItemsUseCase: GetEmergencyContactTypeItemsUseCase,
     private val getCityItemsUseCase: GetCityItemsUseCase,
     private val getLanguageItemsUseCase: GetLanguageItemsUseCase
 ) :
@@ -70,9 +72,19 @@ internal class GetMultiSelectItemsUseCaseImpl(
         ).mapResult(
             { paginationModel -> paginationModel.mapToMultiselectItem().asResultModel() },
             { it })
+
+        RequestCodes.EMERGENCY_CONTACT_TYPE_LIST_REQUEST_CODE -> getEmergencyContactTypeItemsUseCase(
+            searchTerm,
+            selectedItems,
+            cursor
+        ).mapResult(
+            { paginationModel -> paginationModel.mapToMultiselectItem().asResultModel() },
+            { it })
         else -> {
             Flowable.empty()
         }
+
+
     }
 
     private fun ItemPaginationModelWithCursor.mapToMultiselectItem() =

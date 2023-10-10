@@ -2,6 +2,7 @@ package com.aya.digital.healthapp.patient.navigation.tabs.profile
 
 import com.aya.digital.core.feature.insurance.list.navigation.ProfileInsuranceListNavigationEvents
 import com.aya.digital.core.feature.insurance.list.navigation.ProfileInsuranceListScreen
+import com.aya.digital.core.feature.profile.emergencycontact.navigation.ProfileEmergencyContactNavigationEvents
 import com.aya.digital.core.feature.profile.emergencycontact.navigation.ProfileEmergencyContactScreen
 import com.aya.digital.core.feature.profile.generalinfo.edit.navigation.ProfileGeneralInfoEditNavigationEvents
 import com.aya.digital.core.feature.profile.generalinfo.edit.navigation.ProfileGeneralInfoEditScreen
@@ -127,6 +128,11 @@ class ProfileTabCoordinatorGraph : FragmentContainerGraph {
             is ProfileSecurityChangePhoneNavigationEvents.EnterCode ->
             {
                 parentCoordinatorRouter.sendEvent(RootContainerNavigationEvents.EnterCode(event.requestCode,event.phone))
+            }
+
+            is ProfileEmergencyContactNavigationEvents.SelectContactType ->
+            {
+                parentCoordinatorRouter.sendEvent(RootContainerNavigationEvents.SelectSingleItem(event.requestCode,event.selectedContactType))
             }
 
             is ProfileInsuranceAddNavigationEvents.FinishWithResult -> {

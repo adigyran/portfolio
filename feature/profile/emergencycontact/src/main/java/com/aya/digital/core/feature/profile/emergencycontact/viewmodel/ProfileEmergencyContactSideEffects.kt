@@ -5,4 +5,6 @@ import com.aya.digital.core.mvi.BaseViewModel
 
 sealed class ProfileEmergencyContactSideEffects:BaseSideEffect {
     data class Error(val error:BaseViewModel.ErrorSideEffect) : ProfileEmergencyContactSideEffects()
+    data class ShowEmergencyContactActionsDialog(val emergencyContactId:Int) : ProfileEmergencyContactSideEffects()
+
 }

@@ -2,11 +2,13 @@ package com.aya.digital.core.repository.dictionaries
 
 import com.aya.digital.core.data.base.dataprocessing.PaginationCursorModel
 import com.aya.digital.core.data.dictionaries.CityModel
+import com.aya.digital.core.data.dictionaries.EmergencyContactTypeModel
 import com.aya.digital.core.data.dictionaries.InsuranceCompanyModel
 import com.aya.digital.core.data.dictionaries.LanguageModel
 import com.aya.digital.core.data.dictionaries.MedicalDegreeModel
 import com.aya.digital.core.data.dictionaries.SpecialityModel
 import com.aya.digital.core.data.dictionaries.mappers.CityMapper
+import com.aya.digital.core.data.dictionaries.mappers.EmergencyContactTypeMapper
 import com.aya.digital.core.data.dictionaries.mappers.InsuranceCompanyMapper
 import com.aya.digital.core.data.dictionaries.mappers.LanguageMapper
 import com.aya.digital.core.data.dictionaries.mappers.MedicalDegreeMapper
@@ -26,7 +28,8 @@ class DictionariesRepositoryImpl(
     private val specialityMapper: SpecialityMapper,
     private val cityMapper: CityMapper,
     private val languageMapper: LanguageMapper,
-    private val medicalDegreeMapper: MedicalDegreeMapper
+    private val medicalDegreeMapper: MedicalDegreeMapper,
+    private val emergencyContactTypeMapper: EmergencyContactTypeMapper
 ) : DictionariesRepository {
 
     override fun getInsuranceCompanies(
@@ -134,6 +137,35 @@ class DictionariesRepositoryImpl(
                     val medicalDegreeModels = medicalDegreeMapper.mapFromList(result.data)
                     PaginationCursorModel(
                         medicalDegreeModels,
+                        result.scrollToken,
+                        result.sizeResult
+                    ).asResult()
+                },
+                { it }
+            )
+
+    override fun getEmergencyContactTypeById(id: Int): Single<RequestResult<EmergencyContactTypeModel>>  =
+        dictionariesDataSource.getEmergencyContactsTypeById(id)
+            .retryOnError()
+            .retrofitResponseToResult(CommonUtils::mapServerErrors)
+            .mapResult({ result ->
+                val insurances = emergencyContactTypeMapper.mapFromList(result.data)
+                insurances.first().asResult()
+            }, { it })
+
+    override fun getEmergencyContactTypes(
+        searchTerm: String?,
+        selectedIds: List<Int>,
+        cursor: String?
+    ): Flowable<RequestResult<PaginationCursorModel<EmergencyContactTypeModel>>> =
+        dictionariesDataSource.getEmergencyContactsTypes(searchTerm, selectedIds, cursor)
+            .retryOnError()
+            .retrofitResponseToResult(CommonUtils::mapServerErrors)
+            .mapResult(
+                { result ->
+                    val emergencyContactTypes = emergencyContactTypeMapper.mapFromList(result.data)
+                    PaginationCursorModel(
+                        emergencyContactTypes,
                         result.scrollToken,
                         result.sizeResult
                     ).asResult()

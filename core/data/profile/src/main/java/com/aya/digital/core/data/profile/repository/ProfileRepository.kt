@@ -25,8 +25,12 @@ interface ProfileRepository {
 
     fun getEmergencyContact(): Single<RequestResult<EmergencyContact>>
 
-    fun updateEmergencyContact(body: EmergencyContactBody): Single<RequestResult<Unit>>
+    fun getEmergencyContacts(): Single<RequestResult<List<EmergencyContact>>>
 
+    fun updateEmergencyContact(id: Int, body: EmergencyContactBody): Single<RequestResult<Boolean>>
+
+    fun createEmergencyContact(body: EmergencyContactBody): Single<RequestResult<Boolean>>
+    fun deleteEmergencyContact(id:Int): Single<RequestResult<Boolean>>
 
     fun uploadAttachment(uri: Uri): Single<RequestResult<ImageUploadResult>>
 

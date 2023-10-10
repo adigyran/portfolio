@@ -7,6 +7,7 @@ import com.aya.digital.core.network.model.response.base.PagedCursorResponse
 import com.aya.digital.core.network.model.response.doctors.CityResponse
 import com.aya.digital.core.network.model.response.doctors.MedicalDegreeResponse
 import com.aya.digital.core.network.model.response.doctors.SpecialityResponse
+import com.aya.digital.core.network.model.response.emergencycontact.EmergencyContactTypeResponse
 import com.aya.digital.core.network.model.response.language.LanguageResponse
 import com.aya.digital.core.network.model.response.profile.InsuranceCompanyResponse
 import io.reactivex.rxjava3.core.Flowable
@@ -68,4 +69,12 @@ class RetrofitDictionariesNetwork(private val network: DictionariesService) :
         cursor: String?
     ): Flowable<PagedCursorResponse<MedicalDegreeResponse>> =
         network.getMedicalDegrees(searchTerm, cursor, selectedIds)
+
+    override fun getEmergencyContactsTypes(
+        searchTerm: String?,
+        selectedIds: List<Int>,
+        cursor: String?
+    ): Flowable<PagedCursorResponse<EmergencyContactTypeResponse>> = network.getEmergencyContactsTypes(searchTerm,cursor,selectedIds)
+
+    override fun getEmergencyContactsTypeById(id: Int): Single<PagedCursorResponse<EmergencyContactTypeResponse>>  = network.getEmergencyContactsTypeById(id)
 }

@@ -20,9 +20,12 @@ import com.aya.digital.core.ui.delegates.components.fields.emailphone.ui.PhoneDe
 import com.aya.digital.core.ui.delegates.components.fields.emailphone.ui.PhoneFieldDelegate
 import com.aya.digital.core.ui.delegates.components.fields.name.ui.NameFieldDelegate
 import com.aya.digital.core.ui.delegates.components.fields.name.ui.NameFieldDelegateListeners
+import com.aya.digital.core.ui.delegates.components.fields.selection.ui.SelectionFieldDelegate
+import com.aya.digital.core.ui.delegates.components.fields.selection.ui.SelectionFieldDelegateListeners
 import com.aya.digital.core.ui.delegates.components.fields.validated.ui.ValidatedFieldDelegate
 import com.aya.digital.core.ui.delegates.components.fields.validated.ui.ValidatedFieldDelegateListeners
 import com.aya.digital.core.ui.delegates.profile.emergencycontactinfo.ui.EmergencyContactInfoDelegate
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.kodein.di.DI
 import org.kodein.di.factory
 import org.kodein.di.on
@@ -42,16 +45,21 @@ class ProfileEmergencyContactView :
         BaseDelegateAdapter.create {
             delegate { NameFieldDelegate(NameFieldDelegateListeners(viewModel::onNameFieldChanged)) }
             delegate { ValidatedFieldDelegate(ValidatedFieldDelegateListeners(viewModel::onPhoneFieldChanged)) }
-
-            delegate { EmergencyContactInfoDelegate() }
+            delegate {
+                EmergencyContactInfoDelegate(
+                    viewModel::onEmergencyContactClick,
+                    viewModel::onEmergencyContactMoreClick
+                )
+            }
+            delegate { SelectionFieldDelegate(SelectionFieldDelegateListeners(viewModel::onSelectionFieldClicked)) }
         }
     }
 
     override fun prepareCreatedUi(savedInstanceState: Bundle?) {
         super.prepareCreatedUi(savedInstanceState)
-        binding.toolbar.backButton bindClick {viewModel.onBack()}
+        binding.toolbar.backButton bindClick { viewModel.onBack() }
         binding.editSaveBtn bindClick { viewModel.buttonClicked() }
-        binding.toolbar.title.text = "Emergency Contact"
+        binding.toolbar.title.text = "Emergency Contacts"
         recyclers.add(binding.recycler)
         with(binding.recycler) {
             itemAnimator = null
@@ -80,11 +88,25 @@ class ProfileEmergencyContactView :
         ViewProfileEmergencyContactBinding.inflate(inflater, container, false)
 
     override fun sideEffect(sideEffect: ProfileEmergencyContactSideEffects) =
-        when(sideEffect)
-        {
+        when (sideEffect) {
             is ProfileEmergencyContactSideEffects.Error -> processErrorSideEffect(sideEffect.error)
+            is ProfileEmergencyContactSideEffects.ShowEmergencyContactActionsDialog -> showEmergencyContactActionsDialog(sideEffect.emergencyContactId)
         }
 
+
+    private fun showEmergencyContactActionsDialog(contactId: Int) {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle("Delete?")
+            .setMessage("Are you sure you want to remove this contact?")
+            .setNegativeButton("Cancel") { dialog, which ->
+                dialog.dismiss()
+            }
+            .setPositiveButton("Delete") { dialog, which ->
+                viewModel.onDeleteEmergencyContact(contactId)
+                dialog.dismiss()
+            }
+            .show()
+    }
     override fun render(state: ProfileEmergencyContactState) {
         stateTransformer(state).run {
             this.data?.let {
