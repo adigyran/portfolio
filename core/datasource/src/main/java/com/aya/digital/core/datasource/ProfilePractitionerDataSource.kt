@@ -5,7 +5,6 @@ import com.aya.digital.core.network.model.response.doctor.PractitionerProfileRes
 import com.aya.digital.core.network.model.response.doctors.MedicalDegreeResponse
 import com.aya.digital.core.network.model.response.doctors.SpecialityResponse
 import com.aya.digital.core.network.model.response.language.LanguageResponse
-import com.aya.digital.core.network.model.response.profile.AddressResponse
 import com.aya.digital.core.network.model.response.profile.BioResponse
 import com.aya.digital.core.network.model.response.profile.InsuranceCompanyResponse
 import com.aya.digital.core.network.model.response.profile.InsurancePolicyResponse

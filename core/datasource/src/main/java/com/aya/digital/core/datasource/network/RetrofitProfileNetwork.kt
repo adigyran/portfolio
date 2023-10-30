@@ -11,6 +11,7 @@ import com.aya.digital.core.network.model.response.emergencycontact.EmergencyCon
 import com.aya.digital.core.network.model.response.doctors.MedicalDegreeResponse
 import com.aya.digital.core.network.model.response.doctors.SpecialityResponse
 import com.aya.digital.core.network.model.response.language.LanguageResponse
+import com.aya.digital.core.network.model.response.profile.AddressResponse
 import com.aya.digital.core.network.model.response.profile.AvatarResponse
 import com.aya.digital.core.network.model.response.profile.BioResponse
 import com.aya.digital.core.network.model.response.profile.CurrentProfileResponse
@@ -80,6 +81,9 @@ class RetrofitProfileNetwork(private val network: ProfileService) :
         mime: String,
         file: RequestBody
     ): Single<ImageUploadResponse> = network.uploadImage(file)
+
+    override fun getAddress(): Single<AddressResponse> = network.getAddress()
+    override fun saveAddress(addressLine: String): Completable = network.updatePatientAddress(AddressBody(addressLine = addressLine))
 
     override fun getPhoneNumber(): Single<PhoneResponse> = network.getPhoneNumber()
 

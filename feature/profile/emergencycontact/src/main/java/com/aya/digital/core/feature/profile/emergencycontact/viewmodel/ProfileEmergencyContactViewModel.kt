@@ -17,6 +17,7 @@ import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
+import timber.log.Timber
 
 class ProfileEmergencyContactViewModel(
     private val coordinatorRouter: CoordinatorRouter,
@@ -104,11 +105,13 @@ class ProfileEmergencyContactViewModel(
         getEmergencyContactTypeItemByIdUseCase(contactTypeId)
             .await()
             .processResult({ emergencyContactType ->
+                val newEmergencyContact = state.editableEmergencyContact?.apply {
+                    this.contactTypeEditableId = contactTypeId
+                    this.contactTypeEditable = emergencyContactType.name
+                }
                 reduce {
                     state.copy(
-                        editableEmergencyContact = state.editableEmergencyContact?.apply {
-                            this.contactTypeEditableId = contactTypeId
-                        }.apply { this?.contactTypeEditable = emergencyContactType.name }
+                        editableEmergencyContact = newEmergencyContact
                     )
                 }
             }, { processError(it) })
@@ -152,12 +155,6 @@ class ProfileEmergencyContactViewModel(
                 getEmergencyContacts()
             }, { processError(it) })
 
-        /*  if (state.contactNameEditable.isNullOrBlank() || state.contactPhoneEditable.isNullOrBlank()) return@intent
-          val await = saveEmergencyContactUseCase(state.contactNameEditable!!, state.contactPhoneEditable!!).await()
-          await.processResult({
-              getEmergencyContact()
-              reduce { state.copy(editMode = false) }
-          }, { processError(it) })*/
     }
 
     fun buttonClicked() = intent {
@@ -184,8 +181,8 @@ class ProfileEmergencyContactViewModel(
         deleteEmergencyContactUseCase(id)
             .await()
             .processResult({
-                           getEmergencyContacts()
-            },{processError(it)})
+                getEmergencyContacts()
+            }, { processError(it) })
     }
 
     private fun toggleEdit(id: Int) = intent {
@@ -195,7 +192,9 @@ class ProfileEmergencyContactViewModel(
             EditableEmergencyContact(
                 contactNameEditable = name,
                 contactSummaryEditable = summary,
-                contactPhoneEditable = phone
+                contactPhoneEditable = phone,
+                contactTypeEditableId = type?.id,
+                contactTypeEditable = type?.name
             )
         }
         reduce {
@@ -215,26 +214,6 @@ class ProfileEmergencyContactViewModel(
                 editableEmergencyContact = EditableEmergencyContact()
             )
         }
-        /*   reduce {
-               state.copy(
-                   editMode = true,
-                   contactNameEditable = null,
-                   contactPhoneEditable = null
-               )
-           }
-
-           runBlocking { // this: CoroutineScope
-               launch { // launch a new coroutine and continue
-                   delay(10L) // non-blocking delay for 1 second (default time unit is ms)
-                   reduce {
-                       state.copy(
-                           contactNameEditable = state.contactName,
-                           contactPhoneEditable = state.contactPhone
-                       )
-                   }
-               }
-           }*/
-
     }
 
     private fun editingMode() = intent {

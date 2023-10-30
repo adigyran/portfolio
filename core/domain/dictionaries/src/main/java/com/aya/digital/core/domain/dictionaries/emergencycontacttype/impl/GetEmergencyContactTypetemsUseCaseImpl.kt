@@ -32,7 +32,7 @@ internal class GetEmergencyContactTypetemsUseCaseImpl(
                 paginationPageModel = paginationModel
                 EmergencyContactTypeItemPaginationModel(
                     cursor = paginationModel.scrollToken,
-                    items = paginationModel.data.map { EmergencyContactTypeItem(it.id, it.name ?: "") }
+                    items = paginationModel.data.map { EmergencyContactTypeItem(it.id, it.name) }
                 ).asResultModel()
             }, { it.toModelError() })
 

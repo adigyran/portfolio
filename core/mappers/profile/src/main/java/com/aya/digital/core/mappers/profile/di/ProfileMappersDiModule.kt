@@ -29,5 +29,12 @@ fun profileMappersDiModule() = DI.Module("profileMappersDiModule") {
 
     bind<DoctorBioMapper>() with singleton { DoctorBioMapperImpl() }
 
+    bind<AddressMapper>() with singleton { AddressMapperImpl() }
+
+
+
+    bind<ReverseGeocodingAddressComponentMapper>() with singleton { ReverseGeocodingAddressComponentMapperImpl() }
+
+    bind<ReverseGeocodingPredictionItemMapper>() with singleton { ReverseGeocodingPredictionItemMapperImpl(instance()) }
 
 }

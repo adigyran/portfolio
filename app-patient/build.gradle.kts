@@ -18,8 +18,8 @@ android {
 
     defaultConfig {
         applicationId = "com.aya.digital.healthapp.patient"
-        versionCode = 70
-        versionName = "0.0.70" // X.Y.Z; X = Major, Y = minor, Z = Patch level
+        versionCode = 73
+        versionName = "0.0.73" // X.Y.Z; X = Major, Y = minor, Z = Patch level
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -114,6 +114,7 @@ dependencies {
     implementation(project(":feature:profile:security:changepassword"))
     implementation(project(":feature:profile:emergencycontact"))
     implementation(project(":feature:profile:notifications"))
+    implementation(project(":feature:profile:address"))
     implementation(project(":feature:doctors:doctorcard"))
     implementation(project(":feature:doctors:doctorssearch:doctorsearchlist"))
     implementation(project(":feature:doctors:doctorssearch:doctorsearchmap"))
@@ -154,5 +155,8 @@ dependencies {
     implementation(libs.timber)
     implementation(libs.open.auth)
     implementation(libs.kotlinx.time)
+    implementation(libs.google.places)
+    implementation(libs.google.places.rx)
+    implementation(libs.google.places.ktx)
     debugImplementation(libs.leak.canary)
 }

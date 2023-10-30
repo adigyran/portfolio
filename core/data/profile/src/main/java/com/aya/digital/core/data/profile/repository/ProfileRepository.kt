@@ -1,6 +1,7 @@
 package com.aya.digital.core.data.profile.repository
 
 import android.net.Uri
+import com.aya.digital.core.data.profile.Address
 import com.aya.digital.core.data.profile.CurrentProfile
 import com.aya.digital.core.data.profile.EmergencyContact
 import com.aya.digital.core.data.profile.ImageUploadResult
@@ -46,6 +47,10 @@ interface ProfileRepository {
     fun getNotificationsStatus():Single<RequestResult<NotificationsStatus>>
 
     fun updateNotificationStatus(status: NotificationsStatus):Single<RequestResult<NotificationsStatus>>
+
+    fun getAddress():Single<RequestResult<Address>>
+
+    fun saveAddress(addressLine:String):Single<RequestResult<Boolean>>
 
     fun logout():Single<RequestResult<Boolean>>
 

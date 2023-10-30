@@ -53,13 +53,20 @@ interface ProfileService {
     @GET("api/profile/insurances/{id}")
     fun getInsuranceById(@Path("id") insuranceId: Int):Single<InsurancePolicyResponse>
 
-    @GET("api/account/patient/address")
-    fun getPatientAddress(): Single<AddressResponse>
 
-    @PATCH("api/account/patient/address")
+    @GET("api/settings/address")
+    fun getAddress(): Single<AddressResponse>
+
+    @PUT("api/settings/address")
     fun updatePatientAddress(
-        @Body body: PatientProfileBody
+        @Body body: AddressBody
     ): Completable
+
+    @PUT("api/settings/address/refresh-by-coordinates")
+    fun updatePatientAddressByCoordinates(
+        @Body body: AddressBody
+    ): Completable
+
 
     @GET("api/profile/emergency")
     fun getEmergencyContact(): Single<EmergencyContactResponse>

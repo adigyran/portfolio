@@ -13,6 +13,7 @@ import com.aya.digital.core.ui.delegates.components.fields.selection.model.Selec
 import com.aya.digital.core.ui.delegates.components.fields.validated.model.ValidatedFieldUIModel
 import com.aya.digital.core.ui.delegates.profile.emergencycontactinfo.model.EmergencyContactInfoUIModel
 import ru.tinkoff.decoro.MaskImpl
+import timber.log.Timber
 
 
 class ProfileEmergencyContactStateTransformer(context: Context) :
@@ -20,6 +21,7 @@ class ProfileEmergencyContactStateTransformer(context: Context) :
     override fun invoke(state: ProfileEmergencyContactState): ProfileEmergencyContactUiModel =
         ProfileEmergencyContactUiModel(
             data = kotlin.run {
+                Timber.d("${state.editableEmergencyContact}")
                 if (state.editMode) {
                     return@run mutableListOf<DiffItem>().apply {
                         add(
@@ -50,6 +52,7 @@ class ProfileEmergencyContactStateTransformer(context: Context) :
                             )
 
                         )
+
                         add(
                             SelectionFieldUIModel(
                                 tag = FieldsTags.TYPE_FIELD,

@@ -27,7 +27,7 @@ interface DictionariesDataSource {
     fun getMedicalDegrees(searchTerm: String?,selectedIds:List<Int>,cursor:String?):Flowable<PagedCursorResponse<MedicalDegreeResponse>>
 
     fun getEmergencyContactsTypes(searchTerm: String?,selectedIds:List<Int>,cursor:String?):Flowable<PagedCursorResponse<EmergencyContactTypeResponse>>
-    fun getEmergencyContactsTypeById(id: Int):Single<PagedCursorResponse<EmergencyContactTypeResponse>>
+    fun getEmergencyContactsTypeById(id: Int):Single<EmergencyContactTypeResponse>
 
 
 

@@ -5,5 +5,9 @@ data class EmergencyContact(
     val name: String? = null,
     val phone: String? = null,
     val summary:String? = null,
-    val type:Int? = null
+    val type:EmergencyContactType? = null
+)
+data class EmergencyContactType(
+    val id:Int,
+    val name:String
 )

@@ -2,6 +2,7 @@ package com.aya.digital.healthapp.doctor.navigation.tabs.profile
 
 import com.aya.digital.core.feature.insurance.list.navigation.ProfileInsuranceDoctorNavigationEvents
 import com.aya.digital.core.feature.insurance.list.navigation.ProfileInsuranceDoctorScreen
+import com.aya.digital.core.feature.profile.address.navigation.ProfileAddressScreen
 import com.aya.digital.core.feature.profile.clinicinfo.navigation.ProfileClinicInfoScreen
 import com.aya.digital.core.feature.profile.generalinfo.edit.navigation.ProfileGeneralInfoEditNavigationEvents
 import com.aya.digital.core.feature.profile.generalinfo.edit.navigation.ProfileGeneralInfoEditScreen
@@ -49,6 +50,10 @@ class ProfileTabCoordinatorGraph : FragmentContainerGraph {
 
             ProfileNavigationEvents.OpenProfileSecurity -> {
                 mainRouter.navigateTo(ProfileSecuritySummaryScreen)
+            }
+
+            ProfileNavigationEvents.OpenProfileAddress -> {
+                mainRouter.navigateTo(ProfileAddressScreen)
             }
 
             ProfileNavigationEvents.OpenProfileNotification -> {
@@ -100,18 +105,33 @@ class ProfileTabCoordinatorGraph : FragmentContainerGraph {
                 mainRouter.exit()
             }
 
-            is ProfileGeneralInfoEditNavigationEvents.FieldSelection.SelectLanguages ->
-            {
-                parentCoordinatorRouter.sendEvent(RootContainerNavigationEvents.SelectMultipleItems(event.requestCode,event.selectedLanguages.toSet()))
+            is ProfileGeneralInfoEditNavigationEvents.FieldSelection.SelectLanguages -> {
+                parentCoordinatorRouter.sendEvent(
+                    RootContainerNavigationEvents.SelectMultipleItems(
+                        event.requestCode,
+                        event.selectedLanguages.toSet()
+                    )
+                )
             }
-            is ProfileGeneralInfoEditNavigationEvents.FieldSelection.SelectSpecialities ->
-            {
-                parentCoordinatorRouter.sendEvent(RootContainerNavigationEvents.SelectMultipleItems(event.requestCode,event.selectSpecialities.toSet()))
+
+            is ProfileGeneralInfoEditNavigationEvents.FieldSelection.SelectSpecialities -> {
+                parentCoordinatorRouter.sendEvent(
+                    RootContainerNavigationEvents.SelectMultipleItems(
+                        event.requestCode,
+                        event.selectSpecialities.toSet()
+                    )
+                )
             }
-            is ProfileGeneralInfoEditNavigationEvents.FieldSelection.SelectDegrees ->
-            {
-                parentCoordinatorRouter.sendEvent(RootContainerNavigationEvents.SelectMultipleItems(event.requestCode,event.selectDegrees.toSet()))
+
+            is ProfileGeneralInfoEditNavigationEvents.FieldSelection.SelectDegrees -> {
+                parentCoordinatorRouter.sendEvent(
+                    RootContainerNavigationEvents.SelectMultipleItems(
+                        event.requestCode,
+                        event.selectDegrees.toSet()
+                    )
+                )
             }
+
             CoordinatorEvent.Back -> {
                 navigationRouter.exit()
             }

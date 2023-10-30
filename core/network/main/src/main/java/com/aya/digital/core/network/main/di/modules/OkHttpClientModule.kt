@@ -39,4 +39,15 @@ internal fun okHttpClientModule() = DI.Module("okHttpClientModule") {
             .addInterceptor(getLoggingInterceptor())
             .build()
     }
+
+    bind<OkHttpClient>(Constants.OKHTTP_CLIENT_EXTERNAL_TAG) with singleton {
+        val builder = OkHttpClient.Builder()
+        return@singleton builder
+            .connectTimeout(30, TimeUnit.SECONDS)
+            .readTimeout(30, TimeUnit.SECONDS)
+            //.addInterceptor(instance<AuthInterceptor>(InterceptorsConstants.AUTH_INTERCEPTOR_TAG))
+            //.addInterceptor(instance<RefreshTokenInterceptor>(InterceptorsConstants.REFRESH_TOKEN_INTERCEPTOR_TAG))
+            .addInterceptor(getLoggingInterceptor())
+            .build()
+    }
 }

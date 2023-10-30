@@ -5,6 +5,7 @@ import com.aya.digital.core.di.coreDiModules
 import com.aya.digital.core.navigation.graph.navigator.RootNavigationGraph
 import com.aya.digital.healthapp.patient.di.patientAppDiModule
 import com.aya.digital.healthapp.patient.navigation.root.PatientRootNavigationGraph
+import com.google.android.libraries.places.api.Places
 import net.openid.appauth.AuthorizationService
 import org.kodein.di.DI
 import org.kodein.di.android.x.androidXModule
@@ -22,5 +23,8 @@ class App : BaseApp() {
 
     override fun onCreate() {
         super.onCreate()
+        if (!Places.isInitialized()) {
+            Places.initialize(applicationContext, BuildConfig.MAPS_API_KEY)
+        }
     }
 }

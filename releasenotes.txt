@@ -181,6 +181,14 @@ videocall moved to another activity to support pip and deeplinks
 fixed doctor navigation
 fixed doctor fields, now everything is editable
 fixed schedule creation, when online mode was not togglable
+version 71 patient/version 11 doctor
+multiple emergency contacts, currently bug with type, type field don't update for some reason
+version 72 patient/version 12 doctor
+added test version of address search and showing marker of address on map
+version 73 patient/version 14 doctor
+fully implemented address search with search bar
+with predictions list
+and map click
 
 
 

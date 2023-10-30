@@ -8,6 +8,7 @@ import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import java.io.IOException
+import java.lang.NullPointerException
 import java.lang.reflect.Type
 
 object CommonUtils {
@@ -25,6 +26,7 @@ object CommonUtils {
     private val typeClassList = Types.newParameterizedType(List::class.java, String::class.java)
     private val typeClassMap =
         Types.newParameterizedType(Map::class.java, String::class.java, typeClassList)
+
     fun mapServerErrors(errorString: String): List<IServerError> {
         val errorResp = try {
             fromJson<Map<String, List<String>>>(errorString, typeClassMap)
@@ -33,10 +35,15 @@ object CommonUtils {
             mapOf()
         }
 
-        return mutableListOf<IServerError>().apply {
-            errorResp.entries.map { entry ->
-                entry.value.forEach { add(ServerError(entry.key, it)) }
+        return try {
+            mutableListOf<IServerError>().apply {
+                errorResp.entries.map { entry ->
+                    entry.value.forEach { add(ServerError(entry.key, it)) }
+                }
             }
+        } catch (ex:NullPointerException)
+        {
+            mutableListOf<IServerError>()
         }
     }
 }

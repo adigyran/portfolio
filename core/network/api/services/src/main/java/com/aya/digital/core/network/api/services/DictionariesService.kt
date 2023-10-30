@@ -69,8 +69,8 @@ interface DictionariesService {
         @Query("sizeCollection") size: Int = 25
     ): Flowable<PagedCursorResponse<EmergencyContactTypeResponse>>
 
-    @GET("search-app/api/emergency-types")
+    @GET("search-app/api/emergency-types/{id}")
     fun getEmergencyContactsTypeById(
-        @Query("id") id: Int
-    ): Single<PagedCursorResponse<EmergencyContactTypeResponse>>
+        @Path("id") id: Int
+    ): Single<EmergencyContactTypeResponse>
 }

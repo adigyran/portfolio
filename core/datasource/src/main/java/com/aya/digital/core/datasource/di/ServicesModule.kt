@@ -15,4 +15,5 @@ fun servicesModule() = DI.Module("servicesModule") {
     importOnce(scheduleNetworkModule())
     importOnce(telehealthNetworkModule())
     importOnce(tokenNetworkModule())
+    importOnce(geoCodingApiNetwork())
 }

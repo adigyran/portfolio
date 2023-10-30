@@ -149,8 +149,7 @@ class DictionariesRepositoryImpl(
             .retryOnError()
             .retrofitResponseToResult(CommonUtils::mapServerErrors)
             .mapResult({ result ->
-                val insurances = emergencyContactTypeMapper.mapFromList(result.data)
-                insurances.first().asResult()
+                emergencyContactTypeMapper.mapFrom(result).asResult()
             }, { it })
 
     override fun getEmergencyContactTypes(

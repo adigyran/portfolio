@@ -10,6 +10,7 @@ import com.aya.digital.core.navigation.graph.coordinator.RootCoordinatorGraph
 import com.aya.digital.core.navigation.graph.navigator.BottomNavigationGraph
 import com.aya.digital.core.navigation.graph.navigator.FragmentContainerGraph
 import com.aya.digital.core.navigation.graph.navigator.RootNavigationGraph
+import com.aya.digital.healthapp.doctor.BuildConfig
 import com.aya.digital.healthapp.doctor.DoctorAppFlavour
 import com.aya.digital.healthapp.doctor.navigation.root.DoctorRootCoordinatorGraph
 import com.aya.digital.healthapp.doctor.navigation.root.DoctorRootNavigationGraph
@@ -69,5 +70,9 @@ fun doctorAppDiModule() = DI.Module("doctorAppDiModule") {
 
     bind<RootNavigationGraph>("videocall_navigation") with singleton {
         VideoCallContainerNavigationGraph()
+    }
+
+    bind<String>("appGoogleKey") with singleton {
+        BuildConfig.MAPS_API_KEY
     }
 }

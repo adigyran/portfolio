@@ -1,5 +1,6 @@
 package com.aya.digital.core.di.modules
 
+import com.aya.digital.core.repository.address.addressRepositoryDiModule
 import com.aya.digital.core.repository.appointment.appointmentRepositoryDiModule
 import com.aya.digital.core.repository.auth.authRepositoryDiModule
 import com.aya.digital.core.repository.dictionaries.dictionariesRepositoryDiModule
@@ -17,5 +18,6 @@ fun repositoryDiModules() = listOf(
     appointmentRepositoryDiModule(),
     scheduleRepositoryDiModule(),
     progressRepositoryDiModule(),
-    locationRepositoryDiModule()
+    locationRepositoryDiModule(),
+    addressRepositoryDiModule()
 )

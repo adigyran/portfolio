@@ -23,6 +23,13 @@ class ProfileStateTransformer(private val context: Context, private val appFlavo
                     addAll(appFlavour.flavour.getAppSpecificFields())
                     add(
                         ProfileMainUIModel(
+                            FieldsTags.ADDRESS_BUTTON_TAG,
+                            R.drawable.ic_profile_security,
+                            "Address"
+                        )
+                    )
+                    add(
+                        ProfileMainUIModel(
                             FieldsTags.SECURITY_BUTTON_TAG,
                             R.drawable.ic_profile_security,
                             "Security"

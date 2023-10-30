@@ -7,6 +7,6 @@ object FieldsTags {
     const val SECURITY_BUTTON_TAG = 454123
     const val INSURANCE_BUTTON_TAG = 565723
     const val NOTIFICATION_BUTTON_TAG = 324354
-
+    const val ADDRESS_BUTTON_TAG = 12132144
 
 }

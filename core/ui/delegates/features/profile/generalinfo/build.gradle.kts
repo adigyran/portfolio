@@ -9,3 +9,8 @@ android {
         viewBinding = true
     }
 }
+
+dependencies {
+    implementation(libs.gms.maps)
+    implementation(libs.gms.maps.utils)
+}

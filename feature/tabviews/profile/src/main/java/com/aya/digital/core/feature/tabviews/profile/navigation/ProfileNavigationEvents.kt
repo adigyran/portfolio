@@ -9,5 +9,6 @@ sealed class ProfileNavigationEvents : CoordinatorEvent() {
     object OpenProfileInsurance : ProfileNavigationEvents()
     object OpenProfileNotification : ProfileNavigationEvents()
     object OpenClinicInfo : ProfileNavigationEvents()
+    object OpenProfileAddress : ProfileNavigationEvents()
 
 }

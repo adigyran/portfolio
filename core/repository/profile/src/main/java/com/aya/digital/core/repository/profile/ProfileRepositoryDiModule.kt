@@ -25,7 +25,8 @@ fun profileRepositoryDiModule() = DI.Module("profileRepositoryDiModule") {
             avatarMapper = instance(),
             invalidTokenEventManager = instance(),
             imageUploadResultMapper = instance(),
-            notificationsStatusMapper = instance()
+            notificationsStatusMapper = instance(),
+            addressMapper = instance()
         )
     }
 

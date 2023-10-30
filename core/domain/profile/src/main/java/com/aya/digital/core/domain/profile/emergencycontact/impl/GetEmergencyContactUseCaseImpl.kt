@@ -12,13 +12,19 @@ import com.aya.digital.core.domain.profile.emergencycontact.model.EmergencyConta
 import com.aya.digital.core.ext.mapResult
 import io.reactivex.rxjava3.core.Single
 
-internal class GetEmergencyContactUseCaseImpl(private val profileRepository: ProfileRepository,
-                                              private val progressRepository: ProgressRepository
+internal class GetEmergencyContactUseCaseImpl(
+    private val profileRepository: ProfileRepository,
+    private val progressRepository: ProgressRepository
 ) : GetEmergencyContactUseCase {
     override fun invoke(): Single<RequestResultModel<EmergencyContactModel>> =
         profileRepository.getEmergencyContact()
             .trackProgress(progressRepository)
-            .mapResult({EmergencyContactModel(it.id,it.name,it.phone,it.summary,
-                EmergencyContactTypeModel(it.type?:0,"fff")
-            ).asResultModel()},{it.toModelError()})
+            .mapResult({ emergencyContact ->
+                EmergencyContactModel(emergencyContact.id,
+                    emergencyContact.name,
+                    emergencyContact.phone,
+                    emergencyContact.summary,
+                    emergencyContact.type?.let { EmergencyContactTypeModel(it.id, it.name) }
+                ).asResultModel()
+            }, { it.toModelError() })
 }

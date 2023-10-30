@@ -21,8 +21,13 @@ internal class GetEmergencyContactsUseCaseImpl(
         profileRepository.getEmergencyContacts()
             .trackProgress(progressRepository)
             .mapResult({ contacts ->
-                contacts.map { EmergencyContactModel(it.id,it.name,it.phone,it.summary,
-                    EmergencyContactTypeModel(it.type?:0,"fff")
-                ) }.asResultModel()
+                contacts.map { emergencyContact ->
+                    EmergencyContactModel(emergencyContact.id,
+                        emergencyContact.name,
+                        emergencyContact.phone,
+                        emergencyContact.summary,
+                        emergencyContact.type?.let { EmergencyContactTypeModel(it.id, it.name) }
+                    )
+                }.asResultModel()
             }, { it.toModelError() })
 }

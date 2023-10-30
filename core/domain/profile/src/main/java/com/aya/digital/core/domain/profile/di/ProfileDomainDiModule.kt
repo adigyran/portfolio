@@ -1,5 +1,15 @@
 package com.aya.digital.core.domain.profile.di
 
+import com.aya.digital.core.domain.profile.address.GeocodeCoordinatesUseCase
+import com.aya.digital.core.domain.profile.address.GetPlacesByAddressQueryUseCase
+import com.aya.digital.core.domain.profile.address.GetPlaceByIdUseCase
+import com.aya.digital.core.domain.profile.address.GetProfileAddressUseCase
+import com.aya.digital.core.domain.profile.address.SaveProfileAddressUseCase
+import com.aya.digital.core.domain.profile.address.impl.GeocodeCoordinatesUseCaseImpl
+import com.aya.digital.core.domain.profile.address.impl.GetPlacesByAddressQueryUseCaseImpl
+import com.aya.digital.core.domain.profile.address.impl.GetPlaceByIdUseCaseImpl
+import com.aya.digital.core.domain.profile.address.impl.GetProfileAddressUseCaseImpl
+import com.aya.digital.core.domain.profile.address.impl.SaveProfileAddressUseCaseImpl
 import com.aya.digital.core.domain.profile.attachment.GetAttachmentByIdUseCase
 import com.aya.digital.core.domain.profile.attachment.impl.GetAttachmentByIdUseCaseImpl
 import com.aya.digital.core.domain.profile.emergencycontact.GetEmergencyContactUseCase
@@ -356,6 +366,41 @@ fun profileDomainDiModule() = DI.Module("profileDomainDiModule") {
 
     bind<GetAttachmentByIdUseCase>() with singleton {
         GetAttachmentByIdUseCaseImpl(
+            instance(),
+            instance()
+        )
+    }
+
+    bind<GetPlacesByAddressQueryUseCase>() with singleton {
+        GetPlacesByAddressQueryUseCaseImpl(
+            instance(),
+            instance()
+        )
+    }
+
+    bind<GetPlaceByIdUseCase>() with singleton {
+        GetPlaceByIdUseCaseImpl(
+            instance(),
+            instance()
+        )
+    }
+
+    bind<GeocodeCoordinatesUseCase>() with singleton {
+        GeocodeCoordinatesUseCaseImpl(
+            instance(),
+            instance()
+        )
+    }
+
+    bind<GetProfileAddressUseCase>() with singleton {
+        GetProfileAddressUseCaseImpl(
+            instance(),
+            instance()
+        )
+    }
+
+    bind<SaveProfileAddressUseCase>() with singleton {
+        SaveProfileAddressUseCaseImpl(
             instance(),
             instance()
         )

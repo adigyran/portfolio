@@ -1,16 +1,13 @@
-package com.aya.digital.core.ui.delegates.profile.info.ui
+package com.aya.digital.core.ui.delegates.profile.generalinfo.ui
 
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.aya.digital.core.ext.bindClick
 import com.aya.digital.core.ui.adapters.base.BaseDelegate
 import com.aya.digital.core.ui.adapters.base.BaseViewHolder
 import com.aya.digital.core.ui.adapters.base.DiffItem
 import com.aya.digital.core.ui.delegates.features.profile.generalinfo.databinding.ItemProfileInfoBinding
-import com.aya.digital.core.ui.delegates.profile.info.model.ProfileInfoUIModel
-import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
+import com.aya.digital.core.ui.delegates.profile.generalinfo.model.ProfileInfoUIModel
 
 
 class ProfileInfoDelegate() :

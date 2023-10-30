@@ -76,5 +76,5 @@ class RetrofitDictionariesNetwork(private val network: DictionariesService) :
         cursor: String?
     ): Flowable<PagedCursorResponse<EmergencyContactTypeResponse>> = network.getEmergencyContactsTypes(searchTerm,cursor,selectedIds)
 
-    override fun getEmergencyContactsTypeById(id: Int): Single<PagedCursorResponse<EmergencyContactTypeResponse>>  = network.getEmergencyContactsTypeById(id)
+    override fun getEmergencyContactsTypeById(id: Int): Single<EmergencyContactTypeResponse>  = network.getEmergencyContactsTypeById(id)
 }

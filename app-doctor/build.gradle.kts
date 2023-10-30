@@ -17,8 +17,8 @@ android {
 
     defaultConfig {
         applicationId = "com.aya.digital.healthapp.doctor"
-        versionCode = 11
-        versionName = "0.0.11" // X.Y.Z; X = Major, Y = minor, Z = Patch level
+        versionCode = 14
+        versionName = "0.0.14" // X.Y.Z; X = Major, Y = minor, Z = Patch level
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -97,6 +97,7 @@ dependencies {
     implementation(project(":feature:profile:generalinfo:edit"))
     implementation(project(":feature:profile:generalinfo:view"))
     implementation(project(":feature:profile:clinicinfo"))
+    implementation(project(":feature:profile:address"))
     implementation(project(":feature:profile:insurance:doctorinsurance"))
     implementation(project(":feature:appointments:appointmentcard"))
     implementation(project(":feature:profile:notifications"))

@@ -1,4 +1,4 @@
-package com.aya.digital.core.ui.delegates.profile.info.model
+package com.aya.digital.core.ui.delegates.profile.generalinfo.model
 
 import com.aya.digital.core.ui.adapters.base.DiffItem
 

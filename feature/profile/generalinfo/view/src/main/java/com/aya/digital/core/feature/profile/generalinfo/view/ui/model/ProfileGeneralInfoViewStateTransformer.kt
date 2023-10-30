@@ -10,7 +10,7 @@ import com.aya.digital.core.navigation.AppFlavour
 import com.aya.digital.core.navigation.Flavor
 import com.aya.digital.core.ui.adapters.base.DiffItem
 import com.aya.digital.core.ui.base.masks.CommonMasks
-import com.aya.digital.core.ui.delegates.profile.info.model.ProfileInfoUIModel
+import com.aya.digital.core.ui.delegates.profile.generalinfo.model.ProfileInfoUIModel
 import com.aya.digital.core.util.datetime.DateTimeUtils
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.toKotlinLocalDate
@@ -78,7 +78,7 @@ class ProfileGeneralInfoViewStateTransformer(
                         .getUnitField(getWeightUnit())
                 )
             )
-            add(ProfileInfoUIModel("Short Address", state.patientFields?.shortAddress.getField()))
+            //add(ProfileInfoUIModel("Short Address", state.patientFields?.shortAddress.getField()))
         }
 
     private fun getDoctorFields(state: ProfileGeneralInfoViewState) =

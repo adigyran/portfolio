@@ -19,8 +19,9 @@ internal class GetEmergencyContactTypeItemByIdUseCaseImpl(
     private val progressRepository: ProgressRepository
 ) :
     GetEmergencyContactTypeItemByIdUseCase {
-    override fun invoke(typeId: Int): Single<RequestResultModel<EmergencyContactTypeItem>> = dictionariesRepository.getEmergencyContactTypeById(typeId)
-    .trackProgress(progressRepository)
-        .mapResult({  EmergencyContactTypeItem(it.id, it.name ?: "").asResultModel() },
-            { it.toModelError() })
+    override fun invoke(typeId: Int): Single<RequestResultModel<EmergencyContactTypeItem>> =
+        dictionariesRepository.getEmergencyContactTypeById(typeId)
+            .trackProgress(progressRepository)
+            .mapResult({ EmergencyContactTypeItem(it.id, it.name ?: "").asResultModel() },
+                { it.toModelError() })
 }

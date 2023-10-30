@@ -3,10 +3,12 @@ package com.aya.digital.core.repository.profile.main
 import android.content.Context
 import android.net.Uri
 import com.aya.digital.core.data.mappers.profile.InsurancePolicyMapper
+import com.aya.digital.core.data.profile.Address
 import com.aya.digital.core.data.profile.CurrentProfile
 import com.aya.digital.core.data.profile.EmergencyContact
 import com.aya.digital.core.data.profile.ImageUploadResult
 import com.aya.digital.core.data.profile.NotificationsStatus
+import com.aya.digital.core.data.profile.mappers.AddressMapper
 import com.aya.digital.core.data.profile.mappers.AvatarMapper
 import com.aya.digital.core.data.profile.mappers.CurrentProfileMapper
 import com.aya.digital.core.data.profile.mappers.EmergencyContactMapper
@@ -47,7 +49,8 @@ internal class ProfileRepositoryImpl(
     private val avatarMapper: AvatarMapper,
     private val invalidTokenEventManager: InvalidTokenEventManager,
     private val imageUploadResultMapper: ImageUploadResultMapper,
-    private val notificationsStatusMapper: NotificationsStatusMapper
+    private val notificationsStatusMapper: NotificationsStatusMapper,
+    private val addressMapper: AddressMapper
 ) :
     ProfileRepository {
     override fun currentProfileId(): Single<RequestResult<Int>> = profileDataSource.currentProfile()
@@ -102,7 +105,7 @@ internal class ProfileRepositoryImpl(
         id: Int,
         body: EmergencyContactBody
     ): Single<RequestResult<Boolean>> =
-        profileDataSource.updateEmergencyContact(id,body)
+        profileDataSource.updateEmergencyContact(id, body)
             .retryOnError()
             .retrofitResponseToResult(CommonUtils::mapServerErrors)
             .mapResult({
@@ -253,6 +256,21 @@ internal class ProfileRepositoryImpl(
                 notificationsStatusMapper.mapFrom(it).asResult()
             }, { it })
 
+    override fun getAddress(): Single<RequestResult<Address>> =
+        profileDataSource.getAddress()
+            .retryOnError()
+            .retrofitResponseToResult(CommonUtils::mapServerErrors)
+            .mapResult({
+                addressMapper.mapFrom(it).asResult()
+            }, { it })
+
+    override fun saveAddress(addressLine: String): Single<RequestResult<Boolean>> =
+        profileDataSource.saveAddress(addressLine)
+            .retryOnError()
+            .retrofitResponseToResult(CommonUtils::mapServerErrors)
+            .mapResult({
+                true.asResult()
+            }, { it })
 
     override fun logout(): Single<RequestResult<Boolean>> =
         appDataStore.refreshTokenData

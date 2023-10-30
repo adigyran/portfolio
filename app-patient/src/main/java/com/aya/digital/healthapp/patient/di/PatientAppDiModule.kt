@@ -11,6 +11,7 @@ import com.aya.digital.core.navigation.graph.coordinator.RootCoordinatorGraph
 import com.aya.digital.core.navigation.graph.navigator.BottomNavigationGraph
 import com.aya.digital.core.navigation.graph.navigator.FragmentContainerGraph
 import com.aya.digital.core.navigation.graph.navigator.RootNavigationGraph
+import com.aya.digital.healthapp.patient.BuildConfig
 import com.aya.digital.healthapp.patient.PatientAppFlavour
 import com.aya.digital.healthapp.patient.navigation.root.PatientAppDefaultRootScreenManager
 import com.aya.digital.healthapp.patient.navigation.auth.PatientAuthGraph
@@ -78,5 +79,9 @@ fun patientAppDiModule() = DI.Module("patientAppDiModule") {
 
     bind<RootNavigationGraph>("videocall_navigation") with singleton {
        VideoCallContainerNavigationGraph()
+    }
+
+    bind<String>("appGoogleKey") with singleton {
+        BuildConfig.MAPS_API_KEY
     }
 }

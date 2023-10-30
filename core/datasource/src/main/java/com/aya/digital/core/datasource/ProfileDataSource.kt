@@ -6,6 +6,7 @@ import com.aya.digital.core.network.model.request.NotificationSettingsBody
 import com.aya.digital.core.network.model.request.ProfileBody
 import com.aya.digital.core.network.model.request.UpdatePhoneBody
 import com.aya.digital.core.network.model.response.emergencycontact.EmergencyContactResponse
+import com.aya.digital.core.network.model.response.profile.AddressResponse
 import com.aya.digital.core.network.model.response.profile.AvatarResponse
 import com.aya.digital.core.network.model.response.profile.CurrentProfileResponse
 import com.aya.digital.core.network.model.response.profile.ImageUploadResponse
@@ -46,6 +47,11 @@ interface ProfileDataSource {
         mime:String,
         file: RequestBody
     ): Single<ImageUploadResponse>
+
+
+    fun getAddress():Single<AddressResponse>
+
+    fun saveAddress(addressLine:String):Completable
 
     fun getPhoneNumber():Single<PhoneResponse>
 

@@ -22,7 +22,7 @@ import com.aya.digital.core.feature.profile.generalinfo.view.viewmodel.ProfileGe
 import com.aya.digital.core.navigation.contracts.imagepicker.ImageSelectContract
 import com.aya.digital.core.ui.adapters.base.BaseDelegateAdapter
 import com.aya.digital.core.ui.base.screens.DiFragment
-import com.aya.digital.core.ui.delegates.profile.info.ui.ProfileInfoDelegate
+import com.aya.digital.core.ui.delegates.profile.generalinfo.ui.ProfileInfoDelegate
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.google.android.material.dialog.MaterialAlertDialogBuilder

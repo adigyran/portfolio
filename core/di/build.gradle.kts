@@ -28,6 +28,7 @@ dependencies {
     implementation(project(":core:repository:progress"))
     implementation(project(":core:repository:profile"))
     implementation(project(":core:repository:location"))
+    implementation(project(":core:repository:address"))
     implementation(project(":core:domain:auth"))
     implementation(project(":core:domain:profile"))
     implementation(project(":core:domain:dictionaries"))

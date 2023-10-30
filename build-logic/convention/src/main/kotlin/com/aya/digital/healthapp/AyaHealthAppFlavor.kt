@@ -15,25 +15,25 @@ enum class FlavorDimension {
 // purposes, or from a production backend server which supplies up-to-date, real content.
 // These two product flavors reflect this behaviour.
 @Suppress("EnumEntryName")
-enum class AyaPatientFlavor(val dimension: FlavorDimension, val applicationIdSuffix: String? = null) {
+enum class AyaHealthAppFlavor(val dimension: FlavorDimension, val applicationIdSuffix: String? = null) {
     demo(FlavorDimension.contentType),
     prod(FlavorDimension.contentType)
 }
 
-fun Project.configureFlavors(
-    commonExtension: CommonExtension<*, *, *, *>,
-    flavorConfigurationBlock: ProductFlavor.(flavor: AyaPatientFlavor) -> Unit = {}
+fun configureFlavors(
+    commonExtension: CommonExtension<*, *, *, *, *>,
+    flavorConfigurationBlock: ProductFlavor.(flavor: AyaHealthAppFlavor) -> Unit = {}
 ) {
     commonExtension.apply {
         flavorDimensions += FlavorDimension.contentType.name
         productFlavors {
-            AyaPatientFlavor.values().forEach {
+            AyaHealthAppFlavor.values().forEach {
                 create(it.name) {
                     dimension = it.dimension.name
                     flavorConfigurationBlock(this, it)
                     if (this@apply is ApplicationExtension && this is ApplicationProductFlavor) {
                         if (it.applicationIdSuffix != null) {
-                            this.applicationIdSuffix = it.applicationIdSuffix
+                            applicationIdSuffix = it.applicationIdSuffix
                         }
                     }
                 }

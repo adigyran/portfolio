@@ -54,6 +54,8 @@ include(":core:repository:dictionaries")
 include(":core:repository:schedule")
 include(":core:repository:progress")
 include(":core:repository:location")
+include(":core:repository:address")
+
 
 //data
 include(":core:data:base")
@@ -129,6 +131,8 @@ include(":core:ui:delegates:features:profile:emergencycontactinfo")
 include(":core:ui:delegates:features:profile:securitysummary")
 include(":core:ui:delegates:features:profile:clinicinfo")
 include(":core:ui:delegates:features:profile:insurance")
+include(":core:ui:delegates:features:profile:address")
+
 //appointments
 include(":core:ui:delegates:features:appointments:patientappointment")
 include(":core:ui:delegates:features:appointments:appointmentsscheduler")
@@ -175,6 +179,7 @@ include(":feature:auth:container")
 //choosers
 include(":feature:choosers:selectwithsearch")
 //profile
+include(":feature:profile:address")
 include(":feature:profile:notifications")
 include(":feature:profile:emergencycontact")
 include(":feature:profile:generalinfo:edit")

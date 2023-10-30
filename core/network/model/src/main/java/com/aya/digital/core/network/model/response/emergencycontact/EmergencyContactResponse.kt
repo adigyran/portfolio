@@ -7,5 +7,6 @@ data class EmergencyContactResponse(
     val id: Int,
     val fullName: String? = null,
     val phone: String? = null,
-    val summary: String? = null
+    val summary: String? = null,
+    val type:EmergencyContactTypeResponse?=null
 )
