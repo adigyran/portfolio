@@ -10,6 +10,9 @@ data class ProfileEmergencyContactState(
     val emergencyContacts: List<EmergencyContactModel>? = null,
     val editableEmergencyContact: EditableEmergencyContact? = null,
     val currentEditableId:Int?=null,
+    val contactTypeEditable: String? = null,
+    var contactTypeEditableId: Int? = null,
+    val contactTypeError: String? = null,
     val editMode: Boolean = false
 ) : BaseState
 
@@ -22,8 +25,6 @@ data class EditableEmergencyContact(
     var contactPhoneError: String? = null,
     var contactSummaryEditable: String? = null,
     var contactSummaryError: String? = null,
-    var contactTypeEditable: String? = null,
-    var contactTypeError: String? = null,
-    var contactTypeEditableId: Int? = null,
+
 
 ) : Parcelable

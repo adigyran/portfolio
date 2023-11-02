@@ -20,6 +20,7 @@ import com.aya.digital.core.feature.doctors.doctorssearch.doctorsearchmap.viewmo
 import com.aya.digital.core.mvi.BaseViewModel
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
 import com.aya.digital.core.util.requestcodes.RequestCodes
+import com.google.android.gms.maps.model.LatLng
 import kotlinx.coroutines.reactive.asFlow
 import kotlinx.coroutines.rx3.asFlow
 import kotlinx.coroutines.rx3.await
@@ -156,7 +157,13 @@ class DoctorSearchMapViewModel(
         coordinatorRouter.sendEvent(DoctorSearchMapNavigationEvents.OpenDoctorCard(doctorId = doctorId))
     }
 
+    fun onMapClick(latLng: LatLng) = intent {
+        hideCurrentDoctors()
+    }
 
+    private fun hideCurrentDoctors() = intent {
+        reduce { state.copy(selectedDoctor = null) }
+    }
 
     fun onInsurance() = intent {
         selectFilters(state.selectedFilters.filterIsInstance<SelectedFilterModel.Insurance>())

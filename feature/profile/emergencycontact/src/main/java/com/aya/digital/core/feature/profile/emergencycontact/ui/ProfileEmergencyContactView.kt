@@ -29,6 +29,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.kodein.di.DI
 import org.kodein.di.factory
 import org.kodein.di.on
+import timber.log.Timber
 
 class ProfileEmergencyContactView :
     DiFragment<ViewProfileEmergencyContactBinding, ProfileEmergencyContactViewModel, ProfileEmergencyContactState, ProfileEmergencyContactSideEffects, ProfileEmergencyContactUiModel, ProfileEmergencyContactStateTransformer>() {
@@ -108,6 +109,7 @@ class ProfileEmergencyContactView :
             .show()
     }
     override fun render(state: ProfileEmergencyContactState) {
+        Timber.d("$state")
         stateTransformer(state).run {
             this.data?.let {
                 adapter.items = it

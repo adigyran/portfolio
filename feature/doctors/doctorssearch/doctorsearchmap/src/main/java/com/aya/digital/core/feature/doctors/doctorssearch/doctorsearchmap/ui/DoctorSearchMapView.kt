@@ -145,6 +145,7 @@ internal class DoctorSearchMapView :
             map = it
             configureMap()
             configureCluster()
+            map?.setOnMapClickListener(viewModel::onMapClick)
         }
         with(binding.recycler) {
             itemAnimator = null
@@ -249,7 +250,6 @@ internal class DoctorSearchMapView :
     override fun render(state: DoctorSearchMapState) {
         stateTransformer(state).run {
             data?.let { list ->
-                if (list.isEmpty()) return@let
                 binding.recycler.toggleVisibility(list.isNotEmpty())
                 adapter.items = list
                 if (binding.recycler.adapter == null) {

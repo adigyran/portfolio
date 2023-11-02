@@ -56,8 +56,7 @@ class KeyboardHeightProvider(
         val inflator = activity.getSystemService(Activity.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         popupView = inflator.inflate(R.layout.popupwindow, null, false)
         contentView = popupView
-        softInputMode =
-            WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE or WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE
+        softInputMode = WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN or WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE
         inputMethodMode = INPUT_METHOD_NEEDED
         parentView = activity.findViewById(android.R.id.content)
         width = 0

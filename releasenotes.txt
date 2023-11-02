@@ -189,6 +189,13 @@ version 73 patient/version 14 doctor
 fully implemented address search with search bar
 with predictions list
 and map click
+version 74 patient/version 15 doctor
+fixed emergency contact type
+fixed keyboard on profile address
+removed short address field from profile, because there is new screen for that
+fixed doctors map plus minus buttons, when doctor is unselected
+tapping on doctors map now hides doctor
+fixed videocall participant name
 
 
 

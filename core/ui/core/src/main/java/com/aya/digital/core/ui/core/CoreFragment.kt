@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
@@ -27,7 +28,7 @@ abstract class CoreFragment<Binding : ViewBinding> : Fragment(), ContextAware,
     IHasRetainedInstance<DI>, IdProvider {
     protected open val statusBarId: Int? = null
     protected var originalInputMode: Int? = null
-    protected open val inputMode: Int? = null
+    protected open val inputMode: Int? = WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN or WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE
 
     private var originalIsLightStatusBar: Boolean? = null
     protected open val isLightStatusBar: Boolean? = null
@@ -91,10 +92,12 @@ abstract class CoreFragment<Binding : ViewBinding> : Fragment(), ContextAware,
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?,
     ): View? {
-        /*originalInputMode = activity?.window?.attributes?.softInputMode
-        inputMode?.let { activity?.window?.setSoftInputMode(it) }
+        originalInputMode = activity?.window?.attributes?.softInputMode
+        inputMode?.let {
+            requireActivity().window.setSoftInputMode(it)
+        }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             originalIsLightStatusBar = isLightStatusBar()
             isLightStatusBar?.let {
                 toggleStatusBar(it)

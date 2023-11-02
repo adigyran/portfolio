@@ -373,6 +373,13 @@ class VideoCallScreenView :
                 contentVideoBinding.videoStatusTextView.toggleVisibility(it)
             }
 
+            this.participantConnected.let {
+                contentVideoBinding.videoStatusTextView.toggleVisibility(it)
+            }
+            this.participantName?.let {
+                contentVideoBinding.videoStatusTextView.text = "%s connected to the room".format(it)
+            }
+
         }
     }
 
@@ -479,7 +486,8 @@ class VideoCallScreenView :
             return
         }
         participantIdentity = remoteParticipant.identity
-        contentVideoBinding.videoStatusTextView.text = "Participant $participantIdentity joined"
+        viewModel.onParticipantConnected()
+       // contentVideoBinding.videoStatusTextView.text = "Participant $participantIdentity joined"
         remoteParticipant.remoteVideoTracks.firstOrNull()?.let { remoteVideoTrackPublication ->
             if (remoteVideoTrackPublication.isTrackSubscribed) {
                 remoteVideoTrackPublication.remoteVideoTrack?.let { addRemoteParticipantVideo(it) }
@@ -515,8 +523,7 @@ class VideoCallScreenView :
      * Called when participant leaves the room
      */
     private fun removeRemoteParticipant(remoteParticipant: RemoteParticipant) {
-        contentVideoBinding.videoStatusTextView.text =
-            "Participant $remoteParticipant.identity left."
+        viewModel.onParticipantDisconnected()
         if (remoteParticipant.identity != participantIdentity) {
             return
         }

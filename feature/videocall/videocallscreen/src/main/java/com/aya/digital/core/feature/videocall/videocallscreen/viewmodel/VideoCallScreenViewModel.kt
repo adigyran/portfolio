@@ -24,13 +24,14 @@ class VideoCallScreenViewModel(
     private val param: VideoCallScreenView.Param,
     private val getTeleHealthRoomTokenUseCase: GetTeleHealthRoomTokenUseCase,
     private val getAppointmentByIdWithParticipantUseCase: GetAppointmentByIdWithParticipantUseCase
-    ) :
+) :
     BaseViewModel<VideoCallScreenState, VideoCallScreenSideEffects>() {
     override val container = container<VideoCallScreenState, VideoCallScreenSideEffects>(
         initialState = VideoCallScreenState(),
     )
     {
         initialiseState()
+        loadAppointment()
     }
 
     private fun initialiseState() = intent {
@@ -49,8 +50,7 @@ class VideoCallScreenViewModel(
             .processResult({ appointmentWithParticipantModel ->
                 showAppointment(appointmentWithParticipantModel.appointmentModel)
                 val appointmentParticipant = appointmentWithParticipantModel.appointmentParticipant
-                when(appointmentParticipant)
-                {
+                when (appointmentParticipant) {
                     is AppointmentDoctorParticipant -> showDoctor(appointmentParticipant.doctorModel)
                     is AppointmentPatientParticipant -> showPatient(appointmentParticipant.patientModel)
                     null -> {
@@ -62,13 +62,13 @@ class VideoCallScreenViewModel(
 
     private fun showAppointment(appointmentModel: AppointmentModel) = intent {
 
-      /*  reduce {
-            state.copy(
-                appointmentDate = appointmentModel.startDate.toKotlinLocalDateTime(),
-                appointmentComment = appointmentModel.comment,
-                isTelemed = appointmentModel.type is AppointmentType.Online
-            )
-        }*/
+        /*  reduce {
+              state.copy(
+                  appointmentDate = appointmentModel.startDate.toKotlinLocalDateTime(),
+                  appointmentComment = appointmentModel.comment,
+                  isTelemed = appointmentModel.type is AppointmentType.Online
+              )
+          }*/
     }
 
     private fun showDoctor(doctorModel: DoctorModel) = intent {
@@ -83,8 +83,10 @@ class VideoCallScreenViewModel(
         )
         reduce {
             state.copy(
-             //   participantAvatar = doctorModel.avatarPhotoLink,
-                doctorData = doctorData
+                //   participantAvatar = doctorModel.avatarPhotoLink,
+                doctorData = doctorData,
+                participantFirstName = doctorData.doctorFirstName,
+                participantLastName = doctorData.doctorLastName
             )
         }
     }
@@ -98,8 +100,10 @@ class VideoCallScreenViewModel(
         )
         reduce {
             state.copy(
-               // participantAvatar = patientModel.avatarPhotoLink,
-                patientData = patientData
+                // participantAvatar = patientModel.avatarPhotoLink,
+                patientData = patientData,
+                participantFirstName = patientData.patientFirstName,
+                participantLastName = patientData.patientLastName
             )
         }
     }
@@ -111,13 +115,29 @@ class VideoCallScreenViewModel(
         }
     }
 
-    fun togglePipMode(isPip:Boolean) = intent {
+    fun togglePipMode(isPip: Boolean) = intent {
         reduce { state.copy(pipMode = isPip) }
     }
 
-    fun resumeOngoingConnection() = intent {
-        if(state.isConnected) connect()
+
+    fun onParticipantConnected() = intent {
+        reduce { state.copy(participantConnectedStatus = true) }
+        showParticipantStatus()
     }
+
+    fun onParticipantDisconnected() = intent {
+        reduce { state.copy(participantConnectedStatus = false) }
+        showParticipantStatus()
+    }
+
+    private fun showParticipantStatus() = intent {
+
+    }
+
+    fun resumeOngoingConnection() = intent {
+        if (state.isConnected) connect()
+    }
+
     private fun connect() = intent {
         getRoomToken()
     }
@@ -135,8 +155,7 @@ class VideoCallScreenViewModel(
         reduce { state.copy(isConnected = false) }
     }
 
-    private fun exit()
-    {
+    private fun exit() {
         coordinatorRouter.sendEvent(VideoCallScreenNavigationEvents.Back)
 
     }

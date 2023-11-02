@@ -30,7 +30,9 @@ class VideoCallScreenStateTransformer(private val context: Context) :
             localVideoEnabled = state.localVideoEnabled,
             localAudioEnabled = state.localAudioEnabled,
             remoteActions = createRemoteActions(state),
-            uiVisibility = !state.pipMode
+            uiVisibility = !state.pipMode,
+            participantConnected = state.participantConnectedStatus,
+            participantName = "%s %s".format(state.participantFirstName?:"",state.participantLastName?:"")
         )
 
     private fun Boolean.getConnectButtonIcn() = when (this) {

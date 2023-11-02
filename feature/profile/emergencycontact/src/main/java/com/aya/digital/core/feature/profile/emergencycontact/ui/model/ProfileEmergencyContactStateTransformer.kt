@@ -57,8 +57,8 @@ class ProfileEmergencyContactStateTransformer(context: Context) :
                             SelectionFieldUIModel(
                                 tag = FieldsTags.TYPE_FIELD,
                                 label = "Contact Type",
-                                state.editableEmergencyContact?.contactTypeEditable.getEditableField(),
-                                state.editableEmergencyContact?.contactTypeError
+                                state.contactTypeEditable.getEditableField(),
+                                state.contactTypeError
                             )
 
                         )

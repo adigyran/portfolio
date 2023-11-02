@@ -2,7 +2,9 @@ package com.aya.digital.core.feature.profile.address.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -38,6 +40,7 @@ import java.util.concurrent.TimeUnit
 class ProfileAddressView :
     DiFragment<ViewProfileAddressBinding, ProfileAddressViewModel, ProfileAddressState, ProfileAddressSideEffects, ProfileAddressUiModel, ProfileAddressStateTransformer>() {
 
+    override val inputMode: Int = WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING or WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE
     private val viewModelFactory: ((Unit) -> ProfileAddressViewModel) by kodein.on(
         context = this
     ).factory()
@@ -88,6 +91,7 @@ class ProfileAddressView :
             )
             layoutManager = lm
         }
+
     }
     private fun configureMap() {
 
@@ -169,6 +173,7 @@ class ProfileAddressView :
 
     override fun onResume() {
         super.onResume()
+
         mMap?.onResume()
     }
 

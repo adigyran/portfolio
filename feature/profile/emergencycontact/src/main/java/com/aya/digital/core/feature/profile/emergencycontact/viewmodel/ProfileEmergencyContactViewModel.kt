@@ -87,7 +87,7 @@ class ProfileEmergencyContactViewModel(
         coordinatorRouter.sendEvent(
             ProfileEmergencyContactNavigationEvents.SelectContactType(
                 RequestCodes.EMERGENCY_CONTACT_TYPE_LIST_REQUEST_CODE,
-                state.editableEmergencyContact!!.contactTypeEditableId
+                state.contactTypeEditableId
             )
         )
     }
@@ -101,19 +101,18 @@ class ProfileEmergencyContactViewModel(
     }
 
     private fun setContactType(contactTypeId: Int) = intent {
+        Timber.d(" ${state.editableEmergencyContact?.hashCode()}")
         if (!state.editMode || state.editableEmergencyContact == null) return@intent
         getEmergencyContactTypeItemByIdUseCase(contactTypeId)
             .await()
             .processResult({ emergencyContactType ->
-                val newEmergencyContact = state.editableEmergencyContact?.apply {
-                    this.contactTypeEditableId = contactTypeId
-                    this.contactTypeEditable = emergencyContactType.name
-                }
                 reduce {
                     state.copy(
-                        editableEmergencyContact = newEmergencyContact
+                        contactTypeEditableId = contactTypeId,
+                        contactTypeEditable = emergencyContactType.name
                     )
                 }
+                Timber.d("${state.editableEmergencyContact?.hashCode()}")
             }, { processError(it) })
     }
 
@@ -135,13 +134,13 @@ class ProfileEmergencyContactViewModel(
     private fun saveEmergencyContact() = intent {
         if (!state.editMode || state.editableEmergencyContact == null) return@intent
         val currentEditableEC = state.editableEmergencyContact!!
-        if (currentEditableEC.contactNameEditable.isNullOrBlank() || currentEditableEC.contactPhoneEditable.isNullOrBlank() || currentEditableEC.contactTypeEditableId == null) return@intent
+        if (currentEditableEC.contactNameEditable.isNullOrBlank() || currentEditableEC.contactPhoneEditable.isNullOrBlank() || state.contactTypeEditableId == null) return@intent
         saveEmergencyContactUseCase(
             id = state.currentEditableId,
             name = currentEditableEC.contactNameEditable ?: "",
             phone = currentEditableEC.contactPhoneEditable ?: "",
             summary = currentEditableEC.contactSummaryEditable ?: "",
-            type = currentEditableEC.contactTypeEditableId ?: -1
+            type = state.contactTypeEditableId ?: -1
         )
             .await()
             .processResult({
@@ -188,22 +187,25 @@ class ProfileEmergencyContactViewModel(
     private fun toggleEdit(id: Int) = intent {
         val selectedEmergencyContact =
             state.emergencyContacts?.firstOrNull { it.Id == id } ?: return@intent
-        val editableEmergencyContact = selectedEmergencyContact.run {
-            EditableEmergencyContact(
+        selectedEmergencyContact.run {
+            val editableEmergencyContact = EditableEmergencyContact(
                 contactNameEditable = name,
                 contactSummaryEditable = summary,
-                contactPhoneEditable = phone,
-                contactTypeEditableId = type?.id,
-                contactTypeEditable = type?.name
+                contactPhoneEditable = phone
+
             )
+
+            reduce {
+                state.copy(
+                    editMode = true,
+                    currentEditableId = id,
+                    editableEmergencyContact = editableEmergencyContact,
+                    contactTypeEditableId = type?.id,
+                    contactTypeEditable = type?.name
+                )
+            }
         }
-        reduce {
-            state.copy(
-                editMode = true,
-                currentEditableId = id,
-                editableEmergencyContact = editableEmergencyContact
-            )
-        }
+
     }
 
     private fun toggleCreate() = intent {
@@ -211,7 +213,9 @@ class ProfileEmergencyContactViewModel(
             state.copy(
                 editMode = true,
                 currentEditableId = null,
-                editableEmergencyContact = EditableEmergencyContact()
+                editableEmergencyContact = EditableEmergencyContact(),
+                contactTypeEditable = null,
+                contactTypeEditableId = null
             )
         }
     }

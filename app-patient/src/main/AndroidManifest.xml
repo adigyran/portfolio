@@ -24,6 +24,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_aya_doc"
         android:supportsRtl="true"
+
         android:theme="@style/Theme.HealthAppAya">
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -31,6 +32,7 @@
         <activity
             android:name="com.aya.digital.feature.rootcontainer.ui.RootView"
             android:theme="@style/Theme.HealthAppAya"
+            android:windowSoftInputMode="adjustNothing"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
