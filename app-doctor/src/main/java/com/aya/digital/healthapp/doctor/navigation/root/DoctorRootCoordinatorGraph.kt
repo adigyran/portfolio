@@ -19,6 +19,7 @@ import com.aya.digital.feature.bottomdialogs.dateappointmentsdialog.navigation.D
 import com.aya.digital.feature.bottomdialogs.dateappointmentsdialog.navigation.DateAppointmentsDialogScreen
 import com.aya.digital.feature.bottomdialogs.dateappointmentsdialog.ui.DateAppointmentsDialogView
 import com.aya.digital.feature.rootcontainer.navigation.RootContainerNavigationEvents
+import com.aya.digital.feature.videocallcontainer.navigation.VideoContainerScreen
 import com.github.terrakok.cicerone.Router
 import java.lang.ref.WeakReference
 
@@ -95,7 +96,8 @@ class DoctorRootCoordinatorGraph(context: Context) : RootCoordinatorGraph {
             }
 
             is RootContainerNavigationEvents.OpenVideoCall -> {
-                navigationRouter.navigateTo(VideoCallScreenScreen(event.roomId))
+                // navigationRouter.navigateTo(VideoCallScreenScreen(event.roomId))
+                navigationRouter.navigateTo(VideoContainerScreen(event.roomId))
             }
 
             VideoCallScreenNavigationEvents.Back -> {

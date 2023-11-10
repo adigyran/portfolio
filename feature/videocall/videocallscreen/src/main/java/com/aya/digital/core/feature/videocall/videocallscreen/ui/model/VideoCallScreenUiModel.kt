@@ -5,7 +5,10 @@ import com.aya.digital.core.mvi.BaseUiModel
 
 data class VideoCallScreenUiModel(
   val roomToken:String?,
+  val roomStatusText:String,
+  val participantStatusText:String,
   val connectButtonIcn:Int,
+  val connectButtonIcnTint:Int,
   val localVideoButtonIcn:Int,
   val cameraSwitchVisible:Boolean,
   val localAudioButtonIcn:Int,
@@ -13,6 +16,5 @@ data class VideoCallScreenUiModel(
   val localAudioEnabled:Boolean,
   val remoteActions:List<RemoteAction>,
   val uiVisibility:Boolean,
-  val participantName:String?,
   val participantConnected:Boolean
 ) : BaseUiModel

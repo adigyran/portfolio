@@ -39,7 +39,8 @@ class VideoCallScreenViewModel(
             state.copy(
                 localAudioEnabled = false,
                 localVideoEnabled = false,
-                isConnected = false
+                callState = CallState.Initial,
+                participantState = ParticipantState.ParticipantNotConnected
             )
         }
     }
@@ -48,9 +49,7 @@ class VideoCallScreenViewModel(
         getAppointmentByIdWithParticipantUseCase(param.roomId)
             .await()
             .processResult({ appointmentWithParticipantModel ->
-                showAppointment(appointmentWithParticipantModel.appointmentModel)
-                val appointmentParticipant = appointmentWithParticipantModel.appointmentParticipant
-                when (appointmentParticipant) {
+                when (val appointmentParticipant = appointmentWithParticipantModel.appointmentParticipant) {
                     is AppointmentDoctorParticipant -> showDoctor(appointmentParticipant.doctorModel)
                     is AppointmentPatientParticipant -> showPatient(appointmentParticipant.patientModel)
                     null -> {
@@ -59,18 +58,6 @@ class VideoCallScreenViewModel(
                 }
             }, { processError(it) })
     }
-
-    private fun showAppointment(appointmentModel: AppointmentModel) = intent {
-
-        /*  reduce {
-              state.copy(
-                  appointmentDate = appointmentModel.startDate.toKotlinLocalDateTime(),
-                  appointmentComment = appointmentModel.comment,
-                  isTelemed = appointmentModel.type is AppointmentType.Online
-              )
-          }*/
-    }
-
     private fun showDoctor(doctorModel: DoctorModel) = intent {
         val doctorData = DoctorData(
             doctorFirstName = doctorModel.firstName,
@@ -108,8 +95,37 @@ class VideoCallScreenViewModel(
         }
     }
 
+    fun updateCallState(callState: CallState) = intent {
+        if(callState!=state.callState){ reduce { state.copy(callState = callState) }
+            processCallState()
+        }
+    }
+
+    fun updateParticipantState(participantState:ParticipantState) = intent {
+        if(participantState!=state.participantState) {
+            reduce { state.copy(participantState = participantState) }
+            processParticipantState()
+        }
+    }
+
+    private fun processCallState() = intent {  }
+
+    private fun processParticipantState() = intent {
+        when(state.participantState)
+        {
+            ParticipantState.ParticipantDisconnected -> {
+                onParticipantDisconnected()
+            }
+            else -> {}
+        }
+    }
+
+    private fun onParticipantDisconnected() = intent {
+        postSideEffect(VideoCallScreenSideEffects.ShowCallEndedDialog)
+    }
+
     fun toggleConnectionClicked() = intent {
-        when (state.isConnected) {
+        when (state.callState.inActiveCall) {
             true -> showDisconnectDialog()
             false -> connect()
         }
@@ -120,22 +136,8 @@ class VideoCallScreenViewModel(
     }
 
 
-    fun onParticipantConnected() = intent {
-        reduce { state.copy(participantConnectedStatus = true) }
-        showParticipantStatus()
-    }
-
-    fun onParticipantDisconnected() = intent {
-        reduce { state.copy(participantConnectedStatus = false) }
-        showParticipantStatus()
-    }
-
-    private fun showParticipantStatus() = intent {
-
-    }
-
     fun resumeOngoingConnection() = intent {
-        if (state.isConnected) connect()
+        if (state.callState.inActiveCall) connect()
     }
 
     private fun connect() = intent {
@@ -152,7 +154,7 @@ class VideoCallScreenViewModel(
     }
 
     private fun disconnect() = intent {
-        reduce { state.copy(isConnected = false) }
+        reduce { state.copy(callState = CallState.Disconnected) }
     }
 
     private fun exit() {
@@ -168,14 +170,6 @@ class VideoCallScreenViewModel(
         reduce { state.copy(localAudioEnabled = !state.localAudioEnabled) }
     }
 
-    fun onSuccessfulConnection() = intent {
-        reduce { state.copy(isConnected = true) }
-    }
-
-    fun onConnectionFailure() = intent {
-        reduce { state.copy(isConnected = false) }
-        initialiseState()
-    }
 
     private fun getRoomToken() = intent {
         getTeleHealthRoomTokenUseCase(param.roomId)

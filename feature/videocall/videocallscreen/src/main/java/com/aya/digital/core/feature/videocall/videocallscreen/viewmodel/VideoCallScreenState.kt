@@ -10,6 +10,8 @@ import java.time.LocalDate
 @Parcelize
 data class VideoCallScreenState(
     val roomToken:String?=null,
+    val callState: CallState = CallState.Initial,
+    val participantState: ParticipantState = ParticipantState.ParticipantNotConnected,
     val participantConnectedStatus:Boolean = false,
     val participantFirstName:String?=null,
     val participantLastName:String?=null,
@@ -17,7 +19,6 @@ data class VideoCallScreenState(
     val localAudioEnabled:Boolean = false,
     val doctorData: DoctorData? = null,
     val patientData:PatientData? = null,
-    val isConnected:Boolean = false,
     val pipMode:Boolean = false
 ) : BaseState
 

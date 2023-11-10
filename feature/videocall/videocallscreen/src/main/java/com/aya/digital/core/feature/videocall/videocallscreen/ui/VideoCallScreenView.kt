@@ -1,20 +1,17 @@
 package com.aya.digital.core.feature.videocall.videocallscreen.ui
 
-import android.Manifest
-import android.app.PendingIntent
 import android.app.PictureInPictureParams
 import android.app.RemoteAction
 import android.content.BroadcastReceiver
 import android.content.Context
-import android.content.DialogInterface
+import android.content.Context.RECEIVER_NOT_EXPORTED
 import android.content.Intent
 import android.content.IntentFilter
-import android.content.pm.PackageManager
 import android.content.res.Configuration
-import android.graphics.drawable.Icon
 import android.media.AudioManager
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
 import android.os.Parcelable
 import android.util.Rational
 import android.view.LayoutInflater
@@ -22,19 +19,11 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.EditText
-import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.annotation.DrawableRes
 import androidx.annotation.RequiresApi
-import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.registerReceiver
 import com.aya.digital.core.ext.argument
 import com.aya.digital.core.ext.bindClick
-import com.aya.digital.core.ext.booleans
 import com.aya.digital.core.ext.createFragment
 import com.aya.digital.core.ext.toggleVisibility
 import com.aya.digital.core.feature.videocall.videocallscreen.ACTION_CALL_CONTROL
@@ -54,6 +43,8 @@ import com.aya.digital.core.feature.videocall.videocallscreen.ui.twillioobjects.
 import com.aya.digital.core.feature.videocall.videocallscreen.ui.twillioobjects.RemoteParticipantListenerImpl
 import com.aya.digital.core.feature.videocall.videocallscreen.ui.twillioobjects.RoomListener
 import com.aya.digital.core.feature.videocall.videocallscreen.ui.twillioobjects.RoomListenerImpl
+import com.aya.digital.core.feature.videocall.videocallscreen.viewmodel.CallState
+import com.aya.digital.core.feature.videocall.videocallscreen.viewmodel.ParticipantState
 import com.aya.digital.core.feature.videocall.videocallscreen.viewmodel.VideoCallScreenSideEffects
 import com.aya.digital.core.feature.videocall.videocallscreen.viewmodel.VideoCallScreenState
 import com.aya.digital.core.feature.videocall.videocallscreen.viewmodel.VideoCallScreenViewModel
@@ -70,18 +61,22 @@ import com.twilio.video.ktx.createLocalAudioTrack
 import com.twilio.video.ktx.createLocalVideoTrack
 import com.twilio.video.ktx.enabled
 import io.reactivex.rxjava3.subjects.BehaviorSubject
+import kotlinx.coroutines.time.withTimeout
 import kotlinx.parcelize.Parcelize
 import org.kodein.di.DI
 import org.kodein.di.factory
 import org.kodein.di.on
 import timber.log.Timber
 import tvi.webrtc.VideoSink
+import java.time.Duration
+import java.util.Timer
+import java.util.TimerTask
+import kotlin.concurrent.timerTask
 import kotlin.properties.Delegates
 import com.aya.digital.core.feature.videocall.videocallscreen.R as VideocallscreenR
 
 
-
-
+const val END_CALL_DIALOG_TIMEOUT_IN_SECONDS = 10
 class VideoCallScreenView :
     DiFragment<ViewVideocallScreenBinding, VideoCallScreenViewModel, VideoCallScreenState, VideoCallScreenSideEffects, VideoCallScreenUiModel, VideoCallScreenStateTransformer>(), BackButtonListener {
     private val CAMERA_MIC_PERMISSION_REQUEST_CODE = 1
@@ -167,16 +162,15 @@ class VideoCallScreenView :
     }
     private val roomListener = RoomListenerImpl(object : RoomListener {
         override fun onConnected(room: Room) {
-            viewModel.onSuccessfulConnection()
+            viewModel.updateCallState(CallState.Connected)
             localParticipant = room.localParticipant
-            contentVideoBinding.videoStatusTextView.text = "connected to room ${room.name}"
             // Only one participant is supported
             room.remoteParticipants.firstOrNull()?.let { addRemoteParticipant(it) }
         }
 
 
         override fun onConnectFailure(room: Room, e: TwilioException) {
-            viewModel.onConnectionFailure()
+            viewModel.updateCallState(CallState.ConnectionFailure)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                 if (permissionChecker.checkPermissionForCameraAndMicrophoneAndBluetooth()) {
                     audioSwitch.deactivate()
@@ -201,12 +195,29 @@ class VideoCallScreenView :
             }
         }
 
+        override fun onReconnecting(room: Room, e: TwilioException) {
+            viewModel.updateCallState(CallState.Reconnecting)
+        }
+
+        override fun onReconnected(room: Room) {
+            viewModel.updateCallState(CallState.Reconnecting)
+        }
+
         override fun onParticipantConnected(room: Room, participant: RemoteParticipant) {
             addRemoteParticipant(participant)
         }
 
         override fun onParticipantDisconnected(room: Room, participant: RemoteParticipant) {
             removeRemoteParticipant(participant)
+        }
+
+        override fun onParticipantReconnecting(room: Room, remoteParticipant: RemoteParticipant) {
+            viewModel.updateParticipantState(ParticipantState.ParticipantReconnecting)
+        }
+
+        override fun onParticipantReconnected(room: Room, remoteParticipant: RemoteParticipant) {
+            viewModel.updateParticipantState(ParticipantState.ParticipantReconnected)
+
         }
 
     })
@@ -271,7 +282,13 @@ class VideoCallScreenView :
         initializeUI()
         viewModel.resumeOngoingConnection()
 
-        requireActivity().registerReceiver(broadcastReceiver, IntentFilter(ACTION_CALL_CONTROL))
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            requireActivity().registerReceiver(broadcastReceiver, IntentFilter(ACTION_CALL_CONTROL),RECEIVER_NOT_EXPORTED)
+        } else
+        {
+            requireActivity().registerReceiver(broadcastReceiver, IntentFilter(ACTION_CALL_CONTROL))
+
+        }
 
     }
 
@@ -296,7 +313,6 @@ class VideoCallScreenView :
     }
 
     private fun initializeUI() {
-        contentVideoBinding.videoStatusTextView.text = "not connected, room ${param.roomId}"
         binding.switchAudioDeviceActionFab.setOnClickListener(switchAudioDeviceClickListener())
         binding.connectActionFab.show()
         binding.connectActionFab bindClick { viewModel.toggleConnectionClicked() }
@@ -315,12 +331,15 @@ class VideoCallScreenView :
 
             is VideoCallScreenSideEffects.ConnectToRoom -> {
                 this@VideoCallScreenView.accessToken = sideEffect.roomToken
-                contentVideoBinding.videoStatusTextView.text = "Connecting to room ${param.roomId}"
                 connectToRoom(sideEffect.roomId)
             }
 
             VideoCallScreenSideEffects.ShowDisconnectDialog -> {
                 showDisconnectActionsDialog()
+            }
+
+            VideoCallScreenSideEffects.ShowCallEndedDialog -> {
+                showCallEndDialog()
             }
         }
     }
@@ -346,6 +365,8 @@ class VideoCallScreenView :
 
             }
             this.connectButtonIcn.let { icon -> binding.connectActionFab.setButtonIcon(icon) }
+            this.connectButtonIcnTint.let { color -> binding.connectActionFab.setColorFilter(color) }
+
             this.localVideoButtonIcn.let { icon -> binding.localVideoActionFab.setButtonIcon(icon) }
             this.localAudioButtonIcn.let { icon -> binding.muteActionFab.setButtonIcon(icon) }
             this.cameraSwitchVisible.let { binding.switchCameraActionFab.toggleVisibility(it) }
@@ -364,21 +385,24 @@ class VideoCallScreenView :
             }
             this.remoteActions.let { remoteActions ->
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                    updatePictureInPictureParams(remoteActions
-                    )
+                    updatePictureInPictureParams(remoteActions)
                 }
             }
             this.uiVisibility.let {
                 binding.buttonsContainer.toggleVisibility(it)
-                contentVideoBinding.videoStatusTextView.toggleVisibility(it)
+                contentVideoBinding.videoCallUserStatus.toggleVisibility(it)
+                contentVideoBinding.videoCallParticipantStatus.toggleVisibility(it)
+
             }
 
-            this.participantConnected.let {
-                contentVideoBinding.videoStatusTextView.toggleVisibility(it)
+            this.participantStatusText.let {
+                contentVideoBinding.videoCallParticipantStatus.text = it
             }
-            this.participantName?.let {
-                contentVideoBinding.videoStatusTextView.text = "%s connected to the room".format(it)
+
+            this.roomStatusText.let {
+                contentVideoBinding.videoCallUserStatus.text = it
             }
+
 
         }
     }
@@ -401,6 +425,19 @@ class VideoCallScreenView :
                 dialog.dismiss()
             }
             .show()
+    }
+
+    private fun showCallEndDialog() {
+        val callEndDialog = MaterialAlertDialogBuilder(requireContext())
+            .setTitle("Call Ended")
+            .setMessage("Thank you for using our service")
+            .setPositiveButton("Ok") { dialog, which ->
+                disconnect()
+                dialog.dismiss()
+            }
+            .show()
+
+        Timer().schedule(timerTask { callEndDialog.dismiss() }, END_CALL_DIALOG_TIMEOUT_IN_SECONDS*1000L)
     }
 
     private fun disconnect() {
@@ -486,7 +523,7 @@ class VideoCallScreenView :
             return
         }
         participantIdentity = remoteParticipant.identity
-        viewModel.onParticipantConnected()
+        viewModel.updateParticipantState(ParticipantState.ParticipantConnected)
        // contentVideoBinding.videoStatusTextView.text = "Participant $participantIdentity joined"
         remoteParticipant.remoteVideoTracks.firstOrNull()?.let { remoteVideoTrackPublication ->
             if (remoteVideoTrackPublication.isTrackSubscribed) {
@@ -523,7 +560,7 @@ class VideoCallScreenView :
      * Called when participant leaves the room
      */
     private fun removeRemoteParticipant(remoteParticipant: RemoteParticipant) {
-        viewModel.onParticipantDisconnected()
+        viewModel.updateParticipantState(ParticipantState.ParticipantDisconnected)
         if (remoteParticipant.identity != participantIdentity) {
             return
         }
