@@ -5,6 +5,8 @@ import com.aya.digital.core.domain.base.models.doctors.DoctorModel
 import com.aya.digital.core.domain.base.models.patients.PatientModel
 import com.aya.digital.core.mvi.BaseState
 import kotlinx.parcelize.Parcelize
+import java.time.Duration
+import java.time.Instant
 import java.time.LocalDate
 
 @Parcelize
@@ -19,7 +21,10 @@ data class VideoCallScreenState(
     val localAudioEnabled:Boolean = false,
     val doctorData: DoctorData? = null,
     val patientData:PatientData? = null,
-    val pipMode:Boolean = false
+    val pipMode:Boolean = false,
+    val videoCallDuration:Duration=Duration.ofSeconds(0L),
+    val lastInstant:Instant=Instant.now(),
+    val firstInstant:Instant= Instant.now()
 ) : BaseState
 
 @Parcelize

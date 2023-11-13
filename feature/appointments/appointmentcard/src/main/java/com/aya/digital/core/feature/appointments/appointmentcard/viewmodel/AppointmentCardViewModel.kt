@@ -49,8 +49,9 @@ internal class AppointmentCardViewModel(
     private fun loadTimeWindow() = intent {
         getTeleHealthTimeWindowUseCase()
             .await()
-            .processResult({
-               reduce {  state.copy(telemedPreTimeDuration = it)}
+            .processResult({timeWindowModel ->
+               val preTimeDuration =  if(timeWindowModel.globalAppointmentTimeout) timeWindowModel.beforeTimeout else null
+               reduce {  state.copy(telemedPreTimeDuration = preTimeDuration )}
             }, { processError(it) })
     }
 
@@ -148,7 +149,7 @@ internal class AppointmentCardViewModel(
 
     private fun openVideoCall() = intent {
         val pretimeDuration = state.telemedPreTimeDuration
-        if (pretimeDuration != null && pretimeDuration.inWholeMinutes == 0L) {
+        if (pretimeDuration == null || pretimeDuration.inWholeMinutes == 0L) {
             coordinatorRouter.sendEvent(AppointmentCardNavigationEvents.OpenVideoCall(param.appointmentId))
             return@intent
         }

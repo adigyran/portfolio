@@ -6,6 +6,6 @@ import io.reactivex.rxjava3.core.Single
 import kotlin.time.Duration
 
 interface GetTeleHealthTimeWindowUseCase {
-    operator fun invoke(): Single<RequestResultModel<Duration>>
+    operator fun invoke(): Single<RequestResultModel<TelehealthTimeWindowModel>>
 
 }

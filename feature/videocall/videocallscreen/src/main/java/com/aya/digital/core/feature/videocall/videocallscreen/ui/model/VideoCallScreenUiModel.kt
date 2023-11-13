@@ -16,5 +16,6 @@ data class VideoCallScreenUiModel(
   val localAudioEnabled:Boolean,
   val remoteActions:List<RemoteAction>,
   val uiVisibility:Boolean,
-  val participantConnected:Boolean
+  val participantConnected:Boolean,
+  val durationTimerText:String
 ) : BaseUiModel

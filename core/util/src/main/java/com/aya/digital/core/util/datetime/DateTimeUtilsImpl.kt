@@ -4,6 +4,7 @@ import android.content.Context
 import kotlinx.datetime.*
 import java.time.format.DateTimeFormatter
 import kotlin.time.Duration
+import kotlin.time.toJavaDuration
 
 internal class DateTimeUtilsImpl(
     private val context: Context,
@@ -57,6 +58,10 @@ internal class DateTimeUtilsImpl(
 
     override fun formatDurationMins(duration: Duration): String {
         TODO("Not yet implemented")
+    }
+
+    override fun formatDurationMinSec(duration: java.time.Duration): String  = duration.run {
+        "%d:%02d:%02d".format(toHours(), toMinutesPart(), toSecondsPart())
     }
 
     private fun LocalDateTime.format(formatter: ThreadLocal<DateTimeFormatter>) =

@@ -4,5 +4,6 @@ import kotlin.time.Duration
 
 data class TelehealthWaitTimeModel(
     val beforeTimeout: Duration,
-    val afterTimeout: Duration?
+    val afterTimeout: Duration?,
+    val globalAppointmentTimeout:Boolean
 )

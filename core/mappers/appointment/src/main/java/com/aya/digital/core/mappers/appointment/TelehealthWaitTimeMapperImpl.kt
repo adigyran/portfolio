@@ -12,6 +12,8 @@ import kotlin.time.toKotlinDuration
 internal class TelehealthWaitTimeMapperImpl : TelehealthWaitTimeMapper() {
     override fun mapFrom(type: TelehealthWaitTimeResponse): TelehealthWaitTimeModel =
         TelehealthWaitTimeModel(
-            beforeTimeout= Duration.ofMinutes(type.beforeTimeout).toKotlinDuration(),
-            afterTimeout = Duration.ofMinutes(type.afterTimeout).toKotlinDuration())
+            beforeTimeout = Duration.ofMinutes(type.beforeTimeout).toKotlinDuration(),
+            afterTimeout = Duration.ofMinutes(type.afterTimeout).toKotlinDuration(),
+            globalAppointmentTimeout = type.globalAppointmentTimeout
+        )
 }

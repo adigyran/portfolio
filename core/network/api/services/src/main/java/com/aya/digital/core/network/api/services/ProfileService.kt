@@ -26,19 +26,19 @@ interface ProfileService {
     @POST("api/attachment")
     fun uploadImage(@Body image: RequestBody) : Single<ImageUploadResponse>
 
-    @GET("api/profile/phone")
+    @GET("api/settings/phone")
     fun getPhoneNumber(): Single<PhoneResponse>
 
-    @PATCH("api/profile/phone")
+    @PATCH("api/settings/phone")
     fun updatePhoneNumber(@Body body:UpdatePhoneBody):Single<PhoneResponse>
 
-    @POST("api/profile/phone-send-verify-code-sms")
+    @POST("api/settings/phone/send-verify-code")
     fun getPhoneVerifyCode():Single<Unit>
 
-    @GET("api/profile/phone-status")
+    @GET("api/settings/phone/status")
     fun getPhoneVerifiedStatus():Single<Boolean>
 
-    @POST("api/profile/phone-verify")
+    @POST("api/settings/phone/verify")
     fun sendPhoneVerifyCode(@Query("code") code:String):Single<Boolean>
 
     @POST("api/profile/insurances")

@@ -1,10 +1,10 @@
 package com.aya.digital.core.feature.videocall.videocallscreen.viewmodel
 
+import androidx.lifecycle.viewModelScope
 import com.aya.digital.core.domain.appointment.base.GetAppointmentByIdWithParticipantUseCase
 import com.aya.digital.core.domain.appointment.participants.model.AppointmentDoctorParticipant
 import com.aya.digital.core.domain.appointment.participants.model.AppointmentPatientParticipant
 import com.aya.digital.core.domain.appointment.telehealth.GetTeleHealthRoomTokenUseCase
-import com.aya.digital.core.domain.base.models.appointment.AppointmentModel
 import com.aya.digital.core.domain.base.models.doctors.DoctorModel
 import com.aya.digital.core.domain.base.models.patients.PatientModel
 import com.aya.digital.core.feature.videocall.videocallscreen.navigation.VideoCallScreenNavigationEvents
@@ -12,12 +12,24 @@ import com.aya.digital.core.feature.videocall.videocallscreen.ui.VideoCallScreen
 import com.aya.digital.core.mvi.BaseViewModel
 import com.aya.digital.core.navigation.coordinator.CoordinatorEvent
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.buffer
+import kotlinx.coroutines.flow.cancellable
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.rx3.await
-import kotlinx.datetime.toKotlinLocalDate
+import kotlinx.coroutines.time.delay
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
+import timber.log.Timber
+import java.time.Duration
+import java.time.Instant
 
 class VideoCallScreenViewModel(
     private val coordinatorRouter: CoordinatorRouter,
@@ -33,6 +45,8 @@ class VideoCallScreenViewModel(
         initialiseState()
         loadAppointment()
     }
+
+    private lateinit var timerJob:Job
 
     private fun initialiseState() = intent {
         reduce {
@@ -108,7 +122,11 @@ class VideoCallScreenViewModel(
         }
     }
 
-    private fun processCallState() = intent {  }
+
+    private fun processCallState() = intent {
+        if(state.callState.isConnected) startTimer()
+        else if(state.callState.isDisconnected) stopTimer()
+    }
 
     private fun processParticipantState() = intent {
         when(state.participantState)
@@ -118,6 +136,34 @@ class VideoCallScreenViewModel(
             }
             else -> {}
         }
+    }
+
+
+    private fun startTimer() = intent {
+        val startingInstant = if(state.lastInstant<Instant.now()) state.lastInstant else Instant.now()
+        reduce { state.copy(firstInstant = startingInstant) }
+        var duration=Duration.ofSeconds(0)
+        timerJob = viewModelScope.launch {
+            tickerFlow(Duration.ofSeconds(1))
+                .cancellable()
+                .map { Instant.now() }
+             /*   .distinctUntilChanged { old, new ->
+                    old == new
+                }*/
+                .onEach {
+                    duration= Duration.between(startingInstant,it)
+                }
+                .buffer()
+                .collect{
+                    reduce { state.copy(lastInstant = it, videoCallDuration = duration) }
+                }
+        }
+        timerJob.start()
+
+    }
+
+    private fun stopTimer() = intent {
+        timerJob.cancel()
     }
 
     private fun onParticipantDisconnected() = intent {
@@ -191,6 +237,13 @@ class VideoCallScreenViewModel(
 
     override fun onBack() {
         coordinatorRouter.sendEvent(CoordinatorEvent.Back)
+    }
+
+    private fun tickerFlow(period: Duration=Duration.ofSeconds(1)) = flow {
+        while (true) {
+            emit(Unit)
+            delay(period)
+        }
     }
 }
 

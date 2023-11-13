@@ -8,6 +8,19 @@
     android:fitsSystemWindows="true">
 
     <include layout="@layout/content_video"/>
+    <TextView
+        android:id="@+id/videocallDuration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp"
+        android:gravity="start"
+        android:textColor="@color/text_white"
+        android:textSize="20sp"
+        tools:text="status"/>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

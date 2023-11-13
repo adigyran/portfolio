@@ -18,10 +18,13 @@ import com.aya.digital.core.feature.videocall.videocallscreen.REQUEST_ENABLE_CAM
 import com.aya.digital.core.feature.videocall.videocallscreen.viewmodel.CallState
 import com.aya.digital.core.feature.videocall.videocallscreen.viewmodel.VideoCallScreenState
 import com.aya.digital.core.mvi.BaseStateTransformer
+import com.aya.digital.core.util.datetime.DateTimeUtils
+import java.time.Duration
 
 class VideoCallScreenStateTransformer(
     private val context: Context,
-    private val statusesTextsManager: StatusesTextsManager
+    private val statusesTextsManager: StatusesTextsManager,
+    private val dateTimeUtils: DateTimeUtils
 ) :
     BaseStateTransformer<VideoCallScreenState, VideoCallScreenUiModel>() {
     override fun invoke(state: VideoCallScreenState): VideoCallScreenUiModel =
@@ -38,7 +41,8 @@ class VideoCallScreenStateTransformer(
             uiVisibility = !state.pipMode,
             participantConnected = state.participantState.isParticipantConnected,
             participantStatusText = "Participant Status: %s".format(getParticipantStatusText(state)),
-            roomStatusText = "Your status: %s".format(getRoomStatusText(state))
+            roomStatusText = "Your status: %s".format(getRoomStatusText(state)),
+            durationTimerText = state.videoCallDuration.getText()
         )
 
 
@@ -51,6 +55,7 @@ class VideoCallScreenStateTransformer(
             getParticipantName(state)
         )
 
+    private fun Duration.getText():String = dateTimeUtils.formatDurationMinSec(this)
     private fun getParticipantName(state: VideoCallScreenState) =
         "%s %s".format(state.participantFirstName ?: "", state.participantLastName ?: "")
 

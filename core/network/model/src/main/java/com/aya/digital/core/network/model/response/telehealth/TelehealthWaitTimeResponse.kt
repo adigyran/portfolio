@@ -6,5 +6,6 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class TelehealthWaitTimeResponse(
     val beforeTimeout: Long,
-    val afterTimeout: Long
+    val afterTimeout: Long,
+    val globalAppointmentTimeout:Boolean
 )

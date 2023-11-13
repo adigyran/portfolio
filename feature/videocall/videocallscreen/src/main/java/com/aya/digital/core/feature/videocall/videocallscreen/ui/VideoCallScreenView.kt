@@ -403,6 +403,10 @@ class VideoCallScreenView :
                 contentVideoBinding.videoCallUserStatus.text = it
             }
 
+            this.durationTimerText.let {
+                binding.videocallDuration.text = it
+            }
+
 
         }
     }

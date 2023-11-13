@@ -196,7 +196,8 @@ removed short address field from profile, because there is new screen for that
 fixed doctors map plus minus buttons, when doctor is unselected
 tapping on doctors map now hides doctor
 fixed videocall participant name
-
+version 75 patient/version 16 doctor
+api changes
 
 
 

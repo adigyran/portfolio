@@ -23,5 +23,5 @@ interface DateTimeUtils {
     fun formatAppointmentDateTime(dateTime: LocalDateTime):Pair<String,String>
     fun formatAppointmentCardDateTime(dateTime: LocalDateTime):String
     fun formatDurationMins(duration: Duration):String
-
+    fun formatDurationMinSec(duration: java.time.Duration):String
 }

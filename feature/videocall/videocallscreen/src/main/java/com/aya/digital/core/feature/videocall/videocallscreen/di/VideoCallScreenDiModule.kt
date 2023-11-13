@@ -16,6 +16,7 @@ fun videoCallScreenDiModule(
     bind<VideoCallScreenStateTransformer>() with singleton {
         VideoCallScreenStateTransformer(
             instance(),
+            instance(),
             instance()
         )
     }
