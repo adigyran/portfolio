@@ -67,6 +67,8 @@ include(":core:data:preferences")
 include(":core:data:dictionaries")
 include(":core:data:progress")
 include(":core:data:location")
+include(":core:data:prescriptions")
+
 
 //
 include(":core:ext")
