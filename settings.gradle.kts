@@ -55,7 +55,7 @@ include(":core:repository:schedule")
 include(":core:repository:progress")
 include(":core:repository:location")
 include(":core:repository:address")
-
+include(":core:repository:prescriptions")
 
 //data
 include(":core:data:base")
