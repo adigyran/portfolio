@@ -29,7 +29,7 @@ fun videoCallScreenDiModule(
 
     bind {
         scoped(CustomFragmentScope).singleton {
-            VideoCallScreenViewModel(parentCoordinatorEvent, param,instance(),instance())
+            VideoCallScreenViewModel(parentCoordinatorEvent, param,instance(),instance(),instance(),instance())
         }
     }
 }

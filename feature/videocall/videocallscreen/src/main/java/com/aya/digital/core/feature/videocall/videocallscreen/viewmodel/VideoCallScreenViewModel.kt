@@ -2,6 +2,7 @@ package com.aya.digital.core.feature.videocall.videocallscreen.viewmodel
 
 import androidx.lifecycle.viewModelScope
 import com.aya.digital.core.domain.appointment.base.GetAppointmentByIdWithParticipantUseCase
+import com.aya.digital.core.domain.appointment.base.SubscribeToPrescriptionsUseCase
 import com.aya.digital.core.domain.appointment.participants.model.AppointmentDoctorParticipant
 import com.aya.digital.core.domain.appointment.participants.model.AppointmentPatientParticipant
 import com.aya.digital.core.domain.appointment.telehealth.GetTeleHealthRoomTokenUseCase
@@ -10,6 +11,7 @@ import com.aya.digital.core.domain.base.models.patients.PatientModel
 import com.aya.digital.core.feature.videocall.videocallscreen.navigation.VideoCallScreenNavigationEvents
 import com.aya.digital.core.feature.videocall.videocallscreen.ui.VideoCallScreenView
 import com.aya.digital.core.mvi.BaseViewModel
+import com.aya.digital.core.navigation.AppFlavour
 import com.aya.digital.core.navigation.coordinator.CoordinatorEvent
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
 import kotlinx.coroutines.Job
@@ -35,7 +37,9 @@ class VideoCallScreenViewModel(
     private val coordinatorRouter: CoordinatorRouter,
     private val param: VideoCallScreenView.Param,
     private val getTeleHealthRoomTokenUseCase: GetTeleHealthRoomTokenUseCase,
-    private val getAppointmentByIdWithParticipantUseCase: GetAppointmentByIdWithParticipantUseCase
+    private val getAppointmentByIdWithParticipantUseCase: GetAppointmentByIdWithParticipantUseCase,
+    private val subscribeToPrescriptionsUseCase: SubscribeToPrescriptionsUseCase,
+    private val appFlavour: AppFlavour
 ) :
     BaseViewModel<VideoCallScreenState, VideoCallScreenSideEffects>() {
     override val container = container<VideoCallScreenState, VideoCallScreenSideEffects>(
