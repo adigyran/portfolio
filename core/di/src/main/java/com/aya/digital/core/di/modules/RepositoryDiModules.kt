@@ -2,6 +2,7 @@ package com.aya.digital.core.di.modules
 
 import com.aya.digital.core.repository.address.addressRepositoryDiModule
 import com.aya.digital.core.repository.appointment.appointmentRepositoryDiModule
+import com.aya.digital.core.repository.appointment.prescriptionsRepositoryDiModule
 import com.aya.digital.core.repository.auth.authRepositoryDiModule
 import com.aya.digital.core.repository.dictionaries.dictionariesRepositoryDiModule
 import com.aya.digital.core.repository.doctors.doctorsRepositoryDiModule
@@ -19,5 +20,6 @@ fun repositoryDiModules() = listOf(
     scheduleRepositoryDiModule(),
     progressRepositoryDiModule(),
     locationRepositoryDiModule(),
-    addressRepositoryDiModule()
+    addressRepositoryDiModule(),
+    prescriptionsRepositoryDiModule()
 )

@@ -101,6 +101,8 @@ include(":core:domain:schedule")
 include(":core:domain:root")
 include(":core:domain:location")
 include(":core:domain:home")
+include(":core:domain:prescriptions")
+
 
 //ui delegates
 //components
