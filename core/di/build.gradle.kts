@@ -39,6 +39,7 @@ dependencies {
     implementation(project(":core:domain:root"))
     implementation(project(":core:domain:home"))
     implementation(project(":core:domain:location"))
+    implementation(project(":core:domain:prescriptions"))
     implementation(project(":core:security"))
     implementation(libs.kodein)
     implementation(libs.glide)
