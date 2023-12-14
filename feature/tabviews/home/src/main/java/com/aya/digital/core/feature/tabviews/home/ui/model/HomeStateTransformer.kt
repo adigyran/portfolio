@@ -23,7 +23,7 @@ class HomeStateTransformer(private val context : Context): BaseStateTransformer<
                    addAll(getHomeButtons(state))
                    add(HomeNewsContainerUIModel(news = getHomeNews()))
                    addAll(getHomeClinics())
-                   addAll(getHomeUpdatesSection(state))
+                 //  addAll(getHomeUpdatesSection(state))
                 }
             }
         )
@@ -62,13 +62,6 @@ class HomeStateTransformer(private val context : Context): BaseStateTransformer<
             title = "Pharmacies",
             descr = "Coming soon",
             iconId = R.drawable.ic_pharmacy,
-            enabled = false
-        ))
-        add(HomeButtonUIModel(
-            tag = ButtonsTags.SERVICE_COST,
-            title = "Service cost",
-            descr = "Coming soon",
-            iconId = R.drawable.ic_service,
             enabled = false
         ))
         add(HomeButtonUIModel(
