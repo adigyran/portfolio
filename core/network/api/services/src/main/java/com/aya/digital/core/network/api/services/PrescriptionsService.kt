@@ -12,4 +12,15 @@ interface PrescriptionsService {
     @PUT("settings/prescriptions/subscribe")
     fun subscribeToPrescriptions(@Body prescriptionSubscribeBody: PrescriptionSubscribeBody): Completable
 
+    @GET("settings/prescriptions/get-content-by-appId/{id}")
+    fun getPrescriptionsByAppointmentId(@Path("id") appointmentId:Int): Single<Boolean>
+
+    @GET("settings/prescriptions/{id}")
+    fun getPrescriptionById(@Path("id") prescriptionId:Int): Single<Boolean>
+
+    @GET("settings/prescriptions/patient-prescription/{id}")
+    fun getPatientPrescriptionsByPatientId(@Path("id") patientId:Int): Single<Boolean>
+
+    @GET("settings/prescriptions/practitioner-prescription/{id}")
+    fun getDoctorPrescriptionsByPatientId(@Path("id") patientId:Int): Single<Boolean>
 }
