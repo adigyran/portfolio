@@ -28,7 +28,18 @@ fun prescriptionNetworkModule() = DI.Module("prescriptionNetworkModule") {
 
 class RetrofitPrescriptionNetwork(private val networkApi: PrescriptionsService) :
     PrescriptionsDataSource {
-    override fun subscribeToPrescriptions(prescriptionSubscribeBody: PrescriptionSubscribeBody): Completable = networkApi.subscribeToPrescriptions(prescriptionSubscribeBody)
+    override fun subscribeToPrescriptions(prescriptionSubscribeBody: PrescriptionSubscribeBody): Completable =
+        networkApi.subscribeToPrescriptions(prescriptionSubscribeBody)
 
+    override fun getPrescriptionsByAppointmentId(appointmentId: Int): Single<Boolean> =
+        networkApi.getPrescriptionsByAppointmentId(appointmentId)
 
+    override fun getPrescriptionById(prescriptionId: Int): Single<Boolean> =
+        networkApi.getPrescriptionById(prescriptionId)
+
+    override fun getPatientPrescriptionsByPatientId(patientId: Int): Single<Boolean> =
+        networkApi.getPatientPrescriptionsByPatientId(patientId)
+
+    override fun getDoctorPrescriptionsByPatientId(patientId: Int): Single<Boolean> =
+        networkApi.getDoctorPrescriptionsByPatientId(patientId)
 }

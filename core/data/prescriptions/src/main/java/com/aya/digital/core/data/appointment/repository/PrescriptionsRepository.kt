@@ -8,4 +8,12 @@ import java.time.LocalDateTime
 
 interface PrescriptionsRepository {
   fun subscribeToPrescriptions(practitionerId: Int, patientId: Int, appointmentId: Int):Single<RequestResult<Boolean>>
+
+  fun getPrescriptionsByAppointmentId(appointmentId:Int): Single<RequestResult<Boolean>>
+
+  fun getPrescriptionById(prescriptionId:Int): Single<RequestResult<Boolean>>
+
+  fun getPatientPrescriptionsByPatientId(patientId:Int): Single<RequestResult<Boolean>>
+
+  fun getDoctorPrescriptionsByPatientId(patientId:Int): Single<RequestResult<Boolean>>
 }

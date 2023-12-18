@@ -4,6 +4,14 @@ import com.aya.digital.core.data.appointment.repository.PrescriptionsRepository
 import com.aya.digital.core.datasource.AppointmentDataSource
 import com.aya.digital.core.datasource.PrescriptionsDataSource
 import com.aya.digital.core.datasource.TeleHealthDataSource
+import com.aya.digital.core.networkbase.CommonUtils
+import com.aya.digital.core.ext.retryOnError
+
+import com.aya.digital.core.ext.asResult
+import com.aya.digital.core.ext.mapResult
+import com.aya.digital.core.ext.retrofitResponseToResult
+import com.aya.digital.core.ext.retryOnError
+import com.aya.digital.core.network.model.request.PrescriptionSubscribeBody
 import com.aya.digital.core.networkbase.server.RequestResult
 import io.reactivex.rxjava3.core.Single
 
@@ -14,8 +22,43 @@ internal class PrescriptionsRepositoryImpl(
         practitionerId: Int,
         patientId: Int,
         appointmentId: Int
-    ): Single<RequestResult<Boolean>> {
-        TODO("Not yet implemented")
-    }
+    ): Single<RequestResult<Boolean>> = prescriptionsDataSource.subscribeToPrescriptions(PrescriptionSubscribeBody(practitionerId, patientId, appointmentId))
+            .retryOnError()
+            .retrofitResponseToResult(CommonUtils::mapServerErrors)
+            .mapResult({ result ->
+               true.asResult()
+            }, { it })
+
+    override fun getPrescriptionsByAppointmentId(appointmentId: Int): Single<RequestResult<Boolean>>  =
+        prescriptionsDataSource.getPrescriptionsByAppointmentId(appointmentId)
+                .retryOnError()
+                .retrofitResponseToResult(CommonUtils::mapServerErrors)
+                .mapResult({ result ->
+                    true.asResult()
+                }, { it })
+
+    override fun getPrescriptionById(prescriptionId: Int): Single<RequestResult<Boolean>> =
+        prescriptionsDataSource.getPrescriptionById(prescriptionId)
+            .retryOnError()
+            .retrofitResponseToResult(CommonUtils::mapServerErrors)
+            .mapResult({ result ->
+                true.asResult()
+            }, { it })
+
+    override fun getPatientPrescriptionsByPatientId(patientId: Int): Single<RequestResult<Boolean>>  =
+        prescriptionsDataSource.getPatientPrescriptionsByPatientId(patientId)
+            .retryOnError()
+            .retrofitResponseToResult(CommonUtils::mapServerErrors)
+            .mapResult({ result ->
+                true.asResult()
+            }, { it })
+
+    override fun getDoctorPrescriptionsByPatientId(patientId: Int): Single<RequestResult<Boolean>> =
+        prescriptionsDataSource.getDoctorPrescriptionsByPatientId(patientId)
+            .retryOnError()
+            .retrofitResponseToResult(CommonUtils::mapServerErrors)
+            .mapResult({ result ->
+                true.asResult()
+            }, { it })
 
 }
