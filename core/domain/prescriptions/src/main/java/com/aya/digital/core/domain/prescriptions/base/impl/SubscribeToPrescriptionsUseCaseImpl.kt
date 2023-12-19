@@ -10,14 +10,17 @@ import com.aya.digital.core.domain.base.models.progress.trackProgress
 import com.aya.digital.core.ext.mapResult
 import io.reactivex.rxjava3.core.Single
 
-internal class SubscribeToPrescriptionsUseCaseImpl(private val progressRepository: ProgressRepository,private val prescriptionsRepository: PrescriptionsRepository) :
+internal class SubscribeToPrescriptionsUseCaseImpl(
+    private val progressRepository: ProgressRepository,
+    private val prescriptionsRepository: PrescriptionsRepository
+) :
     SubscribeToPrescriptionsUseCase {
     override fun invoke(
         appointmentId: Int,
         doctorId: Int,
         patientId: Int
     ): Single<RequestResultModel<Boolean>> = prescriptionsRepository
-        .subscribeToPrescriptions(doctorId,patientId, appointmentId)
+        .subscribeToPrescriptions(doctorId, patientId, appointmentId)
         .trackProgress(progressRepository)
-        .mapResult({it.asResultModel()},{it.toModelError()})
+        .mapResult({ it.asResultModel() }, { it.toModelError() })
 }

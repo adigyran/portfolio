@@ -7,6 +7,7 @@ import com.aya.digital.core.network.api.services.TeleHealthService
 import com.aya.digital.core.network.main.RetrofitTags
 import com.aya.digital.core.network.main.di.modules.createApiService
 import com.aya.digital.core.network.model.request.GetTelehealthRoomTokenBody
+import com.aya.digital.core.network.model.request.PrescriptionContentBody
 import com.aya.digital.core.network.model.request.PrescriptionSubscribeBody
 import com.aya.digital.core.network.model.response.telehealth.TelehealthRoomTokenResponse
 import com.aya.digital.core.network.model.response.telehealth.TelehealthWaitTimeResponse
@@ -28,6 +29,16 @@ fun prescriptionNetworkModule() = DI.Module("prescriptionNetworkModule") {
 
 class RetrofitPrescriptionNetwork(private val networkApi: PrescriptionsService) :
     PrescriptionsDataSource {
+    override fun editPrescriptionByPrescriptionId(
+        prescriptionId: Int,
+        prescriptionContentBody: PrescriptionContentBody
+    ): Single<Boolean>  = networkApi.editPrescriptionByPrescriptionId(prescriptionId,prescriptionContentBody)
+
+    override fun editPrescriptionByAppointmentId(
+        appointmentId: Int,
+        prescriptionContentBody: PrescriptionContentBody
+    ): Single<Boolean> = networkApi.editPrescriptionByAppointmentId(appointmentId, prescriptionContentBody)
+
     override fun subscribeToPrescriptions(prescriptionSubscribeBody: PrescriptionSubscribeBody): Completable =
         networkApi.subscribeToPrescriptions(prescriptionSubscribeBody)
 
