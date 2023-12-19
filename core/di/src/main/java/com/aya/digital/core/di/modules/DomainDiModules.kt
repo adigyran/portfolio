@@ -1,7 +1,7 @@
 package com.aya.digital.core.di.modules
 
 import com.aya.digital.core.domain.appointment.di.appointmentsDomainDiModule
-import com.aya.digital.core.domain.appointment.di.prescriptionsDomainDiModule
+import com.aya.digital.core.domain.prescriptions.di.prescriptionsDomainDiModule
 import com.aya.digital.core.domain.auth.di.authDomainDiModule
 import com.aya.digital.core.domain.dictionaries.di.dictionariesDomainDiModule
 import com.aya.digital.core.domain.location.di.locationDomainDiModule

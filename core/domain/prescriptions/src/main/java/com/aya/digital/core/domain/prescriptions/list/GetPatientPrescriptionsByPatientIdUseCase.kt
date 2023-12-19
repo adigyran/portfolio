@@ -1,10 +1,9 @@
-package com.aya.digital.core.domain.appointment.base
+package com.aya.digital.core.domain.prescriptions.list
 
 import com.aya.digital.core.data.base.dataprocessing.RequestResultModel
-import com.aya.digital.core.domain.base.models.appointment.AppointmentModel
 import io.reactivex.rxjava3.core.Single
 
-interface SubscribeToPrescriptionsUseCase {
+interface GetPatientPrescriptionsByPatientIdUseCase {
     operator fun invoke(appointmentId:Int,doctorId:Int,patientId:Int): Single<RequestResultModel<Boolean>>
 
 }

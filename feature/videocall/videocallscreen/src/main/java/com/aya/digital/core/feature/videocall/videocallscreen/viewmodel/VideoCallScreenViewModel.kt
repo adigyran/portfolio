@@ -2,7 +2,7 @@ package com.aya.digital.core.feature.videocall.videocallscreen.viewmodel
 
 import androidx.lifecycle.viewModelScope
 import com.aya.digital.core.domain.appointment.base.GetAppointmentByIdWithParticipantUseCase
-import com.aya.digital.core.domain.appointment.base.SubscribeToPrescriptionsUseCase
+import com.aya.digital.core.domain.prescriptions.base.SubscribeToPrescriptionsUseCase
 import com.aya.digital.core.domain.appointment.participants.model.AppointmentDoctorParticipant
 import com.aya.digital.core.domain.appointment.participants.model.AppointmentPatientParticipant
 import com.aya.digital.core.domain.appointment.telehealth.GetTeleHealthRoomTokenUseCase
