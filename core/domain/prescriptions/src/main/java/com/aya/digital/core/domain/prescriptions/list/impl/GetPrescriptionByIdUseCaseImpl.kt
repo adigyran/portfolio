@@ -6,14 +6,12 @@ import com.aya.digital.core.data.progress.repository.ProgressRepository
 import com.aya.digital.core.domain.prescriptions.list.GetPrescriptionByIdUseCase
 import io.reactivex.rxjava3.core.Single
 
-class GetPrescriptionByIdUseCaseImpl(
+internal class GetPrescriptionByIdUseCaseImpl(
     private val progressRepository: ProgressRepository,
     private val prescriptionsRepository: PrescriptionsRepository
 ) : GetPrescriptionByIdUseCase {
     override fun invoke(
-        appointmentId: Int,
-        doctorId: Int,
-        patientId: Int
+        prescriptionId: Int
     ): Single<RequestResultModel<Boolean>> {
         TODO("Not yet implemented")
     }

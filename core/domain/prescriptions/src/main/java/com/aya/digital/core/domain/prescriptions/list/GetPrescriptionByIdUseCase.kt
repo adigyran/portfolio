@@ -4,6 +4,6 @@ import com.aya.digital.core.data.base.dataprocessing.RequestResultModel
 import io.reactivex.rxjava3.core.Single
 
 interface GetPrescriptionByIdUseCase {
-    operator fun invoke(appointmentId:Int,doctorId:Int,patientId:Int): Single<RequestResultModel<Boolean>>
+    operator fun invoke(prescriptionId:Int): Single<RequestResultModel<Boolean>>
 
 }
