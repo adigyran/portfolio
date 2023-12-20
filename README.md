@@ -2,6 +2,10 @@
 
 **Aya Health** uses the Gradle build system and can be imported directly into Android Studio (make sure you are using the latest stable version available [here](https://developer.android.com/studio)).
 
+It uses gradle 8.4, it has gradlew properties, so the required gradle should init automatically
+
+
+
 # Architecture
 
 The **Aya Health** app follows the
@@ -33,6 +37,17 @@ The app uses
 [product flavors](https://developer.android.com/studio/build/build-variants#product-flavors) to
 control where content for the app should be loaded from.
 
+To build Doctor app:
+./gradlew :app-doctor:assembleDemoRelease - for release apk
+./gradlew :app-doctor:assembleDemoDebug - for debug apk
+
+To build Patient app
+
+./gradlew :app-patient:assembleDemoRelease - for release apk
+./gradlew :app-patient:assembleDemoDebug - for debug apk
+
+This will create apks of flavours in build\outputs\apk
+
 # DI
 The **Aya Health** app uses [Kodein](https://github.com/kosi-libs/Kodein) as DI framework 
 
@@ -50,11 +65,6 @@ App contains base info about navigation and such, all screens including root sho
 The **Aya Health** app uses OrbitMVI as presentation architecture 
 # Networking
 For networking requests OkHttp is used in conjunction with Retrofit.
-# Interactors and converters
-There are two different date formats used on “Old” backend which are yyyy-MM-dd'T'HH:mm:ss and MM/dd/yyyy.
-
-Be careful not to use logging on release builds.
-# Paging
 
 # Signing and API keys
 Project should contain a local.proprties files with following content
