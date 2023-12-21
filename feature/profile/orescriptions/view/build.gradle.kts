@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "com.aya.digital.core.feature.profile.prescriptions.view"
+    namespace = "com.aya.digital.core.feature.profile.orescriptions.view"
 }
 
 dependencies {
