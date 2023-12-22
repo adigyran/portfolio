@@ -92,6 +92,7 @@ class ProfileViewModel(
                 FieldsTags.CLINIC_INFO_BUTTON_TAG -> ProfileNavigationEvents.OpenClinicInfo
                 FieldsTags.INSURANCE_BUTTON_TAG -> ProfileNavigationEvents.OpenProfileInsurance
                 FieldsTags.NOTIFICATION_BUTTON_TAG -> ProfileNavigationEvents.OpenProfileNotification
+                FieldsTags.PRESCRIPTIONS_BUTTON_TAG -> ProfileNavigationEvents.OpenProfileNotification
                 FieldsTags.ADDRESS_BUTTON_TAG -> ProfileNavigationEvents.OpenProfileAddress
                 else -> ProfileNavigationEvents.OpenProfileGeneralInfo(RequestCodes.EDIT_PROFILE_REQUEST_CODE)
             }

@@ -2,6 +2,7 @@ package com.aya.digital.healthapp.doctor.navigation.tabs.profile
 
 import com.aya.digital.core.feature.insurance.list.navigation.ProfileInsuranceDoctorNavigationEvents
 import com.aya.digital.core.feature.insurance.list.navigation.ProfileInsuranceDoctorScreen
+import com.aya.digital.core.feature.prescriptions.list.navigation.ProfilePrescriptionsListScreen
 import com.aya.digital.core.feature.profile.address.navigation.ProfileAddressScreen
 import com.aya.digital.core.feature.profile.clinicinfo.navigation.ProfileClinicInfoScreen
 import com.aya.digital.core.feature.profile.generalinfo.edit.navigation.ProfileGeneralInfoEditNavigationEvents
@@ -58,6 +59,10 @@ class ProfileTabCoordinatorGraph : FragmentContainerGraph {
 
             ProfileNavigationEvents.OpenProfileNotification -> {
                 mainRouter.navigateTo(ProfileNotificationsScreen)
+            }
+
+            ProfileNavigationEvents.OpenProfilePrescriptions -> {
+                mainRouter.navigateTo(ProfilePrescriptionsListScreen)
             }
 
             is ProfileGeneralInfoViewNavigationEvents.EditProfile -> {
