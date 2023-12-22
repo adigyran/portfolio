@@ -6,5 +6,5 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class ProfilePrescriptionsListState(
-    val insuranceModels:List<InsurancePolicyItemModel>? = null
+    val prescriptionItems:List<String>? = null
 ) : BaseState

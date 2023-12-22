@@ -12,7 +12,7 @@ import com.aya.digital.core.feature.prescriptions.list.ui.model.ProfilePrescript
 import com.aya.digital.core.feature.prescriptions.list.viewmodel.ProfilePrescriptionsListSideEffects
 import com.aya.digital.core.feature.prescriptions.list.viewmodel.ProfilePrescriptionsListState
 import com.aya.digital.core.feature.prescriptions.list.viewmodel.ProfilePrescriptionsListViewModel
-import com.aya.digital.core.feature.profile.insurance.list.databinding.ViewProfileInsuranceListBinding
+import com.aya.digital.core.feature.profile.prescriptions.list.databinding.ViewProfilePrescriptionsListBinding
 import com.aya.digital.core.ui.adapters.base.BaseDelegateAdapter
 import com.aya.digital.core.ui.base.screens.DiFragment
 import com.aya.digital.core.ui.delegates.profile.insurance.ui.InsurancePolicyDelegate
@@ -22,7 +22,7 @@ import org.kodein.di.factory
 import org.kodein.di.on
 
 class ProfilePrescriptionsListView :
-    DiFragment<ViewProfileInsuranceListBinding, ProfilePrescriptionsListViewModel, ProfilePrescriptionsListState, ProfilePrescriptionsListSideEffects, ProfilePrescriptionsListUiModel, ProfilePrescriptionsListStateTransformer>() {
+    DiFragment<ViewProfilePrescriptionsListBinding, ProfilePrescriptionsListViewModel, ProfilePrescriptionsListState, ProfilePrescriptionsListSideEffects, ProfilePrescriptionsListUiModel, ProfilePrescriptionsListStateTransformer>() {
 
     private val viewModelFactory: ((Unit) -> ProfilePrescriptionsListViewModel) by kodein.on(
         context = this
@@ -36,8 +36,9 @@ class ProfilePrescriptionsListView :
         BaseDelegateAdapter.create {
             delegate {
                 InsurancePolicyDelegate(
-                    viewModel::insuranceItemClicked,
-                    viewModel::insuranceItemMoreClicked
+                    {id: Int ->
+                    },
+                    {id: Int ->  }
                 )
             }
         }
@@ -48,7 +49,6 @@ class ProfilePrescriptionsListView :
         recyclers.add(binding.recycler)
         binding.toolbar.backButton bindClick {viewModel.onBack()}
         binding.toolbar.title.text = "Insurance"
-        binding.addInsuranceBtn bindClick { viewModel.addInsuranceClicked() }
         with(binding.recycler) {
             itemAnimator = null
             setHasFixedSize(true)
@@ -62,7 +62,7 @@ class ProfilePrescriptionsListView :
             )
 
             layoutManager = lm
-            addItemDecoration(ProfileInsuranceListDecoration())
+            addItemDecoration(ProfilePrescriptionsListDecoration())
         }
     }
 
@@ -71,29 +71,16 @@ class ProfilePrescriptionsListView :
     override fun provideViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ): ViewProfileInsuranceListBinding =
-        ViewProfileInsuranceListBinding.inflate(inflater, container, false)
+    ): ViewProfilePrescriptionsListBinding =
+        ViewProfilePrescriptionsListBinding.inflate(inflater, container, false)
 
     override fun sideEffect(sideEffect: ProfilePrescriptionsListSideEffects) =
         when(sideEffect)
         {
             is ProfilePrescriptionsListSideEffects.Error -> processErrorSideEffect(sideEffect.error)
-            is ProfilePrescriptionsListSideEffects.ShowPrescriptionsActionsDialog -> showInsuranceActionsDialog(sideEffect.insuranceId)
         }
 
-    private fun showInsuranceActionsDialog(insuranceId: Int) {
-        MaterialAlertDialogBuilder(requireContext())
-            .setTitle("Delete?")
-            .setMessage("Are you sure you want to remove this insurance?")
-            .setNegativeButton("Cancel") { dialog, which ->
-                dialog.dismiss()
-            }
-            .setPositiveButton("Delete") { dialog, which ->
-                viewModel.deleteInsurance(insuranceId)
-                dialog.dismiss()
-            }
-            .show()
-    }
+
 
     override fun render(state: ProfilePrescriptionsListState) {
         stateTransformer(state).data?.let {

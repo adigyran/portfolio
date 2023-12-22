@@ -12,17 +12,7 @@ class ProfilePrescriptionsListStateTransformer(context: Context) :
         ProfilePrescriptionsListUiModel(
             data = kotlin.run {
                 return@run mutableListOf<DiffItem>().apply {
-                    state.insuranceModels?.run {
-                        addAll(state.insuranceModels.map {
-                            InsurancePolicyUIModel(
-                                id = it.id,
-                                name = it.organisationName,
-                                number = it.number,
-                                photo = it.attachmentUrl,
-                                status = null
-                            )
-                        })
-                    }
+
                 }
             }
         )

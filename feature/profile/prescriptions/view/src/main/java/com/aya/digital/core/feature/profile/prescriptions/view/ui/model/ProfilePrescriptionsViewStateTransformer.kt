@@ -14,29 +14,7 @@ class ProfilePrescriptionsViewStateTransformer(private val context: Context) :
     BaseStateTransformer<ProfilePrescriptionsViewState, ProfilePrescriptionsViewUiModel>() {
     override fun invoke(state: ProfilePrescriptionsViewState): ProfilePrescriptionsViewUiModel =
         ProfilePrescriptionsViewUiModel(
-            data = kotlin.run {
-                return@run mutableListOf<DiffItem>().apply {
-                    add(InsurancePolicyPhotoUIModel(state.photoLink))
-                    add(
-                        SelectionFieldUIModel(
-                            FieldsTags.NAME_FIELD_TAG,
-                            "Insurance Company Name",
-                            state.organisationName,
-                            null
-                        )
-                    )
-                    add(
-                        NameFieldUIModel(
-                            FieldsTags.NUMBER_FIELD_TAG,
-                            "Insurance Number",
-                            state.number,
-                            state.numberError
-                        )
-                    )
-                }
-            },
-            fullScreenPolicyUrl = state.photoLink,
-            saveAddButtonText = kotlin.run { if (state.id != null) "Save" else "Add" }
+
         )
 
 

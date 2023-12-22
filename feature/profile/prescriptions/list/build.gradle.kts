@@ -8,6 +8,7 @@ android {
 
 dependencies {
     implementation(project(":core:domain:profile"))
+    implementation(project(":core:domain:prescriptions"))
     implementation(project(":core:ui:delegates:features:profile:insurance"))
 
 }

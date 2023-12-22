@@ -15,7 +15,7 @@ import com.aya.digital.core.ext.createFragment
 import com.aya.digital.core.ext.dpToPx
 import com.aya.digital.core.ext.gone
 import com.aya.digital.core.ext.visible
-import com.aya.digital.core.feature.profile.insurance.add.databinding.ViewProfileInsuranceAddBinding
+import com.aya.digital.core.feature.profile.prescriptions.view.databinding.ViewProfilePrescriptionsViewBinding
 import com.aya.digital.core.feature.profile.prescriptions.view.di.profilePrescriptionsViewDiModule
 import com.aya.digital.core.navigation.contracts.imagepicker.ImageSelectContract
 import com.aya.digital.core.feature.profile.prescriptions.view.ui.model.ProfilePrescriptionsViewStateTransformer
@@ -42,7 +42,7 @@ import org.kodein.di.on
 const val MAX_IMAGE_SIZE_KB = 2900
 
 class ProfileInsuranceAddView :
-    DiFragment<ViewProfileInsuranceAddBinding, ProfilePrescriptionsViewViewModel, ProfilePrescriptionsViewState, ProfilePrescriptionsViewSideEffects, ProfilePrescriptionsViewUiModel, ProfilePrescriptionsViewStateTransformer>() {
+    DiFragment<ViewProfilePrescriptionsViewBinding, ProfilePrescriptionsViewViewModel, ProfilePrescriptionsViewState, ProfilePrescriptionsViewSideEffects, ProfilePrescriptionsViewUiModel, ProfilePrescriptionsViewStateTransformer>() {
 
     private var param: Param by argument("param")
 
@@ -56,26 +56,15 @@ class ProfileInsuranceAddView :
 
     private val adapter by lazy(LazyThreadSafetyMode.NONE) {
         BaseDelegateAdapter.create {
-            delegate { NameFieldDelegate(NameFieldDelegateListeners(viewModel::nameFieldChanged)) }
-            delegate { SelectionFieldDelegate(SelectionFieldDelegateListeners(viewModel::onSelectionFieldClicked)) }
-            delegate {
-                InsurancePolicyPhotoDelegate(
-                    viewModel::photoClicked,
-                    viewModel::uploadPhotoClicked,
-                    viewModel::photoMoreClicked
-                )
-            }
+            delegate { NameFieldDelegate(NameFieldDelegateListeners({tag: Int, text: String ->  })) }
         }
     }
 
     override fun prepareCreatedUi(savedInstanceState: Bundle?) {
         super.prepareCreatedUi(savedInstanceState)
         recyclers.add(binding.recycler)
-        binding.fullScreenPolicy.gone()
-        binding.fullScreenPolicyBg bindClick { viewModel.onFullScreenPhotoClicked() }
         binding.toolbar.backButton bindClick {viewModel.onBack()}
         binding.toolbar.title.text = "Insurance"
-        binding.saveAddButton bindClick {viewModel.onSaveAddClicked()}
         with(binding.recycler) {
             itemAnimator = null
             setHasFixedSize(true)
@@ -89,36 +78,11 @@ class ProfileInsuranceAddView :
             )
 
             layoutManager = lm
-            addItemDecoration(ProfileInsuranceAddDecoration())
+            addItemDecoration(ProfilePrescriptionsViewDecoration())
         }
     }
 
-    private val singlePhotoPickerLauncher = registerForActivityResult(
-        ImageSelectContract()
-    ) { imageUri: Uri? ->
-        imageUri?.let {
-            requireActivity().contentResolver.query(imageUri,null,null,null)?.use { cursor: Cursor ->
-                val sizeIndex = cursor.getColumnIndex(OpenableColumns.SIZE)
-                cursor.moveToFirst()
-                val size = cursor.getLong(sizeIndex)
-                if(size< MAX_IMAGE_SIZE_KB *1024) {
-                    viewModel.imageSelected(it)
-                } else showSizeLimitDialog()
-            }
-        }
 
-    }
-
-    private fun showSizeLimitDialog() {
-        MaterialAlertDialogBuilder(requireContext())
-            .setTitle("Error")
-            .setMessage("Image too big, choose other image")
-            .setPositiveButton("Ok") { dialog, which ->
-                dialog.dismiss()
-            }
-            .show()
-
-    }
 
     override fun provideDiModule(): DI.Module =
         profilePrescriptionsViewDiModule(tryTyGetParentRouter(), param)
@@ -126,61 +90,20 @@ class ProfileInsuranceAddView :
     override fun provideViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ): ViewProfileInsuranceAddBinding =
-        ViewProfileInsuranceAddBinding.inflate(inflater, container, false)
+    ): ViewProfilePrescriptionsViewBinding =
+        ViewProfilePrescriptionsViewBinding.inflate(inflater, container, false)
 
     override fun sideEffect(sideEffect: ProfilePrescriptionsViewSideEffects) =
         when(sideEffect)
         {
             is ProfilePrescriptionsViewSideEffects.Error -> processErrorSideEffect(sideEffect.error)
-            ProfilePrescriptionsViewSideEffects.ShowInsuranceActionsDialog -> showInsuranceActionsDialog()
-            ProfilePrescriptionsViewSideEffects.SelectImage -> {
-                singlePhotoPickerLauncher.launch(null)
-            }
-
-            ProfilePrescriptionsViewSideEffects.ShowFullScreenPolicy -> {
-                binding.fullScreenPolicy.visible()
-            }
-
-            ProfilePrescriptionsViewSideEffects.HideFullScreenPolicy -> {
-                binding.fullScreenPolicy.gone()
-            }
         }
 
 
-    private fun showInsuranceActionsDialog() {
-        MaterialAlertDialogBuilder(requireContext())
-            .setTitle("Delete?")
-            .setMessage("Are you sure you want to remove this insurance?")
-            .setNegativeButton("Cancel") { dialog, which ->
-                dialog.dismiss()
-            }
-            .setPositiveButton("Delete") { dialog, which ->
-                viewModel.deleteInsurance()
-                dialog.dismiss()
-            }
-            .show()
-    }
+
     override fun render(state: ProfilePrescriptionsViewState) {
         stateTransformer(state).let {
-            it.data?.let {
-                adapter.items = it
-                if (binding.recycler.adapter == null) {
-                    binding.recycler.swapAdapter(adapter, true)
-                }
-            }
-            it.saveAddButtonText.run { binding.saveAddButton.text = this }
-            it.fullScreenPolicyUrl?.let {photo->
-                Glide
-                    .with(binding.ivFullScreenPolicy)
-                    .load(photo)
-                    .transform(
-                        CenterCrop(),
-                        RoundedCorners(8.dpToPx())
-                    )
-                    .dontAnimate()
-                    .into(binding.ivFullScreenPolicy)
-            }
+
         }
     }
 

@@ -23,14 +23,7 @@ fun profilePrescriptionsViewDiModule(
             ProfilePrescriptionsViewViewModel(
                 param,
                 parentCoordinatorEvent,
-                instance("parent_coordinator_bottomnav"),
-                instance(),
-                instance(),
-                instance(),
-                instance(),
-                instance(),
-                instance(),
-                instance()
+                instance("parent_coordinator_bottomnav")
             )
         }
     }

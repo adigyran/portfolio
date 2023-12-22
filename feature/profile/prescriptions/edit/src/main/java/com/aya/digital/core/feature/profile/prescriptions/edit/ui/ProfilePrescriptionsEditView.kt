@@ -15,7 +15,7 @@ import com.aya.digital.core.ext.createFragment
 import com.aya.digital.core.ext.dpToPx
 import com.aya.digital.core.ext.gone
 import com.aya.digital.core.ext.visible
-import com.aya.digital.core.feature.profile.insurance.add.databinding.ViewProfileInsuranceAddBinding
+import com.aya.digital.core.feature.profile.prescriptions.edit.databinding.ViewProfilePrescriptionsEditBinding
 import com.aya.digital.core.feature.profile.prescriptions.edit.di.profilePrescriptionsEditDiModule
 import com.aya.digital.core.navigation.contracts.imagepicker.ImageSelectContract
 import com.aya.digital.core.feature.profile.prescriptions.edit.ui.model.ProfilePrescriptionsEditStateTransformer
@@ -42,7 +42,7 @@ import org.kodein.di.on
 const val MAX_IMAGE_SIZE_KB = 2900
 
 class ProfileInsuranceAddView :
-    DiFragment<ViewProfileInsuranceAddBinding, ProfilePrescriptionsEditViewModel, ProfilePrescriptionsEditState, ProfilePrescriptionsEditSideEffects, ProfilePrescriptionsEditUiModel, ProfilePrescriptionsEditStateTransformer>() {
+    DiFragment<ViewProfilePrescriptionsEditBinding, ProfilePrescriptionsEditViewModel, ProfilePrescriptionsEditState, ProfilePrescriptionsEditSideEffects, ProfilePrescriptionsEditUiModel, ProfilePrescriptionsEditStateTransformer>() {
 
     private var param: Param by argument("param")
 
@@ -89,7 +89,7 @@ class ProfileInsuranceAddView :
             )
 
             layoutManager = lm
-            addItemDecoration(ProfileInsuranceAddDecoration())
+            addItemDecoration(ProfilePrescriptionsEditDecoration())
         }
     }
 
@@ -126,8 +126,8 @@ class ProfileInsuranceAddView :
     override fun provideViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ): ViewProfileInsuranceAddBinding =
-        ViewProfileInsuranceAddBinding.inflate(inflater, container, false)
+    ): ViewProfilePrescriptionsEditBinding =
+        ViewProfilePrescriptionsEditBinding.inflate(inflater, container, false)
 
     override fun sideEffect(sideEffect: ProfilePrescriptionsEditSideEffects) =
         when(sideEffect)

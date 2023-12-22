@@ -5,11 +5,5 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class ProfilePrescriptionsViewState(
-    val organisationId: Int? = null,
-    val organisationName: String? = null,
-    val number: String? = null,
-    val numberError: String? = null,
-    val photo: Int? = null,
-    val photoLink: String? = null,
     val id:Int? = null
 ) : BaseState

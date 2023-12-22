@@ -15,62 +15,13 @@ import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
 class ProfilePrescriptionsListViewModel(
-    private val coordinatorRouter: CoordinatorRouter,
-    private val getInsurancesUseCase: GetInsurancesUseCase,
-    private val deleteInsuranceUseCase: DeleteInsuranceUseCase,
+    private val coordinatorRouter: CoordinatorRouter
 ) :
     BaseViewModel<ProfilePrescriptionsListState, ProfilePrescriptionsListSideEffects>() {
     override val container = container<ProfilePrescriptionsListState, ProfilePrescriptionsListSideEffects>(
         initialState = ProfilePrescriptionsListState(),
     )
     {
-        loadInsurancesList()
-    }
-
-    private fun loadInsurancesList() = intent(registerIdling = false) {
-        getInsurancesUseCase().asFlow().collect { result ->
-            result.processResult({ models ->
-                reduce { state.copy(insuranceModels = models) }
-            }, { processError(it) })
-        }
-    }
-
-    fun insuranceItemClicked(id: Int) = intent {
-        listenForInsuranceEditEvent()
-        coordinatorRouter.sendEvent(
-            ProfilePrescriptionsListNavigationEvents.EditPrescriptions(
-                RequestCodes.EDIT_INSURANCE_REQUEST_CODE,
-                id
-            )
-        )
-    }
-
-    fun addInsuranceClicked() = intent {
-        listenForInsuranceAddEvent()
-        coordinatorRouter.sendEvent(ProfilePrescriptionsListNavigationEvents.AddPrescriptions(RequestCodes.ADD_INSURANCE_REQUEST_CODE))
-    }
-
-    fun insuranceItemMoreClicked(id: Int) = intent {
-        postSideEffect(ProfilePrescriptionsListSideEffects.ShowPrescriptionsActionsDialog(id))
-    }
-
-    fun deleteInsurance(id: Int) = intent {
-        deleteInsuranceUseCase(id).await()
-            .processResult({
-                loadInsurancesList()
-            }, { processError(it) })
-    }
-
-    private fun listenForInsuranceEditEvent() = intent {
-        coordinatorRouter.setResultListener(RequestCodes.EDIT_INSURANCE_REQUEST_CODE) {
-            loadInsurancesList()
-        }
-    }
-
-    private fun listenForInsuranceAddEvent() = intent {
-        coordinatorRouter.setResultListener(RequestCodes.ADD_INSURANCE_REQUEST_CODE) {
-            loadInsurancesList()
-        }
     }
 
     override fun postErrorSideEffect(errorSideEffect: ErrorSideEffect) = intent {

@@ -5,9 +5,4 @@ import com.aya.digital.core.mvi.BaseViewModel
 
 sealed class ProfilePrescriptionsViewSideEffects:BaseSideEffect {
     data class Error(val error:BaseViewModel.ErrorSideEffect) : ProfilePrescriptionsViewSideEffects()
-    object ShowInsuranceActionsDialog : ProfilePrescriptionsViewSideEffects()
-    object SelectImage: ProfilePrescriptionsViewSideEffects()
-    object ShowFullScreenPolicy: ProfilePrescriptionsViewSideEffects()
-
-    object HideFullScreenPolicy: ProfilePrescriptionsViewSideEffects()
 }
