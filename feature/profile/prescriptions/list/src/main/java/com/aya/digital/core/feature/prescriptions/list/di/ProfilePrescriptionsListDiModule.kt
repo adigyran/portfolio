@@ -18,7 +18,7 @@ fun profilePrescriptionsListDiModule(
 
     bind {
         scoped(CustomFragmentScope).singleton {
-            ProfilePrescriptionsListViewModel(parentCoordinatorEvent,instance(),instance())
+            ProfilePrescriptionsListViewModel(parentCoordinatorEvent,instance())
         }
     }
 }

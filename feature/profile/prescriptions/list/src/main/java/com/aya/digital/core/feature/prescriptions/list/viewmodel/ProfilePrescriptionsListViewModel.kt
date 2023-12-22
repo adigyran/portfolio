@@ -1,5 +1,6 @@
 package com.aya.digital.core.feature.prescriptions.list.viewmodel
 
+import com.aya.digital.core.domain.prescriptions.list.GetPrescriptionsUseCase
 import com.aya.digital.core.domain.profile.insurance.DeleteInsuranceUseCase
 import com.aya.digital.core.domain.profile.insurance.GetInsurancesUseCase
 import com.aya.digital.core.feature.prescriptions.list.navigation.ProfilePrescriptionsListNavigationEvents
@@ -15,13 +16,20 @@ import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
 class ProfilePrescriptionsListViewModel(
-    private val coordinatorRouter: CoordinatorRouter
+    private val coordinatorRouter: CoordinatorRouter,
+    private val getPrescriptionsUseCase: GetPrescriptionsUseCase
 ) :
     BaseViewModel<ProfilePrescriptionsListState, ProfilePrescriptionsListSideEffects>() {
     override val container = container<ProfilePrescriptionsListState, ProfilePrescriptionsListSideEffects>(
         initialState = ProfilePrescriptionsListState(),
     )
     {
+        getPrescriptions()
+    }
+
+    private fun getPrescriptions() = intent {
+        getPrescriptionsUseCase().await()
+            .processResult({},{processError(it)})
     }
 
     override fun postErrorSideEffect(errorSideEffect: ErrorSideEffect) = intent {
