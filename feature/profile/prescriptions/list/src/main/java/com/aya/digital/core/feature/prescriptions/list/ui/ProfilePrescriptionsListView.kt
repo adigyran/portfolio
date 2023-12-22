@@ -6,12 +6,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.aya.digital.core.ext.bindClick
-import com.aya.digital.core.feature.prescriptions.list.di.profileInsuranceListDiModule
-import com.aya.digital.core.feature.prescriptions.list.ui.model.ProfileInsuranceListStateTransformer
-import com.aya.digital.core.feature.prescriptions.list.ui.model.ProfileInsuranceListUiModel
-import com.aya.digital.core.feature.prescriptions.list.viewmodel.ProfileInsuranceListSideEffects
-import com.aya.digital.core.feature.prescriptions.list.viewmodel.ProfileInsuranceListState
-import com.aya.digital.core.feature.prescriptions.list.viewmodel.ProfileInsuranceListViewModel
+import com.aya.digital.core.feature.prescriptions.list.di.profilePrescriptionsListDiModule
+import com.aya.digital.core.feature.prescriptions.list.ui.model.ProfilePrescriptionsListStateTransformer
+import com.aya.digital.core.feature.prescriptions.list.ui.model.ProfilePrescriptionsListUiModel
+import com.aya.digital.core.feature.prescriptions.list.viewmodel.ProfilePrescriptionsListSideEffects
+import com.aya.digital.core.feature.prescriptions.list.viewmodel.ProfilePrescriptionsListState
+import com.aya.digital.core.feature.prescriptions.list.viewmodel.ProfilePrescriptionsListViewModel
 import com.aya.digital.core.feature.profile.insurance.list.databinding.ViewProfileInsuranceListBinding
 import com.aya.digital.core.ui.adapters.base.BaseDelegateAdapter
 import com.aya.digital.core.ui.base.screens.DiFragment
@@ -21,14 +21,14 @@ import org.kodein.di.DI
 import org.kodein.di.factory
 import org.kodein.di.on
 
-class ProfileInsuranceListView :
-    DiFragment<ViewProfileInsuranceListBinding, ProfileInsuranceListViewModel, ProfileInsuranceListState, ProfileInsuranceListSideEffects, ProfileInsuranceListUiModel, ProfileInsuranceListStateTransformer>() {
+class ProfilePrescriptionsListView :
+    DiFragment<ViewProfileInsuranceListBinding, ProfilePrescriptionsListViewModel, ProfilePrescriptionsListState, ProfilePrescriptionsListSideEffects, ProfilePrescriptionsListUiModel, ProfilePrescriptionsListStateTransformer>() {
 
-    private val viewModelFactory: ((Unit) -> ProfileInsuranceListViewModel) by kodein.on(
+    private val viewModelFactory: ((Unit) -> ProfilePrescriptionsListViewModel) by kodein.on(
         context = this
     ).factory()
 
-    private val stateTransformerFactory: ((Unit) -> ProfileInsuranceListStateTransformer) by kodein.on(
+    private val stateTransformerFactory: ((Unit) -> ProfilePrescriptionsListStateTransformer) by kodein.on(
         context = this
     ).factory()
 
@@ -66,7 +66,7 @@ class ProfileInsuranceListView :
         }
     }
 
-    override fun provideDiModule(): DI.Module = profileInsuranceListDiModule(tryTyGetParentRouter())
+    override fun provideDiModule(): DI.Module = profilePrescriptionsListDiModule(tryTyGetParentRouter())
 
     override fun provideViewBinding(
         inflater: LayoutInflater,
@@ -74,11 +74,11 @@ class ProfileInsuranceListView :
     ): ViewProfileInsuranceListBinding =
         ViewProfileInsuranceListBinding.inflate(inflater, container, false)
 
-    override fun sideEffect(sideEffect: ProfileInsuranceListSideEffects) =
+    override fun sideEffect(sideEffect: ProfilePrescriptionsListSideEffects) =
         when(sideEffect)
         {
-            is ProfileInsuranceListSideEffects.Error -> processErrorSideEffect(sideEffect.error)
-            is ProfileInsuranceListSideEffects.ShowInsuranceActionsDialog -> showInsuranceActionsDialog(sideEffect.insuranceId)
+            is ProfilePrescriptionsListSideEffects.Error -> processErrorSideEffect(sideEffect.error)
+            is ProfilePrescriptionsListSideEffects.ShowPrescriptionsActionsDialog -> showInsuranceActionsDialog(sideEffect.insuranceId)
         }
 
     private fun showInsuranceActionsDialog(insuranceId: Int) {
@@ -95,7 +95,7 @@ class ProfileInsuranceListView :
             .show()
     }
 
-    override fun render(state: ProfileInsuranceListState) {
+    override fun render(state: ProfilePrescriptionsListState) {
         stateTransformer(state).data?.let {
             adapter.items = it
             if (binding.recycler.adapter == null) {
@@ -104,8 +104,8 @@ class ProfileInsuranceListView :
         }
     }
 
-    override fun provideViewModel(): ProfileInsuranceListViewModel = viewModelFactory(Unit)
-    override fun provideStateTransformer(): ProfileInsuranceListStateTransformer =
+    override fun provideViewModel(): ProfilePrescriptionsListViewModel = viewModelFactory(Unit)
+    override fun provideStateTransformer(): ProfilePrescriptionsListStateTransformer =
         stateTransformerFactory(Unit)
 
 }

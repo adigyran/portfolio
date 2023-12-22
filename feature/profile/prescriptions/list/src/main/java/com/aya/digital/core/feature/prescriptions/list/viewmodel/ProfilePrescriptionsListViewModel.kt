@@ -2,7 +2,7 @@ package com.aya.digital.core.feature.prescriptions.list.viewmodel
 
 import com.aya.digital.core.domain.profile.insurance.DeleteInsuranceUseCase
 import com.aya.digital.core.domain.profile.insurance.GetInsurancesUseCase
-import com.aya.digital.core.feature.prescriptions.list.navigation.ProfileInsuranceListNavigationEvents
+import com.aya.digital.core.feature.prescriptions.list.navigation.ProfilePrescriptionsListNavigationEvents
 import com.aya.digital.core.mvi.BaseViewModel
 import com.aya.digital.core.navigation.coordinator.CoordinatorEvent
 import com.aya.digital.core.navigation.coordinator.CoordinatorRouter
@@ -14,14 +14,14 @@ import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
-class ProfileInsuranceListViewModel(
+class ProfilePrescriptionsListViewModel(
     private val coordinatorRouter: CoordinatorRouter,
     private val getInsurancesUseCase: GetInsurancesUseCase,
     private val deleteInsuranceUseCase: DeleteInsuranceUseCase,
 ) :
-    BaseViewModel<ProfileInsuranceListState, ProfileInsuranceListSideEffects>() {
-    override val container = container<ProfileInsuranceListState, ProfileInsuranceListSideEffects>(
-        initialState = ProfileInsuranceListState(),
+    BaseViewModel<ProfilePrescriptionsListState, ProfilePrescriptionsListSideEffects>() {
+    override val container = container<ProfilePrescriptionsListState, ProfilePrescriptionsListSideEffects>(
+        initialState = ProfilePrescriptionsListState(),
     )
     {
         loadInsurancesList()
@@ -38,7 +38,7 @@ class ProfileInsuranceListViewModel(
     fun insuranceItemClicked(id: Int) = intent {
         listenForInsuranceEditEvent()
         coordinatorRouter.sendEvent(
-            ProfileInsuranceListNavigationEvents.EditInsurance(
+            ProfilePrescriptionsListNavigationEvents.EditPrescriptions(
                 RequestCodes.EDIT_INSURANCE_REQUEST_CODE,
                 id
             )
@@ -47,11 +47,11 @@ class ProfileInsuranceListViewModel(
 
     fun addInsuranceClicked() = intent {
         listenForInsuranceAddEvent()
-        coordinatorRouter.sendEvent(ProfileInsuranceListNavigationEvents.AddInsurance(RequestCodes.ADD_INSURANCE_REQUEST_CODE))
+        coordinatorRouter.sendEvent(ProfilePrescriptionsListNavigationEvents.AddPrescriptions(RequestCodes.ADD_INSURANCE_REQUEST_CODE))
     }
 
     fun insuranceItemMoreClicked(id: Int) = intent {
-        postSideEffect(ProfileInsuranceListSideEffects.ShowInsuranceActionsDialog(id))
+        postSideEffect(ProfilePrescriptionsListSideEffects.ShowPrescriptionsActionsDialog(id))
     }
 
     fun deleteInsurance(id: Int) = intent {
@@ -74,7 +74,7 @@ class ProfileInsuranceListViewModel(
     }
 
     override fun postErrorSideEffect(errorSideEffect: ErrorSideEffect) = intent {
-        postSideEffect(ProfileInsuranceListSideEffects.Error(errorSideEffect))
+        postSideEffect(ProfilePrescriptionsListSideEffects.Error(errorSideEffect))
     }
 
     override fun onBack() {

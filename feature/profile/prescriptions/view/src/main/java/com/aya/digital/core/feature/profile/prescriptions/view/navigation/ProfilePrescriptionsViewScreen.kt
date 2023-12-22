@@ -1,9 +1,9 @@
-package com.aya.digital.core.feature.profile.prescriptions.edit.navigation
+package com.aya.digital.core.feature.profile.prescriptions.view.navigation
 
-import com.aya.digital.core.feature.profile.prescriptions.edit.ui.ProfileInsuranceAddView
+import com.aya.digital.core.feature.profile.prescriptions.view.ui.ProfileInsuranceAddView
 import com.aya.digital.core.navigation.screen.HealthAppFragmentScreen
 
-data class ProfileInsuranceAddScreen(val requestCode: String, val insuranceId: Int?) :
+data class ProfilePrescriptionsViewScreen(val requestCode: String, val insuranceId: Int?) :
     HealthAppFragmentScreen(fragmentCreator = {
         ProfileInsuranceAddView.getNewInstance(
             requestCode = requestCode,

@@ -8,7 +8,7 @@ import com.aya.digital.core.domain.profile.insurance.*
 import com.aya.digital.core.domain.profile.insurance.model.InsuranceAddModel
 import com.aya.digital.core.domain.profile.insurance.model.InsuranceSaveModel
 import com.aya.digital.core.feature.profile.prescriptions.view.FieldsTags
-import com.aya.digital.core.feature.profile.prescriptions.view.navigation.ProfileInsuranceAddNavigationEvents
+import com.aya.digital.core.feature.profile.prescriptions.view.navigation.ProfilePrescriptionsViewNavigationEvents
 import com.aya.digital.core.feature.profile.prescriptions.view.ui.ProfileInsuranceAddView
 import com.aya.digital.core.mvi.BaseViewModel
 import com.aya.digital.core.navigation.coordinator.CoordinatorEvent
@@ -20,7 +20,7 @@ import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
-class ProfileInsuranceAddViewModel(
+class ProfilePrescriptionsViewViewModel(
     private val param: ProfileInsuranceAddView.Param,
     private val coordinatorRouter: CoordinatorRouter,
     private val rootCoordinatorRouter: CoordinatorRouter,
@@ -32,9 +32,9 @@ class ProfileInsuranceAddViewModel(
     private val deleteInsuranceUseCase: DeleteInsuranceUseCase,
     private val getInsuranceAttachmentByIdUseCase: GetInsuranceAttachmentByIdUseCase
 ) :
-    BaseViewModel<ProfileInsuranceAddState, ProfileInsuranceAddSideEffects>() {
-    override val container = container<ProfileInsuranceAddState, ProfileInsuranceAddSideEffects>(
-        initialState = ProfileInsuranceAddState(id = param.insuranceId),
+    BaseViewModel<ProfilePrescriptionsViewState, ProfilePrescriptionsViewSideEffects>() {
+    override val container = container<ProfilePrescriptionsViewState, ProfilePrescriptionsViewSideEffects>(
+        initialState = ProfilePrescriptionsViewState(id = param.insuranceId),
     )
     {
         if (it.id != null) getInsurance()
@@ -89,7 +89,7 @@ class ProfileInsuranceAddViewModel(
     private fun selectInsuranceCompany() = intent {
         listenForInsuranceCompany()
         coordinatorRouter.sendEvent(
-            ProfileInsuranceAddNavigationEvents.SelectInsuranceCompany(
+            ProfilePrescriptionsViewNavigationEvents.SelectInsuranceCompany(
                 RequestCodes.INSURANCE_LIST_REQUEST_CODE,
                 state.organisationId
             )
@@ -97,19 +97,19 @@ class ProfileInsuranceAddViewModel(
     }
 
     fun onFullScreenPhotoClicked() = intent {
-        postSideEffect(ProfileInsuranceAddSideEffects.HideFullScreenPolicy)
+        postSideEffect(ProfilePrescriptionsViewSideEffects.HideFullScreenPolicy)
 
     }
     fun photoClicked() = intent {
-        postSideEffect(ProfileInsuranceAddSideEffects.ShowFullScreenPolicy)
+        postSideEffect(ProfilePrescriptionsViewSideEffects.ShowFullScreenPolicy)
     }
 
     fun uploadPhotoClicked() = intent {
-        postSideEffect(ProfileInsuranceAddSideEffects.SelectImage)
+        postSideEffect(ProfilePrescriptionsViewSideEffects.SelectImage)
     }
 
     fun photoMoreClicked() = intent {
-        postSideEffect(ProfileInsuranceAddSideEffects.ShowInsuranceActionsDialog)
+        postSideEffect(ProfilePrescriptionsViewSideEffects.ShowInsuranceActionsDialog)
     }
 
     fun deleteInsurance() = intent {
@@ -117,7 +117,7 @@ class ProfileInsuranceAddViewModel(
         deleteInsuranceUseCase(state.id!!).await()
             .processResult({
                 coordinatorRouter.sendEvent(
-                    ProfileInsuranceAddNavigationEvents.FinishWithResult(
+                    ProfilePrescriptionsViewNavigationEvents.FinishWithResult(
                         param.requestCode,
                         AddInsuranceResultModel(false)
                     )
@@ -132,7 +132,7 @@ class ProfileInsuranceAddViewModel(
         val await = addInsuranceUseCase(insuranceAddModel).await()
         await.processResult({
             coordinatorRouter.sendEvent(
-                ProfileInsuranceAddNavigationEvents.FinishWithResult(
+                ProfilePrescriptionsViewNavigationEvents.FinishWithResult(
                     param.requestCode,
                     AddInsuranceResultModel(true)
                 )
@@ -147,7 +147,7 @@ class ProfileInsuranceAddViewModel(
         val await = saveInsuranceUseCase(insuranceSaveModel).await()
         await.processResult({
             coordinatorRouter.sendEvent(
-                ProfileInsuranceAddNavigationEvents.FinishWithResult(
+                ProfilePrescriptionsViewNavigationEvents.FinishWithResult(
                     param.requestCode,
                     AddInsuranceResultModel(true)
                 )
@@ -175,7 +175,7 @@ class ProfileInsuranceAddViewModel(
     }
 
     override fun postErrorSideEffect(errorSideEffect: ErrorSideEffect) = intent {
-        postSideEffect(ProfileInsuranceAddSideEffects.Error(errorSideEffect))
+        postSideEffect(ProfilePrescriptionsViewSideEffects.Error(errorSideEffect))
     }
 
     fun imageSelected(imageUri: Uri) = intent(registerIdling = false) {

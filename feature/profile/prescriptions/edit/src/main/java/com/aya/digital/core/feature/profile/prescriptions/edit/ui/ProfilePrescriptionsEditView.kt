@@ -16,13 +16,13 @@ import com.aya.digital.core.ext.dpToPx
 import com.aya.digital.core.ext.gone
 import com.aya.digital.core.ext.visible
 import com.aya.digital.core.feature.profile.insurance.add.databinding.ViewProfileInsuranceAddBinding
-import com.aya.digital.core.feature.profile.prescriptions.edit.di.profileInsuranceAddDiModule
+import com.aya.digital.core.feature.profile.prescriptions.edit.di.profilePrescriptionsEditDiModule
 import com.aya.digital.core.navigation.contracts.imagepicker.ImageSelectContract
-import com.aya.digital.core.feature.profile.prescriptions.edit.ui.model.ProfileInsuranceAddStateTransformer
-import com.aya.digital.core.feature.profile.prescriptions.edit.ui.model.ProfileInsuranceAddUiModel
-import com.aya.digital.core.feature.profile.prescriptions.edit.viewmodel.ProfileInsuranceAddSideEffects
-import com.aya.digital.core.feature.profile.prescriptions.edit.viewmodel.ProfileInsuranceAddState
-import com.aya.digital.core.feature.profile.prescriptions.edit.viewmodel.ProfileInsuranceAddViewModel
+import com.aya.digital.core.feature.profile.prescriptions.edit.ui.model.ProfilePrescriptionsEditStateTransformer
+import com.aya.digital.core.feature.profile.prescriptions.edit.ui.model.ProfilePrescriptionsEditUiModel
+import com.aya.digital.core.feature.profile.prescriptions.edit.viewmodel.ProfilePrescriptionsEditSideEffects
+import com.aya.digital.core.feature.profile.prescriptions.edit.viewmodel.ProfilePrescriptionsEditState
+import com.aya.digital.core.feature.profile.prescriptions.edit.viewmodel.ProfilePrescriptionsEditViewModel
 import com.aya.digital.core.ui.adapters.base.BaseDelegateAdapter
 import com.aya.digital.core.ui.base.screens.DiFragment
 import com.aya.digital.core.ui.delegates.components.fields.name.ui.NameFieldDelegate
@@ -42,15 +42,15 @@ import org.kodein.di.on
 const val MAX_IMAGE_SIZE_KB = 2900
 
 class ProfileInsuranceAddView :
-    DiFragment<ViewProfileInsuranceAddBinding, ProfileInsuranceAddViewModel, ProfileInsuranceAddState, ProfileInsuranceAddSideEffects, ProfileInsuranceAddUiModel, ProfileInsuranceAddStateTransformer>() {
+    DiFragment<ViewProfileInsuranceAddBinding, ProfilePrescriptionsEditViewModel, ProfilePrescriptionsEditState, ProfilePrescriptionsEditSideEffects, ProfilePrescriptionsEditUiModel, ProfilePrescriptionsEditStateTransformer>() {
 
     private var param: Param by argument("param")
 
-    private val viewModelFactory: ((Unit) -> ProfileInsuranceAddViewModel) by kodein.on(
+    private val viewModelFactory: ((Unit) -> ProfilePrescriptionsEditViewModel) by kodein.on(
         context = this
     ).factory()
 
-    private val stateTransformerFactory: ((Unit) -> ProfileInsuranceAddStateTransformer) by kodein.on(
+    private val stateTransformerFactory: ((Unit) -> ProfilePrescriptionsEditStateTransformer) by kodein.on(
         context = this
     ).factory()
 
@@ -121,7 +121,7 @@ class ProfileInsuranceAddView :
     }
 
     override fun provideDiModule(): DI.Module =
-        profileInsuranceAddDiModule(tryTyGetParentRouter(), param)
+        profilePrescriptionsEditDiModule(tryTyGetParentRouter(), param)
 
     override fun provideViewBinding(
         inflater: LayoutInflater,
@@ -129,20 +129,20 @@ class ProfileInsuranceAddView :
     ): ViewProfileInsuranceAddBinding =
         ViewProfileInsuranceAddBinding.inflate(inflater, container, false)
 
-    override fun sideEffect(sideEffect: ProfileInsuranceAddSideEffects) =
+    override fun sideEffect(sideEffect: ProfilePrescriptionsEditSideEffects) =
         when(sideEffect)
         {
-            is ProfileInsuranceAddSideEffects.Error -> processErrorSideEffect(sideEffect.error)
-            ProfileInsuranceAddSideEffects.ShowInsuranceActionsDialog -> showInsuranceActionsDialog()
-            ProfileInsuranceAddSideEffects.SelectImage -> {
+            is ProfilePrescriptionsEditSideEffects.Error -> processErrorSideEffect(sideEffect.error)
+            ProfilePrescriptionsEditSideEffects.ShowInsuranceActionsDialog -> showInsuranceActionsDialog()
+            ProfilePrescriptionsEditSideEffects.SelectImage -> {
                 singlePhotoPickerLauncher.launch(null)
             }
 
-            ProfileInsuranceAddSideEffects.ShowFullScreenPolicy -> {
+            ProfilePrescriptionsEditSideEffects.ShowFullScreenPolicy -> {
                 binding.fullScreenPolicy.visible()
             }
 
-            ProfileInsuranceAddSideEffects.HideFullScreenPolicy -> {
+            ProfilePrescriptionsEditSideEffects.HideFullScreenPolicy -> {
                 binding.fullScreenPolicy.gone()
             }
         }
@@ -161,7 +161,7 @@ class ProfileInsuranceAddView :
             }
             .show()
     }
-    override fun render(state: ProfileInsuranceAddState) {
+    override fun render(state: ProfilePrescriptionsEditState) {
         stateTransformer(state).let {
             it.data?.let {
                 adapter.items = it
@@ -190,8 +190,8 @@ class ProfileInsuranceAddView :
         val insuranceId: Int?
     ) : Parcelable
 
-    override fun provideViewModel(): ProfileInsuranceAddViewModel = viewModelFactory(Unit)
-    override fun provideStateTransformer(): ProfileInsuranceAddStateTransformer =
+    override fun provideViewModel(): ProfilePrescriptionsEditViewModel = viewModelFactory(Unit)
+    override fun provideStateTransformer(): ProfilePrescriptionsEditStateTransformer =
         stateTransformerFactory(Unit)
 
     companion object {

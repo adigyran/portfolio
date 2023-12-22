@@ -5,6 +5,6 @@ import com.aya.digital.core.mvi.BaseState
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class ProfileInsuranceListState(
+data class ProfilePrescriptionsListState(
     val insuranceModels:List<InsurancePolicyItemModel>? = null
 ) : BaseState

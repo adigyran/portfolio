@@ -9,7 +9,7 @@ import com.aya.digital.core.ui.delegates.components.fields.name.ui.NameFieldDele
 import com.aya.digital.core.ui.delegates.components.fields.selection.ui.SelectionFieldDelegate
 import com.aya.digital.core.ui.delegates.profile.insurance.ui.InsurancePolicyPhotoDelegate
 
-internal class ProfileInsuranceAddDecoration : RecyclerView.ItemDecoration() {
+internal class ProfilePrescriptionsViewDecoration : RecyclerView.ItemDecoration() {
 
     override fun getItemOffsets(
         outRect: Rect,

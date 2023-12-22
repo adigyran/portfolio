@@ -2,7 +2,7 @@ package com.aya.digital.core.feature.profile.prescriptions.view.ui.model
 
 import android.content.Context
 import com.aya.digital.core.feature.profile.prescriptions.view.FieldsTags
-import com.aya.digital.core.feature.profile.prescriptions.view.viewmodel.ProfileInsuranceAddState
+import com.aya.digital.core.feature.profile.prescriptions.view.viewmodel.ProfilePrescriptionsViewState
 import com.aya.digital.core.mvi.BaseStateTransformer
 import com.aya.digital.core.ui.adapters.base.DiffItem
 import com.aya.digital.core.ui.delegates.components.fields.name.model.NameFieldUIModel
@@ -10,10 +10,10 @@ import com.aya.digital.core.ui.delegates.components.fields.selection.model.Selec
 import com.aya.digital.core.ui.delegates.profile.insurance.model.InsurancePolicyPhotoUIModel
 
 
-class ProfileInsuranceAddStateTransformer(private val context: Context) :
-    BaseStateTransformer<ProfileInsuranceAddState, ProfileInsuranceAddUiModel>() {
-    override fun invoke(state: ProfileInsuranceAddState): ProfileInsuranceAddUiModel =
-        ProfileInsuranceAddUiModel(
+class ProfilePrescriptionsViewStateTransformer(private val context: Context) :
+    BaseStateTransformer<ProfilePrescriptionsViewState, ProfilePrescriptionsViewUiModel>() {
+    override fun invoke(state: ProfilePrescriptionsViewState): ProfilePrescriptionsViewUiModel =
+        ProfilePrescriptionsViewUiModel(
             data = kotlin.run {
                 return@run mutableListOf<DiffItem>().apply {
                     add(InsurancePolicyPhotoUIModel(state.photoLink))
