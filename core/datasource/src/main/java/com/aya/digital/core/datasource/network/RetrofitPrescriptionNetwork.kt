@@ -1,16 +1,10 @@
 package com.aya.digital.core.datasource.network
 
 import com.aya.digital.core.datasource.PrescriptionsDataSource
-import com.aya.digital.core.datasource.TeleHealthDataSource
 import com.aya.digital.core.network.api.services.PrescriptionsService
-import com.aya.digital.core.network.api.services.TeleHealthService
-import com.aya.digital.core.network.main.RetrofitTags
 import com.aya.digital.core.network.main.di.modules.createApiService
-import com.aya.digital.core.network.model.request.GetTelehealthRoomTokenBody
 import com.aya.digital.core.network.model.request.PrescriptionContentBody
 import com.aya.digital.core.network.model.request.PrescriptionSubscribeBody
-import com.aya.digital.core.network.model.response.telehealth.TelehealthRoomTokenResponse
-import com.aya.digital.core.network.model.response.telehealth.TelehealthWaitTimeResponse
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 
@@ -51,6 +45,6 @@ class RetrofitPrescriptionNetwork(private val networkApi: PrescriptionsService) 
     override fun getPatientPrescriptionsByPatientId(patientId: Int): Single<Boolean> =
         networkApi.getPatientPrescriptionsByPatientId(patientId)
 
-    override fun getDoctorPrescriptionsByPatientId(patientId: Int): Single<Boolean> =
-        networkApi.getDoctorPrescriptionsByPatientId(patientId)
+    override fun getDoctorPrescriptionsByPractitionerId(practitionerId: Int): Single<Boolean> =
+        networkApi.getDoctorPrescriptionsByPractitionerId(practitionerId)
 }

@@ -1,10 +1,7 @@
 package com.aya.digital.core.network.api.services
 
-import com.aya.digital.core.network.model.request.GetTelehealthRoomTokenBody
 import com.aya.digital.core.network.model.request.PrescriptionContentBody
 import com.aya.digital.core.network.model.request.PrescriptionSubscribeBody
-import com.aya.digital.core.network.model.response.telehealth.TelehealthRoomTokenResponse
-import com.aya.digital.core.network.model.response.telehealth.TelehealthWaitTimeResponse
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 import retrofit2.http.*
@@ -30,5 +27,5 @@ interface PrescriptionsService {
     fun getPatientPrescriptionsByPatientId(@Path("id") patientId: Int): Single<Boolean>
 
     @GET("settings/prescriptions/practitioner-prescription-list/{id}")
-    fun getDoctorPrescriptionsByPatientId(@Path("id") patientId: Int): Single<Boolean>
+    fun getDoctorPrescriptionsByPractitionerId(@Path("id") practitionerId: Int): Single<Boolean>
 }

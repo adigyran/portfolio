@@ -10,14 +10,14 @@ import com.aya.digital.core.domain.prescriptions.list.GetPrescriptionsByActorIdU
 import com.aya.digital.core.ext.mapResult
 import io.reactivex.rxjava3.core.Single
 
-internal class GetPatientPrescriptionsByPatientIdUseCaseImpl(
+internal class GetDoctorPrescriptionsByPractitionerIdUseCaseImpl(
     private val progressRepository: ProgressRepository,
     private val prescriptionsRepository: PrescriptionsRepository
 ) : GetPrescriptionsByActorIdUseCase {
     override fun invoke(
         actorId: Int
     ): Single<RequestResultModel<Boolean>> =
-        prescriptionsRepository.getPatientPrescriptionsByPatientId(actorId)
+        prescriptionsRepository.getDoctorPrescriptionsByPractitionerId(actorId)
             .trackProgress(progressRepository)
             .mapResult({ it.asResultModel() }, { it.toModelError() })
 }

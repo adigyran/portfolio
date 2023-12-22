@@ -1,16 +1,13 @@
 package com.aya.digital.core.repository.appointment
 
 import com.aya.digital.core.data.appointment.repository.PrescriptionsRepository
-import com.aya.digital.core.datasource.AppointmentDataSource
 import com.aya.digital.core.datasource.PrescriptionsDataSource
-import com.aya.digital.core.datasource.TeleHealthDataSource
 import com.aya.digital.core.networkbase.CommonUtils
 import com.aya.digital.core.ext.retryOnError
 
 import com.aya.digital.core.ext.asResult
 import com.aya.digital.core.ext.mapResult
 import com.aya.digital.core.ext.retrofitResponseToResult
-import com.aya.digital.core.ext.retryOnError
 import com.aya.digital.core.network.model.request.PrescriptionContentBody
 import com.aya.digital.core.network.model.request.PrescriptionSubscribeBody
 import com.aya.digital.core.networkbase.server.RequestResult
@@ -86,8 +83,8 @@ internal class PrescriptionsRepositoryImpl(
                 true.asResult()
             }, { it })
 
-    override fun getDoctorPrescriptionsByPatientId(patientId: Int): Single<RequestResult<Boolean>> =
-        prescriptionsDataSource.getDoctorPrescriptionsByPatientId(patientId)
+    override fun getDoctorPrescriptionsByPractitionerId(practitionerId: Int): Single<RequestResult<Boolean>> =
+        prescriptionsDataSource.getDoctorPrescriptionsByPractitionerId(practitionerId)
             .retryOnError()
             .retrofitResponseToResult(CommonUtils::mapServerErrors)
             .mapResult({ result ->

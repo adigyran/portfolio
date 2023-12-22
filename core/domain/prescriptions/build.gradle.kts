@@ -14,6 +14,7 @@ dependencies {
     implementation(project(":core:data:base"))
     implementation(project(":core:data:progress"))
     implementation(project(":core:data:appointment"))
+    implementation(project(":core:data:profile"))
     implementation(project(":core:data:prescriptions"))
     implementation(project(":core:data:doctors"))
     implementation(project(":core:network:model"))
