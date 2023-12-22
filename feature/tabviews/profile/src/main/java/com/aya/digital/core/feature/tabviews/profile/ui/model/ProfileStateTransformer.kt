@@ -37,6 +37,13 @@ class ProfileStateTransformer(private val context: Context, private val appFlavo
                     )
                     add(
                         ProfileMainUIModel(
+                            FieldsTags.PRESCRIPTIONS_BUTTON_TAG,
+                            R.drawable.ic_profile_insurance,
+                            "Prescriptions"
+                        )
+                    )
+                    add(
+                        ProfileMainUIModel(
                             FieldsTags.INSURANCE_BUTTON_TAG,
                             R.drawable.ic_profile_insurance,
                             "Insurance"
@@ -61,14 +68,12 @@ class ProfileStateTransformer(private val context: Context, private val appFlavo
         Flavor.Patient -> getPatientSpecificFields()
     }
 
-    private fun Flavor.getAppSpecificSubtitle(state: ProfileState) = when(this)
-    {
+    private fun Flavor.getAppSpecificSubtitle(state: ProfileState) = when (this) {
         Flavor.Doctor -> getSpeciality(state)
         Flavor.Patient -> getAge(state)
     }
 
-    private fun Flavor.getAppSpecificName(state: ProfileState)= when(this)
-    {
+    private fun Flavor.getAppSpecificName(state: ProfileState) = when (this) {
         Flavor.Doctor -> getDoctorName(state)
         Flavor.Patient -> getPatientName(state)
     }
@@ -81,10 +86,10 @@ class ProfileStateTransformer(private val context: Context, private val appFlavo
     }
 
     private fun getDoctorName(state: ProfileState) = kotlin.run {
-        "Dr. %s %s".format(state.firstName?:"",state.lastName?:"")
+        "Dr. %s %s".format(state.firstName ?: "", state.lastName ?: "")
     }
 
-    private fun getAge(state: ProfileState)= state.dateOFBirth?.let { birthday ->
+    private fun getAge(state: ProfileState) = state.dateOFBirth?.let { birthday ->
         "${
             ChronoUnit.YEARS.between(
                 birthday,
@@ -93,7 +98,9 @@ class ProfileStateTransformer(private val context: Context, private val appFlavo
         }"
     } ?: ""
 
-    private fun getSpeciality(state: ProfileState) = state.doctorProfile?.doctorSpecialities?.firstOrNull()?.name?:""
+    private fun getSpeciality(state: ProfileState) =
+        state.doctorProfile?.doctorSpecialities?.firstOrNull()?.name ?: ""
+
     private fun getDoctorSpecificFields() = mutableListOf<DiffItem>().apply {
         add(
             ProfileMainUIModel(
@@ -102,13 +109,13 @@ class ProfileStateTransformer(private val context: Context, private val appFlavo
                 "Personal Information"
             )
         )
-       /* add(
-            ProfileMainUIModel(
-                FieldsTags.CLINIC_INFO_BUTTON_TAG,
-                R.drawable.ic_profile_clinic_info,
-                "Clinic info"
-            )
-        )*/
+        /* add(
+             ProfileMainUIModel(
+                 FieldsTags.CLINIC_INFO_BUTTON_TAG,
+                 R.drawable.ic_profile_clinic_info,
+                 "Clinic info"
+             )
+         )*/
     }
 
     private fun getPatientSpecificFields() = mutableListOf<DiffItem>().apply {
